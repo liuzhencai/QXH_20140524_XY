@@ -20,6 +20,9 @@
 
 
 @interface HomePageController ()
+{
+    NSArray *pics;
+}
 
 @end
 
@@ -39,7 +42,25 @@
     [super viewDidLoad];
     self.hidesBottomBarWhenPushed = NO;
     // Do any additional setup after loading the view from its nib.
-    self.title = @"首页";
+    self.navigationItem.titleView = _topView;
+    pics = @[@"banner_img02", @"banner_img01"];
+    _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
+    [self addTopImage];
+}
+
+- (void)addTopImage
+{
+    for (int i = 0; i < pics.count; i++) {
+        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 132)];
+        image.image = [UIImage imageNamed:pics[i]];
+        [_topScroll addSubview:image];
+    }
+    [_topScroll bringSubviewToFront:_pageControl];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    _pageControl.currentPage = (int)scrollView.contentOffset.x/320;
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +87,7 @@
 //            ActivityController *aController = [[ActivityController alloc] initWithNibName:@"ActivityController" bundle:nil];
 //            [self.navigationController pushViewController:aController animated:YES];
             ActivityViewController *activeCon = [[ActivityViewController alloc] init];
+            activeCon.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activeCon animated:YES];
         }
             break;
@@ -76,6 +98,7 @@
 //            [self.navigationController pushViewController:fpController animated:YES];
             
             FindPeopleViewController *fpController = [[FindPeopleViewController alloc] init];
+            fpController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:fpController animated:YES];
         }
             break;
@@ -83,6 +106,7 @@
         {
             NSLog(@"点击直播间");
             OneDreamController *odController = [[OneDreamController alloc] initWithNibName:@"OneDreamController" bundle:nil];
+            odController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:odController animated:YES];
         }
             break;
@@ -90,6 +114,7 @@
         {
             NSLog(@"点击部落");
             TribeController *tribeVC = [[TribeController alloc] init];
+            tribeVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:tribeVC animated:YES];
         }
             break;
@@ -97,23 +122,34 @@
         {
             NSLog(@"点击广场");
             SquareViewController *svController = [[SquareViewController alloc] initWithNibName:@"SquareViewController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            svController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:svController animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 7:
         {
             NSLog(@"点击每日一问");
             EverydayAskController *eaController = [[EverydayAskController alloc] initWithNibName:@"EverydayAskController" bundle:nil];
+            eaController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:eaController animated:YES];
         }
             break;
         case 8:
         {
             NSLog(@"点击影响力");
-            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
-            [self.navigationController pushViewController:ivController animated:YES];
+//            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
+//            ivController.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:ivController animated:YES];
+            UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+            tempView.backgroundColor = [UIColor redColor];
+            ChatController *controller = [[ChatController alloc] initWithCustomView:tempView];
+            tempView.backgroundColor = [UIColor redColor];
+            controller.delegate = self;
+            controller.opponentImg = [UIImage imageNamed:@"tempUser.png"];
+            controller.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
+            controller.chatTitle = @"张三";
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         default:
@@ -121,5 +157,23 @@
     }
     
 }
+
+#pragma mark chatcontroller
+- (void) chatController:(ChatController *)chatController didSendMessage:(NSMutableDictionary *)message
+{
+    // Messages come prepackaged with the contents of the message and a timestamp in milliseconds
+    //    NSLog(@"Message Contents: %@", message[kMessageContent]);
+    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+    
+    // Evaluate or add to the message here for example, if we wanted to assign the current userId:
+    message[@"sentByUserId"] = @"currentUserId";
+    icout++;
+    
+    message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((icout%2)?kSentByUser:kSentByOpponent)];
+    
+    // Must add message to controller for it to show
+    [chatController addNewMessage:message];
+}
+
 
 @end

@@ -205,8 +205,9 @@
 - (void)logout:(id)sender
 {
     NSLog(@"注销");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"注销" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-    [alert show];
+
+    [self showAlert:@"注销"];
+
 }
 
 @end

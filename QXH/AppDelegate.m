@@ -11,7 +11,11 @@
 //#import "AddressListController.h"
 #import "PersonalInfoController.h"
 #import "AddressListViewController.h"
+
 #import "LoginViewController.h"
+
+#import "CustomTabBarController.h"
+
 
 @implementation AppDelegate
 
@@ -19,8 +23,9 @@
 
 - (void)loadPages
 {
+
     tabController = [[CustomTabBarController alloc]init];
-    
+
     // 添加主页导航控制器
     HomePageController *hpController = [[HomePageController alloc] initWithNibName:@"HomePageController" bundle:nil];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:hpController];
@@ -33,11 +38,12 @@
     AddressListViewController *alController = [[AddressListViewController alloc] init];
     UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
     addrNav.delegate = tabController;
+
     // 添加个人信息导航控制器
     PersonalInfoController *piController = [[PersonalInfoController alloc] initWithNibName:@"PersonalInfoController" bundle:nil];
     UINavigationController *meNav = [[UINavigationController alloc] initWithRootViewController:piController];
     meNav.delegate = tabController;
-    
+
     [tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
     
     LoginViewController* login = [[LoginViewController alloc]init];

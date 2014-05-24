@@ -45,51 +45,15 @@ static int chatInputStartingHeight = 40;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
-        // TopBar
-        _topBar = [[TopBar alloc]init];
-        _topBar.title = @"Chat Controller";
-        _topBar.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-        _topBar.delegate = self;
-        
-        // ChatInput
-        _chatInput = [[ChatInput alloc]init];
-        _chatInput.stopAutoClose = NO;
-        _chatInput.placeholderLabel.text = @"  Send A Message";
-        _chatInput.delegate = self;
-        _chatInput.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
-        
-        // Set Up Flow Layout
-        UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
-        flow.sectionInset = UIEdgeInsetsMake(80, 0, 10, 0);
-        flow.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flow.minimumLineSpacing = 6;
-        
-        // Set Up CollectionView
-        CGRect myFrame = (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(0, 0, ScreenHeight(), ScreenWidth() - height(_chatInput)) : CGRectMake(0, 0, ScreenWidth(), ScreenHeight() - height(_chatInput));
-        _myCollectionView = [[UICollectionView alloc]initWithFrame:myFrame collectionViewLayout:flow];
-        //_myCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        _myCollectionView.backgroundColor = [UIColor whiteColor];
-        _myCollectionView.delegate = self;
-        _myCollectionView.dataSource = self;
-        _myCollectionView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
-        _myCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 2, 0, -2);
-        _myCollectionView.allowsSelection = YES;
-        _myCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        [_myCollectionView registerClass:[MessageCell class]
-              forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
-        
-        // Register Keyboard Notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
+    }
+    return self;
+}
+
+- (id)initWithCustomView:(UIView *)customView
+{
+    self = [super init];
+    if (self) {
+        _topCustomView = customView;
     }
     return self;
 }
@@ -98,6 +62,62 @@ static int chatInputStartingHeight = 40;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    CGFloat tempHeight = 0.f;
+    if (_topCustomView) {
+        [self.view addSubview:_topCustomView];
+        tempHeight = _topCustomView.height;
+    }
+    
+    // TopBar
+//    _topBar = [[TopBar alloc]init];
+//    _topBar.title = @"Chat Controller";
+//    _topBar.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+//    _topBar.delegate = self;
+
+    
+    
+    // ChatInput
+    _chatInput = [[ChatInput alloc]init];
+    _chatInput.chatOffset = tempHeight;
+    _chatInput.stopAutoClose = NO;
+    _chatInput.placeholderLabel.text = @"  Send A Message";
+    _chatInput.delegate = self;
+    _chatInput.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
+    
+    // Set Up Flow Layout
+    UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
+    flow.sectionInset = UIEdgeInsetsMake(80, 0, 10, 0);
+    flow.scrollDirection = UICollectionViewScrollDirectionVertical;
+    flow.minimumLineSpacing = 6;
+    
+    // Set Up CollectionView2
+    CGRect myFrame = (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(0, tempHeight, ScreenHeight(), ScreenWidth() - height(_chatInput)) : CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - 150 - height(_chatInput));
+    NSLog(@"self.view.frame:%@",[NSValue valueWithCGRect:self.view.frame]);
+    NSLog(@"myFrame:%@",[NSValue valueWithCGRect:myFrame]);
+    _myCollectionView = [[UICollectionView alloc]initWithFrame:myFrame collectionViewLayout:flow];
+    //_myCollectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _myCollectionView.backgroundColor = [UIColor whiteColor];
+    _myCollectionView.delegate = self;
+    _myCollectionView.dataSource = self;
+    _myCollectionView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
+    _myCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 2, 0, -2);
+    _myCollectionView.allowsSelection = YES;
+    _myCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_myCollectionView registerClass:[MessageCell class]
+          forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
+    
+    // Register Keyboard Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -248,8 +268,12 @@ static int chatInputStartingHeight = 40;
         _myCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
         [UIView animateWithDuration:duration delay:0.0 options:(animationCurve << 16) animations:^{
             
-            _myCollectionView.frame = (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(0, 0, ScreenHeight(), ScreenWidth() - chatInputStartingHeight - keyboardHeight) : CGRectMake(0, 0, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - keyboardHeight);
-            
+            CGFloat tempHeight = 0.f;
+            if (_topCustomView) {
+                tempHeight = _topCustomView.height;
+            }
+            _myCollectionView.frame = (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(0, tempHeight, ScreenHeight()+64, ScreenWidth() - chatInputStartingHeight - keyboardHeight - tempHeight - 64) : CGRectMake(0, _topCustomView.height, ScreenWidth()+64, ScreenHeight() - chatInputStartingHeight - keyboardHeight- _topCustomView.height - 64);
+            NSLog(@"_myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
         } completion:^(BOOL finished) {
             if (finished) {
                 
@@ -271,8 +295,11 @@ static int chatInputStartingHeight = 40;
         _myCollectionView.scrollEnabled = NO;
         _myCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
         [UIView animateWithDuration:duration delay:0.0 options:(animationCurve << 16) animations:^{
-           
-            _myCollectionView.frame = (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(0, 0, ScreenHeight(), ScreenWidth() - height(_chatInput)) : CGRectMake(0, 0, ScreenWidth(), ScreenHeight() - height(_chatInput));
+            CGFloat tempHeight = 0.f;
+            if (_topCustomView) {
+                tempHeight = _topCustomView.height;
+            }
+            _myCollectionView.frame = (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(0, 0, ScreenHeight(), ScreenWidth() - height(_chatInput) - 64) : CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - height(_chatInput) - tempHeight - 64);
             
         } completion:^(BOOL finished) {
             if (finished) {

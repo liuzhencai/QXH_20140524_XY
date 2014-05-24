@@ -67,7 +67,7 @@
     _chatController.opponentImg = [UIImage imageNamed:@"tempUser.png"];
     _chatController.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
     _chatController.chatTitle = @"张三";
-    [self presentViewController:_chatController animated:YES completion:nil];
+    [self.navigationController pushViewController:_chatController animated:YES];
 }
 
 #pragma mark chatcontroller

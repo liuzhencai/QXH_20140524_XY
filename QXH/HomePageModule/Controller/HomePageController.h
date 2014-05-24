@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomePageController : MyViewController
+@interface HomePageController : MyViewController<UIScrollViewDelegate>
+{
+    NSInteger icout;
+}
+
+@property (strong, nonatomic) IBOutlet UIView *topView;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *topScroll;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 - (IBAction)btnClick:(id)sender;
 

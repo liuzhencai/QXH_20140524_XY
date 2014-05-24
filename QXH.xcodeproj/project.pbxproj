@@ -173,6 +173,8 @@
 		21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8941319290BFE00A6DB7E /* InformationDetailController.m */; };
 		21A8941619290BFE00A6DB7E /* InformationDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8941419290BFE00A6DB7E /* InformationDetailController.xib */; };
 		21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B793BF1921135A0033AFC3 /* HttpRequest.m */; };
+		21BAC28119308B3300409B9B /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BAC27E19308B3300409B9B /* CustomTabBarController.m */; };
+		21BAC28219308B3300409B9B /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BAC28019308B3300409B9B /* TabBarControl.m */; };
 		21D7057F19169169004950BF /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7057D19169169004950BF /* PersonalInfoController.m */; };
 		21D7058019169169004950BF /* PersonalInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21D7057E19169169004950BF /* PersonalInfoController.xib */; };
 		21D7058919169562004950BF /* OneDreamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7058719169562004950BF /* OneDreamController.m */; };
@@ -551,6 +553,10 @@
 		21A8941419290BFE00A6DB7E /* InformationDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailController.xib; sourceTree = "<group>"; };
 		21B793BE1921135A0033AFC3 /* HttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequest.h; sourceTree = "<group>"; };
 		21B793BF1921135A0033AFC3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequest.m; sourceTree = "<group>"; };
+		21BAC27D19308B3300409B9B /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
+		21BAC27E19308B3300409B9B /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
+		21BAC27F19308B3300409B9B /* TabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarControl.h; sourceTree = "<group>"; };
+		21BAC28019308B3300409B9B /* TabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarControl.m; sourceTree = "<group>"; };
 		21D7057C19169169004950BF /* PersonalInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoController.h; sourceTree = "<group>"; };
 		21D7057D19169169004950BF /* PersonalInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoController.m; sourceTree = "<group>"; };
 		21D7057E19169169004950BF /* PersonalInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalInfoController.xib; sourceTree = "<group>"; };
@@ -1555,10 +1561,17 @@
 		84FCA84F192CC1D50005295A /* 自定义控件 */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				8405E558193056F100276964 /* CustomTabBarController.h */,
 				8405E559193056F100276964 /* CustomTabBarController.m */,
 				8405E55A193056F100276964 /* TabBarControl.h */,
 				8405E55B193056F100276964 /* TabBarControl.m */,
+=======
+				21BAC27D19308B3300409B9B /* CustomTabBarController.h */,
+				21BAC27E19308B3300409B9B /* CustomTabBarController.m */,
+				21BAC27F19308B3300409B9B /* TabBarControl.h */,
+				21BAC28019308B3300409B9B /* TabBarControl.m */,
+>>>>>>> FETCH_HEAD
 				84FCA850192CC1D50005295A /* CustomSegmentControl.h */,
 				84FCA851192CC1D50005295A /* CustomSegmentControl.m */,
 			);
@@ -1878,9 +1891,15 @@
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,
 				2119EED6191682E6007DBE68 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				84F065EA192AFACD00B09AB5 /* ActivityViewController.m in Sources */,
+<<<<<<< HEAD
 				8405E55D193056F100276964 /* TabBarControl.m in Sources */,
 				21D7059319169617004950BF /* SquareViewController.m in Sources */,
 				8405E55C193056F100276964 /* CustomTabBarController.m in Sources */,
+=======
+				21BAC28219308B3300409B9B /* TabBarControl.m in Sources */,
+				21D7059319169617004950BF /* SquareViewController.m in Sources */,
+				21BAC28119308B3300409B9B /* CustomTabBarController.m in Sources */,
+>>>>>>> FETCH_HEAD
 				842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */,
 				21D7059D191696D6004950BF /* InfluenceViewController.m in Sources */,
 				84F065F3192AFB0F00B09AB5 /* MyMessageCell.m in Sources */,

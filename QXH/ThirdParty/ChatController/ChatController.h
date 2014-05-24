@@ -40,7 +40,7 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
 
 @end
 
-@interface ChatController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate>
+@interface ChatController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate>
 
 @property (retain, nonatomic) id<ChatControllerDelegate>delegate;
 
@@ -107,5 +107,8 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
  */
 - (void) isOnline;
 
+@property (nonatomic, strong) UIView *topCustomView;
+
+- (id)initWithCustomView:(UIView *)customView;
 
 @end

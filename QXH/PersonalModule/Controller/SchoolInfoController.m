@@ -38,7 +38,8 @@
 
 - (IBAction)save:(id)sender {
     NSLog(@"保存");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-    [alert show];
+
+    [self showAlert:@"保存"];
+
 }
 @end

@@ -54,11 +54,13 @@
         // Set Up Main Frame
         UIInterfaceOrientation myOrientation = [UIApplication sharedApplication].statusBarOrientation;
         if (UIInterfaceOrientationIsPortrait(myOrientation)) {
-            self.frame = CGRectMake(0, ScreenHeight() - 40, ScreenWidth(), 40);
+            self.frame = CGRectMake(0, ScreenHeight() - frame.origin.y - 40 - 64 + _chatOffset, ScreenWidth(), 40);
         }
         else {
-            self.frame = CGRectMake(0, ScreenWidth() - 40, ScreenHeight(), 40);
+            self.frame = CGRectMake(0, ScreenWidth() - frame.origin.y - 40 - 64 + _chatOffset, ScreenHeight(), 40);
         }
+        
+        NSLog(@"frame:%@",[NSValue valueWithCGRect:frame]);
         
         // Other Properties
         self.layer.masksToBounds = YES;
@@ -365,7 +367,8 @@
     if (targetHeight > maxHeight) targetHeight = maxHeight;
     else if (targetHeight < 40) targetHeight = 40;
     
-    self.frame = CGRectMake(0, inputStartingPoint, self.bounds.size.width, -targetHeight);
+    self.frame = CGRectMake(0, inputStartingPoint -60, self.bounds.size.width, -targetHeight);
+    NSLog(@"chatInputFrame:%@",[NSValue valueWithCGRect:self.frame]);
     
     // in case they backspaced and we need to block send
     if (_textView.text.length > 0) {

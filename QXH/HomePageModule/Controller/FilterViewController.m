@@ -68,6 +68,7 @@
 
 - (void)addAttention:(UIButton *)sender{
     NSLog(@"添加关注");
+    [self showAlert:@"添加关注"];
 }
 
 #pragma mark - UITableViewDataSource

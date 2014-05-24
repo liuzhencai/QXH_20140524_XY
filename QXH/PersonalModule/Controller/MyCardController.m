@@ -56,8 +56,9 @@
         case 2:
         {
             NSLog(@"点击了转发名片");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"转发名片" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
+
+            [self showAlert:@"点击了转发名片"];
+
         }
             break;
         default:
