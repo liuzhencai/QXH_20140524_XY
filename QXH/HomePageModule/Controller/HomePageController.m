@@ -37,6 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.hidesBottomBarWhenPushed = NO;
     // Do any additional setup after loading the view from its nib.
     self.title = @"首页";
 }

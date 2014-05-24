@@ -25,6 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+          self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -38,6 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+  
     self.view.backgroundColor = [UIColor whiteColor];
 //    UIImage * navigationBarImage;
 //    navigationBarImage = [UIImage imageNamed:@"top_bar"];

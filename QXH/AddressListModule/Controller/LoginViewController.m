@@ -32,6 +32,7 @@
     [super viewDidLoad];
     self.title = @"登录";
     self.navigationController.navigationBar.translucent = NO;
+   
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *custonButton = [UIButton buttonWithType:UIButtonTypeCustom];

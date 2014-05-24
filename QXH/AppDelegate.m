@@ -11,6 +11,7 @@
 //#import "AddressListController.h"
 #import "PersonalInfoController.h"
 #import "AddressListViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -39,7 +40,16 @@
     
     [tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
     
-    self.window.rootViewController = tabController;
+    LoginViewController* login = [[LoginViewController alloc]init];
+    UINavigationController* loginnavigation = [[UINavigationController alloc]initWithRootViewController:login];
+    
+//    [tabController.view addSubview:login.view];
+    
+    self.window.rootViewController = loginnavigation;
+    
+ 
+    
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
