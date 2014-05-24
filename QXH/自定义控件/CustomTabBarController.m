@@ -47,7 +47,7 @@
 {           
     UIImageView *tabView_ = (UIImageView *)[self.view viewWithTag:101];
     if (hidden) {
-        tabView_.frame = CGRectMake(0, SCREEN_H, 320, 217);
+        tabView_.frame = CGRectMake(0, SCREEN_H, 320, 49);
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
             if (!IOS7_OR_LATER) {
                 [self setTabBarHiddenNow:[NSNumber numberWithInt:1]];

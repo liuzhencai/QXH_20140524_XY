@@ -38,5 +38,6 @@
 
 - (IBAction)save:(id)sender {
     NSLog(@"保存");
+    [self showAlert:@"保存"];
 }
 @end

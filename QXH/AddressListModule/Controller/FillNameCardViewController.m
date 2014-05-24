@@ -64,6 +64,7 @@
 
 - (void)submit:(UIButton *)sender{
     NSLog(@"提交");
+    [self showAlert:@"提交"];
 }
 
 /*

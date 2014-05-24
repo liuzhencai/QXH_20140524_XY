@@ -20,6 +20,9 @@
 
 
 @interface HomePageController ()
+{
+    NSArray *pics;
+}
 
 @end
 
@@ -38,7 +41,25 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"首页";
+    self.navigationItem.titleView = _topView;
+    pics = @[@"banner_img02", @"banner_img01"];
+    _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
+    [self addTopImage];
+}
+
+- (void)addTopImage
+{
+    for (int i = 0; i < pics.count; i++) {
+        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 132)];
+        image.image = [UIImage imageNamed:pics[i]];
+        [_topScroll addSubview:image];
+    }
+    [_topScroll bringSubviewToFront:_pageControl];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    _pageControl.currentPage = (int)scrollView.contentOffset.x/320;
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,9 +76,8 @@
         {
             NSLog(@"点击资讯");
             InformationViewController* ainfor = [[InformationViewController alloc]initWithNibName:@"InformationViewController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            ainfor.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ainfor animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 2:
@@ -66,6 +86,7 @@
 //            ActivityController *aController = [[ActivityController alloc] initWithNibName:@"ActivityController" bundle:nil];
 //            [self.navigationController pushViewController:aController animated:YES];
             ActivityViewController *activeCon = [[ActivityViewController alloc] init];
+            activeCon.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activeCon animated:YES];
         }
             break;
@@ -76,6 +97,7 @@
 //            [self.navigationController pushViewController:fpController animated:YES];
             
             FindPeopleViewController *fpController = [[FindPeopleViewController alloc] init];
+            fpController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:fpController animated:YES];
         }
             break;
@@ -83,6 +105,7 @@
         {
             NSLog(@"点击直播间");
             OneDreamController *odController = [[OneDreamController alloc] initWithNibName:@"OneDreamController" bundle:nil];
+            odController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:odController animated:YES];
         }
             break;
@@ -90,6 +113,7 @@
         {
             NSLog(@"点击部落");
             TribeController *tribeVC = [[TribeController alloc] init];
+            tribeVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:tribeVC animated:YES];
         }
             break;
@@ -97,15 +121,15 @@
         {
             NSLog(@"点击广场");
             SquareViewController *svController = [[SquareViewController alloc] initWithNibName:@"SquareViewController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            svController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:svController animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 7:
         {
             NSLog(@"点击每日一问");
             EverydayAskController *eaController = [[EverydayAskController alloc] initWithNibName:@"EverydayAskController" bundle:nil];
+            eaController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:eaController animated:YES];
         }
             break;
@@ -113,6 +137,7 @@
         {
             NSLog(@"点击影响力");
             InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
+            ivController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ivController animated:YES];
         }
             break;

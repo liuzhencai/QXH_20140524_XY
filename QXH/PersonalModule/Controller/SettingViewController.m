@@ -152,6 +152,7 @@
 - (void)logout:(id)sender
 {
     NSLog(@"注销");
+    [self showAlert:@"注销"];
 }
 
 @end

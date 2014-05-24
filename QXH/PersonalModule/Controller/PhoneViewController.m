@@ -81,6 +81,7 @@
 - (void)add:(id)sender
 {
     NSLog(@"添加");
+    [self showAlert:@"添加"];
 }
 
 @end

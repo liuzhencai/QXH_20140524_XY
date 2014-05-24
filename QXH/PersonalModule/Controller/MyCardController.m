@@ -46,13 +46,14 @@
         {
             NSLog(@"点击了编辑资料");
             EditCardController *controller = [[EditCardController alloc] initWithNibName:@"EditCardController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 2:
         {
             NSLog(@"点击了转发名片");
+            [self showAlert:@"点击了转发名片"];
         }
             break;
         default:

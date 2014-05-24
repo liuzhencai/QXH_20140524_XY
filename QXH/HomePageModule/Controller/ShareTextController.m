@@ -48,6 +48,7 @@
 - (void)share:(id)sender
 {
     NSLog(@"点击了分享");
+    [self showAlert:@"点击了分享"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,24 +106,25 @@
         case 1:
         {
             NSLog(@"点击了收藏");
+            [self showAlert:@"点击了收藏"];
         }
             break;
         case 2:
         {
             NSLog(@"点击了赞");
-
+            [self showAlert:@"点击了赞"];
         }
             break;
         case 3:
         {
             NSLog(@"点击了评论");
-
+            [self showAlert:@"点击了评论"];
         }
             break;
         case 4:
         {
             NSLog(@"点击了举报");
-
+            [self showAlert:@"点击了举报"];
         }
             break;
         default:

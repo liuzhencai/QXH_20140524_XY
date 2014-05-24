@@ -11,16 +11,18 @@
 //#import "AddressListController.h"
 #import "PersonalInfoController.h"
 #import "AddressListViewController.h"
+#import "CustomTabBarController.h"
 
 @implementation AppDelegate
 
 - (void)loadPages
 {
-    UITabBarController *tabController = [[UITabBarController alloc]init];
+    CustomTabBarController *tabController = [[CustomTabBarController alloc]init];
     
     // 添加主页导航控制器
     HomePageController *hpController = [[HomePageController alloc] initWithNibName:@"HomePageController" bundle:nil];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:hpController];
+    homeNav.delegate = tabController;
     
     // 添加通讯录导航控制器
     //    AddressListController *alController = [[AddressListController alloc] initWithNibName:@"AddressListController" bundle:nil];
@@ -28,11 +30,13 @@
     
     AddressListViewController *alController = [[AddressListViewController alloc] init];
     UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
-    
+    addrNav.delegate = tabController;
+
     // 添加个人信息导航控制器
     PersonalInfoController *piController = [[PersonalInfoController alloc] initWithNibName:@"PersonalInfoController" bundle:nil];
     UINavigationController *meNav = [[UINavigationController alloc] initWithRootViewController:piController];
-    
+    meNav.delegate = tabController;
+
     [tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
     
     self.window.rootViewController = tabController;
