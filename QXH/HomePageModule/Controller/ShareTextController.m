@@ -48,6 +48,8 @@
 - (void)share:(id)sender
 {
     NSLog(@"点击了分享");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"分享" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,24 +107,29 @@
         case 1:
         {
             NSLog(@"点击了收藏");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"收藏" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         case 2:
         {
             NSLog(@"点击了赞");
-
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"赞" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         case 3:
         {
             NSLog(@"点击了评论");
-
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"评论" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         case 4:
         {
             NSLog(@"点击了举报");
-
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"举报" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         default:

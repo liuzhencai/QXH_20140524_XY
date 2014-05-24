@@ -56,7 +56,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NameCardViewController *controller = [[NameCardViewController alloc] init];
-    self.hidesBottomBarWhenPushed = YES;
+    controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

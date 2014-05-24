@@ -37,7 +37,8 @@
 }
 
 - (IBAction)distribute:(id)sender {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

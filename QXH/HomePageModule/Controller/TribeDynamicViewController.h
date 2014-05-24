@@ -8,6 +8,6 @@
 
 #import "MyViewController.h"
 
-@interface TribeDynamicViewController : MyViewController
+@interface TribeDynamicViewController : MyViewController<UITableViewDataSource,UITableViewDelegate>
 
 @end

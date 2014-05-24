@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyTribeController : MyViewController
+@interface MyTribeController : MyViewController<UITableViewDelegate, UITableViewDataSource>
 
 @end

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyCardController : MyViewController
+@interface MyCardController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *cardTable;
 
 @property (strong, nonatomic) IBOutlet UIView *topView;
+
 - (IBAction)btnClicked:(id)sender;
 
 @end

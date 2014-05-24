@@ -130,42 +130,49 @@
         case 1:
         {
             SchoolInfoController *controller = [[SchoolInfoController alloc] initWithNibName:@"SchoolInfoController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 2:
         {
             CityViewController *controller = [[CityViewController alloc] initWithNibName:@"CityViewController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 3:
         {
             SelfIntroduceController *controller = [[SelfIntroduceController alloc]initWithNibName:@"SelfIntroduceController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 4:
         {
             HobbyViewController *controller = [[HobbyViewController alloc] initWithNibName:@"HobbyViewController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 5:
         {
             StudyExperienceController *controller = [[StudyExperienceController alloc] initWithNibName:@"StudyExperienceController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 6:
         {
             PhoneViewController *controller = [[PhoneViewController alloc] initWithNibName:@"PhoneViewController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 7:
         {
             EverGloryController *controller = [[EverGloryController alloc] initWithNibName:@"EverGloryController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

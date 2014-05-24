@@ -168,8 +168,6 @@
 		21A894021928F8CF00A6DB7E /* ShareTextController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A894001928F8CF00A6DB7E /* ShareTextController.xib */; };
 		21A894051928FE4700A6DB7E /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A894041928FE4700A6DB7E /* CommentCell.m */; };
 		21A894071928FE5400A6DB7E /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A894061928FE5400A6DB7E /* CommentCell.xib */; };
-		21A8940A19290A6900A6DB7E /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8940919290A6900A6DB7E /* InformationCommentCell.m */; };
-		21A8940C19290A8300A6DB7E /* InformationCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8940B19290A8300A6DB7E /* InformationCommentCell.xib */; };
 		21A8941019290B7F00A6DB7E /* InformationCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8940E19290B7F00A6DB7E /* InformationCommentController.m */; };
 		21A8941119290B7F00A6DB7E /* InformationCommentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8940F19290B7F00A6DB7E /* InformationCommentController.xib */; };
 		21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8941319290BFE00A6DB7E /* InformationDetailController.m */; };
@@ -229,6 +227,10 @@
 		58B87177192F78FB00EB730D /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87176192F78FB00EB730D /* ShareView.m */; };
 		58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87179192FA57100EB730D /* TribeQuestionCell.m */; };
 		58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B8717C192FABF100EB730D /* TribeConversationCell.m */; };
+		8405E55C193056F100276964 /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E559193056F100276964 /* CustomTabBarController.m */; };
+		8405E55D193056F100276964 /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E55B193056F100276964 /* TabBarControl.m */; };
+		8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8405E55E193057D900276964 /* InformationCommentCell.xib */; };
+		8405E562193057E600276964 /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E561193057E600276964 /* InformationCommentCell.m */; };
 		842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C83192AF7F100374F04 /* AddressListViewController.m */; };
 		842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C85192AF7F100374F04 /* ChatViewController.m */; };
 		842D3C90192AF7F100374F04 /* FillNameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C87192AF7F100374F04 /* FillNameCardViewController.m */; };
@@ -541,9 +543,6 @@
 		21A894031928FE4700A6DB7E /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		21A894041928FE4700A6DB7E /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		21A894061928FE5400A6DB7E /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
-		21A8940819290A6900A6DB7E /* InformationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationCommentCell.h; path = ../../HomePageModule/View/InformationCommentCell.h; sourceTree = "<group>"; };
-		21A8940919290A6900A6DB7E /* InformationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationCommentCell.m; path = ../../HomePageModule/View/InformationCommentCell.m; sourceTree = "<group>"; };
-		21A8940B19290A8300A6DB7E /* InformationCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationCommentCell.xib; path = ../../HomePageModule/View/InformationCommentCell.xib; sourceTree = "<group>"; };
 		21A8940D19290B7F00A6DB7E /* InformationCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentController.h; sourceTree = "<group>"; };
 		21A8940E19290B7F00A6DB7E /* InformationCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentController.m; sourceTree = "<group>"; };
 		21A8940F19290B7F00A6DB7E /* InformationCommentController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentController.xib; sourceTree = "<group>"; };
@@ -636,6 +635,13 @@
 		58B87179192FA57100EB730D /* TribeQuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeQuestionCell.m; sourceTree = "<group>"; };
 		58B8717B192FABF100EB730D /* TribeConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeConversationCell.h; sourceTree = "<group>"; };
 		58B8717C192FABF100EB730D /* TribeConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeConversationCell.m; sourceTree = "<group>"; };
+		8405E558193056F100276964 /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
+		8405E559193056F100276964 /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
+		8405E55A193056F100276964 /* TabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarControl.h; sourceTree = "<group>"; };
+		8405E55B193056F100276964 /* TabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarControl.m; sourceTree = "<group>"; };
+		8405E55E193057D900276964 /* InformationCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentCell.xib; sourceTree = "<group>"; };
+		8405E560193057E600276964 /* InformationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentCell.h; sourceTree = "<group>"; };
+		8405E561193057E600276964 /* InformationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentCell.m; sourceTree = "<group>"; };
 		842D3C82192AF7F100374F04 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
 		842D3C83192AF7F100374F04 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		842D3C84192AF7F100374F04 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
@@ -1320,9 +1326,9 @@
 		212F23AF1928DF4D00F738F8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				21A8940819290A6900A6DB7E /* InformationCommentCell.h */,
-				21A8940919290A6900A6DB7E /* InformationCommentCell.m */,
-				21A8940B19290A8300A6DB7E /* InformationCommentCell.xib */,
+				8405E560193057E600276964 /* InformationCommentCell.h */,
+				8405E561193057E600276964 /* InformationCommentCell.m */,
+				8405E55E193057D900276964 /* InformationCommentCell.xib */,
 				212F23B01928DF4D00F738F8 /* InformationCell.h */,
 				212F23B11928DF4D00F738F8 /* InformationCell.m */,
 				212F23B21928DF4D00F738F8 /* InformationCell.xib */,
@@ -1549,6 +1555,10 @@
 		84FCA84F192CC1D50005295A /* 自定义控件 */ = {
 			isa = PBXGroup;
 			children = (
+				8405E558193056F100276964 /* CustomTabBarController.h */,
+				8405E559193056F100276964 /* CustomTabBarController.m */,
+				8405E55A193056F100276964 /* TabBarControl.h */,
+				8405E55B193056F100276964 /* TabBarControl.m */,
 				84FCA850192CC1D50005295A /* CustomSegmentControl.h */,
 				84FCA851192CC1D50005295A /* CustomSegmentControl.m */,
 			);
@@ -1688,7 +1698,6 @@
 				212F24441928E09A00F738F8 /* img_news@2x.png in Resources */,
 				2119EE9219168279007DBE68 /* Images.xcassets in Resources */,
 				848426D9192E185B00C9474A /* bootom_bar_bg@2x.png in Resources */,
-				21A8940C19290A8300A6DB7E /* InformationCommentCell.xib in Resources */,
 				21EDAD371926E28A00C616CF /* EverGloryController.xib in Resources */,
 				2192EBDE191BD54900A8FE7F /* MyCardController.xib in Resources */,
 				212F24371928E09A00F738F8 /* img_portrait@2x.png in Resources */,
@@ -1721,6 +1730,7 @@
 				848426AE192E0F2B00C9474A /* tribe_btn_nextstep_normal@2x.png in Resources */,
 				848426DA192E185B00C9474A /* bootom_icon_contacts@2x.png in Resources */,
 				848426ED192E185B00C9474A /* square_share_btn_@who_highlight@2x.png in Resources */,
+				8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */,
 				212F24411928E09A00F738F8 /* details_icon_share_normal@2x.png in Resources */,
 				2192EC0B191BD73700A8FE7F /* CityViewController.xib in Resources */,
 				212F24221928E09A00F738F8 /* search_text@2x.png in Resources */,
@@ -1813,7 +1823,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21A8940A19290A6900A6DB7E /* InformationCommentCell.m in Sources */,
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
@@ -1842,6 +1851,7 @@
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
 				212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */,
+				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,
 				2119EED5191682E6007DBE68 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				210BAEDD192A5B3E00B8FBCF /* MyVisitorController.m in Sources */,
 				21D7059819169674004950BF /* EverydayAskController.m in Sources */,
@@ -1868,7 +1878,9 @@
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,
 				2119EED6191682E6007DBE68 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				84F065EA192AFACD00B09AB5 /* ActivityViewController.m in Sources */,
+				8405E55D193056F100276964 /* TabBarControl.m in Sources */,
 				21D7059319169617004950BF /* SquareViewController.m in Sources */,
+				8405E55C193056F100276964 /* CustomTabBarController.m in Sources */,
 				842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */,
 				21D7059D191696D6004950BF /* InfluenceViewController.m in Sources */,
 				84F065F3192AFB0F00B09AB5 /* MyMessageCell.m in Sources */,

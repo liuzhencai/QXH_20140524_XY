@@ -127,57 +127,50 @@
         case 0:
         {
             MyCardController *controller = [[MyCardController alloc] initWithNibName:@"MyCardController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 2:
         {
             PersonalCollectionController *controller = [[PersonalCollectionController alloc] initWithNibName:@"PersonalCollectionController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 3:
         {
             MyActivityController *controller = [[MyActivityController alloc] initWithNibName:@"MyActivityController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 4:
         {
             MyTribeController *controller = [[MyTribeController alloc] initWithNibName:@"MyTribeController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 5:
         {
             MyVisitorController *controller = [[MyVisitorController alloc] initWithNibName:@"MyVisitorController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 6:
         {
             MemberRuleController *controller = [[MemberRuleController alloc] initWithNibName:@"MemberRuleController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 7:
         {
             SettingViewController *controller = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         default:

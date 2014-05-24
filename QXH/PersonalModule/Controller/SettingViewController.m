@@ -149,9 +149,64 @@
     return 20;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"消息设置" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                    [alert show];
+                }
+                    break;
+                case 1:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"隐私" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                    [alert show];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 1:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"检查新版本" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                    [alert show];
+                }
+                    break;
+                case 1:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"客服热线" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                    [alert show];
+                }
+                    break;
+                case 2:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关于" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                    [alert show];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+        default:
+            break;
+    }
+}
+
 - (void)logout:(id)sender
 {
     NSLog(@"注销");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"注销" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

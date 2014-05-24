@@ -14,7 +14,7 @@
 #import "TribeQuestionCell.h"
 #import "TribeConversationCell.h"
 
-@interface TribeDynamicViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface TribeDynamicViewController ()
 //@property (nonatomic, strong) UITableView *conversationTable;//会话
 //@property (nonatomic, strong) UITableView *activityTable;//活动
 //@property (nonatomic, strong) UITableView *membersTable;//成员
@@ -54,19 +54,19 @@
     
     CGRect tableFrame = CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32);
     UITableView *activityTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    activityTable.tag = 101;
+    activityTable.tag = 1001;
     activityTable.delegate = self;
     activityTable.dataSource = self;
     [self.view addSubview:activityTable];
     
     UITableView *membersTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    membersTable.tag = 102;
+    membersTable.tag = 1002;
     membersTable.delegate = self;
     membersTable.dataSource = self;
     [self.view addSubview:membersTable];
     
     UITableView *conversationTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    conversationTable.tag = 100;
+    conversationTable.tag = 1000;
     conversationTable.delegate = self;
     conversationTable.dataSource = self;
     [self.view addSubview:conversationTable];
@@ -99,8 +99,9 @@
 
 - (void)segmentAction:(CustomSegmentView *)segment{
     NSLog(@"select:%d",segment.selectIndex);
-    NSInteger tag = segment.selectIndex + 100;
-    [self.view bringSubviewToFront:[self.view viewWithTag:tag]];
+    NSInteger tag = segment.selectIndex + 1000;
+    UIView* table = (UIView*)[self.view viewWithTag:tag];
+    [self.view bringSubviewToFront:table];
 }
 
 #pragma mark - UITableViewDelegate
@@ -121,7 +122,7 @@
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
     bgView.image = [UIImage imageNamed:@"bar_transition"];
     
-    if (tableView.tag == 100) {
+    if (tableView.tag == 1000) {
         NSDate *date = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd/HH:mm";
@@ -138,9 +139,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView.tag == 102) {
+    if (tableView.tag == 1002) {
         return 70;
-    }else if(tableView.tag == 101){
+    }else if(tableView.tag == 1001){
         return 80;
     }else{
         if (indexPath.row == 0) {
@@ -151,7 +152,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView.tag == 101) {
+    if (tableView.tag == 1001) {
         static NSString *addrIdentifier = @"activeEndIdentifier";
         ActivityCell *activeEndCell = nil;
         activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
@@ -161,7 +162,7 @@
         }
         activeEndCell.statusLabel.text = @"已结束";
         return activeEndCell;
-    }else if(tableView.tag == 102){
+    }else if(tableView.tag == 1002){
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
         PeocelCell *myMsgCell = nil;
         myMsgCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];

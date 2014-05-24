@@ -67,7 +67,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,8 +88,14 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(300, 16, 12, 12);
+            [btn setImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+            [cell.contentView addSubview:btn];
+            
         }
-        cell.textLabel.text = titleArr[indexPath.row];
+        cell.textLabel.text = titleArr[indexPath.row-1];
     }
 
     return cell;

@@ -46,6 +46,8 @@
 - (void)share:(id)sender
 {
     NSLog(@"分享");
+    UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"提示" message:@"分享" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,28 +62,37 @@
         case 1:
         {
             NSLog(@"点击收藏");
+            UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"提示" message:@"点击收藏" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         case 2:
         {
             NSLog(@"点击赞");
+            UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"提示" message:@"点击赞" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         case 3:
         {
             NSLog(@"点击转发");
+            UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"提示" message:@"点击转发" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         case 4:
         {
             NSLog(@"点击评论");
             InformationCommentController *controller = [[InformationCommentController alloc]initWithNibName:@"InformationCommentController" bundle:nil];
+            controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 5:
         {
             NSLog(@"点击举报");
+            UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"提示" message:@"点击举报" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
         }
             break;
         default:

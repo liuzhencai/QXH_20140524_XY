@@ -55,9 +55,8 @@
         {
             NSLog(@"点击资讯");
             InformationViewController* ainfor = [[InformationViewController alloc]initWithNibName:@"InformationViewController" bundle:nil];
-            self.hidesBottomBarWhenPushed = YES;
+            ainfor.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ainfor animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
         }
             break;
         case 2:

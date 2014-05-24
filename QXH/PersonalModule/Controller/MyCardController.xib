@@ -29,6 +29,10 @@
                         <color key="textColor" red="0.30396360639999997" green="0.77952665440000002" blue="0.23354541509999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="KzE-4p-m75"/>
+                        <outlet property="delegate" destination="-1" id="LPD-V3-MTi"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

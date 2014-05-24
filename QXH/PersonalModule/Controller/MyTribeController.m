@@ -7,6 +7,7 @@
 //
 
 #import "MyTribeController.h"
+#import "TribeDynamicViewController.h"
 
 @interface MyTribeController ()
 
@@ -49,6 +50,13 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyTribeCell" owner:nil options:nil] objectAtIndex:0];
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TribeDynamicViewController *controller = [[TribeDynamicViewController alloc]init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
