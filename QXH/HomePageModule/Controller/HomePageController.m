@@ -136,9 +136,19 @@
         case 8:
         {
             NSLog(@"点击影响力");
-            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
-            ivController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ivController animated:YES];
+//            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
+//            ivController.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:ivController animated:YES];
+            UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+            tempView.backgroundColor = [UIColor redColor];
+            ChatController *controller = [[ChatController alloc] initWithCustomView:tempView];
+            tempView.backgroundColor = [UIColor redColor];
+            controller.delegate = self;
+            controller.opponentImg = [UIImage imageNamed:@"tempUser.png"];
+            controller.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
+            controller.chatTitle = @"张三";
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         default:
@@ -146,5 +156,23 @@
     }
     
 }
+
+#pragma mark chatcontroller
+- (void) chatController:(ChatController *)chatController didSendMessage:(NSMutableDictionary *)message
+{
+    // Messages come prepackaged with the contents of the message and a timestamp in milliseconds
+    //    NSLog(@"Message Contents: %@", message[kMessageContent]);
+    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+    
+    // Evaluate or add to the message here for example, if we wanted to assign the current userId:
+    message[@"sentByUserId"] = @"currentUserId";
+    icout++;
+    
+    message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((icout%2)?kSentByUser:kSentByOpponent)];
+    
+    // Must add message to controller for it to show
+    [chatController addNewMessage:message];
+}
+
 
 @end

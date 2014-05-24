@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HomePageController : MyViewController<UIScrollViewDelegate>
+{
+    NSInteger icout;
+}
 
 @property (strong, nonatomic) IBOutlet UIView *topView;
 

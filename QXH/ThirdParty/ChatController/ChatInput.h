@@ -28,6 +28,8 @@
 
 @interface ChatInput : UIView <UITextViewDelegate>
 
+@property (nonatomic, assign) CGFloat chatOffset;
+
 // -- DELEGATE -- //
 
 /*!
