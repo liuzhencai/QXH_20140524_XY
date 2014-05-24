@@ -142,7 +142,7 @@
     if (tableView.tag == 1002) {
         return 70;
     }else if(tableView.tag == 1001){
-        return 80;
+        return 220;
     }else{
         if (indexPath.row == 0) {
             return 140;
