@@ -1,0 +1,206 @@
+//
+//  FindPeopleViewController.m
+//  ExpansionTableView
+//
+//  Created by XUE on 14-5-19.
+//  Copyright (c) 2014年 JianYe. All rights reserved.
+//
+
+#import "FindPeopleViewController.h"
+#import "CityCell.h"
+#import "DistrictCell.h"
+
+#import "FindResultViewController.h"
+
+@interface FindPeopleViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) NSArray *dataList;
+@property (nonatomic, assign) BOOL isOpen;
+@property (nonatomic, strong) NSIndexPath *selectIndexPath;
+@end
+
+@implementation FindPeopleViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        _isOpen = NO;
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.navigationController.navigationBar.translucent = NO;
+    self.title = @"找人";
+    // Do any additional setup after loading the view.
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"cityList" ofType:@"plist"];
+    _dataList = [[NSArray alloc] initWithContentsOfFile:path];
+    
+    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT) style:UITableViewStylePlain];
+    _mainTable.delegate = self;
+    _mainTable.dataSource = self;
+    [self.view addSubview:_mainTable];
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_NAVIGATION_BAR_HEIGHT)];
+    _searchBar.placeholder = @"搜索";
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _searchBar.delegate = self;
+    _mainTable.tableHeaderView = _searchBar;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)screening:(UIButton *)sender{
+    NSLog(@"筛选");
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (void)buttonAction:(UIButton *)sender{
+    NSLog(@"button action");
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return [_dataList count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.isOpen) {
+        if (_selectIndexPath.section == section) {
+            return [[[_dataList objectAtIndex:section] objectForKey:@"list"] count] + 1;
+        }
+    }
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 30;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 30)];
+        bgView.image = [UIImage imageNamed:@"bar_transition"];
+        bgView.userInteractionEnabled = YES;
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+        title.text = @"按地域查找";
+        title.font = [UIFont systemFontOfSize:18];
+        title.backgroundColor = [UIColor clearColor];
+        title.textColor = COLOR_WITH_ARGB(49, 109, 33, 1.0);
+        [bgView addSubview:title];
+        
+        UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(290, 9, 8, 12)];
+        arrow.image = [UIImage imageNamed:@"list_arrow_right_green"];
+        [bgView addSubview:arrow];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0, 0, tableView.width, 30);
+        [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [bgView addSubview:btn];
+        return bgView;
+    }
+    return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.isOpen && _selectIndexPath.section == indexPath.section && 0 != indexPath.row) {
+        static NSString *identifier1 = @"cellId1";
+        DistrictCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier1];
+        if (!cell) {
+            cell = [[DistrictCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier1];
+        }
+        
+        NSDictionary *dict = [_dataList objectAtIndex:indexPath.section];
+        NSArray *list = [dict objectForKey:@"list"];
+        cell.titleLabel.text = [list objectAtIndex:indexPath.row - 1];
+        return cell;
+    }else{
+        static NSString *identifier2 = @"cellId2";
+        CityCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier2];
+        if (!cell) {
+            cell = [[CityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier2];
+        }
+        
+        NSDictionary *dict = [_dataList objectAtIndex:indexPath.section];
+        cell.titleLabel.text = [dict objectForKey:@"name"];
+        [cell changeArrowWithUp:([indexPath isEqual:_selectIndexPath] ? YES : NO)];
+        return cell;
+    }
+}
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"");
+//    if (indexPath.row == 0) {
+//        if ([indexPath isEqual:self.selectIndexPath]) {//重新选择
+//            self.isOpen = NO;
+//            self.selectIndexPath = nil;
+//            [self didSelectCellFirst:NO orNext:NO];
+//            //
+//        }else{
+//            if (!self.selectIndexPath) {//第一次选择
+//                    self.selectIndexPath = indexPath;
+//                [self didSelectCellFirst:YES orNext:NO];
+//            }else{//选择其他
+//                [self didSelectCellFirst:NO orNext:YES];
+//            }
+//        }
+//        
+//    }else{
+//        NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"list"];
+//        NSString *name = [list objectAtIndex:indexPath.row - 1];
+//        NSLog(@"%@",name);
+//    }
+    
+    if (indexPath.row == 0) {
+        if ([indexPath isEqual:self.selectIndexPath]) {//重新选择
+            self.isOpen = NO;
+            self.selectIndexPath = nil;
+        }else{
+            self.isOpen = YES;
+            self.selectIndexPath = indexPath;
+        }
+        [_mainTable reloadData];
+    }else{
+        NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"list"];
+        NSString *name = [list objectAtIndex:indexPath.row - 1];
+        NSLog(@"%@",name);
+        FindResultViewController *findResult = [[FindResultViewController alloc] init];
+        [self.navigationController pushViewController:findResult animated:YES];
+    }
+}
+
+- (void)didSelectCellFirst:(BOOL)isFirstInsert orNext:(BOOL)isNextInsert{
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if ([_searchBar isFirstResponder]) {
+        [_searchBar resignFirstResponder];
+    }
+}
+
+@end
