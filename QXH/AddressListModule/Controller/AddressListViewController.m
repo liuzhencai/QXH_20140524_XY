@@ -13,10 +13,15 @@
 #import "NameCardViewController.h"
 #import "PeocelCell.h"
 #import "MyMessageCell.h"
-@interface AddressListViewController ()
+#import "CustomSegmentControl.h"
+
+@interface AddressListViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
 
 @end
+
+#define ADDRESS_LIST_TABLE_TAG 2330
+#define MY_MESSAGE_LIST_TABLE_TAG 2331
 
 @implementation AddressListViewController
 
@@ -43,67 +48,36 @@
 {
     [super viewDidLoad];
      self.hidesBottomBarWhenPushed = NO;
-    self.navigationController.navigationBar.translucent = NO;
     // Do any additional setup after loading the view from its nib.
     self.title = @"通讯录";
     
-    for (int i = 0; i < 2; i ++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(160 * i, 0, 160, 30);
-        btn.tag = 1 + i;
-        NSString *title = @"通讯录";
-        [btn setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
-        if (i == 1) {
-            title = @"我的消息";
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-        //83,170,97
-        [btn setTitle:title forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+    //segment
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"通讯录",@"我的消息"]];
+    segment.delegate = self;
+    [self.view addSubview:segment];
     
-    UIImageView *slippag = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_WIDTH, 2)];
-    slippag.image = [UIImage imageNamed:@"navigation_slippage_bar_bg"];
-    [self.view addSubview:slippag];
+    //table
+    UITableView *myMessageTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
+    myMessageTable.tag = MY_MESSAGE_LIST_TABLE_TAG;
+    myMessageTable.delegate = self;
+    myMessageTable.dataSource = self;
+    [self.view addSubview:myMessageTable];
     
-    for (int i = 0; i < 2; i ++) {
-        UIImageView *slippag = [[UIImageView alloc] initWithFrame:CGRectMake(160 * i, 30, UI_SCREEN_WIDTH/2, 2)];
-        slippag.tag = 1000 + i;
-        slippag.image = [UIImage imageNamed:@"navigation_slippage_bar_green"];
-        if (i == 1) {
-            slippag.hidden = YES;
-        }
-        [self.view addSubview:slippag];
-    }
-    
-    UITableView *table2 = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
-    table2.tag = 101;
-    table2.delegate = self;
-    table2.dataSource = self;
-    [self.view addSubview:table2];
-    
-    UITableView *table1 = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
-    table1.tag = 100;
-    table1.delegate = self;
-    table1.dataSource = self;
-    [self.view addSubview:table1];
+    UITableView *addressListTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
+    addressListTable.tag = ADDRESS_LIST_TABLE_TAG;
+    addressListTable.delegate = self;
+    addressListTable.dataSource = self;
+    [self.view addSubview:addressListTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, UI_SCREEN_WIDTH, 44.0f)];
     self.searchBar.placeholder = @"输入名字查找朋友";
-//    self.searchBar.tintColor = [UIColor clearColor];
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//    self.searchBar.keyboardType = UIKeyboardTypeAlphabet;
-    table1.tableHeaderView = self.searchBar;
-    
+    addressListTable.tableHeaderView = self.searchBar;
     
     // Create the search display controller
-    
     //    self.searchDC = [[[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self] autorelease];
-    //
     //    self.searchDC.searchResultsDataSource = self;
-    //
     //    self.searchDC.searchResultsDelegate = self;
     
 }
@@ -114,11 +88,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - CustomSegmentControlDelegate
+- (void)segmentClicked:(NSInteger)index{
+    NSLog(@"segment clicked:%d",index);
+    NSInteger tag = ADDRESS_LIST_TABLE_TAG + index;
+    UITableView *table = (UITableView *)[self.view viewWithTag:tag];
+    [self.view bringSubviewToFront:table];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (tableView.tag == 100) {
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         return 3;
     }
     return 1;
@@ -134,7 +116,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (tableView.tag == 100) {
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         return 20;
     }else{
         return 0;
@@ -142,7 +124,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (tableView.tag == 100) {
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
         bgView.image = [UIImage imageNamed:@"bar_transition"];
         
@@ -167,7 +149,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *sectionTitle = nil;
-    if (tableView.tag == 100 ) {
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG ) {
         switch (section) {
             case 0:
             {
@@ -194,31 +176,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-    if (tableView.tag == 101) {
+    if (tableView.tag == MY_MESSAGE_LIST_TABLE_TAG) {
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
-//        MyMsgCell *myMsgCell = nil;
-//        myMsgCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
-//        if (!myMsgCell) {
-//            myMsgCell = [[[NSBundle mainBundle] loadNibNamed:@"MyMsgCell" owner:nil options:nil] objectAtIndex:0];
-//        }
-//        cell = myMsgCell;
-        
         MyMessageCell *myMsgCell = nil;
         myMsgCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
         if (!myMsgCell) {
             myMsgCell = [[MyMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
         }
         cell = myMsgCell;
-    }else if(tableView.tag == 100){
+    }else if(tableView.tag == ADDRESS_LIST_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
-//
-//        AddrListCell *addrListCell = nil;
-//        addrListCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
-//        if (!addrListCell) {
-//            addrListCell = [[[NSBundle mainBundle] loadNibNamed:@"AddrListCell" owner:nil options:nil] objectAtIndex:0];
-//        }
-//        cell = addrListCell;
-        
         PeocelCell *addrListCell = nil;
         addrListCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
         if (!addrListCell) {
@@ -233,7 +200,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView.tag == 100) {
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
         if (self.addressListBlock) {
             self.addressListBlock(nil);
@@ -242,31 +209,9 @@
             NameCardViewController *nameCard = [[NameCardViewController alloc] init];
             [self.navigationController pushViewController:nameCard animated:YES];
         }
-    }else if(tableView.tag == 101){
+    }else if(tableView.tag == MY_MESSAGE_LIST_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
     }
-}
-//83,170,97
-- (void)btnClick:(id)sender {
-    UIButton *btn = (UIButton *)sender;
-    if (btn.tag == self.selectIndex) {
-        return;
-    }
-    self.selectIndex = btn.tag;
-    
-    [btn setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
-    UIButton *otherBtn = (UIButton *)[self.view viewWithTag:btn.tag%2 + 1];
-    [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    NSInteger tag = btn.tag + 99;
-    UIImageView *slippag1 = (UIImageView *)[self.view viewWithTag:1000];
-    UIImageView *slippag2 = (UIImageView *)[self.view viewWithTag:1001];
-    //    BOOL hidden1 = tag%100;
-    [UIView animateWithDuration:0.1 animations:^{
-        slippag1.hidden = !slippag1.hidden;
-        slippag2.hidden = !slippag2.hidden;
-    } completion:nil];
-    [self.view bringSubviewToFront:[self.view viewWithTag:tag]];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

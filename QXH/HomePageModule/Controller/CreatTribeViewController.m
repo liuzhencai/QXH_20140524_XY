@@ -193,7 +193,7 @@
     for (int i = 0; i < [_selectIndexPaths count]; i ++) {
         NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
         if ([indexPath isEqual:index]) {
-            [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_btn_nextstep_normal"] forState:UIControlStateNormal];
+            [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
         }
     }
     
@@ -225,7 +225,7 @@
     }else{
         [_selectIndexPaths addObject:indexPath];
         [_addItems addObject:indexPath];
-        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_btn_nextstep_normal"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
     }
     NSLog(@"select IndexPath:%@",_selectIndexPaths);
     NSLog(@"items:%@",_addItems);

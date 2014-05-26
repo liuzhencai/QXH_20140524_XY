@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FindResultViewController : UIViewController
+@interface FindResultViewController : MyViewController
 
 @end

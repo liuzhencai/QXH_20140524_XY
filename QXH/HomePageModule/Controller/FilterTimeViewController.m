@@ -28,7 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
     self.title = @"选择活动时间";
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
@@ -124,7 +123,7 @@
 - (void)selectTime:(UIButton *)sender{
     sender.selected = !sender.selected;
     if (sender.selected) {
-        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_btn_nextstep_normal"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
     }else{
         [sender setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
     }

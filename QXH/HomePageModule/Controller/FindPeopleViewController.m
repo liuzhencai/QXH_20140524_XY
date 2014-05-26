@@ -42,7 +42,7 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"cityList" ofType:@"plist"];
     _dataList = [[NSArray alloc] initWithContentsOfFile:path];
     
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT) style:UITableViewStylePlain];
+    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     [self.view addSubview:_mainTable];
@@ -113,14 +113,14 @@
         title.textColor = COLOR_WITH_ARGB(49, 109, 33, 1.0);
         [bgView addSubview:title];
         
-        UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(290, 9, 8, 12)];
-        arrow.image = [UIImage imageNamed:@"list_arrow_right_green"];
-        [bgView addSubview:arrow];
+//        UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(290, 9, 8, 12)];
+//        arrow.image = [UIImage imageNamed:@"list_arrow_right_green"];
+//        [bgView addSubview:arrow];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, tableView.width, 30);
-        [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [bgView addSubview:btn];
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        btn.frame = CGRectMake(0, 0, tableView.width, 30);
+//        [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [bgView addSubview:btn];
         return bgView;
     }
     return nil;

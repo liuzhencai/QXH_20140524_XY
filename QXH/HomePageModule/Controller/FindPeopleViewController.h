@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FindPeopleViewController : UIViewController
+@interface FindPeopleViewController : MyViewController
 
 @end

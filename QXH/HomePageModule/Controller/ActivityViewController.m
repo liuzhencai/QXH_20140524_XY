@@ -10,13 +10,16 @@
 #import "ActivityCell.h"
 #import "ActivityDetailViewController.h"
 #import "PromotionalActvityViewController.h"
-//#import "FilterViewController.h"
 #import "SelectTribeViewController.h"
 #import "FilterTimeViewController.h"
+#import "CustomSegmentControl.h"
 
-@interface ActivityViewController ()
+@interface ActivityViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
 @end
+
+#define IN_THE_ACTIVITY_TAG 2330
+#define END_ACTIVITY_TAG 2331
 
 @implementation ActivityViewController
 
@@ -32,7 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
     self.title = @"活动";
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -43,47 +45,23 @@
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
     self.navigationItem.rightBarButtonItem = righttItem;
     
-    for (int i = 0; i < 2; i ++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(160 * i, 0, 160, 30);
-        btn.tag = 1 + i;
-        NSString *title = @"进行的活动";
-        [btn setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
-        if (i == 1) {
-            title = @"结束的活动";
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-        //83,170,97
-        [btn setTitle:title forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+    //segment
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"进行的活动",@"结束的活动"]];
+    segment.delegate = self;
+    [self.view addSubview:segment];
     
-    UIImageView *slippag = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_WIDTH, 2)];
-    slippag.image = [UIImage imageNamed:@"navigation_slippage_bar_bg"];
-    [self.view addSubview:slippag];
+    //table
+    UITableView *endActivityTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
+    endActivityTable.tag = END_ACTIVITY_TAG;
+    endActivityTable.delegate = self;
+    endActivityTable.dataSource = self;
+    [self.view addSubview:endActivityTable];
     
-    for (int i = 0; i < 2; i ++) {
-        UIImageView *slippag = [[UIImageView alloc] initWithFrame:CGRectMake(160 * i, 30, UI_SCREEN_WIDTH/2, 2)];
-        slippag.tag = 1000 + i;
-        slippag.image = [UIImage imageNamed:@"navigation_slippage_bar_green"];
-        if (i == 1) {
-            slippag.hidden = YES;
-        }
-        [self.view addSubview:slippag];
-    }
-    
-    UITableView *table2 = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
-    table2.tag = 101;
-    table2.delegate = self;
-    table2.dataSource = self;
-    [self.view addSubview:table2];
-    
-    UITableView *table1 = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
-    table1.tag = 100;
-    table1.delegate = self;
-    table1.dataSource = self;
-    [self.view addSubview:table1];
+    UITableView *inActivityTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT  - segment.height) style:UITableViewStylePlain];
+    inActivityTable.tag = IN_THE_ACTIVITY_TAG;
+    inActivityTable.delegate = self;
+    inActivityTable.dataSource = self;
+    [self.view addSubview:inActivityTable];
     
 }
 
@@ -93,28 +71,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnClick:(id)sender {
-    UIButton *btn = (UIButton *)sender;
-    if (btn.tag == self.selectIndex) {
-        return;
-    }
-    self.selectIndex = btn.tag;
-    
-    [btn setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
-    UIButton *otherBtn = (UIButton *)[self.view viewWithTag:btn.tag%2 + 1];
-    [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    NSInteger tag = btn.tag + 99;
-    UIImageView *slippag1 = (UIImageView *)[self.view viewWithTag:1000];
-    UIImageView *slippag2 = (UIImageView *)[self.view viewWithTag:1001];
-    //    BOOL hidden1 = tag%100;
-//    [UIView animateWithDuration:0.1 animations:^{
-        slippag1.hidden = !slippag1.hidden;
-        slippag2.hidden = !slippag2.hidden;
-//    } completion:nil];
-    [self.view bringSubviewToFront:[self.view viewWithTag:tag]];
+#pragma mark - CustomSegmentControlDelegate
+- (void)segmentClicked:(NSInteger)index{
+    NSLog(@"segment index:%d",index);
+    NSInteger tag = IN_THE_ACTIVITY_TAG + index;
+    UITableView *table = (UITableView *)[self.view viewWithTag:tag];
+    [self.view bringSubviewToFront:table];
 }
-
 
 - (void)more:(UIButton *)sender{
 //    SelectTribeViewController *selectTribe = [[SelectTribeViewController alloc] init];
@@ -152,7 +115,7 @@
     
     UITableViewCell *cell = nil;
     
-    if(tableView.tag == 101){
+    if(tableView.tag == END_ACTIVITY_TAG){
         static NSString *addrIdentifier = @"activeEndIdentifier";
         ActivityCell *activeEndCell = nil;
         activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
@@ -162,7 +125,7 @@
         activeEndCell.statusLabel.text = @"已结束";
         
         cell = activeEndCell;
-    }else if (tableView.tag == 100) {
+    }else if (tableView.tag == IN_THE_ACTIVITY_TAG) {
         static NSString *myMsgIdentifier = @"activingIdentifier";
         ActivityCell *activityingCell = nil;
         activityingCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
@@ -186,7 +149,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView.tag == 100) {
+    if (tableView.tag == IN_THE_ACTIVITY_TAG) {
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
         [self.navigationController pushViewController:activityDetail animated:YES];
     }else{

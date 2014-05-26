@@ -35,7 +35,7 @@
     self.title = @"活动详情";
     // Do any additional setup after loading the view.
     
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT)];
+    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -216,13 +216,7 @@
         [btn setTitle:@"报名" forState:UIControlStateNormal];
         message = @"已取消报名";
     }
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"确定"
-                                          otherButtonTitles:nil, nil];
-    [alert show];
+    [self showAlert:message];
 }
 
 - (void)share:(id)sender
@@ -236,15 +230,15 @@
     [alert show];
 }
 
-#pragma mark -
+#pragma mark - PortraitViewDelegate
+
+- (void)selectPortrait:(NSObject *)obj{
+    NSLog(@"select portrait:%@",obj);
+}
+
 - (void)singUpPortrait:(NSObject *)obj{
     NSLog(@"我要报名 2");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:@"成功报名"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"确定"
-                                          otherButtonTitles:nil, nil];
-    [alert show];
+    [self showAlert:@"成功报名"];
 }
 
 - (void)shareToSquare{

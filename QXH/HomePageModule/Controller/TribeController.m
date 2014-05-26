@@ -12,11 +12,15 @@
 #import "TribeDynamicViewController.h"
 #import "TribeDetailViewController.h"
 #import "CustomSegmentView.h"
+#import "CustomSegmentControl.h"
 
-@interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
 
 @end
+
+#define MY_TRIBE_TABLE_TAG 2330
+#define ALL_TRIBE_TABLE_TAG 2331
 
 @implementation TribeController
 
@@ -49,59 +53,29 @@
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
     self.navigationItem.rightBarButtonItem = righttItem;
     
-    for (int i = 0; i < 2; i ++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(160 * i, 0, 160, 30);
-        btn.tag = 1 + i;
-        NSString *title = @"我的部落";
-        [btn setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
-        if (i == 1) {
-            title = @"所有部落";
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-        //83,170,97
-        [btn setTitle:title forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+    //segment
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"我的部落",@"所有部落"]];
+    segment.delegate = self;
+    [self.view addSubview:segment];
     
-    UIImageView *slippag = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, UI_SCREEN_WIDTH, 2)];
-    slippag.image = [UIImage imageNamed:@"navigation_slippage_bar_bg"];
-    [self.view addSubview:slippag];
+    //table
+    UITableView *allTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
+    allTribeTable.tag = ALL_TRIBE_TABLE_TAG;
+    allTribeTable.delegate = self;
+    allTribeTable.dataSource = self;
+    [self.view addSubview:allTribeTable];
     
-    for (int i = 0; i < 2; i ++) {
-        UIImageView *slippag = [[UIImageView alloc] initWithFrame:CGRectMake(160 * i, 30, UI_SCREEN_WIDTH/2, 2)];
-        slippag.tag = 1000 + i;
-        slippag.image = [UIImage imageNamed:@"navigation_slippage_bar_green"];
-        if (i == 1) {
-            slippag.hidden = YES;
-        }
-        [self.view addSubview:slippag];
-    }
-    
-//    CustomSegmentView *segment = [[CustomSegmentView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32)];
-//    segment.items = @[@"我的部落",@"所有部落"];
-//    segment.selectIndex = 0;
-//    [segment addTarget:self action:@selector(segmentAction:)];
-//    [self.view addSubview:segment];
-    
-    UITableView *table2 = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
-    table2.tag = 101;
-    table2.delegate = self;
-    table2.dataSource = self;
-    [self.view addSubview:table2];
-    
-    UITableView *table1 = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
-    table1.tag = 100;
-    table1.delegate = self;
-    table1.dataSource = self;
-    [self.view addSubview:table1];
+    UITableView *myTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
+    myTribeTable.tag = MY_TRIBE_TABLE_TAG;
+    myTribeTable.delegate = self;
+    myTribeTable.dataSource = self;
+    [self.view addSubview:myTribeTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, UI_SCREEN_WIDTH, 44.0f)];
     self.searchBar.placeholder = @"输入名字查找部落";
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    table1.tableHeaderView = self.searchBar;
+    myTribeTable.tableHeaderView = self.searchBar;
     
     // Create the search display controller
     //    self.searchDC = [[[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self] autorelease];
@@ -115,11 +89,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)segmentAction:(CustomSegmentView *)segment{
-    NSLog(@"segment action %d",segment.tag);
-    NSInteger tag = segment.selectIndex + 100;
-    NSLog(@"%d",tag);
-    [self.view bringSubviewToFront:[self.view viewWithTag:tag]];
+#pragma mark - CustomSegmentControlDelegate
+- (void)segmentClicked:(NSInteger)index{
+    NSLog(@"%d",index);
+    NSInteger tag = MY_TRIBE_TABLE_TAG + index;
+    UITableView *table = (UITableView *)[self.view viewWithTag:tag];
+    [self.view bringSubviewToFront:table];
 }
 
 - (void)createTribe:(UIButton *)sender{
@@ -208,7 +183,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-    if (tableView.tag == 101) {
+    if (tableView.tag == ALL_TRIBE_TABLE_TAG) {
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
         MyTribeListCell *allListCell = nil;
         allListCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
@@ -217,7 +192,7 @@
             allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell = allListCell;
-    }else if(tableView.tag == 100){
+    }else if(tableView.tag == MY_TRIBE_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
         MyTribeListCell *addrListCell = nil;
         addrListCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
@@ -232,11 +207,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView.tag == 100) {
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
         TribeDynamicViewController *tribeDynamic = [[TribeDynamicViewController alloc] init];
         [self.navigationController pushViewController:tribeDynamic animated:YES];
-    }else if(tableView.tag == 101){
+    }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
         [self.navigationController pushViewController:detail animated:YES];
