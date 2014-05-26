@@ -13,13 +13,17 @@
 #import "PeocelCell.h"
 #import "TribeQuestionCell.h"
 #import "TribeConversationCell.h"
+#import "CustomSegmentControl.h"
 
-@interface TribeDynamicViewController ()
+@interface TribeDynamicViewController ()<CustomSegmentControlDelegate>
 //@property (nonatomic, strong) UITableView *conversationTable;//会话
 //@property (nonatomic, strong) UITableView *activityTable;//活动
 //@property (nonatomic, strong) UITableView *membersTable;//成员
 
 @end
+#define CONVERSATION_TABLE_TAG 2330
+#define ACTIVITY_TABLE_TAG 2331
+#define NEMBERS_TABLE_TAG 2332
 
 @implementation TribeDynamicViewController
 
@@ -46,32 +50,29 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    CustomSegmentView *segment = [[CustomSegmentView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32)];
-    segment.items = @[@"会话",@"活动",@"成员"];
-    segment.selectIndex = 0;
-    [segment addTarget:self action:@selector(segmentAction:)];
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"会话",@"活动",@"成员"]];
+    segment.delegate = self;
     [self.view addSubview:segment];
     
-    CGRect tableFrame = CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32);
+    //table
+    CGRect tableFrame = CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height);
     UITableView *activityTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    activityTable.tag = 1001;
+    activityTable.tag = ACTIVITY_TABLE_TAG;
     activityTable.delegate = self;
     activityTable.dataSource = self;
     [self.view addSubview:activityTable];
     
     UITableView *membersTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    membersTable.tag = 1002;
+    membersTable.tag = NEMBERS_TABLE_TAG;
     membersTable.delegate = self;
     membersTable.dataSource = self;
     [self.view addSubview:membersTable];
     
     UITableView *conversationTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-    conversationTable.tag = 1000;
+    conversationTable.tag = CONVERSATION_TABLE_TAG;
     conversationTable.delegate = self;
     conversationTable.dataSource = self;
     [self.view addSubview:conversationTable];
-//    [self.view addSubview:activityTable];
-//    [self.view addSubview:membersTable];
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,9 +98,10 @@
 }
 */
 
-- (void)segmentAction:(CustomSegmentView *)segment{
-    NSLog(@"select:%d",segment.selectIndex);
-    NSInteger tag = segment.selectIndex + 1000;
+#pragma mark - CustomSegmentControlDelegate
+- (void)segmentClicked:(NSInteger)index{
+    NSLog(@"segment clicked:%d",index);
+    NSInteger tag = CONVERSATION_TABLE_TAG + index;
     UIView* table = (UIView*)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
 }
@@ -122,7 +124,7 @@
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
     bgView.image = [UIImage imageNamed:@"bar_transition"];
     
-    if (tableView.tag == 1000) {
+    if (tableView.tag == CONVERSATION_TABLE_TAG) {
         NSDate *date = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd/HH:mm";
@@ -139,9 +141,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView.tag == 1002) {
+    if (tableView.tag == NEMBERS_TABLE_TAG) {
         return 70;
-    }else if(tableView.tag == 1001){
+    }else if(tableView.tag == ACTIVITY_TABLE_TAG){
         return 220;
     }else{
         if (indexPath.row == 0) {
@@ -152,7 +154,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView.tag == 1001) {
+    if (tableView.tag == ACTIVITY_TABLE_TAG) {
         static NSString *addrIdentifier = @"activeEndIdentifier";
         ActivityCell *activeEndCell = nil;
         activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
@@ -162,7 +164,7 @@
         }
         activeEndCell.statusLabel.text = @"已结束";
         return activeEndCell;
-    }else if(tableView.tag == 1002){
+    }else if(tableView.tag == NEMBERS_TABLE_TAG){
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
         PeocelCell *myMsgCell = nil;
         myMsgCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];

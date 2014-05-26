@@ -30,65 +30,6 @@
     return self;
 }
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    self.navigationController.navigationBar.translucent = NO;
-//    self.title = @"个人名片";
-//    self.view.backgroundColor = [UIColor whiteColor];
-//    // Do any additional setup after loading the view.
-//    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT)];
-////    _mainScrollView.contentSize = CGSizeMake(_mainScrollView.width, _mainScrollView.height);
-//    _mainScrollView.backgroundColor = [UIColor clearColor];
-//    [self.view addSubview:_mainScrollView];
-//    
-//    [self addTitleView];
-//    for (int i = 0; i < 2; i ++) {
-//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//        btn.frame = CGRectMake(WIDTH_TO_LEFT + i * (130 + 30), HEIGHT_TO_TOP + HEIGHT_TITLE + 10, 130, 25);
-//        btn.tag = 1000 + i;
-//        if (i == 0) {
-//            [btn setTitle:@"加为好友" forState:UIControlStateNormal];
-//        }else{
-//            [btn setTitle:@"转发名片" forState:UIControlStateNormal];
-//        }
-//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-//        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-//        btn.backgroundColor = [UIColor greenColor];
-//        [_mainScrollView addSubview:btn];
-//    }
-//    
-//    UILabel *userInfoLabel = [self addLabelWithFrame:CGRectMake(80, HEIGHT_TO_TOP + HEIGHT_TITLE + 40, 160, 20)
-//                                        text:@"个人信息"
-//                                       color:[UIColor blackColor]
-//                                        font:[UIFont systemFontOfSize:16]];
-////    userInfoLabel.backgroundColor = [UIColor redColor];
-//    [_mainScrollView addSubview:userInfoLabel];
-//    
-//    NSArray *items = @[@"单位职务",@"学位/职称",@"所在城市",@"曾获荣誉",@"个人动态"];
-//    for (int i = 0; i < [items count]; i ++) {
-//        //名字
-//        UILabel *title = [self addLabelWithFrame:CGRectMake(WIDTH_TO_LEFT, userInfoLabel.bottom + 10 + i * 30, 60, 20)
-//                                                text:[items objectAtIndex:i]
-//                                               color:[UIColor blackColor]
-//                                                font:[UIFont systemFontOfSize:12]];
-////        title.backgroundColor = [UIColor greenColor];
-//        [_mainScrollView addSubview:title];
-//        
-//        UILabel *value = [self addLabelWithFrame:CGRectMake(title.right + 10, title.top, 200, 20)
-//                                           text:@"名字"
-//                                          color:[UIColor blackColor]
-//                                           font:[UIFont systemFontOfSize:12]];
-////        value.backgroundColor = [UIColor redColor];
-//        [_mainScrollView addSubview:value];
-//        
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_TO_LEFT, title.bottom + 5, UI_SCREEN_WIDTH - 2 * WIDTH_TO_LEFT, 0.5)];
-//        view.backgroundColor = [UIColor blackColor];
-//        [_mainScrollView addSubview:view];
-//    }
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -97,7 +38,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT) style:UITableViewStylePlain];
+    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     [self.view addSubview:_mainTable];
@@ -107,79 +48,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)addTitleView{
-    //头像
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_TO_LEFT, HEIGHT_TO_TOP, UI_SCREEN_WIDTH - 2 * WIDTH_TO_LEFT, HEIGHT_TITLE)];
-    bgView.layer.cornerRadius = 5;
-    bgView.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    bgView.layer.borderColor = [UIColor blackColor].CGColor;
-    bgView.layer.borderWidth = 1.0;
-    [_mainScrollView addSubview:bgView];
-    
-    UIImageView *head = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
-    head.backgroundColor = [UIColor redColor];
-    [bgView addSubview:head];
-    
-    //名字
-    UILabel *nameTitle = [self addLabelWithFrame:CGRectMake(head.right + 10, 10, 60, 20)
-                                            text:@"名字"
-                                           color:[UIColor blackColor]
-                                            font:[UIFont systemFontOfSize:16]];
-//    nameTitle.backgroundColor = [UIColor greenColor];
-    [bgView addSubview:nameTitle];
-    
-    UILabel *name = [self addLabelWithFrame:CGRectMake(nameTitle.right + 10, 10, 120, 20)
-                                            text:@"名字"
-                                           color:[UIColor blackColor]
-                                            font:[UIFont systemFontOfSize:16]];
-//    name.backgroundColor = [UIColor redColor];
-    [bgView addSubview:name];
-    
-    //单位职务
-    UILabel *dutyTitle = [self addLabelWithFrame:CGRectMake(head.right + 10, nameTitle.bottom + 10, 60, 20)
-                                       text:@"单位职务"
-                                      color:[UIColor blackColor]
-                                       font:[UIFont systemFontOfSize:14]];
-//    dutyTitle.backgroundColor = [UIColor redColor];
-    [bgView addSubview:dutyTitle];
-    
-    UILabel *duty = [self addLabelWithFrame:CGRectMake(dutyTitle.right + 10, nameTitle.bottom + 10, 120, 20)
-                                       text:@"名字"
-                                      color:[UIColor blackColor]
-                                       font:[UIFont systemFontOfSize:14]];
-//    duty.backgroundColor = [UIColor greenColor];
-    [bgView addSubview:duty];
-    
-    //电话
-    UILabel *phoneTitle = [self addLabelWithFrame:CGRectMake(15, head.bottom + 5, 60, 20)
-                                            text:@"电话"
-                                           color:[UIColor blackColor]
-                                            font:[UIFont systemFontOfSize:14]];
-//    phoneTitle.backgroundColor = [UIColor redColor];
-    [bgView addSubview:phoneTitle];
-    
-    UILabel *phone = [self addLabelWithFrame:CGRectMake(phoneTitle.right + 10, phoneTitle.top, 180, 20)
-                                            text:@"1888888888"
-                                           color:[UIColor blackColor]
-                                            font:[UIFont systemFontOfSize:14]];
-//    phone.backgroundColor = [UIColor greenColor];
-    [bgView addSubview:phone];
-    //邮件
-    UILabel *emailTitle = [self addLabelWithFrame:CGRectMake(15, phoneTitle.bottom + 5, 60, 20)
-                                             text:@"邮件"
-                                            color:[UIColor blackColor]
-                                             font:[UIFont systemFontOfSize:14]];
-//    emailTitle.backgroundColor = [UIColor redColor];
-    [bgView addSubview:emailTitle];
-    
-    UILabel *email = [self addLabelWithFrame:CGRectMake(emailTitle.right + 10, emailTitle.top, 180, 20)
-                                        text:@"单位职务"
-                                       color:[UIColor blackColor]
-                                        font:[UIFont systemFontOfSize:14]];
-//    email.backgroundColor = [UIColor greenColor];
-    [bgView addSubview:email];
 }
 
 /*

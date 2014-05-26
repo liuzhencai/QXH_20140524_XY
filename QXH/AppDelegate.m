@@ -45,17 +45,11 @@
     meNav.delegate = tabController;
 
     [tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
-    
-    LoginViewController* login = [[LoginViewController alloc]init];
-    UINavigationController* loginnavigation = [[UINavigationController alloc]initWithRootViewController:login];
-    
-//    [tabController.view addSubview:login.view];
-    
-    self.window.rootViewController = loginnavigation;
-    
- 
-    
-    
+    self.window.rootViewController = tabController;
+
+//    LoginViewController* login = [[LoginViewController alloc]init];
+//    UINavigationController* loginnavigation = [[UINavigationController alloc]initWithRootViewController:login];
+//    self.window.rootViewController = loginnavigation;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilterTimeViewController : UIViewController
+@interface FilterTimeViewController : MyViewController
 
 @end
