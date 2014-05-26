@@ -145,6 +145,9 @@
 		21401DAD1919325900E9175B /* AddrListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DAB1919325900E9175B /* AddrListCell.xib */; };
 		21401DB11919326B00E9175B /* MyMsgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DAF1919326B00E9175B /* MyMsgCell.m */; };
 		21401DB21919326B00E9175B /* MyMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DB01919326B00E9175B /* MyMsgCell.xib */; };
+		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
+		2166CDF41933970500F0312E /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF31933970500F0312E /* UserInfoModel.m */; };
+		2166CDF619339A3400F0312E /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF519339A3400F0312E /* TabBarControl.m */; };
 		2192EBDD191BD54900A8FE7F /* MyCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2192EBDB191BD54900A8FE7F /* MyCardController.m */; };
 		2192EBDE191BD54900A8FE7F /* MyCardController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2192EBDC191BD54900A8FE7F /* MyCardController.xib */; };
 		2192EBE3191BD56400A8FE7F /* EditCardController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2192EBE1191BD56400A8FE7F /* EditCardController.xib */; };
@@ -211,7 +214,6 @@
 		21EDAD521926F68100C616CF /* MemberRuleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD501926F68100C616CF /* MemberRuleController.xib */; };
 		21EDAD561926F69500C616CF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD541926F69500C616CF /* SettingViewController.m */; };
 		21EDAD571926F69500C616CF /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD551926F69500C616CF /* SettingViewController.xib */; };
-		58163D98193237F6001B60FE /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D97193237F6001B60FE /* TabBarControl.m */; };
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
@@ -508,6 +510,11 @@
 		21401DAE1919326B00E9175B /* MyMsgCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMsgCell.h; sourceTree = "<group>"; };
 		21401DAF1919326B00E9175B /* MyMsgCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMsgCell.m; sourceTree = "<group>"; };
 		21401DB01919326B00E9175B /* MyMsgCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyMsgCell.xib; sourceTree = "<group>"; };
+		2166CDEF193396AE00F0312E /* ModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelGenerator.h; sourceTree = "<group>"; };
+		2166CDF0193396AE00F0312E /* ModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelGenerator.m; sourceTree = "<group>"; };
+		2166CDF21933970500F0312E /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = SOURCE_ROOT; };
+		2166CDF31933970500F0312E /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = SOURCE_ROOT; };
+		2166CDF519339A3400F0312E /* TabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarControl.m; sourceTree = "<group>"; };
 		2192EBDA191BD54900A8FE7F /* MyCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCardController.h; sourceTree = "<group>"; };
 		2192EBDB191BD54900A8FE7F /* MyCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCardController.m; sourceTree = "<group>"; };
 		2192EBDC191BD54900A8FE7F /* MyCardController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCardController.xib; sourceTree = "<group>"; };
@@ -610,7 +617,6 @@
 		21EDAD531926F69500C616CF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		21EDAD541926F69500C616CF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		21EDAD551926F69500C616CF /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
-		58163D97193237F6001B60FE /* TabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarControl.m; sourceTree = "<group>"; };
 		58163D9919323838001B60FE /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
@@ -976,6 +982,8 @@
 				2119EF091916837D007DBE68 /* HttpServiceEngine.m */,
 				21B793BE1921135A0033AFC3 /* HttpRequest.h */,
 				21B793BF1921135A0033AFC3 /* HttpRequest.m */,
+				2166CDEF193396AE00F0312E /* ModelGenerator.h */,
+				2166CDF0193396AE00F0312E /* ModelGenerator.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1067,6 +1075,8 @@
 		2119EF1719168634007DBE68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2166CDF21933970500F0312E /* UserInfoModel.h */,
+				2166CDF31933970500F0312E /* UserInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1558,7 +1568,7 @@
 				21BAC27D19308B3300409B9B /* CustomTabBarController.h */,
 				58163D9919323838001B60FE /* CustomTabBarController.m */,
 				21BAC27F19308B3300409B9B /* TabBarControl.h */,
-				21BAC28019308B3300409B9B /* TabBarControl.m */,
+				2166CDF519339A3400F0312E /* TabBarControl.m */,
 				84FCA850192CC1D50005295A /* CustomSegmentControl.h */,
 				84FCA851192CC1D50005295A /* CustomSegmentControl.m */,
 			);
@@ -1850,6 +1860,7 @@
 				21D705C51916A49F004950BF /* SquareCell.m in Sources */,
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
+				2166CDF619339A3400F0312E /* TabBarControl.m in Sources */,
 				212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */,
 				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,
 				2119EED5191682E6007DBE68 /* NSString+MKNetworkKitAdditions.m in Sources */,
@@ -1870,6 +1881,7 @@
 				2192EC0A191BD73700A8FE7F /* CityViewController.m in Sources */,
 				2119EEFE191682EC007DBE68 /* SDWebImageDownloader.m in Sources */,
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
+				2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */,
 				2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */,
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,
@@ -1878,9 +1890,7 @@
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,
 				2119EED6191682E6007DBE68 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				84F065EA192AFACD00B09AB5 /* ActivityViewController.m in Sources */,
-				21BAC28219308B3300409B9B /* TabBarControl.m in Sources */,
 				21D7059319169617004950BF /* SquareViewController.m in Sources */,
-				21BAC28119308B3300409B9B /* CustomTabBarController.m in Sources */,
 				842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */,
 				21D7059D191696D6004950BF /* InfluenceViewController.m in Sources */,
 				84F065F3192AFB0F00B09AB5 /* MyMessageCell.m in Sources */,
@@ -1900,6 +1910,7 @@
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
+				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
 				21401DA719192CD100E9175B /* TribeCell.m in Sources */,
 				58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */,
