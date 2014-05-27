@@ -13,13 +13,15 @@
  Network Connection Config 网络信息配置
  ********************************************/
 
-#define HOST_URL @"127.0.0.1"
+#define HOST_URL @"180.97.46.40:8070"
+
+#define SERVICE_URL @"qxh/mobile/qxhService.action"
 
 #define IMAGE_UPLOAD_URL @""
 
-#define SOCKET_SERVER @""
+#define SOCKET_SERVER @"180.97.46.40"
 
-#define SOCKET_PORT @""
+#define SOCKET_PORT @"9002"
 
 /*******************************************
  File Cached Directory 文件缓存目录

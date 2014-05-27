@@ -65,7 +65,7 @@ typedef void (^DictCallback) (NSMutableDictionary *dict);
 
 // 接口宏定义
 
-#define REQ_LATEST_VER_URL @""              // 获取最新版本号
+#define REQ_LATEST_VER_URL @"/qxh/mobile/qxhService.action"              // 获取最新版本号
 
 #define REQ_USR_INF_URL  @""                   // 获取用户信息
 

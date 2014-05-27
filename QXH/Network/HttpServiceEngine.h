@@ -39,17 +39,16 @@ typedef void (^DownloadProgressBlock)(double progress);
 /**
  *  发送数据
  *
- *  @param url         地址
  *  @param method      方法：GET/POST
  *  @param params      参数
  *  @param dataProcess 完成回调
  *  @param errorBlock  错误回调
  */
-- (void)sendDataWithUrl:(NSString *)url
-              andMethod:(NSString *)method
-                andData:(NSDictionary *)params
-      completionHandler:(DataProcessBlock)dataProcess
-           errorHandler:(MKNKErrorBlock) errorBlock;
+- (void)sendData:(NSDictionary *)params
+       andMethod:(NSString *)method
+completionHandler:(DataProcessBlock)dataProcess
+    errorHandler:(MKNKErrorBlock) errorBlock;
+
 
 /**
  *  上传图片

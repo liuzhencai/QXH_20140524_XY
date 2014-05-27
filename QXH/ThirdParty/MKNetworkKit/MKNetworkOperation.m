@@ -1477,7 +1477,8 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
         
         NSError *error = nil;
 //        id returnValue = [NSJSONSerialization JSONObjectWithData:[self responseData] options:options error:&error];
-//        NSString*jsonString = [[NSString alloc]initWithBytes:[self.responseData bytes]length:[self.responseData length] encoding:NSUTF8StringEncoding];
+        NSString*jsonString = [[NSString alloc]initWithBytes:[self.responseData bytes]length:[self.responseData length] encoding:NSUTF8StringEncoding];
+        NSLog(@"json:%@",jsonString);
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
         id returnValue = [jd objectWithData:self.responseData];
         if(error) {
