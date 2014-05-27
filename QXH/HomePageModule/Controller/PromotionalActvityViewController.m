@@ -58,12 +58,10 @@
     
     
     _mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
-    
     [self.view addSubview:_mainScroll];
     
     CGFloat tableHeight = 8 * HEIGHT_CELL + 100;
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, UI_SCREEN_WIDTH- 20, tableHeight + 5) style:UITableViewStylePlain];
-
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -73,7 +71,7 @@
     UIImageView *tableBgView = [[UIImageView alloc] initWithFrame:tableFrame];
     tableBgView.image = [UIImage imageNamed:@"label"];
     _mainTable.backgroundView = tableBgView;
-    [self.view addSubview:_mainTable];
+    [_mainScroll addSubview:_mainTable];
     
     UIButton *userRegister = [UIButton buttonWithType:UIButtonTypeCustom];
     userRegister.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _mainTable.bottom + 30, 220, 33);
@@ -83,25 +81,44 @@
     [userRegister setBackgroundImage:[UIImage imageNamed:@"btn_submit_normal"] forState:UIControlStateNormal];
     [userRegister setBackgroundImage:[UIImage imageNamed:@"btn_submit_highlight"] forState:UIControlStateHighlighted];
     [userRegister addTarget:self action:@selector(headImage:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:userRegister];
+    [_mainScroll addSubview:userRegister];
     
-//    _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake((UI_SCREEN_WIDTH - 160)/2.0, _mainTable.bottom + 30, 160, 100)];
-//    [self.view addSubview:_headImgView];
-//    
-//    _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _commitBtn.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _headImgView.bottom + 30, 220, 33);
-//    [_commitBtn setTitle:@"发布活动" forState:UIControlStateNormal];
-//    [_commitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [_commitBtn setBackgroundImage:[UIImage imageNamed:@"btn_submit_normal"] forState:UIControlStateNormal];
-//    [_commitBtn setBackgroundImage:[UIImage imageNamed:@"btn_submit_highlight"] forState:UIControlStateHighlighted];
-//    [_commitBtn addTarget:self action:@selector(headImage:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_commitBtn];
+    _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake((UI_SCREEN_WIDTH - 160)/2.0, _mainTable.bottom + 20, 160, 100)];
+    _headImgView.hidden = YES;
+//    _headImgView.backgroundColor = [UIColor greenColor];
+    [_mainScroll addSubview:_headImgView];
+    
+    _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _commitBtn.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _headImgView.bottom + 20, 220, 33);
+    _commitBtn.hidden = YES;
+    [_commitBtn setTitle:@"发布活动" forState:UIControlStateNormal];
+    [_commitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_commitBtn setBackgroundImage:[UIImage imageNamed:@"btn_submit_normal"] forState:UIControlStateNormal];
+    [_commitBtn setBackgroundImage:[UIImage imageNamed:@"btn_submit_highlight"] forState:UIControlStateHighlighted];
+    [_commitBtn addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
+    [_mainScroll addSubview:_commitBtn];
+    
+    _mainScroll.contentSize = CGSizeMake(UI_SCREEN_WIDTH, _uploadImageBtn.bottom + 20);
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)resetView{
+    _headImgView.hidden = NO;
+    _headImgView.image = self.headImage;
+    _commitBtn.hidden = NO;
+    _uploadImageBtn.hidden = YES;
+    _mainScroll.contentSize = CGSizeMake(UI_SCREEN_WIDTH, _commitBtn.bottom + 20);
+}
+
+- (void)submit:(UIButton *)sender{
+    NSLog(@"submit");
+    [self showAlert:@"成功发布"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)headImage:(UIButton *)sender{
@@ -379,6 +396,7 @@
         
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
+    [self resetView];
 }
 
 #pragma mark- 缩放图片
