@@ -63,6 +63,23 @@
     inActivityTable.dataSource = self;
     [self.view addSubview:inActivityTable];
     
+    //获取活动列表
+//    {
+//    opercode:"0125",
+//    userid:"1234565",		//用户唯一标识
+//    token:"ab123456789"		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//    start:"10",			//起始消息的artid，不填写该字段读取最新消息n个
+//    direction:"before",		//方向 before获取start消息之前的n条,after获取start消息之后的n调
+//    count:"20",			//获取消息数量
+//    actname:"活动名称",		//活动名称
+//    tags:"标签，标签"，		//不同标签之间用逗号隔开
+//    district:"130400",		//地域信息
+//    canjoin:"0"			//0为全部活动，1为可加入报名的活动,2为已参加的活动
+//    }
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+    [HttpRequest requestActivityListWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"返回值:%@",dict);
+    }];
 }
 
 - (void)didReceiveMemoryWarning

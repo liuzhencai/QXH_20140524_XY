@@ -113,26 +113,6 @@
             cell = [[NameCardTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierTitle];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
-            
-//            UIButton *_addFriend = [UIButton buttonWithType:UIButtonTypeCustom];
-//            _addFriend.frame = CGRectMake(20, 125, 130, 44);
-//            _addFriend.tag = 300;
-//            [_addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
-//            [_addFriend setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//            [_addFriend setBackgroundImage:[UIImage imageNamed:@"btn_enroll_normal"] forState:UIControlStateNormal];
-//            [_addFriend setBackgroundImage:[UIImage imageNamed:@"btn_enroll_highlight"] forState:UIControlStateHighlighted];
-//            [_addFriend addTarget:self action:@selector(addFriendOrForwardCard:) forControlEvents:UIControlEventTouchUpInside];
-//            [cell.contentView addSubview:_addFriend];
-//            
-//            UIButton *_forwardCard = [UIButton buttonWithType:UIButtonTypeCustom];
-//            _forwardCard.frame = CGRectMake(170, 125, 130, 44);
-//            _forwardCard.tag = 101;
-//            [_forwardCard setTitle:@"转发名片" forState:UIControlStateNormal];
-//            [_forwardCard setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//            [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_normal"] forState:UIControlStateNormal];
-//            [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_highlight"] forState:UIControlStateHighlighted];
-//            [_forwardCard addTarget:self action:@selector(addFriendOrForwardCard:) forControlEvents:UIControlEventTouchUpInside];
-//            [cell.contentView addSubview:_forwardCard];
         }
         return cell;
     }else{
@@ -185,14 +165,21 @@
     }
 }
 
-- (void)addFriendOrForwardCard:(UIButton *)sender{
-    NSLog(@"add friend or forward card");
-}
-
 #pragma mark - NameCardTitleDelegate
 - (void)didSelectButtonWithIndex:(int)index{
     NSLog(@"选择： %d",index);
     if (index == 1) {
+//        {
+//        opercode:"0108",
+//        userid:"1234565",		//用户唯一标识
+//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//        targetid:"123456",		//被处理的加入成员的userid
+//        mess:"我是某某莫"		//好友请求验证消息
+//        }
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+        [HttpRequest requestAddFriendWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"返回值%@",dict);
+        }];
         [self showAlert:@"已发出好友申请"];
     }else{
         [self showAlert:@"转发名片"];

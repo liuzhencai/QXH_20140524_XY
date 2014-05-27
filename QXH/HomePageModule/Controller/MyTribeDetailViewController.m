@@ -73,8 +73,39 @@
 - (void)exitTribe:(UIButton *)sender{
     NSLog(@"exit tribe");
     if (self.isCreatDetail) {
+//        {
+//        opercode:"0112",
+//        userid:"1234565",		//用户唯一标识
+//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//        tribename:"部落名称",		//部落名称
+//        signature:"部落签名",		//部落签名
+//        desc:"部落描述",		//部落描述
+//        condition:"加入条件",		//加入条件
+//        purpose:"宗旨",			//宗旨
+//        rule:"章程",			//章程
+//        tags:"标签，标签"，		//不同标签之间用逗号隔开
+//        district:"130400",		//地域信息
+//        maxcount:"30",			//最多人数
+//        members:"123,456,789"		//部落成员，成员(userid)之间以逗号隔开
+//        }
+        //创建部落
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+        [HttpRequest createTribeWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"返回值:%@",dict);
+        }];
         [self showAlert:@"部落创建成功"];
     }else{
+//        {
+//        opercode:"0118",
+//        userid:"1234565",		//用户唯一标识
+//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//        tribeid:"123444"		//部落唯一标示
+//        }
+        //退出部落
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+        [HttpRequest quitTribeWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"返回值:%@",dict);
+        }];
         [self showAlert:@"您已退出本部落"];
     }
 }
@@ -140,7 +171,9 @@
         }
             break;
         case 1:{//选择秘书长
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            if (self.isCreatDetail) {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
         }
             break;
         case 2:{//头像

@@ -307,6 +307,9 @@
 		84FCA85F192CC45F0005295A /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCA85A192CC45F0005295A /* HistoryCell.xib */; };
 		84FCA860192CC45F0005295A /* SquareCellEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FCA85C192CC45F0005295A /* SquareCellEx.m */; };
 		84FCA861192CC45F0005295A /* SquareCellEx.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCA85D192CC45F0005295A /* SquareCellEx.xib */; };
+		88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F2319341DF000734AE1 /* TribeInfoModel.m */; };
+		88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F26193425C300734AE1 /* MemberInfoModel.m */; };
+		88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F69193433B000734AE1 /* ActivityInfoModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -755,6 +758,12 @@
 		84FCA85B192CC45F0005295A /* SquareCellEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCellEx.h; sourceTree = "<group>"; };
 		84FCA85C192CC45F0005295A /* SquareCellEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCellEx.m; sourceTree = "<group>"; };
 		84FCA85D192CC45F0005295A /* SquareCellEx.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareCellEx.xib; sourceTree = "<group>"; };
+		88EE4F2219341DF000734AE1 /* TribeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeInfoModel.h; sourceTree = SOURCE_ROOT; };
+		88EE4F2319341DF000734AE1 /* TribeInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeInfoModel.m; sourceTree = SOURCE_ROOT; };
+		88EE4F25193425C300734AE1 /* MemberInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberInfoModel.h; sourceTree = SOURCE_ROOT; };
+		88EE4F26193425C300734AE1 /* MemberInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberInfoModel.m; sourceTree = SOURCE_ROOT; };
+		88EE4F68193433B000734AE1 /* ActivityInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityInfoModel.h; sourceTree = SOURCE_ROOT; };
+		88EE4F69193433B000734AE1 /* ActivityInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityInfoModel.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1106,43 +1115,18 @@
 		2119EF191916863E007DBE68 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				58B8716F192F77DE00EB730D /* ShareToTribeViewController.h */,
-				58B87170192F77DE00EB730D /* ShareToTribeViewController.m */,
-				848426B1192E130400C9474A /* MyTribeDetailViewController.h */,
-				848426B2192E130400C9474A /* MyTribeDetailViewController.m */,
-				84842698192E0D0100C9474A /* SelectTribeViewController.h */,
-				84842699192E0D0100C9474A /* SelectTribeViewController.m */,
-				8484269A192E0D0100C9474A /* TribeDetailViewController.h */,
-				8484269B192E0D0100C9474A /* TribeDetailViewController.m */,
-				8484269C192E0D0100C9474A /* TribeDynamicViewController.h */,
-				8484269D192E0D0100C9474A /* TribeDynamicViewController.m */,
+				88EE4F6D1934614800734AE1 /* FindPeople */,
+				88EE4F6C1934613D00734AE1 /* Activity */,
+				88EE4F6B1934613400734AE1 /* Tribe */,
 				84FCA853192CC43F0005295A /* HistoryReviewController.h */,
 				84FCA854192CC43F0005295A /* HistoryReviewController.m */,
 				84FCA855192CC43F0005295A /* HistoryReviewController.xib */,
-				84F065DD192AFACD00B09AB5 /* ActivityDetailViewController.h */,
-				84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */,
-				84F065DF192AFACD00B09AB5 /* ActivityViewController.h */,
-				84F065E0192AFACD00B09AB5 /* ActivityViewController.m */,
-				84F065E1192AFACD00B09AB5 /* FilterTimeViewController.h */,
-				84F065E2192AFACD00B09AB5 /* FilterTimeViewController.m */,
-				58B1DE9E192B92F300086C38 /* FilterViewController.h */,
-				58B1DE9F192B92F300086C38 /* FilterViewController.m */,
-				84F065E3192AFACD00B09AB5 /* FindPeopleViewController.h */,
-				84F065E4192AFACD00B09AB5 /* FindPeopleViewController.m */,
-				84F065E5192AFACD00B09AB5 /* FindResultViewController.h */,
-				84F065E6192AFACD00B09AB5 /* FindResultViewController.m */,
-				84F065E7192AFACD00B09AB5 /* PromotionalActvityViewController.h */,
-				84F065E8192AFACD00B09AB5 /* PromotionalActvityViewController.m */,
 				2119EF21191686C2007DBE68 /* HomePageController.h */,
 				2119EF22191686C2007DBE68 /* HomePageController.m */,
 				2119EF23191686C2007DBE68 /* HomePageController.xib */,
 				21D7058619169562004950BF /* OneDreamController.h */,
 				21D7058719169562004950BF /* OneDreamController.m */,
 				21D7058819169562004950BF /* OneDreamController.xib */,
-				58B1DEB2192BA02C00086C38 /* TribeController.h */,
-				58B1DEB3192BA02C00086C38 /* TribeController.m */,
-				58B1DEB8192BA9DF00086C38 /* CreatTribeViewController.h */,
-				58B1DEB9192BA9DF00086C38 /* CreatTribeViewController.m */,
 				21D7059019169617004950BF /* SquareViewController.h */,
 				21D7059119169617004950BF /* SquareViewController.m */,
 				21D7059219169617004950BF /* SquareViewController.xib */,
@@ -1171,6 +1155,10 @@
 		2119EF1A1916863E007DBE68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88EE4F2219341DF000734AE1 /* TribeInfoModel.h */,
+				88EE4F2319341DF000734AE1 /* TribeInfoModel.m */,
+				88EE4F68193433B000734AE1 /* ActivityInfoModel.h */,
+				88EE4F69193433B000734AE1 /* ActivityInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1261,6 +1249,8 @@
 		2119EF1F19168683007DBE68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88EE4F25193425C300734AE1 /* MemberInfoModel.h */,
+				88EE4F26193425C300734AE1 /* MemberInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1575,6 +1565,55 @@
 			path = "自定义控件";
 			sourceTree = "<group>";
 		};
+		88EE4F6B1934613400734AE1 /* Tribe */ = {
+			isa = PBXGroup;
+			children = (
+				58B1DEB2192BA02C00086C38 /* TribeController.h */,
+				58B1DEB3192BA02C00086C38 /* TribeController.m */,
+				58B1DEB8192BA9DF00086C38 /* CreatTribeViewController.h */,
+				58B1DEB9192BA9DF00086C38 /* CreatTribeViewController.m */,
+				58B8716F192F77DE00EB730D /* ShareToTribeViewController.h */,
+				58B87170192F77DE00EB730D /* ShareToTribeViewController.m */,
+				848426B1192E130400C9474A /* MyTribeDetailViewController.h */,
+				848426B2192E130400C9474A /* MyTribeDetailViewController.m */,
+				8484269A192E0D0100C9474A /* TribeDetailViewController.h */,
+				8484269B192E0D0100C9474A /* TribeDetailViewController.m */,
+				8484269C192E0D0100C9474A /* TribeDynamicViewController.h */,
+				8484269D192E0D0100C9474A /* TribeDynamicViewController.m */,
+			);
+			name = Tribe;
+			sourceTree = "<group>";
+		};
+		88EE4F6C1934613D00734AE1 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				84842698192E0D0100C9474A /* SelectTribeViewController.h */,
+				84842699192E0D0100C9474A /* SelectTribeViewController.m */,
+				84F065DD192AFACD00B09AB5 /* ActivityDetailViewController.h */,
+				84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */,
+				84F065DF192AFACD00B09AB5 /* ActivityViewController.h */,
+				84F065E0192AFACD00B09AB5 /* ActivityViewController.m */,
+				84F065E1192AFACD00B09AB5 /* FilterTimeViewController.h */,
+				84F065E2192AFACD00B09AB5 /* FilterTimeViewController.m */,
+				58B1DE9E192B92F300086C38 /* FilterViewController.h */,
+				58B1DE9F192B92F300086C38 /* FilterViewController.m */,
+				84F065E7192AFACD00B09AB5 /* PromotionalActvityViewController.h */,
+				84F065E8192AFACD00B09AB5 /* PromotionalActvityViewController.m */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		88EE4F6D1934614800734AE1 /* FindPeople */ = {
+			isa = PBXGroup;
+			children = (
+				84F065E3192AFACD00B09AB5 /* FindPeopleViewController.h */,
+				84F065E4192AFACD00B09AB5 /* FindPeopleViewController.m */,
+				84F065E5192AFACD00B09AB5 /* FindResultViewController.h */,
+				84F065E6192AFACD00B09AB5 /* FindResultViewController.m */,
+			);
+			name = FindPeople;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1834,6 +1873,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
+				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
@@ -1867,6 +1907,7 @@
 				210BAEDD192A5B3E00B8FBCF /* MyVisitorController.m in Sources */,
 				21D7059819169674004950BF /* EverydayAskController.m in Sources */,
 				84F06609192B2F1100B09AB5 /* ChatController.m in Sources */,
+				88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */,
 				2119EF00191682EC007DBE68 /* SDWebImageManager.m in Sources */,
 				21D705CE1916A7C1004950BF /* PortraitView.m in Sources */,
 				58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */,
@@ -1941,6 +1982,7 @@
 				58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */,
 				21D705CA1916A60B004950BF /* AskCell.m in Sources */,
 				21D7057F19169169004950BF /* PersonalInfoController.m in Sources */,
+				88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */,
 				58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */,
 				21EDAD561926F69500C616CF /* SettingViewController.m in Sources */,
 				2119EEB2191682DB007DBE68 /* JSONKit.m in Sources */,
