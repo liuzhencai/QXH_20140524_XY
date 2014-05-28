@@ -155,18 +155,18 @@ static HttpServiceEngine *httpEngine;
 
 }
 
-- (void)sendDataWithUrl:(NSString *)url andMethod:(NSString *)method andData:(NSDictionary *)params completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock) errorBlock
+- (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock) errorBlock
 {
     __block __weak MKNetworkOperation *op = nil;
     if (params == nil) {
         //        op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
-        op = [self operationWithPath:url params:params httpMethod:method];
+        op = [self operationWithPath:SERVICE_URL params:params httpMethod:method];
     }else{
         if ([method isEqualToString:@"GET"]) {
-            op = [self operationWithPath:[self mergeUrl:url andParams:params]];
+            op = [self operationWithPath:[self mergeUrl:SERVICE_URL andParams:params]];
         }else{
             //            op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
-            op = [self operationWithPath:url params:params httpMethod:method];
+            op = [self operationWithPath:SERVICE_URL params:params httpMethod:method];
         }
     }
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {

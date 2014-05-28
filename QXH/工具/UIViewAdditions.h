@@ -102,6 +102,10 @@
 
 //- (NIAttributedLabel *)addAtrtibutedLabelWithFrame:(CGRect)frame text:(NSString *)text color:(UIColor *)color;
 - (UILabel *)addLabelWithFrame:(CGRect)frame text:(NSString *)text color:(UIColor *)color;
+- (UILabel *)addLabelWithFrame:(CGRect)frame
+                          text:(NSString *)text
+                         color:(UIColor *)color
+                          font:(UIFont *)font;
 - (UIImageView *)addImageViewWithFrame:(CGRect)frame imageName:(UIImage *)imageName;
 - (UIButton *)addButtonWithFrame:(CGRect)frame withTitle:(NSString *)title withTitleColor:(UIColor *)color;
 @end

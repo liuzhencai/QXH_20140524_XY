@@ -80,6 +80,22 @@
     //    self.searchDC.searchResultsDataSource = self;
     //    self.searchDC.searchResultsDelegate = self;
     
+    
+    //网络请求
+//    {
+//    opercode:"0107",		//operCode为0107，客户端通过该字段确定事件
+//    userid:"666666",		//用户唯一标识
+//    token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//    type:"1",			//1为获取好友列表，2为搜索
+//    address:"籍贯编码",		//籍贯编码
+//    domicile:"居住地编码",		//居住地编码
+//    displayname:"张三",		//昵称
+//    }
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];//@{@"opercode":@"0200"}
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"返回值:%@",dict);
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning

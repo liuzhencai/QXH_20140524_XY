@@ -101,6 +101,20 @@
 #pragma mark - CustomSegmentControlDelegate
 - (void)segmentClicked:(NSInteger)index{
     NSLog(@"segment clicked:%d",index);
+    if (index == 2) {
+//        {
+//        opercode:"0117
+//        userid:"1234565",		//用户唯一标识
+//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//        tribeid:"123444"		//部落唯一标示
+//        }
+        //请求部落成员列表
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+            NSLog(@"返回值:%@",dict);
+        }];
+        
+    }
     NSInteger tag = CONVERSATION_TABLE_TAG + index;
     UIView* table = (UIView*)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];

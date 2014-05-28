@@ -7,8 +7,6 @@
 //
 
 #import "HomePageController.h"
-//#import "ActivityController.h"
-//#import "FindPeopleController.h"
 #import "OneDreamController.h"
 #import "SquareViewController.h"
 #import "EverydayAskController.h"

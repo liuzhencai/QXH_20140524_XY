@@ -16,7 +16,6 @@
 
 #import "CustomTabBarController.h"
 
-
 @implementation AppDelegate
 
 @synthesize tabController;
@@ -24,6 +23,11 @@
 - (void)loadPages
 {
 
+    NSDictionary *param = @{@"opercode": @"0104",@"platform":@"2",@"version":@"1.1"};
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"dict:%@",dict);
+    }];
+    
     tabController = [[CustomTabBarController alloc]init];
 
     // 添加主页导航控制器

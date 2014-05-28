@@ -1008,6 +1008,7 @@
  *  @param params   参数列表
  *  @param callback 响应回调
  */
-+ (void)shareContentWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
+
++ (void)requestWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
 
 @end

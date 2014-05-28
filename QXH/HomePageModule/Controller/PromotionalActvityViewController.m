@@ -7,8 +7,12 @@
 //
 
 #import "PromotionalActvityViewController.h"
+#import "DatePickerView.h"
+
 
 @interface PromotionalActvityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@property (nonatomic, strong) UIScrollView *mainScroll;
+
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
 
@@ -25,6 +29,9 @@
 @property (nonatomic, strong) UILabel *limitCount;//报名截止时间
 
 @property (nonatomic, strong) UIImage *headImage;//头像
+@property (nonatomic, strong) UIImageView *headImgView;//头像
+@property (nonatomic, strong) UIButton *uploadImageBtn;//上传图片
+@property (nonatomic, strong) UIButton *commitBtn;//提交按钮
 
 @end
 
@@ -51,10 +58,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
+    
+    _mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
+    [self.view addSubview:_mainScroll];
+    
     CGFloat tableHeight = 8 * HEIGHT_CELL + 100;
-//    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT) style:UITableViewStylePlain];
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, UI_SCREEN_WIDTH- 20, tableHeight + 5) style:UITableViewStylePlain];
-
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -64,23 +73,54 @@
     UIImageView *tableBgView = [[UIImageView alloc] initWithFrame:tableFrame];
     tableBgView.image = [UIImage imageNamed:@"label"];
     _mainTable.backgroundView = tableBgView;
-    [self.view addSubview:_mainTable];
+    [_mainScroll addSubview:_mainTable];
     
     UIButton *userRegister = [UIButton buttonWithType:UIButtonTypeCustom];
     userRegister.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _mainTable.bottom + 30, 220, 33);
+    self.uploadImageBtn = userRegister;
     [userRegister setTitle:@"上传头像" forState:UIControlStateNormal];
     [userRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [userRegister setBackgroundImage:[UIImage imageNamed:@"btn_submit_normal"] forState:UIControlStateNormal];
     [userRegister setBackgroundImage:[UIImage imageNamed:@"btn_submit_highlight"] forState:UIControlStateHighlighted];
     [userRegister addTarget:self action:@selector(headImage:) forControlEvents:UIControlEventTouchUpInside];
-//    userRegister.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.view addSubview:userRegister];
+    [_mainScroll addSubview:userRegister];
+    
+    _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake((UI_SCREEN_WIDTH - 160)/2.0, _mainTable.bottom + 20, 160, 100)];
+    _headImgView.hidden = YES;
+//    _headImgView.backgroundColor = [UIColor greenColor];
+    [_mainScroll addSubview:_headImgView];
+    
+    _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _commitBtn.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _headImgView.bottom + 20, 220, 33);
+    _commitBtn.hidden = YES;
+    [_commitBtn setTitle:@"发布活动" forState:UIControlStateNormal];
+    [_commitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_commitBtn setBackgroundImage:[UIImage imageNamed:@"btn_submit_normal"] forState:UIControlStateNormal];
+    [_commitBtn setBackgroundImage:[UIImage imageNamed:@"btn_submit_highlight"] forState:UIControlStateHighlighted];
+    [_commitBtn addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
+    [_mainScroll addSubview:_commitBtn];
+    
+    _mainScroll.contentSize = CGSizeMake(UI_SCREEN_WIDTH, _uploadImageBtn.bottom + 20);
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)resetView{
+    _headImgView.hidden = NO;
+    _headImgView.image = self.headImage;
+    _commitBtn.hidden = NO;
+    _uploadImageBtn.hidden = YES;
+    _mainScroll.contentSize = CGSizeMake(UI_SCREEN_WIDTH, _commitBtn.bottom + 20);
+}
+
+- (void)submit:(UIButton *)sender{
+    NSLog(@"submit");
+    [self showAlert:@"成功发布"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)headImage:(UIButton *)sender{
@@ -282,10 +322,64 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%@",indexPath);
+    NSLog(@"%d",indexPath.row);
+    
+    switch (indexPath.row) {
+        case 4:{//开始时间
+            DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.datePickerBlock = ^(NSString *dateString){
+                NSLog(@"选择时间：%@",dateString);
+                self.startTime.text = dateString;
+            };
+            [self.view addSubview:datePicker];
+            [datePicker pickerShow];
+        }
+            break;
+        case 5:{//结束时间
+            DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.datePickerBlock = ^(NSString *dateString){
+                NSLog(@"选择时间：%@",dateString);
+                self.endTime.text = dateString;
+            };
+            [self.view addSubview:datePicker];
+            [datePicker pickerShow];
+        }
+            break;
+        case 6:{//活动类型
+            
+        }
+            break;
+        case 7:{//报名截止时间
+            DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.datePickerBlock = ^(NSString *dateString){
+                NSLog(@"选择时间：%@",dateString);
+                self.cutOffTime.text = dateString;
+            };
+            [self.view addSubview:datePicker];
+            [datePicker pickerShow];
+        }
+            break;
+        case 8:{//人数限制
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 - (UITextField *)addTextFieldWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder{
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 //    textField.textAlignment = NSTextAlignmentRight;
@@ -358,6 +452,7 @@
         
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
+    [self resetView];
 }
 
 #pragma mark- 缩放图片

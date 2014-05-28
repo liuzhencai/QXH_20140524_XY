@@ -518,6 +518,21 @@ CGFloat demoRGInnerRadius(CGRect bounds){
     return label;
 }
 
+- (UILabel *)addLabelWithFrame:(CGRect)frame
+                          text:(NSString *)text
+                         color:(UIColor *)color
+                          font:(UIFont *)font
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = font;
+    label.text = text;
+    if (color) {
+        label.textColor = color;
+    }
+    return label;
+}
+
 - (UIImageView *)addImageViewWithFrame:(CGRect)frame imageName:(UIImage *)imageName
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];

@@ -81,6 +81,26 @@
     //    self.searchDC = [[[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self] autorelease];
     //    self.searchDC.searchResultsDataSource = self;
     //    self.searchDC.searchResultsDelegate = self;
+    
+    //网络请求
+//    {
+//    opercode:"0111",
+//    userid:"1234565",		//用户唯一标识
+//    token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//    type:"1",			//1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
+//    tribename:"部落名称",		//部落名称
+//    signature:"部落签名",		//部落签名
+//    desc:"部落描述",		//部落描述
+//    condition:"加入条件",		//加入条件
+//    purpose:"宗旨",			//宗旨
+//    rule:"章程",			//章程
+//    tags:"标签，标签"，		//不同标签之间用逗号隔开
+//    district:"130400",		//地域信息
+//    }
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"返回值:%@",dict);
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -213,6 +233,14 @@
         [self.navigationController pushViewController:tribeDynamic animated:YES];
     }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
+//        {
+//        opercode:"0114",
+//        userid:"1234565",		//用户唯一标识
+//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//        tribeid:"123444"		//部落唯一标示
+//        }
+        
+        
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
         [self.navigationController pushViewController:detail animated:YES];
     }

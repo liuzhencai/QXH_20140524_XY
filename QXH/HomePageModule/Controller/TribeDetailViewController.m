@@ -57,6 +57,16 @@
 
 - (void)applyJoinTribe:(UIButton *)sender{
     NSLog(@"申请加入部落");
+//    {
+//    opercode:"0115",
+//    userid:"1234565",		//用户唯一标识
+//    token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//    tribeid:"123444"		//部落唯一标示
+//    }
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"返回值:%@",dict);
+    }];
     [self showAlert:@"已经发出申请"];
 }
 
