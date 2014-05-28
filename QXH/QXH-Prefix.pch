@@ -17,6 +17,8 @@
 #import "config.h"
 #import "UIViewAdditions.h"
 #import "MyViewController.h"
+#import "Base64.h"
+#import "GTMBase64.h"
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 

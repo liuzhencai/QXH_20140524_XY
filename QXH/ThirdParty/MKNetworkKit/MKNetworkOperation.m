@@ -1476,11 +1476,10 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         NSError *error = nil;
-//        id returnValue = [NSJSONSerialization JSONObjectWithData:[self responseData] options:options error:&error];
         NSString*jsonString = [[NSString alloc]initWithBytes:[self.responseData bytes]length:[self.responseData length] encoding:NSUTF8StringEncoding];
-        NSLog(@"json:%@",jsonString);
+        NSLog(@"\n++++++++++++++++++++++++++++++++++++++++服务器返回JSON++++++++++++++++++++++++++++++++++++++++:%@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",jsonString);
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
-        id returnValue = [jd objectWithData:self.responseData];
+        id returnValue = [jd objectWithData:[GTMBase64 decodeData:self.responseData]];
         if(error) {
             DLog(@"JSON Parsing Error: %@", error);
             jsonDecompressionHandler(nil);
