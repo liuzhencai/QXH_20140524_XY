@@ -7,6 +7,8 @@
 //
 
 #import "PromotionalActvityViewController.h"
+#import "DatePickerView.h"
+
 
 @interface PromotionalActvityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic, strong) UIScrollView *mainScroll;
@@ -320,10 +322,64 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%@",indexPath);
+    NSLog(@"%d",indexPath.row);
+    
+    switch (indexPath.row) {
+        case 4:{//开始时间
+            DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.datePickerBlock = ^(NSString *dateString){
+                NSLog(@"选择时间：%@",dateString);
+                self.startTime.text = dateString;
+            };
+            [self.view addSubview:datePicker];
+            [datePicker pickerShow];
+        }
+            break;
+        case 5:{//结束时间
+            DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.datePickerBlock = ^(NSString *dateString){
+                NSLog(@"选择时间：%@",dateString);
+                self.endTime.text = dateString;
+            };
+            [self.view addSubview:datePicker];
+            [datePicker pickerShow];
+        }
+            break;
+        case 6:{//活动类型
+            
+        }
+            break;
+        case 7:{//报名截止时间
+            DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.datePickerBlock = ^(NSString *dateString){
+                NSLog(@"选择时间：%@",dateString);
+                self.cutOffTime.text = dateString;
+            };
+            [self.view addSubview:datePicker];
+            [datePicker pickerShow];
+        }
+            break;
+        case 8:{//人数限制
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 - (UITextField *)addTextFieldWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder{
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 //    textField.textAlignment = NSTextAlignmentRight;

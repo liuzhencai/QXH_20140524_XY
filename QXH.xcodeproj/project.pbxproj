@@ -307,6 +307,8 @@
 		84FCA85F192CC45F0005295A /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCA85A192CC45F0005295A /* HistoryCell.xib */; };
 		84FCA860192CC45F0005295A /* SquareCellEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FCA85C192CC45F0005295A /* SquareCellEx.m */; };
 		84FCA861192CC45F0005295A /* SquareCellEx.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCA85D192CC45F0005295A /* SquareCellEx.xib */; };
+		88347ECE1935D6F100D60193 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ECD1935D6F100D60193 /* DatePickerView.m */; };
+		88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ED01935DB3C00D60193 /* InActivityCell.m */; };
 		88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F2319341DF000734AE1 /* TribeInfoModel.m */; };
 		88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F26193425C300734AE1 /* MemberInfoModel.m */; };
 		88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F69193433B000734AE1 /* ActivityInfoModel.m */; };
@@ -758,6 +760,10 @@
 		84FCA85B192CC45F0005295A /* SquareCellEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCellEx.h; sourceTree = "<group>"; };
 		84FCA85C192CC45F0005295A /* SquareCellEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCellEx.m; sourceTree = "<group>"; };
 		84FCA85D192CC45F0005295A /* SquareCellEx.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareCellEx.xib; sourceTree = "<group>"; };
+		88347ECC1935D6F100D60193 /* DatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerView.h; sourceTree = "<group>"; };
+		88347ECD1935D6F100D60193 /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
+		88347ECF1935DB3C00D60193 /* InActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InActivityCell.h; sourceTree = "<group>"; };
+		88347ED01935DB3C00D60193 /* InActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InActivityCell.m; sourceTree = "<group>"; };
 		88EE4F2219341DF000734AE1 /* TribeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeInfoModel.h; sourceTree = SOURCE_ROOT; };
 		88EE4F2319341DF000734AE1 /* TribeInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeInfoModel.m; sourceTree = SOURCE_ROOT; };
 		88EE4F25193425C300734AE1 /* MemberInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1213,6 +1219,8 @@
 				58B87179192FA57100EB730D /* TribeQuestionCell.m */,
 				58B8717B192FABF100EB730D /* TribeConversationCell.h */,
 				58B8717C192FABF100EB730D /* TribeConversationCell.m */,
+				88347ECF1935DB3C00D60193 /* InActivityCell.h */,
+				88347ED01935DB3C00D60193 /* InActivityCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1561,6 +1569,8 @@
 				2166CDF519339A3400F0312E /* TabBarControl.m */,
 				84FCA850192CC1D50005295A /* CustomSegmentControl.h */,
 				84FCA851192CC1D50005295A /* CustomSegmentControl.m */,
+				88347ECC1935D6F100D60193 /* DatePickerView.h */,
+				88347ECD1935D6F100D60193 /* DatePickerView.m */,
 			);
 			path = "自定义控件";
 			sourceTree = "<group>";
@@ -1942,8 +1952,10 @@
 				2119EED3191682E6007DBE68 /* NSDate+RFC1123.m in Sources */,
 				2119EED4191682E6007DBE68 /* NSDictionary+RequestEncoding.m in Sources */,
 				2119EEF9191682EC007DBE68 /* MKAnnotationView+WebCache.m in Sources */,
+				88347ECE1935D6F100D60193 /* DatePickerView.m in Sources */,
 				842D3C93192AF7F100374F04 /* UserRegisterViewController.m in Sources */,
 				21EDAD511926F68100C616CF /* MemberRuleController.m in Sources */,
+				88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */,
 				2119EED7191682E6007DBE68 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				21401DB11919326B00E9175B /* MyMsgCell.m in Sources */,
 				84F065F4192AFB0F00B09AB5 /* PeocelCell.m in Sources */,

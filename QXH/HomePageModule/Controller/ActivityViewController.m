@@ -13,6 +13,7 @@
 #import "SelectTribeViewController.h"
 #import "FilterTimeViewController.h"
 #import "CustomSegmentControl.h"
+#import "InActivityCell.h"
 
 @interface ActivityViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
@@ -77,7 +78,7 @@
 //    canjoin:"0"			//0为全部活动，1为可加入报名的活动,2为已参加的活动
 //    }
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-    [HttpRequest requestActivityListWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"返回值:%@",dict);
     }];
 }
@@ -124,6 +125,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (IN_THE_ACTIVITY_TAG) {
+        return 230;
+    }
     return 220;
 }
 
@@ -144,10 +148,11 @@
         cell = activeEndCell;
     }else if (tableView.tag == IN_THE_ACTIVITY_TAG) {
         static NSString *myMsgIdentifier = @"activingIdentifier";
-        ActivityCell *activityingCell = nil;
+        InActivityCell *activityingCell = nil;
         activityingCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
         if (!activityingCell) {
-            activityingCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+            activityingCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
+//            activityingCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
         }
         activityingCell.statusLabel.text = @"进行中";
         cell = activityingCell;

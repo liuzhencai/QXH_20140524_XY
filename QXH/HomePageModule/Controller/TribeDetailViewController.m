@@ -64,7 +64,7 @@
 //    tribeid:"123444"		//部落唯一标示
 //    }
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-    [HttpRequest requestJoinTribeWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"返回值:%@",dict);
     }];
     [self showAlert:@"已经发出申请"];

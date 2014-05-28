@@ -90,7 +90,7 @@
 //        }
         //创建部落
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest createTribeWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
             NSLog(@"返回值:%@",dict);
         }];
         [self showAlert:@"部落创建成功"];
@@ -103,7 +103,7 @@
 //        }
         //退出部落
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest quitTribeWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
             NSLog(@"返回值:%@",dict);
         }];
         [self showAlert:@"您已退出本部落"];

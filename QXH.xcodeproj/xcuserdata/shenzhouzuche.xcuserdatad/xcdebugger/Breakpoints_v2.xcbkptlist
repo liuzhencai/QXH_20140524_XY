@@ -30,39 +30,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "+getFriendWithParams:andCompletionHandler:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[HttpRequest getFriendWithParams:andCompletionHandler:]"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/Network/HttpRequest.m"
-                  timestampString = "422932667.904654"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "95">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__56+[HttpRequest getFriendWithParams:andCompletionHandler:]_block_invoke"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/Network/HttpRequest.m"
-                  timestampString = "422932667.904833"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "66">
-               </Location>
-            </Locations>
+            endingLineNumber = "55">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

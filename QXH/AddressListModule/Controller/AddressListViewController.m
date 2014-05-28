@@ -92,8 +92,8 @@
 //    displayname:"张三",		//昵称
 //    }
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];//@{@"opercode":@"0200"}
-    [HttpRequest getFriendWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"返回值：%@",dict);
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"返回值:%@",dict);
     }];
     
 }

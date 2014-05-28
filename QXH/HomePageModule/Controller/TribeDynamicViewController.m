@@ -110,7 +110,7 @@
 //        }
         //请求部落成员列表
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest requestTribeMemberWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
             NSLog(@"返回值:%@",dict);
         }];
         

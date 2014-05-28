@@ -177,8 +177,8 @@
 //        mess:"我是某某莫"		//好友请求验证消息
 //        }
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest requestAddFriendWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"返回值%@",dict);
+        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+            NSLog(@"返回值:%@",dict);
         }];
         [self showAlert:@"已发出好友申请"];
     }else{

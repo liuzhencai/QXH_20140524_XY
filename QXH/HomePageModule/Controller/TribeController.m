@@ -98,7 +98,7 @@
 //    district:"130400",		//地域信息
 //    }
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-    [HttpRequest requestTribeListWithParams:params andCompletionHandler:^(NSMutableDictionary *dict){
+    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"返回值:%@",dict);
     }];
 }
