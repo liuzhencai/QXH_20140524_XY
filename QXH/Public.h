@@ -21,7 +21,14 @@
 
 #define SOCKET_SERVER @"180.97.46.40"
 
-#define SOCKET_PORT @"9002"
+#define SOCKET_PORT 9002
+
+
+// 自定义回调函数快
+
+typedef void (^ListCallback)(NSMutableArray *list);
+
+typedef void (^DictCallback) (NSMutableDictionary *dict);
 
 /*******************************************
  File Cached Directory 文件缓存目录

@@ -28,6 +28,13 @@
     }];
 }
 
+- (void)testSocket
+{
+    NSDictionary *param = @{@"opercode": @"0104", @"userid":@"666666", @"token":@"ab123456789",@"sign":@"9aldai9adsf"};
+    UDPRequest  *request = [[UDPRequest alloc]init];
+    [request send:param];
+}
+
 - (void)loadPages
 {
     tabController = [[CustomTabBarController alloc]init];
@@ -64,6 +71,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self testInterface];
+    
+    [self testSocket];
     
     [WXApi registerApp:@"wxd930ea5d5a258f4f"];
     

@@ -201,6 +201,18 @@
 		21D705CA1916A60B004950BF /* AskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D705C81916A60B004950BF /* AskCell.m */; };
 		21D705CB1916A60B004950BF /* AskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21D705C91916A60B004950BF /* AskCell.xib */; };
 		21D705CE1916A7C1004950BF /* PortraitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D705CD1916A7C1004950BF /* PortraitView.m */; };
+		21DA12BA19362F0E001EDEB1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21DA12B919362F0E001EDEB1 /* CFNetwork.framework */; };
+		21DA12D51936303F001EDEB1 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12BE1936303F001EDEB1 /* GCDAsyncSocket.m */; };
+		21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12C01936303F001EDEB1 /* GCDAsyncUdpSocket.m */; };
+		21DA12D71936303F001EDEB1 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12C31936303F001EDEB1 /* DDAbstractDatabaseLogger.m */; };
+		21DA12D81936303F001EDEB1 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12C51936303F001EDEB1 /* DDASLLogger.m */; };
+		21DA12D91936303F001EDEB1 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12C71936303F001EDEB1 /* DDFileLogger.m */; };
+		21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12CA1936303F001EDEB1 /* DDLog.m */; };
+		21DA12DB1936303F001EDEB1 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12CC1936303F001EDEB1 /* DDTTYLogger.m */; };
+		21DA12DC1936303F001EDEB1 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12CF1936303F001EDEB1 /* DDContextFilterLogFormatter.m */; };
+		21DA12DD1936303F001EDEB1 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12D11936303F001EDEB1 /* DDDispatchQueueLogFormatter.m */; };
+		21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12D31936303F001EDEB1 /* DDMultiFormatter.m */; };
+		21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12E119363129001EDEB1 /* UDPRequest.m */; };
 		21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD341926E28A00C616CF /* EverGloryController.m */; };
 		21EDAD371926E28A00C616CF /* EverGloryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD351926E28A00C616CF /* EverGloryController.xib */; };
 		21EDAD3B1926E29900C616CF /* MoreStudyExpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD391926E29900C616CF /* MoreStudyExpController.m */; };
@@ -607,6 +619,31 @@
 		21D705C91916A60B004950BF /* AskCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskCell.xib; sourceTree = "<group>"; };
 		21D705CC1916A7C1004950BF /* PortraitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortraitView.h; sourceTree = "<group>"; };
 		21D705CD1916A7C1004950BF /* PortraitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortraitView.m; sourceTree = "<group>"; };
+		21DA12B919362F0E001EDEB1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		21DA12BD1936303F001EDEB1 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		21DA12BE1936303F001EDEB1 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		21DA12BF1936303F001EDEB1 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		21DA12C01936303F001EDEB1 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		21DA12C21936303F001EDEB1 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		21DA12C31936303F001EDEB1 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		21DA12C41936303F001EDEB1 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		21DA12C51936303F001EDEB1 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		21DA12C61936303F001EDEB1 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		21DA12C71936303F001EDEB1 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		21DA12C81936303F001EDEB1 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
+		21DA12C91936303F001EDEB1 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		21DA12CA1936303F001EDEB1 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		21DA12CB1936303F001EDEB1 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		21DA12CC1936303F001EDEB1 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		21DA12CE1936303F001EDEB1 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		21DA12CF1936303F001EDEB1 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		21DA12D01936303F001EDEB1 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		21DA12D11936303F001EDEB1 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		21DA12D21936303F001EDEB1 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
+		21DA12D31936303F001EDEB1 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		21DA12E019363129001EDEB1 /* UDPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPRequest.h; sourceTree = "<group>"; };
+		21DA12E119363129001EDEB1 /* UDPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPRequest.m; sourceTree = "<group>"; };
+		21DA12E3193631C4001EDEB1 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		21EDAD331926E28A00C616CF /* EverGloryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverGloryController.h; sourceTree = "<group>"; };
 		21EDAD341926E28A00C616CF /* EverGloryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverGloryController.m; sourceTree = "<group>"; };
 		21EDAD351926E28A00C616CF /* EverGloryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EverGloryController.xib; sourceTree = "<group>"; };
@@ -784,6 +821,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DA12BA19362F0E001EDEB1 /* CFNetwork.framework in Frameworks */,
 				2119EE8219168279007DBE68 /* CoreGraphics.framework in Frameworks */,
 				2119EE8419168279007DBE68 /* UIKit.framework in Frameworks */,
 				848426F5192E1A7000C9474A /* libWeChatSDK.a in Frameworks */,
@@ -838,6 +876,7 @@
 		2119EE7E19168279007DBE68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21DA12B919362F0E001EDEB1 /* CFNetwork.framework */,
 				2119EE7F19168279007DBE68 /* Foundation.framework */,
 				2119EE8119168279007DBE68 /* CoreGraphics.framework */,
 				2119EE8319168279007DBE68 /* UIKit.framework */,
@@ -900,6 +939,7 @@
 		2119EEAE191682D0007DBE68 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				21DA12BB1936303F001EDEB1 /* CocoaAyncSocket */,
 				21096A82193616270089286C /* GTMBase64 */,
 				848426F1192E1A7000C9474A /* WX */,
 				84F065FB192B2F1100B09AB5 /* ChatController */,
@@ -1017,6 +1057,8 @@
 				2119EF091916837D007DBE68 /* HttpServiceEngine.m */,
 				21B793BE1921135A0033AFC3 /* HttpRequest.h */,
 				21B793BF1921135A0033AFC3 /* HttpRequest.m */,
+				21DA12E019363129001EDEB1 /* UDPRequest.h */,
+				21DA12E119363129001EDEB1 /* UDPRequest.m */,
 				2166CDEF193396AE00F0312E /* ModelGenerator.h */,
 				2166CDF0193396AE00F0312E /* ModelGenerator.m */,
 			);
@@ -1307,6 +1349,7 @@
 			children = (
 				212F239F1928DF2500F738F8 /* MyViewController.h */,
 				212F23A01928DF2500F738F8 /* MyViewController.m */,
+				21DA12E3193631C4001EDEB1 /* SynthesizeSingleton.h */,
 			);
 			path = "公用基类";
 			sourceTree = "<group>";
@@ -1475,6 +1518,58 @@
 				212F240A1928E09A00F738F8 /* top_btn_arrow_normal@2x.png */,
 			);
 			path = public;
+			sourceTree = "<group>";
+		};
+		21DA12BB1936303F001EDEB1 /* CocoaAyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				21DA12BC1936303F001EDEB1 /* CGD */,
+				21DA12C11936303F001EDEB1 /* CocoaLumberjack */,
+			);
+			path = CocoaAyncSocket;
+			sourceTree = "<group>";
+		};
+		21DA12BC1936303F001EDEB1 /* CGD */ = {
+			isa = PBXGroup;
+			children = (
+				21DA12BD1936303F001EDEB1 /* GCDAsyncSocket.h */,
+				21DA12BE1936303F001EDEB1 /* GCDAsyncSocket.m */,
+				21DA12BF1936303F001EDEB1 /* GCDAsyncUdpSocket.h */,
+				21DA12C01936303F001EDEB1 /* GCDAsyncUdpSocket.m */,
+			);
+			path = CGD;
+			sourceTree = "<group>";
+		};
+		21DA12C11936303F001EDEB1 /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				21DA12C21936303F001EDEB1 /* DDAbstractDatabaseLogger.h */,
+				21DA12C31936303F001EDEB1 /* DDAbstractDatabaseLogger.m */,
+				21DA12C41936303F001EDEB1 /* DDASLLogger.h */,
+				21DA12C51936303F001EDEB1 /* DDASLLogger.m */,
+				21DA12C61936303F001EDEB1 /* DDFileLogger.h */,
+				21DA12C71936303F001EDEB1 /* DDFileLogger.m */,
+				21DA12C81936303F001EDEB1 /* DDLog+LOGV.h */,
+				21DA12C91936303F001EDEB1 /* DDLog.h */,
+				21DA12CA1936303F001EDEB1 /* DDLog.m */,
+				21DA12CB1936303F001EDEB1 /* DDTTYLogger.h */,
+				21DA12CC1936303F001EDEB1 /* DDTTYLogger.m */,
+				21DA12CD1936303F001EDEB1 /* Extensions */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		21DA12CD1936303F001EDEB1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				21DA12CE1936303F001EDEB1 /* DDContextFilterLogFormatter.h */,
+				21DA12CF1936303F001EDEB1 /* DDContextFilterLogFormatter.m */,
+				21DA12D01936303F001EDEB1 /* DDDispatchQueueLogFormatter.h */,
+				21DA12D11936303F001EDEB1 /* DDDispatchQueueLogFormatter.m */,
+				21DA12D21936303F001EDEB1 /* DDMultiFormatter.h */,
+				21DA12D31936303F001EDEB1 /* DDMultiFormatter.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		58B1DEA1192B97EF00086C38 /* addImages */ = {
@@ -1903,11 +1998,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
+				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
 				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
 				2119EF04191682EC007DBE68 /* UIImage+MultiFormat.m in Sources */,
+				21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */,
 				21A8941019290B7F00A6DB7E /* InformationCommentController.m in Sources */,
 				21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */,
 				21D7058919169562004950BF /* OneDreamController.m in Sources */,
@@ -1920,11 +2017,14 @@
 				84F065EB192AFACD00B09AB5 /* FilterTimeViewController.m in Sources */,
 				848426A3192E0D1100C9474A /* CustomSegmentView.m in Sources */,
 				58B1DEB7192BA38200086C38 /* MyTribeListCell.m in Sources */,
+				21DA12D51936303F001EDEB1 /* GCDAsyncSocket.m in Sources */,
 				58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */,
+				21DA12DC1936303F001EDEB1 /* DDContextFilterLogFormatter.m in Sources */,
 				58B1DEBD192BAB4300086C38 /* CreatTribeCell.m in Sources */,
 				2192EC0F191BD76400A8FE7F /* CitySearchController.m in Sources */,
 				8484269F192E0D0100C9474A /* TribeDetailViewController.m in Sources */,
 				21401DAC1919325900E9175B /* AddrListCell.m in Sources */,
+				21DA12D91936303F001EDEB1 /* DDFileLogger.m in Sources */,
 				842D3C91192AF7F100374F04 /* LoginViewController.m in Sources */,
 				84FCA852192CC1D50005295A /* CustomSegmentControl.m in Sources */,
 				21D705C51916A49F004950BF /* SquareCell.m in Sources */,
@@ -1954,12 +2054,14 @@
 				2119EEFE191682EC007DBE68 /* SDWebImageDownloader.m in Sources */,
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
 				2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */,
+				21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */,
 				2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */,
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,
 				2119EED9191682E6007DBE68 /* MKNetworkOperation.m in Sources */,
 				21EDAD4A1926F67100C616CF /* MyTribeController.m in Sources */,
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,
+				21DA12DB1936303F001EDEB1 /* DDTTYLogger.m in Sources */,
 				2119EED6191682E6007DBE68 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				84F065EA192AFACD00B09AB5 /* ActivityViewController.m in Sources */,
 				21D7059319169617004950BF /* SquareViewController.m in Sources */,
@@ -1984,6 +2086,7 @@
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
 				21096A86193616270089286C /* GTMBase64.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
+				21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
 				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
@@ -1997,6 +2100,7 @@
 				842D3C90192AF7F100374F04 /* FillNameCardViewController.m in Sources */,
 				2119EF2E191689DD007DBE68 /* ActivityCell.m in Sources */,
 				2119EEFD191682EC007DBE68 /* SDWebImageDecoder.m in Sources */,
+				21DA12DD1936303F001EDEB1 /* DDDispatchQueueLogFormatter.m in Sources */,
 				210BAEE7192A5C7600B8FBCF /* MyTribeCell.m in Sources */,
 				21D705AC19169A15004950BF /* LabelArrowCell.m in Sources */,
 				2119EF0A1916837D007DBE68 /* HttpServiceEngine.m in Sources */,
@@ -2012,6 +2116,7 @@
 				2119EEDA191682E6007DBE68 /* Reachability.m in Sources */,
 				8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */,
 				21A893FC1928ECD300A6DB7E /* SquareShareController.m in Sources */,
+				21DA12D81936303F001EDEB1 /* DDASLLogger.m in Sources */,
 				21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */,
 				58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */,
 				21D705CA1916A60B004950BF /* AskCell.m in Sources */,
@@ -2034,6 +2139,7 @@
 				58B1DEBA192BA9DF00086C38 /* CreatTribeViewController.m in Sources */,
 				84F065F9192AFB4800B09AB5 /* CityCell.m in Sources */,
 				84FCA860192CC45F0005295A /* SquareCellEx.m in Sources */,
+				21DA12D71936303F001EDEB1 /* DDAbstractDatabaseLogger.m in Sources */,
 				21EDAD3E1926F3C500C616CF /* EditCardController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

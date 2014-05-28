@@ -15,10 +15,14 @@
     #import <Foundation/Foundation.h>
 
 #import "config.h"
+#import "Public.h"
 #import "UIViewAdditions.h"
 #import "MyViewController.h"
 #import "Base64.h"
 #import "GTMBase64.h"
+#import "SynthesizeSingleton.h"
+#import "HttpRequest.h"
+#import "UDPRequest.h"
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 
@@ -55,72 +59,5 @@
 #   define kTextLineBreakByTruncatingMiddle   UILineBreakModeMiddleTruncation
 
 #endif
-
-// 自定义回调函数快
-
-typedef void (^ListCallback)(NSMutableArray *list);
-
-typedef void (^DictCallback) (NSMutableDictionary *dict);
-
-#import "HttpRequest.h"
-
-
-// 接口宏定义
-
-#define REQ_LATEST_VER_URL @"/qxh/mobile/qxhService.action"              // 获取最新版本号
-
-#define REQ_USR_INF_URL  @""                   // 获取用户信息
-
-#define REQ_MOD_INF_URL @""                   // 修改用户信息
-
-#define REQ_FRI_URL @""                              // 获取好友(通讯录)/查找用户列表公用
-
-#define REQ_ADD_FRI_URL @""                     // 加好友请求
-
-#define REQ_ADD_SURE_URL @""                  // 加好友确认/修改备注
-
-#define REQ_CITY_CODE_URL @""                 // 获取码表信息
-
-#define REQ_TRIBE_CODE_URL @""               // 获取部落列表
-
-#define REQ_CREATE_TRIBE_URL @""           // 创建部落
-
-#define REQ_MOD_TRIBE_URL @""                 // 修改部落信息
-
-#define REQ_TRIBE_INF_URL @""                  // 获取部落信息
-
-#define REQ_JOIN_TRIBE_URL @""               // 申请加入部落
-
-#define REQ_DEAL_JOIN_URL @""                 // 部落创建者处理加入部落请求
-
-#define REQ_TRIBE_MEMEBER_URL @""        // 获取成员列表
-
-#define REQ_QUIT_TRIBE_URL @""               // 退出部落
-
-#define REQ_QUERY_SQUA_URL @""             // 获取查询广场/咨询消息列表,获取收藏列表
-
-#define REQ_SQUA_INFO_URL @""               // 广场/咨询发布信息
-
-#define REQ_SQUA_DETAIL_URL @""           // 获取广场/咨询消息详细信息
-
-#define REQ_SQUA_REMA_URL @""              // 广场文章加金/评论
-
-#define REQ_REMA_LIST_URL @""                // 获取评论列表
-
-#define REQ_SQUA_COLL_URL @""               // 广场文章收藏
-
-#define REQ_ACT_LIST_URL @""                   // 获取/搜索活动列表
-
-#define REQ_ACT_CREATE_URL @""              // 创建活动
-
-#define REQ_ACT_DETAIL_URL @""              // 获取活动详情
-
-#define REQ_JOIN_ACT_URL @""                 // 加入/关注活动
-
-#define REQ_QUIT_ACT_URL @""                // 退出活动
-
-#define REQ_CHAT_HIST_URL @""              // 获取聊天记录
-
-#define REQ_SHARE_COM_URL @""             // 分享通用接口
 
 #endif
