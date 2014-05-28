@@ -30,17 +30,7 @@
  desc:"新版本的特性，描述信息",	//当用户版本为最新版本时，该desc中值为""
  url:"新版本的下载地址"		//当用户版本为最新版本时，该url中值为""
  }
- */
-
-/**
- *  登陆之前获取当前最新版号
- *
- *  @param params   参数列表
- *  @param callback  响应回调
- */
-+ (void)requestLatestVersionNoWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
  API:0105(HTTP) 获取用户信息
  --------------------------------------------------------
  Request(Client Call):
@@ -82,16 +72,7 @@
  configure:"a:0;b:1,c:2",	//客户端配置相关信息（需客户端人员协定之后定义公共设置信息）
  status:2			//0为正常用户，1为禁用用户，2为临时用户
  }
-*/
-/**
- *  获取用户信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestUserInfoWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
 ---------------------------------------------------------------------------------------------------------------------------------
  API:0106(HTTP) 修改用户信息
  --------------------------------------------------------
@@ -133,17 +114,7 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"修改成功"			//修改成功/失败!
  }
- */
-/**
- *  修改用户信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)modifyUserInfoWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-
-/*
+ 
 ---------------------------------------------------------------------------------------------------------------------------------
  API:0107(HTTP) 获取好友(通讯录)/查找用户列表公用接口
  Request(Client Call):
@@ -176,16 +147,7 @@
  },
  ]
  }
- */
-/**
- *  获取好友(通讯录)/查找用户列表
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)getFriendWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
  API:0108(HTTP) 加好友请求
  --------------------------------------------------------
  Request(Client Call):
@@ -202,18 +164,8 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"好友申请发送成功"		//申请成功/失败!
  }
- */
+ 
 
-
-/**
- *  请求加好友
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestAddFriendWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
 ---------------------------------------------------------------------------------------------------------------------------------
  API:0109(HTTP) 加好友确认/修改备注
  --------------------------------------------------------
@@ -232,16 +184,7 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"操作成功"			//操作成功/失败!
  }
- */
- /**
- *  加好友确认/修改备注
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)addFriendConfirmWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
 ---------------------------------------------------------------------------------------------------------------------------------
  API:0110(HTTP) 获取码表信息
  --------------------------------------------------------
@@ -263,16 +206,6 @@
  {code:"123456",name:"北京市"},{code:"123456",name:"北京市"},{code:"123456",name:"北京市"},......
  ]
  }
- */
- /**
- *  获取码表信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestCityCodeWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  API:0111(HTTP) 获取部落列表
  --------------------------------------------------------
@@ -302,16 +235,6 @@
  ...
  ]
  }
- */
- /**
- *  获取部落列表
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestTribeListWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  API:0112(HTTP) 创建部落
  --------------------------------------------------------
@@ -340,16 +263,6 @@
  info:"创建成功",		//获取成功/失败!
  tribeid:"123444"		//部落唯一标示
  }
- */
- /**
- *  创建部落
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)createTribeWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  API:0113(HTTP) 修改部落信息
  --------------------------------------------------------
@@ -377,16 +290,6 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"修改成功",		//修改成功/失败!
  }
- */
- /**
- *  修改部落信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)modifyTribeInfoWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0114(HTTP) 获取部落信息
@@ -419,16 +322,6 @@
  maxcount:"30",			//部落最多人数
  nowcount:"20"			//当前部落人数
  }
- */
- /**
- *  获取部落信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestTribeInfoWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0115(HTTP) 申请加入部落
@@ -446,16 +339,6 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"申请成功"			//申请成功/失败!
  }
- */
- /**
- *  申请加入部落
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestJoinTribeWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0116(HTTP) 部落创建者处理加入部落请求
@@ -475,16 +358,7 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"处理成功"			//处理成功/失败!
  }
- */
- /**
- *  部落创建者处理加入部落请求
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)dealJoinTribeWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
 ---------------------------------------------------------------------------------------------------------------------------------
  
  
@@ -508,16 +382,6 @@
  ...
  ]
  }
- */
- /**
- *  部落创建者处理加入部落请求
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestTribeMemberWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  
@@ -536,16 +400,7 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"退出成功"			//退出成功/失败!
  }
- */
- /**
- *  退出部落
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)quitTribeWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0119(HTTP) 获取查询广场/咨询消息列表,获取收藏列表
@@ -575,16 +430,7 @@
  ......
  ]
  }
- */
- /**
- *  获取查询广场/咨询消息列表,获取收藏列表
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)querySquareWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0120(HTTP) 广场/咨询发布信息
@@ -612,16 +458,6 @@
  info:"发布成功",		//发布成功/失败!
  artid:"1234"			//发布信息的id
  }
- */
- /**
- *  广场/咨询发布信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestSquareInfoWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0121(HTTP) 获取广场/咨询消息详细信息
@@ -649,16 +485,6 @@
  ctcount:10,			//评论次数
  gold:10				//打赏金币数
  }
- */
-  /**
- *  获取广场/咨询消息详细信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestSquareDetailWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0122(HTTP) 广场文章加金/评论
@@ -679,16 +505,6 @@
  info:"操作成功",		//获取成功/失败!
  ctid:"1234"			//评论的id
  }
- */
-  /**
- *  广场文章加金/评论
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestSquareRemarkWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0123(HTTP) 获取评论列表
@@ -716,16 +532,6 @@
  ......
  ]
  }
- */
-  /**
- *  获取评论列表
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestRemarkListWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0124(HTTP) 广场文章收藏
@@ -746,16 +552,6 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"操作成功"			//操作成功/失败!
  }
- */
-  /**
- *  广场文章收藏
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestSquareCollectionWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  
@@ -787,16 +583,6 @@
  ......
  ]
  }
- */
-  /**
- *  获取/搜索活动列表
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestActivityListWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  API:0126(HTTP) 创建活动(activity)
  --------------------------------------------------------
@@ -829,16 +615,6 @@
  info:"发起成功,请耐心等待审核",	//发起成功/失败!
  actid:"123444"			//活动唯一标示
  }
- */
-  /**
- *  创建活动
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)createActivityWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0127(HTTP) 获取活动详细信息
@@ -881,16 +657,6 @@
  ...
  ]
  }
- */
-  /**
- *  获取活动详细信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestActivityDetailWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0128(HTTP) 加入/关注活动
@@ -909,16 +675,6 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"操作成功"			//操作成功/失败!
  }
- */
-  /**
- *  获取活动详细信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)joinActivityWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  
  API:0129(HTTP) 退出活动
@@ -936,16 +692,6 @@
  statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
  info:"退出成功"			//退出成功/失败!p
  }
- */
-  /**
- *  退出活动
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)quitActivityWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
  ---------------------------------------------------------------------------------------------------------------------------------
  API:0133(HTTP) 获取聊天记录信息
  --------------------------------------------------------
@@ -973,16 +719,7 @@
  ......
  ]
  }
- */
- /**
- *  获取聊天记录信息
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
-+ (void)requestChatHistoryWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
-
-/*
+ 
  API:0134(HTTP) 分享通用接口
  --------------------------------------------------------
  Request(Client Call):
@@ -1002,13 +739,7 @@
  info:"操作成功"			//操作成功/失败!
  }
  */
-  /**
- *  分享通用接口
- *
- *  @param params   参数列表
- *  @param callback 响应回调
- */
 
-+ (void)requestWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback;
++ (void)requestWithParams:(NSDictionary *)params andCompletionHandler:(DictCallback)callback;
 
 @end

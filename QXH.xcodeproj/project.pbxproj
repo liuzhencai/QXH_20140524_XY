@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21096A86193616270089286C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A84193616270089286C /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		21096A8919361B050089286C /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A8819361B050089286C /* Base64.m */; };
 		2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109D50A191F1E7F003B76D7 /* EditCardCell.m */; };
 		2109D50D191F1E7F003B76D7 /* EditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2109D50B191F1E7F003B76D7 /* EditCardCell.xib */; };
 		210BAED8192A4F6100B8FBCF /* SchoolInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210BAED6192A4F6100B8FBCF /* SchoolInfoController.m */; };
@@ -325,6 +327,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21096A83193616270089286C /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		21096A84193616270089286C /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		21096A85193616270089286C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		21096A8719361B050089286C /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		21096A8819361B050089286C /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		2109D509191F1E7F003B76D7 /* EditCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCardCell.h; sourceTree = "<group>"; };
 		2109D50A191F1E7F003B76D7 /* EditCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCardCell.m; sourceTree = "<group>"; };
 		2109D50B191F1E7F003B76D7 /* EditCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCardCell.xib; sourceTree = "<group>"; };
@@ -797,6 +804,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21096A82193616270089286C /* GTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				21096A83193616270089286C /* GTMBase64.h */,
+				21096A84193616270089286C /* GTMBase64.m */,
+				21096A85193616270089286C /* GTMDefines.h */,
+				21096A8719361B050089286C /* Base64.h */,
+				21096A8819361B050089286C /* Base64.m */,
+			);
+			path = GTMBase64;
+			sourceTree = "<group>";
+		};
 		2119EE7319168279007DBE68 = {
 			isa = PBXGroup;
 			children = (
@@ -881,6 +900,7 @@
 		2119EEAE191682D0007DBE68 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				21096A82193616270089286C /* GTMBase64 */,
 				848426F1192E1A7000C9474A /* WX */,
 				84F065FB192B2F1100B09AB5 /* ChatController */,
 				2119EEDB191682EC007DBE68 /* SDWebImage */,
@@ -1910,6 +1930,7 @@
 				21D705C51916A49F004950BF /* SquareCell.m in Sources */,
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
+				21096A8919361B050089286C /* Base64.m in Sources */,
 				2166CDF619339A3400F0312E /* TabBarControl.m in Sources */,
 				212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */,
 				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,
@@ -1961,6 +1982,7 @@
 				84F065F4192AFB0F00B09AB5 /* PeocelCell.m in Sources */,
 				84F065EC192AFACD00B09AB5 /* FindPeopleViewController.m in Sources */,
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
+				21096A86193616270089286C /* GTMBase64.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
 				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,

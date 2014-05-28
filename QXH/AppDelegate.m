@@ -20,14 +20,16 @@
 
 @synthesize tabController;
 
-- (void)loadPages
+- (void)testInterface
 {
-
     NSDictionary *param = @{@"opercode": @"0104",@"platform":@"2",@"version":@"1.1"};
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"dict:%@",dict);
     }];
-    
+}
+
+- (void)loadPages
+{
     tabController = [[CustomTabBarController alloc]init];
 
     // 添加主页导航控制器
@@ -60,6 +62,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [self testInterface];
     
     [WXApi registerApp:@"wxd930ea5d5a258f4f"];
     
