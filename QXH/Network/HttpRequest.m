@@ -14,6 +14,7 @@
 + (void)requestWithParams:(NSMutableDictionary *)params andCompletionHandler:(DictCallback)callback
 {
     [[HttpServiceEngine sharedEngine] sendData:params andMethod:nil completionHandler:^(NSInteger statusCode, id object) {
+        NSLog(@"back object:%@",object);
         if ([object objectForKey:@"0200"]) {
             callback(object);
         }else{
