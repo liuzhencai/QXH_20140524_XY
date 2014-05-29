@@ -7,6 +7,7 @@
 //
 
 #import "PeocelCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation PeocelCell
 
@@ -66,4 +67,9 @@
     // Configure the view for the selected state
 }
 
+- (void)resetCellParamDict:(id)objt{
+    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    self.name.text = @"李某某";
+    self.duty.text = @"xxxxxxxxxxxxx校长";
+}
 @end

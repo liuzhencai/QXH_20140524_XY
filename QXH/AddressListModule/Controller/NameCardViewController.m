@@ -114,6 +114,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
         }
+        [cell resetCellParamDict:nil];
         return cell;
     }else{
         static NSString *identifier = @"identifier";

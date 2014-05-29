@@ -25,4 +25,6 @@
 
 @property (nonatomic, assign) id delegate;
 
+- (void)resetCellParamDict:(id)objt;
+
 @end

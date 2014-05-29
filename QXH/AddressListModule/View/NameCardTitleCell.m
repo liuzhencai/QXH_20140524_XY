@@ -7,6 +7,7 @@
 //
 
 #import "NameCardTitleCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation NameCardTitleCell
 
@@ -121,6 +122,14 @@
             [self.delegate didSelectButtonWithIndex:2];
         }
     }
+}
+
+- (void)resetCellParamDict:(id)objt{
+    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+    self.name.text = @"李某某";
+    self.duty.text = @"职务";
+    self.phone.text = @"电话";
+    self.email.text = @"邮箱";
 }
 
 @end

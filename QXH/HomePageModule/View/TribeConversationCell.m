@@ -7,6 +7,7 @@
 //
 
 #import "TribeConversationCell.h"
+#import "UIImageView+WebCache.h"
 #define HEIGHT_CELL 110
 @implementation TribeConversationCell
 
@@ -59,6 +60,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)resetCellParamDict:(id)objt{
+    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+    self.name.text = @"名字";
+    self.time.text = @"12:30:00";
+    self.speechContent.text = @"发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容发言内容";
 }
 
 @end

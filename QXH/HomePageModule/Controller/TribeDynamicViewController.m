@@ -186,6 +186,7 @@
             myMsgCell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
             myMsgCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [myMsgCell resetCellParamDict:nil];
         return myMsgCell;
     }else{
         if (indexPath.row == 0) {
@@ -195,6 +196,7 @@
                 cell = [[TribeQuestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierQuestion];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
+            [cell resetCellParamDict:nil];
             return cell;
             
         }else{
@@ -204,6 +206,7 @@
                 cell = [[TribeConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
+            [cell resetCellParamDict:nil];
             return cell;
         }
     }

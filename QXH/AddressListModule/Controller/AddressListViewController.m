@@ -199,6 +199,7 @@
         if (!myMsgCell) {
             myMsgCell = [[MyMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
         }
+        [myMsgCell resetCellParamDict:nil];
         cell = myMsgCell;
     }else if(tableView.tag == ADDRESS_LIST_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
@@ -207,6 +208,7 @@
         if (!addrListCell) {
             addrListCell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
         }
+        [addrListCell resetCellParamDict:nil];
         cell = addrListCell;
     }
     return cell;

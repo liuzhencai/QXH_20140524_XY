@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface InActivityCell : UITableViewCell
+
 @property (weak, nonatomic)  UILabel *activityTitleLabel; // 活动标题标签
 @property (weak, nonatomic)  UILabel *activityTypeLabel; // 活动类型标签
 @property (weak, nonatomic)  UILabel *activityDescriptionLabel; // 活动描述标签
@@ -22,4 +23,7 @@
 
 @property (weak, nonatomic)  UIImageView *activityStatus;//活动状态
 @property (weak, nonatomic)  UILabel *statusLabel;//活动状态标签
+
+- (void)resetCellParamDict:(id)objt;
+
 @end

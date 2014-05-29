@@ -111,6 +111,7 @@
         cell = [[ShareToTribeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    [cell resetCellParamDict:nil];
     return cell;
 }
 

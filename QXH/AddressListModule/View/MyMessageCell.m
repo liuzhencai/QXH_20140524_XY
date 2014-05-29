@@ -7,6 +7,7 @@
 //
 
 #import "MyMessageCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation MyMessageCell
 
@@ -64,12 +65,23 @@
     _date.frame = CGRectMake(_name.right, (height - 2 * lableHeight)/2.0, 100, lableHeight);
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)resetCellParamDict:(id)objt{
+//    @property (nonatomic, strong) UIImageView *headImgView;
+//    @property (nonatomic, strong) UILabel *name;
+//    @property (nonatomic, strong) UILabel *duty;
+//    @property (nonatomic, strong) UILabel *date;
+//    @property (nonatomic, strong) UIImageView *arrowImgView;
+    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    self.name.text = @"李某某";
+    self.duty.text = @"xxxxxxxxxxxxx校长";
+    self.date.text = @"2014-05-19";
 }
 
 @end

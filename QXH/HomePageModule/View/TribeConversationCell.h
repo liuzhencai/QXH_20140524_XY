@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UILabel *name;//姓名
 @property (nonatomic, strong) UILabel *time;
 @property (nonatomic, strong) UILabel *speechContent;//发言内容
+
+- (void)resetCellParamDict:(id)objt;
 @end

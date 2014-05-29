@@ -197,6 +197,8 @@
         }
     }
     
+    [allListCell resetCellParamDict:nil];
+    
     return allListCell;
 }
 

@@ -146,4 +146,20 @@
     // Configure the view for the selected state
 }
 
+- (void)resetCellParamDict:(id)objt{
+    self.activityTitleLabel.text = @"活动标题";
+    self.activityTypeLabel.text = @"活动类型";
+    self.activityDescriptionLabel.text = @"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述";
+    self.activityImage.image = [UIImage imageNamed:@""];
+    self.tribeLabel.text = @"XXXX部落";
+    self.orgnizerLabel.text = @"苍井空";
+    self.timeLabel.text = @"2014-05-25";
+    self.addrLabel.text = @"中关村";
+    
+    self.signUpLabel.text = @"2人报名";
+    self.followLabel.text = @"2人关注";
+    self.activityStatus.image = [UIImage imageNamed:@""];
+    self.statusLabel.text = @"进行中";
+}
+
 @end

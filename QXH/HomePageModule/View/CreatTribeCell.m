@@ -7,6 +7,7 @@
 //
 
 #import "CreatTribeCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation CreatTribeCell
 
@@ -77,6 +78,15 @@
 //        NSIndexPath *indexPath = [self index];
 //        [self.delegate didSelectWithIndexPath:self.indexPath];
     }
+}
+
+- (void)resetCellParamDict:(id)objt{
+
+    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    self.name.text = @"北约 （50人）";
+    self.dynamic.text = @"最新发言内容最新发言内容最新发言内容最新发言内容";
+    self.creatMan.text = @"创建人：zyj";
+    
 }
 
 @end

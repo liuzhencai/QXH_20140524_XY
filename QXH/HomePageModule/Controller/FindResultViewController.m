@@ -75,6 +75,7 @@
     }
     cell.name.text = @"李某某";
     cell.duty.text = @"xxxxxxxxxxxxxx校长";
+    [cell resetCellParamDict:nil];
     return cell;
 }
 

@@ -211,6 +211,7 @@
             allListCell = [[MyTribeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
             allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [allListCell resetCellParamDict:nil];
         cell = allListCell;
     }else if(tableView.tag == MY_TRIBE_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
@@ -220,6 +221,7 @@
             addrListCell = [[MyTribeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
             addrListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [addrListCell resetCellParamDict:nil];
         cell = addrListCell;
     }
     return cell;

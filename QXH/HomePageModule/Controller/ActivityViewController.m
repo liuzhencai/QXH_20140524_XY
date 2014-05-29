@@ -56,12 +56,14 @@
     endActivityTable.tag = END_ACTIVITY_TAG;
     endActivityTable.delegate = self;
     endActivityTable.dataSource = self;
+    endActivityTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:endActivityTable];
     
     UITableView *inActivityTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT  - segment.height) style:UITableViewStylePlain];
     inActivityTable.tag = IN_THE_ACTIVITY_TAG;
     inActivityTable.delegate = self;
     inActivityTable.dataSource = self;
+    inActivityTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:inActivityTable];
     
     //获取活动列表
@@ -125,10 +127,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (IN_THE_ACTIVITY_TAG) {
-        return 230;
-    }
-    return 220;
+//    if (IN_THE_ACTIVITY_TAG) {
+//        return 230;
+//    }
+//    return 220;
+    return 230;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,11 +141,13 @@
     
     if(tableView.tag == END_ACTIVITY_TAG){
         static NSString *addrIdentifier = @"activeEndIdentifier";
-        ActivityCell *activeEndCell = nil;
+        InActivityCell *activeEndCell = nil;
         activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
         if (!activeEndCell) {
-            activeEndCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+            activeEndCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
+            activeEndCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [activeEndCell resetCellParamDict:nil];
         activeEndCell.statusLabel.text = @"已结束";
         
         cell = activeEndCell;
@@ -152,8 +157,9 @@
         activityingCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
         if (!activityingCell) {
             activityingCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
-//            activityingCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+            activityingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [activityingCell resetCellParamDict:nil];
         activityingCell.statusLabel.text = @"进行中";
         cell = activityingCell;
     }
