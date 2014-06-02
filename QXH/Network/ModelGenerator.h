@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "UserInfoModel.h"
+#import "InfoModel.h"
 
 @interface ModelGenerator : NSObject
 
-- (UserInfoModel *)json2UserInfo:(NSDictionary *)obj;
++ (UserInfoModel *)json2UserInfo:(NSDictionary *)obj;
+
++ (NSMutableArray *)json2InfoList:(NSDictionary *)obj;
 
 @end

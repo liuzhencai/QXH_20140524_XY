@@ -145,4 +145,14 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)requestInfoListWithType:(NSString *)type arttype:(NSString *)arttype withCompletionBlock:(ListCallback)callback
+{
+    NSString *userid = @"123456";
+    NSString *token = @"ab123456789";
+    NSDictionary *param = @{@"opercode": @"0119",@"userid":userid,@"token":token, @"type":@"1", @"detailtype":type, @"tag":@"标签", @"arttype":arttype, @"start":@"10", @"direction":@"before", @"count":@"20"};
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        callback([ModelGenerator json2InfoList:dict]);
+    }];
+}
+
 @end

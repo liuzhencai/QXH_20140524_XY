@@ -10,6 +10,8 @@
 
 @interface SquareShareController ()
 
+- (void)distributeInfoWithArtType:(NSString *)arttype;
+
 @end
 
 @implementation SquareShareController
@@ -39,6 +41,18 @@
 - (IBAction)distribute:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)distributeInfoWithArtType:(NSString *)arttype
+{
+    NSString *userid = @"123456";
+    NSString *token = @"ab123456789";
+    NSString *string = @"content";
+    NSDictionary *param = @{@"opercode": @"0120",@"userid":userid,@"token":token, @"type":@"1",  @"tag":@"标签", @"arttype":arttype, @"content":string};
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        
+    }];
+
 }
 
 @end

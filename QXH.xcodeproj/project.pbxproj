@@ -178,6 +178,7 @@
 		21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8941319290BFE00A6DB7E /* InformationDetailController.m */; };
 		21A8941619290BFE00A6DB7E /* InformationDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8941419290BFE00A6DB7E /* InformationDetailController.xib */; };
 		21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B793BF1921135A0033AFC3 /* HttpRequest.m */; };
+		21D6ADE5193CB6190018109F /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D6ADE4193CB6190018109F /* InfoModel.m */; };
 		21D7057F19169169004950BF /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7057D19169169004950BF /* PersonalInfoController.m */; };
 		21D7058019169169004950BF /* PersonalInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21D7057E19169169004950BF /* PersonalInfoController.xib */; };
 		21D7058919169562004950BF /* OneDreamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7058719169562004950BF /* OneDreamController.m */; };
@@ -584,6 +585,8 @@
 		21B793BF1921135A0033AFC3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequest.m; sourceTree = "<group>"; };
 		21BAC27D19308B3300409B9B /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
 		21BAC27F19308B3300409B9B /* TabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarControl.h; sourceTree = "<group>"; };
+		21D6ADE3193CB6190018109F /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
+		21D6ADE4193CB6190018109F /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
 		21D7057C19169169004950BF /* PersonalInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoController.h; sourceTree = "<group>"; };
 		21D7057D19169169004950BF /* PersonalInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoController.m; sourceTree = "<group>"; };
 		21D7057E19169169004950BF /* PersonalInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalInfoController.xib; sourceTree = "<group>"; };
@@ -1372,6 +1375,7 @@
 		212F23AA1928DF4D00F738F8 /* Information */ = {
 			isa = PBXGroup;
 			children = (
+				21D6ADE2193CB6010018109F /* Model */,
 				212F23AB1928DF4D00F738F8 /* Controller */,
 				212F23AF1928DF4D00F738F8 /* View */,
 			);
@@ -1518,6 +1522,15 @@
 				212F240A1928E09A00F738F8 /* top_btn_arrow_normal@2x.png */,
 			);
 			path = public;
+			sourceTree = "<group>";
+		};
+		21D6ADE2193CB6010018109F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21D6ADE3193CB6190018109F /* InfoModel.h */,
+				21D6ADE4193CB6190018109F /* InfoModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		21DA12BB1936303F001EDEB1 /* CocoaAyncSocket */ = {
@@ -2058,6 +2071,7 @@
 				2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */,
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,
+				21D6ADE5193CB6190018109F /* InfoModel.m in Sources */,
 				2119EED9191682E6007DBE68 /* MKNetworkOperation.m in Sources */,
 				21EDAD4A1926F67100C616CF /* MyTribeController.m in Sources */,
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,

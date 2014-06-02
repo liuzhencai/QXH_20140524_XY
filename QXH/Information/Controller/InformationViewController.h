@@ -14,4 +14,5 @@
 
 @property (strong, nonatomic) IBOutlet UIView *recommendView;
 @property(nonatomic,retain)IBOutlet UITableView* _tableview;
+
 @end
