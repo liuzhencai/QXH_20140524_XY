@@ -23,6 +23,8 @@
 
 #define SOCKET_PORT 9002
 
+#define HEART_BEAT 60
+
 
 /*******************************************
  Custom Block Callback 自定义block回调

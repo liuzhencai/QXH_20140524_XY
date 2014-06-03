@@ -21,6 +21,13 @@
 + (UDPServiceEngine *)sharedEngine;
 
 /**
+ *  移除指定为位置的签名
+ *
+ *  @param index 位置索引
+ */
+- (void)removeSignAtIndex:(NSUInteger)index;
+
+/**
  *  移除指定签名
  *
  *  @param sign 签名
@@ -35,9 +42,10 @@
 /**
  *  发送udp报文
  *
- *  @param param    发送参数
- *  @param callback 回调
+ *  @param param    参数
+ *  @param callback 成功回调
+ *  @param error    错误回调
  */
-- (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback;
+- (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback andErrorHandler:(Completion)error;
 
 @end

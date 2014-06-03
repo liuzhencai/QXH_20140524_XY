@@ -28,7 +28,7 @@
     }];
 }
 
-- (void)testSocket
+- (void)login
 {
     NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
@@ -36,8 +36,23 @@
         // 存储token和userid
         [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
         [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
+        [defaults synchronize];
+        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+        // 登陆后维持心跳
+    } andErrorHandler:^(id data) {
+        
     }];
- 
+}
+
+// 心跳
+- (void)heartBeat
+{
+    NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
+    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
+        NSLog(@"心跳返回--->%@",data);
+    } andErrorHandler:^(id data) {
+        
+    }];
 }
 
 - (void)registerAction
@@ -86,7 +101,8 @@
     
 //    [self registerAction];
     
-    [self testSocket];
+    // 登陆
+    [self login];
     
     [WXApi registerApp:@"wxd930ea5d5a258f4f"];
     

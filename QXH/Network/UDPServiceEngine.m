@@ -13,7 +13,7 @@
 @interface UDPServiceEngine ()
 {
     UDPRequest *udp;
-    NSMutableSet *signSet;
+    NSMutableArray *signs;
 }
 
 @end
@@ -36,14 +36,21 @@
     self = [super init];
     if (self) {
         udp = [[UDPRequest alloc] init];
-        signSet = [[NSMutableSet alloc] init];
+        signs = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback
+- (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback andErrorHandler:(Completion)error
 {
-    [signSet addObject:[param objectForKey:@"sign"]];
+    NSString *sign = [param objectForKey:@"sign"];
+    if ([signs containsObject:sign]) {
+        // 当签名队列总数超出80时，移除第一个队列签名
+        if ([signs count] > 80) {
+            [signs removeObjectAtIndex:0];
+        }
+        [signs addObject:sign];
+    }
     
     if ([[param objectForKey:@"opercode"] isEqualToString:@"0102"]) {
         // 登陆只发送一次
@@ -56,6 +63,7 @@
     }
 
     __block BOOL isSuccess = NO;
+    __block NSUInteger failtimes = 0;
     udp.block = ^(NSData *data){
         id returnValue = nil;
         if (!isSuccess) {
@@ -64,19 +72,30 @@
             if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
                 isSuccess = YES;
                 callback(returnValue);
+                error(nil);
+            }else{
+                ++failtimes;
             }
+        }
+        if (failtimes == 4) {
+            error([returnValue objectForKey:@"info"]);
         }
     };
 }
 
+- (void)removeSignAtIndex:(NSUInteger)index
+{
+    [signs removeObjectAtIndex:index];
+}
+
 - (void)removeSign:(NSString *)sign
 {
-    [signSet removeObject:sign];
+    [signs removeObject:sign];
 }
 
 - (void)removeAllSign
 {
-    [signSet removeAllObjects];
+    [signs removeAllObjects];
 }
 
 @end
