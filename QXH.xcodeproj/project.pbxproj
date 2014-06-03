@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210021E4193DFAAF006B7D12 /* SignGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 210021E3193DFAAF006B7D12 /* SignGenerator.m */; };
 		21096A86193616270089286C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A84193616270089286C /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		21096A8919361B050089286C /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A8819361B050089286C /* Base64.m */; };
 		2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109D50A191F1E7F003B76D7 /* EditCardCell.m */; };
@@ -341,6 +342,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		210021E2193DFAAF006B7D12 /* SignGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignGenerator.h; sourceTree = "<group>"; };
+		210021E3193DFAAF006B7D12 /* SignGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignGenerator.m; sourceTree = "<group>"; };
 		21096A83193616270089286C /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		21096A84193616270089286C /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		21096A85193616270089286C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
@@ -1067,6 +1070,8 @@
 				21DA12E119363129001EDEB1 /* UDPRequest.m */,
 				2166CDEF193396AE00F0312E /* ModelGenerator.h */,
 				2166CDF0193396AE00F0312E /* ModelGenerator.m */,
+				210021E2193DFAAF006B7D12 /* SignGenerator.h */,
+				210021E3193DFAAF006B7D12 /* SignGenerator.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2140,6 +2145,7 @@
 				21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */,
 				58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */,
 				21D705CA1916A60B004950BF /* AskCell.m in Sources */,
+				210021E4193DFAAF006B7D12 /* SignGenerator.m in Sources */,
 				21D7057F19169169004950BF /* PersonalInfoController.m in Sources */,
 				88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */,
 				58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */,

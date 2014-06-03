@@ -30,9 +30,12 @@
 
 - (void)testSocket
 {
-    NSDictionary *param = @{@"opercode": @"0102", @"userid":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":@"9aldai9adsf"};
+    
+    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
     UDPRequest  *request = [UDPRequest sharedUDPRequest];
     [request send:param];
+    
+    [defaults setObject: forKey:<#(NSString *)#>]
 }
 
 - (void)registerAction
@@ -77,7 +80,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [self testInterface];
+//    [self testInterface];
     
 //    [self registerAction];
     

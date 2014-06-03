@@ -24,6 +24,7 @@
 #import "HttpRequest.h"
 #import "UDPRequest.h"
 #import "ModelGenerator.h"
+#import "SignGenerator.h"
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 
@@ -60,5 +61,7 @@
 #   define kTextLineBreakByTruncatingMiddle   UILineBreakModeMiddleTruncation
 
 #endif
+
+#define defaults [NSUserDefaults standardUserDefaults]
 
 #endif
