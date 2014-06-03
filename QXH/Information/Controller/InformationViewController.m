@@ -46,6 +46,10 @@
     self.title = @"智谷";
     self._tableview.backgroundColor = [UIColor clearColor];
     
+    [self requestInfoListWithType:@"2" arttype:@"1" withCompletionBlock:^(NSMutableArray *list) {
+        NSLog(@"list--->%@",list);
+    }];
+    
 //    ClassificationControll* aview = [[ClassificationControll alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
 //    aview.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:aview];

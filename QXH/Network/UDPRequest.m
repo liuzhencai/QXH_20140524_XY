@@ -8,29 +8,62 @@
 
 #import "UDPRequest.h"
 
-static GCDAsyncUdpSocket *udpSocket;
+static UDPRequest *udpRequest;
+
+@interface UDPRequest ()
+{
+    GCDAsyncUdpSocket *udpSocket;
+}
+@end
 
 @implementation UDPRequest
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(UDPRequest);
++ (UDPRequest *)sharedUDPRequest
+{
+    @synchronized(self){
+        if (!udpRequest) {
+            udpRequest = [[UDPRequest alloc] init];
+        }
+    }
+    return udpRequest;
+}
+
+- (void)setupSocket
+{
+	udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+	
+	NSError *error = nil;
+	
+	if (![udpSocket bindToPort:0 error:&error])
+	{
+		return;
+	}
+	if (![udpSocket beginReceiving:&error])
+	{
+		return;
+	}
+}
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+       	if (udpSocket == nil)
+        {
+            [self setupSocket];
+        }
     }
     return self;
 }
 
 - (void)send:(NSDictionary *)params
 {
-//    NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:nil];
     NSData *data = [GTMBase64 encodeData:jsonData];
 	[udpSocket sendData:data toHost:SOCKET_SERVER port:SOCKET_PORT withTimeout:-1 tag:tag];
+    tag++;
 }
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag

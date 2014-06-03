@@ -227,6 +227,9 @@
     return cell;
 }
 
-
+- (void)requestInfoDetail
+{
+    
+}
 
 @end

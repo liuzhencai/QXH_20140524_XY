@@ -811,7 +811,7 @@ pwd:"1111111111111",		//MD5加密后的密码
 }
 
 Response:{
-opercode:"0134",		//operCode为0133，客户端通过该字段确定事件
+opercode:"0135",		//operCode为0133，客户端通过该字段确定事件
 statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
 info:"注册成功"			//注册成功/失败!
 }

@@ -179,6 +179,7 @@
 		21A8941619290BFE00A6DB7E /* InformationDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8941419290BFE00A6DB7E /* InformationDetailController.xib */; };
 		21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B793BF1921135A0033AFC3 /* HttpRequest.m */; };
 		21D6ADE5193CB6190018109F /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D6ADE4193CB6190018109F /* InfoModel.m */; };
+		21D6ADE8193CBCFC0018109F /* InfoDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D6ADE7193CBCFC0018109F /* InfoDetailModel.m */; };
 		21D7057F19169169004950BF /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7057D19169169004950BF /* PersonalInfoController.m */; };
 		21D7058019169169004950BF /* PersonalInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21D7057E19169169004950BF /* PersonalInfoController.xib */; };
 		21D7058919169562004950BF /* OneDreamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7058719169562004950BF /* OneDreamController.m */; };
@@ -587,6 +588,8 @@
 		21BAC27F19308B3300409B9B /* TabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarControl.h; sourceTree = "<group>"; };
 		21D6ADE3193CB6190018109F /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
 		21D6ADE4193CB6190018109F /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
+		21D6ADE6193CBCFC0018109F /* InfoDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDetailModel.h; sourceTree = "<group>"; };
+		21D6ADE7193CBCFC0018109F /* InfoDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDetailModel.m; sourceTree = "<group>"; };
 		21D7057C19169169004950BF /* PersonalInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoController.h; sourceTree = "<group>"; };
 		21D7057D19169169004950BF /* PersonalInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoController.m; sourceTree = "<group>"; };
 		21D7057E19169169004950BF /* PersonalInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalInfoController.xib; sourceTree = "<group>"; };
@@ -1529,6 +1532,8 @@
 			children = (
 				21D6ADE3193CB6190018109F /* InfoModel.h */,
 				21D6ADE4193CB6190018109F /* InfoModel.m */,
+				21D6ADE6193CBCFC0018109F /* InfoDetailModel.h */,
+				21D6ADE7193CBCFC0018109F /* InfoDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2126,6 +2131,7 @@
 				58B1DEB4192BA02C00086C38 /* TribeController.m in Sources */,
 				84F0660D192B2F1100B09AB5 /* MessageCell.m in Sources */,
 				2192EBDD191BD54900A8FE7F /* MyCardController.m in Sources */,
+				21D6ADE8193CBCFC0018109F /* InfoDetailModel.m in Sources */,
 				842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */,
 				2119EEDA191682E6007DBE68 /* Reachability.m in Sources */,
 				8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */,
@@ -2271,7 +2277,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lan Feng (HP5D7TZA52)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2281,7 +2287,7 @@
 					"$(PROJECT_DIR)/QXH/ThirdParty/WX",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2291,7 +2297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lan Feng (HP5D7TZA52)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2301,7 +2307,7 @@
 					"$(PROJECT_DIR)/QXH/ThirdParty/WX",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

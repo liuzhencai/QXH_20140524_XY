@@ -30,9 +30,16 @@
 
 - (void)testSocket
 {
-    NSDictionary *param = @{@"opercode": @"0104", @"userid":@"666666", @"token":@"ab123456789",@"sign":@"9aldai9adsf"};
-    UDPRequest  *request = [[UDPRequest alloc]init];
+    NSDictionary *param = @{@"opercode": @"0102", @"userid":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":@"9aldai9adsf"};
+    UDPRequest  *request = [UDPRequest sharedUDPRequest];
     [request send:param];
+}
+
+- (void)registerAction
+{
+    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":@"123456"} andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"dict--->>>%@",dict);
+         }];
 }
 
 - (void)loadPages
@@ -71,6 +78,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self testInterface];
+    
+//    [self registerAction];
     
     [self testSocket];
     

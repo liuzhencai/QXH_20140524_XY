@@ -63,4 +63,27 @@
     return array;
 }
 
++ (InfoDetailModel *)json2InfoDetail:(NSDictionary *)obj
+{
+    InfoDetailModel *model = [[InfoDetailModel alloc] init];
+    model.sid = [obj objectForKey:@"sid"];
+    model.sname = [obj objectForKey:@"sname"];
+    model.sphoto = [obj objectForKey:@"sphoto"];
+    model.date = [obj objectForKey:@"date"];
+    model.title = [obj objectForKey:@"title"];
+    model.tags = [obj objectForKey:@"tags"];
+    model.authflag = [obj objectForKey:@"authflag"];
+    model.artimages = [obj objectForKey:@"artimages"];
+    model.content = [obj objectForKey:@"content"];
+    model.refereesign = [obj objectForKey:@"refereesign"];
+    model.author = [obj objectForKey:@"autbhor"];
+    model.browsetime = [obj objectForKey:@"browsetime"];
+    model.collecttime = [obj objectForKey:@"collecttime"];
+    model.sharetime = [obj objectForKey:@"sharetime"];
+    model.relaytime = [obj objectForKey:@"relaytime"];
+    model.commenttime = [obj objectForKey:@"commenttime"];
+    model.laud = [obj objectForKey:@"laud"];
+    return model;
+}
+
 @end
