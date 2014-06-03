@@ -139,7 +139,7 @@
     long tag;
 }
 
-+ (UDPRequest *)sharedUDPRequest;
+@property (nonatomic, copy)FinishLoadBlock block;
 
 - (void)send:(NSDictionary *)params;
 

@@ -24,7 +24,12 @@
 #define SOCKET_PORT 9002
 
 
-// 自定义回调函数快
+/*******************************************
+ Custom Block Callback 自定义block回调
+ ********************************************/
+typedef void(^FinishLoadBlock)(NSData *);
+
+typedef void(^Completion)(id data);
 
 typedef void (^ListCallback)(NSMutableArray *list);
 

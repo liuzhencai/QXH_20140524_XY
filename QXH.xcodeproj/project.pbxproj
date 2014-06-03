@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		210021E4193DFAAF006B7D12 /* SignGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 210021E3193DFAAF006B7D12 /* SignGenerator.m */; };
+		210021E7193E049F006B7D12 /* UDPServiceEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 210021E6193E049F006B7D12 /* UDPServiceEngine.m */; };
 		21096A86193616270089286C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A84193616270089286C /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		21096A8919361B050089286C /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A8819361B050089286C /* Base64.m */; };
 		2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109D50A191F1E7F003B76D7 /* EditCardCell.m */; };
@@ -344,6 +345,8 @@
 /* Begin PBXFileReference section */
 		210021E2193DFAAF006B7D12 /* SignGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignGenerator.h; sourceTree = "<group>"; };
 		210021E3193DFAAF006B7D12 /* SignGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignGenerator.m; sourceTree = "<group>"; };
+		210021E5193E049F006B7D12 /* UDPServiceEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPServiceEngine.h; sourceTree = "<group>"; };
+		210021E6193E049F006B7D12 /* UDPServiceEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPServiceEngine.m; sourceTree = "<group>"; };
 		21096A83193616270089286C /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		21096A84193616270089286C /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		21096A85193616270089286C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
@@ -1072,6 +1075,8 @@
 				2166CDF0193396AE00F0312E /* ModelGenerator.m */,
 				210021E2193DFAAF006B7D12 /* SignGenerator.h */,
 				210021E3193DFAAF006B7D12 /* SignGenerator.m */,
+				210021E5193E049F006B7D12 /* UDPServiceEngine.h */,
+				210021E6193E049F006B7D12 /* UDPServiceEngine.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2137,6 +2142,7 @@
 				84F0660D192B2F1100B09AB5 /* MessageCell.m in Sources */,
 				2192EBDD191BD54900A8FE7F /* MyCardController.m in Sources */,
 				21D6ADE8193CBCFC0018109F /* InfoDetailModel.m in Sources */,
+				210021E7193E049F006B7D12 /* UDPServiceEngine.m in Sources */,
 				842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */,
 				2119EEDA191682E6007DBE68 /* Reachability.m in Sources */,
 				8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */,

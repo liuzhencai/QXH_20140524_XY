@@ -18,16 +18,6 @@ static UDPRequest *udpRequest;
 
 @implementation UDPRequest
 
-+ (UDPRequest *)sharedUDPRequest
-{
-    @synchronized(self){
-        if (!udpRequest) {
-            udpRequest = [[UDPRequest alloc] init];
-        }
-    }
-    return udpRequest;
-}
-
 - (void)setupSocket
 {
 	udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -80,19 +70,7 @@ static UDPRequest *udpRequest;
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
-	NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	if (msg)
-	{
-		NSLog(@"RECV: %@", [Base64 decodeBase64String:msg]);
-	}
-	else
-	{
-		NSString *host = nil;
-		uint16_t port = 0;
-		[GCDAsyncUdpSocket getHost:&host port:&port fromAddress:address];
-		
-		NSLog(@"RECV: Unknown message from: %@:%hu", host, port);
-	}
+    self.block(data);
 }
 
 @end

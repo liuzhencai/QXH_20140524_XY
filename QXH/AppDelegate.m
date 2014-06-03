@@ -30,12 +30,14 @@
 
 - (void)testSocket
 {
-    
     NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
-    UDPRequest  *request = [UDPRequest sharedUDPRequest];
-    [request send:param];
-    
-    [defaults setObject: forKey:<#(NSString *)#>]
+    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
+        NSLog(@"返回数据--->%@",data);
+        // 存储token和userid
+        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
+        [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
+    }];
+ 
 }
 
 - (void)registerAction
