@@ -16,27 +16,35 @@
 
 #import "CustomTabBarController.h"
 
+#import "NSString+MD5HexDigest.h"
+
 @implementation AppDelegate
 
 @synthesize tabController;
 
-- (void)testInterface
+- (void)logout
 {
-    NSDictionary *param = @{@"opercode": @"0104",@"platform":@"2",@"version":@"1.1"};
-    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"dict:%@",dict);
-    }];
+   [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
+       
+   }];
 }
 
 - (void)login
 {
-    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
+    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":[@"123456" md5HexDigest],@"sign":[SignGenerator getSign]};
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"返回数据--->%@",data);
+        NSLog(@"登陆返回数据--->%@",data);
         // 存储token和userid
-        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
         [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
+        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
         [defaults synchronize];
+        
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+            
+        }];
+        
+        [self performSelector:@selector(logout) withObject:nil afterDelay:10.f];
+        
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
         // 登陆后维持心跳
     } andErrorHandler:^(id data) {
@@ -47,19 +55,19 @@
 // 心跳
 - (void)heartBeat
 {
-    NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
-    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"心跳返回--->%@",data);
-    } andErrorHandler:^(id data) {
+    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
         
     }];
 }
 
 - (void)registerAction
 {
-    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":@"123456"} andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"dict--->>>%@",dict);
-         }];
+//    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":[@"123456" md5HexDigest]} andCompletionHandler:^(NSMutableDictionary *dict) {
+//        NSLog(@"dict--->>>%@",dict);
+//         }];
+    [DataInterface registerUser:@"zhaolilong2012@gmail.com" andPswd:@"123456" withCompletionHandler:^(NSMutableDictionary *dict) {
+        
+    }];
 }
 
 - (void)loadPages

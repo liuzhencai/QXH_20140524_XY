@@ -72,7 +72,6 @@
             if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
                 isSuccess = YES;
                 callback(returnValue);
-                error(nil);
             }else{
                 ++failtimes;
             }

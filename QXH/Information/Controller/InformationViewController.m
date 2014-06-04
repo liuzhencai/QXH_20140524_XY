@@ -23,7 +23,7 @@
 
 - (void)requestInfoListWithType:(NSString *)type arttype:(NSString *)arttype withCompletionBlock:(ListCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0119",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"], @"type":@"2", @"detailtype":type, @"arttype":arttype, @"direction":@"after", @"count":@"20"};
+    NSDictionary *param = @{@"opercode": @"0119",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"], @"type":@"2", @"detailtype":type, @"tag":@"标签", @"arttype":arttype, @"direction":@"after", @"count":@"20"};
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         callback([ModelGenerator json2InfoList:dict]);
     }];
@@ -44,7 +44,7 @@
     self.title = @"智谷";
     self._tableview.backgroundColor = [UIColor clearColor];
     
-    [self requestInfoListWithType:@"2" arttype:@"1" withCompletionBlock:^(NSMutableArray *list) {
+    [self requestInfoListWithType:@"1" arttype:@"教育" withCompletionBlock:^(NSMutableArray *list) {
         NSLog(@"list--->%@",list);
     }];
     

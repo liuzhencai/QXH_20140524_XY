@@ -217,6 +217,8 @@
 		21DA12DD1936303F001EDEB1 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12D11936303F001EDEB1 /* DDDispatchQueueLogFormatter.m */; };
 		21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12D31936303F001EDEB1 /* DDMultiFormatter.m */; };
 		21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12E119363129001EDEB1 /* UDPRequest.m */; };
+		21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF7589193F4F9800928450 /* NSString+MD5HexDigest.m */; };
+		21DF758F193F535200928450 /* DataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF758E193F535200928450 /* DataInterface.m */; };
 		21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD341926E28A00C616CF /* EverGloryController.m */; };
 		21EDAD371926E28A00C616CF /* EverGloryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD351926E28A00C616CF /* EverGloryController.xib */; };
 		21EDAD3B1926E29900C616CF /* MoreStudyExpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD391926E29900C616CF /* MoreStudyExpController.m */; };
@@ -656,6 +658,11 @@
 		21DA12E019363129001EDEB1 /* UDPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPRequest.h; sourceTree = "<group>"; };
 		21DA12E119363129001EDEB1 /* UDPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPRequest.m; sourceTree = "<group>"; };
 		21DA12E3193631C4001EDEB1 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		21DF7588193F4F9800928450 /* NSString+MD5HexDigest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5HexDigest.h"; sourceTree = "<group>"; };
+		21DF7589193F4F9800928450 /* NSString+MD5HexDigest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5HexDigest.m"; sourceTree = "<group>"; };
+		21DF758B193F4FC800928450 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
+		21DF758D193F535200928450 /* DataInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInterface.h; sourceTree = "<group>"; };
+		21DF758E193F535200928450 /* DataInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInterface.m; sourceTree = "<group>"; };
 		21EDAD331926E28A00C616CF /* EverGloryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverGloryController.h; sourceTree = "<group>"; };
 		21EDAD341926E28A00C616CF /* EverGloryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverGloryController.m; sourceTree = "<group>"; };
 		21EDAD351926E28A00C616CF /* EverGloryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EverGloryController.xib; sourceTree = "<group>"; };
@@ -888,6 +895,7 @@
 		2119EE7E19168279007DBE68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21DF758B193F4FC800928450 /* libcommonCrypto.dylib */,
 				21DA12B919362F0E001EDEB1 /* CFNetwork.framework */,
 				2119EE7F19168279007DBE68 /* Foundation.framework */,
 				2119EE8119168279007DBE68 /* CoreGraphics.framework */,
@@ -1077,6 +1085,10 @@
 				210021E3193DFAAF006B7D12 /* SignGenerator.m */,
 				210021E5193E049F006B7D12 /* UDPServiceEngine.h */,
 				210021E6193E049F006B7D12 /* UDPServiceEngine.m */,
+				21DF7588193F4F9800928450 /* NSString+MD5HexDigest.h */,
+				21DF7589193F4F9800928450 /* NSString+MD5HexDigest.m */,
+				21DF758D193F535200928450 /* DataInterface.h */,
+				21DF758E193F535200928450 /* DataInterface.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2068,6 +2080,7 @@
 				84F06609192B2F1100B09AB5 /* ChatController.m in Sources */,
 				88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */,
 				2119EF00191682EC007DBE68 /* SDWebImageManager.m in Sources */,
+				21DF758F193F535200928450 /* DataInterface.m in Sources */,
 				21D705CE1916A7C1004950BF /* PortraitView.m in Sources */,
 				58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */,
 				848426A0192E0D0100C9474A /* TribeDynamicViewController.m in Sources */,
@@ -2114,6 +2127,7 @@
 				84F065EC192AFACD00B09AB5 /* FindPeopleViewController.m in Sources */,
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
 				21096A86193616270089286C /* GTMBase64.m in Sources */,
+				21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
 				21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
@@ -2297,6 +2311,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/QXH/ThirdParty/WX",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
@@ -2317,6 +2332,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/QXH/ThirdParty/WX",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";

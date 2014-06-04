@@ -21,10 +21,12 @@
 #import "Base64.h"
 #import "GTMBase64.h"
 #import "SynthesizeSingleton.h"
-#import "HttpRequest.h"
 #import "ModelGenerator.h"
 #import "SignGenerator.h"
+#import "HttpRequest.h"
 #import "UDPServiceEngine.h"
+#import "NSString+MD5HexDigest.h"
+#import "DataInterface.h"
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 

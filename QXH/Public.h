@@ -47,4 +47,6 @@ typedef void (^DictCallback) (NSMutableDictionary *dict);
 
 #define CACHE_PATH @"com.mrsource.cache"
 
+#define APP_VER [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
+
 #endif
