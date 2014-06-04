@@ -32,12 +32,7 @@
 - (void)login
 {
     NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":[@"123456" md5HexDigest],@"sign":[SignGenerator getSign]};
-    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"登陆返回数据--->%@",data);
-        // 存储token和userid
-        [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
-        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
-        [defaults synchronize];
+    [DataInterface login:@"zhaolilong2012@gmail.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
         
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
             
@@ -46,9 +41,7 @@
         [self performSelector:@selector(logout) withObject:nil afterDelay:10.f];
         
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
-        // 登陆后维持心跳
-    } andErrorHandler:^(id data) {
-        
+
     }];
 }
 
@@ -62,9 +55,6 @@
 
 - (void)registerAction
 {
-//    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":[@"123456" md5HexDigest]} andCompletionHandler:^(NSMutableDictionary *dict) {
-//        NSLog(@"dict--->>>%@",dict);
-//         }];
     [DataInterface registerUser:@"zhaolilong2012@gmail.com" andPswd:@"123456" withCompletionHandler:^(NSMutableDictionary *dict) {
         
     }];
@@ -80,9 +70,6 @@
     homeNav.delegate = tabController;
     
     // 添加通讯录导航控制器
-    //    AddressListController *alController = [[AddressListController alloc] initWithNibName:@"AddressListController" bundle:nil];
-    //    UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
-    
     AddressListViewController *alController = [[AddressListViewController alloc] init];
     UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
     addrNav.delegate = tabController;
@@ -96,9 +83,19 @@
     self.window.rootViewController = tabController;
     
 //    LoginViewController* login = [[LoginViewController alloc]init];
-//    UINavigationController* loginnavigation = [[UINavigationController alloc]initWithRootViewController:login];
-//    self.window.rootViewController = loginnavigation;
+//    UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
+////    self.window.rootViewController = loginnavigation;
+//    [self.window addSubview:loginNavigation.view];
     
+}
+
+#pragma mark - loginDelegate
+- (void)didLoginHandle:(LoginViewController *)loginViewController{
+    NSLog(@"登录完成");
+//    [self login];
+    [self loadPages];
+    
+    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -106,16 +103,26 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
 //    [self testInterface];
-    
 //    [self registerAction];
     
+    if ([defaults objectForKey:@"userName"] && [defaults objectForKey:@"passworld"]) {
+        //自动登陆
+        [self login];
+        [self loadPages];
+    }else{
+        LoginViewController* login = [[LoginViewController alloc]init];
+        login.delegate = self;
+        UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
+        self.window.rootViewController = loginNavigation;
+    }
+    
     // 登陆
-    [self login];
+//    [self login];
     
     [WXApi registerApp:@"wxd930ea5d5a258f4f"];
     
     // Override point for customization after application launch.
-    [self loadPages];
+//    [self loadPages];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

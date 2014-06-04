@@ -79,7 +79,9 @@
 //    district:"130400",		//地域信息
 //    canjoin:"0"			//0为全部活动，1为可加入报名的活动,2为已参加的活动
 //    }
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+    
+    NSDictionary *params = @{@"opercode": @"0125",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"], @"start":@"10", @"direction":@"before", @"count":@"20", @"actname":@"", @"tags":@"",@"district":@"",@"canjoin":@"0"};
     [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"返回值:%@",dict);
     }];
