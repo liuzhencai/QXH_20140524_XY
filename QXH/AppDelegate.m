@@ -30,7 +30,17 @@
 
 - (void)login
 {
-    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
+    NSDictionary *param = @{@"opercode": @"0102",
+                            @"username":@"zhaolilong2012@gmail.com",
+                            @"pwd":@"e10adc3949ba59abbe56e057f20f883e",
+                            @"sign":[SignGenerator getSign]};
+    if ([defaults objectForKey:USER_NAME] && [defaults objectForKey:PASSWORLD]) {
+        param = @{@"opercode": @"0102",
+                  @"username":[defaults objectForKey:USER_NAME],
+                  @"pwd":[defaults objectForKey:PASSWORLD],
+                  @"sign":[SignGenerator getSign]};
+    }
+    
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"返回数据--->%@",data);
         // 存储token和userid
@@ -40,8 +50,14 @@
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
         // 登陆后维持心跳
     } andErrorHandler:^(id data) {
-        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:data
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
     }];
+    [self loadPages];
 }
 
 // 心跳
@@ -72,9 +88,6 @@
     homeNav.delegate = tabController;
     
     // 添加通讯录导航控制器
-    //    AddressListController *alController = [[AddressListController alloc] initWithNibName:@"AddressListController" bundle:nil];
-    //    UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
-    
     AddressListViewController *alController = [[AddressListViewController alloc] init];
     UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
     addrNav.delegate = tabController;
@@ -88,9 +101,19 @@
     self.window.rootViewController = tabController;
     
 //    LoginViewController* login = [[LoginViewController alloc]init];
-//    UINavigationController* loginnavigation = [[UINavigationController alloc]initWithRootViewController:login];
-//    self.window.rootViewController = loginnavigation;
+//    UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
+////    self.window.rootViewController = loginnavigation;
+//    [self.window addSubview:loginNavigation.view];
     
+}
+
+#pragma mark - loginDelegate
+- (void)didLoginHandle:(LoginViewController *)loginViewController{
+    NSLog(@"登录完成");
+//    [self login];
+    [self loadPages];
+    
+    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -98,16 +121,26 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
 //    [self testInterface];
-    
 //    [self registerAction];
     
+    if ([defaults objectForKey:@"userName"] && [defaults objectForKey:@"passworld"]) {
+        //自动登陆
+        [self login];
+        [self loadPages];
+    }else{
+        LoginViewController* login = [[LoginViewController alloc]init];
+        login.delegate = self;
+        UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
+        self.window.rootViewController = loginNavigation;
+    }
+    
     // 登陆
-    [self login];
+//    [self login];
     
     [WXApi registerApp:@"wxd930ea5d5a258f4f"];
     
     // Override point for customization after application launch.
-    [self loadPages];
+//    [self loadPages];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

@@ -8,6 +8,11 @@
 
 #import "UserRegisterViewController.h"
 #import "FillNameCardViewController.h"
+#import "AppDelegate.h"
+#import "CustomTabBarController.h"
+#import "HomePageController.h"
+#import "AddressListViewController.h"
+#import "PersonalInfoController.h"
 
 #import "EditCardController.h"
 
@@ -65,6 +70,7 @@
         NSString *placeholderStr = nil;
         if (0 == i) {
             self.emailField = textField;
+            textField.secureTextEntry = NO;
             placeholderStr = @"请输入邮箱";
         }else if(1 == i){
             self.pwField = textField;
@@ -154,11 +160,70 @@
 //注册
 - (void)userRegister:(UIButton *)sender{
     NSLog(@"注册");
-//    FillNameCardViewController *nameCard = [[FillNameCardViewController alloc] init];
-//    [self.navigationController pushViewController:nameCard animated:YES];
-    EditCardController *editCard = [[EditCardController alloc] init];
-    editCard.title = @"注册";
-    [self.navigationController pushViewController:editCard animated:YES];
+    if ([self.emailField.text length] <= 0) {
+        [self showAlert:@"请输入邮箱"];
+        return;
+    }else if([self.pwField.text length] <= 0){
+        [self showAlert:@"请输入密码"];
+        return;
+    }else if([self.repeatPWField.text length] <= 0){
+        [self showAlert:@"请再次输入密码"];
+        return;
+    }
+    
+    if (![self.pwField.text isEqualToString:self.repeatPWField.text]) {
+        [self showAlert:@"两次输入的密码不同"];
+        return;
+    }
+    
+    if (!self.isAgreeConvention) {
+        [self showAlert:@"请接受会员章程"];
+        return;
+    }
+    
+//    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":@"123456"} andCompletionHandler:^(NSMutableDictionary *dict) {
+//        NSLog(@"dict--->>>%@",dict);
+//        [self registerAction];
+//    }];
+    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":self.emailField.text,@"pwd":self.pwField.text} andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"dict--->>>%@",dict);
+        [self showAlert:[dict objectForKey:@"info"]];
+        [self registerAction];
+    }];
+    
+//    EditCardController *editCard = [[EditCardController alloc] init];
+//    editCard.title = @"注册";
+//    [self.navigationController pushViewController:editCard animated:YES];
+}
+
+- (void)registerAction
+{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSLog(@"appdelegate:%@",delegate);
+    
+    delegate.tabController = [[CustomTabBarController alloc]init];
+    
+    // 添加主页导航控制器
+    HomePageController *hpController = [[HomePageController alloc] initWithNibName:@"HomePageController" bundle:nil];
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:hpController];
+    homeNav.delegate = delegate.tabController;
+    
+    // 添加通讯录导航控制器
+    AddressListViewController *alController = [[AddressListViewController alloc] init];
+    UINavigationController *addrNav = [[UINavigationController alloc] initWithRootViewController:alController];
+    addrNav.delegate = delegate.tabController;
+    
+    // 添加个人信息导航控制器
+    PersonalInfoController *piController = [[PersonalInfoController alloc] initWithNibName:@"PersonalInfoController" bundle:nil];
+    UINavigationController *meNav = [[UINavigationController alloc] initWithRootViewController:piController];
+    meNav.delegate = delegate.tabController;
+    
+    [delegate.tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
+    delegate.window.rootViewController = delegate.tabController;
+    
+    //    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":@"123456"} andCompletionHandler:^(NSMutableDictionary *dict) {
+    //        NSLog(@"dict--->>>%@",dict);
+    //    }];
 }
 
 #pragma mark - UITextFieldDelegate

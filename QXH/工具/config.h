@@ -41,4 +41,9 @@
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+#pragma mark - String
+#define USER_NAME @"userName"   //用户名
+#define PASSWORLD @"passworld"  //密码
+#define LOGIN_DATE @"loginDate" //登录时间
+
 #endif
