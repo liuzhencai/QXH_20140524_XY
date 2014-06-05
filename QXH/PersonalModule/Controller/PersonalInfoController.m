@@ -16,10 +16,20 @@
 #import "MyVisitorController.h"
 
 @interface PersonalInfoController ()
+{
+    NSDictionary *userinfo;
+}
 
 @end
 
 @implementation PersonalInfoController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+        userinfo = dict;
+    }];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,7 +47,6 @@
     self.title = @"我";
      self.hidesBottomBarWhenPushed = NO;
     titleArray = @[@"我的分享",@"我的收藏",@"我的活动", @"我的部落", @"我的访客", @"会员章程",@"设置"];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,15 +83,24 @@
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:firstCell];
             
             UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 48, 48)];
-            iconImage.image = [UIImage imageNamed:@"img_portrait96"];
+//            iconImage.image = [UIImage imageNamed:@"img_portrait96"];
+            NSString *imgurl = [userinfo objectForKey:@"photo"];
+            if ([imgurl isEqualToString:@""])
+            {
+                iconImage.image = [UIImage imageNamed:@"img_portrait96"];
+            }
+            else
+            {
+                [iconImage setImageWithURL:[userinfo objectForKey:@"photo"]];
+            }
             [cell.contentView addSubview:iconImage];
             
             UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 10, 100, 21)];
-            nameLabel.text = @"用户名";
+            nameLabel.text = [userinfo objectForKey:@"displayname"];
             [cell.contentView addSubview:nameLabel];
             
             UILabel *positionLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 40, 180, 21)];
-            positionLabel.text = @"企业职位介绍";
+            positionLabel.text = [userinfo objectForKey:@"title"];
             [cell.contentView addSubview:positionLabel];
         }
     }else if(indexPath.row == 1){
