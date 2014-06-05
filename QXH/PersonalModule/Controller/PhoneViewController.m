@@ -81,7 +81,10 @@
 - (void)add:(id)sender
 {
     NSLog(@"添加");
-    [self showAlert:@"添加"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请输入手机号码" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+    
 }
 
 @end

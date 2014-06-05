@@ -206,8 +206,11 @@
 {
     NSLog(@"注销");
 
-    [self showAlert:@"注销"];
-
+    [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
+//        [defaults removeObjectForKey:@"userid"];
+//        [defaults removeObjectForKey:@"token"];
+        [self showAlert:[dict objectForKey:@"info"]];
+    }];
 }
 
 @end

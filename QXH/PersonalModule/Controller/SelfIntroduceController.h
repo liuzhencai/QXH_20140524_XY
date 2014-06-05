@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SelfIntroduceController : MyViewController
+@property (weak, nonatomic) IBOutlet UITextView *introduceView;
 
 @end

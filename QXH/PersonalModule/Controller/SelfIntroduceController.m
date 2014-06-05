@@ -28,6 +28,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"自我介绍";
+    
+    _introduceView.layer.masksToBounds = YES;
+    _introduceView.layer.borderWidth = 1.f;
+    _introduceView.layer.borderColor = [UIColor grayColor].CGColor;
+    _introduceView.layer.cornerRadius = 3.f;
+    
 }
 
 - (void)didReceiveMemoryWarning
