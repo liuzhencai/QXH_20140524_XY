@@ -11,8 +11,12 @@
 @interface MyCardController : MyViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *cardTable;
-
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (strong, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 - (IBAction)btnClicked:(id)sender;
 

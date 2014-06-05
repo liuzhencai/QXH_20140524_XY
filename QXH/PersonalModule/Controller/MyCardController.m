@@ -12,11 +12,19 @@
 @interface MyCardController ()
 {
     NSArray *items;
+    NSDictionary *userinfo;
 }
 
 @end
 
 @implementation MyCardController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+        userinfo = dict;
+    }];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +35,15 @@
     return self;
 }
 
+- (void)configureTopView
+{
+    [_portraitView setImageWithURL:[userinfo objectForKey:@"photo"]];
+    _nameLabel.text = [userinfo objectForKey:@"displayname"];
+    _titleLabel.text = [userinfo objectForKey:@"title"];
+    _phoneLabel.text = [userinfo objectForKey:@"phone"];
+    _emailLabel.text = [userinfo objectForKey:@"email"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -34,6 +51,8 @@
     self.title = @"个人名片";
     items = @[@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
     _cardTable.tableHeaderView = _topView;
+    [self configureTopView];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -117,19 +136,24 @@
     NSString *value = @"";
     switch (indexPath.row) {
         case 0:
-            value = @"北京市教育局局长";
+//            value = @"北京市教育局局长";
+            value = [userinfo objectForKey:@"title"];
             break;
         case 1:
-            value = @"北京";
+//            value = @"北京";
+            value = [userinfo objectForKey:@"domicile"];
             break;
         case 2:
-            value = @"教授";
+//            value = @"教授";
+            value = [userinfo objectForKey:@"title"];
             break;
         case 3:
-            value = @"国家级科技成就奖";
+//            value = @"国家级科技成就奖";
+            value = [userinfo objectForKey:@"honours"];
             break;
         case 4:
-            value = @"不知道";
+//            value = @"不知道";
+            value = [userinfo objectForKey:@"signature"];
             break;
             
         default:
