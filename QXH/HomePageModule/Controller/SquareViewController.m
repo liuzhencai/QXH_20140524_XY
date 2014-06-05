@@ -11,6 +11,7 @@
 #import "SquareShareController.h"
 #import "ShareTextController.h"
 #import "HistoryReviewController.h"
+#import "SquareActivityCell.h"
 
 @interface SquareViewController ()
 
@@ -74,8 +75,13 @@
             rowHeight = 162.f;
         }
             break;
+        case 2:
+        {
+            rowHeight = 162.f;
+        }
+            break;
         default:
-            rowHeight = 82.f;
+            rowHeight = 201.f;
             break;
     }
     return rowHeight;
@@ -97,11 +103,17 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
         }
-    }else{
+    }else if(indexPath.row == 2){
         static NSString *cellIdentifier = @"squareCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
+        }
+    }else{
+        static NSString *cellIdentifier = @"squareActivityCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
         }
     }
   

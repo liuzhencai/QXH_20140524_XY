@@ -59,6 +59,7 @@
     _nameField.font = [UIFont systemFontOfSize:FONT];
     _nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _nameField.placeholder = @"请输入用户名";//@"cellnumber/identifyID/email";
+    _nameField.text = @"zhaolilong2012@gmail.com";
     _nameField.delegate = self;
     [self.view addSubview:_nameField];
     
@@ -81,7 +82,7 @@
     _pwField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _pwField.delegate = self;
     _pwField.secureTextEntry = YES;
-//    _pwField.backgroundColor = [UIColor redColor];
+    _pwField.text = @"123456";
     [self.view addSubview:_pwField];
     
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_TO_LEFT, _pwField.bottom + 4, UI_SCREEN_WIDTH - 2 * WIDTH_TO_LEFT, 0.5)];
@@ -120,31 +121,52 @@
 
 - (void)login:(id)sender{
     NSLog(@"login");
-    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
-    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"返回数据--->%@",data);
-        // 存储token和userid
-        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
-        [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
+//    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
+//    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
+//        NSLog(@"返回数据--->%@",data);
+////        // 存储token和userid
+////        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
+////        [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
+//        //登录成功后保存用户名和密码
+//        [defaults setObject:self.nameField.text forKey:USER_NAME];
+//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
+//        NSDate *date = [NSDate date];
+//        [defaults setObject:date forKey:LOGIN_DATE];
+//        [defaults synchronize];
+//        
+//        if (self.delegate) {
+//            [self.delegate didLoginHandle:self];
+//        }
+//    } andErrorHandler:^(id data) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                        message:data
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"确定"
+//                                              otherButtonTitles:nil, nil];
+//        [alert show];
+//    }];
+    
+    if ([self.nameField.text length] <= 0) {
+        [self showAlert:@"请输入用户名"];
+        return;
+    }
+    if ([self.pwField.text length] <= 0) {
+        [self showAlert:@"请输入密码"];
+        return;
+    }
+    
+    [DataInterface login:self.nameField.text andPswd:self.pwField.text withCompletinoHandler:^(NSMutableDictionary *dict) {
         //登录成功后保存用户名和密码
-        [defaults setObject:self.nameField.text forKey:USER_NAME];
-        [defaults setObject:self.pwField.text forKey:PASSWORLD];
-        NSDate *date = [NSDate date];
-        [defaults setObject:date forKey:LOGIN_DATE];
-        [defaults synchronize];
-        
+//        [defaults setObject:self.nameField.text forKey:USER_NAME];
+//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
+//        NSDate *date = [NSDate date];
+//        [defaults setObject:date forKey:LOGIN_DATE];
+//        [defaults synchronize];
+        NSLog(@"登陆返回信息：%@",dict);
         if (self.delegate) {
             [self.delegate didLoginHandle:self];
         }
-    } andErrorHandler:^(id data) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:data
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
     }];
-    
 }
 
 - (void)userRegister:(id)sender{

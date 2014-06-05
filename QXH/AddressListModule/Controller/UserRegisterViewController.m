@@ -181,12 +181,14 @@
         return;
     }
     
-//    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":@"123456"} andCompletionHandler:^(NSMutableDictionary *dict) {
+//    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":self.emailField.text,@"pwd":self.pwField.text} andCompletionHandler:^(NSMutableDictionary *dict) {
 //        NSLog(@"dict--->>>%@",dict);
+//        [self showAlert:[dict objectForKey:@"info"]];
 //        [self registerAction];
 //    }];
-    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":self.emailField.text,@"pwd":self.pwField.text} andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"dict--->>>%@",dict);
+    
+    [DataInterface registerUser:self.emailField.text andPswd:self.pwField.text withCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"注册返回值：%@",dict);
         [self showAlert:[dict objectForKey:@"info"]];
         [self registerAction];
     }];
@@ -220,7 +222,6 @@
     
     [delegate.tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
     delegate.window.rootViewController = delegate.tabController;
-    
     //    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":@"zhaolilong2012@gmail.com",@"pwd":@"123456"} andCompletionHandler:^(NSMutableDictionary *dict) {
     //        NSLog(@"dict--->>>%@",dict);
     //    }];

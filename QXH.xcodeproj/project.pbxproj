@@ -329,6 +329,8 @@
 		84FCA861192CC45F0005295A /* SquareCellEx.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCA85D192CC45F0005295A /* SquareCellEx.xib */; };
 		88347ECE1935D6F100D60193 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ECD1935D6F100D60193 /* DatePickerView.m */; };
 		88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ED01935DB3C00D60193 /* InActivityCell.m */; };
+		88C12280194069AA0000533E /* SquareActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C1227E194069AA0000533E /* SquareActivityCell.m */; };
+		88C12281194069AA0000533E /* SquareActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C1227F194069AA0000533E /* SquareActivityCell.xib */; };
 		88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F2319341DF000734AE1 /* TribeInfoModel.m */; };
 		88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F26193425C300734AE1 /* MemberInfoModel.m */; };
 		88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F69193433B000734AE1 /* ActivityInfoModel.m */; };
@@ -827,6 +829,9 @@
 		88347ECD1935D6F100D60193 /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		88347ECF1935DB3C00D60193 /* InActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InActivityCell.h; sourceTree = "<group>"; };
 		88347ED01935DB3C00D60193 /* InActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InActivityCell.m; sourceTree = "<group>"; };
+		88C1227D194069AA0000533E /* SquareActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareActivityCell.h; sourceTree = "<group>"; };
+		88C1227E194069AA0000533E /* SquareActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareActivityCell.m; sourceTree = "<group>"; };
+		88C1227F194069AA0000533E /* SquareActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareActivityCell.xib; sourceTree = "<group>"; };
 		88EE4F2219341DF000734AE1 /* TribeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeInfoModel.h; sourceTree = SOURCE_ROOT; };
 		88EE4F2319341DF000734AE1 /* TribeInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeInfoModel.m; sourceTree = SOURCE_ROOT; };
 		88EE4F25193425C300734AE1 /* MemberInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1290,6 +1295,9 @@
 				21D705C21916A49F004950BF /* SquareCell.h */,
 				21D705C31916A49F004950BF /* SquareCell.m */,
 				21D705C41916A49F004950BF /* SquareCell.xib */,
+				88C1227D194069AA0000533E /* SquareActivityCell.h */,
+				88C1227E194069AA0000533E /* SquareActivityCell.m */,
+				88C1227F194069AA0000533E /* SquareActivityCell.xib */,
 				21D705C71916A60B004950BF /* AskCell.h */,
 				21D705C81916A60B004950BF /* AskCell.m */,
 				21D705C91916A60B004950BF /* AskCell.xib */,
@@ -2003,6 +2011,7 @@
 				848426D5192E185B00C9474A /* banner_icon_circle01@2x.png in Resources */,
 				21D705CB1916A60B004950BF /* AskCell.xib in Resources */,
 				848426E4192E185B00C9474A /* icon_zhigu@2x.png in Resources */,
+				88C12281194069AA0000533E /* SquareActivityCell.xib in Resources */,
 				848426E5192E185B00C9474A /* line@2x.png in Resources */,
 				2192EC1F191BD84200A8FE7F /* HobbyViewController.xib in Resources */,
 				58B1DEAD192B980500086C38 /* collect_label_share_green@2x.png in Resources */,
@@ -2148,6 +2157,7 @@
 				21D705AC19169A15004950BF /* LabelArrowCell.m in Sources */,
 				2119EF0A1916837D007DBE68 /* HttpServiceEngine.m in Sources */,
 				84F0660A192B2F1100B09AB5 /* ChatInput.m in Sources */,
+				88C12280194069AA0000533E /* SquareActivityCell.m in Sources */,
 				2119EEFB191682EC007DBE68 /* SDImageCache.m in Sources */,
 				2119EEFC191682EC007DBE68 /* SDWebImageCompat.m in Sources */,
 				21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */,
