@@ -58,6 +58,61 @@
 + (void)getUserInfo:(NSString *)targetid withCompletionHandler:(DictCallback)callback;
 
 /**
+ *  修改用户信息(注：如果某个字段不修改请将字段的值置为“------”,其他情况视为修改)
+ *
+ *  @param displayname   昵称
+ *  @param oldpwd        老密码
+ *  @param newpwd        新密码
+ *  @param signature     签名
+ *  @param title         头衔职称
+ *  @param degree        学位
+ *  @param address       籍贯编码
+ *  @param domicile      居住地编码
+ *  @param introduce     自我介绍
+ *  @param comname       公司名称
+ *  @param comdesc       公司描述
+ *  @param comaddress    公司地址
+ *  @param comurl        公司网址
+ *  @param induname      行业名称
+ *  @param indudesc      行业描述
+ *  @param schoolname    学校名称
+ *  @param schooltype    学校类型
+ *  @param sex           0为保密，1为男，2为女
+ *  @param email         用户邮箱
+ *  @param tags          用户标签
+ *  @param attentiontags 关注标签
+ *  @param hobbies       爱好
+ *  @param educations    教育经历
+ *  @param honours       荣誉
+ *  @param callback      回调
+ */
++ (void)modifyUserInfo:(NSString *)displayname
+                oldpwd:(NSString *)oldpwd
+                newpwd:(NSString *)newpwd
+             signature:(NSString *)signature
+                 title:(NSString *)title
+                degree:(NSString *)degree
+               address:(NSString *)address
+              domicile:(NSString *)domicile
+             introduce:(NSString *)introduce
+               comname:(NSString *)comname
+               comdesc:(NSString *)comdesc
+            comaddress:(NSString *)comaddress
+                comurl:(NSString *)comurl
+              induname:(NSString *)induname
+              indudesc:(NSString *)indudesc
+            schoolname:(NSString *)schoolname
+            schooltype:(NSString *)schooltype
+                   sex:(NSString *)sex
+                 email:(NSString *)email
+                  tags:(NSString *)tags
+         attentiontags:(NSString *)attentiontags
+               hobbies:(NSString *)hobbies
+            educations:(NSString *)educations
+               honours:(NSString *)honours
+ withCompletionHandler:(DictCallback)callback;
+                                                                                                                                                                        
+/**
  *  加好友请求
  *
  *  @param targetid 被处理的加入成员的userid

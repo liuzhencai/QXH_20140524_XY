@@ -18,12 +18,26 @@
 @interface EditCardController ()
 {
     NSArray *titleArr;
+    NSDictionary *userinfo;
 }
 @end
 
 @implementation EditCardController
 
 @synthesize valueArr;
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+        userinfo = dict;
+        NSString *phone = [userinfo objectForKey:@"phone"];
+        if ([phone isEqualToString:@""]) {
+            phone = @"无手机号";
+        }
+        valueArr = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"%@ %@",[userinfo objectForKey:@"schoolname"],[userinfo objectForKey:@"title"]], [NSString stringWithFormat:@"%@",[userinfo objectForKey:@"domicile"]], [userinfo objectForKey:@"introduce"], [userinfo objectForKey:@"hobbies"], [userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
+        [_editTable reloadData];
+    }];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +58,7 @@
     
     titleArr = @[@"学校信息（必填）", @"城市（必填）", @"自我介绍", @"兴趣爱好", @"学习经历", @"手机号", @"曾获荣誉"];
     
-    valueArr = [[NSMutableArray alloc] initWithObjects:@"北京市智障二中 校长", @"北京", @"您的详细介绍", @"您的兴趣爱好", @"您的教育经历", @"您的手机号", @"曾经获得的社会荣誉", nil];
+//    valueArr = [[NSMutableArray alloc] initWithObjects:@"北京市智障二中 校长", @"北京", @"您的详细介绍", @"您的兴趣爱好", @"您的教育经历", @"您的手机号", @"曾经获得的社会荣誉", nil];
     
 }
 

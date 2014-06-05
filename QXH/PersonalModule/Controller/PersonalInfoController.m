@@ -26,8 +26,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
         userinfo = dict;
+        [_meTable reloadData];
     }];
 }
 
@@ -83,26 +85,32 @@
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:firstCell];
             
             UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 48, 48)];
-//            iconImage.image = [UIImage imageNamed:@"img_portrait96"];
-            NSString *imgurl = [userinfo objectForKey:@"photo"];
-            if ([imgurl isEqualToString:@""])
-            {
-                iconImage.image = [UIImage imageNamed:@"img_portrait96"];
-            }
-            else
-            {
-                [iconImage setImageWithURL:[userinfo objectForKey:@"photo"]];
-            }
+            iconImage.tag = 1000;
             [cell.contentView addSubview:iconImage];
             
             UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 10, 100, 21)];
-            nameLabel.text = [userinfo objectForKey:@"displayname"];
+            nameLabel.tag = 1001;
             [cell.contentView addSubview:nameLabel];
             
             UILabel *positionLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 40, 180, 21)];
-            positionLabel.text = [userinfo objectForKey:@"title"];
+            positionLabel.tag = 1002;
             [cell.contentView addSubview:positionLabel];
         }
+        UIImageView *iconImage_ = (UIImageView *)[cell.contentView viewWithTag:1000];
+        NSString *imgurl = [userinfo objectForKey:@"photo"];
+        if ([imgurl isEqualToString:@""])
+        {
+            iconImage_.image = [UIImage imageNamed:@"img_portrait96"];
+        }
+        else
+        {
+            [iconImage_ setImageWithURL:[userinfo objectForKey:@"photo"]];
+        }
+
+        UILabel *nameLabel_ = (UILabel *)[cell.contentView viewWithTag:1001];
+        nameLabel_.text = [userinfo objectForKey:@"displayname"];
+        UILabel *positionLabel_ = (UILabel *)[cell.contentView viewWithTag:1002];
+        positionLabel_.text = [userinfo objectForKey:@"title"];
     }else if(indexPath.row == 1){
         static NSString *secondCell = @"secondCell";
         cell = [tableView dequeueReusableCellWithIdentifier:secondCell];

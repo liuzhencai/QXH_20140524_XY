@@ -39,7 +39,8 @@
         }];
         
         [self performSelector:@selector(logout) withObject:nil afterDelay:10.f];
-        
+     
+//
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 
     }];
@@ -92,7 +93,7 @@
 #pragma mark - loginDelegate
 - (void)didLoginHandle:(LoginViewController *)loginViewController{
     NSLog(@"登录完成");
-//    [self login];
+   //    [self login];
     [self loadPages];
     
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];

@@ -10,5 +10,7 @@
 
 @interface SchoolInfoController : MyViewController
 - (IBAction)save:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *schoolname;
+@property (weak, nonatomic) IBOutlet UITextField *schooljob;
 
 @end

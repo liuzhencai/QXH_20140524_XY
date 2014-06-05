@@ -49,4 +49,6 @@ typedef void (^DictCallback) (NSMutableDictionary *dict);
 
 #define APP_VER [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
 
+#define ORIGIN_VAL @"------"
+
 #endif

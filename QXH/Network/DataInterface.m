@@ -80,6 +80,41 @@
     }];
 }
 
++ (void)modifyUserInfo:(NSString *)displayname
+                oldpwd:(NSString *)oldpwd
+                newpwd:(NSString *)newpwd
+             signature:(NSString *)signature
+                 title:(NSString *)title
+                degree:(NSString *)degree
+               address:(NSString *)address
+              domicile:(NSString *)domicile
+             introduce:(NSString *)introduce
+               comname:(NSString *)comname
+               comdesc:(NSString *)comdesc
+            comaddress:(NSString *)comaddress
+                comurl:(NSString *)comurl
+              induname:(NSString *)induname
+              indudesc:(NSString *)indudesc
+            schoolname:(NSString *)schoolname
+            schooltype:(NSString *)schooltype
+                   sex:(NSString *)sex
+                 email:(NSString *)email
+                  tags:(NSString *)tags
+         attentiontags:(NSString *)attentiontags
+               hobbies:(NSString *)hobbies
+            educations:(NSString *)educations
+               honours:(NSString *)honours
+ withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0106", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"displayname":displayname,@"oldpwd":oldpwd,@"newpwd":newpwd,@"signature":signature,@"title":title,@"degree":degree,@"address":address,@"domicile":domicile,@"introduce":introduce,@"comname":comname,@"comdesc":comdesc,@"comaddress":comaddress,@"comurl":comurl,@"induname":induname,@"indudesc":indudesc,@"schoolname":schoolname,@"schooltype":schooltype,@"sex":sex,@"email":ORIGIN_VAL,@"tags":tags,@"attentiontags":attentiontags,@"hobbies":hobbies,@"educations":educations,@"honours":honours,};
+    NSLog(@"\n##########修改用户信息接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########修改用户信息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+    
+}
+
 + (void)getFriendInfo:(NSString *)type
               address:(NSString *)address
              domicile:(NSString *)domicile

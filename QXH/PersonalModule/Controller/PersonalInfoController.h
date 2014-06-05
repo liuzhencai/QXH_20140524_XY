@@ -12,5 +12,6 @@
 {
     NSArray *titleArray;
 }
+@property (weak, nonatomic) IBOutlet UITableView *meTable;
 
 @end

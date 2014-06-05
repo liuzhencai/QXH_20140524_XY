@@ -23,6 +23,8 @@
 {
     [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
         userinfo = dict;
+        [self configureTopView];
+        [_cardTable reloadData];
     }];
 }
 
@@ -37,10 +39,19 @@
 
 - (void)configureTopView
 {
-    [_portraitView setImageWithURL:[userinfo objectForKey:@"photo"]];
+    if ([[userinfo objectForKey:@"photo"] isEqualToString:@""])
+    {
+        _portraitView.image = [UIImage imageNamed:@"img_portrait96"];
+    }else{
+        [_portraitView setImageWithURL:[userinfo objectForKey:@"photo"]];
+    }
     _nameLabel.text = [userinfo objectForKey:@"displayname"];
     _titleLabel.text = [userinfo objectForKey:@"title"];
-    _phoneLabel.text = [userinfo objectForKey:@"phone"];
+    if ([[userinfo objectForKey:@"phone"] isEqualToString:@""]) {
+        _phoneLabel.text = @"无电话";
+    }else{
+        _phoneLabel.text = [userinfo objectForKey:@"phone"];
+    }
     _emailLabel.text = [userinfo objectForKey:@"email"];
 }
 
@@ -51,8 +62,6 @@
     self.title = @"个人名片";
     items = @[@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
     _cardTable.tableHeaderView = _topView;
-    [self configureTopView];
-
 }
 
 - (void)didReceiveMemoryWarning
