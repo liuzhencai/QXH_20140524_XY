@@ -170,18 +170,27 @@
 - (void)didSelectButtonWithIndex:(int)index{
     NSLog(@"选择： %d",index);
     if (index == 1) {
-//        {
-//        opercode:"0108",
-//        userid:"1234565",		//用户唯一标识
-//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-//        targetid:"123456",		//被处理的加入成员的userid
-//        mess:"我是某某莫"		//好友请求验证消息
-//        }
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-            NSLog(@"返回值:%@",dict);
+
+//        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+//        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+//            NSLog(@"返回值:%@",dict);
+//        }];
+        
+        /**
+         *  加好友确认/修改备注
+         *
+         *  @param targetid 被处理的加入成员的userid
+         *  @param type     0为同意并添加对方为好友(备注不为空添加备注)，1为同意但不添加对方为好友，2为拒绝，3为修改备注
+         *  @param remark   备注
+         *  @param callback 回调
+         */
+        
+        [DataInterface addFriendConfirm:@"100" type:@"1" remark:@"张三" withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"加为好友返回值：%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
         }];
-        [self showAlert:@"已发出好友申请"];
+        
+//        [self showAlert:@"已发出好友申请"];
     }else{
         [self showAlert:@"转发名片"];
     }

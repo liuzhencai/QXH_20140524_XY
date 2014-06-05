@@ -38,10 +38,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //登陆
-//    LoginViewController *login = [[LoginViewController alloc] init];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-//    nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -80,22 +76,35 @@
     //    self.searchDC.searchResultsDataSource = self;
     //    self.searchDC.searchResultsDelegate = self;
     
+    [self getAddressList];
+}
+
+- (void)getAddressList{
+    /**
+     *  获取好友(通讯录)/查找用户列表公用接口
+     *
+     *  @param type        1为获取好友列表，2为搜索
+     *  @param address     籍贯编码
+     *  @param domicile    居住地编码
+     *  @param displayname 昵称
+     *  @param usertype    用户类型,为空时不区分类型
+     *  @param start       起始位置
+     *  @param count       获取数量
+     *  @param callback    回调
+     */
     
-    //网络请求
-//    {
-//    opercode:"0107",		//operCode为0107，客户端通过该字段确定事件
-//    userid:"666666",		//用户唯一标识
-//    token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-//    type:"1",			//1为获取好友列表，2为搜索
-//    address:"籍贯编码",		//籍贯编码
-//    domicile:"居住地编码",		//居住地编码
-//    displayname:"张三",		//昵称
-//    }
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];//@{@"opercode":@"0200"}
-    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"返回值:%@",dict);
-    }];
-    
+    [DataInterface getFriendInfo:@"1"
+                         address:@""
+                        domicile:@""
+                     displayname:@""
+                        usertype:@""
+                           start:@"0"
+                           count:@"10"
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"通讯录列表返回数据：%@",dict);
+               [self showAlert:[dict objectForKey:@"info"]];
+           }];
+
 }
 
 - (void)didReceiveMemoryWarning

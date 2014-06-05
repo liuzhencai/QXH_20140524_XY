@@ -73,40 +73,69 @@
 - (void)exitTribe:(UIButton *)sender{
     NSLog(@"exit tribe");
     if (self.isCreatDetail) {
-//        {
-//        opercode:"0112",
-//        userid:"1234565",		//用户唯一标识
-//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-//        tribename:"部落名称",		//部落名称
-//        signature:"部落签名",		//部落签名
-//        desc:"部落描述",		//部落描述
-//        condition:"加入条件",		//加入条件
-//        purpose:"宗旨",			//宗旨
-//        rule:"章程",			//章程
-//        tags:"标签，标签"，		//不同标签之间用逗号隔开
-//        district:"130400",		//地域信息
-//        maxcount:"30",			//最多人数
-//        members:"123,456,789"		//部落成员，成员(userid)之间以逗号隔开
-//        }
         //创建部落
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-            NSLog(@"返回值:%@",dict);
+//        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+//        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+//            NSLog(@"返回值:%@",dict);
+//        }];
+//        [self showAlert:@"部落创建成功"];
+        
+        /**
+         *  创建部落
+         *
+         *  @param tribename  部落名称
+         *  @param tribestyle 部落类型
+         *  @param userid     秘书长userid
+         *  @param signature  部落签名
+         *  @param desc       部落描述
+         *  @param condition  加入条件
+         *  @param purpose    宗旨
+         *  @param rule       章程
+         *  @param tags       不同标签之间用逗号隔开
+         *  @param district   地域信息
+         *  @param maxcount   最多人数
+         *  @param members    部落成员，成员(userid)之间以逗号隔开
+         *  @param callback   回调
+         */
+        [DataInterface createTribe:@"xxxxxx"
+                        tribestyle:@""
+                         secretary:@""  //userid
+                         signature:@""
+                              desc:@""
+                         condition:@""
+                           purpose:@""
+                              rule:@""
+                              tags:@""
+                          district:@""
+                          maxcount:@"30"
+                           members:@""
+             withCompletionHandler:^(NSMutableDictionary *dict){
+                 NSLog(@"创建部落返回值：%@",dict);
+                 [self showAlert:[dict objectForKey:@"info"]];
         }];
-        [self showAlert:@"部落创建成功"];
-    }else{
-//        {
-//        opercode:"0118",
-//        userid:"1234565",		//用户唯一标识
-//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-//        tribeid:"123444"		//部落唯一标示
-//        }
-        //退出部落
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-            NSLog(@"返回值:%@",dict);
+    }else{//退出部落
+//        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+//        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+//            NSLog(@"返回值:%@",dict);
+//        }];
+//        [self showAlert:@"您已退出本部落"];
+        
+        /**
+         *  退出部落
+         *
+         *  @param targetid 被处理的退出成员的userid(如果该字段与userid相同为主动退出，不相同，为管理者踢出部落)
+         *  @param tribeid  部落唯一标示
+         *  @param callback 回调
+         */
+//        + (void)quitTribe:(NSString *)targetid
+//    tribeid:(NSString *)tribeid
+//    withCompletionHandler:(DictCallback)callback;
+        [DataInterface quitTribe:@""  //100013
+                         tribeid:@"6"
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"退出部落返回值：%@",dict);
+               [self showAlert:[dict objectForKey:@"info"]];
         }];
-        [self showAlert:@"您已退出本部落"];
     }
 }
 
@@ -269,15 +298,19 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
-    if (indexPath.row == 1) {
-        AddressListViewController *addressList = [[AddressListViewController alloc] init];
-        addressList.addressListBlock = ^(NSDictionary *dict){
-            NSLog(@"通讯录列表返回值%@",dict);
-        };
-        [self.navigationController pushViewController:addressList animated:YES];
-    }else if (indexPath.row == 9) {
-        NSLog(@"清空聊天记录");
-        [self showAlert:@"聊天记录已清空"];
+    if (self.isCreatDetail) {
+        if (indexPath.row == 1) {
+            AddressListViewController *addressList = [[AddressListViewController alloc] init];
+            addressList.addressListBlock = ^(NSDictionary *dict){
+                NSLog(@"通讯录列表返回值%@",dict);
+            };
+            [self.navigationController pushViewController:addressList animated:YES];
+        }
+    }else{
+        if (indexPath.row == 9) {
+            NSLog(@"清空聊天记录");
+            [self showAlert:@"聊天记录已清空"];
+        }
     }
 }
 

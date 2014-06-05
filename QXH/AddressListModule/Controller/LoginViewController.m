@@ -157,12 +157,13 @@
     
     [DataInterface login:self.nameField.text andPswd:self.pwField.text withCompletinoHandler:^(NSMutableDictionary *dict) {
         //登录成功后保存用户名和密码
-//        [defaults setObject:self.nameField.text forKey:USER_NAME];
-//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
-//        NSDate *date = [NSDate date];
-//        [defaults setObject:date forKey:LOGIN_DATE];
-//        [defaults synchronize];
+        [defaults setObject:self.nameField.text forKey:USER_NAME];
+        [defaults setObject:self.pwField.text forKey:PASSWORLD];
+        NSDate *date = [NSDate date];
+        [defaults setObject:date forKey:LOGIN_DATE];
+        [defaults synchronize];
         NSLog(@"登陆返回信息：%@",dict);
+        [self showAlert:[dict objectForKey:@"info"]];
         if (self.delegate) {
             [self.delegate didLoginHandle:self];
         }

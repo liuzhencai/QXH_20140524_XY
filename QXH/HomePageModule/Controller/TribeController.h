@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TribeController : UIViewController
+@interface TribeController : MyViewController
 @property (strong, nonatomic)  UISearchBar *searchBar;
 - (void)btnClick:(id)sender;
 @end
