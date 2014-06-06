@@ -22,7 +22,7 @@
 
 @property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, copy) NSString *artimages;
+@property (nonatomic, copy) NSString *artimgs;
 
 @property (nonatomic, copy) NSString *content;
 

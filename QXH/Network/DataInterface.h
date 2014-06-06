@@ -304,6 +304,26 @@ withCompletionHandler:(DictCallback)callback;
 withCompletionHandler:(DictCallback)callback;
 
 /**
+ *  获取查询广场文章/咨询文章列表,获取收藏列表
+ *
+ *  @param type          信息类型(0为不区分[获取个人收藏文章时使用],1为广场消息，2为咨询)
+ *  @param detailtype    信息明细类型 1为最新，2为最热,3为收藏
+ *  @param tag           标签
+ *  @param arttype       文章类型
+ *  @param contentlength 文章列表中文章的长度
+ *  @param start         起始消息的artid，不填写该字段读取最新消息n个
+ *  @param count         获取消息数量
+ */
++ (void)getInfoList:(NSString *)type
+         detailtype:(NSString *)detailtype
+                tag:(NSString *)tag
+            arttype:(NSString *)arttype
+      contentlength:(NSString *)contentlength
+              start:(NSString *)start
+              count:(NSString *)count
+withCompletionHandler:(DictCallback)callback;
+
+/**
  *   发布广场/资讯信息
  *
  *  @param title    文章标题
@@ -330,6 +350,132 @@ withCompletionHandler:(DictCallback)callback;
 + (void)getDetailInfo:(NSString *)type
                 artid:(NSString *)artid
 withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  文章赞/评论
+ *
+ *  @param artid    广场消息的唯一标示
+ *  @param laud     赞 1为赞1,0为无操作
+ *  @param comment  赞 1为赞1,0为无操作
+ *  @param callback 回调
+ */
++ (void)praiseArticle:(NSString *)artid
+                 laud:(NSString *)laud
+              comment:(NSString *)comment
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取评论列表
+ *
+ *  @param artid    广场消息的唯一标示
+ *  @param start    起始评论号 ,该字段为0时读取最新消息n个
+ *  @param count    获取消息数量
+ *  @param callback 回调
+ */
++ (void)getCommentList:(NSString *)artid
+                 start:(NSString *)start
+                 count:(NSString *)count
+ withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  广场文章收藏
+ *
+ *  @param type  1为收藏，2为取消收藏
+ *  @param artid 广场消息的唯一标示
+ *  @param callback 回调
+ */
++ (void)squareArticleCollection:(NSString *)type
+                          artid:(NSString *)artid
+          withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取/搜索活动列表(列表按创建时间的逆序排列)
+ *
+ *  @param start     起始消息的artid，不填写该字段读取最新消息n个
+ *  @param count     获取消息数量
+ *  @param actname   活动名称
+ *  @param tag       标签
+ *  @param district  地域信息
+ *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+ *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+ *  @param begindate 活动起始时间
+ *  @param enddate   活动结束时间
+ *  @param callback  回调
+ */
++ (void)getActList:(NSString *)start
+             count:(NSString *)count
+           actname:(NSString *)actname
+               tag:(NSString *)tag
+          district:(NSString *)district
+           canjoin:(NSString *)canjoin
+          actstate:(NSString *)actstate
+         begindate:(NSString *)begindate
+           enddate:(NSString *)enddate
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  创建活动
+ *
+ *  @param actname         活动名称
+ *  @param acttype         活动类型
+ *  @param desc            活动描述,简介
+ *  @param actimgs         活动相关图片
+ *  @param condition       加入条件
+ *  @param comefrom        来自哪里
+ *  @param tags            不同标签之间用逗号隔开
+ *  @param district        地域信息
+ *  @param actaddr         活动地址
+ *  @param startoffaddr    出发地点
+ *  @param maxcount        最多人数
+ *  @param signupbegindate 报名起始日期
+ *  @param signupenddate   报名截止日期
+ *  @param begindate       活动起始时间
+ *  @param enddate         活动结束时间
+ *  @param callback        回调
+ */
++ (void)createAct:(NSString *)actname
+          acttype:(NSString *)acttype
+             desc:(NSString *)desc
+          actimgs:(NSString *)actimgs
+        condition:(NSString *)condition
+         comefrom:(NSString *)comefrom
+             tags:(NSString *)tags
+         district:(NSString *)district
+          actaddr:(NSString *)actaddr
+     startoffaddr:(NSString *)startoffaddr
+         maxcount:(NSString *)maxcount
+  signupbegindate:(NSString *)signupbegindate
+    signupenddate:(NSString *)signupenddate
+        begindate:(NSString *)begindate
+          enddate:(NSString *)enddate
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取活动详细信息
+ *
+ *  @param actid    活动的唯一标示
+ *  @param callback 回调
+ */
++ (void)getActDetailInfo:(NSString *)actid withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  加入/关注活动
+ *
+ *  @param type     1为申请加入，2为关注
+ *  @param actid    活动唯一标示
+ *  @param callback 回调
+ */
++ (void)joinAct:(NSString *)type
+          actid:(NSString *)actid
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  退出活动/取消关注
+ *
+ *  @param actid    活动唯一标示
+ *  @param callback 回调
+ */
++ (void)quitAct:(NSString *)actid withCompletionHandler:(DictCallback)callback;
 
 /**
  *  聊天通用接口

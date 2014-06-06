@@ -54,7 +54,7 @@
         model.sphoto = [list[i] objectForKey:@"sphoto"];
         model.date = [list[i] objectForKey:@"date"];
         model.title = [list[i] objectForKey:@"title"];
-        model.artimages = [list[i] objectForKey:@"artimages"];
+        model.artimgs = [list[i] objectForKey:@"artimgs"];
         model.content = [list[i] objectForKey:@"content"];
         model.authflag = [list[i] objectForKey:@"authflag"];
         model.browsetime = [list[i] objectForKey:@"browsetime"];

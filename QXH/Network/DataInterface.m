@@ -286,6 +286,23 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
++ (void)getInfoList:(NSString *)type
+         detailtype:(NSString *)detailtype
+                tag:(NSString *)tag
+            arttype:(NSString *)arttype
+      contentlength:(NSString *)contentlength
+              start:(NSString *)start
+              count:(NSString *)count
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0119", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"detailtype":detailtype,@"tag":tag,@"arttype":arttype,@"contentlength":contentlength,@"start":start,@"count":count};
+    NSLog(@"\n##########获取查询广场文章/咨询文章列表,获取收藏列表接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取查询广场文章/咨询文章列表,获取收藏列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
 + (void)distributeInfo:(NSString *)title
                   tags:(NSString *)tags
                   type:(NSString *)type
@@ -309,6 +326,120 @@ withCompletionHandler:(DictCallback)callback
     NSLog(@"\n##########获取广场/咨询消息详细信息接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取广场/咨询消息详细信息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)praiseArticle:(NSString *)artid
+                 laud:(NSString *)laud
+              comment:(NSString *)comment
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0121", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"laud":laud,@"comment":comment};
+    NSLog(@"\n##########文章赞/评论接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########文章赞/评论返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getCommentList:(NSString *)artid
+                 start:(NSString *)start
+                 count:(NSString *)count
+ withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0122", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"start":start,@"count":count};
+    NSLog(@"\n##########获取评论列表接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取评论列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)squareArticleCollection:(NSString *)type
+                          artid:(NSString *)artid
+          withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0123", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"artid":artid};
+    NSLog(@"\n##########广场文章收藏接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########广场文章收藏返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getActList:(NSString *)start
+             count:(NSString *)count
+           actname:(NSString *)actname
+               tag:(NSString *)tag
+          district:(NSString *)district
+           canjoin:(NSString *)canjoin
+          actstate:(NSString *)actstate
+         begindate:(NSString *)begindate
+           enddate:(NSString *)enddate
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0125", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"start":start,@"count":count,@"actname":actname,@"tag":tag,@"district":district,@"canjoin":canjoin,@"actstate":actstate,@"begindate":begindate,@"enddate":enddate};
+    NSLog(@"\n##########获取/搜索活动列表接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取/搜索活动列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)createAct:(NSString *)actname
+          acttype:(NSString *)acttype
+             desc:(NSString *)desc
+          actimgs:(NSString *)actimgs
+        condition:(NSString *)condition
+         comefrom:(NSString *)comefrom
+             tags:(NSString *)tags
+         district:(NSString *)district
+          actaddr:(NSString *)actaddr
+     startoffaddr:(NSString *)startoffaddr
+         maxcount:(NSString *)maxcount
+  signupbegindate:(NSString *)signupbegindate
+    signupenddate:(NSString *)signupenddate
+        begindate:(NSString *)begindate
+          enddate:(NSString *)enddate
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0126", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"actname":actname,@"acttype":acttype,@"desc":desc,@"actimgs":actimgs,@"condition":condition,@"comefrom":comefrom,@"tags":tags,@"district":district,@"actaddr":actaddr,@"startoffaddr":startoffaddr,@"maxcount":maxcount,@"signupbegindate":signupbegindate,@"signupenddate":signupenddate,@"begindate":begindate,@"enddate":enddate};
+    NSLog(@"\n##########创建活动接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########创建活动返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getActDetailInfo:(NSString *)actid withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0127", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"actid":actid};
+    NSLog(@"\n##########获取活动详细信息接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取活动详细信息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)joinAct:(NSString *)type
+          actid:(NSString *)actid
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0128", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"actid":actid};
+    NSLog(@"\n##########加入/关注活动接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########加入/关注活动返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)quitAct:(NSString *)actid withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0129", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"actid":actid};
+    NSLog(@"\n##########退出活动/取消关注接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########退出活动/取消关注返回结果##########\n[结 果]:%@\n#############################\n",dict);
         callback(dict);
     }];
 }
