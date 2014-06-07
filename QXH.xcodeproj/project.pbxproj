@@ -235,6 +235,8 @@
 		21EDAD561926F69500C616CF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD541926F69500C616CF /* SettingViewController.m */; };
 		21EDAD571926F69500C616CF /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD551926F69500C616CF /* SettingViewController.xib */; };
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
+		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
+		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -688,6 +690,10 @@
 		21EDAD541926F69500C616CF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		21EDAD551926F69500C616CF /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		58163D9919323838001B60FE /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
+		5869D8741943156C00401862 /* MultSelectPeopleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultSelectPeopleCell.h; sourceTree = "<group>"; };
+		5869D8751943156C00401862 /* MultSelectPeopleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultSelectPeopleCell.m; sourceTree = "<group>"; };
+		5869D87719431A6600401862 /* YSKeyboardTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSKeyboardTableView.h; sourceTree = "<group>"; };
+		5869D87819431A6600401862 /* YSKeyboardTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSKeyboardTableView.m; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -1319,6 +1325,8 @@
 				58B8717C192FABF100EB730D /* TribeConversationCell.m */,
 				88347ECF1935DB3C00D60193 /* InActivityCell.h */,
 				88347ED01935DB3C00D60193 /* InActivityCell.m */,
+				5869D8741943156C00401862 /* MultSelectPeopleCell.h */,
+				5869D8751943156C00401862 /* MultSelectPeopleCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1393,6 +1401,8 @@
 		212F23A21928DF2C00F738F8 /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
+				5869D87719431A6600401862 /* YSKeyboardTableView.h */,
+				5869D87819431A6600401862 /* YSKeyboardTableView.m */,
 				84AB9248192B3FD80000101A /* cityList.plist */,
 				842D3C94192AF8E600374F04 /* UIViewAdditions.h */,
 				842D3C95192AF8E600374F04 /* UIViewAdditions.m */,
@@ -2046,6 +2056,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */,
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
 				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
 				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
@@ -2105,6 +2116,7 @@
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
 				2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */,
 				21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */,
+				5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */,
 				2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */,
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,

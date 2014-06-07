@@ -17,6 +17,8 @@
 
 @interface ActivityViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
+@property (nonatomic, strong) NSMutableArray *inActivitysList;//进行的活动
+@property (nonatomic, strong) NSMutableArray *endActivitysList;//结束的活动
 @end
 
 #define IN_THE_ACTIVITY_TAG 2330
@@ -37,6 +39,13 @@
 {
     [super viewDidLoad];
     self.title = @"活动";
+    
+    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < 20; i ++) {
+        [tmpArr addObject:@{@"name":@"",@"des":@"",@"creater":@"",@"imgUrl":@""}];
+    }
+    self.inActivitysList = tmpArr;
+    self.endActivitysList = tmpArr;
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,40, 30);
@@ -135,7 +144,11 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    if (tableView.tag == IN_THE_ACTIVITY_TAG) {
+        return [self.inActivitysList count];
+    }else{
+        return [self.endActivitysList count];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -152,9 +165,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell *cell = nil;
-    
     if(tableView.tag == END_ACTIVITY_TAG){
         static NSString *addrIdentifier = @"activeEndIdentifier";
         InActivityCell *activeEndCell = nil;
@@ -180,15 +191,6 @@
         cell = activityingCell;
     }
     return cell;
-    
-    //    ActivityCell *cell;
-    //    static NSString *cellIdentifier = @"activityIdentifier";
-    //    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    //    if (!cell) {
-    //        cell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
-    //    }
-    //
-    //    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

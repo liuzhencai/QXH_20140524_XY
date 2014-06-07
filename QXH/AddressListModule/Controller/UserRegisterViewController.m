@@ -187,9 +187,11 @@
 //        [self registerAction];
 //    }];
     
-    [DataInterface registerUser:self.emailField.text andPswd:self.pwField.text withCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"注册返回值：%@",dict);
-        [self showAlert:[dict objectForKey:@"info"]];
+    [DataInterface registerUser:self.emailField.text
+                        andPswd:self.pwField.text
+          withCompletionHandler:^(NSMutableDictionary *dict){
+              NSLog(@"注册返回值：%@",dict);
+              [self showAlert:[dict objectForKey:@"info"]];
 //        [self registerAction];
         EditCardController *editCard = [[EditCardController alloc] init];
         editCard.title = @"注册";

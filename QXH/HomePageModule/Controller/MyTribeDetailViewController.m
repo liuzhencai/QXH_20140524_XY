@@ -8,9 +8,10 @@
 
 #import "MyTribeDetailViewController.h"
 #import "AddressListViewController.h"
+#import "YSKeyboardTableView.h"
 
 @interface MyTribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
-@property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) YSKeyboardTableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) UIImage *headImage;
 @end
@@ -34,9 +35,10 @@
     self.title = @"详细资料";
     // Do any additional setup after loading the view.
     
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 70) style:UITableViewStylePlain];
+    _mainTable = [[YSKeyboardTableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 70) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
+    [_mainTable setup];
     [self.view addSubview:_mainTable];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainTable.bottom, UI_SCREEN_WIDTH, 70)];

@@ -11,6 +11,9 @@
 @interface FilterTimeViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
+
+@property (nonatomic, strong) NSMutableArray *addItems;//添加数组
+@property (nonatomic, strong) NSMutableArray *selectIndexPaths;//选中的indexPath
 @end
 
 @implementation FilterTimeViewController
@@ -21,6 +24,8 @@
     if (self) {
         // Custom initialization
         _items = @[@"近期活动",@"未来一周",@"未来一月",@"活动回顾"];
+        _addItems = [[NSMutableArray alloc] initWithCapacity:0];
+        _selectIndexPaths = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -56,9 +61,9 @@
 
 - (void)beginSelect:(UIButton *)sender{
     NSLog(@"开始筛选");
-    NSArray *controllers = self.navigationController.viewControllers;
-//    [self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+//    NSArray *controllers = self.navigationController.viewControllers;
+//    [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
 }
 
 /*
@@ -98,41 +103,51 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        CGRect btnFrame = CGRectMake(cell.contentView.frame.size.width-30-20, 12,20,20);
-        UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        selectBtn.frame = btnFrame;
-        selectBtn.tag = 200;
-        [selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
-        [selectBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
-        [selectBtn addTarget:self action:@selector(selectTime:) forControlEvents:UIControlEventTouchUpInside];
-        selectBtn.backgroundColor = [UIColor greenColor];
-        [cell.contentView addSubview:selectBtn];
+        CGRect btnFrame = CGRectMake(cell.contentView.frame.size.width-30-12, 16,12,12);
+        UIImageView *selectImgView = [[UIImageView alloc] initWithFrame:btnFrame];
+        selectImgView.image = [UIImage imageNamed:@"choice_box"];
+        selectImgView.tag = 220;
+        [cell.contentView addSubview:selectImgView];
+        
     }
     
     cell.textLabel.text = [_items objectAtIndex:indexPath.row];
-    
-//    UIButton *btn = (UIButton *)[cell.contentView viewWithTag:200];
-//    btn.hidden = NO;
-//    if (indexPath.row == 3) {
-//        btn.hidden = YES;
-//    }
+    UIImageView *selectImgView = (UIImageView *)[cell.contentView viewWithTag:220];
+    for (int i = 0; i < [_selectIndexPaths count]; i ++) {
+        NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
+        if ([indexPath isEqual:index]) {
+            selectImgView.image = [UIImage imageNamed:@"tribe_icon_establish_highlight"];
+        }
+    }
     
     return cell;
 }
 
-- (void)selectTime:(UIButton *)sender{
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
-    }else{
-        [sender setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
-    }
-    NSLog(@"button action");
-}
-    
+//- (void)selectTime:(UIButton *)sender{
+//    sender.selected = !sender.selected;
+//    if (sender.selected) {
+//        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+//    }else{
+//        [sender setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+//    }
+//    NSLog(@"button action");
+//}
+
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
+    
+    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    UIImageView *imgView = (UIImageView *)[cell.contentView viewWithTag:220];
+    if ([_selectIndexPaths containsObject:indexPath]) {
+        [_selectIndexPaths removeObject:indexPath];
+        [_addItems removeObject:indexPath];
+        imgView.image = [UIImage imageNamed:@"choice_box"];
+    }else{
+        [_selectIndexPaths addObject:indexPath];
+        [_addItems addObject:indexPath];
+        imgView.image = [UIImage imageNamed:@"tribe_icon_establish_highlight"];
+    }
 }
 
 @end

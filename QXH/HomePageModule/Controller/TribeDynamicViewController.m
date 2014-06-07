@@ -14,11 +14,19 @@
 #import "TribeQuestionCell.h"
 #import "TribeConversationCell.h"
 #import "CustomSegmentControl.h"
+#import "InActivityCell.h"
+
+#import "ActivityDetailViewController.h"
+#import "NameCardViewController.h"
 
 @interface TribeDynamicViewController ()<CustomSegmentControlDelegate>
 //@property (nonatomic, strong) UITableView *conversationTable;//会话
 //@property (nonatomic, strong) UITableView *activityTable;//活动
 //@property (nonatomic, strong) UITableView *membersTable;//成员
+
+@property (nonatomic, strong) NSArray *activitysList;//活动列表
+@property (nonatomic, strong) NSArray *membersList;//成员列表
+
 
 @end
 #define CONVERSATION_TABLE_TAG 2330
@@ -41,6 +49,14 @@
     [super viewDidLoad];
     self.title = @"xxxxxx部落";
     // Do any additional setup after loading the view.
+    
+    //测试数据
+    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < 20; i ++) {
+        [tmpArr addObject:@{@"":@""}];
+    }
+    self.activitysList = [NSArray arrayWithArray:tmpArr];
+    self.membersList = [NSArray arrayWithArray:tmpArr];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 80, 40);
@@ -126,8 +142,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return [_items count];
-    return 20;
+    if (tableView.tag == ACTIVITY_TABLE_TAG) {//活动列表
+        return [self.activitysList count];
+    }else if (tableView.tag == NEMBERS_TABLE_TAG){//成员列表
+        return [self.membersList count];
+    }else{//会话
+        return 20;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -158,7 +179,7 @@
     if (tableView.tag == NEMBERS_TABLE_TAG) {
         return 70;
     }else if(tableView.tag == ACTIVITY_TABLE_TAG){
-        return 220;
+        return 230;
     }else{
         if (indexPath.row == 0) {
             return 140;
@@ -170,14 +191,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag == ACTIVITY_TABLE_TAG) {
         static NSString *addrIdentifier = @"activeEndIdentifier";
-        ActivityCell *activeEndCell = nil;
-        activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
-        if (!activeEndCell) {
-            activeEndCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
-            activeEndCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        ActivityCell *activeEndCell = nil;
+//        activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
+//        if (!activeEndCell) {
+//            activeEndCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+//            activeEndCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        }
+//        activeEndCell.statusLabel.text = @"已结束";
+        
+        InActivityCell *activityingCell = nil;
+        activityingCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
+        if (!activityingCell) {
+            activityingCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
+            activityingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        activeEndCell.statusLabel.text = @"已结束";
-        return activeEndCell;
+        [activityingCell resetCellParamDict:nil];
+        activityingCell.statusLabel.text = @"进行中";
+        
+        return activityingCell;
     }else if(tableView.tag == NEMBERS_TABLE_TAG){
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
         PeocelCell *myMsgCell = nil;
@@ -220,6 +251,14 @@
 //        self.selectTribeCallBack(dict);
 //        [self.navigationController popViewControllerAnimated:YES];
 //    }
+    if (tableView.tag == ACTIVITY_TABLE_TAG) {//活动
+        ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
+        [self.navigationController pushViewController:activityDetail animated:YES];
+    }else if(tableView.tag == NEMBERS_TABLE_TAG){//成员
+        NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+        [self.navigationController pushViewController:nameCard animated:YES];
+    }
+    
 }
 
 

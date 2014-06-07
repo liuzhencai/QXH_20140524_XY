@@ -17,11 +17,13 @@
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
+@property (nonatomic, strong) NSArray *addressList;//通讯录列表
+@property (nonatomic, strong) NSArray *myMessageList;//我的消息列表
 
 @end
 
-#define ADDRESS_LIST_TABLE_TAG 2330
-#define MY_MESSAGE_LIST_TABLE_TAG 2331
+#define ADDRESS_LIST_TABLE_TAG 2330  //通讯录tag
+#define MY_MESSAGE_LIST_TABLE_TAG 2331 //我的消息tag
 
 @implementation AddressListViewController
 
@@ -31,6 +33,7 @@
     if (self) {
         // Custom initialization
         _selectIndex = 1;
+        
     }
     return self;
 }
@@ -46,6 +49,33 @@
      self.hidesBottomBarWhenPushed = NO;
     // Do any additional setup after loading the view from its nib.
     self.title = @"通讯录";
+    
+    //test
+    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+    for (int j = 0; j < 3; j ++) {
+        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
+        for (int i = 0; i < 20; i ++) {
+            [tmp2 addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
+        }
+        NSString *name = @"A";
+        if (j == 0) {
+            name = @"A";
+        }else if(j == 1){
+            name = @"B";
+        }else{
+            name = @"C";
+        }
+        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
+        [tmpArr addObject:dict];
+    }
+    self.addressList = [NSArray arrayWithArray:tmpArr];
+    
+    NSMutableArray *tmpMyMessage = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < 20; i ++) {
+        [tmpMyMessage addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
+    }
+    self.myMessageList = [NSArray arrayWithArray:tmpMyMessage];
+    
     
     //segment
     CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"通讯录",@"我的消息"]];
@@ -126,14 +156,21 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
-        return 3;
+        return [self.addressList count];
     }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSArray *list = [dict objectForKey:@"list"];
+        return [list count];
+    }else{
+        return [self.myMessageList count];
+    }
+//    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -154,14 +191,16 @@
         bgView.image = [UIImage imageNamed:@"bar_transition"];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-        NSString *titleStr = nil;
-        if (section == 0) {
-            titleStr = @"A";
-        }else if (section == 1){
-            titleStr = @"B";
-        }else {
-            titleStr = @"C";
-        }
+//        NSString *titleStr = nil;
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSString *titleStr = [dict objectForKey:@"name"];
+//        if (section == 0) {
+//            titleStr = @"A";
+//        }else if (section == 1){
+//            titleStr = @"B";
+//        }else {
+//            titleStr = @"C";
+//        }
         title.text = titleStr;
         title.backgroundColor = [UIColor clearColor];
         [bgView addSubview:title];
@@ -171,32 +210,32 @@
     return nil;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *sectionTitle = nil;
-    if (tableView.tag == ADDRESS_LIST_TABLE_TAG ) {
-        switch (section) {
-            case 0:
-            {
-                sectionTitle = @"A";
-            }
-                break;
-            case 1:
-            {
-                sectionTitle = @"B";
-            }
-                break;
-            case 2:
-            {
-                sectionTitle = @"C";
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    return sectionTitle;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *sectionTitle = nil;
+//    if (tableView.tag == ADDRESS_LIST_TABLE_TAG ) {
+//        switch (section) {
+//            case 0:
+//            {
+//                sectionTitle = @"A";
+//            }
+//                break;
+//            case 1:
+//            {
+//                sectionTitle = @"B";
+//            }
+//                break;
+//            case 2:
+//            {
+//                sectionTitle = @"C";
+//            }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//    return sectionTitle;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -231,7 +270,7 @@
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
         if (self.addressListBlock) {
             self.addressListBlock(nil);
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             NameCardViewController *nameCard = [[NameCardViewController alloc] init];
             [self.navigationController pushViewController:nameCard animated:YES];

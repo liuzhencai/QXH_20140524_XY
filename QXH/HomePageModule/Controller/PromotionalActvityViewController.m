@@ -8,12 +8,13 @@
 
 #import "PromotionalActvityViewController.h"
 #import "DatePickerView.h"
+#import "YSKeyboardTableView.h"
 
 
 @interface PromotionalActvityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic, strong) UIScrollView *mainScroll;
 
-@property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) YSKeyboardTableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
 
 @property (nonatomic, strong) UITextView *activityDes;//活动描述
@@ -63,12 +64,13 @@
     [self.view addSubview:_mainScroll];
     
     CGFloat tableHeight = 8 * HEIGHT_CELL + 100;
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, UI_SCREEN_WIDTH- 20, tableHeight + 5) style:UITableViewStylePlain];
+    _mainTable = [[YSKeyboardTableView alloc] initWithFrame:CGRectMake(10, 10, UI_SCREEN_WIDTH- 20, tableHeight + 5) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     _mainTable.backgroundColor = [UIColor clearColor];
     _mainTable.scrollEnabled = NO;
+    [_mainTable setup];
     CGRect tableFrame = _mainTable.frame;
     UIImageView *tableBgView = [[UIImageView alloc] initWithFrame:tableFrame];
     tableBgView.image = [UIImage imageNamed:@"label"];
@@ -324,9 +326,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%d",indexPath.row);
     
+    [self hidenKeybord];
+    UIView *pickerView = [self.view viewWithTag:2222];
+    [pickerView removeFromSuperview];
+    
     switch (indexPath.row) {
         case 4:{//开始时间
+            
             DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.tag = 2222;
             datePicker.datePickerBlock = ^(NSString *dateString){
                 NSLog(@"选择时间：%@",dateString);
                 self.startTime.text = dateString;
@@ -337,6 +345,7 @@
             break;
         case 5:{//结束时间
             DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.tag = 2222;
             datePicker.datePickerBlock = ^(NSString *dateString){
                 NSLog(@"选择时间：%@",dateString);
                 self.endTime.text = dateString;
@@ -351,6 +360,7 @@
             break;
         case 7:{//报名截止时间
             DatePickerView *datePicker = [[DatePickerView alloc] init];
+            datePicker.tag = 2222;
             datePicker.datePickerBlock = ^(NSString *dateString){
                 NSLog(@"选择时间：%@",dateString);
                 self.cutOffTime.text = dateString;
@@ -367,6 +377,14 @@
         default:
             break;
     }
+}
+
+- (void)hidenKeybord{
+//    _activityDes  //活动描述
+    
+    [_name resignFirstResponder];//活动名称
+    [_place resignFirstResponder];//活动地点
+    [_comeFrom resignFirstResponder];//活动来源
 }
 
 #pragma mark - UITextFieldDelegate

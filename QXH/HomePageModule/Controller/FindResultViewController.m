@@ -8,6 +8,7 @@
 
 #import "FindResultViewController.h"
 #import "PeocelCell.h"
+#import "NameCardViewController.h"
 
 @interface FindResultViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -81,6 +82,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
+    NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+    [self.navigationController pushViewController:nameCard animated:YES];
 }
 
 @end

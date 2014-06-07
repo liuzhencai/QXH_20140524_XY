@@ -38,9 +38,16 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
+    BOOL scrollEnable = YES;
+    CGFloat tableHeight = UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT;
+    if (tableHeight > 180 + 44 * 5 + 30) {
+        tableHeight = 180 + 44 * 5 + 30;
+        scrollEnable = NO;
+    }
+    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, tableHeight) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
+    _mainTable.scrollEnabled = scrollEnable;
     [self.view addSubview:_mainTable];
 }
 

@@ -120,7 +120,8 @@
         //status image
         _activityStatus = [self addImageViewWithFrame:CGRectMake(224, 178, 75, 21)
                                                      imageName:[UIImage imageNamed:@""]];
-        _activityStatus.backgroundColor = [UIColor greenColor];
+//        _activityStatus.backgroundColor = [UIColor greenColor];
+        _activityStatus.backgroundColor = COLOR_WITH_ARGB(16, 120, 45, 1.0);
         [bgImgView addSubview:_activityStatus];
         
         //stauts label

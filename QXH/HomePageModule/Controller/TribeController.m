@@ -16,6 +16,8 @@
 
 @interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
+@property (nonatomic, strong) NSArray *tribeList;//我的部落
+@property (nonatomic, strong) NSArray *allTribeList;//所有部落
 
 @end
 
@@ -44,6 +46,31 @@
     self.navigationController.navigationBar.translucent = NO;
     // Do any additional setup after loading the view from its nib.
     self.title = @"部落";
+    
+    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+    for (int j = 0; j < 3; j ++) {
+        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
+        for (int i = 0; i < 20; i ++) {
+            [tmp2 addObject:@{@"name":@"北约",@"des":@"最新发言内容",@"creater":@"ABC",@"imgUrl":@""}];
+        }
+        NSString *name = @"A";
+        if (j == 0) {
+            name = @"A";
+        }else if(j == 1){
+            name = @"B";
+        }else{
+            name = @"C";
+        }
+        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
+        [tmpArr addObject:dict];
+    }
+    self.tribeList = [NSArray arrayWithArray:tmpArr];
+    
+    NSMutableArray *tmpMyMessage = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < 20; i ++) {
+        [tmpMyMessage addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
+    }
+    self.allTribeList = [NSArray arrayWithArray:tmpMyMessage];
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,80, 30);
@@ -143,15 +170,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (tableView.tag == 100) {
-        return 3;
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
+        return [self.tribeList count];
     }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
+        NSDictionary *dict = [self.tribeList objectAtIndex:section];
+        NSArray *list = [dict objectForKey:@"list"];
+        return [list count];
+    }else{
+        return [self.allTribeList count];
+    }
+//    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -159,7 +193,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (tableView.tag == 100) {
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
         return 20;
     }else{
         return 0;
@@ -167,19 +201,20 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (tableView.tag == 100) {
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
         bgView.image = [UIImage imageNamed:@"bar_transition"];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-        NSString *titleStr = nil;
-        if (section == 0) {
-            titleStr = @"A";
-        }else if (section == 1){
-            titleStr = @"B";
-        }else {
-            titleStr = @"C";
-        }
+        NSDictionary *dict = [self.tribeList objectAtIndex:section];
+        NSString *titleStr = [dict objectForKey:@"name"];
+//        if (section == 0) {
+//            titleStr = @"A";
+//        }else if (section == 1){
+//            titleStr = @"B";
+//        }else {
+//            titleStr = @"C";
+//        }
         title.text = titleStr;
         title.backgroundColor = [UIColor clearColor];
         [bgView addSubview:title];
@@ -189,32 +224,32 @@
     return nil;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *sectionTitle = nil;
-    if (tableView.tag == 100 ) {
-        switch (section) {
-            case 0:
-            {
-                sectionTitle = @"A";
-            }
-                break;
-            case 1:
-            {
-                sectionTitle = @"B";
-            }
-                break;
-            case 2:
-            {
-                sectionTitle = @"C";
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    return sectionTitle;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *sectionTitle = nil;
+//    if (tableView.tag == MY_TRIBE_TABLE_TAG ) {
+//        switch (section) {
+//            case 0:
+//            {
+//                sectionTitle = @"A";
+//            }
+//                break;
+//            case 1:
+//            {
+//                sectionTitle = @"B";
+//            }
+//                break;
+//            case 2:
+//            {
+//                sectionTitle = @"C";
+//            }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//    return sectionTitle;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

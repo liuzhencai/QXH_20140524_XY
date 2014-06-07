@@ -10,6 +10,7 @@
 #import "CreatTribeCell.h"
 //#import "TribeDetailViewController.h"
 #import "MyTribeDetailViewController.h"
+#import "MultSelectPeopleCell.h"
 
 @interface CreatTribeViewController ()<UITableViewDataSource,UITableViewDelegate,CreatTribeCellDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -126,7 +127,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 70;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -180,13 +181,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    static NSString *identifier = @"identifier";
+//    CreatTribeCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+//    if (!allListCell) {
+//        allListCell = [[CreatTribeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+//        allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        allListCell.delegate = self;
+//        [allListCell.selectBtn addTarget:self action:@selector(didselect:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    
+//    [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+//    for (int i = 0; i < [_selectIndexPaths count]; i ++) {
+//        NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
+//        if ([indexPath isEqual:index]) {
+//            [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+//        }
+//    }
+    
     static NSString *identifier = @"identifier";
-    CreatTribeCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    MultSelectPeopleCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!allListCell) {
-        allListCell = [[CreatTribeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        allListCell = [[MultSelectPeopleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        allListCell.delegate = self;
-        [allListCell.selectBtn addTarget:self action:@selector(didselect:) forControlEvents:UIControlEventTouchUpInside];
+//        allListCell.delegate = self;
+//        [allListCell.selectBtn addTarget:self action:@selector(didselect:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
@@ -207,6 +225,16 @@
     NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
     //    UITableViewCell *cell = nil;
     //    NSIndexPath *index = [cell ];
+    MultSelectPeopleCell *cell = (MultSelectPeopleCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if ([_selectIndexPaths containsObject:indexPath]) {
+        [_selectIndexPaths removeObject:indexPath];
+        [_addItems removeObject:indexPath];
+        [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+    }else{
+        [_selectIndexPaths addObject:indexPath];
+        [_addItems addObject:indexPath];
+        [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+    }
 }
 
 
