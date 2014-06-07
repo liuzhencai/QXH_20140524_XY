@@ -17,8 +17,6 @@
 
 #define SERVICE_URL @"qxh/mobile/qxhService.action"
 
-#define IMAGE_UPLOAD_URL @""
-
 #define SOCKET_SERVER @"180.97.46.40"
 
 #define SOCKET_PORT 9002

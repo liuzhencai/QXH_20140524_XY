@@ -571,9 +571,13 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
-+ (void)fileUpload:(NSString *)type data:(NSString *)data withCompletionHandler:(DictCallback)callback
++ (void)fileUpload:(NSString *)type data:(NSData *)data withCompletionHandler:(DictCallback)callback
 {
-    
+    NSLog(@"\n##########上传文件接口##########\n[类 型]:%@\n[数 据]:%@\n#############################\n",type, data);
+    [HttpRequest uploadFile:type data:data andCompletionHandler:^(NSMutableDictionary *dict) {
+            NSLog(@"\n##########上传文件返回结果##########\n[结 果]:%@\n#############################\n",dict);
+            callback(dict);
+    }];
 }
 
 + (void)getSquareInfoList:(NSString *)type

@@ -24,7 +24,7 @@
 
 - (void)requestInfoList:(NSString *)detailtype
 {
-    [DataInterface getInfoList:@"2" detailtype:detailtype tag:@"" arttype:@"教育" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getInfoList:@"2" detailtype:detailtype tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         NSMutableArray *info = [ModelGenerator json2InfoList:dict];
         NSLog(@"info--->%@",info);
     }];

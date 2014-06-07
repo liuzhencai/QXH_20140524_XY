@@ -69,6 +69,7 @@
 		2119EF25191686C2007DBE68 /* HomePageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF23191686C2007DBE68 /* HomePageController.xib */; };
 		2119EF2E191689DD007DBE68 /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119EF2C191689DD007DBE68 /* ActivityCell.m */; };
 		2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF2D191689DD007DBE68 /* ActivityCell.xib */; };
+		2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119F287194355C800250DB6 /* libWeChatSDK.a */; };
 		212F23A11928DF2500F738F8 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A01928DF2500F738F8 /* MyViewController.m */; };
 		212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A41928DF2C00F738F8 /* ClassificationControll.m */; };
 		212F23A91928DF2C00F738F8 /* MyNavgationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A71928DF2C00F738F8 /* MyNavgationBar.m */; };
@@ -302,7 +303,6 @@
 		848426EE192E185B00C9474A /* square_share_btn_@who_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848426D1192E185B00C9474A /* square_share_btn_@who_normal@2x.png */; };
 		848426EF192E185B00C9474A /* square_share_icon_expression@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848426D2192E185B00C9474A /* square_share_icon_expression@2x.png */; };
 		848426F0192E185B00C9474A /* square_share_icon_img_+@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848426D3192E185B00C9474A /* square_share_icon_img_+@2x.png */; };
-		848426F5192E1A7000C9474A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848426F2192E1A7000C9474A /* libWeChatSDK.a */; };
 		84AB9247192B36770000101A /* fanfan.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9246192B36770000101A /* fanfan.jpeg */; };
 		84AB9249192B3FD80000101A /* cityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9248192B3FD80000101A /* cityList.plist */; };
 		84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */; };
@@ -459,6 +459,7 @@
 		2119EF2B191689DD007DBE68 /* ActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityCell.h; sourceTree = "<group>"; };
 		2119EF2C191689DD007DBE68 /* ActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		2119EF2D191689DD007DBE68 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
+		2119F287194355C800250DB6 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		212F239F1928DF2500F738F8 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		212F23A01928DF2500F738F8 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		212F23A31928DF2C00F738F8 /* ClassificationControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassificationControll.h; sourceTree = "<group>"; };
@@ -783,7 +784,6 @@
 		848426D1192E185B00C9474A /* square_share_btn_@who_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square_share_btn_@who_normal@2x.png"; sourceTree = "<group>"; };
 		848426D2192E185B00C9474A /* square_share_icon_expression@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square_share_icon_expression@2x.png"; sourceTree = "<group>"; };
 		848426D3192E185B00C9474A /* square_share_icon_img_+@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square_share_icon_img_+@2x.png"; sourceTree = "<group>"; };
-		848426F2192E1A7000C9474A /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		848426F3192E1A7000C9474A /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		848426F4192E1A7000C9474A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		84AB9246192B36770000101A /* fanfan.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fanfan.jpeg; sourceTree = "<group>"; };
@@ -854,8 +854,8 @@
 				21DA12BA19362F0E001EDEB1 /* CFNetwork.framework in Frameworks */,
 				2119EE8219168279007DBE68 /* CoreGraphics.framework in Frameworks */,
 				2119EE8419168279007DBE68 /* UIKit.framework in Frameworks */,
-				848426F5192E1A7000C9474A /* libWeChatSDK.a in Frameworks */,
 				2119EE8019168279007DBE68 /* Foundation.framework in Frameworks */,
+				2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1707,7 +1707,7 @@
 		848426F1192E1A7000C9474A /* WX */ = {
 			isa = PBXGroup;
 			children = (
-				848426F2192E1A7000C9474A /* libWeChatSDK.a */,
+				2119F287194355C800250DB6 /* libWeChatSDK.a */,
 				848426F3192E1A7000C9474A /* WXApi.h */,
 				848426F4192E1A7000C9474A /* WXApiObject.h */,
 			);
@@ -2323,6 +2323,7 @@
 		2119EEA919168279007DBE68 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lan Feng (HP5D7TZA52)";
@@ -2332,11 +2333,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/QXH/ThirdParty/WX",
+					"$(SRCROOT)/QXH/ThirdParty/WX",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2344,6 +2347,7 @@
 		2119EEAA19168279007DBE68 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lan Feng (HP5D7TZA52)";
@@ -2353,11 +2357,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/QXH/ThirdParty/WX",
+					"$(SRCROOT)/QXH/ThirdParty/WX",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

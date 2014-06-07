@@ -610,7 +610,7 @@ withCompletionHandler:(DictCallback)callback;
  *  @param data     文件数据
  *  @param callback 回调
  */
-+ (void)fileUpload:(NSString *)type data:(NSString *)data withCompletionHandler:(DictCallback)callback;
++ (void)fileUpload:(NSString *)type data:(NSData *)data withCompletionHandler:(DictCallback)callback;
 
 /**
  *  获取广场消息列表

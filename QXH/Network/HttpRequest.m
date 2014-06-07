@@ -32,4 +32,17 @@
     }];
 }
 
++ (void)uploadFile:(NSString *)type data:(NSData *)data andCompletionHandler:(Completion)callback
+{
+    [[HttpServiceEngine sharedEngine] uploadFile:data type:type completionHandler:^(NSInteger statusCode, id object) {
+        if ([[object objectForKey:@"statecode"] isEqualToString:@"0200"]) {
+            callback(object);
+        }else{
+            callback([object objectForKey:@"info"]);
+        }
+    } errorHandler:^(NSError *error) {
+        callback([error description]);
+    }];
+}
+
 @end

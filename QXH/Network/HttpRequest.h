@@ -894,4 +894,6 @@ info:"修改成功"			//修改成功/失败!
 
 + (void)requestWithParams:(NSDictionary *)params andCompletionHandler:(DictCallback)callback;
 
++ (void)uploadFile:(NSString *)type data:(NSData *)data andCompletionHandler:(Completion)callback;
+
 @end
