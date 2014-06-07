@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface InformationCell : UITableViewCell
- 
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+- (void)setModel:(InfoModel *)model;
+
 @end

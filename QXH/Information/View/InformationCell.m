@@ -22,4 +22,11 @@
     // Configure the view for the selected state
 }
 
+- (void)setModel:(InfoModel *)model
+{
+    self.titleLabel.text = model.title;
+    self.dateLabel.text = model.date;
+    self.contentLabel.text = model.content;
+}
+
 @end

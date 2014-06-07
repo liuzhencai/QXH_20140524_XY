@@ -13,6 +13,9 @@
 #import "InfoModel.h"
 
 @interface InformationViewController ()
+{
+    NSMutableArray *info;
+}
 
 - (void)requestInfoList:(NSString *)detailtype;
 
@@ -25,7 +28,8 @@
 - (void)requestInfoList:(NSString *)detailtype
 {
     [DataInterface getInfoList:@"2" detailtype:detailtype tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        NSMutableArray *info = [ModelGenerator json2InfoList:dict];
+        info = [ModelGenerator json2InfoList:dict];
+        [_tableview reloadData];
         NSLog(@"info--->%@",info);
     }];
 }
@@ -77,7 +81,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [info count]+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,6 +105,7 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationCell" owner:nil options:nil] objectAtIndex:0];
         }
+        [(InformationCell *)cell setModel:[info objectAtIndex:indexPath.row - 1]];
     }
   
     return cell;
