@@ -113,11 +113,6 @@
 }
 
 - (void)getTribeList{
-//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-//    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-//        NSLog(@"返回值:%@",dict);
-//    }];
-
     /**
      *  获取部落/群组/直播间列表
      *

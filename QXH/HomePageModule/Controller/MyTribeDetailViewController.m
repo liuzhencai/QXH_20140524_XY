@@ -10,10 +10,24 @@
 #import "AddressListViewController.h"
 #import "YSKeyboardTableView.h"
 
-@interface MyTribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface MyTribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic, strong) YSKeyboardTableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) UIImage *headImage;
+
+@property (nonatomic, strong) UITextField *name;//部落名称
+@property (nonatomic, strong) UITextField *leader;//秘书长
+@property (nonatomic, strong) UITextField *sign;//签名
+@property (nonatomic, strong) UITextField *place;//部落地域
+@property (nonatomic, strong) UITextField *count;//人数
+
+@property (nonatomic, strong) UITextView *tribeDes;//介绍
+@property (nonatomic, strong) UILabel *placeHolder;//介绍的placeHolder
+
+@property (nonatomic, strong) UISwitch *newsSwitch;//新消息通知
+@property (nonatomic, strong) UISwitch *topSwitch;//置顶聊天
+
+@property (nonatomic, strong) NSDictionary *leaderDict;//秘书长信息
 @end
 
 @implementation MyTribeDetailViewController
@@ -75,12 +89,31 @@
 - (void)exitTribe:(UIButton *)sender{
     NSLog(@"exit tribe");
     if (self.isCreatDetail) {
-        //创建部落
-//        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-//        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-//            NSLog(@"返回值:%@",dict);
-//        }];
-//        [self showAlert:@"部落创建成功"];
+        
+        if ([self.name.text length] <= 0) {
+            [self showAlert:@"请输入部落名称"];
+            return;
+        }
+        
+        if ([self.leader.text length] <= 0) {
+            [self showAlert:@"请选择部落秘书长"];
+            return;
+        }
+        
+        if ([self.sign.text length] <= 0) {
+            [self showAlert:@"请输入部落标签"];
+            return;
+        }
+        
+        if ([self.place.text length] <= 0) {
+            [self showAlert:@"请输入部落地域"];
+            return;
+        }
+        
+        if ([self.count.text length] <= 0) {
+            [self showAlert:@"请输入部落成员数量"];
+            return;
+        }
         
         /**
          *  创建部落
@@ -99,29 +132,33 @@
          *  @param members    部落成员，成员(userid)之间以逗号隔开
          *  @param callback   回调
          */
-        [DataInterface createTribe:@"xxxxxx"
+        
+        NSString *leaderId = @"";
+        if (self.leaderDict) {
+            leaderId = [self.leaderDict objectForKey:@"userid"];
+        }
+        NSString *desStr = @"";
+        if ([self.tribeDes.text length] > 0) {
+            desStr = self.tribeDes.text;
+        }
+        
+        [DataInterface createTribe:self.name.text
                         tribestyle:@""
-                         secretary:@""  //userid
-                         signature:@""
-                              desc:@""
+                         secretary:leaderId  //userid
+                         signature:self.sign.text
+                              desc:desStr
                          condition:@""
                            purpose:@""
                               rule:@""
                               tags:@""
-                          district:@""
-                          maxcount:@"30"
+                          district:self.place.text
+                          maxcount:self.count.text
                            members:@""
              withCompletionHandler:^(NSMutableDictionary *dict){
                  NSLog(@"创建部落返回值：%@",dict);
                  [self showAlert:[dict objectForKey:@"info"]];
         }];
     }else{//退出部落
-//        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-//        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-//            NSLog(@"返回值:%@",dict);
-//        }];
-//        [self showAlert:@"您已退出本部落"];
-        
         /**
          *  退出部落
          *
@@ -129,10 +166,7 @@
          *  @param tribeid  部落唯一标示
          *  @param callback 回调
          */
-//        + (void)quitTribe:(NSString *)targetid
-//    tribeid:(NSString *)tribeid
-//    withCompletionHandler:(DictCallback)callback;
-        [DataInterface quitTribe:@""  //100013
+        [DataInterface quitTribe:@"100013"  //100013
                          tribeid:@"6"
            withCompletionHandler:^(NSMutableDictionary *dict){
                NSLog(@"退出部落返回值：%@",dict);
@@ -189,21 +223,32 @@
     [subView removeFromSuperview];
     switch (indexPath.row) {
         case 0:{//部落名称
-            UITextField *nameTextField = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
-                                                         placeHolder:@""];
-            nameTextField.tag = 201;
-            nameTextField.enabled = NO;
-            if (self.isCreatDetail) {
-                nameTextField.placeholder = @"输入部落名称";
-                nameTextField.enabled = YES;
+            if (!_name) {
+                _name = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                        placeHolder:@""];
+                _name.tag = 201;
+                _name.enabled = NO;
+                if (self.isCreatDetail) {
+                    _name.placeholder = @"输入部落名称";
+                    _name.enabled = YES;
+                }
             }
-            [cell.contentView addSubview:nameTextField];
-//            nameTextField.backgroundColor = [UIColor greenColor];
+            [cell.contentView addSubview:_name];
         }
             break;
         case 1:{//选择秘书长
             if (self.isCreatDetail) {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                if (!_leader) {
+                    _leader = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                            placeHolder:@""];
+                    _leader.tag = 201;
+                    _leader.enabled = NO;
+                    if (self.isCreatDetail) {
+                        _leader.placeholder = @"选择部落秘书长";
+                    }
+                }
+                [cell.contentView addSubview:_leader];
             }
         }
             break;
@@ -229,32 +274,51 @@
         }
             break;
         case 3:{//部落标签
-            UITextField *labelTextField = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
-                                                         placeHolder:@""];
-            labelTextField.tag = 201;
-            labelTextField.enabled = NO;
-            if (self.isCreatDetail) {
-                labelTextField.placeholder = @"输入部落标签";
-                labelTextField.enabled = YES;
+            if (!_sign) {
+                _sign = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                        placeHolder:@""];
+                _sign.tag = 201;
+                _sign.enabled = NO;
+                if (self.isCreatDetail) {
+                    _sign.placeholder = @"输入部落标签";
+                    _sign.enabled = YES;
+                }
             }
-            [cell.contentView addSubview:labelTextField];
-//            labelTextField.backgroundColor = [UIColor greenColor];
+            [cell.contentView addSubview:_sign];
+        }
+            break;
+        case 4:{//部落标签
+            if (!_place) {
+                _place = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                        placeHolder:@""];
+                _place.tag = 201;
+                _place.enabled = NO;
+                if (self.isCreatDetail) {
+                    _place.placeholder = @"输入部落地址";
+                    _place.enabled = YES;
+                }
+            }
+            [cell.contentView addSubview:_place];
         }
             break;
         case 5:{//新消息通知
-            UISwitch *newsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
-            newsSwitch.tag = 201;
-            newsSwitch.on = YES;
-            [newsSwitch addTarget:self action:@selector(newsSwitchAction:) forControlEvents:UIControlEventValueChanged];
-            [cell.contentView addSubview:newsSwitch];
+            if (!_newsSwitch) {
+                _newsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
+                _newsSwitch.tag = 201;
+                _newsSwitch.on = YES;
+                [_newsSwitch addTarget:self action:@selector(newsSwitchAction:) forControlEvents:UIControlEventValueChanged];
+            }
+            [cell.contentView addSubview:_newsSwitch];
         }
             break;
         case 6:{//置顶聊天
-            UISwitch *newsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
-            newsSwitch.tag = 201;
-            newsSwitch.on = NO;
-            [newsSwitch addTarget:self action:@selector(topSwitchAction:) forControlEvents:UIControlEventValueChanged];
-            [cell.contentView addSubview:newsSwitch];
+            if (!_topSwitch) {
+                _topSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
+                _topSwitch.tag = 201;
+                _topSwitch.on = NO;
+                [_topSwitch addTarget:self action:@selector(topSwitchAction:) forControlEvents:UIControlEventValueChanged];
+            }
+            [cell.contentView addSubview:_topSwitch];
         }
             break;
         case 7:{//介绍
@@ -264,29 +328,38 @@
 //            label.tag = 201;
 //            label.text = @"";
 //            [cell.contentView addSubview:label];
-            
-            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 200, 80 - 14)];
-            textView.tag = 201;
-            textView.editable = NO;
-            if (self.isCreatDetail) {
-                textView.text = @"输入介绍";
-                textView.editable = YES;
+            if (!_tribeDes) {
+                _tribeDes = [[UITextView alloc] initWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 200, 80 - 14)];
+                _tribeDes.tag = 201;
+                _tribeDes.delegate = self;
+                _tribeDes.editable = NO;
+                if (self.isCreatDetail) {
+//                    _tribeDes.text = @"输入介绍";
+                    _tribeDes.editable = YES;
+                    _placeHolder = [self addLabelWithFrame:CGRectMake(0, 0, _tribeDes.width, 20)
+                                                      text:@"部落介绍(少于140字)"
+                                                     color:[UIColor lightGrayColor]
+                                                      font:[UIFont systemFontOfSize:14.0]];
+                    _placeHolder.enabled = NO;
+                    _placeHolder.backgroundColor = [UIColor clearColor];
+                    [_tribeDes addSubview:_placeHolder];
+                }
             }
-            [cell.contentView addSubview:textView];
-//            textView.backgroundColor = [UIColor greenColor];
+            [cell.contentView addSubview:_tribeDes];
         }
             break;
         case 8:{//当前成员数
-            UITextField *labelTextField = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
-                                                          placeHolder:@""];
-            labelTextField.tag = 201;
-            labelTextField.enabled = NO;
-            if (self.isCreatDetail) {
-                labelTextField.placeholder = @"输入成员数";
-                labelTextField.enabled = YES;
+            if (!_count) {
+                _count = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                         placeHolder:@""];
+                _count.tag = 201;
+                _count.enabled = NO;
+                if (self.isCreatDetail) {
+                    _count.placeholder = @"输入成员数";
+                    _count.enabled = YES;
+                }
             }
-            [cell.contentView addSubview:labelTextField];
-//            labelTextField.backgroundColor = [UIColor greenColor];
+            [cell.contentView addSubview:_count];
         }
             break;
             
@@ -332,6 +405,22 @@
                                           cancelButtonTitle:@"取消"
                                           otherButtonTitles:@"拍照",@"从手机相册选择", nil];
     [alert show];
+}
+
+#pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if (textView.text.length >= 140) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        _placeHolder.text = @"部落介绍(少于140字)";
+    }else{
+        _placeHolder.text = @"";
+    }
 }
 
 #pragma mark - UITextFieldDelegate

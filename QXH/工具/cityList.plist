@@ -5,11 +5,14 @@
 	<dict>
 		<key>list</key>
 		<array>
-			<string>1</string>
-			<string>2</string>
-			<string>3</string>
-			<string>4</string>
-			<string>5</string>
+			<string>海淀区</string>
+			<string>朝阳区</string>
+			<string>东城区</string>
+			<string>西城区</string>
+			<string>宣武区</string>
+			<string>昌平区</string>
+			<string>丰台区</string>
+			<string>房山区</string>
 		</array>
 		<key>name</key>
 		<string>北京</string>
@@ -17,22 +20,15 @@
 	<dict>
 		<key>list</key>
 		<array>
-			<string>a</string>
-			<string>b</string>
-			<string>c</string>
-			<string>d</string>
-			<string>e</string>
-			<string>f</string>
-			<string>g</string>
-			<string>h</string>
-			<string>i</string>
-			<string>j</string>
-			<string>k</string>
-			<string>l</string>
-			<string>m</string>
-			<string>n</string>
-			<string>o</string>
-			<string>p</string>
+			<string>黄埔区</string>
+			<string>徐汇区</string>
+			<string>长宁区</string>
+			<string>静安区</string>
+			<string>普陀区</string>
+			<string>虹口区</string>
+			<string>杨浦区</string>
+			<string>宝山区</string>
+			<string>嘉定区</string>
 		</array>
 		<key>name</key>
 		<string>上海</string>
@@ -40,10 +36,15 @@
 	<dict>
 		<key>list</key>
 		<array>
-			<string>你</string>
-			<string>好</string>
-			<string>中</string>
-			<string>国</string>
+			<string>和平区</string>
+			<string>城厢区</string>
+			<string>河北区</string>
+			<string>河东区</string>
+			<string>新华区</string>
+			<string>河西区</string>
+			<string>南开区</string>
+			<string>红桥区</string>
+			<string>西青区</string>
 		</array>
 		<key>name</key>
 		<string>天津</string>
@@ -51,9 +52,9 @@
 	<dict>
 		<key>list</key>
 		<array>
-			<string>你</string>
-			<string>好</string>
-			<string>china</string>
+			<string>邢台市</string>
+			<string>保定市</string>
+			<string>张家口市</string>
 		</array>
 		<key>name</key>
 		<string>河北省</string>

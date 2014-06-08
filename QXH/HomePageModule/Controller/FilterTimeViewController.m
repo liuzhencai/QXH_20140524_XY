@@ -23,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _items = @[@"近期活动",@"未来一周",@"未来一月",@"活动回顾"];
+        _items = @[@"近期活动",@"未来一周",@"未来一月",@"未来一年"];
         _addItems = [[NSMutableArray alloc] initWithCapacity:0];
         _selectIndexPaths = [[NSMutableArray alloc] initWithCapacity:0];
     }
@@ -61,6 +61,9 @@
 
 - (void)beginSelect:(UIButton *)sender{
     NSLog(@"开始筛选");
+    if (self.filterTimeCallBack) {
+        self.filterTimeCallBack(self.addItems);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 //    NSArray *controllers = self.navigationController.viewControllers;
 //    [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];

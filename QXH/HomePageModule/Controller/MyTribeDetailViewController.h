@@ -10,4 +10,5 @@
 
 @interface MyTribeDetailViewController : MyViewController
 @property (nonatomic, assign) BOOL isCreatDetail;
+@property (nonatomic, strong) NSDictionary *tribeDict;//部落详情参数
 @end

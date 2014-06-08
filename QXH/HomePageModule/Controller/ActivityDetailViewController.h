@@ -11,4 +11,6 @@
 
 @interface ActivityDetailViewController : MyViewController<UITableViewDataSource, UITableViewDelegate, PortraitViewDelegate>
 
+@property (nonatomic, strong) NSString *activityId;
+
 @end

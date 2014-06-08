@@ -40,12 +40,31 @@
     _mainTable.dataSource = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mainTable];
+    
+    [self getActivityDetail];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getActivityDetail{
+    /**
+     *  获取活动详细信息
+     *
+     *  @param actid    活动的唯一标示
+     *  @param callback 回调
+     */
+//    + (void)getActDetailInfo:(NSString *)actid withCompletionHandler:(DictCallback)callback;
+    NSString *actId = @"";
+    if (self.activityId) {
+        actId = self.activityId;
+    }
+    [DataInterface getActDetailInfo:actId withCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"活动详情返回值:%@",dict);
+    }];
 }
 
 /*
@@ -147,7 +166,8 @@
             if (!dataCell) {
                 dataCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                 
-                PortraitView *signUpView = [[PortraitView alloc] initWithFrame:CGRectMake(10, 0, 300, 90) title:@"报名的人 2" portraits:[NSArray arrayWithObjects:@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3", nil] andDelegate:self andShowBtn:NO];
+                NSArray *items = [NSArray arrayWithObjects:@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3", nil];
+                PortraitView *signUpView = [[PortraitView alloc] initWithFrame:CGRectMake(10, 0, 300, 90) title:@"报名的人 2" portraits:items andDelegate:self andShowBtn:NO];
                 [dataCell.contentView addSubview:signUpView];
             }
             cell = dataCell;
@@ -208,15 +228,41 @@
 {
     UIButton *btn = (UIButton *)sender;
     btn.selected = !btn.selected;
-    NSString *message = nil;
+    
+    NSString *actId = @"";
+    if (self.activityId) {
+        actId = self.activityId;
+    }
     if (btn.selected) {
-        message = @"成功报名";
+//        message = @"成功报名";
         [btn setTitle:@"取消报名" forState:UIControlStateNormal];
+        /**
+         *  加入/关注活动
+         *
+         *  @param type     1为申请加入，2为关注
+         *  @param actid    活动唯一标示
+         *  @param callback 回调
+         */
+        
+        [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"加入活动申请返回值:%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
+        
     }else{
         [btn setTitle:@"报名" forState:UIControlStateNormal];
-        message = @"已取消报名";
+//        message = @"已取消报名";
+        /**
+         *  退出活动/取消关注
+         *
+         *  @param actid    活动唯一标示
+         *  @param callback 回调
+         */
+        [DataInterface quitAct:actId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"退出活动：%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
     }
-    [self showAlert:message];
 }
 
 - (void)share:(id)sender

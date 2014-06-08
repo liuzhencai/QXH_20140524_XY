@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void (^FilterTimeBlock)(id object);
 @interface FilterTimeViewController : MyViewController
-
+@property (nonatomic, copy) FilterTimeBlock filterTimeCallBack;
 @end

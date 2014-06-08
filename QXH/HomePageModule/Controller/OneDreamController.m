@@ -8,7 +8,7 @@
 
 #import "OneDreamController.h"
 #import "ActivityCell.h"
-
+#import "OnLiveCell.h"
 
 @interface OneDreamController ()
 
@@ -44,16 +44,24 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 220;
+//    return 150;
+    return 200;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ActivityCell *cell;
+//    ActivityCell *cell;
+//    static NSString *cellIdentifier = @"ActivityIdentifier";
+//    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    if (!cell) {
+//        cell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+//    }
+    OnLiveCell *cell;
     static NSString *cellIdentifier = @"ActivityIdentifier";
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+        cell = [[OnLiveCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;

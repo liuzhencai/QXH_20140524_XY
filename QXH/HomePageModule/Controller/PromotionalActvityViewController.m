@@ -11,23 +11,30 @@
 #import "YSKeyboardTableView.h"
 
 
-@interface PromotionalActvityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface PromotionalActvityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic, strong) UIScrollView *mainScroll;
 
 @property (nonatomic, strong) YSKeyboardTableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
 
 @property (nonatomic, strong) UITextView *activityDes;//活动描述
+@property (nonatomic, strong) UILabel *placeHolder;//活动描述placeholder
 
 @property (nonatomic, strong) UITextField *name;//活动名称
 @property (nonatomic, strong) UITextField *place;//活动地点
 @property (nonatomic, strong) UITextField *comeFrom;//活动来源
 
-@property (nonatomic, strong) UILabel *startTime;//活动开始时间
-@property (nonatomic, strong) UILabel *endTime;//活动结束时间
-@property (nonatomic, strong) UILabel *type;//活动类型
-@property (nonatomic, strong) UILabel *cutOffTime;//报名截止时间
-@property (nonatomic, strong) UILabel *limitCount;//报名截止时间
+//@property (nonatomic, strong) UILabel *startTime;//活动开始时间
+//@property (nonatomic, strong) UILabel *endTime;//活动结束时间
+//@property (nonatomic, strong) UILabel *type;//活动类型
+//@property (nonatomic, strong) UILabel *cutOffTime;//报名截止时间
+//@property (nonatomic, strong) UILabel *limitCount;//报名截止时间
+
+@property (nonatomic, strong) UITextField *startTime;//活动开始时间
+@property (nonatomic, strong) UITextField *endTime;//活动结束时间
+@property (nonatomic, strong) UITextField *type;//活动类型
+@property (nonatomic, strong) UITextField *cutOffTime;//报名截止时间
+@property (nonatomic, strong) UITextField *limitCount;//报名截止时间
 
 @property (nonatomic, strong) UIImage *headImage;//头像
 @property (nonatomic, strong) UIImageView *headImgView;//头像
@@ -121,8 +128,86 @@
 
 - (void)submit:(UIButton *)sender{
     NSLog(@"submit");
-    [self showAlert:@"成功发布"];
-    [self.navigationController popViewControllerAnimated:YES];
+    //活动名称
+    if([self.name.text length] <= 0){
+        [self showAlert:@"请输入活动名称"];
+        return;
+    }
+    //活动地点
+    if([self.place.text length] <= 0){
+        [self showAlert:@"请输入活动地点"];
+        return;
+    }
+    //活动来源
+    if([self.comeFrom.text length] <= 0){
+        [self showAlert:@"请输入活动来源"];
+        return;
+    }
+    //活动开始时间
+    if([self.startTime.text length] <= 0){
+        [self showAlert:@"请选择活动开始时间"];
+        return;
+    }
+    //活动结束时间
+    if([self.endTime.text length] <= 0){
+        [self showAlert:@"请选择活动结束时间"];
+        return;
+    }
+    //活动类型
+    if([self.type.text length] <= 0){
+//        [self showAlert:@"请选择活动类型"];
+//        return;
+    }
+    //活动报名截止时间
+    if([self.cutOffTime.text length] <= 0){
+        [self showAlert:@"请选择活动报名截止时间"];
+        return;
+    }
+    //活动人数限制
+    if([self.limitCount.text length] <= 0){
+        [self showAlert:@"请输入活动限制人数"];
+        return;
+    }
+    /**
+     *  创建活动
+     *
+     *  @param actname         活动名称
+     *  @param acttype         活动类型
+     *  @param desc            活动描述,简介
+     *  @param actimgs         活动相关图片
+     *  @param condition       加入条件
+     *  @param comefrom        来自哪里
+     *  @param tags            不同标签之间用逗号隔开
+     *  @param district        地域信息
+     *  @param actaddr         活动地址
+     *  @param startoffaddr    出发地点
+     *  @param maxcount        最多人数
+     *  @param signupbegindate 报名起始日期
+     *  @param signupenddate   报名截止日期
+     *  @param begindate       活动起始时间
+     *  @param enddate         活动结束时间
+     *  @param callback        回调
+     */
+    [DataInterface createAct:self.name.text
+                     acttype:@"vvv"
+                        desc:self.activityDes.text
+                     actimgs:@""
+                   condition:@""
+                    comefrom:self.comeFrom.text
+                        tags:@""
+                    district:@""
+                     actaddr:self.place.text
+                startoffaddr:self.place.text
+                    maxcount:self.limitCount.text
+             signupbegindate:@""
+               signupenddate:self.cutOffTime.text
+                   begindate:self.startTime.text
+                     enddate:self.endTime.text
+       withCompletionHandler:^(NSMutableDictionary *dict){
+           NSLog(@"创建活动返回值：%@",dict);
+           [self showAlert:[dict objectForKey:@"info"]];
+//           [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)headImage:(UIButton *)sender{
@@ -188,9 +273,18 @@
         title.text = [_items objectAtIndex:indexPath.row];
         if (!_activityDes) {
             _activityDes = [[UITextView alloc] initWithFrame:CGRectMake(WIDTH_TITLE + 20, title.top, WIDTH_VALUE, 80)];
-            _activityDes.text = @"输入活动描述";
+//            _activityDes.text = @"输入活动描述";
+            _activityDes.delegate = self;
             _activityDes.font = [UIFont systemFontOfSize:14];
             _activityDes.backgroundColor = [UIColor clearColor];
+            
+            _placeHolder = [self addLabelWithFrame:CGRectMake(0, 0, _activityDes.width, 20)
+                                              text:@"活动描述（少于140个字）"
+                                             color:[UIColor lightGrayColor]
+                                              font:[UIFont systemFontOfSize:14.0]];
+            _placeHolder.enabled = NO;
+//            _placeHolder.backgroundColor = [UIColor clearColor];
+            [_activityDes addSubview:_placeHolder];
         }
         [cell.contentView addSubview:_activityDes];
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, _activityDes.bottom + 5, 300 - 20, 1)];
@@ -251,10 +345,13 @@
                     break;
                 case 4:{
                     if (!_startTime) {
-                        _startTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                        text:@"开始时间"
-                                                       color:[UIColor blackColor]
-                                                        font:[UIFont systemFontOfSize:14]];
+//                        _startTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+//                                                        text:@"开始时间"
+//                                                       color:[UIColor blackColor]
+//                                                        font:[UIFont systemFontOfSize:14]];
+                        _startTime = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+                                        placeHolder:@"选择开始时间"];
+                        _startTime.enabled = NO;
 //                        _startTime.backgroundColor = [UIColor greenColor];
                     }
                     [cell.contentView addSubview:_startTime];
@@ -262,44 +359,58 @@
                     break;
                 case 5:{
                     if (!_endTime) {
-                        _endTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                        text:@"结束时间"
-                                                       color:[UIColor blackColor]
-                                                        font:[UIFont systemFontOfSize:14]];
+//                        _endTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+//                                                        text:@"结束时间"
+//                                                       color:[UIColor blackColor]
+//                                                        font:[UIFont systemFontOfSize:14]];
 //                        _endTime.backgroundColor = [UIColor greenColor];
+                        
+                        _endTime = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+                                                   placeHolder:@"选择结束时间"];
+                        _endTime.enabled = NO;
                     }
                     [cell.contentView addSubview:_endTime];
                 }
                     break;
                 case 6:{
                     if (!_type) {
-                        _type = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                      text:@"活动类型"
-                                                     color:[UIColor blackColor]
-                                                      font:[UIFont systemFontOfSize:14]];
+//                        _type = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+//                                                      text:@"活动类型"
+//                                                     color:[UIColor blackColor]
+//                                                      font:[UIFont systemFontOfSize:14]];
 //                        _type.backgroundColor = [UIColor greenColor];
+                        _type = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+                                                placeHolder:@"选择活动类型"];
+                        _type.enabled = NO;
                     }
                     [cell.contentView addSubview:_type];
                 }
                     break;
                 case 7:{
                     if (!_cutOffTime) {
-                        _cutOffTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                      text:@"报名截止时间"
-                                                     color:[UIColor blackColor]
-                                                      font:[UIFont systemFontOfSize:14]];
+//                        _cutOffTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+//                                                      text:@"报名截止时间"
+//                                                     color:[UIColor blackColor]
+//                                                      font:[UIFont systemFontOfSize:14]];
 //                        _cutOffTime.backgroundColor = [UIColor greenColor];
+                        _cutOffTime = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+                                                      placeHolder:@"选择报名截止时间"];
+                        _cutOffTime.enabled = NO;
+                        
                     }
                     [cell.contentView addSubview:_cutOffTime];
                 }
                     break;
                 case 8:{
                     if (!_limitCount) {
-                        _limitCount = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                         text:@"人数限制"
-                                                        color:[UIColor blackColor]
-                                                         font:[UIFont systemFontOfSize:14]];
+//                        _limitCount = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+//                                                         text:@"人数限制"
+//                                                        color:[UIColor blackColor]
+//                                                         font:[UIFont systemFontOfSize:14]];
 //                        _limitCount.backgroundColor = [UIColor greenColor];
+                        
+                        _limitCount = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
+                                                      placeHolder:@"请输入人数限制"];
                     }
                     [cell.contentView addSubview:_limitCount];
                 }
@@ -385,6 +496,28 @@
     [_name resignFirstResponder];//活动名称
     [_place resignFirstResponder];//活动地点
     [_comeFrom resignFirstResponder];//活动来源
+    [_limitCount resignFirstResponder];//人数限制
+    
+    [_activityDes resignFirstResponder];
+}
+
+#pragma mark - textViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSString *inputString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    if (self.activityDes == textView){//邮件
+        if ([inputString length] > 140){
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        _placeHolder.text = @"活动描述（少于140个字）";
+    }else{
+        _placeHolder.text = @"";
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -394,9 +527,17 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    [self.activityDes resignFirstResponder];
     return YES;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [_name resignFirstResponder];//活动名称
+    [_place resignFirstResponder];//活动地点
+    [_comeFrom resignFirstResponder];//活动来源
+    [_limitCount resignFirstResponder];//人数限制
+    [_activityDes resignFirstResponder];
+}
 
 - (UITextField *)addTextFieldWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder{
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];

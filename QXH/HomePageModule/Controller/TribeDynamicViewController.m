@@ -89,6 +89,8 @@
     conversationTable.delegate = self;
     conversationTable.dataSource = self;
     [self.view addSubview:conversationTable];
+    //获取部落信息
+    [self getTribeInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,39 +99,40 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)getTribeInfo{
+    /**
+     *  获取部落信息
+     *
+     *  @param tribeid  部落id
+     *  @param callback 回调
+     */
+//    + (void)getTribeInfo:(NSString *)tribeid withCompletionHandler:(DictCallback)callback;
+    NSString *tribeId = @"";
+    [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"部落信息返回值：%@",dict);
+    }];
+}
+
 - (void)detail:(UIButton *)sender{
     NSLog(@"详细资料");
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
     [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - CustomSegmentControlDelegate
 - (void)segmentClicked:(NSInteger)index{
     NSLog(@"segment clicked:%d",index);
     if (index == 2) {
-//        {
-//        opercode:"0117
-//        userid:"1234565",		//用户唯一标识
-//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-//        tribeid:"123444"		//部落唯一标示
-//        }
-        //请求部落成员列表
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
-        [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-            NSLog(@"返回值:%@",dict);
+        /**
+         *  获取部落成员列表
+         *
+         *  @param tribeid  部落id
+         *  @param callback 回调
+         */
+        NSString *tribeId = @"";
+        [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"获取部落成员列表返回值:%@",dict);
         }];
-        
     }
     NSInteger tag = CONVERSATION_TABLE_TAG + index;
     UIView* table = (UIView*)[self.view viewWithTag:tag];

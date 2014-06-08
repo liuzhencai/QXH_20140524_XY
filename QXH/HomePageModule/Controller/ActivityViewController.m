@@ -81,32 +81,47 @@
 
 - (void)getActivityList{
     //获取活动列表
-    //    {
-    //    opercode:"0125",
-    //    userid:"1234565",		//用户唯一标识
-    //    token:"ab123456789"		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-    //    start:"10",			//起始消息的artid，不填写该字段读取最新消息n个
-    //    direction:"before",		//方向 before获取start消息之前的n条,after获取start消息之后的n调
-    //    count:"20",			//获取消息数量
-    //    actname:"活动名称",		//活动名称
-    //    tags:"标签，标签"，		//不同标签之间用逗号隔开
-    //    district:"130400",		//地域信息
-    //    canjoin:"0"			//0为全部活动，1为可加入报名的活动,2为已参加的活动
-    //    }
-    //    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:nil];
+//    NSDictionary *params = @{@"opercode": @"0125",
+//                             @"userid":[defaults objectForKey:@"userid"],
+//                             @"token":[defaults objectForKey:@"token"],
+//                             @"start":@"10",
+//                             @"direction":@"before",
+//                             @"count":@"20",
+//                             @"actname":@"",
+//                             @"tags":@"",
+//                             @"district":@"",
+//                             @"canjoin":@"0"};
+//    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
+//        NSLog(@"返回值:%@",dict);
+//    }];
     
-    NSDictionary *params = @{@"opercode": @"0125",
-                             @"userid":[defaults objectForKey:@"userid"],
-                             @"token":[defaults objectForKey:@"token"],
-                             @"start":@"10",
-                             @"direction":@"before",
-                             @"count":@"20",
-                             @"actname":@"",
-                             @"tags":@"",
-                             @"district":@"",
-                             @"canjoin":@"0"};
-    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"返回值:%@",dict);
+    /**
+     *  获取/搜索活动列表(列表按创建时间的逆序排列)
+     *
+     *  @param start     起始消息的artid，不填写该字段读取最新消息n个
+     *  @param count     获取消息数量
+     *  @param actname   活动名称
+     *  @param tag       标签
+     *  @param district  地域信息
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param begindate 活动起始时间
+     *  @param enddate   活动结束时间
+     *  @param callback  回调
+     */
+    
+    [DataInterface getActList:@"0"
+                        count:@"20"
+                      actname:@""
+                          tag:@""
+                     district:@""
+                      canjoin:@"0"
+                     actstate:@"0"
+                    begindate:@""
+                      enddate:@""
+        withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"活动列表返回数据:%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
 
@@ -213,8 +228,48 @@
     }else if (2 == buttonIndex){//筛选
         NSLog(@"筛选");
         FilterTimeViewController *filterTime = [[FilterTimeViewController alloc] init];
+        filterTime.filterTimeCallBack = ^(id object){
+            NSArray *arr = (NSArray *)object;
+            NSLog(@"筛选条件：%@",arr);
+            //此处根据筛选条件请求数据
+            if ([arr count]) {
+                [self selectActivityWithconditions:arr];
+            }
+        };
         [self.navigationController pushViewController:filterTime animated:YES];
     }
+}
+
+- (void)selectActivityWithconditions:(NSArray *)conditions{
+    /**
+     *  获取/搜索活动列表(列表按创建时间的逆序排列)
+     *
+     *  @param start     起始消息的artid，不填写该字段读取最新消息n个
+     *  @param count     获取消息数量
+     *  @param actname   活动名称
+     *  @param tag       标签
+     *  @param district  地域信息
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param begindate 活动起始时间
+     *  @param enddate   活动结束时间
+     *  @param callback  回调
+     */
+    
+    [DataInterface getActList:@""
+                        count:@"20"
+                      actname:@""
+                          tag:@""
+                     district:@""
+                      canjoin:@"0"  //0为全部活动
+                     actstate:@"0"  //0为全部
+                    begindate:@""
+                      enddate:@""
+        withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"活动列表筛选返回数据:%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
+
 }
 
 @end
