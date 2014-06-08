@@ -49,34 +49,20 @@ typedef void (^DownloadProgressBlock)(double progress);
 completionHandler:(DataProcessBlock)dataProcess
     errorHandler:(MKNKErrorBlock) errorBlock;
 
-
 /**
- *  上传图片
+ *  上传文件
  *
- *  @param image           图片
- *  @param type            图片类型 1-背景 2-孕检结果图 3-笔记图片
+ *  @param data            文件数据
+ *  @param filename        文件名
+ *  @param type            文件类型
  *  @param completionBlock 完成回调
  *  @param errorBlock      错误回调
  */
--(void) uploadImage:(UIImage *) image
-            andType:(NSInteger)type
-  completionHandler:(DataProcessBlock) completionBlock
-       errorHandler:(MKNKErrorBlock) errorBlock;
-
-/*!
- *	上传多张图片
- *
- *	@param images          图片数组
- *	@param type            图片类型
- *	@param completionBlock 完成回调
- *	@param errorBlock      错误回调
- *
- *	@since 1.0
- */
-- (void) uploadImages:(NSArray *)images
-              andType:(NSInteger)type
-     completionHander:(DataProcessBlock)completionBlock
-         errorHandler:(MKNKErrorBlock) errorBlock;
+- (void)uploadFile:(NSData *)data
+          filename:(NSString *)filename
+              type:(NSString *)type
+ completionHandler:(DataProcessBlock) completionBlock
+      errorHandler:(MKNKErrorBlock) errorBlock;
 
 /**
  *  根据url下载文件

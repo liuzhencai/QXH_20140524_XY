@@ -17,8 +17,6 @@
 
 #define SERVICE_URL @"qxh/mobile/qxhService.action"
 
-#define IMAGE_UPLOAD_URL @""
-
 #define SOCKET_SERVER @"180.97.46.40"
 
 #define SOCKET_PORT 9002
@@ -29,9 +27,11 @@
 /*******************************************
  Custom Block Callback 自定义block回调
  ********************************************/
-typedef void(^FinishLoadBlock)(NSData *);
+typedef void (^FinishLoadBlock)(NSData *data);
 
-typedef void(^Completion)(id data);
+typedef void (^DescriptionBlock)(NSString *desc);
+
+typedef void (^Completion)(id data);
 
 typedef void (^ListCallback)(NSMutableArray *list);
 

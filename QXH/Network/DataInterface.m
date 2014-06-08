@@ -10,13 +10,15 @@
 
 @implementation DataInterface
 
-+ (void)registerUser:(NSString *)name andPswd:(NSString *)pswd withCompletionHandler:(DictCallback)callback
++ (void)heartBeatWithCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode":@"0135",@"email":name,@"pwd":[pswd md5HexDigest]};
-    NSLog(@"\n##########调用用户注册接口##########\n[参 数]:%@\n#############################\n",param);
-    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"\n##########用户注册返回结果##########\n[结 果]:%@\n#############################\n",dict);
-        callback(dict);
+    NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
+    NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
+    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
+        NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
+        callback(data);
+    } andErrorHandler:^(id data) {
+        NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
     }];
 }
 
@@ -33,18 +35,6 @@
         [defaults synchronize];
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########用户登陆出错##########\n[原 因]:%@\n#############################\n",data);
-    }];
-}
-
-+ (void)heartBeatWithCompletionHandler:(DictCallback)callback
-{
-    NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
-    NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
-    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
-        callback(data);
-    } andErrorHandler:^(id data) {
-        NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
     }];
 }
 
@@ -335,7 +325,7 @@ withCompletionHandler:(DictCallback)callback
               comment:(NSString *)comment
 withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0121", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"laud":laud,@"comment":comment};
+    NSDictionary *param = @{@"opercode": @"0122", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"laud":laud,@"comment":comment};
     NSLog(@"\n##########文章赞/评论接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########文章赞/评论返回结果##########\n[结 果]:%@\n#############################\n",dict);
@@ -348,7 +338,7 @@ withCompletionHandler:(DictCallback)callback
                  count:(NSString *)count
  withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0122", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"start":start,@"count":count};
+    NSDictionary *param = @{@"opercode": @"0123", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"start":start,@"count":count};
     NSLog(@"\n##########获取评论列表接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取评论列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
@@ -360,7 +350,7 @@ withCompletionHandler:(DictCallback)callback
                           artid:(NSString *)artid
           withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0123", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"artid":artid};
+    NSDictionary *param = @{@"opercode": @"0124", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"artid":artid};
     NSLog(@"\n##########广场文章收藏接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########广场文章收藏返回结果##########\n[结 果]:%@\n#############################\n",dict);
@@ -478,13 +468,35 @@ withCompletionHandler:(DictCallback)callback
                  count:(NSString *)count
  withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0133", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid,@"sendtype":sendtype,@"start":start,@"direction":direction,@"count":count,@"sign":[SignGenerator getSign]};
+    NSDictionary *param = @{@"opercode": @"0133", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid,@"sendtype":sendtype,@"start":start,@"direction":direction,@"count":count};
     NSLog(@"\n##########获取聊天记录信息接口##########\n[参 数]:%@\n#############################\n",param);
-    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"\n##########获取聊天记录信息返回结果##########\n[结 果]:%@\n#############################\n",data);
-        callback(data);
-    } andErrorHandler:^(id data) {
-        NSLog(@"\n##########获取聊天记录信息出错##########\n[原 因]:%@\n#############################\n",data);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取聊天记录信息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)shareContent:(NSString *)artid
+         contenttype:(NSString *)contenttype
+           sharetype:(NSString *)sharetype
+            targetid:(NSString *)targetid
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0134", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"contenttype":contenttype,@"sharetype":sharetype,@"targetid":targetid};
+    NSLog(@"\n##########分享内容接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########分享内容返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)registerUser:(NSString *)name andPswd:(NSString *)pswd withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode":@"0135",@"email":name,@"pwd":[pswd md5HexDigest]};
+    NSLog(@"\n##########调用用户注册接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########用户注册返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
     }];
 }
 
@@ -509,6 +521,94 @@ withCompletionHandler:(DictCallback)callback
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########临时退出部落回话(非退出部落，关系保留)/直播间出错##########\n[原 因]:%@\n#############################\n",data);
+    }];
+}
+
++ (void)modifyAct:(NSString *)actid
+          actname:(NSString *)actname
+          acttype:(NSString *)acttype
+             desc:(NSString *)desc
+        condition:(NSString *)condition
+         comefrom:(NSString *)comefrom
+             tags:(NSString *)tags
+         district:(NSString *)district
+          actaddr:(NSString *)actaddr
+     startoffaddr:(NSString *)startoffaddr
+         maxcount:(NSString *)maxcount
+       delactimgs:(NSString *)delactimgs
+          actimgs:(NSString *)actimgs
+  signupbegindate:(NSString *)signupbegindate
+    signupenddate:(NSString *)signupenddate
+        begindate:(NSString *)begindate
+          enddate:(NSString *)enddate
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0138", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"actid":actid,@"actname":actname,@"acttype":acttype,@"desc":desc,@"condition":condition,@"comefrom":comefrom,@"tags":tags,@"district":district,@"actaddr":actaddr,@"startoffaddr":startoffaddr,@"maxcount":maxcount,@"delactimgs":delactimgs,@"actimgs":actimgs,@"signupbegindate":signupbegindate,@"signupenddate":signupenddate,@"begindate":begindate,@"enddate":enddate};
+    NSLog(@"\n##########修改活动接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########修改活动返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getVisitorList:(NSString *)targetid withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0139", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid};
+    NSLog(@"\n##########获取访客接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取访客返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getLoginInfoWithCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0140", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"]};
+    NSLog(@"\n##########获取登陆消息接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取登陆消息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)fileUpload:(id)file type:(NSString *)type withCompletionHandler:(DictCallback)completionBlock errorBlock:(DescriptionBlock)errorBlock
+{
+    [HttpRequest uploadFile:file type:type completionHandler:^(id data) {
+        NSLog(@"\n##########上传文件成功##########\n[结 果]:%@\n#############################\n",data);
+        completionBlock(data);
+    } errorHandler:^(NSString *desc) {
+        NSLog(@"\n##########上传文件失败##########\n[原 因]:%@\n#############################\n",desc);
+        errorBlock(desc);
+    }];
+}
+
++ (void)getSquareInfoList:(NSString *)type
+               detailtype:(NSString *)detailtype
+                      tag:(NSString *)tag
+                  arttype:(NSString *)arttype
+            contentlength:(NSString *)contentlength
+                    start:(NSString *)start
+                    count:(NSString *)count
+    withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0142", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"detailtype":detailtype,@"tag":tag,@"arttype":arttype,@"contentlength":contentlength,@"start":start,@"count":count};
+    NSLog(@"\n##########获取广场消息列表接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取广场消息列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)transmit:(NSString *)type
+        targetid:(NSString *)targetid
+         refsign:(NSString *)refsign
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0143", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"targetid":targetid,@"refsign":refsign};
+    NSLog(@"\n##########转发通用接口接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########转发通用接口返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
     }];
 }
 

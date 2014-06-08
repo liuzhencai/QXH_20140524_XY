@@ -32,4 +32,40 @@
     }];
 }
 
++ (void)uploadFile:(id)file
+              type:(NSString *)type
+ completionHandler:(Completion)completionBlock
+      errorHandler:(DescriptionBlock)errorBlock
+{
+    NSData *data = nil;
+    NSString *fileName = nil;
+    if ([file isKindOfClass:[UIImage class]]) {
+        // 对图片进行压缩处理
+        data = UIImageJPEGRepresentation(file, 0.5);
+        fileName = [NSString stringWithFormat:@"%ld.png", (long)[[NSDate date] timeIntervalSince1970]];
+    }else if([file isKindOfClass:[NSString class]]){
+        data = [NSData dataWithContentsOfFile:file];
+        NSString *fileFullName = [(NSString *)file lastPathComponent];
+        NSString *fileNameSuffix = nil;
+        if ([fileFullName rangeOfString:@"."].location != NSNotFound) {
+            fileNameSuffix = [[fileFullName componentsSeparatedByString:@"."] lastObject];
+        }
+        if (!fileNameSuffix) {
+            NSAssert(NO, @"上传文件缺少扩展名!");
+        }
+        fileName = [NSString stringWithFormat:@"%ld.%@", (long)[[NSDate date] timeIntervalSince1970], fileNameSuffix];
+    }else{
+        NSAssert(NO, @"上传文件参数类型错误!");
+    }
+    [[HttpServiceEngine sharedEngine] uploadFile:data filename:fileName type:type completionHandler:^(NSInteger statusCode, id object) {
+        if ([[object objectForKey:@"statecode"] isEqualToString:@"0200"]) {
+            completionBlock(object);
+        }else{
+            errorBlock([object objectForKey:@"info"]);
+        }
+    } errorHandler:^(NSError *error) {
+        errorBlock([error description]);
+    }];
+}
+
 @end

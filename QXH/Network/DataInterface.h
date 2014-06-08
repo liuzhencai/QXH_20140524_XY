@@ -388,6 +388,8 @@ withCompletionHandler:(DictCallback)callback;
                           artid:(NSString *)artid
           withCompletionHandler:(DictCallback)callback;
 
+
+
 /**
  *  获取/搜索活动列表(列表按创建时间的逆序排列)
  *
@@ -516,6 +518,21 @@ withCompletionHandler:(DictCallback)callback;
  withCompletionHandler:(DictCallback)callback;
 
 /**
+ *  分享内容
+ *
+ *  @param artid       广场消息的唯一标示
+ *  @param contenttype 1为广场文章，2为咨询分享，3为活动分享
+ *  @param sharetype   1为分享给好友，2为分享给部落
+ *  @param targetid    分享给好友或部落的id，如果为多个好友或部落，中间以逗号隔开
+ *  @param callback 回调
+ */
++ (void)shareContent:(NSString *)artid
+         contenttype:(NSString *)contenttype
+           sharetype:(NSString *)sharetype
+            targetid:(NSString *)targetid
+withCompletionHandler:(DictCallback)callback;
+
+/**
  *  进入直播间
  *
  *  @param tribeid  部落id
@@ -530,5 +547,106 @@ withCompletionHandler:(DictCallback)callback;
  *  @param callback 回调
  */
 + (void)leaveOneDream:(NSString *)tribeid withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  修改活动
+ *
+ *  @param actid           活动唯一标示
+ *  @param actname         活动名称
+ *  @param acttype         活动类型
+ *  @param desc            活动描述,简介
+ *  @param condition       加入条件
+ *  @param comefrom        来自哪里
+ *  @param tags            不同标签之间用逗号隔开
+ *  @param district        地域信息
+ *  @param actaddr         活动地址
+ *  @param startoffaddr    出发地点
+ *  @param maxcount        最多人数
+ *  @param delactimgs      要删除的图片列表
+ *  @param actimgs         新添加的图片列表
+ *  @param signupbegindate 报名起始日期
+ *  @param signupenddate   报名截止日期
+ *  @param begindate       活动起始时间
+ *  @param enddate         活动结束时间
+ */
++ (void)modifyAct:(NSString *)actid
+          actname:(NSString *)actname
+          acttype:(NSString *)acttype
+             desc:(NSString *)desc
+        condition:(NSString *)condition
+         comefrom:(NSString *)comefrom
+             tags:(NSString *)tags
+         district:(NSString *)district
+          actaddr:(NSString *)actaddr
+     startoffaddr:(NSString *)startoffaddr
+         maxcount:(NSString *)maxcount
+       delactimgs:(NSString *)delactimgs
+          actimgs:(NSString *)actimgs
+  signupbegindate:(NSString *)signupbegindate
+    signupenddate:(NSString *)signupenddate
+        begindate:(NSString *)begindate
+          enddate:(NSString *)enddate
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取访客
+ *
+ *  @param targetid 要获取那个用户的id
+ *  @param callback 回调
+ */
++ (void)getVisitorList:(NSString *)targetid withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取登录消息
+ *
+ *  @param callback 获取登陆消息（此接口为用户登陆成功后调用，用户获取在用户离线期间收到的消息）
+ */
++ (void)getLoginInfoWithCompletionHandler:(DictCallback)callback;
+
+/**
+ *  文件上传
+ *
+ *  @param file     UIImage对象或文件URL
+ *  @param type     1为图片，2为文档，3为音频
+ *  @param callback 回调
+ */
++ (void)fileUpload:(id)file
+              type:(NSString *)type
+withCompletionHandler:(DictCallback)completionBlock
+        errorBlock:(DescriptionBlock)errorBlock;
+
+/**
+ *  获取广场消息列表
+ *
+ *  @param type          type值：0为不区分,1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
+ *  @param detailtype    信息明细类型 1为最新,2为我发布的(注：关于广场中最热获取，认为是获取广场发布文章的最热请调用API:0119(HTTP)接口)
+ *  @param tag           标签(暂时保留，客户端不需填写值)
+ *  @param arttype       文章类型(暂时保留，客户端不需填写值)
+ *  @param contentlength 文章列表中文章的长度
+ *  @param start         起始消息的artid，不填写该字段读取最新消息n个
+ *  @param count         获取消息数量
+ *  @param callback      回调
+ */
++ (void)getSquareInfoList:(NSString *)type
+               detailtype:(NSString *)detailtype
+                      tag:(NSString *)tag
+                  arttype:(NSString *)arttype
+            contentlength:(NSString *)contentlength
+                    start:(NSString *)start
+                    count:(NSString *)count
+    withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  转发通用接口(转发指将咨询文章，活动转发到广场的操作)
+ *
+ *  @param type     2为咨询转发，3为活动转发
+ *  @param targetid 要转发的目标id
+ *  @param refsign  转发语
+ *  @param callback 回调
+ */
++ (void)transmit:(NSString *)type
+        targetid:(NSString *)targetid
+         refsign:(NSString *)refsign
+withCompletionHandler:(DictCallback)callback;
 
 @end

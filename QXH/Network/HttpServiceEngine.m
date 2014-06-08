@@ -88,71 +88,50 @@ static HttpServiceEngine *httpEngine;
     [self enqueueOperation:op];
 }
 
--(void) uploadImage:(UIImage *) image
-            andType:(NSInteger)type
-  completionHandler:(DataProcessBlock) completionBlock
-       errorHandler:(MKNKErrorBlock) errorBlock
+- (void)uploadFile:(NSData *)data
+          filename:(NSString *)filename
+              type:(NSString *)type
+ completionHandler:(DataProcessBlock) completionBlock
+      errorHandler:(MKNKErrorBlock) errorBlock
 {
     __block __weak MKNetworkOperation *op = nil;
-    op = [self operationWithPath:IMAGE_UPLOAD_URL
-                          params:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d",type] forKey:@"type"]
-                      httpMethod:@"POST"];
-    [op addData:UIImageJPEGRepresentation(image, 0.9) forKey:@"pic" mimeType:@"image/jpeg" fileName:@".jpg"];
-    // setFreezable uploads your images after connection is restored!
-    [op setFreezable:YES];
-    
-    [op addCompletionHandler:^(MKNetworkOperation* completedOperation) {
-        [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
-            completionBlock(op.HTTPStatusCode,jsonObject);
-            /* error  字典(图片铃声上传接口共用)：
-             *      1:图片类型参数type不可为空
-             *      2:图片类型错误
-             *      3:不允许上传此类型的文件，只允许JPG和JPEG格式
-             *      4:上传文件不能为空
-             *      5:上传文件的大小超出限制，不能大于3M
-             *      6:不允许上传此类型的文件，只允许MP3格式
-             *      7:上传文件的大小超出限制，不能大于500K
-             */
-        }];
-    }errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
-        errorBlock(error);
-    }];
-    [self enqueueOperation:op];
-}
-
-- (void)uploadImages:(NSArray *)images
-             andType:(NSInteger)type
-    completionHander:(DataProcessBlock)completionBlock
-        errorHandler:(MKNKErrorBlock)errorBlock
-{
-    __block __weak MKNetworkOperation *op = nil;
-    op = [self operationWithPath:IMAGE_UPLOAD_URL
-                          params:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d",type] forKey:@"type"]
-                      httpMethod:@"POST"];
-    for (UIImage *image in images) {
-        [op addData:UIImageJPEGRepresentation(image, 0.9) forKey:@"pic" mimeType:@"image/jpeg" fileName:@".jpg"];
+    NSDictionary *tmpParam = @{@"opercode": @"0141", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type};
+    NSString *fileType = nil;
+    switch ([type integerValue]) {
+        case 1:
+            fileType = @"图片";
+            break;
+        case 2:
+            fileType = @"文档";
+            break;
+        case 3:
+            fileType = @"音频";
+            break;
+        default:
+            break;
     }
-    // setFreezable uploads your images after connection is restored!
+    NSLog(@"\n##########调用上传文件接口##########\n[参 数]:%@\n[文件名]:%@\n[文件类型]:%@\n#############################\n",tmpParam,filename,fileType);
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmpParam
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    NSString *json = [[NSString alloc] initWithData:jsonData
+                                           encoding:NSUTF8StringEncoding];
+    NSString *base64Str = [Base64 encodeBase64String:json];
+    NSDictionary *param = @{@"reqMess": base64Str};
+    op = [self operationWithPath:SERVICE_URL
+                          params:param
+                      httpMethod:@"POST"];
+    [op addData:data forKey:@"upload" mimeType:@"application/octet-stream" fileName:filename];
     [op setFreezable:YES];
     
     [op addCompletionHandler:^(MKNetworkOperation* completedOperation) {
         [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
             completionBlock(op.HTTPStatusCode,jsonObject);
-            /* error  字典(图片铃声上传接口共用)：
-             *      1:图片类型参数type不可为空
-             *      2:图片类型错误
-             *      3:不允许上传此类型的文件，只允许JPG和JPEG格式
-             *      4:上传文件不能为空
-             *      5:上传文件的大小超出限制，不能大于3M
-             *      6:不允许上传此类型的文件，只允许MP3格式
-             *      7:上传文件的大小超出限制，不能大于500K
-             */
         }];
     }errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
         errorBlock(error);
     }];
     [self enqueueOperation:op];
-
 }
 
 - (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock) errorBlock
