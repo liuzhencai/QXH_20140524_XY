@@ -571,12 +571,14 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
-+ (void)fileUpload:(NSString *)type data:(NSData *)data withCompletionHandler:(DictCallback)callback
++ (void)fileUpload:(id)file type:(NSString *)type withCompletionHandler:(DictCallback)completionBlock errorBlock:(DescriptionBlock)errorBlock
 {
-    NSLog(@"\n##########上传文件接口##########\n[类 型]:%@\n[数 据]:%@\n#############################\n",type, data);
-    [HttpRequest uploadFile:type data:data andCompletionHandler:^(NSMutableDictionary *dict) {
-            NSLog(@"\n##########上传文件返回结果##########\n[结 果]:%@\n#############################\n",dict);
-            callback(dict);
+    [HttpRequest uploadFile:file type:type completionHandler:^(id data) {
+        NSLog(@"\n##########上传文件成功##########\n[结 果]:%@\n#############################\n",data);
+        completionBlock(data);
+    } errorHandler:^(NSString *desc) {
+        NSLog(@"\n##########上传文件失败##########\n[原 因]:%@\n#############################\n",desc);
+        errorBlock(desc);
     }];
 }
 

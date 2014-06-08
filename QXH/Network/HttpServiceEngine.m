@@ -89,12 +89,28 @@ static HttpServiceEngine *httpEngine;
 }
 
 - (void)uploadFile:(NSData *)data
+          filename:(NSString *)filename
               type:(NSString *)type
  completionHandler:(DataProcessBlock) completionBlock
       errorHandler:(MKNKErrorBlock) errorBlock
 {
     __block __weak MKNetworkOperation *op = nil;
     NSDictionary *tmpParam = @{@"opercode": @"0141", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type};
+    NSString *fileType = nil;
+    switch ([type integerValue]) {
+        case 1:
+            fileType = @"图片";
+            break;
+        case 2:
+            fileType = @"文档";
+            break;
+        case 3:
+            fileType = @"音频";
+            break;
+        default:
+            break;
+    }
+    NSLog(@"\n##########调用上传文件接口##########\n[参 数]:%@\n[文件名]:%@\n[文件类型]:%@\n#############################\n",tmpParam,filename,fileType);
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:tmpParam
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:nil];
@@ -105,7 +121,7 @@ static HttpServiceEngine *httpEngine;
     op = [self operationWithPath:SERVICE_URL
                           params:param
                       httpMethod:@"POST"];
-    [op addData:data forKey:@"upload"];
+    [op addData:data forKey:@"upload" mimeType:@"application/octet-stream" fileName:filename];
     [op setFreezable:YES];
     
     [op addCompletionHandler:^(MKNetworkOperation* completedOperation) {

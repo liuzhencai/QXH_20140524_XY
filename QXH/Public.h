@@ -27,9 +27,11 @@
 /*******************************************
  Custom Block Callback 自定义block回调
  ********************************************/
-typedef void(^FinishLoadBlock)(NSData *);
+typedef void (^FinishLoadBlock)(NSData *data);
 
-typedef void(^Completion)(id data);
+typedef void (^DescriptionBlock)(NSString *desc);
+
+typedef void (^Completion)(id data);
 
 typedef void (^ListCallback)(NSMutableArray *list);
 

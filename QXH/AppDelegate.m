@@ -33,9 +33,18 @@
 {
     NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":[@"123456" md5HexDigest],@"sign":[SignGenerator getSign]};
     [DataInterface login:@"zhaolilong2012@gmail.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
-        [DataInterface fileUpload:@"1" data:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]]withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
+        UIImage *img = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]];
+        
+        [DataInterface fileUpload:img type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
+            
+        } errorBlock:^(NSString *desc) {
             
         }];
+ 
+//        [DataInterface fileUpload:@"1" data:[NSData dataWithContentsOfFile:]withCompletionHandler:^(NSMutableDictionary *dict) {
+//            
+//        }];
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
             
         }];

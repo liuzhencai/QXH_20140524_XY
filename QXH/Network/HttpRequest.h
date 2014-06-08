@@ -892,8 +892,26 @@ info:"修改成功"			//修改成功/失败!
 
 @interface HttpRequest : NSObject
 
+/**
+ *  Http请求
+ *
+ *  @param params   参数
+ *  @param callback 回调
+ */
 + (void)requestWithParams:(NSDictionary *)params andCompletionHandler:(DictCallback)callback;
 
 + (void)uploadFile:(NSString *)type data:(NSData *)data andCompletionHandler:(Completion)callback;
 
+/**
+ *  上传文件
+ *
+ *  @param file            文件
+ *  @param type            类型
+ *  @param completionBlock 完成回调
+ *  @param errorBlock      错误回调
+ */
++ (void)uploadFile:(id)file
+              type:(NSString *)type
+ completionHandler:(Completion)completionBlock
+      errorHandler:(DescriptionBlock)errorBlock;
 @end

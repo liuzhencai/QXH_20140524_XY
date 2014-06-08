@@ -606,11 +606,14 @@ withCompletionHandler:(DictCallback)callback;
 /**
  *  文件上传
  *
+ *  @param file     UIImage对象或文件URL
  *  @param type     1为图片，2为文档，3为音频
- *  @param data     文件数据
  *  @param callback 回调
  */
-+ (void)fileUpload:(NSString *)type data:(NSData *)data withCompletionHandler:(DictCallback)callback;
++ (void)fileUpload:(id)file
+              type:(NSString *)type
+withCompletionHandler:(DictCallback)completionBlock
+        errorBlock:(DescriptionBlock)errorBlock;
 
 /**
  *  获取广场消息列表

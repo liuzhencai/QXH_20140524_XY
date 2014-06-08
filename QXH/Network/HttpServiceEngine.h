@@ -53,11 +53,13 @@ completionHandler:(DataProcessBlock)dataProcess
  *  上传文件
  *
  *  @param data            文件数据
+ *  @param filename        文件名
  *  @param type            文件类型
  *  @param completionBlock 完成回调
  *  @param errorBlock      错误回调
  */
 - (void)uploadFile:(NSData *)data
+          filename:(NSString *)filename
               type:(NSString *)type
  completionHandler:(DataProcessBlock) completionBlock
       errorHandler:(MKNKErrorBlock) errorBlock;
