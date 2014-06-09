@@ -155,8 +155,8 @@
     }
     //活动类型
     if([self.type.text length] <= 0){
-//        [self showAlert:@"请选择活动类型"];
-//        return;
+        [self showAlert:@"请选择活动类型"];
+        return;
     }
     //活动报名截止时间
     if([self.cutOffTime.text length] <= 0){
@@ -189,7 +189,7 @@
      *  @param callback        回调
      */
     [DataInterface createAct:self.name.text
-                     acttype:@"vvv"
+                     acttype:self.type.text
                         desc:self.activityDes.text
                      actimgs:@""
                    condition:@""
@@ -199,7 +199,7 @@
                      actaddr:self.place.text
                 startoffaddr:self.place.text
                     maxcount:self.limitCount.text
-             signupbegindate:@""
+             signupbegindate:self.cutOffTime.text
                signupenddate:self.cutOffTime.text
                    begindate:self.startTime.text
                      enddate:self.endTime.text
@@ -381,7 +381,6 @@
 //                        _type.backgroundColor = [UIColor greenColor];
                         _type = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                 placeHolder:@"选择活动类型"];
-                        _type.enabled = NO;
                     }
                     [cell.contentView addSubview:_type];
                 }

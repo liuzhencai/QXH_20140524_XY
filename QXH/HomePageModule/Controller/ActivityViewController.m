@@ -81,20 +81,6 @@
 
 - (void)getActivityList{
     //获取活动列表
-//    NSDictionary *params = @{@"opercode": @"0125",
-//                             @"userid":[defaults objectForKey:@"userid"],
-//                             @"token":[defaults objectForKey:@"token"],
-//                             @"start":@"10",
-//                             @"direction":@"before",
-//                             @"count":@"20",
-//                             @"actname":@"",
-//                             @"tags":@"",
-//                             @"district":@"",
-//                             @"canjoin":@"0"};
-//    [HttpRequest requestWithParams:params andCompletionHandler:^(NSMutableDictionary *dict) {
-//        NSLog(@"返回值:%@",dict);
-//    }];
-    
     /**
      *  获取/搜索活动列表(列表按创建时间的逆序排列)
      *

@@ -52,7 +52,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"编辑名片";
+    if (!self.title) {
+        self.title = @"编辑名片";
+    }
+    
     
     _editTable.tableHeaderView = _topView;
     
@@ -93,10 +96,10 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 30)];
             label.backgroundColor = RGBCOLOR(236, 245, 229);
             label.text = @"详细个人信息";
-            label.textColor = [UIColor greenColor];
+            label.textColor = GREEN_FONT_COLOR;
             [cell.contentView addSubview:label];
         }
     }else{

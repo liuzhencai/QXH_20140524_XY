@@ -50,7 +50,7 @@
 - (void)confirmPickView{
     if (self.datePickerBlock) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = [NSString stringWithFormat:@"yyyy-MM-dd HH:mm"];
+        dateFormatter.dateFormat = [NSString stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSString *dateStr = [dateFormatter stringFromDate:self.selectDate];
         
         self.datePickerBlock(dateStr);

@@ -11,7 +11,7 @@
 #import "OnLiveCell.h"
 
 @interface OneDreamController ()
-
+@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
 @end
 
 @implementation OneDreamController
@@ -21,6 +21,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _activitysList = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -28,8 +29,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.title = @"直播间";
+    
+    for (int i = 0; i < 10; i ++) {
+        [self.activitysList addObject:@{@"":@""}];
+    }
+    
+    [self getActivitysList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,13 +44,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)getActivitysList{
+    /**
+     *  获取部落/群组/直播间列表
+     *
+     *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
+     *  @param tribename 部落名称
+     *  @param authflag  0为全部，1为普通部落，2为官方认证部落
+     *  @param tribetype 1为部落，2为直播间
+     *  @param tag       搜索是只允许单个标签搜索
+     *  @param district  地域信息
+     *  @param start     起始位置
+     *  @param count     获取数量
+     *  @param callback  回调
+     */
+    [DataInterface requestTribeList:@""
+                          tribename:@""
+                           authflag:@"0"
+                          tribetype:@"2" //1为部落，2为直播间
+                                tag:@""
+                           district:@""
+                              start:@"0"
+                              count:@"20"
+              withCompletionHandler:^(NSMutableDictionary *dict){
+                  NSLog(@"部落列表返回值：%@",dict);
+//                  [self showAlert:[dict objectForKey:@"info"]];
+              }];
+}
+
+#pragma mark - UITableViewDelegate
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [self.activitysList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 150;
     return 200;
 }
 
