@@ -10,12 +10,31 @@
 #import "InformationCommentController.h"
 
 @interface InformationDetailController ()
-
+{
+    InfoDetailModel *detailmodel;
+}
 @end
 
 @implementation InformationDetailController
 
-@synthesize type;
+- (void)setValueForView
+{
+    _articleTitleLabel.text = detailmodel.title;
+    _sourceLabel.text = detailmodel.authflag;
+    _authLabel.text = detailmodel.author;
+    _readNumLabel.text = detailmodel.browsetime;
+    _commentNumLabel.text = detailmodel.commenttime;
+    _postLabel.text = detailmodel.relaytime;
+    _dateLabel.text = detailmodel.date;
+}
+
+- (void)getDetailInfo
+{
+    [DataInterface getDetailInfo:@"2" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
+        detailmodel = [ModelGenerator json2InfoDetail:dict];
+        [self setValueForView];
+    }];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +50,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"智谷";
+    
+    [self getDetailInfo];
   
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);

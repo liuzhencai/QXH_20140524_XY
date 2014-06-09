@@ -72,16 +72,16 @@
     model.date = [obj objectForKey:@"date"];
     model.title = [obj objectForKey:@"title"];
     model.tags = [obj objectForKey:@"tags"];
-    model.authflag = [obj objectForKey:@"authflag"];
+    model.authflag = [NSString stringWithFormat:@"%@",[obj objectForKey:@"authflag"]];
     model.artimages = [obj objectForKey:@"artimages"];
     model.content = [obj objectForKey:@"content"];
     model.refereesign = [obj objectForKey:@"refereesign"];
     model.author = [obj objectForKey:@"autbhor"];
-    model.browsetime = [obj objectForKey:@"browsetime"];
-    model.collecttime = [obj objectForKey:@"collecttime"];
-    model.sharetime = [obj objectForKey:@"sharetime"];
-    model.relaytime = [obj objectForKey:@"relaytime"];
-    model.commenttime = [obj objectForKey:@"commenttime"];
+    model.browsetime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"browsetime"]];
+    model.collecttime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"collecttime"]];
+    model.sharetime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"sharetime"]];
+    model.relaytime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"relaytime"]];
+    model.commenttime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"commenttime"]];
     model.laud = [obj objectForKey:@"laud"];
     return model;
 }
