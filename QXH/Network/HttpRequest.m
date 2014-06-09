@@ -22,13 +22,9 @@
     NSString *base64Str = [Base64 encodeBase64String:json];
     NSDictionary *param = @{@"reqMess": base64Str};
     [[HttpServiceEngine sharedEngine] sendData:param andMethod:nil completionHandler:^(NSInteger statusCode, id object) {
-        if ([[object objectForKey:@"statecode"] isEqualToString:@"0200"]) {
-            callback(object);
-        }else{
-            callback(nil);
-        }
+        callback(object);
     } errorHandler:^(NSError *error) {
-        callback(nil);
+        
     }];
 }
 
