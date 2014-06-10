@@ -59,14 +59,6 @@
      *  @param start         起始消息的artid，不填写该字段读取最新消息n个
      *  @param count         获取消息数量
      */
-//    + (void)getInfoList:(NSString *)type
-//detailtype:(NSString *)detailtype
-//tag:(NSString *)tag
-//arttype:(NSString *)arttype
-//contentlength:(NSString *)contentlength
-//start:(NSString *)start
-//count:(NSString *)count
-//withCompletionHandler:(DictCallback)callback;
     [DataInterface getInfoList:@"1" //1为广场消息
                     detailtype:@"1" //1为最新，2为最热,3为收藏
                            tag:@""

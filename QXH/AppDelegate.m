@@ -36,11 +36,11 @@
         NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
         UIImage *img = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]];
         
-        [DataInterface fileUpload:img type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
-            
-        } errorBlock:^(NSString *desc) {
-            
-        }];
+//        [DataInterface fileUpload:img type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
+//            
+//        } errorBlock:^(NSString *desc) {
+//            
+//        }];
  
 //        [DataInterface fileUpload:@"1" data:[NSData dataWithContentsOfFile:]withCompletionHandler:^(NSMutableDictionary *dict) {
 //            
@@ -49,7 +49,7 @@
             
         }];
         
-        [self performSelector:@selector(logout) withObject:nil afterDelay:10.f];
+//        [self performSelector:@selector(logout) withObject:nil afterDelay:10.f];
      
 //
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
@@ -165,6 +165,16 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [WXApi handleOpenURL:url delegate:self];
 }
 
 -(void) onReq:(BaseReq*)req{
