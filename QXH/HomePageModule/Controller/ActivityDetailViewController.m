@@ -10,9 +10,12 @@
 #import "ActivityCell.h"
 #import "ShareView.h"
 #import "ShareToTribeViewController.h"
+#import "InActivityCell.h"
+#import "ActivityDetailCell.h"
 
 @interface ActivityDetailViewController ()
 @property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) NSDictionary *activityDict;//活动详情
 
 @end
 
@@ -57,13 +60,16 @@
      *  @param actid    活动的唯一标示
      *  @param callback 回调
      */
-//    + (void)getActDetailInfo:(NSString *)actid withCompletionHandler:(DictCallback)callback;
     NSString *actId = @"";
     if (self.activityId) {
         actId = self.activityId;
     }
     [DataInterface getActDetailInfo:actId withCompletionHandler:^(NSMutableDictionary *dict){
         NSLog(@"活动详情返回值:%@",dict);
+        if (dict) {
+            self.activityDict = dict;
+            [_mainTable reloadData];
+        }
     }];
 }
 
@@ -86,7 +92,7 @@
     switch (row) {
         case 0:
         {
-            rowHeight = 220.f;
+            rowHeight = 210.f;
         }
             break;
         case 1:
@@ -118,11 +124,14 @@
     switch (indexPath.row) {
         case 0:
         {
-            ActivityCell *dataCell;
+            ActivityDetailCell *dataCell;
             static NSString *cellIdentifier = @"activityIdentifier";
             dataCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (!dataCell) {
-                dataCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
+                dataCell = [[ActivityDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            }
+            if (self.activityDict) {
+                [dataCell resetCellParamDict:self.activityDict];
             }
             cell = dataCell;
         }
@@ -146,16 +155,17 @@
                 titleLabel.text = @"活动介绍";
                 [titleImgView addSubview:titleLabel];
                 
-                //                UILabel *flagLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
-                //                flagLabel.text = @"活动介绍";
-                //                [dataCell.contentView addSubview:flagLabel];
-                
                 UITextView *actContentView = [[UITextView alloc] initWithFrame:CGRectMake(1, 29, 298, 80)];
-                actContentView.text = @"活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容活动内容";
+                actContentView.tag = 220;
+                actContentView.text = @"";
                 actContentView.editable = NO;
-                //                actContentView.backgroundColor = [UIColor redColor];
                 [bgImage addSubview:actContentView];
             }
+            UITextView *actContentView = (UITextView *)[cell.contentView viewWithTag:220];
+            if (self.activityDict) {
+                actContentView.text = [self.activityDict objectForKey:@"desc"];
+            }
+            
             cell = dataCell;
         }
             break;
@@ -165,10 +175,19 @@
             UITableViewCell *dataCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (!dataCell) {
                 dataCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//                NSArray *items = [NSArray arrayWithObjects:@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3", nil];
                 
-                NSArray *items = [NSArray arrayWithObjects:@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3", nil];
+                NSArray *items = nil;
+                if (self.activityDict) {
+                    items = [self.activityDict objectForKey:@"joins"];
+                }
                 PortraitView *signUpView = [[PortraitView alloc] initWithFrame:CGRectMake(10, 0, 300, 90) title:@"报名的人 2" portraits:items andDelegate:self andShowBtn:NO];
+                signUpView.tag = 330;
                 [dataCell.contentView addSubview:signUpView];
+            }
+            PortraitView *signUpView = (PortraitView *)[dataCell.contentView viewWithTag:330];
+            if (self.activityDict) {
+                signUpView.portraits = [self.activityDict objectForKey:@"joins"];
             }
             cell = dataCell;
         }
@@ -179,8 +198,18 @@
             UITableViewCell *dataCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (!dataCell) {
                 dataCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                PortraitView *followView = [[PortraitView alloc] initWithFrame:CGRectMake(10, 0, 300, 90) title:@"关注的人 2" portraits:[NSArray arrayWithObjects:@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3", nil] andDelegate:self andShowBtn:NO];
+                
+                NSArray *items = nil;
+                if (self.activityDict) {
+                    items = [self.activityDict objectForKey:@"followers"];
+                }
+                PortraitView *followView = [[PortraitView alloc] initWithFrame:CGRectMake(10, 0, 300, 90) title:@"关注的人 2" portraits:items andDelegate:self andShowBtn:NO];
+                followView.tag = 440;
                 [dataCell.contentView addSubview:followView];
+            }
+            PortraitView *followView = (PortraitView *)[dataCell.contentView viewWithTag:440];
+            if (self.activityDict) {
+                followView.portraits = [self.activityDict objectForKey:@"followers"];
             }
             cell = dataCell;
         }

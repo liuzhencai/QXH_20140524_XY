@@ -16,6 +16,7 @@
 @end
 
 @interface PortraitView : UIView<UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) NSArray *portraits;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title portraits:(NSArray *)images andDelegate:(id)del andShowBtn:(BOOL)isShowBtn;
 

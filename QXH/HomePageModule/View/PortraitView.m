@@ -7,12 +7,11 @@
 //
 
 #import "PortraitView.h"
+#import "UIImageView+WebCache.h"
 
 @interface PortraitView()
-
+@property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) UILabel *titleLabel;
-
-@property (nonatomic, strong) NSArray *portraits;
 
 @property (nonatomic, assign) id<PortraitViewDelegate> delegate;
 
@@ -40,7 +39,6 @@
         // Initialization code
         
         self.delegate = del;
-        
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
         titleLabel.text = title;
 //        [self addSubview:titleLabel];
@@ -65,7 +63,6 @@
             tableWidth = 210;
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.frame = CGRectMake(tableWidth + 20, 43, 60, 30);
-//            btn.backgroundColor = [UIColor greenColor];
             [btn setBackgroundImage:[self stretchiOS6:@"btn_enroll_normal.png"] forState:UIControlStateNormal];
             [btn setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
             [btn setTitle:@"我要报名" forState:UIControlStateNormal];
@@ -75,7 +72,7 @@
         }
         
         UITableView *table  = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-//        table.backgroundColor = [UIColor purpleColor];
+        self.mainTable = table;
         [table.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
         table.transform = CGAffineTransformMakeRotation(M_PI/-2);
         table.showsVerticalScrollIndicator = NO;
@@ -86,7 +83,6 @@
         table.delegate = self;
         table.dataSource = self;
         [self addSubview:table];
-        
     }
     return self;
 
@@ -97,6 +93,11 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(singUpPortrait:)]) {
         [self.delegate singUpPortrait:nil];
     }
+}
+
+- (void)setPortraits:(NSArray *)newPortraits{
+    portraits = newPortraits;
+    [_mainTable reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -111,28 +112,20 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:cellIdentifier];
-        
-//        cell.backgroundColor = [UIColor yellowColor];
-        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-      
         cell.textLabel.transform = CGAffineTransformMakeRotation(M_PI/2);
-        
         UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         portrait.tag = 100;
         portrait.image = [UIImage imageNamed:@"img_portrait72"];
         [cell.contentView addSubview:portrait];
-        
     }
-    
     UIImageView *portrait_ = (UIImageView *)[cell.contentView viewWithTag:100];
-    if (indexPath.row%2 == 0) {
-//        portrait_.backgroundColor = [UIColor redColor];
-    }else{
-//        portrait_.backgroundColor = [UIColor blueColor];
+    NSDictionary *dict = [self.portraits objectAtIndex:indexPath.row];
+    if (dict) {
+        NSString *imgUrlStr = [dict objectForKey:@"photo"];
+        [portrait_ setImageWithURL:[NSURL URLWithString:imgUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+        cell.textLabel.text = [dict objectForKey:@"displayname"];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row];
-    
     return cell;
 }
 
