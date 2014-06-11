@@ -356,7 +356,7 @@ withCompletionHandler:(DictCallback)callback;
  *
  *  @param artid    广场消息的唯一标示
  *  @param laud     赞 1为赞1,0为无操作
- *  @param comment  赞 1为赞1,0为无操作
+ *  @param comment  评论
  *  @param callback 回调
  */
 + (void)praiseArticle:(NSString *)artid

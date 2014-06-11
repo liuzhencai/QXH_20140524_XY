@@ -24,12 +24,22 @@
     return self;
 }
 
+- (void)requestDetailInfo
+{
+    [DataInterface getDetailInfo:@"1" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取广场详细信息" message:[dict description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"分享正文";
+    
+    [self requestDetailInfo];
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
@@ -110,7 +120,11 @@
         {
             NSLog(@"点击了收藏");
 
-            [self showAlert:@"点击了收藏"];
+//            [self showAlert:@"点击了收藏"];
+            [DataInterface squareArticleCollection:@"1" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"收藏" message:[dict description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alert show];
+            }];
 
         }
             break;
@@ -118,7 +132,11 @@
         {
             NSLog(@"点击了赞");
 
-            [self showAlert:@"点击了赞"];
+//            [self showAlert:@"点击了赞"];
+            [DataInterface praiseArticle:_artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"赞" message:[dict description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alert show];
+            }];
 
         }
             break;
@@ -126,7 +144,11 @@
         {
             NSLog(@"点击了评论");
 
-            [self showAlert:@"点击了评论"];
+//            [self showAlert:@"点击了评论"];
+            [DataInterface praiseArticle:_artid laud:@"0" comment:@"这篇文章还可以" withCompletionHandler:^(NSMutableDictionary *dict) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"评论" message:[dict description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alert show];
+            }];
 
         }
             break;

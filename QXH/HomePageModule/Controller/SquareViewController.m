@@ -161,6 +161,7 @@
 {
     ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
     controller.hidesBottomBarWhenPushed = YES;
+    controller.artid = ((InfoModel *)[info objectAtIndex:indexPath.row]).artid;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
