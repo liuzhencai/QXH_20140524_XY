@@ -34,7 +34,7 @@
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,80, 30);
-    [righttbuttonItem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [righttbuttonItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [righttbuttonItem setTitle:@"详细资料" forState:UIControlStateNormal];
     [righttbuttonItem addTarget:self action:@selector(detail:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];

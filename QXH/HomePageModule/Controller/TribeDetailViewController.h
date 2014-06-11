@@ -9,5 +9,5 @@
 #import "MyViewController.h"
 
 @interface TribeDetailViewController : MyViewController
-@property (nonatomic, strong) NSDictionary *tirbeDict;
+@property (nonatomic, strong) NSDictionary *tribeDict;
 @end
