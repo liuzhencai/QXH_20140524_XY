@@ -14,6 +14,9 @@
 #import "SquareActivityCell.h"
 
 @interface SquareViewController ()
+{
+    NSMutableArray *info;
+}
 
 @end
 
@@ -44,10 +47,10 @@
     self.squareTable.frame = CGRectMake(0, 49, 320, SCREEN_H-49);
     
     //获取列表
-    [self getSquareList];
+    [self getSquareList:1];
 }
 
-- (void)getSquareList{
+- (void)getSquareList:(NSInteger)type{
     /**
      *  获取查询广场文章/咨询文章列表,获取收藏列表
      *
@@ -60,16 +63,17 @@
      *  @param count         获取消息数量
      */
     [DataInterface getInfoList:@"1" //1为广场消息
-                    detailtype:@"1" //1为最新，2为最热,3为收藏
+                    detailtype:[NSString stringWithFormat:@"%d",type] //1为最新，2为最热,3为收藏
                            tag:@""
                        arttype:@""
                  contentlength:@""
                          start:@""
                          count:@"20"
          withCompletionHandler:^(NSMutableDictionary *dict){
-             if (dict) {
-                 NSLog(@"获取广场信息：%@",dict);
-             }
+            info = [ModelGenerator json2InfoList:dict];
+             [_squareTable reloadData];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取到活动列表" message:[info description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+             [alert show];
     }];
 }
 
@@ -89,7 +93,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [info count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -182,22 +186,14 @@
         default:
             break;
     }
+    [self getSquareList:btn.tag];
+
 }
 
 - (IBAction)history:(id)sender {
     HistoryReviewController *controller = [[HistoryReviewController alloc] initWithNibName:@"HistoryReviewController" bundle:nil];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)requestInfoListWithType:(NSString *)type arttype:(NSString *)arttype withCompletionBlock:(ListCallback)callback
-{
-    NSString *userid = @"123456";
-    NSString *token = @"ab123456789";
-    NSDictionary *param = @{@"opercode": @"0119",@"userid":userid,@"token":token, @"type":@"1", @"detailtype":type, @"tag":@"标签", @"arttype":arttype, @"start":@"10", @"direction":@"before", @"count":@"20"};
-    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        callback([ModelGenerator json2InfoList:dict]);
-    }];
 }
 
 @end
