@@ -64,7 +64,6 @@
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-    //    + (void)getTribeInfo:(NSString *)tribeid withCompletionHandler:(DictCallback)callback;
     NSString *tribeId = @"";
     tribeId = [self.tribeDict objectForKey:@"tribeid"];
     [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
@@ -82,11 +81,14 @@
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-    NSString *tribeId = @"";
-    [DataInterface requestAddTribe:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"申请加入部落:%@",dict);
-//        [self showAlert:[dict objectForKey:@"info"]];
-    }];
+    if (self.tribeDict) {
+        NSString *tribeId = [self.tribeDict objectForKey:@"tribeid"];
+        [DataInterface requestAddTribe:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"申请加入部落:%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
+    }
+    
 }
 
 #pragma mark - UITableViewDelegate
