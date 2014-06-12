@@ -127,7 +127,7 @@
      *  @param callback  回调
      */
 
-    [DataInterface requestTribeList:@"2"
+    [DataInterface requestTribeList:@"1"
                           tribename:@""
                            authflag:@"0"
                           tribetype:@"1"
@@ -136,7 +136,7 @@
                               start:@"0"
                               count:@"20"
               withCompletionHandler:^(NSMutableDictionary *dict){
-                  NSLog(@"部落列表返回值：%@",dict);
+        NSLog(@"部落列表返回值：%@",dict);
                   [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
@@ -153,36 +153,6 @@
     NSInteger tag = MY_TRIBE_TABLE_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
-    if (index == 1) {
-        /**
-         *  获取部落/群组/直播间列表
-         *
-         *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
-         *  @param tribename 部落名称
-         *  @param authflag  0为全部，1为普通部落，2为官方认证部落
-         *  @param tribetype 1为部落，2为直播间
-         *  @param tag       搜索是只允许单个标签搜索
-         *  @param district  地域信息
-         *  @param start     起始位置
-         *  @param count     获取数量
-         *  @param callback  回调
-         */
-        [DataInterface requestTribeList:@"2"
-                              tribename:@""
-                               authflag:@"0"
-                              tribetype:@"1"
-                                    tag:@""
-                               district:@""
-                                  start:@"0"
-                                  count:@"20"
-                  withCompletionHandler:^(NSMutableDictionary *dict){
-                      NSLog(@"部落列表返回值：%@",dict);
-                      NSArray *list = [dict objectForKey:@"list"];
-                      self.allTribeList = [NSMutableArray arrayWithArray:list];
-                      [table reloadData];
-                      [self showAlert:[dict objectForKey:@"info"]];
-                  }];
-    }
 }
 
 - (void)createTribe:(UIButton *)sender{
@@ -287,10 +257,7 @@
             allListCell = [[MyTribeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
             allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        NSDictionary *memberDict = [self.allTribeList objectAtIndex:indexPath.row];
-        if (memberDict) {
-            [allListCell resetCellParamDict:memberDict];
-        }
+        [allListCell resetCellParamDict:nil];
         cell = allListCell;
     }else if(tableView.tag == MY_TRIBE_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
@@ -300,7 +267,7 @@
             addrListCell = [[MyTribeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
             addrListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-//        [addrListCell resetCellParamDict:nil];
+        [addrListCell resetCellParamDict:nil];
         cell = addrListCell;
     }
     return cell;
@@ -320,9 +287,9 @@
 //        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
 //        tribeid:"123444"		//部落唯一标示
 //        }
-        NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];
+        
+        
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
-        detail.tribeDict = tribeDict;
         [self.navigationController pushViewController:detail animated:YES];
     }
 }

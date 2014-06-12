@@ -148,23 +148,19 @@
 }
 
 - (void)resetCellParamDict:(id)objt{
-    NSDictionary *params = (NSDictionary *)objt;
-    if (params) {
-        self.activityTitleLabel.text = [params objectForKey:@"actname"];
-        self.activityTypeLabel.text = [params objectForKey:@"acttype"];
-        self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
-        NSString *imageUrlStr = [params objectForKey:@"photos"];
-        [self.activityImage setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_news"]];
-        self.tribeLabel.text = [params objectForKey:@""];
-        self.orgnizerLabel.text = [params objectForKey:@""];
-        self.timeLabel.text = [params objectForKey:@"begindate"];
-        self.addrLabel.text = [params objectForKey:@"actaddr"];
-        
-        self.signUpLabel.text = [NSString stringWithFormat:@"%@人报名",[params objectForKey:@"nowcount"]];
-        self.followLabel.text = [NSString stringWithFormat:@"%@人关注",[params objectForKey:@"folcount"]];
-        self.activityStatus.image = [UIImage imageNamed:@""];
-        self.statusLabel.text = @"进行中";
-    }
+    self.activityTitleLabel.text = @"活动标题";
+    self.activityTypeLabel.text = @"活动类型";
+    self.activityDescriptionLabel.text = @"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述";
+    self.activityImage.image = [UIImage imageNamed:@""];
+    self.tribeLabel.text = @"XXXX部落";
+    self.orgnizerLabel.text = @"苍井空";
+    self.timeLabel.text = @"2014-05-25";
+    self.addrLabel.text = @"中关村";
+    
+    self.signUpLabel.text = @"2人报名";
+    self.followLabel.text = @"2人关注";
+    self.activityStatus.image = [UIImage imageNamed:@""];
+    self.statusLabel.text = @"进行中";
 }
 
 @end

@@ -24,9 +24,6 @@
 #define IN_THE_ACTIVITY_TAG 2330
 #define END_ACTIVITY_TAG 2331
 
-#define ACTIVITY_STATUS_IN @"2" //正在进行的活动
-#define ACTIVITY_STATUS_END @"3" //已经结束的活动
-
 @implementation ActivityViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -35,8 +32,6 @@
     if (self) {
         // Custom initialization
         _selectIndex = 1;
-        _inActivitysList = [[NSMutableArray alloc] initWithCapacity:0];
-        _endActivitysList = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -49,8 +44,8 @@
     for (int i = 0; i < 20; i ++) {
         [tmpArr addObject:@{@"name":@"",@"des":@"",@"creater":@"",@"imgUrl":@""}];
     }
-//    self.inActivitysList = tmpArr;
-//    self.endActivitysList = tmpArr;
+    self.inActivitysList = tmpArr;
+    self.endActivitysList = tmpArr;
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,40, 30);
@@ -81,10 +76,10 @@
     [self.view addSubview:inActivityTable];
     
     //获取数据
-    [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
+    [self getActivityList];
 }
 
-- (void)getActivityListWithStatus:(NSString *)status{
+- (void)getActivityList{
     //获取活动列表
     /**
      *  获取/搜索活动列表(列表按创建时间的逆序排列)
@@ -107,24 +102,12 @@
                           tag:@""
                      district:@""
                       canjoin:@"0"
-                     actstate:status
+                     actstate:@"0"
                     begindate:@""
                       enddate:@""
         withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"活动列表返回数据:%@",dict);
-            if (dict) {
-                NSArray *list = [dict objectForKey:@"list"];
-                if ([status isEqualToString:ACTIVITY_STATUS_IN]) {
-                    [self.inActivitysList addObjectsFromArray:list];
-                    UITableView *table = (UITableView *)[self.view viewWithTag:IN_THE_ACTIVITY_TAG];
-                    [table reloadData];
-                }else{
-                    [self.endActivitysList addObjectsFromArray:list];
-                    UITableView *table = (UITableView *)[self.view viewWithTag:END_ACTIVITY_TAG];
-                    [table reloadData];
-                }
-            }
-//            [self showAlert:[dict objectForKey:@"info"]];
+            [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
 
@@ -140,10 +123,6 @@
     NSInteger tag = IN_THE_ACTIVITY_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
-    
-    if ([self.endActivitysList count] <= 0 && index == 1) {
-        [self getActivityListWithStatus:ACTIVITY_STATUS_END];
-    }
 }
 
 - (void)more:(UIButton *)sender{
@@ -208,11 +187,7 @@
             activityingCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
             activityingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        if (self.inActivitysList) {
-            NSDictionary *activityDict = [self.inActivitysList objectAtIndex:indexPath.row];
-            [activityingCell resetCellParamDict:activityDict];
-        }
-        
+        [activityingCell resetCellParamDict:nil];
         activityingCell.statusLabel.text = @"进行中";
         cell = activityingCell;
     }
@@ -222,9 +197,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == IN_THE_ACTIVITY_TAG) {
-        NSDictionary *inActivity = [self.inActivitysList objectAtIndex:indexPath.section];
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
-        activityDetail.activityId = [inActivity objectForKey:@"actid"];
         [self.navigationController pushViewController:activityDetail animated:YES];
     }else{
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
