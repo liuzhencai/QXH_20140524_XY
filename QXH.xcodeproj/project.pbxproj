@@ -264,6 +264,7 @@
 		842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8B192AF7F100374F04 /* NameCardViewController.m */; };
 		842D3C93192AF7F100374F04 /* UserRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */; };
 		842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C95192AF8E600374F04 /* UIViewAdditions.m */; };
+		845D44981947425B0041445D /* UserInfoModelManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D44971947425B0041445D /* UserInfoModelManger.m */; };
 		8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84842699192E0D0100C9474A /* SelectTribeViewController.m */; };
 		8484269F192E0D0100C9474A /* TribeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8484269B192E0D0100C9474A /* TribeDetailViewController.m */; };
 		848426A0192E0D0100C9474A /* TribeDynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8484269D192E0D0100C9474A /* TribeDynamicViewController.m */; };
@@ -742,6 +743,8 @@
 		842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegisterViewController.m; sourceTree = "<group>"; };
 		842D3C94192AF8E600374F04 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAdditions.h; sourceTree = "<group>"; };
 		842D3C95192AF8E600374F04 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
+		845D44961947425B0041445D /* UserInfoModelManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModelManger.h; sourceTree = "<group>"; };
+		845D44971947425B0041445D /* UserInfoModelManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModelManger.m; sourceTree = "<group>"; };
 		84842698192E0D0100C9474A /* SelectTribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTribeViewController.h; sourceTree = "<group>"; };
 		84842699192E0D0100C9474A /* SelectTribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTribeViewController.m; sourceTree = "<group>"; };
 		8484269A192E0D0100C9474A /* TribeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeDetailViewController.h; sourceTree = "<group>"; };
@@ -1196,6 +1199,8 @@
 			children = (
 				2166CDF21933970500F0312E /* UserInfoModel.h */,
 				2166CDF31933970500F0312E /* UserInfoModel.m */,
+				845D44961947425B0041445D /* UserInfoModelManger.h */,
+				845D44971947425B0041445D /* UserInfoModelManger.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2150,6 +2155,7 @@
 				88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */,
 				2119EED7191682E6007DBE68 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				21401DB11919326B00E9175B /* MyMsgCell.m in Sources */,
+				845D44981947425B0041445D /* UserInfoModelManger.m in Sources */,
 				84F065F4192AFB0F00B09AB5 /* PeocelCell.m in Sources */,
 				84F065EC192AFACD00B09AB5 /* FindPeopleViewController.m in Sources */,
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
@@ -2334,7 +2340,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Jiang (FVH8S9WW4A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2346,8 +2352,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
-				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
+				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2359,7 +2364,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Jiang (FVH8S9WW4A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2371,8 +2376,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
-				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
+				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -12,6 +12,10 @@
 @property (strong, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UITableView *editTable;
 @property (nonatomic,  strong) NSMutableArray *valueArr;
+
+/*定义是从注册界面跳转过来的*/
+@property (nonatomic,assign)BOOL UserRegisterState;
+
 - (IBAction)click:(id)sender;
 
 @end

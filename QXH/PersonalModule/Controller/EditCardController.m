@@ -23,20 +23,27 @@
 @end
 
 @implementation EditCardController
+@synthesize UserRegisterState;
 
 @synthesize valueArr;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-        userinfo = dict;
-        NSString *phone = [userinfo objectForKey:@"phone"];
-        if ([phone isEqualToString:@""]) {
-            phone = @"无手机号";
-        }
-        valueArr = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"%@ %@",[userinfo objectForKey:@"schoolname"],[userinfo objectForKey:@"title"]], [NSString stringWithFormat:@"%@",[userinfo objectForKey:@"domicile"]], [userinfo objectForKey:@"introduce"], [userinfo objectForKey:@"hobbies"], [userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
-        [_editTable reloadData];
-    }];
+    if(UserRegisterState)
+    {
+        
+    }else{
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+            userinfo = dict;
+            NSString *phone = [userinfo objectForKey:@"phone"];
+            if ([phone isEqualToString:@""]) {
+                phone = @"无手机号";
+            }
+            valueArr = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"%@ %@",[userinfo objectForKey:@"schoolname"],[userinfo objectForKey:@"title"]], [NSString stringWithFormat:@"%@",[userinfo objectForKey:@"domicile"]], [userinfo objectForKey:@"introduce"], [userinfo objectForKey:@"hobbies"], [userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
+            [_editTable reloadData];
+        }];
+    }
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
