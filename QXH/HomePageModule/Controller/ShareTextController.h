@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ShareTextController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSString *artid;
 @property (weak, nonatomic) IBOutlet UITableView *contentTable;
 @property (strong, nonatomic) IBOutlet UIView *toolbarView;
 @property (strong, nonatomic) IBOutlet UIView *topView;

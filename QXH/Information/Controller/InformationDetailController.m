@@ -8,6 +8,8 @@
 
 #import "InformationDetailController.h"
 #import "InformationCommentController.h"
+#import "WXApi.h"
+#import "WXApiObject.h"
 
 @interface InformationDetailController ()
 {
@@ -64,11 +66,61 @@
     [self.view addSubview:_toolbarView];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex:%d",buttonIndex);
+    switch (buttonIndex) {
+        case 0:
+        {
+            // 分享至广场
+            NSString *targetid = @"123123"; // 好友id
+            [DataInterface shareContent:self.artid contenttype:@"2" sharetype:@"1" targetid:targetid withCompletionHandler:^(NSMutableDictionary *dict) {
+                
+            }];
+        }
+            break;
+        case 1:
+        {
+            // 分享至部落
+            NSString *targetid = @"123123"; // 部落id
+            [DataInterface shareContent:self.artid contenttype:@"2" sharetype:@"2" targetid:targetid withCompletionHandler:^(NSMutableDictionary *dict) {
+                
+            }];
+        }
+            break;
+        case 2:
+        {
+            // 分享至微信
+            WXMediaMessage *message = [WXMediaMessage message];
+            message.title = @"专访张小龙：产品之上的世界观";
+            message.description = @"微信的平台化发展方向是否真的会让这个原本简洁的产品变得臃肿？在国际化发展方向上，微信面临的问题真的是文化差异壁垒吗？腾讯高级副总裁、微信产品负责人张小龙给出了自己的回复。";
+            [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
+            
+            WXWebpageObject *ext = [WXWebpageObject object];
+            ext.webpageUrl = @"http://tech.qq.com/zt2012/tmtdecode/252.htm";
+            
+            message.mediaObject = ext;
+            
+            SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+            req.bText = NO;
+            req.message = message;
+//            req.scene = _scene;
+            
+            [WXApi sendReq:req];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)share:(id)sender
 {
     NSLog(@"分享");
 
-    [self showAlert:@"分享"];
+//    [self showAlert:@"分享"];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"分 享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"分享至广场",@"分享至部落",@"分享至微信", nil];
+    [sheet showInView:self.view];
 
 }
 
