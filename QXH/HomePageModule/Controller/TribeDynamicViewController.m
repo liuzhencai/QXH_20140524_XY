@@ -24,8 +24,8 @@
 //@property (nonatomic, strong) UITableView *activityTable;//活动
 //@property (nonatomic, strong) UITableView *membersTable;//成员
 
-@property (nonatomic, strong) NSArray *activitysList;//活动列表
-@property (nonatomic, strong) NSArray *membersList;//成员列表
+@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
+@property (nonatomic, strong) NSMutableArray *membersList;//成员列表
 
 
 @end
@@ -55,8 +55,8 @@
     for (int i = 0; i < 20; i ++) {
         [tmpArr addObject:@{@"":@""}];
     }
-    self.activitysList = [NSArray arrayWithArray:tmpArr];
-    self.membersList = [NSArray arrayWithArray:tmpArr];
+    self.activitysList = [NSMutableArray arrayWithArray:tmpArr];
+//    self.membersList = [NSMutableArray arrayWithArray:tmpArr];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 80, 40);
@@ -90,7 +90,7 @@
     conversationTable.dataSource = self;
     [self.view addSubview:conversationTable];
     //获取部落信息
-    [self getTribeInfo];
+//    [self getTribeInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,16 +106,19 @@
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-//    + (void)getTribeInfo:(NSString *)tribeid withCompletionHandler:(DictCallback)callback;
-    NSString *tribeId = @"";
-    [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"部落信息返回值：%@",dict);
-    }];
+    if (self.tribeInfoDict) {
+        NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+        [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"部落信息返回值：%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
+    }
 }
 
 - (void)detail:(UIButton *)sender{
     NSLog(@"详细资料");
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
+    myTribeDetail.tribeDict = self.tribeInfoDict;
     [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 
@@ -123,16 +126,25 @@
 - (void)segmentClicked:(NSInteger)index{
     NSLog(@"segment clicked:%d",index);
     if (index == 2) {
-        /**
-         *  获取部落成员列表
-         *
-         *  @param tribeid  部落id
-         *  @param callback 回调
-         */
-        NSString *tribeId = @"";
-        [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"获取部落成员列表返回值:%@",dict);
-        }];
+        if (self.tribeInfoDict) {
+            /**
+             *  获取部落成员列表
+             *
+             *  @param tribeid  部落id
+             *  @param callback 回调
+             */
+            NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+            [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"获取部落成员列表返回值:%@",dict);
+                if (dict) {
+                    NSArray *list = [dict objectForKey:@"list"];
+                    self.membersList = [NSMutableArray arrayWithArray:list];
+                    UITableView *table = (UITableView *)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+                    [table reloadData];
+                }
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
+        }
     }
     NSInteger tag = CONVERSATION_TABLE_TAG + index;
     UIView* table = (UIView*)[self.view viewWithTag:tag];

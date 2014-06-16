@@ -9,5 +9,5 @@
 #import "MyViewController.h"
 
 @interface TribeDynamicViewController : MyViewController<UITableViewDataSource,UITableViewDelegate>
-
+@property (nonatomic, strong) NSDictionary *tribeInfoDict;//部落信息
 @end
