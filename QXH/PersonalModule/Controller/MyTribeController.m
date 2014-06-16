@@ -15,6 +15,13 @@
 
 @implementation MyTribeController
 
+- (void)getMyTribeList
+{
+    [DataInterface requestTribeList:@"1" tribename:@"" authflag:@"0" tribetype:@"1" tag:@"" district:@"" start:@"10" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        [self showAlert:[dict description]];
+    }];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,6 +36,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"加入的部落";
+    
+    [self getMyTribeList];
 }
 
 - (void)didReceiveMemoryWarning

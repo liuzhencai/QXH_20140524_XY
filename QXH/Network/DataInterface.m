@@ -170,9 +170,9 @@ withCompletionHandler:(DictCallback)callback
    withCompletionHandler:(DictCallback)callback
 {
     NSDictionary *param = @{@"opercode": @"0111", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"tribename":tribename,@"authflag":authflag,@"tribetype":tribetype,@"tag":tag,@"district":district,@"start":start,@"count":count};
-    NSLog(@"\n##########获取码表信息接口##########\n[参 数]:%@\n#############################\n",param);
+    NSLog(@"\n##########获取码表信息获取部落/群组/直播间列表接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"\n##########获取码表信息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        NSLog(@"\n##########获取部落/群组/直播间列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
         callback(dict);
     }];
 }
