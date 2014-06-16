@@ -95,19 +95,9 @@
      *  @param enddate   活动结束时间
      *  @param callback  回调
      */
-    
-    [DataInterface getActList:@"0"
-                        count:@"20"
-                      actname:@""
-                          tag:@""
-                     district:@""
-                      canjoin:@"0"
-                     actstate:@"0"
-                    begindate:@""
-                      enddate:@""
-        withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"活动列表返回数据:%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
+    [DataInterface getActList:@"0" count:@"20" actname:@"" contentlength:@"" tag:@"" district:@"" canjoin:@"0" actstate:@"0" tribeid:@"" begindate:@"" enddate:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"活动列表返回数据:%@",dict);
+        [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
 
@@ -241,21 +231,10 @@
      *  @param enddate   活动结束时间
      *  @param callback  回调
      */
-    
-    [DataInterface getActList:@""
-                        count:@"20"
-                      actname:@""
-                          tag:@""
-                     district:@""
-                      canjoin:@"0"  //0为全部活动
-                     actstate:@"0"  //0为全部
-                    begindate:@""
-                      enddate:@""
-        withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"活动列表筛选返回数据:%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
-        }];
-
+    [DataInterface getActList:@"" count:@"20" actname:@"" contentlength:@"" tag:@"" district:@"" canjoin:@"0" actstate:@"0" tribeid:@"" begindate:@"" enddate:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"活动列表筛选返回数据:%@",dict);
+        [self showAlert:[dict objectForKey:@"info"]];
+    }];
 }
 
 @end
