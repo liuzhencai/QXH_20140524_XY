@@ -14,6 +14,8 @@
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) NSArray *items;
+
+@property (nonatomic, strong) NSDictionary *userInfoDict;//用户信息
 @end
 #define WIDTH_TO_LEFT 15
 #define HEIGHT_TO_TOP 15
@@ -49,12 +51,31 @@
     _mainTable.dataSource = self;
     _mainTable.scrollEnabled = scrollEnable;
     [self.view addSubview:_mainTable];
+    
+    [self getUserInfo];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getUserInfo{
+    /**
+     *  获取用户信息
+     *
+     *  @param targetid 用户userid
+     *  @param callback 回调
+     */
+//    + (void)getUserInfo:(NSString *)targetid withCompletionHandler:(DictCallback)callback;
+    NSString *userId = [self.memberInfo objectForKey:@"userid"];
+    [DataInterface getUserInfo:userId withCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"获取用户信息返回值:%@",dict);
+        self.userInfoDict = dict;
+        [_mainTable reloadData];
+        [self showAlert:[dict objectForKey:@"info"]];
+    }];
 }
 
 /*
@@ -121,7 +142,9 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
         }
-        [cell resetCellParamDict:nil];
+        if (self.userInfoDict) {
+            [cell resetCellParamDict:self.userInfoDict];
+        }
         return cell;
     }else{
         static NSString *identifier = @"identifier";
@@ -139,7 +162,7 @@
             
             UILabel *value = [self addLabelWithFrame:CGRectMake(title.right, (cell.height - 30)/2.0, 180, 30)
                                                 text:@""
-                                               color:[UIColor lightGrayColor]
+                                               color:[UIColor blackColor]
                                                 font:[UIFont systemFontOfSize:14]];
             value.tag = 201;
             [cell.contentView addSubview:value];
@@ -150,19 +173,34 @@
         NSString *value = @"";
         switch (indexPath.row) {
             case 0:
-                value = @"北京市教育局局长";
+                if (self.userInfoDict) {
+                    value = [self.userInfoDict objectForKey:@"title"];
+                }
+                
                 break;
             case 1:
                 value = @"北京";
+                if (self.userInfoDict) {
+                    value = [self.userInfoDict objectForKey:@"domicile"];
+                }
                 break;
             case 2:
                 value = @"教授";
+                if (self.userInfoDict) {
+                    value = [self.userInfoDict objectForKey:@"degree"];
+                }
                 break;
             case 3:
                 value = @"国家级科技成就奖";
+                if (self.userInfoDict) {
+                    value = [self.userInfoDict objectForKey:@"honours"];
+                }
                 break;
             case 4:
                 value = @"不知道";
+                if (self.userInfoDict) {
+//                    value = [self.userInfoDict objectForKey:@"title"];
+                }
                 break;
                 
             default:
@@ -191,29 +229,28 @@
          *  @param remark   备注
          *  @param callback 回调
          */
-        
-        [DataInterface addFriendConfirm:@"100" type:@"1" remark:@"张三" withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"加为好友返回值：%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
-        }];
-        
-//        [self showAlert:@"已发出好友申请"];
+        if (self.memberInfo) {
+            [DataInterface addFriendConfirm:[self.memberInfo objectForKey:@"userid"] type:@"0" remark:@"张三" withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"加为好友返回值：%@",dict);
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
+        }
     }else{
         [self showAlert:@"转发名片"];
     }
     
 }
 
-- (void)buttonAction:(UIButton *)btn{
-    NSLog(@"button action");
-    int tag = btn.tag - 1000;
-    if (0 == tag) {//加为好友/聊天
-        ChatViewController *chat = [[ChatViewController alloc] init];
-        [self.navigationController pushViewController:chat animated:YES];
-    }else{//转发名片
-        
-    }
-}
+//- (void)buttonAction:(UIButton *)btn{
+//    NSLog(@"button action");
+//    int tag = btn.tag - 1000;
+//    if (0 == tag) {//加为好友/聊天
+//        ChatViewController *chat = [[ChatViewController alloc] init];
+//        [self.navigationController pushViewController:chat animated:YES];
+//    }else{//转发名片
+//        
+//    }
+//}
 
 - (UILabel *)addLabelWithFrame:(CGRect)frame
                           text:(NSString *)text

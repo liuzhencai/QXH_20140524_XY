@@ -16,8 +16,8 @@
 
 @interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
-@property (nonatomic, strong) NSArray *tribeList;//我的部落
-@property (nonatomic, strong) NSArray *allTribeList;//所有部落
+@property (nonatomic, strong) NSMutableArray *tribeList;//我的部落
+@property (nonatomic, strong) NSMutableArray *allTribeList;//所有部落
 
 @end
 
@@ -47,30 +47,30 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"部落";
     
-    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
-    for (int j = 0; j < 3; j ++) {
-        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
-        for (int i = 0; i < 20; i ++) {
-            [tmp2 addObject:@{@"name":@"北约",@"des":@"最新发言内容",@"creater":@"ABC",@"imgUrl":@""}];
-        }
-        NSString *name = @"A";
-        if (j == 0) {
-            name = @"A";
-        }else if(j == 1){
-            name = @"B";
-        }else{
-            name = @"C";
-        }
-        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
-        [tmpArr addObject:dict];
-    }
-    self.tribeList = [NSArray arrayWithArray:tmpArr];
-    
-    NSMutableArray *tmpMyMessage = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < 20; i ++) {
-        [tmpMyMessage addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
-    }
-    self.allTribeList = [NSArray arrayWithArray:tmpMyMessage];
+//    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+//    for (int j = 0; j < 3; j ++) {
+//        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
+//        for (int i = 0; i < 20; i ++) {
+//            [tmp2 addObject:@{@"name":@"北约",@"des":@"最新发言内容",@"creater":@"ABC",@"imgUrl":@""}];
+//        }
+//        NSString *name = @"A";
+//        if (j == 0) {
+//            name = @"A";
+//        }else if(j == 1){
+//            name = @"B";
+//        }else{
+//            name = @"C";
+//        }
+//        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
+//        [tmpArr addObject:dict];
+//    }
+//    self.tribeList = [NSArray arrayWithArray:tmpArr];
+//    
+//    NSMutableArray *tmpMyMessage = [NSMutableArray arrayWithCapacity:0];
+//    for (int i = 0; i < 20; i ++) {
+//        [tmpMyMessage addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
+//    }
+//    self.allTribeList = [NSArray arrayWithArray:tmpMyMessage];
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,80, 30);
@@ -136,7 +136,8 @@
                               start:@"0"
                               count:@"20"
               withCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"部落列表返回值：%@",dict);
+                  NSLog(@"部落列表返回值：%@",dict);
+                  
                   [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
@@ -153,6 +154,22 @@
     NSInteger tag = MY_TRIBE_TABLE_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
+    if (index == 1 && [self.allTribeList count] == 0) {
+        [DataInterface requestTribeList:@"2"
+                              tribename:@""
+                               authflag:@"0"
+                              tribetype:@"1"
+                                    tag:@""
+                               district:@""
+                                  start:@"0"
+                                  count:@"20"
+                  withCompletionHandler:^(NSMutableDictionary *dict){
+                      NSLog(@"部落列表返回值：%@",dict);
+                      self.allTribeList = [dict objectForKey:@"list"];
+                      [table reloadData];
+                      [self showAlert:[dict objectForKey:@"info"]];
+                  }];
+    }
 }
 
 - (void)createTribe:(UIButton *)sender{
@@ -203,13 +220,7 @@
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
         NSDictionary *dict = [self.tribeList objectAtIndex:section];
         NSString *titleStr = [dict objectForKey:@"name"];
-//        if (section == 0) {
-//            titleStr = @"A";
-//        }else if (section == 1){
-//            titleStr = @"B";
-//        }else {
-//            titleStr = @"C";
-//        }
+
         title.text = titleStr;
         title.backgroundColor = [UIColor clearColor];
         [bgView addSubview:title];
@@ -218,33 +229,6 @@
     }
     return nil;
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *sectionTitle = nil;
-//    if (tableView.tag == MY_TRIBE_TABLE_TAG ) {
-//        switch (section) {
-//            case 0:
-//            {
-//                sectionTitle = @"A";
-//            }
-//                break;
-//            case 1:
-//            {
-//                sectionTitle = @"B";
-//            }
-//                break;
-//            case 2:
-//            {
-//                sectionTitle = @"C";
-//            }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//    return sectionTitle;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -257,7 +241,11 @@
             allListCell = [[MyTribeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
             allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        [allListCell resetCellParamDict:nil];
+        if (self.allTribeList) {
+            NSDictionary *dict = [self.allTribeList objectAtIndex:indexPath.row];
+            [allListCell resetCellParamDict:dict];
+        }
+        
         cell = allListCell;
     }else if(tableView.tag == MY_TRIBE_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
@@ -281,15 +269,9 @@
         [self.navigationController pushViewController:tribeDynamic animated:YES];
     }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
-//        {
-//        opercode:"0114",
-//        userid:"1234565",		//用户唯一标识
-//        token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
-//        tribeid:"123444"		//部落唯一标示
-//        }
-        
-        
+        NSDictionary *tribeInfo = [self.allTribeList objectAtIndex:indexPath.row];
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
+        detail.tribeDict = tribeInfo;
         [self.navigationController pushViewController:detail animated:YES];
     }
 }

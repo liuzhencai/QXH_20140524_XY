@@ -40,7 +40,7 @@
     if (self) {
         // Custom initialization
         self.hidesBottomBarWhenPushed = YES;
-        _items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员",@"清空聊天记录"];
+        
     }
     return self;
 }
@@ -50,6 +50,11 @@
     [super viewDidLoad];
     self.title = @"详细资料";
     // Do any additional setup after loading the view.
+    
+    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员",@"清空聊天记录"];
+    if (self.isCreatDetail) {
+        self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员"];
+    }
     
     _mainTable = [[YSKeyboardTableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 70) style:UITableViewStylePlain];
     _mainTable.delegate = self;
@@ -276,6 +281,13 @@
             }
             if (self.isCreatDetail) {
                 _leader.placeholder = @"选择部落秘书长";
+                if (self.leaderDict) {
+                    NSString *leaderName = [self.leaderDict objectForKey:@"username"];
+                    if (leaderName.length <= 0) {
+                        leaderName = @"姓名为空";
+                    }
+                    _leader.text = leaderName;
+                }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }else{
                 _leader.text = [self.tribeDetailDict objectForKey:@"secretaryname"];
@@ -358,11 +370,6 @@
             break;
         case 7:{//介绍
             titleLabel.frame = CGRectMake(20, (44 - 30)/2.0, 100, 30);
-//            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 200, 80 - 14)];
-//            label.backgroundColor = [UIColor clearColor];
-//            label.tag = 201;
-//            label.text = @"";
-//            [cell.contentView addSubview:label];
             if (!_tribeDes) {
                 _tribeDes = [[UITextView alloc] initWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 200, 80 - 14)];
                 _tribeDes.tag = 201;
@@ -395,8 +402,9 @@
                 
             }
             if (self.isCreatDetail) {
-                _count.placeholder = @"输入成员数";
-                _count.enabled = YES;
+//                _count.placeholder = @"输入成员数";
+                _count.text = [NSString stringWithFormat:@"%d",[self.numbers count]];
+//                _count.enabled = YES;
             }else{
                 NSInteger nowCount = [[self.tribeDetailDict objectForKey:@"nowcount"] integerValue];
                 _count.text = [NSString stringWithFormat:@"%d",nowCount];
@@ -420,6 +428,8 @@
             AddressListViewController *addressList = [[AddressListViewController alloc] init];
             addressList.addressListBlock = ^(NSDictionary *dict){
                 NSLog(@"通讯录列表返回值%@",dict);
+                self.leaderDict = dict;
+                [tableView reloadData];
             };
             [self.navigationController pushViewController:addressList animated:YES];
         }

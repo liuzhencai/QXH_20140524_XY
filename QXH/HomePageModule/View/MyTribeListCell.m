@@ -60,11 +60,13 @@
 }
 
 - (void)resetCellParamDict:(id)objt{
-    
-    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    self.name.text = @"北约 （50人）";
-    self.dynamic.text = @"最新发言内容最新发言内容最新发言内容最新发言内容";
-    self.creatMan.text = [NSString stringWithFormat:@"创建人：%@",@"ABC"];
+    NSDictionary *params = (NSDictionary *)objt;
+    NSString *headImageUrlString = [params objectForKey:@"photo"];
+    [self.headImgView setImageWithURL:[NSURL URLWithString:headImageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    NSString *nameString = [NSString stringWithFormat:@"%@ (%d人)",[params objectForKey:@"tribename"],[[params objectForKey:@"maxcount"] integerValue]];
+    self.name.text = nameString;
+    self.dynamic.text = [params objectForKey:@"signature"];
+    self.creatMan.text = [NSString stringWithFormat:@"创建人：%@",[params objectForKey:@"creatername"]];
 }
 
 @end
