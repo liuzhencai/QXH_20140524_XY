@@ -192,23 +192,12 @@
          *  @param callback 回调
          */
         
-//        [DataInterface addFriendConfirm:@"100013" type:@"0" remark:@"照站" withCompletionHandler:^(NSMutableDictionary *dict){
-//            NSLog(@"加为好友返回值：%@",dict);
-//            [self showAlert:[dict objectForKey:@"info"]];
-//        }];
-        
-        /**
-         *  加好友请求
-         *
-         *  @param targetid 被处理的加入成员的userid
-         *  @param mess     好友请求验证消息
-         *  @param callback 回调
-         */
-        [DataInterface requestAddFriend:@"100033" mess:@"我是张三" withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"%@",dict);
+        [DataInterface addFriendConfirm:@"100" type:@"1" remark:@"张三" withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"加为好友返回值：%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];
         }];
         
+//        [self showAlert:@"已发出好友申请"];
     }else{
         [self showAlert:@"转发名片"];
     }

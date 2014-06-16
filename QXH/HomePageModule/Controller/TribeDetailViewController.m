@@ -11,7 +11,7 @@
 @interface TribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
-@property (nonatomic, strong) NSDictionary *tribeDetailInfo;
+
 @end
 
 @implementation TribeDetailViewController
@@ -22,7 +22,7 @@
     if (self) {
         // Custom initialization
         self.hidesBottomBarWhenPushed = YES;
-        _items = @[@"",@"部落秘书长",@"部落标签",@"部落地域",@"介绍",@"当前部落成员"];
+        _items = @[@"",@"部落秘书长",@"部落标签",@"部落地域",@"介绍",@"当前部落成员   28"];
     }
     return self;
 }
@@ -47,30 +47,12 @@
     [selectBtn setBackgroundImage:[UIImage imageNamed:@"btn_screening_highlight"] forState:UIControlStateHighlighted];
     [selectBtn addTarget:self action:@selector(applyJoinTribe:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:selectBtn];
-    
-    [self getTribeInfo];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)getTribeInfo{
-    /**
-     *  获取部落信息
-     *
-     *  @param tribeid  部落id
-     *  @param callback 回调
-     */
-    NSString *tribeId = @"";
-    tribeId = [self.tribeDict objectForKey:@"tribeid"];
-    [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"部落信息返回值：%@",dict);
-        self.tribeDetailInfo = dict;
-        [_mainTable reloadData];
-    }];
 }
 
 - (void)applyJoinTribe:(UIButton *)sender{
@@ -81,14 +63,11 @@
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-    if (self.tribeDict) {
-        NSString *tribeId = [self.tribeDict objectForKey:@"tribeid"];
-        [DataInterface requestAddTribe:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"申请加入部落:%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
-        }];
-    }
-    
+    NSString *tribeId = @"";
+    [DataInterface requestAddTribe:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"申请加入部落:%@",dict);
+//        [self showAlert:[dict objectForKey:@"info"]];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -126,6 +105,7 @@
                                                 text:@""
                                                color:GREEN_FONT_COLOR
                                                 font:[UIFont systemFontOfSize:16]];
+//            title.backgroundColor = [UIColor greenColor];
             title.tag = 101;
             [cell.contentView addSubview:title];
             
@@ -133,6 +113,7 @@
                                                 text:@""
                                                color:[UIColor lightGrayColor]
                                                 font:[UIFont systemFontOfSize:14]];
+//            tribeManager.backgroundColor = [UIColor redColor];
             tribeManager.tag = 102;
             [cell.contentView addSubview:tribeManager];
         }
@@ -142,11 +123,6 @@
         headImgView.image = [UIImage imageNamed:@"img_portrait72"];
         titleLabel.text = @"部落名称";
         tribeManager.text = @"部落酋长";
-        if (self.tribeDetailInfo) {
-            titleLabel.text = [self.tribeDetailInfo objectForKey:@"tribename"];
-            tribeManager.text = [self.tribeDetailInfo objectForKey:@"creatername"];
-        }
-        
         return cell;
     }else{
         static NSString *identifier = @"identifier";
@@ -155,56 +131,16 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            UILabel *title = [self addLabelWithFrame:CGRectMake(20, (cell.height - 30)/2.0, 100, 30)
+            UILabel *title = [self addLabelWithFrame:CGRectMake(20, (cell.height - 30)/2.0, 280, 30)
                                                 text:@""
                                                color:[UIColor blackColor]
                                                 font:[UIFont systemFontOfSize:14]];
             title.tag = 200;
 //            title.backgroundColor = [UIColor greenColor];
             [cell.contentView addSubview:title];
-            
-            UILabel *titleValue = [self addLabelWithFrame:CGRectMake(title.right, (cell.height - 30)/2.0, 160, 30)
-                                                text:@""
-                                               color:[UIColor blackColor]
-                                                font:[UIFont systemFontOfSize:14]];
-            titleValue.tag = 201;
-//            titleValue.backgroundColor = [UIColor greenColor];
-            [cell.contentView addSubview:titleValue];
         }
         UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:200];
         titleLabel.text = [_items objectAtIndex:indexPath.row];
-        UILabel *titleValue = (UILabel *)[cell.contentView viewWithTag:201];
-        titleValue.text = @"test";
-        if (self.tribeDetailInfo) {
-            switch (indexPath.row) {
-                case 1:{//部落秘书长
-                    NSString *secretaryName = [self.tribeDetailInfo objectForKey:@"secretaryname"];
-                    titleValue.text = secretaryName;
-                }
-                    break;
-                case 2:{//部落标签
-                    titleValue.text = [self.tribeDetailInfo objectForKey:@"signature"];
-                }
-                    break;
-                case 3:{//部落地域
-                    titleValue.text = [self.tribeDetailInfo objectForKey:@"district"];
-                }
-                    break;
-                case 4:{//介绍
-                    titleValue.text = [self.tribeDetailInfo objectForKey:@"desc"];
-                }
-                    break;
-                case 5:{//当前部落成员
-                    NSInteger newCount = [[self.tribeDetailInfo objectForKey:@"nowcount"] integerValue];
-                    titleValue.text = [NSString stringWithFormat:@"%d",newCount];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-        
         return cell;
     }
 }

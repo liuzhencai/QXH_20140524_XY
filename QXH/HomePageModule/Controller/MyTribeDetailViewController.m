@@ -181,8 +181,6 @@
              withCompletionHandler:^(NSMutableDictionary *dict){
                  NSLog(@"创建部落返回值：%@",dict);
                  [self showAlert:[dict objectForKey:@"info"]];
-                 NSArray *controllers = self.navigationController.viewControllers;
-                 [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
         }];
     }else{//退出部落
         /**
@@ -422,13 +420,6 @@
             AddressListViewController *addressList = [[AddressListViewController alloc] init];
             addressList.addressListBlock = ^(NSDictionary *dict){
                 NSLog(@"通讯录列表返回值%@",dict);
-                self.leaderDict = dict;
-                NSString *leaderName = [dict objectForKey:@"displayname"];
-                if ([leaderName length] > 0) {
-                    self.leader.text = leaderName;
-                }else{
-                    self.leader.text = @"test";
-                }
             };
             [self.navigationController pushViewController:addressList animated:YES];
         }

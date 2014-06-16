@@ -62,7 +62,7 @@
     _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 120, lableHeight);
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
-    _date.frame = CGRectMake(_name.right - 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
+    _date.frame = CGRectMake(_name.right, (height - 2 * lableHeight)/2.0, 100, lableHeight);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -73,17 +73,14 @@
 }
 
 - (void)resetCellParamDict:(id)objt{
-    NSDictionary *params = (NSDictionary *)objt;
-    NSString *imageUrlString = [params objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    NSString *nameString = [params objectForKey:@"displayname"];
-    if ([nameString length] > 0) {
-        self.name.text = nameString;
-    }
-    NSString *descString = [params objectForKey:@"signature"];
-    if ([descString length] > 0) {
-        self.duty.text = descString;
-    }
+//    @property (nonatomic, strong) UIImageView *headImgView;
+//    @property (nonatomic, strong) UILabel *name;
+//    @property (nonatomic, strong) UILabel *duty;
+//    @property (nonatomic, strong) UILabel *date;
+//    @property (nonatomic, strong) UIImageView *arrowImgView;
+    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    self.name.text = @"李某某";
+    self.duty.text = @"xxxxxxxxxxxxx校长";
     self.date.text = @"2014-05-19";
 }
 
