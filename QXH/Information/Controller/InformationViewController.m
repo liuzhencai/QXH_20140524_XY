@@ -74,41 +74,51 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (CGFloat)calculateRowHeight:(InfoModel *)model
 {
-    return 1;
+    CGFloat rowHeight = 0.f;
+    if ([model.sid integerValue] == 0) {
+        rowHeight = 80;
+    }else{
+        rowHeight = 150;
+    }
+    return rowHeight;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [info count]+1;
+    return [info count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    InfoModel *model = [info objectAtIndex:indexPath.row];
+    return [self calculateRowHeight:model];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    if (indexPath.row == 0) {
-        static NSString *cellIdentifier = @"firstCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            
-            [cell.contentView addSubview:_recommendView];
-            
-        }
-    }else{
-        if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-            [tableView setSeparatorInset:UIEdgeInsetsZero];
-        }
-        static NSString *cellIdentifier = @"InformationCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    NSInteger row = indexPath.row;
+    UITableViewCell *tableCell;
+    InfoModel *model = [info objectAtIndex:row];
+    if ([model.sid integerValue] == 0) {
+        static NSString *infoIdentifier = @"InformationCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:infoIdentifier];
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationCell" owner:nil options:nil] objectAtIndex:0];
         }
-        [(InformationCell *)cell setModel:[info objectAtIndex:indexPath.row - 1]];
+        [(InformationCell *)cell setModel:model];
+        tableCell = cell;
+    }else{
+        static NSString *recInfoIdentifier = @"RecInformationCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recInfoIdentifier];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"RecInformationCell" owner:nil options:nil] objectAtIndex:0];
+        }
+        tableCell = cell;
     }
-  
-    return cell;
+ 
+    return tableCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -86,4 +86,28 @@
     return model;
 }
 
+
++ (NSMutableArray *)json2TribeList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        MyTribeModel *model = [[MyTribeModel alloc] init];
+        model.tribeid =  [list[i] objectForKey:@"tribeid"];
+        model.tribename = [list[i] objectForKey:@"tribename"];
+        model.photo = [list[i] objectForKey:@"photo"];
+        model.signature = [list[i] objectForKey:@"signature"];
+        model.creater = [list[i] objectForKey:@"creater"];
+        model.creatername = [list[i] objectForKey:@"creatername"];
+        model.authflag = [list[i] objectForKey:@"authflag"];
+        model.maxcount = [list[i] objectForKey:@"maxcount"];
+        model.nowcount = [list[i] objectForKey:@"nowcount"];
+        model.address = [list[i] objectForKey:@"address"];
+        model.startdate = [list[i] objectForKey:@"startdate"];
+        model.enddate = [list[i] objectForKey:@"enddate"];
+        [array addObject:model];
+    }
+    return array;
+}
+
 @end

@@ -10,6 +10,7 @@
 #import "UserInfoModel.h"
 #import "InfoModel.h"
 #import "InfoDetailModel.h"
+#import "MyTribeModel.h"
 
 @interface ModelGenerator : NSObject
 
@@ -39,5 +40,7 @@
  *  @return 返回资讯详细信息
  */
 + (InfoDetailModel *)json2InfoDetail:(NSDictionary *)obj;
+
++ (NSMutableArray *)json2TribeList:(NSDictionary *)obj;
 
 @end

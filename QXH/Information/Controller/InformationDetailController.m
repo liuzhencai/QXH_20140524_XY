@@ -113,14 +113,6 @@
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
-        case 5:
-        {
-            NSLog(@"点击举报");
-
-            [self showAlert:@"点击举报"];
-
-        }
-            break;
         default:
             break;
     }
