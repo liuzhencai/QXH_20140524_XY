@@ -15,6 +15,13 @@
 
 @implementation PersonalCollectionController
 
+- (void)getInfoList
+{
+    [DataInterface getInfoList:@"0" detailtype:@"" tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        [self showAlert:[dict description]];
+    }];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,6 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"我的收藏";
+    [self getInfoList];
     
     _collectionTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
     

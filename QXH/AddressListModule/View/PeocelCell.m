@@ -69,9 +69,16 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
-    NSString *headImgUrlString = [params objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:headImgUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    self.name.text = [params objectForKey:@"displayname"];
-    self.duty.text = [params objectForKey:@"signature"];
+
+    NSString *imageUrlStr = [params objectForKey:@"photo"];
+    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    NSString *nameStr = [params objectForKey:@"displayname"];
+    if ([nameStr length] > 0) {
+        self.name.text = nameStr;
+    }
+    NSString *dutyString = [params objectForKey:@"remark"];
+    if ([dutyString length] > 0) {
+        self.duty.text = dutyString;
+    }
 }
 @end

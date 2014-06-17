@@ -14,6 +14,7 @@
 #import "PeocelCell.h"
 #import "MyMessageCell.h"
 #import "CustomSegmentControl.h"
+#import "ChatViewController.h"
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
@@ -33,7 +34,8 @@
     if (self) {
         // Custom initialization
         _selectIndex = 1;
-        
+        _addressList = [[NSMutableArray alloc] initWithCapacity:0];
+        _myMessageList = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -41,6 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //登陆
+    [self getAddressList];
 }
 
 - (void)viewDidLoad
@@ -106,7 +109,7 @@
     //    self.searchDC.searchResultsDataSource = self;
     //    self.searchDC.searchResultsDelegate = self;
     
-    [self getAddressList];
+//    [self getAddressList];
 }
 
 - (void)getAddressList{
@@ -132,10 +135,14 @@
                            count:@"20"
            withCompletionHandler:^(NSMutableDictionary *dict){
                NSLog(@"通讯录列表返回数据：%@",dict);
-               self.addressList = [dict objectForKey:@"lists"];
-               UITableView *table = (UITableView *)[self.view viewWithTag:ADDRESS_LIST_TABLE_TAG];
-               [table reloadData];
-               [self showAlert:[dict objectForKey:@"info"]];
+
+               if (dict) {
+                   NSArray *list = [dict objectForKey:@"lists"];
+                   self.addressList = [NSMutableArray arrayWithArray:list];
+                   UITableView *table = (UITableView *)[self.view viewWithTag:ADDRESS_LIST_TABLE_TAG];
+                   [table reloadData];
+               }
+//               [self showAlert:[dict objectForKey:@"info"]];
            }];
 
 }
@@ -152,19 +159,35 @@
     NSInteger tag = ADDRESS_LIST_TABLE_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
-    if (index == 1 && [self.myMessageList count] == 0) {
+
+    if (index == 1 && [self.myMessageList count] <= 0) {
+        /**
+         *  获取好友(通讯录)/查找用户列表公用接口
+         *
+         *  @param type        1为获取好友列表，2为搜索
+         *  @param address     籍贯编码
+         *  @param domicile    居住地编码
+         *  @param displayname 昵称
+         *  @param usertype    用户类型,为空时不区分类型
+         *  @param start       起始位置
+         *  @param count       获取数量
+         *  @param callback    回调
+         */
         [DataInterface getFriendInfo:@"1"
                              address:@""
                             domicile:@""
                          displayname:@""
                             usertype:@""
                                start:@"0"
-                               count:@"20"
+                               count:@"10"
                withCompletionHandler:^(NSMutableDictionary *dict){
                    NSLog(@"通讯录列表返回数据：%@",dict);
-                   self.myMessageList = [dict objectForKey:@"lists"];
-                   [table reloadData];
-                   [self showAlert:[dict objectForKey:@"info"]];
+                   if (dict) {
+                       NSArray *list = [dict objectForKey:@"lists"];
+                       self.myMessageList = [NSMutableArray arrayWithArray:list];
+                       [table reloadData];
+                   }
+//                   [self showAlert:[dict objectForKey:@"info"]];
                }];
     }
 }
@@ -178,7 +201,7 @@
     }else{
         return [self.myMessageList count];
     }
-    return 1;
+    return [self.myMessageList count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -193,7 +216,6 @@
         return [list count];
 //        return [self.myMessageList count];
     }
-//    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -215,6 +237,11 @@
         bgView.image = [UIImage imageNamed:@"bar_transition"];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSString *titleStr = [dict objectForKey:@"name"];
+
+        title.text = titleStr;
         title.backgroundColor = [UIColor clearColor];
         NSDictionary *dict = nil;
         if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
@@ -232,33 +259,6 @@
 //    return nil;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *sectionTitle = nil;
-//    if (tableView.tag == ADDRESS_LIST_TABLE_TAG ) {
-//        switch (section) {
-//            case 0:
-//            {
-//                sectionTitle = @"A";
-//            }
-//                break;
-//            case 1:
-//            {
-//                sectionTitle = @"B";
-//            }
-//                break;
-//            case 2:
-//            {
-//                sectionTitle = @"C";
-//            }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//    return sectionTitle;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
@@ -268,13 +268,16 @@
         myMsgCell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
         if (!myMsgCell) {
             myMsgCell = [[MyMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
+            myMsgCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
         if (self.myMessageList) {
             NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.section];
             NSArray *list = [dict objectForKey:@"list"];
             NSDictionary *address = [list objectAtIndex:indexPath.row];
             [myMsgCell resetCellParamDict:address];
         }
+
         cell = myMsgCell;
     }else if(tableView.tag == ADDRESS_LIST_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
@@ -282,14 +285,16 @@
         addrListCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
         if (!addrListCell) {
             addrListCell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
+            addrListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+       
         if (self.addressList) {
             NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
             NSArray *list = [dict objectForKey:@"list"];
             NSDictionary *address = [list objectAtIndex:indexPath.row];
             [addrListCell resetCellParamDict:address];
         }
-//        [addrListCell resetCellParamDict:nil];
+
         cell = addrListCell;
     }
     return cell;
@@ -303,17 +308,21 @@
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
         NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
         NSArray *list = [dict objectForKey:@"list"];
-        NSDictionary *member = [list objectAtIndex:indexPath.row];
+
+        NSDictionary *item = [list objectAtIndex:indexPath.row];
+        NSLog(@"联系人信息%@",item);
         if (self.addressListBlock) {
-            self.addressListBlock(member);
+            self.addressListBlock(item);
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             NameCardViewController *nameCard = [[NameCardViewController alloc] init];
-            nameCard.memberInfo = member;
+            nameCard.memberDict = item;
             [self.navigationController pushViewController:nameCard animated:YES];
         }
     }else if(tableView.tag == MY_MESSAGE_LIST_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
+        ChatViewController *chat = [[ChatViewController alloc] init];
+        [self.navigationController pushViewController:chat animated:YES];
     }
 }
 

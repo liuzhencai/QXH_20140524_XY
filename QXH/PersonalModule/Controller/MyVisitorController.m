@@ -16,6 +16,13 @@
 
 @implementation MyVisitorController
 
+- (void)getVisitorList
+{
+    [DataInterface getVisitorList:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+        [self showAlert:[dict description]];
+    }];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,6 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"访客记录";
+    [self getVisitorList];
 }
 
 - (void)didReceiveMemoryWarning

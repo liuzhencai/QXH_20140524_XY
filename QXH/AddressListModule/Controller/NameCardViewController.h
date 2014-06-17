@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NameCardViewController : MyViewController
-@property (nonatomic, strong) NSDictionary *memberInfo;//成员信息
+
+@property (nonatomic, strong) NSDictionary *memberDict;
+
 @end

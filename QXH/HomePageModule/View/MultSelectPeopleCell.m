@@ -75,8 +75,17 @@
     // Configure the view for the selected state
 }
 - (void)resetCellParamDict:(id)objt{
-    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    self.name.text = @"李某某";
+    NSDictionary *dict = (NSDictionary *)objt;
+    NSString *imageUrlString = [dict objectForKey:@"photo"];
+    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    NSString *nameString = [dict objectForKey:@"displayname"];
+    if ([nameString length] > 0) {
+        self.name.text = nameString;
+    }
+    NSString *dutyString = [dict objectForKey:@"remark"];
+    if ([dutyString length] > 0) {
+        self.duty.text = dutyString;
+    }
     self.duty.text = @"xxxxxxxxxxxxx校长";
 }
 @end

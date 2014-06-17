@@ -46,7 +46,7 @@
     NSInteger rows = 0;
     switch (section) {
         case 0:
-            rows = 2;
+            rows = 1;
             break;
         case 1:
             rows = 3;
@@ -73,21 +73,8 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdntifier];
             }
-            switch (row) {
-                case 0:
-                {
-                    cell.textLabel.text = @"消息设置";
-                }
-                    break;
-                case 1:
-                {
-                    cell.textLabel.text = @"隐私";
-                }
-                    break;
-                default:
-                    break;
-            }
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+             cell.textLabel.text = @"消息设置";
+             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
             break;
         case 1:
@@ -154,22 +141,9 @@
     switch (indexPath.section) {
         case 0:
         {
-            switch (indexPath.row) {
-                case 0:
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"消息设置" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    [alert show];
-                }
-                    break;
-                case 1:
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"隐私" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    [alert show];
-                }
-                    break;
-                default:
-                    break;
-            }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"消息设置" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [alert show];
+       
         }
             break;
         case 1:

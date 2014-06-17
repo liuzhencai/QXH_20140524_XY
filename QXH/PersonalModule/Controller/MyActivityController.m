@@ -16,6 +16,13 @@
 
 @implementation MyActivityController
 
+- (void)getActList
+{
+    [DataInterface getActList:@"10" count:@"20" actname:@"" contentlength:@"30" tag:@"" district:@"" canjoin:@"3" actstate:@"0" tribeid:@"0" begindate:@"" enddate:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+        [self showAlert:[dict description]];
+    }];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,6 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"参加的活动";
+    
+    [self getActList];
 }
 
 - (void)didReceiveMemoryWarning

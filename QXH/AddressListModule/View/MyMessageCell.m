@@ -62,7 +62,8 @@
     _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
-    _date.frame = CGRectMake(_name.right, (height - 2 * lableHeight)/2.0, 110, lableHeight);
+
+    _date.frame = CGRectMake(_name.right - 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -74,19 +75,18 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
-    NSString *headImgUrlString = [params objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:headImgUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+
+    NSString *imageUrlString = [params objectForKey:@"photo"];
+    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *nameString = [params objectForKey:@"displayname"];
-    if ([nameString length] == 0) {
-        nameString = @"姓名缺失";
+    if ([nameString length] > 0) {
+        self.name.text = nameString;
     }
-    self.name.text = nameString;
-    NSString *dutyString = [params objectForKey:@"signature"];
-    if ([dutyString length] == 0) {
-        dutyString = @"职务缺失";
+    NSString *descString = [params objectForKey:@"signature"];
+    if ([descString length] > 0) {
+        self.duty.text = descString;
     }
-    self.duty.text = dutyString;
-    self.date.text = @"2014-05-19缺失";
+    self.date.text = @"2014-05-19";
 }
 
 @end

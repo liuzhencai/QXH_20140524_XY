@@ -41,24 +41,24 @@
     [super viewDidLoad];
     self.title = @"创建部落";
     
-    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
-    for (int j = 0; j < 3; j ++) {
-        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
-        for (int i = 0; i < 20; i ++) {
-            [tmp2 addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
-        }
-        NSString *name = @"A";
-        if (j == 0) {
-            name = @"A";
-        }else if(j == 1){
-            name = @"B";
-        }else{
-            name = @"C";
-        }
-        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
-        [tmpArr addObject:dict];
-    }
-    self.addressList = tmpArr;
+//    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+//    for (int j = 0; j < 3; j ++) {
+//        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
+//        for (int i = 0; i < 20; i ++) {
+//            [tmp2 addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
+//        }
+//        NSString *name = @"A";
+//        if (j == 0) {
+//            name = @"A";
+//        }else if(j == 1){
+//            name = @"B";
+//        }else{
+//            name = @"C";
+//        }
+//        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
+//        [tmpArr addObject:dict];
+//    }
+//    self.addressList = tmpArr;
     
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 70) style:UITableViewStylePlain];
     _mainTable.delegate = self;
@@ -68,20 +68,6 @@
     [self addFooter];
     
     [self getAddressList];
-    
-    //    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainTable.bottom, UI_SCREEN_WIDTH, 70)];
-    //    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 20, 100, 30)];
-    //    label.text = @"foot 待添加";
-    //    [footerView addSubview:label];
-    //    //添加阴影
-    //    footerView.backgroundColor = [UIColor clearColor];
-    //    CGPathRef path = [UIBezierPath bezierPathWithRect:footerView.bounds].CGPath;
-    //    [footerView.layer setShadowPath:path];
-    //    footerView.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    //    footerView.layer.shadowOffset = CGSizeMake(0, 1);
-    //    footerView.layer.shadowColor = [UIColor darkGrayColor].CGColor;
-    //    footerView.layer.shadowOpacity = 0.5f;
-    //    [self.view addSubview:footerView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,16 +90,21 @@
      *  @param callback    回调
      */
     
-    [DataInterface getFriendInfo:@"1"
+    [DataInterface getFriendInfo:@"2"
                          address:@""
                         domicile:@""
                      displayname:@""
                         usertype:@""
                            start:@"0"
-                           count:@"10"
+                           count:@"20"
            withCompletionHandler:^(NSMutableDictionary *dict){
                NSLog(@"通讯录列表返回数据：%@",dict);
-               [self showAlert:[dict objectForKey:@"info"]];
+               if (dict) {
+                   NSArray *list = [dict objectForKey:@"lists"];
+                   self.addressList = [NSMutableArray arrayWithArray:list];
+                   [_mainTable reloadData];
+               }
+//               [self showAlert:[dict objectForKey:@"info"]];
            }];
 }
 
@@ -162,7 +153,7 @@
     }
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
     myTribeDetail.isCreatDetail = YES;
-    myTribeDetail.numbers = self.addItems;
+    myTribeDetail.membersArray = self.addItems;
     [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 
@@ -242,30 +233,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *identifier = @"identifier";
-//    CreatTribeCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//    if (!allListCell) {
-//        allListCell = [[CreatTribeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        allListCell.delegate = self;
-//        [allListCell.selectBtn addTarget:self action:@selector(didselect:) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    
-//    [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
-//    for (int i = 0; i < [_selectIndexPaths count]; i ++) {
-//        NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
-//        if ([indexPath isEqual:index]) {
-//            [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
-//        }
-//    }
-    
     static NSString *identifier = @"identifier";
     MultSelectPeopleCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!allListCell) {
         allListCell = [[MultSelectPeopleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        allListCell.delegate = self;
-//        [allListCell.selectBtn addTarget:self action:@selector(didselect:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
@@ -275,25 +247,31 @@
             [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
         }
     }
-    
-    [allListCell resetCellParamDict:nil];
-    
+    NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+    NSArray *list = [dict objectForKey:@"list"];
+    NSDictionary *item = [list objectAtIndex:indexPath.row];
+    if (item) {
+        [allListCell resetCellParamDict:item];
+    }
     return allListCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
-    //    UITableViewCell *cell = nil;
-    //    NSIndexPath *index = [cell ];
+    
+    NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+    NSArray *list = [dict objectForKey:@"list"];
+    NSDictionary *item = [list objectAtIndex:indexPath.row];
+    
     MultSelectPeopleCell *cell = (MultSelectPeopleCell *)[tableView cellForRowAtIndexPath:indexPath];
     if ([_selectIndexPaths containsObject:indexPath]) {
         [_selectIndexPaths removeObject:indexPath];
-        [_addItems removeObject:indexPath];
+        [_addItems removeObject:item];
         [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
     }else{
         [_selectIndexPaths addObject:indexPath];
-        [_addItems addObject:indexPath];
+        [_addItems addObject:item];
         [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
     }
 }

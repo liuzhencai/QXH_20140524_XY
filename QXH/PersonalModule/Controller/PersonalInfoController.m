@@ -126,9 +126,6 @@
             [cell.contentView addSubview:label];
             [cell.contentView addSubview:topLabel];
             [cell.contentView addSubview:bottomLabel];
-            UIImageView *arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(300, 17, 7.5, 12.5)];
-            arrowImage.image = [UIImage imageNamed:@"list_arrow_right_green"];
-            [cell.contentView addSubview:arrowImage];
         }
     }
     else{
