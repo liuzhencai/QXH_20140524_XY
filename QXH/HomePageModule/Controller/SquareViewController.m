@@ -14,9 +14,6 @@
 #import "SquareActivityCell.h"
 
 @interface SquareViewController ()
-{
-    NSMutableArray *info;
-}
 
 @end
 
@@ -47,10 +44,10 @@
     self.squareTable.frame = CGRectMake(0, 49, 320, SCREEN_H-49);
     
     //获取列表
-    [self getSquareList:1];
+    [self getSquareList];
 }
 
-- (void)getSquareList:(NSInteger)type{
+- (void)getSquareList{
     /**
      *  获取查询广场文章/咨询文章列表,获取收藏列表
      *
@@ -62,18 +59,25 @@
      *  @param start         起始消息的artid，不填写该字段读取最新消息n个
      *  @param count         获取消息数量
      */
+//    + (void)getInfoList:(NSString *)type
+//detailtype:(NSString *)detailtype
+//tag:(NSString *)tag
+//arttype:(NSString *)arttype
+//contentlength:(NSString *)contentlength
+//start:(NSString *)start
+//count:(NSString *)count
+//withCompletionHandler:(DictCallback)callback;
     [DataInterface getInfoList:@"1" //1为广场消息
-                    detailtype:[NSString stringWithFormat:@"%d",type] //1为最新，2为最热,3为收藏
+                    detailtype:@"1" //1为最新，2为最热,3为收藏
                            tag:@""
                        arttype:@""
                  contentlength:@""
                          start:@""
                          count:@"20"
          withCompletionHandler:^(NSMutableDictionary *dict){
-            info = [ModelGenerator json2InfoList:dict];
-             [_squareTable reloadData];
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取到活动列表" message:[info description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-             [alert show];
+             if (dict) {
+                 NSLog(@"获取广场信息：%@",dict);
+             }
     }];
 }
 
@@ -93,7 +97,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [info count];
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,7 +165,6 @@
 {
     ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
     controller.hidesBottomBarWhenPushed = YES;
-    controller.artid = ((InfoModel *)[info objectAtIndex:indexPath.row]).artid;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -187,14 +190,22 @@
         default:
             break;
     }
-    [self getSquareList:btn.tag];
-
 }
 
 - (IBAction)history:(id)sender {
     HistoryReviewController *controller = [[HistoryReviewController alloc] initWithNibName:@"HistoryReviewController" bundle:nil];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)requestInfoListWithType:(NSString *)type arttype:(NSString *)arttype withCompletionBlock:(ListCallback)callback
+{
+    NSString *userid = @"123456";
+    NSString *token = @"ab123456789";
+    NSDictionary *param = @{@"opercode": @"0119",@"userid":userid,@"token":token, @"type":@"1", @"detailtype":type, @"tag":@"标签", @"arttype":arttype, @"start":@"10", @"direction":@"before", @"count":@"20"};
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        callback([ModelGenerator json2InfoList:dict]);
+    }];
 }
 
 @end

@@ -239,7 +239,6 @@
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87B1944B3F800401862 /* OnLiveCell.m */; };
-		58A5AD031947559D007BA0B5 /* ActivityDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A5AD021947559D007BA0B5 /* ActivityDetailCell.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -700,8 +699,6 @@
 		5869D87819431A6600401862 /* YSKeyboardTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSKeyboardTableView.m; sourceTree = "<group>"; };
 		5869D87A1944B3F800401862 /* OnLiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLiveCell.h; sourceTree = "<group>"; };
 		5869D87B1944B3F800401862 /* OnLiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLiveCell.m; sourceTree = "<group>"; };
-		58A5AD011947559D007BA0B5 /* ActivityDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailCell.h; sourceTree = "<group>"; };
-		58A5AD021947559D007BA0B5 /* ActivityDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailCell.m; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -1340,8 +1337,6 @@
 				5869D8751943156C00401862 /* MultSelectPeopleCell.m */,
 				5869D87A1944B3F800401862 /* OnLiveCell.h */,
 				5869D87B1944B3F800401862 /* OnLiveCell.m */,
-				58A5AD011947559D007BA0B5 /* ActivityDetailCell.h */,
-				58A5AD021947559D007BA0B5 /* ActivityDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2078,7 +2073,6 @@
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
-				58A5AD031947559D007BA0B5 /* ActivityDetailCell.m in Sources */,
 				2119EF04191682EC007DBE68 /* UIImage+MultiFormat.m in Sources */,
 				21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */,
 				21A8941019290B7F00A6DB7E /* InformationCommentController.m in Sources */,
@@ -2359,7 +2353,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 
-				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
+				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2384,7 +2378,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 
-				PROVISIONING_PROFILE = "BDEF9ADC-9DC9-4CC2-97B9-B89661F64844";
+				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

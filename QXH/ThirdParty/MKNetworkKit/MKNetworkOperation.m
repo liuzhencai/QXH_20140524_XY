@@ -1477,7 +1477,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
         
         NSError *error = nil;
         NSString*jsonString = [[NSString alloc]initWithBytes:[self.responseData bytes]length:[self.responseData length] encoding:NSUTF8StringEncoding];
-        NSLog(@"\n++++++++++++++++++++++++++++++++++++++++服务器返回JSON++++++++++++++++++++++++++++++++++++++++:%@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",jsonString);
+        NSLog(@"\n++++++++++++++++++++++++++++++++++++++++服务器返回JSON++++++++++++++++++++++++++++++++++++++++\n%@+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n",jsonString);
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
         id returnValue = [jd objectWithData:[GTMBase64 decodeData:self.responseData]];
         if(error) {

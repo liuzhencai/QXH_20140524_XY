@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, InfomationType) {
     InfomationTypeRecommend // 推荐
 };
 
-@interface InformationDetailController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface InformationDetailController : MyViewController<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *articleTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authLabel;

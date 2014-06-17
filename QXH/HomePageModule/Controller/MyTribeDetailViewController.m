@@ -9,6 +9,7 @@
 #import "MyTribeDetailViewController.h"
 #import "AddressListViewController.h"
 #import "YSKeyboardTableView.h"
+#import "UIButton+WebCache.h"
 
 @interface MyTribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic, strong) YSKeyboardTableView *mainTable;
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) UISwitch *topSwitch;//置顶聊天
 
 @property (nonatomic, strong) NSDictionary *leaderDict;//秘书长信息
+@property (nonatomic, strong) NSDictionary *tribeDetailDict;//部落详情
 @end
 
 @implementation MyTribeDetailViewController
@@ -78,12 +80,34 @@
     [nextBtn addTarget:self action:@selector(exitTribe:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:nextBtn];
     
+    //获取详情
+    [self getTribeInfo];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getTribeInfo{
+    /**
+     *  获取部落信息
+     *
+     *  @param tribeid  部落id
+     *  @param callback 回调
+     */
+    if (self.tribeDict) {
+        NSString *tribeId = [self.tribeDict objectForKey:@"tribeid"];
+        [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"部落信息返回值：%@",dict);
+            if (dict) {
+                self.tribeDetailDict = dict;
+                [_mainTable reloadData];
+            }
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
+    }
 }
 
 - (void)exitTribe:(UIButton *)sender{
@@ -157,8 +181,6 @@
              withCompletionHandler:^(NSMutableDictionary *dict){
                  NSLog(@"创建部落返回值：%@",dict);
                  [self showAlert:[dict objectForKey:@"info"]];
-                 NSArray *controllers = self.navigationController.viewControllers;
-                 [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
         }];
     }else{//退出部落
         /**
@@ -168,12 +190,14 @@
          *  @param tribeid  部落唯一标示
          *  @param callback 回调
          */
-        [DataInterface quitTribe:@"100013"  //100013
-                         tribeid:@"6"
-           withCompletionHandler:^(NSMutableDictionary *dict){
-               NSLog(@"退出部落返回值：%@",dict);
-               [self showAlert:[dict objectForKey:@"info"]];
-        }];
+        if (self.tribeDict) {
+            [DataInterface quitTribe:@"100032"  //100013
+                             tribeid:[self.tribeDict objectForKey:@"tribeid"]
+               withCompletionHandler:^(NSMutableDictionary *dict){
+                   NSLog(@"退出部落返回值：%@",dict);
+                   [self showAlert:[dict objectForKey:@"info"]];
+               }];
+        }
     }
 }
 
@@ -235,31 +259,32 @@
                     _name.enabled = YES;
                 }
             }
+            if (!self.isCreatDetail) {
+                _name.text = [self.tribeDetailDict objectForKey:@"tribename"];
+            }
             [cell.contentView addSubview:_name];
         }
             break;
         case 1:{//选择秘书长
-            if (self.isCreatDetail) {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                if (!_leader) {
-                    _leader = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
-                                            placeHolder:@""];
-                    _leader.tag = 201;
-                    _leader.enabled = NO;
-                    if (self.isCreatDetail) {
-                        _leader.placeholder = @"选择部落秘书长";
-                    }
-                }
-                [cell.contentView addSubview:_leader];
+//            if (self.isCreatDetail) {
+            
+            if (!_leader) {
+                _leader = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                          placeHolder:@""];
+                _leader.tag = 201;
+                _leader.enabled = NO;
             }
+            if (self.isCreatDetail) {
+                _leader.placeholder = @"选择部落秘书长";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }else{
+                _leader.text = [self.tribeDetailDict objectForKey:@"secretaryname"];
+            }
+            [cell.contentView addSubview:_leader];
+//            }
         }
             break;
         case 2:{//头像
-//            UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.width - 36 - 10, (cell.contentView.height - 36)/2.0, 36, 36)];
-//            headImgView.tag = 201;
-//            headImgView.image = [UIImage imageNamed:@"img_portrait72"];
-//            [cell.contentView addSubview:headImgView];
-            
             UIButton *head = [UIButton buttonWithType:UIButtonTypeCustom];
             head.frame = CGRectMake(cell.contentView.width - 36 - 10, (cell.contentView.height - 36)/2.0, 36, 36);
             [head setBackgroundImage:[UIImage imageNamed:@"img_portrait72"] forState:UIControlStateNormal];
@@ -271,6 +296,9 @@
                 if (self.headImage) {
                    [head setBackgroundImage:self.headImage forState:UIControlStateNormal];
                 }
+            }else{
+                NSString *imageUrlString = [self.tribeDetailDict objectForKey:@"photo"];
+                [head setImageWithURL:[NSURL URLWithString:imageUrlString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
             }
             [cell.contentView addSubview:head];
         }
@@ -281,25 +309,30 @@
                                         placeHolder:@""];
                 _sign.tag = 201;
                 _sign.enabled = NO;
-                if (self.isCreatDetail) {
-                    _sign.placeholder = @"输入部落标签";
-                    _sign.enabled = YES;
-                }
+            }
+            if (self.isCreatDetail) {
+                _sign.placeholder = @"输入部落标签";
+                _sign.enabled = YES;
+            }else{
+                _sign.text = [self.tribeDetailDict objectForKey:@"cretersign"];
             }
             [cell.contentView addSubview:_sign];
         }
             break;
-        case 4:{//部落标签
+        case 4:{//部落地域
             if (!_place) {
                 _place = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
                                         placeHolder:@""];
                 _place.tag = 201;
                 _place.enabled = NO;
-                if (self.isCreatDetail) {
-                    _place.placeholder = @"输入部落地址";
-                    _place.enabled = YES;
-                }
             }
+            if (self.isCreatDetail) {
+                _place.placeholder = @"输入部落地址";
+                _place.enabled = YES;
+            }else{
+                _place.text = [self.tribeDetailDict objectForKey:@"district"];
+            }
+
             [cell.contentView addSubview:_place];
         }
             break;
@@ -347,6 +380,9 @@
                     [_tribeDes addSubview:_placeHolder];
                 }
             }
+            if (!self.isCreatDetail) {
+                _tribeDes.text = [self.tribeDetailDict objectForKey:@"desc"];
+            }
             [cell.contentView addSubview:_tribeDes];
         }
             break;
@@ -356,10 +392,14 @@
                                          placeHolder:@""];
                 _count.tag = 201;
                 _count.enabled = NO;
-                if (self.isCreatDetail) {
-                    _count.placeholder = @"输入成员数";
-                    _count.enabled = YES;
-                }
+                
+            }
+            if (self.isCreatDetail) {
+                _count.placeholder = @"输入成员数";
+                _count.enabled = YES;
+            }else{
+                NSInteger nowCount = [[self.tribeDetailDict objectForKey:@"nowcount"] integerValue];
+                _count.text = [NSString stringWithFormat:@"%d",nowCount];
             }
             [cell.contentView addSubview:_count];
         }
@@ -380,13 +420,6 @@
             AddressListViewController *addressList = [[AddressListViewController alloc] init];
             addressList.addressListBlock = ^(NSDictionary *dict){
                 NSLog(@"通讯录列表返回值%@",dict);
-                self.leaderDict = dict;
-                NSString *leaderName = [dict objectForKey:@"displayname"];
-                if ([leaderName length] > 0) {
-                    self.leader.text = leaderName;
-                }else{
-                    self.leader.text = @"test";
-                }
             };
             [self.navigationController pushViewController:addressList animated:YES];
         }
