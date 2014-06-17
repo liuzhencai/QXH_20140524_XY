@@ -137,6 +137,7 @@
                               count:@"20"
               withCompletionHandler:^(NSMutableDictionary *dict){
                   NSLog(@"部落列表返回值：%@",dict);
+
                   if (dict) {
                       NSArray *list = [dict objectForKey:@"list"];
                       self.tribeList = [NSMutableArray arrayWithArray:list];
@@ -159,6 +160,7 @@
     NSInteger tag = MY_TRIBE_TABLE_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
+
     if (index == 1) {
         /**
          *  获取部落/群组/直播间列表
@@ -183,6 +185,7 @@
                                   count:@"20"
                   withCompletionHandler:^(NSMutableDictionary *dict){
                       NSLog(@"部落列表返回值：%@",dict);
+
                       NSArray *list = [dict objectForKey:@"list"];
                       self.allTribeList = [NSMutableArray arrayWithArray:list];
                       [table reloadData];
@@ -222,6 +225,32 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
+//        return 20;
+//    }else{
+//        return 0;
+//    }
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
+//        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+//        bgView.image = [UIImage imageNamed:@"bar_transition"];
+//        
+//        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+//        NSDictionary *dict = [self.tribeList objectAtIndex:section];
+//        NSString *titleStr = [dict objectForKey:@"name"];
+//
+//        title.text = titleStr;
+//        title.backgroundColor = [UIColor clearColor];
+//        [bgView addSubview:title];
+//        
+//        return bgView;
+//    }
+//    return nil;
+//}
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 //    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
@@ -299,6 +328,7 @@
         [self.navigationController pushViewController:tribeDynamic animated:YES];
     }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
+
         NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
         detail.tribeDict = tribeDict;

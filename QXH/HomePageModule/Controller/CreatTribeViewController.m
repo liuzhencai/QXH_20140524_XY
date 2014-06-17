@@ -147,6 +147,10 @@
 
 - (void)next:(UIButton *)sneder{
     NSLog(@"下一步");
+    if ([self.addItems count] == 0) {
+        [self showAlert:@"请选择成员"];
+        return;
+    }
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
     myTribeDetail.isCreatDetail = YES;
     myTribeDetail.membersArray = self.addItems;

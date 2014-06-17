@@ -11,6 +11,7 @@
 @interface TribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
+
 @property (nonatomic, strong) NSDictionary *tribeDetailInfo;
 @end
 
@@ -57,6 +58,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)getTribeInfo{
     /**
      *  获取部落信息
@@ -64,6 +66,7 @@
      *  @param tribeid  部落id
      *  @param callback 回调
      */
+
     NSString *tribeId = @"";
     tribeId = [self.tribeDict objectForKey:@"tribeid"];
     [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
@@ -139,10 +142,10 @@
         UIImageView *headImgView = (UIImageView *)[cell.contentView viewWithTag:100];
         UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:101];
         UILabel *tribeManager = (UILabel *)[cell.contentView viewWithTag:102];
-        headImgView.image = [UIImage imageNamed:@"img_portrait72"];
-        titleLabel.text = @"部落名称";
-        tribeManager.text = @"部落酋长";
+
         if (self.tribeDetailInfo) {
+            NSString *headImgUrlString = [self.tribeDetailInfo objectForKey:@"photo"];
+            [headImgView setImageWithURL:[NSURL URLWithString:headImgUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
             titleLabel.text = [self.tribeDetailInfo objectForKey:@"tribename"];
             tribeManager.text = [self.tribeDetailInfo objectForKey:@"creatername"];
         }
@@ -163,17 +166,20 @@
 //            title.backgroundColor = [UIColor greenColor];
             [cell.contentView addSubview:title];
             
+
             UILabel *titleValue = [self addLabelWithFrame:CGRectMake(title.right, (cell.height - 30)/2.0, 160, 30)
                                                 text:@""
                                                color:[UIColor blackColor]
                                                 font:[UIFont systemFontOfSize:14]];
             titleValue.tag = 201;
+
 //            titleValue.backgroundColor = [UIColor greenColor];
             [cell.contentView addSubview:titleValue];
         }
         UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:200];
         titleLabel.text = [_items objectAtIndex:indexPath.row];
         UILabel *titleValue = (UILabel *)[cell.contentView viewWithTag:201];
+
         titleValue.text = @"test";
         if (self.tribeDetailInfo) {
             switch (indexPath.row) {
@@ -190,6 +196,7 @@
                     titleValue.text = [self.tribeDetailInfo objectForKey:@"district"];
                 }
                     break;
+
                 case 4:{//介绍
                     titleValue.text = [self.tribeDetailInfo objectForKey:@"desc"];
                 }
@@ -204,7 +211,6 @@
                     break;
             }
         }
-        
         return cell;
     }
 }

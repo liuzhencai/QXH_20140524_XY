@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) NSArray *items;
+
 @property (nonatomic, strong) NSDictionary *userDetailInfo;//用户详细信息
 @end
 #define WIDTH_TO_LEFT 15
@@ -61,6 +62,7 @@
 }
 
 - (void)getUserInfo{
+
     if (self.memberDict) {
         [DataInterface getUserInfo:[self.memberDict objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"获取用户信息返回值：%@",dict);
@@ -134,6 +136,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
         }
+
         if (self.userDetailInfo) {
             [cell resetCellParamDict:self.userDetailInfo];
         }
@@ -215,6 +218,7 @@
          *  @param remark   备注
          *  @param callback 回调
          */
+
         
 //        [DataInterface addFriendConfirm:@"100013" type:@"0" remark:@"照站" withCompletionHandler:^(NSMutableDictionary *dict){
 //            NSLog(@"加为好友返回值：%@",dict);

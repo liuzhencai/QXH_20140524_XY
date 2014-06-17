@@ -69,6 +69,7 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
+
     NSString *imageUrlStr = [params objectForKey:@"photo"];
     [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *nameStr = [params objectForKey:@"displayname"];

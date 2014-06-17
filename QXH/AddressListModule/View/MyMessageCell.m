@@ -35,7 +35,7 @@
         _duty.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_duty];
         
-        _date = [[UILabel alloc] initWithFrame:CGRectMake(_name.right + 10, (height - 2 * lableHeight)/2.0, 80, lableHeight)];
+        _date = [[UILabel alloc] initWithFrame:CGRectMake(_name.right + 10, (height - 2 * lableHeight)/2.0, 100, lableHeight)];
         _date.textAlignment = NSTextAlignmentRight;
         _date.text = @"2014-05-19";
         _date.backgroundColor = [UIColor clearColor];
@@ -59,9 +59,10 @@
     CGFloat lableHeight = 25;
     
     _headImgView.frame = CGRectMake(10, (height - 48)/2.0, 48, 48);
-    _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 120, lableHeight);
+    _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
+
     _date.frame = CGRectMake(_name.right - 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
 }
 
@@ -74,6 +75,7 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
+
     NSString *imageUrlString = [params objectForKey:@"photo"];
     [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *nameString = [params objectForKey:@"displayname"];

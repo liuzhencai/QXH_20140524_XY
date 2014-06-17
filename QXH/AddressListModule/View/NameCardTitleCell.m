@@ -55,7 +55,7 @@
         [self.contentView addSubview:_email];
         
         _addFriend = [UIButton buttonWithType:UIButtonTypeCustom];
-        _addFriend.frame = CGRectMake(20, 0 + 10, 130, 44);
+        _addFriend.frame = CGRectMake(20, 0 + 10, 130 * 2 + 20, 44);
         [_addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
         [_addFriend setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         UIImage *headImageNormal = [UIImage imageNamed:@"btn_enroll_normal"];
@@ -71,7 +71,6 @@
 //        _forwardCard.frame = CGRectMake(self.width - 20 - 130, 0 + 10, 130, 44);
 //        [_forwardCard setTitle:@"转发名片" forState:UIControlStateNormal];
 //        [_forwardCard setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _forwardCard.height = YES;
 //        [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_normal"] forState:UIControlStateNormal];
 //        [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_highlight"] forState:UIControlStateHighlighted];
 //        [_forwardCard addTarget:self action:@selector(buttonActionxx:) forControlEvents:UIControlEventTouchUpInside];
@@ -82,6 +81,7 @@
         _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
         _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
         _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
+
         _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10 + 5, btnWidth * 2 + 20, btnHight - 10);
 //        _forwardCard.frame = CGRectMake(self.width - widthToLeft - btnWidth, _email.bottom + 10, btnWidth, btnHight);
     }
