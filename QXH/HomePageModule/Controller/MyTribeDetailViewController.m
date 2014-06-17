@@ -369,13 +369,14 @@
             }
             if (self.isCreatDetail) {
 //                _count.placeholder = @"输入成员数";
-                _count.text = [NSString stringWithFormat:@"%d",[self.numbers count]];
+                _count.text = [NSString stringWithFormat:@"%d",[self.membersArray count]];
 //                _count.enabled = YES;
-            }else{
-                NSInteger nowCount = [[self.tribeDetailDict objectForKey:@"nowcount"] integerValue];
-                _count.text = [NSString stringWithFormat:@"%d",nowCount];
-
             }
+//            else{
+//                NSInteger nowCount = [[self.tribeDetailDict objectForKey:@"nowcount"] integerValue];
+//                _count.text = [NSString stringWithFormat:@"%d",nowCount];
+//
+//            }
             [cell.contentView addSubview:_count];
         }
             break;

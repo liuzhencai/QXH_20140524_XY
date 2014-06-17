@@ -81,6 +81,36 @@
             endingLineNumber = "172"
             landmarkName = "-exitTribe:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MyTribeDetailViewController exitTribe:]"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/HomePageModule/Controller/MyTribeDetailViewController.m"
+                  timestampString = "424711516.053592"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "2246">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MyTribeDetailViewController exitTribe:]"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/HomePageModule/Controller/MyTribeDetailViewController.m"
+                  timestampString = "424711516.053781"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "2394">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
