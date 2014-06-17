@@ -51,12 +51,12 @@
     // Do any additional setup after loading the view.
     
     //测试数据
-    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < 20; i ++) {
-        [tmpArr addObject:@{@"":@""}];
-    }
-    self.activitysList = [NSMutableArray arrayWithArray:tmpArr];
-//    self.membersList = [NSMutableArray arrayWithArray:tmpArr];
+//    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+//    for (int i = 0; i < 20; i ++) {
+//        [tmpArr addObject:@{@"":@""}];
+//    }
+//    self.activitysList = [NSArray arrayWithArray:tmpArr];
+//    self.membersList = [NSArray arrayWithArray:tmpArr];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 80, 40);
@@ -90,7 +90,7 @@
     conversationTable.dataSource = self;
     [self.view addSubview:conversationTable];
     //获取部落信息
-//    [self getTribeInfo];
+    [self getTribeInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,17 +115,57 @@
     }
 }
 
+- (void)getActivityListInTribe{
+    //获取活动列表
+    /**
+     *  获取/搜索活动列表(列表按创建时间的逆序排列)
+     *
+     *  @param start     起始消息的artid，不填写该字段读取最新消息n个
+     *  @param count     获取消息数量
+     *  @param actname   活动名称
+     *  @param tag       标签
+     *  @param district  地域信息
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param begindate 活动起始时间
+     *  @param enddate   活动结束时间
+     *  @param callback  回调
+     */
+    if (self.tribeInfoDict) {
+        [DataInterface getActList:@"0"
+                            count:@"20"
+                          actname:@""
+                    contentlength:@"30"
+                              tag:@""
+                         district:@""
+                          canjoin:@"0"
+                         actstate:@"0"
+                          tribeid:[self.tribeInfoDict objectForKey:@"tribeid"]
+                        begindate:@""
+                          enddate:@""
+            withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"活动列表返回数据:%@",dict);
+                NSArray *list = [dict objectForKey:@"list"];
+                self.activitysList = [NSMutableArray arrayWithArray:list];
+                UITableView *table = (UITableView *)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+                [table reloadData];
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
+    }
+}
+
 - (void)detail:(UIButton *)sender{
     NSLog(@"详细资料");
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
-    myTribeDetail.tribeDict = self.tribeInfoDict;
     [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 
 #pragma mark - CustomSegmentControlDelegate
 - (void)segmentClicked:(NSInteger)index{
     NSLog(@"segment clicked:%d",index);
-    if (index == 2) {
+    if (index == 1) {
+        [self getActivityListInTribe];
+    }else if (index == 2) {
         if (self.tribeInfoDict) {
             /**
              *  获取部落成员列表
@@ -136,12 +176,6 @@
             NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
             [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
                 NSLog(@"获取部落成员列表返回值:%@",dict);
-                if (dict) {
-                    NSArray *list = [dict objectForKey:@"list"];
-                    self.membersList = [NSMutableArray arrayWithArray:list];
-                    UITableView *table = (UITableView *)[self.view viewWithTag:NEMBERS_TABLE_TAG];
-                    [table reloadData];
-                }
                 [self showAlert:[dict objectForKey:@"info"]];
             }];
         }

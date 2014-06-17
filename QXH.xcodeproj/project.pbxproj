@@ -335,6 +335,7 @@
 		88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ED01935DB3C00D60193 /* InActivityCell.m */; };
 		88C12280194069AA0000533E /* SquareActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C1227E194069AA0000533E /* SquareActivityCell.m */; };
 		88C12281194069AA0000533E /* SquareActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C1227F194069AA0000533E /* SquareActivityCell.xib */; };
+		88C23E6D1950275500CBBD15 /* ActivityDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C23E6C1950275500CBBD15 /* ActivityDetailCell.m */; };
 		88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F2319341DF000734AE1 /* TribeInfoModel.m */; };
 		88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F26193425C300734AE1 /* MemberInfoModel.m */; };
 		88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EE4F69193433B000734AE1 /* ActivityInfoModel.m */; };
@@ -844,6 +845,8 @@
 		88C1227D194069AA0000533E /* SquareActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareActivityCell.h; sourceTree = "<group>"; };
 		88C1227E194069AA0000533E /* SquareActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareActivityCell.m; sourceTree = "<group>"; };
 		88C1227F194069AA0000533E /* SquareActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareActivityCell.xib; sourceTree = "<group>"; };
+		88C23E6B1950275500CBBD15 /* ActivityDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailCell.h; sourceTree = "<group>"; };
+		88C23E6C1950275500CBBD15 /* ActivityDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailCell.m; sourceTree = "<group>"; };
 		88EE4F2219341DF000734AE1 /* TribeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeInfoModel.h; sourceTree = SOURCE_ROOT; };
 		88EE4F2319341DF000734AE1 /* TribeInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeInfoModel.m; sourceTree = SOURCE_ROOT; };
 		88EE4F25193425C300734AE1 /* MemberInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1337,6 +1340,8 @@
 				5869D8751943156C00401862 /* MultSelectPeopleCell.m */,
 				5869D87A1944B3F800401862 /* OnLiveCell.h */,
 				5869D87B1944B3F800401862 /* OnLiveCell.m */,
+				88C23E6B1950275500CBBD15 /* ActivityDetailCell.h */,
+				88C23E6C1950275500CBBD15 /* ActivityDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2161,6 +2166,7 @@
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
 				21096A86193616270089286C /* GTMBase64.m in Sources */,
 				21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */,
+				88C23E6D1950275500CBBD15 /* ActivityDetailCell.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
 				21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
@@ -2352,7 +2358,6 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
 				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2377,7 +2382,6 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
 				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
