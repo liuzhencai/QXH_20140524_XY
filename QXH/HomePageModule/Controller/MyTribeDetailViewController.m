@@ -10,6 +10,7 @@
 #import "AddressListViewController.h"
 #import "YSKeyboardTableView.h"
 #import "UIButton+WebCache.h"
+#import "AddOrDeleteMemberViewController.h"
 
 @interface MyTribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic, strong) YSKeyboardTableView *mainTable;
@@ -52,7 +53,7 @@
     self.title = @"详细资料";
     // Do any additional setup after loading the view.
     
-    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员",@"清空聊天记录"];
+    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"",@"清空缓存"];
     if (self.isCreatDetail) {
         self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员"];
     }
@@ -399,25 +400,35 @@
         }
             break;
         case 8:{//当前成员数
-            if (!_count) {
-                _count = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
-                                         placeHolder:@""];
-                _count.tag = 201;
-                _count.enabled = NO;
-                
-            }
             if (self.isCreatDetail) {
+                if (!_count) {
+                    _count = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)
+                                             placeHolder:@""];
+                    _count.tag = 201;
+                    _count.enabled = NO;
+                }
                 _count.text = [NSString stringWithFormat:@"%d",[self.membersArray count]];
+                [cell.contentView addSubview:_count];
             }else{
-                NSInteger nowCount = [[self.tribeDetailDict objectForKey:@"nowcount"] integerValue];
-                _count.text = [NSString stringWithFormat:@"%d",nowCount];
+                for (int i = 0; i < 2; i ++) {
+                    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                    button.frame = CGRectMake(20 + (130 + 20) * i, 7, 130, 30);
+                    [button addTarget:self action:@selector(addOrDeleteMembers:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    button.tag = 880 + i;
+                    if (i == 0) {
+                        [button setTitle:@"添加成员" forState:UIControlStateNormal];
+                        [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateNormal];
+                        [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
+                    }else{
+                        [button setTitle:@"删除成员" forState:UIControlStateNormal];
+                        [button setBackgroundImage:[self stretchiOS6:@"btn_share_normal.png"] forState:UIControlStateNormal];
+                        [button setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
+                    }
+                    [cell.contentView addSubview:button];
+                }
             }
-//            else{
-//                NSInteger nowCount = [[self.tribeDetailDict objectForKey:@"nowcount"] integerValue];
-//                _count.text = [NSString stringWithFormat:@"%d",nowCount];
-//
-//            }
-            [cell.contentView addSubview:_count];
+            
         }
             break;
             
@@ -448,11 +459,28 @@
             [self.navigationController pushViewController:addressList animated:YES];
         }
     }else{
-        if (indexPath.row == 9) {
-            NSLog(@"清空聊天记录");
-            [self showAlert:@"聊天记录已清空"];
+        if (indexPath.row == 8) {
+            
+        }else if (indexPath.row == 9) {
+            NSLog(@"清空缓存");
+            [self showAlert:@"缓存已清空"];
         }
     }
+}
+
+- (void)addOrDeleteMembers:(UIButton *)sender{
+    NSLog(@"添加或删除成员");
+    int index = sender.tag - 880;
+    AddOrDeleteMemberViewController *addMemberCon = [[AddOrDeleteMemberViewController alloc] init];
+    addMemberCon.tribeDict = self.tribeDict;
+    if (index == 0) {//添加成员
+        addMemberCon.type = addTribeMemberType;
+        addMemberCon.title = @"添加成员";
+    }else{//删除成员
+        addMemberCon.type = deleteTribeMemberType;
+        addMemberCon.title = @"删除成员";
+    }
+    [self.navigationController pushViewController:addMemberCon animated:YES];
 }
 
 - (void)newsSwitchAction:(UISwitch *)newsSwitch{
@@ -595,5 +623,18 @@
             break;
     }
 }
+
+- (UIImage *) stretchiOS6:(NSString *)icon {
+    UIImage *image = [UIImage imageNamed:icon];
+    CGFloat normalLeftCap = image.size.width * 0.5f;
+    CGFloat normalTopCap = image.size.height * 0.5f;
+    // 13 * 34
+    // 指定不需要拉伸的区域
+    UIEdgeInsets insets = UIEdgeInsetsMake(normalTopCap, normalLeftCap, normalTopCap - 1, normalLeftCap - 1);
+    
+    // ios6.0的拉伸方式只不过比iOS5.0多了一个拉伸模式参数
+    return [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeTile];
+}
+
 
 @end

@@ -238,6 +238,7 @@
 		21EDAD521926F68100C616CF /* MemberRuleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD501926F68100C616CF /* MemberRuleController.xib */; };
 		21EDAD561926F69500C616CF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD541926F69500C616CF /* SettingViewController.m */; };
 		21EDAD571926F69500C616CF /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD551926F69500C616CF /* SettingViewController.xib */; };
+		58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */; };
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
@@ -701,6 +702,8 @@
 		21EDAD531926F69500C616CF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		21EDAD541926F69500C616CF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		21EDAD551926F69500C616CF /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrDeleteMemberViewController.h; sourceTree = "<group>"; };
+		58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrDeleteMemberViewController.m; sourceTree = "<group>"; };
 		58163D9919323838001B60FE /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
 		5869D8741943156C00401862 /* MultSelectPeopleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultSelectPeopleCell.h; sourceTree = "<group>"; };
 		5869D8751943156C00401862 /* MultSelectPeopleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultSelectPeopleCell.m; sourceTree = "<group>"; };
@@ -1791,6 +1794,8 @@
 				8484269B192E0D0100C9474A /* TribeDetailViewController.m */,
 				8484269C192E0D0100C9474A /* TribeDynamicViewController.h */,
 				8484269D192E0D0100C9474A /* TribeDynamicViewController.m */,
+				58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */,
+				58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */,
 			);
 			name = Tribe;
 			sourceTree = "<group>";
@@ -2143,6 +2148,7 @@
 				2119EEFA191682EC007DBE68 /* NSData+GIF.m in Sources */,
 				212F23B51928DF4D00F738F8 /* InformationCell.m in Sources */,
 				212F23B31928DF4D00F738F8 /* InformationViewController.m in Sources */,
+				58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */,
 				2192EC0A191BD73700A8FE7F /* CityViewController.m in Sources */,
 				2119EEFE191682EC007DBE68 /* SDWebImageDownloader.m in Sources */,
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
