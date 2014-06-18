@@ -10,7 +10,9 @@
 #import "TribeDynamicViewController.h"
 
 @interface MyTribeController ()
-
+{
+    NSMutableArray *mytribes;
+}
 @end
 
 @implementation MyTribeController
@@ -18,7 +20,8 @@
 - (void)getMyTribeList
 {
     [DataInterface requestTribeList:@"1" tribename:@"" authflag:@"0" tribetype:@"1" tag:@"" district:@"" start:@"10" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        [self showAlert:[dict description]];
+//        [self showAlert:[dict description]];
+        mytribes = [ModelGenerator json2TribeList:dict];
     }];
 }
 
@@ -48,7 +51,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [mytribes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,6 +61,8 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyTribeCell" owner:nil options:nil] objectAtIndex:0];
     }
+    MyTribeModel *model = [mytribes objectAtIndex:indexPath.row];
+    [(MyTribeCell *)cell setModel:model];
     return cell;
 }
 

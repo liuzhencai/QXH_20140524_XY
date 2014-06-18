@@ -181,6 +181,9 @@
 		21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8941319290BFE00A6DB7E /* InformationDetailController.m */; };
 		21A8941619290BFE00A6DB7E /* InformationDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8941419290BFE00A6DB7E /* InformationDetailController.xib */; };
 		21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B793BF1921135A0033AFC3 /* HttpRequest.m */; };
+		21C6D6081950867400467717 /* RecInformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6D6061950867400467717 /* RecInformationCell.m */; };
+		21C6D6091950867400467717 /* RecInformationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C6D6071950867400467717 /* RecInformationCell.xib */; };
+		21C6D60C19508E1B00467717 /* MyTribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6D60B19508E1B00467717 /* MyTribeModel.m */; };
 		21D6ADE5193CB6190018109F /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D6ADE4193CB6190018109F /* InfoModel.m */; };
 		21D6ADE8193CBCFC0018109F /* InfoDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D6ADE7193CBCFC0018109F /* InfoDetailModel.m */; };
 		21D7057F19169169004950BF /* PersonalInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D7057D19169169004950BF /* PersonalInfoController.m */; };
@@ -602,6 +605,11 @@
 		21B793BF1921135A0033AFC3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequest.m; sourceTree = "<group>"; };
 		21BAC27D19308B3300409B9B /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
 		21BAC27F19308B3300409B9B /* TabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarControl.h; sourceTree = "<group>"; };
+		21C6D6051950867400467717 /* RecInformationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecInformationCell.h; sourceTree = "<group>"; };
+		21C6D6061950867400467717 /* RecInformationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecInformationCell.m; sourceTree = "<group>"; };
+		21C6D6071950867400467717 /* RecInformationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecInformationCell.xib; sourceTree = "<group>"; };
+		21C6D60A19508E1B00467717 /* MyTribeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTribeModel.h; sourceTree = "<group>"; };
+		21C6D60B19508E1B00467717 /* MyTribeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTribeModel.m; sourceTree = "<group>"; };
 		21D6ADE3193CB6190018109F /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
 		21D6ADE4193CB6190018109F /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
 		21D6ADE6193CBCFC0018109F /* InfoDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDetailModel.h; sourceTree = "<group>"; };
@@ -1204,6 +1212,8 @@
 				2166CDF31933970500F0312E /* UserInfoModel.m */,
 				845D44961947425B0041445D /* UserInfoModelManger.h */,
 				845D44971947425B0041445D /* UserInfoModelManger.m */,
+				21C6D60A19508E1B00467717 /* MyTribeModel.h */,
+				21C6D60B19508E1B00467717 /* MyTribeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1465,6 +1475,9 @@
 				212F23B01928DF4D00F738F8 /* InformationCell.h */,
 				212F23B11928DF4D00F738F8 /* InformationCell.m */,
 				212F23B21928DF4D00F738F8 /* InformationCell.xib */,
+				21C6D6051950867400467717 /* RecInformationCell.h */,
+				21C6D6061950867400467717 /* RecInformationCell.m */,
+				21C6D6071950867400467717 /* RecInformationCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1900,6 +1913,7 @@
 				212F24561928E09A00F738F8 /* top_bar@2x.png in Resources */,
 				212F241D1928E09A00F738F8 /* label_blue@2x.png in Resources */,
 				848426E6192E185B00C9474A /* Thumbs.db in Resources */,
+				21C6D6091950867400467717 /* RecInformationCell.xib in Resources */,
 				2192EC15191BD7A400A8FE7F /* SelfIntroduceController.xib in Resources */,
 				21A8941619290BFE00A6DB7E /* InformationDetailController.xib in Resources */,
 				21D7059919169674004950BF /* EverydayAskController.xib in Resources */,
@@ -2075,6 +2089,7 @@
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
 				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
 				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
+				21C6D60C19508E1B00467717 /* MyTribeModel.m in Sources */,
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
@@ -2106,6 +2121,7 @@
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
 				21096A8919361B050089286C /* Base64.m in Sources */,
+				21C6D6081950867400467717 /* RecInformationCell.m in Sources */,
 				2166CDF619339A3400F0312E /* TabBarControl.m in Sources */,
 				212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */,
 				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,

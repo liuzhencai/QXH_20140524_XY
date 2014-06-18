@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyTribeCell.h"
 
 @interface MyTribeController : MyViewController<UITableViewDelegate, UITableViewDataSource>
 

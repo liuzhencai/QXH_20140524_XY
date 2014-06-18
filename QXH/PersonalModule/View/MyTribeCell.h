@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyTribeModel.h"
 
 @interface MyTribeCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
+@property (weak, nonatomic) IBOutlet UILabel *tribeNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *creator;
+- (void)setModel:(MyTribeModel *)model;
 @end
