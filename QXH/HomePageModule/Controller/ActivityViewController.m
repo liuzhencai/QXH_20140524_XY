@@ -92,6 +92,7 @@
      *  @param start     起始消息的artid，不填写该字段读取最新消息n个
      *  @param count     获取消息数量
      *  @param actname   活动名称
+     *  @contentlength:30,		//活动描述的长度
      *  @param tag       标签
      *  @param district  地域信息
      *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
@@ -109,7 +110,7 @@
                      district:@""
                       canjoin:@"0"
                      actstate:status
-                      tribeid:@""
+                      tribeid:@"0"
                     begindate:@""
                       enddate:@""
         withCompletionHandler:^(NSMutableDictionary *dict){

@@ -157,6 +157,7 @@
 - (void)detail:(UIButton *)sender{
     NSLog(@"详细资料");
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
+    myTribeDetail.tribeDict = self.tribeInfoDict;
     [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 

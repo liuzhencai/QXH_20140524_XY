@@ -237,12 +237,8 @@
         bgView.image = [UIImage imageNamed:@"bar_transition"];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-
-        NSDictionary *dict = [self.addressList objectAtIndex:section];
-        NSString *titleStr = [dict objectForKey:@"name"];
-
-        title.text = titleStr;
         title.backgroundColor = [UIColor clearColor];
+    
         NSDictionary *dict = nil;
         if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
             dict = [self.addressList objectAtIndex:section];

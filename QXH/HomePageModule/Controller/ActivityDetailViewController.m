@@ -155,13 +155,15 @@
                 titleLabel.text = @"活动介绍";
                 [titleImgView addSubview:titleLabel];
                 
-                UITextView *actContentView = [[UITextView alloc] initWithFrame:CGRectMake(1, 29, 298, 80)];
+                UITextView *actContentView = [[UITextView alloc] initWithFrame:CGRectMake(bgImage.left + 10, titleLabel.bottom + 5, bgImage.width - 20, 80)];
+                NSLog(@"frame:%@",NSStringFromCGRect(actContentView.frame));
                 actContentView.tag = 220;
+                actContentView.backgroundColor = [UIColor clearColor];
                 actContentView.text = @"";
                 actContentView.editable = NO;
-                [bgImage addSubview:actContentView];
+                [dataCell.contentView addSubview:actContentView];
             }
-            UITextView *actContentView = (UITextView *)[cell.contentView viewWithTag:220];
+            UITextView *actContentView = (UITextView *)[dataCell.contentView viewWithTag:220];
             if (self.activityDict) {
                 actContentView.text = [self.activityDict objectForKey:@"desc"];
             }
