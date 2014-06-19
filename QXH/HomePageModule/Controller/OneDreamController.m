@@ -106,9 +106,9 @@
 {
     if (!_chatController)
         _chatController = [ChatController new];
-    _chatController.delegate = self;
-    _chatController.opponentImg = [UIImage imageNamed:@"tempUser.png"];
-    _chatController.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
+//    _chatController.delegate = self;
+//    _chatController.opponentImg = [UIImage imageNamed:@"tempUser.png"];
+//    _chatController.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
     _chatController.chatTitle = @"张三";
     [self.navigationController pushViewController:_chatController animated:YES];
 }

@@ -17,6 +17,7 @@
 #import "TopBar.h"
 #import "ChatInput.h"
 #import "MessageCell.h"
+#import "CustomSegmentControl.h"
 
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;
@@ -26,24 +27,41 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
 
 @class ChatController;
 
-@protocol ChatControllerDelegate
+//@protocol ChatControllerDelegate
+//
+///*!
+// User has sent a new message
+// */
+//@required - (void) chatController:(ChatController *)chatController didSendMessage:(NSMutableDictionary *)message;
+//
+///*!
+// Close Chat Controller - Will Dismiss If Nothing Selected
+// */
+//@optional - (void) closeChatController:(ChatController *)chatController;
 
-/*!
- User has sent a new message
+//@end
+
+@interface ChatController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate>
+
+
+//@property (retain, nonatomic) id<ChatControllerDelegate>delegate;
+
+
+/*改造方法
+ 设置我的头像
  */
-@required - (void) chatController:(ChatController *)chatController didSendMessage:(NSMutableDictionary *)message;
 
-/*!
- Close Chat Controller - Will Dismiss If Nothing Selected
- */
-@optional - (void) closeChatController:(ChatController *)chatController;
+- (void)addMyHeadImage:(UIImage*)aimage;
+- (void)addOHeadImage:(UIImage*)aimage;
 
-@end
+@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
+@property (nonatomic, strong) NSMutableArray *membersList;//成员列表
+@property (nonatomic, strong) NSDictionary *tribeInfoDict;//部落信息
 
-@interface ChatController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate>
-
-@property (retain, nonatomic) id<ChatControllerDelegate>delegate;
-
+//@property (nonatomic, strong) UIView *chatview;//部落信息
+@property (nonatomic, strong) UIView *askView;//每日一问
+/*设置聊天室标题*/
+//- (void) setChatTitle:(NSString *)chatTitle;
 #pragma mark PROPERTIES
 
 /*!
@@ -101,11 +119,11 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
 /*!
  Notify UI that user is: Offline
  */
-- (void) isOffline;
+//- (void) isOffline;
 /*!
  Notify UI that user is: Online
  */
-- (void) isOnline;
+//- (void) isOnline;
 
 @property (nonatomic, strong) UIView *topCustomView;
 

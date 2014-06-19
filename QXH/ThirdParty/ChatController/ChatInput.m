@@ -205,7 +205,7 @@
         // start - finishes autocorrects
         _shouldIgnoreKeyboardNotifications = YES;
         [_textView endEditing:YES];
-        [_textView setKeyboardType:UIKeyboardTypeAlphabet];
+        [_textView setKeyboardType:UIKeyboardTypeDefault];
         [_textView becomeFirstResponder];
         _shouldIgnoreKeyboardNotifications = NO; // implemented lower?
         // end - finishes autocorrects

@@ -153,16 +153,6 @@ static int minimumHeight = 30;
 //设置显示对方头像
 - (void) setOpponentImage:(UIImage *)opponentImage {
 
-//    if (_sentBy == kSentByUser || !_imageView.image) {
-//        // If sentby current user, or no image, hide imageView;
-//        _imageView.image = nil;
-//        _imageView.hidden = YES;
-//    }
-//    else {
-//  
-//        _imageView.hidden = NO;
-//    }
-    
     _imageView.image = opponentImage;
 }
 
@@ -209,6 +199,8 @@ static int minimumHeight = 30;
     //liuzhencai 如果显示是图片
     if (_message[kPicContent])
     {
+        _textLabel.hidden =YES;
+        _bgLabel.hidden = YES;
         picImageView.image = [UIImage imageNamed:_message[kPicContent]];
    
         picImageView.hidden = NO;
@@ -228,6 +220,8 @@ static int minimumHeight = 30;
   
     }else{
         picImageView.hidden = YES;
+        _textLabel.hidden =NO;
+        _bgLabel.hidden = NO;
         _textSize = [_message[kMessageSize] CGSizeValue];
         _textLabel.text = _message[kMessageContent];
        
@@ -273,5 +267,6 @@ static int minimumHeight = 30;
     // Get Our Stuff
   
 }
+
 
 @end

@@ -311,6 +311,8 @@
 		848426F0192E185B00C9474A /* square_share_icon_img_+@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848426D3192E185B00C9474A /* square_share_icon_img_+@2x.png */; };
 		84AB9247192B36770000101A /* fanfan.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9246192B36770000101A /* fanfan.jpeg */; };
 		84AB9249192B3FD80000101A /* cityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9248192B3FD80000101A /* cityList.plist */; };
+		84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EED57919527E4100414085 /* chatRoomActivViewController.m */; };
+		84EED57F1952CCC600414085 /* chatRoomMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EED57E1952CCC600414085 /* chatRoomMemberViewController.m */; };
 		84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */; };
 		84F065EA192AFACD00B09AB5 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065E0192AFACD00B09AB5 /* ActivityViewController.m */; };
 		84F065EB192AFACD00B09AB5 /* FilterTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065E2192AFACD00B09AB5 /* FilterTimeViewController.m */; };
@@ -806,6 +808,10 @@
 		848426F4192E1A7000C9474A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		84AB9246192B36770000101A /* fanfan.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fanfan.jpeg; sourceTree = "<group>"; };
 		84AB9248192B3FD80000101A /* cityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityList.plist; sourceTree = "<group>"; };
+		84EED57819527E4100414085 /* chatRoomActivViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chatRoomActivViewController.h; sourceTree = "<group>"; };
+		84EED57919527E4100414085 /* chatRoomActivViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chatRoomActivViewController.m; sourceTree = "<group>"; };
+		84EED57D1952CCC600414085 /* chatRoomMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chatRoomMemberViewController.h; sourceTree = "<group>"; };
+		84EED57E1952CCC600414085 /* chatRoomMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chatRoomMemberViewController.m; sourceTree = "<group>"; };
 		84F065DD192AFACD00B09AB5 /* ActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailViewController.h; sourceTree = "<group>"; };
 		84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailViewController.m; sourceTree = "<group>"; };
 		84F065DF192AFACD00B09AB5 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
@@ -1760,6 +1766,10 @@
 				84F06606192B2F1100B09AB5 /* tempUser.png */,
 				84F06607192B2F1100B09AB5 /* TopBar.h */,
 				84F06608192B2F1100B09AB5 /* TopBar.m */,
+				84EED57819527E4100414085 /* chatRoomActivViewController.h */,
+				84EED57919527E4100414085 /* chatRoomActivViewController.m */,
+				84EED57D1952CCC600414085 /* chatRoomMemberViewController.h */,
+				84EED57E1952CCC600414085 /* chatRoomMemberViewController.m */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -2106,6 +2116,7 @@
 				84F06610192B2F1100B09AB5 /* TopBar.m in Sources */,
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
+				84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */,
 				84FCA856192CC43F0005295A /* HistoryReviewController.m in Sources */,
 				58B87177192F78FB00EB730D /* ShareView.m in Sources */,
 				842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */,
@@ -2246,6 +2257,7 @@
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
 				58B1DEBA192BA9DF00086C38 /* CreatTribeViewController.m in Sources */,
 				84F065F9192AFB4800B09AB5 /* CityCell.m in Sources */,
+				84EED57F1952CCC600414085 /* chatRoomMemberViewController.m in Sources */,
 				84FCA860192CC45F0005295A /* SquareCellEx.m in Sources */,
 				21DA12D71936303F001EDEB1 /* DDAbstractDatabaseLogger.m in Sources */,
 				21EDAD3E1926F3C500C616CF /* EditCardController.m in Sources */,
