@@ -57,6 +57,7 @@
         _addFriend = [UIButton buttonWithType:UIButtonTypeCustom];
         _addFriend.frame = CGRectMake(20, 0 + 10, 130, 30);
         [_addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
+        _addFriend.titleLabel.font = [UIFont systemFontOfSize:16];
         [_addFriend setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         UIImage *headImageNormal = [UIImage imageNamed:@"btn_enroll_normal"];
         headImageNormal = [headImageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
@@ -69,7 +70,8 @@
         
         _forwardCard = [UIButton buttonWithType:UIButtonTypeCustom];
         _forwardCard.frame = CGRectMake(self.width - 20 - 130, 0 + 10, 130, 44);
-        [_forwardCard setTitle:@"拒绝加为好友" forState:UIControlStateNormal];
+        [_forwardCard setTitle:@"拒绝" forState:UIControlStateNormal];
+        _forwardCard.titleLabel.font = [UIFont systemFontOfSize:16];
         [_forwardCard setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _forwardCard.hidden = YES;
         [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_normal"] forState:UIControlStateNormal];
@@ -92,7 +94,7 @@
 - (void)setIsMyFriend:(BOOL)isMyFriend{
     if (isMyFriend) {
         _addFriend.frame = CGRectMake(20, _addFriend.top, 130, 30);
-        [_addFriend setTitle:@"同意添加为好友" forState:UIControlStateNormal];
+        [_addFriend setTitle:@"同意加为好友" forState:UIControlStateNormal];
         _forwardCard.frame = CGRectMake(_addFriend.right + 20, _addFriend.top, 130, 30);
         _forwardCard.hidden = NO;
         

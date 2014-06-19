@@ -260,6 +260,7 @@
 		58B87177192F78FB00EB730D /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87176192F78FB00EB730D /* ShareView.m */; };
 		58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87179192FA57100EB730D /* TribeQuestionCell.m */; };
 		58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B8717C192FABF100EB730D /* TribeConversationCell.m */; };
+		58E08D0719532549000C25AE /* AddFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E08D0619532549000C25AE /* AddFriendView.m */; };
 		8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8405E55E193057D900276964 /* InformationCommentCell.xib */; };
 		8405E562193057E600276964 /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E561193057E600276964 /* InformationCommentCell.m */; };
 		842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C83192AF7F100374F04 /* AddressListViewController.m */; };
@@ -743,6 +744,8 @@
 		58B87179192FA57100EB730D /* TribeQuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeQuestionCell.m; sourceTree = "<group>"; };
 		58B8717B192FABF100EB730D /* TribeConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeConversationCell.h; sourceTree = "<group>"; };
 		58B8717C192FABF100EB730D /* TribeConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeConversationCell.m; sourceTree = "<group>"; };
+		58E08D0519532549000C25AE /* AddFriendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendView.h; sourceTree = "<group>"; };
+		58E08D0619532549000C25AE /* AddFriendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendView.m; sourceTree = "<group>"; };
 		8405E55E193057D900276964 /* InformationCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentCell.xib; sourceTree = "<group>"; };
 		8405E560193057E600276964 /* InformationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentCell.h; sourceTree = "<group>"; };
 		8405E561193057E600276964 /* InformationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentCell.m; sourceTree = "<group>"; };
@@ -1423,6 +1426,8 @@
 				21401DB01919326B00E9175B /* MyMsgCell.xib */,
 				58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */,
 				58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */,
+				58E08D0519532549000C25AE /* AddFriendView.h */,
+				58E08D0619532549000C25AE /* AddFriendView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2208,6 +2213,7 @@
 				88C23E6D1950275500CBBD15 /* ActivityDetailCell.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
 				21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */,
+				58E08D0719532549000C25AE /* AddFriendView.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
 				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
