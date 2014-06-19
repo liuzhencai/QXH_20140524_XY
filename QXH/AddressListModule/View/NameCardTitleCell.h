@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UILabel *email;//邮箱
 @property (nonatomic, strong) UIButton *addFriend;//加为好友
 @property (nonatomic, strong) UIButton *forwardCard;//转发名片
-
+@property (nonatomic, assign) BOOL isMyFriend;//我的好友
 @property (nonatomic, assign) id delegate;
 
 - (void)resetCellParamDict:(id)objt;
