@@ -11,6 +11,9 @@
 #import "NameCardViewController.h"
 
 @interface MyVisitorController ()
+{
+    NSMutableArray *vistors;
+}
 
 @end
 
@@ -19,7 +22,9 @@
 - (void)getVisitorList
 {
     [DataInterface getVisitorList:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-        [self showAlert:[dict description]];
+//        [self showAlert:[dict description]];
+        vistors = [ModelGenerator json2VistorList:dict];
+        [_vistorTbl reloadData];
     }];
 }
 
@@ -48,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [vistors count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,6 +63,8 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"MyVisitorCell" owner:nil options:nil] objectAtIndex:0];
     }
+    VistorModel *model = [vistors objectAtIndex:indexPath.row];
+    [(MyVisitorCell *)cell setVistor:model];
     return cell;
 }
 

@@ -110,4 +110,24 @@
     return array;
 }
 
++ (NSMutableArray *)json2VistorList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        VistorModel *model = [[VistorModel alloc] init];
+        model.userid =  [list[i] objectForKey:@"userid"];
+        model.username =  [list[i] objectForKey:@"username"];
+        model.photo =  [list[i] objectForKey:@"photo"];
+        model.displayname =  [list[i] objectForKey:@"displayname"];
+        model.signature =  [list[i] objectForKey:@"signature"];
+        model.remark =  [list[i] objectForKey:@"remark"];
+        model.usertype =  [list[i] objectForKey:@"usertype"];
+        model.level =  [list[i] objectForKey:@"level"];
+        model.date = [list[i] objectForKey:@"date"];
+        [array addObject:model];
+    }
+    return array;
+}
+
 @end

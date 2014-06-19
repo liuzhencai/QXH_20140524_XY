@@ -70,6 +70,7 @@
 		2119EF2E191689DD007DBE68 /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119EF2C191689DD007DBE68 /* ActivityCell.m */; };
 		2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF2D191689DD007DBE68 /* ActivityCell.xib */; };
 		2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119F287194355C800250DB6 /* libWeChatSDK.a */; };
+		2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121C8E8195326A900FFEAE5 /* VistorModel.m */; };
 		212F23A11928DF2500F738F8 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A01928DF2500F738F8 /* MyViewController.m */; };
 		212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A41928DF2C00F738F8 /* ClassificationControll.m */; };
 		212F23A91928DF2C00F738F8 /* MyNavgationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A71928DF2C00F738F8 /* MyNavgationBar.m */; };
@@ -469,6 +470,8 @@
 		2119EF2C191689DD007DBE68 /* ActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		2119EF2D191689DD007DBE68 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
 		2119F287194355C800250DB6 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		2121C8E7195326A900FFEAE5 /* VistorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VistorModel.h; sourceTree = "<group>"; };
+		2121C8E8195326A900FFEAE5 /* VistorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VistorModel.m; sourceTree = "<group>"; };
 		212F239F1928DF2500F738F8 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		212F23A01928DF2500F738F8 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		212F23A31928DF2C00F738F8 /* ClassificationControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassificationControll.h; sourceTree = "<group>"; };
@@ -1223,6 +1226,8 @@
 				845D44971947425B0041445D /* UserInfoModelManger.m */,
 				21C6D60A19508E1B00467717 /* MyTribeModel.h */,
 				21C6D60B19508E1B00467717 /* MyTribeModel.m */,
+				2121C8E7195326A900FFEAE5 /* VistorModel.h */,
+				2121C8E8195326A900FFEAE5 /* VistorModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2114,6 +2119,7 @@
 				21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */,
 				21D7058919169562004950BF /* OneDreamController.m in Sources */,
 				84F06610192B2F1100B09AB5 /* TopBar.m in Sources */,
+				2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */,
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
 				84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */,

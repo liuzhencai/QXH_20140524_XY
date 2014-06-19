@@ -11,6 +11,7 @@
 #import "InfoModel.h"
 #import "InfoDetailModel.h"
 #import "MyTribeModel.h"
+#import "VistorModel.h"
 
 @interface ModelGenerator : NSObject
 
@@ -41,6 +42,22 @@
  */
 + (InfoDetailModel *)json2InfoDetail:(NSDictionary *)obj;
 
+/**
+ *  json转换为部落列表
+ *
+ *  @param obj 传入参数
+ *
+ *  @return 返回部落列表
+ */
 + (NSMutableArray *)json2TribeList:(NSDictionary *)obj;
+
+/**
+ *  json转换为访客列表
+ *
+ *  @param obj 传入参数
+ *
+ *  @return 返回访客列表
+ */
++ (NSMutableArray *)json2VistorList:(NSDictionary *)obj;
 
 @end

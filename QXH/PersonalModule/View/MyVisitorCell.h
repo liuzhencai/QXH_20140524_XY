@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VistorModel.h"
 
 @interface MyVisitorCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *displayLabel;
+- (void)setVistor:(VistorModel *)vistor;
 @end
