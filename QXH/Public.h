@@ -23,6 +23,9 @@
 
 #define HEART_BEAT 60
 
+#define IMG_URL @"http://"HOST_URL@"/qxh/fileupload/images/"
+
+#define IMGURL(x) [NSString stringWithFormat:@"%@%@",IMG_URL,x]
 
 /*******************************************
  Custom Block Callback 自定义block回调

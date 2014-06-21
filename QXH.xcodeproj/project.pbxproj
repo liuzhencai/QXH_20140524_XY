@@ -25,6 +25,8 @@
 		210BAEED192A5DB900B8FBCF /* MyVisitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210BAEEC192A5DB900B8FBCF /* MyVisitorCell.xib */; };
 		210BAEF0192A619B00B8FBCF /* MyActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210BAEEF192A619B00B8FBCF /* MyActivityCell.m */; };
 		210BAEF4192A61B800B8FBCF /* MyActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210BAEF3192A61B800B8FBCF /* MyActivityCell.xib */; };
+		2111B1CA1955393800AA5478 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1C91955393800AA5478 /* UILabel+StringFrame.m */; };
+		2111B1CD19553D9100AA5478 /* NSString+LabelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1CC19553D9100AA5478 /* NSString+LabelFrame.m */; };
 		2119EE8019168279007DBE68 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119EE7F19168279007DBE68 /* Foundation.framework */; };
 		2119EE8219168279007DBE68 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119EE8119168279007DBE68 /* CoreGraphics.framework */; };
 		2119EE8419168279007DBE68 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119EE8319168279007DBE68 /* UIKit.framework */; };
@@ -390,6 +392,10 @@
 		210BAEEE192A619B00B8FBCF /* MyActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyActivityCell.h; sourceTree = "<group>"; };
 		210BAEEF192A619B00B8FBCF /* MyActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActivityCell.m; sourceTree = "<group>"; };
 		210BAEF3192A61B800B8FBCF /* MyActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyActivityCell.xib; sourceTree = "<group>"; };
+		2111B1C81955393800AA5478 /* UILabel+StringFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+StringFrame.h"; sourceTree = "<group>"; };
+		2111B1C91955393800AA5478 /* UILabel+StringFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+StringFrame.m"; sourceTree = "<group>"; };
+		2111B1CB19553D9100AA5478 /* NSString+LabelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LabelFrame.h"; sourceTree = "<group>"; };
+		2111B1CC19553D9100AA5478 /* NSString+LabelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LabelFrame.m"; sourceTree = "<group>"; };
 		2119EE7C19168279007DBE68 /* QXH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QXH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2119EE7F19168279007DBE68 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2119EE8119168279007DBE68 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1455,6 +1461,10 @@
 				212F23A51928DF2C00F738F8 /* config.h */,
 				212F23A61928DF2C00F738F8 /* MyNavgationBar.h */,
 				212F23A71928DF2C00F738F8 /* MyNavgationBar.m */,
+				2111B1C81955393800AA5478 /* UILabel+StringFrame.h */,
+				2111B1C91955393800AA5478 /* UILabel+StringFrame.m */,
+				2111B1CB19553D9100AA5478 /* NSString+LabelFrame.h */,
+				2111B1CC19553D9100AA5478 /* NSString+LabelFrame.m */,
 			);
 			path = "工具";
 			sourceTree = "<group>";
@@ -2159,6 +2169,7 @@
 				5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */,
 				88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */,
 				2119EF00191682EC007DBE68 /* SDWebImageManager.m in Sources */,
+				2111B1CD19553D9100AA5478 /* NSString+LabelFrame.m in Sources */,
 				21DF758F193F535200928450 /* DataInterface.m in Sources */,
 				21D705CE1916A7C1004950BF /* PortraitView.m in Sources */,
 				58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */,
@@ -2229,6 +2240,7 @@
 				2119EEFD191682EC007DBE68 /* SDWebImageDecoder.m in Sources */,
 				21DA12DD1936303F001EDEB1 /* DDDispatchQueueLogFormatter.m in Sources */,
 				210BAEE7192A5C7600B8FBCF /* MyTribeCell.m in Sources */,
+				2111B1CA1955393800AA5478 /* UILabel+StringFrame.m in Sources */,
 				21D705AC19169A15004950BF /* LabelArrowCell.m in Sources */,
 				2119EF0A1916837D007DBE68 /* HttpServiceEngine.m in Sources */,
 				84F0660A192B2F1100B09AB5 /* ChatInput.m in Sources */,

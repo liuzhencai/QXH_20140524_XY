@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, InfomationType) {
 };
 
 @interface InformationDetailController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *infoDetailTbl;
 @property (weak, nonatomic) IBOutlet UILabel *articleTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authLabel;

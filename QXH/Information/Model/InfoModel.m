@@ -10,6 +10,6 @@
 
 @implementation InfoModel
 
-@synthesize artid, sname, sphoto, date, title, artimgs, content, authflag, browsetime;
+@synthesize artid, sname, sphoto, date, title, artimgs, content, authflag, browsetime, contentlength;
 
 @end
