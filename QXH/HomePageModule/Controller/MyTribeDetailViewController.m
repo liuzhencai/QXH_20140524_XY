@@ -199,7 +199,7 @@
                            members:membersString
              withCompletionHandler:^(NSMutableDictionary *dict){
                  NSLog(@"创建部落返回值：%@",dict);
-                 [self showAlert:[dict objectForKey:@"info"]];
+//                 [self showAlert:[dict objectForKey:@"info"]];
                  NSArray *controllers = self.navigationController.viewControllers;
                  [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
         }];
