@@ -207,7 +207,7 @@
                 }
                 UILabel *label_ = (UILabel *)[cell.contentView viewWithTag:101];
                 label_.text = detailmodel.content;
-                CGSize size = [label_ boundingRectWithSize:CGSizeMake(300, 0)];
+                CGSize size = [label_ boundingRectWithSize:CGSizeMake(300, FLT_MAX)];
                 label_.frame = CGRectMake(10, 0, size.width, size.height);
             }
                 break;
@@ -251,7 +251,7 @@
                 }
                 UILabel *label_ = (UILabel *)[cell.contentView viewWithTag:201];
                 label_.text = detailmodel.content;
-                CGSize size = [label_ boundingRectWithSize:CGSizeMake(300, 0)];
+                CGSize size = [label_ boundingRectWithSize:CGSizeMake(300, FLT_MAX)];
                 label_.frame = CGRectMake(10, 0, size.width, size.height);
             }
                 break;

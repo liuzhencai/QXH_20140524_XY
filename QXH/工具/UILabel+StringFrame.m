@@ -12,16 +12,7 @@
 
 - (CGSize)boundingRectWithSize:(CGSize)size
 {
-    NSDictionary *attribute = @{NSFontAttributeName: self.font};
-    
-    CGSize retSize = [self.text boundingRectWithSize:size
-                                             options:\
-                      NSStringDrawingTruncatesLastVisibleLine |
-                      NSStringDrawingUsesLineFragmentOrigin |
-                      NSStringDrawingUsesFontLeading
-                                          attributes:attribute
-                                             context:nil].size;
-    
+    CGSize retSize = [NSString getStringRect:self.text font:self.font labelSize:size];
     return retSize;
 }
 
