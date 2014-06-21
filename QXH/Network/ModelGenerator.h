@@ -12,6 +12,7 @@
 #import "InfoDetailModel.h"
 #import "MyTribeModel.h"
 #import "VistorModel.h"
+#import "InfoCommentModel.h"
 
 @interface ModelGenerator : NSObject
 
@@ -59,5 +60,14 @@
  *  @return 返回访客列表
  */
 + (NSMutableArray *)json2VistorList:(NSDictionary *)obj;
+
+/**
+ *  json转换为评论列表
+ *
+ *  @param obj 传入参数
+ *
+ *  @return 返回评论列表
+ */
++ (NSMutableArray *)json2CommentList:(NSDictionary *)obj;
 
 @end

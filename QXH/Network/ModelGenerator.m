@@ -131,4 +131,21 @@
     return array;
 }
 
++ (NSMutableArray *)json2CommentList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        InfoCommentModel *model = [[InfoCommentModel alloc] init];
+        model.comment =  [list[i] objectForKey:@"comment"];
+        model.ctid =  [[list[i] objectForKey:@"ctid"] integerValue];
+        model.sid =  [[list[i] objectForKey:@"sid"] integerValue];
+        model.date = [list[i] objectForKey:@"date"];
+        model.sname =  [list[i] objectForKey:@"sname"];
+        model.sphoto =  [list[i] objectForKey:@"sphoto"];
+        [array addObject:model];
+    }
+    return array;
+}
+
 @end

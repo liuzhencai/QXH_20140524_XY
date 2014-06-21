@@ -7,12 +7,25 @@
 //
 
 #import "InformationCommentController.h"
+#import "InformationCommentCell.h"
+#import "NameCardViewController.h"
 
 @interface InformationCommentController ()
+{
+    NSMutableArray *commentList;
+}
 
 @end
 
 @implementation InformationCommentController
+
+- (void)getCommentList
+{
+    [DataInterface getCommentList:self.artid start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        commentList = [ModelGenerator json2CommentList:dict];
+        [_commentTbl reloadData];
+    }];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +42,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"评论";
+    if (IOS7_OR_LATER) {
+        [_commentTbl setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
+    [self getCommentList];
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
@@ -52,7 +69,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [commentList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,7 +79,15 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationCommentCell" owner:nil options:nil] objectAtIndex:0];
     }
+    [(InformationCommentCell *)cell setModel:[commentList objectAtIndex:indexPath.row]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+    [self.navigationController pushViewController:nameCard animated:YES];
 }
 
 - (IBAction)hideComment:(id)sender {

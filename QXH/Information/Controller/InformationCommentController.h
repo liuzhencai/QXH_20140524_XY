@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface InformationCommentController : MyViewController<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *commentTbl;
 @property (strong, nonatomic) IBOutlet UIView *commentView;
+@property (nonatomic, copy) NSString *artid;
 - (IBAction)hideComment:(id)sender;
 
 @end

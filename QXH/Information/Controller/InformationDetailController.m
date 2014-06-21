@@ -69,12 +69,44 @@
     [self.view addSubview:_toolbarView];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonINdex:%d",buttonIndex);
+    switch (buttonIndex) {
+        case 1:
+        {
+            /*
+            [DataInterface shareContent:self.artid contenttype:@"2" sharetype:@"2" targetid:<#(NSString *)#> withCompletionHandler:^(NSMutableDictionary *dict) {
+                <#code#>
+            }]
+             */
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)share:(id)sender
 {
     NSLog(@"分享");
 
-    [self showAlert:@"分享"];
-
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"分享到部落",@"分享到广场",@"分享到微信", nil];
+    [alert show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,6 +147,7 @@
             NSLog(@"点击评论");
             InformationCommentController *controller = [[InformationCommentController alloc]initWithNibName:@"InformationCommentController" bundle:nil];
             controller.hidesBottomBarWhenPushed = YES;
+            controller.artid = self.artid;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
@@ -247,7 +280,6 @@
                     label.font = [UIFont systemFontOfSize:13.f];
                     label.tag = 201;
                     [cell.contentView addSubview:label];
-                    cell.textLabel.text = detailmodel.content;
                 }
                 UILabel *label_ = (UILabel *)[cell.contentView viewWithTag:201];
                 label_.text = detailmodel.content;

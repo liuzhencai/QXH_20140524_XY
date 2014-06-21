@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class InfoCommentModel;
+
 @interface InformationCommentCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
+@property (weak, nonatomic) IBOutlet UILabel *reviewerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+
+- (void)setModel:(InfoCommentModel *)model;
 
 @end
