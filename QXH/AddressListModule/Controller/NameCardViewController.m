@@ -267,7 +267,7 @@
         }
         
     }else{
-        [self showAlert:@"转发名片"];
+        [self showAlert:@"这个拒绝需要吗？"];
         
     }
     

@@ -172,6 +172,19 @@
             desStr = self.tribeDes.text;
         }
         
+        NSString *membersString = @"";
+        int memberCount = [self.membersArray count];
+        for (int i = 0; i < memberCount; i ++) {
+            NSDictionary *member = [self.membersArray objectAtIndex:i];
+            id memberIdStrsss = [member objectForKey:@"userid"];
+            NSString *memberIdStr = [NSString stringWithFormat:@"%@",memberIdStrsss];
+            if (i != memberCount - 1) {
+                memberIdStr = [NSString stringWithFormat:@"%@,",memberIdStr];
+            }
+            membersString = [membersString stringByAppendingString:memberIdStr];
+        }
+
+        
         [DataInterface createTribe:self.name.text
                         tribestyle:@""
                          secretary:leaderId  //userid
@@ -183,7 +196,7 @@
                               tags:@""
                           district:self.place.text
                           maxcount:self.count.text
-                           members:@""
+                           members:membersString
              withCompletionHandler:^(NSMutableDictionary *dict){
                  NSLog(@"创建部落返回值：%@",dict);
                  [self showAlert:[dict objectForKey:@"info"]];

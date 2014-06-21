@@ -12,5 +12,5 @@
 @interface ActivityDetailViewController : MyViewController<UITableViewDataSource, UITableViewDelegate, PortraitViewDelegate>
 
 @property (nonatomic, strong) NSString *activityId;
-
+@property (nonatomic, assign) BOOL isActivityEnd;//是否结束
 @end
