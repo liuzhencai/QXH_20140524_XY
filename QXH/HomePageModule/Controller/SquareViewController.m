@@ -14,7 +14,9 @@
 #import "SquareActivityCell.h"
 
 @interface SquareViewController ()
-
+{
+    NSMutableArray *squareInfoList;
+}
 @end
 
 @implementation SquareViewController
@@ -49,7 +51,7 @@
 
 - (void)getSquareList{
     [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        
+        squareInfoList = [ModelGenerator json2SquareList:dict];
     }];
 }
 
@@ -114,6 +116,8 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
+        cell.textLabel.text = model.date;
     }else if(indexPath.row == 2){
         static NSString *cellIdentifier = @"squareCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

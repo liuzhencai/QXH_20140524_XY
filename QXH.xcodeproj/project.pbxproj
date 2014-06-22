@@ -157,6 +157,7 @@
 		21401DB11919326B00E9175B /* MyMsgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DAF1919326B00E9175B /* MyMsgCell.m */; };
 		21401DB21919326B00E9175B /* MyMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DB01919326B00E9175B /* MyMsgCell.xib */; };
 		214C25A71956838E006109FF /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214C25A61956838E006109FF /* CustomIOS7AlertView.m */; };
+		214C25B01956A0DF006109FF /* SquareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 214C25AF1956A0DF006109FF /* SquareInfo.m */; };
 		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
 		2166CDF41933970500F0312E /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF31933970500F0312E /* UserInfoModel.m */; };
 		2166CDF619339A3400F0312E /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF519339A3400F0312E /* TabBarControl.m */; };
@@ -579,6 +580,8 @@
 		21401DB01919326B00E9175B /* MyMsgCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyMsgCell.xib; sourceTree = "<group>"; };
 		214C25A51956838E006109FF /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		214C25A61956838E006109FF /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
+		214C25AE1956A0DF006109FF /* SquareInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareInfo.h; sourceTree = SOURCE_ROOT; };
+		214C25AF1956A0DF006109FF /* SquareInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareInfo.m; sourceTree = SOURCE_ROOT; };
 		2166CDEF193396AE00F0312E /* ModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelGenerator.h; sourceTree = "<group>"; };
 		2166CDF0193396AE00F0312E /* ModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelGenerator.m; sourceTree = "<group>"; };
 		2166CDF21933970500F0312E /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1319,6 +1322,8 @@
 		2119EF1A1916863E007DBE68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				214C25AE1956A0DF006109FF /* SquareInfo.h */,
+				214C25AF1956A0DF006109FF /* SquareInfo.m */,
 				88EE4F2219341DF000734AE1 /* TribeInfoModel.h */,
 				88EE4F2319341DF000734AE1 /* TribeInfoModel.m */,
 				88EE4F68193433B000734AE1 /* ActivityInfoModel.h */,
@@ -2242,6 +2247,7 @@
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
 				21096A86193616270089286C /* GTMBase64.m in Sources */,
 				21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */,
+				214C25B01956A0DF006109FF /* SquareInfo.m in Sources */,
 				88C23E6D1950275500CBBD15 /* ActivityDetailCell.m in Sources */,
 				84F065EE192AFACD00B09AB5 /* PromotionalActvityViewController.m in Sources */,
 				21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */,

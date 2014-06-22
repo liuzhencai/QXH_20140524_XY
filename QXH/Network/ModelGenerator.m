@@ -148,4 +148,15 @@
     return array;
 }
 
++ (NSMutableArray *)json2SquareList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        SquareInfo *model = [SquareInfo instanceFromDictionary:list[i]];
+        [array addObject:model];
+    }
+    return array;
+}
+
 @end

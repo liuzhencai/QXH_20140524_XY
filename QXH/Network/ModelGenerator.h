@@ -13,6 +13,7 @@
 #import "MyTribeModel.h"
 #import "VistorModel.h"
 #import "InfoCommentModel.h"
+#import "SquareInfo.h"
 
 @interface ModelGenerator : NSObject
 
@@ -69,5 +70,14 @@
  *  @return 返回评论列表
  */
 + (NSMutableArray *)json2CommentList:(NSDictionary *)obj;
+
+/**
+ *  json转换为广场列表
+ *
+ *  @param obj 传入参数
+ *
+ *  @return 返回广场列表
+ */
++ (NSMutableArray *)json2SquareList:(NSDictionary *)obj;
 
 @end
