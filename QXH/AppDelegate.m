@@ -31,8 +31,8 @@
 
 - (void)login
 {
-    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":[@"123456" md5HexDigest],@"sign":[SignGenerator getSign]};
-    [DataInterface login:@"zhaolilong2012@gmail.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    NSDictionary *param = @{@"opercode": @"0102", @"username":@"754672546@qq.com", @"pwd":[@"123456" md5HexDigest],@"sign":[SignGenerator getSign]};
+    [DataInterface login:@"754672546@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
         NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
 //        UIImage *img = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]];
 //        

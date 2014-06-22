@@ -29,6 +29,9 @@
 #define ACTIVITY_TABLE_TAG 2331
 #define NEMBERS_TABLE_TAG 2332
 
+
+#define KInToChatRoomErrorTag  354
+
 static NSString * kMessageCellReuseIdentifier = @"MessageCell";
 //static int connectionStatusViewTag = 1701;
 static int chatInputStartingHeight = 40;
@@ -40,16 +43,14 @@ static int scout=0;
 {
     // Used for scroll direction
     CGFloat lastContentOffset;
-    
     /*记录被选中置顶的消息*/
     NSDictionary* mess;
-    
     /*记录当前展示的界面的tag值*/
     NSInteger FrontViewTag;
-    
     chatRoomActivViewController* chatRoomActive;
-    
     chatRoomMemberViewController* chatRoomMember;
+//    /*是否有权限访问会话的标志位*/
+//    BOOL  isTalk;
 }
 
 // View Properties
@@ -61,7 +62,7 @@ static int scout=0;
 
 @implementation ChatController
 @synthesize opponentImg,activitysList,membersList,tribeInfoDict;
-@synthesize askView;
+@synthesize askView,tribeInfoDetailDict;
 
 #pragma mark INITIALIZATION
 
@@ -87,7 +88,7 @@ static int scout=0;
 {
     [super viewDidLoad];
     self.title = @"XXXX部落";
-    
+
     /*默认当前界面是聊天*/
     FrontViewTag = CONVERSATION_TABLE_TAG;
     /*部落档案按钮*/
@@ -135,7 +136,10 @@ static int scout=0;
     _chatInput.placeholderLabel.text = @"  Send A Message";
     _chatInput.delegate = self;
     _chatInput.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
-    
+    /*默认无权访问会话*/
+    _chatInput.textView.editable = NO;
+    _chatInput.sendBtn.enabled = NO;
+    _chatInput.AddBtn.enabled = NO;
    
     // 聊天气泡的位置
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
@@ -160,34 +164,13 @@ static int scout=0;
     [_myCollectionView registerClass:[MessageCell class]
           forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
     
-    //table
-//    CGRect tableFrame = CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height);
-     /*添加活动*/
-//    UITableView *activityTable = [[UITableView alloc] initWithFrame:myFrame style:UITableViewStylePlain];
-//    activityTable.tag = ACTIVITY_TABLE_TAG;
-//    activityTable.delegate = self;
-//    activityTable.dataSource = self;
-//    [self.view addSubview:activityTable];
-//    
-//     /*添加部落成员*/
-//    UITableView *membersTable = [[UITableView alloc] initWithFrame:myFrame style:UITableViewStylePlain];
-//    membersTable.tag = NEMBERS_TABLE_TAG;
-//    membersTable.delegate = self;
-//    membersTable.dataSource = self;
-//    [self.view addSubview:membersTable];
+
     
     /*添加聊天*/
     [self.view addSubview:_myCollectionView];
-
-   
-  
     
-//    UITableView *conversationTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-//    conversationTable.tag = CONVERSATION_TABLE_TAG;
-//    conversationTable.delegate = self;
-//    conversationTable.dataSource = self;
-//    [self.view addSubview:conversationTable];
-    
+    /*获取部落信息*/
+    [self getTribeInfo];
     
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -212,6 +195,8 @@ static int scout=0;
     switch (FrontViewTag) {
         case CONVERSATION_TABLE_TAG:
         {
+            //获取部落信息
+//            [self getTribeInfo];
             [self scrollToBottom];
              [self.view addSubview:_chatInput];
             
@@ -414,6 +399,29 @@ static int scout=0;
     
     // show us the message
     [self scrollToBottom];
+    
+    /**
+     *  聊天通用接口
+     *
+     *  @param targetid 发送给，好友或部落
+     *  @param sendtype 1为好友私聊，2为部落聊天
+     *  @param mess     消息内容
+     *  @param callback 回调
+     */
+    NSString* mess = message[kMessageContent];
+    NSString* roomid =self.tribeInfoDict[@"tribeid"];
+    if (mess && roomid) {
+        [DataInterface chat:roomid sendtype:@"2" mess:mess withCompletionHandler:^(NSMutableDictionary *dict){
+            /*
+             Response:{
+             opercode:"0130",		//operCode为0130，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
+             info:"发送成功",		//客户端可以使用该info进行提示，如:登录成功/账号或密码错误,登录失败!
+             sign:"9aldai9adsf"		//sign请求唯一标识*/
+            DebugLog(@"聊天返回==%@",dict);
+        }];
+    }
+
 }
 
 #pragma mark KEYBOARD NOTIFICATIONS
@@ -644,10 +652,17 @@ static int scout=0;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        DebugLog(@"0");
-        [self addAskView];
+    if (alertView.tag == KInToChatRoomErrorTag) {
+        /*进入部落聊天出现问题，则推出此界面*/
+//        [self popForwardBack];
+    }else
+    {
+        if (buttonIndex == 0) {
+            DebugLog(@"0");
+            [self addAskView];
+        }
     }
+
 }
 
 #pragma mark SETTERS | GETTERS
@@ -702,22 +717,13 @@ static int scout=0;
     
     // Evaluate or add to the message here for example, if we wanted to assign the current userId:
     message[@"sentByUserId"] = @"currentUserId";
+    
 
     scout++;
     message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((scout%2)?kSentByUser:kSentByOpponent)];
     
     // Must add message to controller for it to show
     [self addNewMessage:message];
-}
-
-
-
-
-- (void)detail:(UIButton *)sender{
-    NSLog(@"详细资料");
-//    MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
-//    myTribeDetail.tribeDict = self.tribeInfoDict;
-//    [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 
 #pragma mark - CustomSegmentControlDelegate
@@ -749,6 +755,7 @@ static int scout=0;
         {
             /*成员*/
             FrontViewTag = NEMBERS_TABLE_TAG;
+            [self getActivityListInTribe];
             UIView* table = (UIView*)[self.view viewWithTag:NEMBERS_TABLE_TAG];
             [self.view bringSubviewToFront:table];
         }
@@ -781,6 +788,111 @@ static int scout=0;
 //    NSInteger tag = CONVERSATION_TABLE_TAG + index;
 
 }
+
+
+#pragma mark 获取网络数据
+- (void)getTribeInfo{
+    /**
+     *  获取部落信息
+     *
+     *  @param tribeid  部落id
+     *  @param callback 回调
+     */
+     NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+    if (self.tribeInfoDict) {
+       
+        [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"部落信息返回值：%@",dict);
+            self.tribeInfoDetailDict = dict;
+//            [self showAlert:[dict objectForKey:@"info"]];
+            
+            [self getinChatRoom];
+        }];
+    }
+    
+
+}
+
+
+- (void)getinChatRoom
+{
+    /**
+     *  进入直播间
+     *
+     *  @param tribeid  部落id
+     *  @param callback 回调
+     */
+     NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+    [DataInterface gotoOneDream:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+        NSLog(@"部落信息返回值：%@",dict);
+        /*
+         opercode:"0136",		//operCode为0133，客户端通过该字段确定事件
+         statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+         info:"操作成功"			//操作成功/失败!*/
+        NSString* statecode = dict[@"statecode"];
+        if (![statecode isEqualToString:@"0200"]) {
+            UIAlertView* aler = [[UIAlertView alloc]initWithTitle:@"提示：" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确  定" otherButtonTitles:nil, nil];
+            aler.tag = KInToChatRoomErrorTag;
+            [aler show];
+            [self showAlert:[dict objectForKey:@"info"]];
+        }else{
+            /*用户拥有会话权限*/
+            _chatInput.textView.editable = YES;
+            _chatInput.sendBtn.enabled = YES;
+            _chatInput.AddBtn.enabled = YES;
+        }
+        
+    }];
+}
+
+- (void)getActivityListInTribe{
+    //获取活动列表
+    /**
+     *  获取/搜索活动列表(列表按创建时间的逆序排列)
+     *
+     *  @param start     起始消息的artid，不填写该字段读取最新消息n个
+     *  @param count     获取消息数量
+     *  @param actname   活动名称
+     *  @param tag       标签
+     *  @param district  地域信息
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param begindate 活动起始时间
+     *  @param enddate   活动结束时间
+     *  @param callback  回调
+     */
+    if (self.tribeInfoDict) {
+        [DataInterface getActList:@"0"
+                            count:@"20"
+                          actname:@""
+                    contentlength:@"30"
+                              tag:@""
+                         district:@""
+                          canjoin:@"0"
+                         actstate:@"0"
+                          tribeid:[self.tribeInfoDict objectForKey:@"tribeid"]
+                        begindate:@""
+                          enddate:@""
+            withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"活动列表返回数据:%@",dict);
+                NSArray *list = [dict objectForKey:@"list"];
+                self.activitysList = [NSMutableArray arrayWithArray:list];
+                chatRoomActive.activitysList = self.activitysList;
+                [chatRoomActive.tableview reloadData];
+//                UITableView *table = (UITableView *)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+//                [table reloadData];
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
+    }
+}
+
+- (void)detail:(UIButton *)sender{
+    NSLog(@"详细资料");
+    MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
+    myTribeDetail.tribeDict = self.tribeInfoDict;
+    [self.navigationController pushViewController:myTribeDetail animated:YES];
+}
+
 
 
 @end

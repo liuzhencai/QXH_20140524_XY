@@ -13,6 +13,9 @@
 #import "TribeDetailViewController.h"
 #import "CustomSegmentView.h"
 #import "CustomSegmentControl.h"
+#import "ChatController.h"
+
+
 
 @interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
@@ -288,7 +291,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = nil;
+//    UITableViewCell *cell = nil;
     if (tableView.tag == ALL_TRIBE_TABLE_TAG) {
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
         MyTribeListCell *allListCell = nil;
@@ -302,7 +305,8 @@
         if (memberDict) {
             [allListCell resetCellParamDict:memberDict];
         }
-        cell = allListCell;
+       
+        return allListCell;
     }else if(tableView.tag == MY_TRIBE_TABLE_TAG){
         static NSString *addrIdentifier = @"addrListIdentifier";
         MyTribeListCell *addrListCell = nil;
@@ -315,9 +319,10 @@
             NSDictionary *myTribeDict = [self.tribeList objectAtIndex:indexPath.row];
             [addrListCell resetCellParamDict:myTribeDict];
         }
-        cell = addrListCell;
+        
+        return addrListCell;
     }
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -325,9 +330,13 @@
     if (tableView.tag == MY_TRIBE_TABLE_TAG) {
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
         NSDictionary *tribeDict = [self.tribeList objectAtIndex:indexPath.row];
-        TribeDynamicViewController *tribeDynamic = [[TribeDynamicViewController alloc] init];
-        tribeDynamic.tribeInfoDict = tribeDict;
-        [self.navigationController pushViewController:tribeDynamic animated:YES];
+        ChatController *chatview =[[ChatController alloc]init];
+        chatview.tribeInfoDict = tribeDict;
+        [self.navigationController pushViewController:chatview animated:YES];
+        
+//        TribeDynamicViewController *tribeDynamic = [[TribeDynamicViewController alloc] init];
+//        tribeDynamic.tribeInfoDict = tribeDict;
+//        [self.navigationController pushViewController:tribeDynamic animated:YES];
     }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
 
@@ -335,6 +344,9 @@
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
         detail.tribeDict = tribeDict;
         [self.navigationController pushViewController:detail animated:YES];
+        
+ 
+        
     }
 }
 //83,170,97

@@ -25,9 +25,7 @@
 @interface ChatInput ()
 
 // The main views
-@property (strong, nonatomic) UITextView * textView;
-@property (strong, nonatomic) UIButton * sendBtn;
-@property (strong, nonatomic) UIButton * AddBtn;
+
 
 // Background
 @property (strong, nonatomic) UIToolbar * bgToolbar;
@@ -42,6 +40,7 @@
 }
 
 @synthesize stopAutoClose;
+@synthesize textView,sendBtn,AddBtn;
 
 - (id)initWithFrame:(CGRect)frame {
     
@@ -71,48 +70,48 @@
         _maxY = [NSNumber numberWithInt:60]; // A frame origin y of 60 will prevent further expansion
         
         // Expanding Text View
-        if (!_textView) _textView = [[UITextView alloc]init];
-        _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _textView.frame = CGRectMake(5, 6, KtextViewWidh, 28);
-        _textView.delegate = self;
-        _textView.layer.cornerRadius = 4;
-        _textView.font = [UIFont systemFontOfSize:16];
-        _textView.layer.borderWidth = .5;
-        _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        _textView.textColor = [UIColor darkTextColor];
-        _textView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
-        [self addSubview:_textView];
+        if (!textView) textView = [[UITextView alloc]init];
+        textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        textView.frame = CGRectMake(5, 6, KtextViewWidh, 28);
+        textView.delegate = self;
+        textView.layer.cornerRadius = 4;
+        textView.font = [UIFont systemFontOfSize:16];
+        textView.layer.borderWidth = .5;
+        textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        textView.textColor = [UIColor darkTextColor];
+        textView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
+        [self addSubview:textView];
         
         // Send Button
-        _sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         
         _sendBtnActiveColor = [UIColor colorWithRed:0.142954 green:0.60323 blue:0.862548 alpha:1];
         _sendBtnInactiveColor = [UIColor lightGrayColor];
         [self deactivateSendBtn];
         
-        _sendBtn.frame = CGRectMake(KtextViewWidh+15, 0, KSendWidh, 40);
-        _sendBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        [_sendBtn setTitle:@"Send" forState:UIControlStateNormal];
-        _sendBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [_sendBtn addTarget:self action:@selector(sendBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-        _sendBtn.userInteractionEnabled = YES;
-        [self addSubview:_sendBtn];
+        sendBtn.frame = CGRectMake(KtextViewWidh+15, 0, KSendWidh, 40);
+        sendBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
+        sendBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        [sendBtn addTarget:self action:@selector(sendBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+        sendBtn.userInteractionEnabled = YES;
+        [self addSubview:sendBtn];
         
         
-        _AddBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        _AddBtn.backgroundColor = [UIColor redColor];
+        AddBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        AddBtn.backgroundColor = [UIColor redColor];
         
 //        _sendBtnActiveColor = [UIColor colorWithRed:0.142954 green:0.60323 blue:0.862548 alpha:1];
 //        _sendBtnInactiveColor = [UIColor lightGrayColor];
 //        [self deactivateSendBtn];
         
-        _AddBtn.frame = CGRectMake(KtextViewWidh+65, 0, KSendWidh, 40);
-        _AddBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        [_AddBtn setTitle:@"Add" forState:UIControlStateNormal];
-        _AddBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [_AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
-        _AddBtn.userInteractionEnabled = YES;
-        [self addSubview:_AddBtn];
+        AddBtn.frame = CGRectMake(KtextViewWidh+65, 0, KSendWidh, 40);
+        AddBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        [AddBtn setTitle:@"Add" forState:UIControlStateNormal];
+        AddBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        [AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
+        AddBtn.userInteractionEnabled = YES;
+        [self addSubview:AddBtn];
         
         //AddButon
 //        _AddBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -133,7 +132,7 @@
         _bgToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
         _bgToolbar.barStyle = UIBarStyleDefault;
         _bgToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self insertSubview:_bgToolbar belowSubview:_textView];
+        [self insertSubview:_bgToolbar belowSubview:textView];
         
         // Shadow Line
         _shadow = [CAGradientLayer layer];
@@ -175,14 +174,14 @@
     [_placeholderLabel removeFromSuperview];
     _placeholderLabel = nil;
     
-    [_textView removeFromSuperview];
-    _textView.text = nil;
-    _textView.delegate = nil;
-    _textView = nil;
+    [textView removeFromSuperview];
+    textView.text = nil;
+    textView.delegate = nil;
+    textView = nil;
     
-    [_sendBtn removeTarget:self action:@selector(sendBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_sendBtn removeFromSuperview];
-    _sendBtn = nil;
+    [sendBtn removeTarget:self action:@selector(sendBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [sendBtn removeFromSuperview];
+    sendBtn = nil;
     
     [_bgToolbar removeFromSuperview];;
     _bgToolbar = nil;
@@ -200,17 +199,17 @@
 
 - (void)sendBtnPressed:(id)sender {
     
-    if (_textView.text.length > 0) {
+    if (textView.text.length > 0) {
         
         // start - finishes autocorrects
         _shouldIgnoreKeyboardNotifications = YES;
-        [_textView endEditing:YES];
-        [_textView setKeyboardType:UIKeyboardTypeDefault];
-        [_textView becomeFirstResponder];
+        [textView endEditing:YES];
+        [textView setKeyboardType:UIKeyboardTypeDefault];
+        [textView becomeFirstResponder];
         _shouldIgnoreKeyboardNotifications = NO; // implemented lower?
         // end - finishes autocorrects
         
-        NSString * string = _textView.text;
+        NSString * string = textView.text;
         
         [UIView animateWithDuration:.2 animations:^{
             
@@ -218,7 +217,7 @@
             _placeholderLabel.hidden = NO;
             
             // Reset Text
-            _textView.text = @"";
+            textView.text = @"";
             
             // Reset Send
             [self deactivateSendBtn];
@@ -248,21 +247,21 @@
 #pragma mark ACTIVATE | DEACTIVATE - SEND BTN
 
 - (void) activateSendBtn {
-    [_sendBtn setTitleColor:_sendBtnActiveColor forState:UIControlStateNormal];
+    [sendBtn setTitleColor:_sendBtnActiveColor forState:UIControlStateNormal];
 }
 
 - (void) deactivateSendBtn {
-    [_sendBtn setTitleColor:_sendBtnInactiveColor forState:UIControlStateNormal];
+    [sendBtn setTitleColor:_sendBtnInactiveColor forState:UIControlStateNormal];
 }
 
 #pragma mark OPEN | CLOSE
 
 - (void) close {
-    [_textView resignFirstResponder];
+    [textView resignFirstResponder];
 }
 
 - (void) open {
-    [_textView becomeFirstResponder];
+    [textView becomeFirstResponder];
 }
 
 #pragma mark TEXT VIEW DELEGATE
@@ -344,22 +343,22 @@
     }
     
     
-    NSString * content = _textView.text;
+    NSString * content = textView.text;
     
-    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithString:content attributes:@{ NSFontAttributeName : _textView.font, NSStrokeColorAttributeName : [UIColor darkTextColor]}];
+    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithString:content attributes:@{ NSFontAttributeName : textView.font, NSStrokeColorAttributeName : [UIColor darkTextColor]}];
     
-    CGFloat width = _textView.bounds.size.width - 10; // whatever your desired width is
+    CGFloat width = textView.bounds.size.width - 10; // whatever your desired width is
     // 10 less than our target because it seems to frame better
     
     CGRect rect = [attrStr boundingRectWithSize:CGSizeMake(width, 10000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
     CGFloat height = rect.size.height;
     
-    if ([_textView.text hasSuffix:@"\n"]) {
-        height = height + _textView.font.lineHeight;
+    if ([textView.text hasSuffix:@"\n"]) {
+        height = height + textView.font.lineHeight;
     }
     
     int originalHeight = 30; // starting chat input height
-    int offset = originalHeight - _textView.font.lineHeight;
+    int offset = originalHeight - textView.font.lineHeight;
     int targetHeight = height + offset + 6; // should this be plus 12? it works with 6 but I don't know why
     // when we format the text, we use width 235.  Then we put it back onto here at 245 px.  This is then compensated here.  It seems to work.
     
@@ -371,7 +370,7 @@
     NSLog(@"chatInputFrame:%@",[NSValue valueWithCGRect:self.frame]);
     
     // in case they backspaced and we need to block send
-    if (_textView.text.length > 0) {
+    if (textView.text.length > 0) {
         [self activateSendBtn];
     }
     else {
@@ -382,20 +381,20 @@
 - (void) alignTextViewWithAnimation:(BOOL)shouldAnimate {
     
     // where the blinky caret is
-    CGRect line = [_textView caretRectForPosition:_textView.selectedTextRange.start];
-    CGFloat overflow = line.origin.y + line.size.height - (_textView.contentOffset.y + _textView.bounds.size.height - _textView.contentInset.bottom - _textView.contentInset.top);
+    CGRect line = [textView caretRectForPosition:textView.selectedTextRange.start];
+    CGFloat overflow = line.origin.y + line.size.height - (textView.contentOffset.y + textView.bounds.size.height - textView.contentInset.bottom - textView.contentInset.top);
     
-    CGPoint offsetP = _textView.contentOffset;
+    CGPoint offsetP = textView.contentOffset;
     offsetP.y += overflow + 3; // 3 px margin
     
     if (offsetP.y >= 0) {
         if (shouldAnimate) {
             [UIView animateWithDuration:0.2 animations:^{
-                [_textView setContentOffset:offsetP];
+                [textView setContentOffset:offsetP];
             }];
         }
         else {
-            [_textView setContentOffset:offsetP];
+            [textView setContentOffset:offsetP];
         }
     }
 }
@@ -497,23 +496,23 @@
 
 - (void) setSendBtnActiveColor:(UIColor *)sendBtnActiveColor {
     _sendBtnActiveColor = sendBtnActiveColor;
-    if (_textView.text.length > 0) [_sendBtn setTitleColor:sendBtnActiveColor forState:UIControlStateNormal];
+    if (textView.text.length > 0) [sendBtn setTitleColor:sendBtnActiveColor forState:UIControlStateNormal];
 }
 
 - (void) setSendBtnInactiveColor:(UIColor *)sendBtnInactiveColor {
     _sendBtnInactiveColor = sendBtnInactiveColor;
-    if (_textView.text.length == 0) [_sendBtn setTitleColor:sendBtnInactiveColor forState:UIControlStateNormal];
+    if (textView.text.length == 0) [sendBtn setTitleColor:sendBtnInactiveColor forState:UIControlStateNormal];
 }
 
 - (UILabel *) placeholderLabel {
     if (!_placeholderLabel) {
-        _placeholderLabel = [[UILabel alloc]initWithFrame:_textView.frame];
+        _placeholderLabel = [[UILabel alloc]initWithFrame:textView.frame];
         _placeholderLabel.userInteractionEnabled = NO;
         _placeholderLabel.backgroundColor = [UIColor clearColor];
         _placeholderLabel.font = [UIFont systemFontOfSize:14];
         _placeholderLabel.textColor = [UIColor lightGrayColor];
         _placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-         [self insertSubview:_placeholderLabel aboveSubview:_textView];
+         [self insertSubview:_placeholderLabel aboveSubview:textView];
     }
 
     return _placeholderLabel;
@@ -530,14 +529,14 @@
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     if (CGRectContainsPoint(self.bounds, point)) {
-        if (CGRectContainsPoint(_textView.frame, point)) {
+        if (CGRectContainsPoint(textView.frame, point)) {
             [self open];
         }
         
         return YES;
     }
     else {
-        if (isKeyboardVisible && !stopAutoClose && _textView.text.length == 0) {
+        if (isKeyboardVisible && !stopAutoClose && textView.text.length == 0) {
             [self close];
         }
         return NO;
