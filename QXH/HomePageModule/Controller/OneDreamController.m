@@ -61,6 +61,7 @@
     [DataInterface requestTribeList:@""
                           tribename:@""
                            authflag:@"0"
+                             status:@"0"
                           tribetype:@"2" //1为部落，2为直播间
                                 tag:@""
                            district:@""

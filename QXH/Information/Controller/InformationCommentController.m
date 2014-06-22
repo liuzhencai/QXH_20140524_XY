@@ -58,7 +58,17 @@
 - (void)comment:(id)sender
 {
     NSLog(@"发表评论");
-    [self.view addSubview:_commentView];
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
+    [alertView setUseMotionEffects:TRUE];
+    [alertView setButtonTitles:@[@"发表"]];
+    UITextView *commentView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+    [alertView setContainerView:commentView];
+    [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
+        [DataInterface praiseArticle:self.artid laud:@"0" comment:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
+            [alertView close];
+        }];
+    }];
+    [alertView show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,10 +98,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NameCardViewController *nameCard = [[NameCardViewController alloc] init];
     [self.navigationController pushViewController:nameCard animated:YES];
-}
-
-- (IBAction)hideComment:(id)sender {
-    [_commentView removeFromSuperview];
 }
 
 @end

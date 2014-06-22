@@ -28,9 +28,8 @@
 
 - (void)setModel:(MyTribeModel *)model
 {
-//    self.portraitView.image = model.photo;
-    self.tribeNameLabel.text = model.tribename;
-    self.creator.text = model.creatername;
+    _tribeNameLabel.text = model.tribename;
+    _creatorLabel.text = model.creatername;
 }
 
 @end

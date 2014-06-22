@@ -69,44 +69,9 @@
     [self.view addSubview:_toolbarView];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSLog(@"buttonINdex:%d",buttonIndex);
-    switch (buttonIndex) {
-        case 1:
-        {
-            /*
-            [DataInterface shareContent:self.artid contenttype:@"2" sharetype:@"2" targetid:<#(NSString *)#> withCompletionHandler:^(NSMutableDictionary *dict) {
-                <#code#>
-            }]
-             */
-        }
-            break;
-        case 2:
-        {
-            
-        }
-            break;
-        case 3:
-        {
-            
-        }
-            break;
-        default:
-            break;
-    }
-}
-
 - (void)share:(id)sender
 {
-    NSLog(@"分享");
-
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:@"取消"
-                                          otherButtonTitles:@"分享到部落",@"分享到广场",@"分享到微信", nil];
-    [alert show];
+    NSLog(@"微信分享");
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,26 +85,31 @@
     switch (btn.tag) {
         case 1:
         {
-            NSLog(@"点击收藏");
-
-            [self showAlert:@"点击收藏"];
+            btn.selected = !btn.selected;
+            NSString *collected = nil;
+            if (btn.selected) {
+                collected = @"1";
+            }else{
+                collected = @"2";
+            }
+            [DataInterface squareArticleCollection:collected artid:self.artid withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
 
         }
             break;
         case 2:
         {
-            NSLog(@"点击赞");
-
-            [self showAlert:@"点击赞"];
-
+            [DataInterface praiseArticle:self.artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         case 3:
         {
-            NSLog(@"点击转发");
-
-            [self showAlert:@"点击转发"];
-
+            [DataInterface transmit:@"2" targetid:self.artid refsign:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         case 4:

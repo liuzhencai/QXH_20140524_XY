@@ -10,5 +10,6 @@
 #import "MyTribeCell.h"
 
 @interface MyTribeController : MyViewController<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *mytribeTbl;
 
 @end

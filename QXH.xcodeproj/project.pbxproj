@@ -156,6 +156,7 @@
 		21401DAD1919325900E9175B /* AddrListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DAB1919325900E9175B /* AddrListCell.xib */; };
 		21401DB11919326B00E9175B /* MyMsgCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DAF1919326B00E9175B /* MyMsgCell.m */; };
 		21401DB21919326B00E9175B /* MyMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DB01919326B00E9175B /* MyMsgCell.xib */; };
+		214C25A71956838E006109FF /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214C25A61956838E006109FF /* CustomIOS7AlertView.m */; };
 		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
 		2166CDF41933970500F0312E /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF31933970500F0312E /* UserInfoModel.m */; };
 		2166CDF619339A3400F0312E /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF519339A3400F0312E /* TabBarControl.m */; };
@@ -576,6 +577,8 @@
 		21401DAE1919326B00E9175B /* MyMsgCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMsgCell.h; sourceTree = "<group>"; };
 		21401DAF1919326B00E9175B /* MyMsgCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMsgCell.m; sourceTree = "<group>"; };
 		21401DB01919326B00E9175B /* MyMsgCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyMsgCell.xib; sourceTree = "<group>"; };
+		214C25A51956838E006109FF /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		214C25A61956838E006109FF /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		2166CDEF193396AE00F0312E /* ModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelGenerator.h; sourceTree = "<group>"; };
 		2166CDF0193396AE00F0312E /* ModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelGenerator.m; sourceTree = "<group>"; };
 		2166CDF21933970500F0312E /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1461,6 +1464,8 @@
 		212F23A21928DF2C00F738F8 /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
+				214C25A51956838E006109FF /* CustomIOS7AlertView.h */,
+				214C25A61956838E006109FF /* CustomIOS7AlertView.m */,
 				5869D87719431A6600401862 /* YSKeyboardTableView.h */,
 				5869D87819431A6600401862 /* YSKeyboardTableView.m */,
 				84AB9248192B3FD80000101A /* cityList.plist */,
@@ -2230,6 +2235,7 @@
 				2111B1D019555D9700AA5478 /* InfoCommentModel.m in Sources */,
 				2119EED7191682E6007DBE68 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				21401DB11919326B00E9175B /* MyMsgCell.m in Sources */,
+				214C25A71956838E006109FF /* CustomIOS7AlertView.m in Sources */,
 				845D44981947425B0041445D /* UserInfoModelManger.m in Sources */,
 				84F065F4192AFB0F00B09AB5 /* PeocelCell.m in Sources */,
 				84F065EC192AFACD00B09AB5 /* FindPeopleViewController.m in Sources */,

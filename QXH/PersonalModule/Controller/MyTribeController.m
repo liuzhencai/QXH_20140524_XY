@@ -19,9 +19,10 @@
 
 - (void)getMyTribeList
 {
-    [DataInterface requestTribeList:@"1" tribename:@"" authflag:@"0" tribetype:@"1" tag:@"" district:@"" start:@"10" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface requestTribeList:@"1" tribename:@"" authflag:@"0" status:@"0" tribetype:@"1" tag:@"" district:@"" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
 //        [self showAlert:[dict description]];
         mytribes = [ModelGenerator json2TribeList:dict];
+        [_mytribeTbl reloadData];
     }];
 }
 
