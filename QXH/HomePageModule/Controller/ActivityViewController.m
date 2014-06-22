@@ -261,7 +261,10 @@
         activityDetail.activityId = [inActivity objectForKey:@"actid"];
         [self.navigationController pushViewController:activityDetail animated:YES];
     }else{
+        NSDictionary *endActivity = [self.endActivitysList objectAtIndex:indexPath.section];
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
+        activityDetail.activityId = [endActivity objectForKey:@"actid"];
+        activityDetail.isActivityEnd = YES;
         [self.navigationController pushViewController:activityDetail animated:YES];
     }
 }
