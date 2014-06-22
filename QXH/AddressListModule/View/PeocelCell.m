@@ -21,6 +21,8 @@
         CGFloat lableHeight = 25;
         
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 48)/2.0, 48, 48)];
+        [_headImgView setRound:YES];
+//        _headImgView.layer.cornerRadius = 24;//_headImgView.width/2.0;
         //    _headImgView.backgroundColor = [UIColor greenColor];
         _headImgView.image = [UIImage imageNamed:@"img_portrait96"];
         [self.contentView addSubview:_headImgView];
@@ -54,6 +56,15 @@
     CGFloat lableHeight = 25;
     
     _headImgView.frame = CGRectMake(10, (height - 48)/2.0, 48, 48);
+//    _headImgView.layer.cornerRadius = 24;
+//    _headImgView.layer.masksToBounds = YES;
+////    然后再给图层添加一个有色的边框，类似qq空间头像那样
+//    _headImgView.layer.borderWidth = 1;
+//    _headImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    
+//    _headImgView.layer.contents = (id)[[UIImage imageNamed:@"backgroundImage.png"] CGImage];
+    
+    _headImgView.backgroundColor = [UIColor redColor];
     _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 200, lableHeight);
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
@@ -71,14 +82,15 @@
     NSDictionary *params = (NSDictionary *)objt;
 
     NSString *imageUrlStr = [params objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [self.headImgView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *nameStr = [params objectForKey:@"displayname"];
-    if ([nameStr length] > 0) {
+//    if ([nameStr length] > 0) {
         self.name.text = nameStr;
-    }
+//    }
     NSString *dutyString = [params objectForKey:@"remark"];
-    if ([dutyString length] > 0) {
+//    if ([dutyString length] > 0) {
         self.duty.text = dutyString;
-    }
+//    }
 }
 @end

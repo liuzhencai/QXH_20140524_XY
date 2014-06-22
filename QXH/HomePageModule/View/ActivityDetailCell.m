@@ -156,7 +156,7 @@
         self.activityTypeLabel.text = [params objectForKey:@"acttype"];
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
         NSString *imageUrl = [params objectForKey:@"actimgs"];
-        [self.activityImage setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"title_bar_bg"]];
+        [self.activityImage setImageWithURL:IMGURL(imageUrl) placeholderImage:[UIImage imageNamed:@"title_bar_bg"]];
         self.tribeLabel.text = [params objectForKey:@""];
         self.orgnizerLabel.text = [params objectForKey:@""];
         self.timeLabel.text = [params objectForKey:@"begindate"];

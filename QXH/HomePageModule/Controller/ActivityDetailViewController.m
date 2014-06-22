@@ -345,7 +345,28 @@
         NSLog(@"分享到部落");
         ShareToTribeViewController *shareToTribe = [[ShareToTribeViewController alloc] init];
         shareToTribe.shareToTribeBlock = ^(NSDictionary *dict){
-            [self showAlert:@"分享到部落"];
+            NSLog(@"分享不落信息：%@",dict);
+            /**
+             *  分享内容
+             *
+             *  @param artid       广场消息的唯一标示
+             *  @param contenttype 1为广场文章，2为咨询分享，3为活动分享
+             *  @param sharetype   1为分享给好友，2为分享给部落
+             *  @param targetid    分享给好友或部落的id，如果为多个好友或部落，中间以逗号隔开
+             *  @param callback 回调
+             */
+
+            if (dict) {
+                [DataInterface shareContent:self.activityId
+                                contenttype:@"3"
+                                  sharetype:@"2"
+                                   targetid:[dict objectForKey:@"tribeid"]
+                      withCompletionHandler:^(NSMutableDictionary *dict){
+                          NSLog(@"分享到部落返回信息%@",dict);
+                          [self showAlert:[dict objectForKey:@"info"]];
+                          
+                      }];
+            }
         };
         [self.navigationController pushViewController:shareToTribe animated:YES];
     }else if (2 == buttonIndex){//分享到广场

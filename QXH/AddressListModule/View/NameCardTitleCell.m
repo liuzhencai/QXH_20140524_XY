@@ -28,6 +28,7 @@
         UIFont *font = [UIFont systemFontOfSize:14];
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         _headImgView.image = [UIImage imageNamed:@"img_portrait72"];
+        [_headImgView setRound:YES];
         [self.contentView addSubview:_headImgView];
         
         _name = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -80,6 +81,7 @@
         [self.contentView addSubview:_forwardCard];
         
         _headImgView.frame = CGRectMake(widthToLeft, widthToLeft + 10, headHight, headHight);
+        _headImgView.layer.cornerRadius = headHight / 2.0;
         _name.frame = CGRectMake(_headImgView.right + 10, widthToLeft, labelWidth, labelHight);
         _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
         _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
@@ -146,7 +148,8 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
     NSString *headUrlString = [params objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:headUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+//    [self.headImgView setImageWithURL:[NSURL URLWithString:headUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+    [self.headImgView setImageWithURL:IMGURL(headUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
     self.name.text = [params objectForKey:@"displayname"];
     self.duty.text = [params objectForKey:@"title"];
     self.phone.text = [params objectForKey:@"phone"];

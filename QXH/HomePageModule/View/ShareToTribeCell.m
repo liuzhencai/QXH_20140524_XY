@@ -66,17 +66,17 @@
 }
 
 - (void)resetCellParamDict:(id)objt{
-//    @property (nonatomic, strong) UIImageView *headImgView;//头像
-//    @property (nonatomic, strong) UILabel *name;//名称
-//    @property (nonatomic, strong) UILabel *dynamic;//动态
-//    @property (nonatomic, strong) UILabel *creatMan;//创建人
-//    @property (nonatomic, strong) UILabel *perpelCount;//加入人数
-//    @property (nonatomic, strong) UIImageView *arrowImgView;
-    [self.headImgView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    self.name.text = @"北约 （50人）";
-    self.dynamic.text = @"最新发言内容最新发言内容最新发言内容最新发言内容";
-    self.creatMan.text = [NSString stringWithFormat:@"创建人：%@",@"ABC"];
-    self.perpelCount.text = [NSString stringWithFormat:@"%d人已经加入",30];
+    NSDictionary *params = (NSDictionary *)objt;
+    NSString *headImageString = [params objectForKey:@"photo"];
+    [self.headImgView setImageWithURL:IMGURL(headImageString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    NSString *tribeName = [params objectForKey:@"tribename"];
+    NSInteger count = [[params objectForKey:@"maxcount"] integerValue];
+    self.name.text = [NSString stringWithFormat:@"%@ (%d)",tribeName,count];
+    self.dynamic.text = [params objectForKey:@"signature"];
+    NSString *createrName = [params objectForKey:@"creatername"];
+    self.creatMan.text = [NSString stringWithFormat:@"创建人：%@",createrName];
+    NSInteger nowCount = [[params objectForKey:@"nowcount"] integerValue];
+    self.perpelCount.text = [NSString stringWithFormat:@"%d人已经加入",nowCount];
 }
 
 @end

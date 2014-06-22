@@ -48,6 +48,7 @@
  */
 - (void)removeAllSubviews;
 
+- (void)setRound:(BOOL)isRound;
 
 /**
  * The view controller whose view contains this view.

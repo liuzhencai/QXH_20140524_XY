@@ -59,13 +59,44 @@
 */
 
 #pragma mark - UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return [self.findPeopleResults count];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 15;
+    NSDictionary *dict = [self.findPeopleResults objectAtIndex:section];
+    NSArray *list = [dict objectForKey:@"list"];
+    return [list count];
+//    return 15;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 70;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    //    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
+    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+    bgView.image = [UIImage imageNamed:@"bar_transition"];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+    
+    title.backgroundColor = [UIColor clearColor];
+    
+//    NSDictionary *dict = nil;
+    NSDictionary *dict = [self.findPeopleResults objectAtIndex:section];
+    if (dict) {
+        NSString *titleStr = [dict objectForKey:@"name"];
+        title.text = titleStr;
+    }
+    [bgView addSubview:title];
+    return bgView;
+    //    }
+    //    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -74,15 +105,25 @@
     if (!cell) {
         cell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifiter];
     }
-    cell.name.text = @"李某某";
-    cell.duty.text = @"xxxxxxxxxxxxxx校长";
-    [cell resetCellParamDict:nil];
+//    cell.name.text = @"李某某";
+//    cell.duty.text = @"xxxxxxxxxxxxxx校长";
+    NSDictionary *dict = [self.findPeopleResults objectAtIndex:indexPath.section];
+    NSArray *list = [dict objectForKey:@"list"];
+    NSDictionary *member = [list objectAtIndex:indexPath.row];
+    if (member) {
+        [cell resetCellParamDict:member];
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
+    NSDictionary *dict = [self.findPeopleResults objectAtIndex:indexPath.section];
+    NSArray *list = [dict objectForKey:@"list"];
+    NSDictionary *member = [list objectAtIndex:indexPath.row];
     NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+    nameCard.memberDict = member;
     [self.navigationController pushViewController:nameCard animated:YES];
 }
 

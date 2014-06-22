@@ -40,7 +40,7 @@
 @property (nonatomic, strong) UIImageView *headImgView;//头像
 @property (nonatomic, strong) UIButton *uploadImageBtn;//上传图片
 @property (nonatomic, strong) UIButton *commitBtn;//提交按钮
-
+@property (nonatomic, strong) NSString *imagePath;//图片路径
 @end
 
 #define HEIGHT_CELL 30
@@ -191,7 +191,7 @@
     [DataInterface createAct:self.name.text
                      acttype:self.type.text
                         desc:self.activityDes.text
-                     actimgs:@""
+                     actimgs:self.imagePath
                    condition:@""
                     comefrom:self.comeFrom.text
                         tags:@""
@@ -598,16 +598,24 @@
         self.headImage = image;
         NSLog(@"图片压缩后大小：%d",[data length]);
         [self showAlert:@"图片上传成功"];
-//        NSFileManager *fileManager = [NSFileManager defaultManager];//将图片存储到本地documents
-//        NSString *filePath = [[NSHomeDirectory() stringByAppendingString:@"/Documents"] stringByAppendingString:@"/imgs"];
-//        BOOL isExist = [fileManager fileExistsAtPath:filePath];
-//        if (!isExist) {
-//            [fileManager createDirectoryAtPath:filePath
-//                   withIntermediateDirectories:YES
-//                                    attributes:nil
-//                                         error:nil];
-//        }
+        NSFileManager *fileManager = [NSFileManager defaultManager];//将图片存储到本地documents
+        NSString *filePath = [[NSHomeDirectory() stringByAppendingString:@"/Documents"] stringByAppendingString:@"/imgs"];
+        BOOL isExist = [fileManager fileExistsAtPath:filePath];
+        if (!isExist) {
+            [fileManager createDirectoryAtPath:filePath
+                   withIntermediateDirectories:YES
+                                    attributes:nil
+                                         error:nil];
+        }
         
+        NSString *imageName = @"activityImage";
+        BOOL isImage = [fileManager createFileAtPath:[filePath stringByAppendingString:[NSString stringWithFormat:@"/%@.png",imageName]] contents:data attributes:nil];
+        if (isImage) {
+            NSLog(@"存储成功");
+        }
+        
+        NSString *path = [NSString stringWithFormat:@"%@/%@.png",filePath,imageName];
+        self.imagePath = path;
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
     [self resetView];

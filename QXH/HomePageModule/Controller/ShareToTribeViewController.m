@@ -12,6 +12,7 @@
 @interface ShareToTribeViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) NSMutableArray *tribesList;//部落列表
 @end
 
 @implementation ShareToTribeViewController
@@ -42,12 +43,50 @@
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.delegate = self;
     _mainTable.tableHeaderView = _searchBar;
+    
+    [self getTribeList];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getTribeList{
+    /**
+     *  获取部落/群组/直播间列表
+     *
+     *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
+     *  @param tribename 部落名称
+     *  @param authflag  0为全部，1为普通部落，2为官方认证部落
+     *  @param tribetype 1为部落，2为直播间
+     *  @param tag       搜索是只允许单个标签搜索
+     *  @param district  地域信息
+     *  @param start     起始位置
+     *  @param count     获取数量
+     *  @param callback  回调
+     */
+    
+    [DataInterface requestTribeList:@"2"
+                          tribename:@""
+                           authflag:@"0"
+                          tribetype:@"1"
+                                tag:@""
+                           district:@""
+                              start:@"0"
+                              count:@"20"
+              withCompletionHandler:^(NSMutableDictionary *dict){
+                  NSLog(@"部落列表返回值：%@",dict);
+                  
+                  if (dict) {
+                      NSArray *list = [dict objectForKey:@"list"];
+                      self.tribesList = [NSMutableArray arrayWithArray:list];
+//                      UITableView *table = (UITableView *)[self.view viewWithTag:MY_TRIBE_TABLE_TAG];
+                      [_mainTable reloadData];
+                  }
+                  [self showAlert:[dict objectForKey:@"info"]];
+              }];
 }
 
 /*
@@ -62,16 +101,16 @@
 */
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [self.tribesList count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 20;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 20;
+//}
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 //    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
@@ -79,25 +118,25 @@
 //    return bgView;
 //}
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
-    bgView.image = [UIImage imageNamed:@"bar_transition"];
-    
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-    NSString *titleStr = nil;
-    if (section == 0) {
-        titleStr = @"A";
-    }else if (section == 1){
-        titleStr = @"B";
-    }else {
-        titleStr = @"C";
-    }
-    title.text = titleStr;
-    title.backgroundColor = [UIColor clearColor];
-    [bgView addSubview:title];
-    
-    return bgView;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+//    bgView.image = [UIImage imageNamed:@"bar_transition"];
+//    
+//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+//    NSString *titleStr = nil;
+//    if (section == 0) {
+//        titleStr = @"A";
+//    }else if (section == 1){
+//        titleStr = @"B";
+//    }else {
+//        titleStr = @"C";
+//    }
+//    title.text = titleStr;
+//    title.backgroundColor = [UIColor clearColor];
+//    [bgView addSubview:title];
+//    
+//    return bgView;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
@@ -111,7 +150,11 @@
         cell = [[ShareToTribeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    [cell resetCellParamDict:nil];
+    if (self.tribesList) {
+        NSDictionary *tribe = [self.tribesList objectAtIndex:indexPath.row];
+        [cell resetCellParamDict:tribe];
+    }
+    
     return cell;
 }
 
@@ -119,7 +162,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
     if (self.shareToTribeBlock) {
-        NSDictionary *dict = @{@"key":@"isBack",@"value":@"YES"};
+        NSDictionary *dict = [self.tribesList objectAtIndex:indexPath.row];
         self.shareToTribeBlock(dict);
         [self.navigationController popViewControllerAnimated:YES];
     }

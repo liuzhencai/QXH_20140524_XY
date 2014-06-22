@@ -145,6 +145,15 @@
     }
 }
 
+- (void)setRound:(BOOL)isRound{
+    if (isRound) {
+        self.layer.cornerRadius = self.width/2.0;
+        self.layer.masksToBounds = YES;
+        self.layer.borderWidth = 0;
+        self.layer.borderColor = [[UIColor whiteColor] CGColor];
+    }
+}
+
 - (void)removeAllSubviews {
     while (self.subviews.count) {
         UIView* child = self.subviews.lastObject;
