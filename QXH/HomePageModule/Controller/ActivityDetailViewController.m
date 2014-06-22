@@ -115,6 +115,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.isActivityEnd) {
+        return 4;
+    }
     return 5;
 }
 

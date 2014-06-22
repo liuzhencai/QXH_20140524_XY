@@ -9,5 +9,6 @@
 #import "MyViewController.h"
 
 @interface MyVisitorController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *vistorTbl;
 
 @end

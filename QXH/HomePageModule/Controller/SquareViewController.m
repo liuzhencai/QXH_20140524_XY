@@ -48,36 +48,8 @@
 }
 
 - (void)getSquareList{
-    /**
-     *  获取查询广场文章/咨询文章列表,获取收藏列表
-     *
-     *  @param type          信息类型(0为不区分[获取个人收藏文章时使用],1为广场消息，2为咨询)
-     *  @param detailtype    信息明细类型 1为最新，2为最热,3为收藏
-     *  @param tag           标签
-     *  @param arttype       文章类型
-     *  @param contentlength 文章列表中文章的长度
-     *  @param start         起始消息的artid，不填写该字段读取最新消息n个
-     *  @param count         获取消息数量
-     */
-//    + (void)getInfoList:(NSString *)type
-//detailtype:(NSString *)detailtype
-//tag:(NSString *)tag
-//arttype:(NSString *)arttype
-//contentlength:(NSString *)contentlength
-//start:(NSString *)start
-//count:(NSString *)count
-//withCompletionHandler:(DictCallback)callback;
-    [DataInterface getInfoList:@"1" //1为广场消息
-                    detailtype:@"1" //1为最新，2为最热,3为收藏
-                           tag:@""
-                       arttype:@""
-                 contentlength:@""
-                         start:@""
-                         count:@"20"
-         withCompletionHandler:^(NSMutableDictionary *dict){
-             if (dict) {
-                 NSLog(@"获取广场信息：%@",dict);
-             }
+    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        
     }];
 }
 

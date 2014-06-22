@@ -55,8 +55,9 @@
         [self.contentView addSubview:_email];
         
         _addFriend = [UIButton buttonWithType:UIButtonTypeCustom];
-        _addFriend.frame = CGRectMake(20, 0 + 10, 130 * 2 + 20, 44);
+        _addFriend.frame = CGRectMake(20, 0 + 10, 130, 30);
         [_addFriend setTitle:@"加为好友" forState:UIControlStateNormal];
+        _addFriend.titleLabel.font = [UIFont systemFontOfSize:16];
         [_addFriend setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         UIImage *headImageNormal = [UIImage imageNamed:@"btn_enroll_normal"];
         headImageNormal = [headImageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
@@ -67,14 +68,16 @@
         [_addFriend addTarget:self action:@selector(buttonActionxx:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_addFriend];
         
-//        _forwardCard = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _forwardCard.frame = CGRectMake(self.width - 20 - 130, 0 + 10, 130, 44);
-//        [_forwardCard setTitle:@"转发名片" forState:UIControlStateNormal];
-//        [_forwardCard setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_normal"] forState:UIControlStateNormal];
-//        [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_highlight"] forState:UIControlStateHighlighted];
-//        [_forwardCard addTarget:self action:@selector(buttonActionxx:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:_forwardCard];
+        _forwardCard = [UIButton buttonWithType:UIButtonTypeCustom];
+        _forwardCard.frame = CGRectMake(self.width - 20 - 130, 0 + 10, 130, 44);
+        [_forwardCard setTitle:@"拒绝" forState:UIControlStateNormal];
+        _forwardCard.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_forwardCard setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _forwardCard.hidden = YES;
+        [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_normal"] forState:UIControlStateNormal];
+        [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_highlight"] forState:UIControlStateHighlighted];
+        [_forwardCard addTarget:self action:@selector(buttonActionxx:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_forwardCard];
         
         _headImgView.frame = CGRectMake(widthToLeft, widthToLeft + 10, headHight, headHight);
         _name.frame = CGRectMake(_headImgView.right + 10, widthToLeft, labelWidth, labelHight);
@@ -88,27 +91,38 @@
     return self;
 }
 
+- (void)setIsMyFriend:(BOOL)isMyFriend{
+    if (isMyFriend) {
+        _addFriend.frame = CGRectMake(20, _addFriend.top, 130, 30);
+        [_addFriend setTitle:@"同意加为好友" forState:UIControlStateNormal];
+        _forwardCard.frame = CGRectMake(_addFriend.right + 20, _addFriend.top, 130, 30);
+        _forwardCard.hidden = NO;
+        
+    }
+}
+
 - (void)awakeFromNib
 {
     // Initialization code
 }
 
 //- (void)layoutSubviews{
-//    CGFloat widthToLeft = 20;
-//    CGFloat headHight = 70;
-//    CGFloat labelHight = 20;
-//    CGFloat labelWidth = 200;
-//    CGFloat btnWidth = 130;
-//    CGFloat btnHight = 44;
-//    _headImgView.frame = CGRectMake(widthToLeft, widthToLeft, headHight, headHight);
-//    _name.frame = CGRectMake(_headImgView.right + 10, widthToLeft, labelWidth, labelHight);
-//    _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
-//    _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
-//    _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
+////    CGFloat widthToLeft = 20;
+////    CGFloat headHight = 70;
+////    CGFloat labelHight = 20;
+////    CGFloat labelWidth = 200;
+////    CGFloat btnWidth = 130;
+////    CGFloat btnHight = 44;
+////    _headImgView.frame = CGRectMake(widthToLeft, widthToLeft, headHight, headHight);
+////    _name.frame = CGRectMake(_headImgView.right + 10, widthToLeft, labelWidth, labelHight);
+////    _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
+////    _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
+////    _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
+////    
+////    _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10, btnWidth, btnHight);
+////    _forwardCard.frame = CGRectMake(self.width - widthToLeft - btnWidth, _email.bottom + 10, btnWidth, btnHight);
+////    NSLog(@"kkkkk:%@,%@",NSStringFromCGRect(_addFriend.frame),NSStringFromCGRect(_forwardCard.frame));
 //    
-//    _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10, btnWidth, btnHight);
-//    _forwardCard.frame = CGRectMake(self.width - widthToLeft - btnWidth, _email.bottom + 10, btnWidth, btnHight);
-//    NSLog(@"kkkkk:%@,%@",NSStringFromCGRect(_addFriend.frame),NSStringFromCGRect(_forwardCard.frame));
 //}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

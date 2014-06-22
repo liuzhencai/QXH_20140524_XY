@@ -30,4 +30,6 @@
 
 @property (nonatomic, copy) NSString *browsetime;
 
+@property (nonatomic, assign) NSInteger contentlength;
+
 @end

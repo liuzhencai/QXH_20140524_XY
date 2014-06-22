@@ -130,9 +130,10 @@
      *  @param callback  回调
      */
 
-    [DataInterface requestTribeList:@"2"
+    [DataInterface requestTribeList:@"1"
                           tribename:@""
                            authflag:@"0"
+                             status:@"0"
                           tribetype:@"1"
                                 tag:@""
                            district:@""
@@ -181,6 +182,7 @@
         [DataInterface requestTribeList:@"2"
                               tribename:@""
                                authflag:@"0"
+                                 status:@"0"
                               tribetype:@"1"
                                     tag:@""
                                district:@""

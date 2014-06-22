@@ -162,6 +162,7 @@ withCompletionHandler:(DictCallback)callback
 + (void)requestTribeList:(NSString *)type
                tribename:(NSString *)tribename
                 authflag:(NSString *)authflag
+                  status:(NSString *)status
                tribetype:(NSString *)tribetype
                      tag:(NSString *)tag
                 district:(NSString *)district
@@ -169,7 +170,7 @@ withCompletionHandler:(DictCallback)callback
                    count:(NSString *)count
    withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0111", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"tribename":tribename,@"authflag":authflag,@"tribetype":tribetype,@"tag":tag,@"district":district,@"start":start,@"count":count};
+    NSDictionary *param = @{@"opercode": @"0111", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"tribename":tribename,@"authflag":authflag,@"status":status,@"tribetype":tribetype,@"tag":tag,@"district":district,@"start":start,@"count":count};
     NSLog(@"\n##########获取码表信息获取部落/群组/直播间列表接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取部落/群组/直播间列表返回结果##########\n[结 果]:%@\n#############################\n",dict);

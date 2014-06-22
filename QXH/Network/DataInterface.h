@@ -174,6 +174,7 @@ withCompletionHandler:(DictCallback)callback;
  *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
  *  @param tribename 部落名称
  *  @param authflag  0为全部，1为普通部落，2为官方认证部落
+ *  @param status    1为状态正常的部落(可聊天使用的部落),2为申请中的部落(不能聊天)
  *  @param tribetype 1为部落，2为直播间
  *  @param tag       搜索是只允许单个标签搜索
  *  @param district  地域信息
@@ -184,6 +185,7 @@ withCompletionHandler:(DictCallback)callback;
 + (void)requestTribeList:(NSString *)type
                tribename:(NSString *)tribename
                 authflag:(NSString *)authflag
+                  status:(NSString *)status
                tribetype:(NSString *)tribetype
                      tag:(NSString *)tag
                 district:(NSString *)district
@@ -356,7 +358,7 @@ withCompletionHandler:(DictCallback)callback;
  *
  *  @param artid    广场消息的唯一标示
  *  @param laud     赞 1为赞1,0为无操作
- *  @param comment  赞 1为赞1,0为无操作
+ *  @param comment  评论
  *  @param callback 回调
  */
 + (void)praiseArticle:(NSString *)artid

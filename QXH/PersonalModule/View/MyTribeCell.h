@@ -12,6 +12,6 @@
 @interface MyTribeCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (weak, nonatomic) IBOutlet UILabel *tribeNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *creator;
+@property (weak, nonatomic) IBOutlet UILabel *creatorLabel;
 - (void)setModel:(MyTribeModel *)model;
 @end

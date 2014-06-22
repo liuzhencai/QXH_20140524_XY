@@ -26,4 +26,13 @@
     // Configure the view for the selected state
 }
 
+- (void)setModel:(InfoCommentModel *)model
+{
+    [_portraitView circular];
+    [_portraitView setImageWithURL:IMGURL(model.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_reviewerLabel setText:model.sname];
+    [_dateLabel setText:model.date];
+    [_commentLabel setText:model.comment];
+}
+
 @end

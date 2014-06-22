@@ -24,6 +24,7 @@
 
 - (void)setModel:(InfoModel *)model
 {
+    [self.infoImage setImageWithURL:IMGURL(model.artimgs)];
     self.titleLabel.text = model.title;
     self.dateLabel.text = model.date;
     self.contentLabel.text = model.content;

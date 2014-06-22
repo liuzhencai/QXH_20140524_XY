@@ -47,6 +47,9 @@
 {
     [super viewDidLoad];
     self.title = @"智谷";
+    if (IOS7_OR_LATER) {
+        [_tableview setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
     self._tableview.backgroundColor = [UIColor clearColor];
     
     [self requestInfoList:@"1"];
@@ -117,12 +120,12 @@
         }
         tableCell = cell;
     }
- 
     return tableCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
     InfoModel *infomodel = [info objectAtIndex:indexPath.row];
     controller.artid = infomodel.artid;

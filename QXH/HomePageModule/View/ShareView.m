@@ -61,6 +61,7 @@
 
 - (void)layoutSubviews{
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, VIEW_WIDTH - 30, 35)];
+    title.backgroundColor = [UIColor clearColor];
     title.text = @"活动名称";
     [_bgView addSubview:title];
     

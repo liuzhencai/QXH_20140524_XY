@@ -9,6 +9,7 @@
 #import "NameCardViewController.h"
 #import "ChatViewController.h"
 #import "NameCardTitleCell.h"
+#import "AddFriendView.h"
 
 @interface NameCardViewController ()<UITableViewDataSource, UITableViewDelegate,NameCardTitleDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -136,6 +137,9 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
         }
+        if (self.isMyFriend) {
+            cell.isMyFriend = self.isMyFriend;
+        }
 
         if (self.userDetailInfo) {
             [cell resetCellParamDict:self.userDetailInfo];
@@ -210,36 +214,61 @@
 - (void)didSelectButtonWithIndex:(int)index{
     NSLog(@"选择： %d",index);
     if (index == 1) {
-        /**
-         *  加好友确认/修改备注
-         *
-         *  @param targetid 被处理的加入成员的userid
-         *  @param type     0为同意并添加对方为好友(备注不为空添加备注)，1为同意但不添加对方为好友，2为拒绝，3为修改备注
-         *  @param remark   备注
-         *  @param callback 回调
-         */
+        if (self.isMyFriend) {
+            /**
+             *  加好友确认/修改备注
+             *
+             *  @param targetid 被处理的加入成员的userid
+             *  @param type     0为同意并添加对方为好友(备注不为空添加备注)，1为同意但不添加对方为好友，2为拒绝，3为修改备注
+             *  @param remark   备注
+             *  @param callback 回调
+             */
 
-        
-//        [DataInterface addFriendConfirm:@"100013" type:@"0" remark:@"照站" withCompletionHandler:^(NSMutableDictionary *dict){
-//            NSLog(@"加为好友返回值：%@",dict);
-//            [self showAlert:[dict objectForKey:@"info"]];
-//        }];
-        
-        /**
-         *  加好友请求
-         *
-         *  @param targetid 被处理的加入成员的userid
-         *  @param mess     好友请求验证消息
-         *  @param callback 回调
-         */
-        if (self.memberDict) {
-            [DataInterface requestAddFriend:[self.memberDict objectForKey:@"userid"] mess:@"我是张三" withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"%@",dict);
-                [self showAlert:[dict objectForKey:@"info"]];
-            }];
+            if (self.memberDict) {
+                UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+                view.backgroundColor = [UIColor blackColor];
+                view.alpha = 0.5;
+                
+                AddFriendView *addFriend = [[AddFriendView alloc] initWithParam:self.memberDict];
+                addFriend.alpha = 0.0;
+                [addFriend addSubview:view];
+                [addFriend sendSubviewToBack:view];
+                [self.view addSubview:addFriend];
+                
+                addFriend.addFriendBlack = ^(id objct){
+                    NSLog(@"%@",objct);
+                    NSString *remarkString = (NSString *)objct;
+                    
+                    [DataInterface addFriendConfirm:[self.memberDict objectForKey:@"userid"]
+                                               type:@"0"
+                                             remark:remarkString
+                              withCompletionHandler:^(NSMutableDictionary *dict){
+                                  NSLog(@"处理加为好友请求返回值：%@",dict);
+                                  [self showAlert:[dict objectForKey:@"info"]];
+                              }];
+                };
+                [addFriend show];
+            }
+            
+        }else{
+            /**
+             *  加好友请求
+             *
+             *  @param targetid 被处理的加入成员的userid
+             *  @param mess     好友请求验证消息
+             *  @param callback 回调
+             */
+            if (self.memberDict) {
+                [DataInterface requestAddFriend:[self.memberDict objectForKey:@"userid"] mess:@"我是张三" withCompletionHandler:^(NSMutableDictionary *dict){
+                    NSLog(@"%@",dict);
+                    [self showAlert:[dict objectForKey:@"info"]];
+                }];
+            }
         }
+        
     }else{
-        [self showAlert:@"转发名片"];
+        [self showAlert:@"这个拒绝需要吗？"];
+        
     }
     
 }

@@ -28,6 +28,11 @@
 #import "NSString+MD5HexDigest.h"
 #import "DataInterface.h"
 #import "UIImageView+WebCache.h"
+#import "UILabel+StringFrame.h"
+#import "NSString+LabelFrame.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIImageView+Circular.h"
+#import "CustomIOS7AlertView.h"
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 

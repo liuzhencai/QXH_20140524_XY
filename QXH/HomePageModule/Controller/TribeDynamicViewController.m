@@ -177,6 +177,10 @@
             NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
             [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
                 NSLog(@"获取部落成员列表返回值:%@",dict);
+                NSArray *memberList = [dict objectForKey:@"list"];
+                self.membersList = [NSMutableArray arrayWithArray:memberList];
+                UITableView *table = (UITableView *)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+                [table reloadData];
                 [self showAlert:[dict objectForKey:@"info"]];
             }];
         }
@@ -255,7 +259,10 @@
             activityingCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
             activityingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        [activityingCell resetCellParamDict:nil];
+        if (self.activitysList) {
+            NSDictionary *activity = [self.activitysList objectAtIndex:indexPath.row];
+            [activityingCell resetCellParamDict:activity];
+        }
         activityingCell.statusLabel.text = @"进行中";
         
         return activityingCell;
@@ -267,7 +274,10 @@
             myMsgCell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
             myMsgCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        [myMsgCell resetCellParamDict:nil];
+        if (self.membersList) {
+            NSDictionary *member = [self.membersList objectAtIndex:indexPath.row];
+            [myMsgCell resetCellParamDict:member];
+        }
         return myMsgCell;
     }else{
         if (indexPath.row == 0) {

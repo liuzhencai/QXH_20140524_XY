@@ -10,7 +10,9 @@
 #import "SquareViewController.h"
 
 @interface PersonalCollectionController ()
-
+{
+    NSMutableArray *info;
+}
 @end
 
 @implementation PersonalCollectionController
@@ -18,7 +20,8 @@
 - (void)getInfoList
 {
     [DataInterface getInfoList:@"0" detailtype:@"" tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        [self showAlert:[dict description]];
+        info = [ModelGenerator json2InfoList:dict];
+        [self showAlert:[info description]];
     }];
 }
 

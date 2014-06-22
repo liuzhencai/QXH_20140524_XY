@@ -58,6 +58,7 @@
         model.content = [list[i] objectForKey:@"content"];
         model.authflag = [list[i] objectForKey:@"authflag"];
         model.browsetime = [list[i] objectForKey:@"browsetime"];
+        model.contentlength = [[list[i] objectForKey:@"contentlength"] integerValue];
         [array addObject:model];
     }
     return array;
@@ -105,6 +106,43 @@
         model.address = [list[i] objectForKey:@"address"];
         model.startdate = [list[i] objectForKey:@"startdate"];
         model.enddate = [list[i] objectForKey:@"enddate"];
+        [array addObject:model];
+    }
+    return array;
+}
+
++ (NSMutableArray *)json2VistorList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        VistorModel *model = [[VistorModel alloc] init];
+        model.userid =  [list[i] objectForKey:@"userid"];
+        model.username =  [list[i] objectForKey:@"username"];
+        model.photo =  [list[i] objectForKey:@"photo"];
+        model.displayname =  [list[i] objectForKey:@"displayname"];
+        model.signature =  [list[i] objectForKey:@"signature"];
+        model.remark =  [list[i] objectForKey:@"remark"];
+        model.usertype =  [list[i] objectForKey:@"usertype"];
+        model.level =  [list[i] objectForKey:@"level"];
+        model.date = [list[i] objectForKey:@"date"];
+        [array addObject:model];
+    }
+    return array;
+}
+
++ (NSMutableArray *)json2CommentList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        InfoCommentModel *model = [[InfoCommentModel alloc] init];
+        model.comment =  [list[i] objectForKey:@"comment"];
+        model.ctid =  [[list[i] objectForKey:@"ctid"] integerValue];
+        model.sid =  [[list[i] objectForKey:@"sid"] integerValue];
+        model.date = [list[i] objectForKey:@"date"];
+        model.sname =  [list[i] objectForKey:@"sname"];
+        model.sphoto =  [list[i] objectForKey:@"sphoto"];
         [array addObject:model];
     }
     return array;

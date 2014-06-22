@@ -33,6 +33,7 @@
     [DataInterface getDetailInfo:@"2" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
         detailmodel = [ModelGenerator json2InfoDetail:dict];
         [self setValueForView];
+        [_infoDetailTbl reloadData];
     }];
 }
 
@@ -51,8 +52,12 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"智谷";
     
+    if (IOS7_OR_LATER) {
+        [_infoDetailTbl setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
+    
     [self getDetailInfo];
-  
+
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
     [righttbuttonItem setTitle:@"分享" forState:UIControlStateNormal];
@@ -66,10 +71,7 @@
 
 - (void)share:(id)sender
 {
-    NSLog(@"分享");
-
-    [self showAlert:@"分享"];
-
+    NSLog(@"微信分享");
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,26 +85,31 @@
     switch (btn.tag) {
         case 1:
         {
-            NSLog(@"点击收藏");
-
-            [self showAlert:@"点击收藏"];
+            btn.selected = !btn.selected;
+            NSString *collected = nil;
+            if (btn.selected) {
+                collected = @"1";
+            }else{
+                collected = @"2";
+            }
+            [DataInterface squareArticleCollection:collected artid:self.artid withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
 
         }
             break;
         case 2:
         {
-            NSLog(@"点击赞");
-
-            [self showAlert:@"点击赞"];
-
+            [DataInterface praiseArticle:self.artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         case 3:
         {
-            NSLog(@"点击转发");
-
-            [self showAlert:@"点击转发"];
-
+            [DataInterface transmit:@"2" targetid:self.artid refsign:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         case 4:
@@ -110,6 +117,7 @@
             NSLog(@"点击评论");
             InformationCommentController *controller = [[InformationCommentController alloc]initWithNibName:@"InformationCommentController" bundle:nil];
             controller.hidesBottomBarWhenPushed = YES;
+            controller.artid = self.artid;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
@@ -138,12 +146,12 @@
         switch (indexPath.row) {
             case 0:
             {
-                rowHeight = 195.f;
+                rowHeight = 110.f;
             }
                 break;
             case 1:
             {
-                rowHeight = 44.f;
+                rowHeight = [NSString getStringRect:detailmodel.content].height;
             }
                 break;
             default:
@@ -158,12 +166,12 @@
                 break;
             case 1:
             {
-                rowHeight = 195;
+                rowHeight = 110.f;
             }
                 break;
             case 2:
             {
-                rowHeight = 44;
+                rowHeight = [NSString getStringRect:detailmodel.content].height;
             }
                 break;
             default:
@@ -194,8 +202,16 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (!cell) {
                     cell= [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                    cell.textLabel.text = @"资讯内容";
+                    UILabel *label = [[UILabel alloc]init];
+                    label.numberOfLines = 0;
+                    label.font = [UIFont systemFontOfSize:13.f];
+                    label.tag = 101;
+                    [cell.contentView addSubview:label];
                 }
+                UILabel *label_ = (UILabel *)[cell.contentView viewWithTag:101];
+                label_.text = detailmodel.content;
+                CGSize size = [label_ boundingRectWithSize:CGSizeMake(300, FLT_MAX)];
+                label_.frame = CGRectMake(10, 0, size.width, size.height);
             }
                 break;
             default:
@@ -229,20 +245,24 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (!cell) {
                     cell= [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                    cell.textLabel.text = @"资讯内容";
+                    UILabel *label = [[UILabel alloc]init];
+                    label.numberOfLines = 0;
+                    label.font = [UIFont systemFontOfSize:13.f];
+                    label.tag = 201;
+                    [cell.contentView addSubview:label];
                 }
+                UILabel *label_ = (UILabel *)[cell.contentView viewWithTag:201];
+                label_.text = detailmodel.content;
+                CGSize size = [label_ boundingRectWithSize:CGSizeMake(300, FLT_MAX)];
+                label_.frame = CGRectMake(10, 0, size.width, size.height);
             }
                 break;
             default:
                 break;
         }
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-}
-
-- (void)requestInfoDetail
-{
-    
 }
 
 @end

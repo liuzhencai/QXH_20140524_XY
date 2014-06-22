@@ -26,4 +26,11 @@
     // Configure the view for the selected state
 }
 
+- (void)setVistor:(VistorModel *)vistor
+{
+    _titleLabel.text = vistor.username;
+    _dateLabel.text = vistor.date;
+    _displayLabel.text = vistor.displayname;
+}
+
 @end

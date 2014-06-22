@@ -64,7 +64,7 @@
     
     //  自定义Pop按钮
     if (IS_OS_7_OR_LATER) {
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
         //@selector(popForwardBack)
     }else{
         UIButton *leftbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
