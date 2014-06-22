@@ -29,6 +29,9 @@
 @interface ChatInput : UIView <UITextViewDelegate>
 
 @property (nonatomic, assign) CGFloat chatOffset;
+@property (strong, nonatomic) UITextView * textView;
+@property (strong, nonatomic) UIButton * sendBtn;
+@property (strong, nonatomic) UIButton * AddBtn;
 
 // -- DELEGATE -- //
 

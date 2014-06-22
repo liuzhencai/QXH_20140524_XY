@@ -443,6 +443,7 @@ withCompletionHandler:(DictCallback)callback
 {
     NSDictionary *param = @{@"opercode": @"0130", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid,@"sendtype":sendtype,@"mess":mess,@"sign":[SignGenerator getSign]};
     NSLog(@"\n##########通用聊天接口##########\n[参 数]:%@\n#############################\n",param);
+    
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########通用聊天返回结果##########\n[结 果]:%@\n#############################\n",data);
         callback(data);
@@ -506,12 +507,17 @@ withCompletionHandler:(DictCallback)callback
 {
     NSDictionary *param = @{@"opercode": @"0136", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"tribeid":tribeid};
     NSLog(@"\n##########进入部落/直播间接口##########\n[参 数]:%@\n#############################\n",param);
-    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"\n##########进入部落/直播间返回结果##########\n[结 果]:%@\n#############################\n",data);
-        callback(data);
-    } andErrorHandler:^(id data) {
-        NSLog(@"\n##########进入部落/直播间出错##########\n[原 因]:%@\n#############################\n",data);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########进入部落/直播间返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
     }];
+    
+//    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
+//        NSLog(@"\n##########进入部落/直播间返回结果##########\n[结 果]:%@\n#############################\n",data);
+//        callback(data);
+//    } andErrorHandler:^(id data) {
+//        NSLog(@"\n##########进入部落/直播间出错##########\n[原 因]:%@\n#############################\n",data);
+//    }];
 }
 
 + (void)leaveOneDream:(NSString *)tribeid withCompletionHandler:(DictCallback)callback
