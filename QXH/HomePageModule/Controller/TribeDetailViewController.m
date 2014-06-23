@@ -122,6 +122,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 70, 70)];
+            [headImgView setRound:YES];
             headImgView.tag = 100;
             [cell.contentView addSubview:headImgView];
             
@@ -145,7 +146,9 @@
 
         if (self.tribeDetailInfo) {
             NSString *headImgUrlString = [self.tribeDetailInfo objectForKey:@"photo"];
-            [headImgView setImageWithURL:[NSURL URLWithString:headImgUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+//            [headImgView setImageWithURL:[NSURL URLWithString:headImgUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+            [headImgView setImageWithURL:IMGURL(headImgUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+
             titleLabel.text = [self.tribeDetailInfo objectForKey:@"tribename"];
             tribeManager.text = [self.tribeDetailInfo objectForKey:@"creatername"];
         }

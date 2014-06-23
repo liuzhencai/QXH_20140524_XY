@@ -119,6 +119,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.transform = CGAffineTransformMakeRotation(M_PI/2);
         UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [portrait setRound:YES];
         portrait.tag = 100;
         portrait.image = [UIImage imageNamed:@"img_portrait72"];
         [cell.contentView addSubview:portrait];
@@ -127,7 +128,7 @@
     NSDictionary *dict = [self.portraits objectAtIndex:indexPath.row];
     if (dict) {
         NSString *imgUrlStr = [dict objectForKey:@"photo"];
-        [portrait_ setImageWithURL:[NSURL URLWithString:imgUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+        [portrait_ setImageWithURL:IMGURL(imgUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
         cell.textLabel.text = [dict objectForKey:@"displayname"];
     }
     return cell;

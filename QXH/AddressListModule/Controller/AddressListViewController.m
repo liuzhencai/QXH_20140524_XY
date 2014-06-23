@@ -160,7 +160,7 @@
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
 
-    if (index == 1 && [self.myMessageList count] <= 0) {
+    if (index == 1) {
         /**
          *  获取好友(通讯录)/查找用户列表公用接口
          *

@@ -580,11 +580,7 @@
         //图片压缩，因为原图都是很大的，不必要传原图
         NSLog(@"图片压缩前大小：%d",[UIImagePNGRepresentation(originImage) length]);
         UIImage *scaleImage = [self scaleImage:originImage toScale:0.3];//[self scaleImage:originImage toScale:0.3];
-        //        if ([data length] > 1024 * 1024 * 2) {
-        //            scaleImage = [self scaleImage:originImage toScale:0.05];
-        //        }else{
-        //            scaleImage = [self scaleImage:originImage toScale:0.1];
-        //        }
+        
         //以下这两步都是比较耗时的操作，最好开一个HUD提示用户，这样体验会好些，不至于阻塞界面
         if (UIImagePNGRepresentation(scaleImage) == nil) {
             //将图片转换为JPG格式的二进制数据
@@ -596,29 +592,53 @@
         //将二进制数据生成UIImage
         UIImage *image = [UIImage imageWithData:data];
         self.headImage = image;
-        NSLog(@"图片压缩后大小：%d",[data length]);
-        [self showAlert:@"图片上传成功"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];//将图片存储到本地documents
-        NSString *filePath = [[NSHomeDirectory() stringByAppendingString:@"/Documents"] stringByAppendingString:@"/imgs"];
-        BOOL isExist = [fileManager fileExistsAtPath:filePath];
-        if (!isExist) {
-            [fileManager createDirectoryAtPath:filePath
-                   withIntermediateDirectories:YES
-                                    attributes:nil
-                                         error:nil];
-        }
         
-        NSString *imageName = @"activityImage";
-        BOOL isImage = [fileManager createFileAtPath:[filePath stringByAppendingString:[NSString stringWithFormat:@"/%@.png",imageName]] contents:data attributes:nil];
-        if (isImage) {
-            NSLog(@"存储成功");
+        /**
+         *  文件上传
+         *
+         *  @param file     UIImage对象或文件URL
+         *  @param type     1为图片，2为文档，3为音频
+         *  @param callback 回调
+         */
+
+        [DataInterface fileUpload:image
+                             type:@"1"
+            withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"上传图片返回值%@",dict);
+                self.imagePath = [dict objectForKey:@"filename"];
+                [self showAlert:[dict objectForKey:@"info"]];
+                [self resetView];//图片上传成功才能创建活动
         }
+                       errorBlock:^(NSString *desc) {
+                           NSLog(@"上传图片错误：%@",desc);
+                           [self showAlert:desc];
+        }];
         
-        NSString *path = [NSString stringWithFormat:@"%@/%@.png",filePath,imageName];
-        self.imagePath = path;
+        
+        
+//        NSLog(@"图片压缩后大小：%d",[data length]);
+//        [self showAlert:@"图片上传成功"];
+//        NSFileManager *fileManager = [NSFileManager defaultManager];//将图片存储到本地documents
+//        NSString *filePath = [[NSHomeDirectory() stringByAppendingString:@"/Documents"] stringByAppendingString:@"/imgs"];
+//        BOOL isExist = [fileManager fileExistsAtPath:filePath];
+//        if (!isExist) {
+//            [fileManager createDirectoryAtPath:filePath
+//                   withIntermediateDirectories:YES
+//                                    attributes:nil
+//                                         error:nil];
+//        }
+//        
+//        NSString *imageName = @"activityImage";
+//        BOOL isImage = [fileManager createFileAtPath:[filePath stringByAppendingString:[NSString stringWithFormat:@"/%@.png",imageName]] contents:data attributes:nil];
+//        if (isImage) {
+//            NSLog(@"存储成功");
+//        }
+        
+//        NSString *path = [NSString stringWithFormat:@"%@/%@.png",filePath,imageName];
+//        self.imagePath = path;
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
-    [self resetView];
+//    [self resetView];
 }
 
 #pragma mark- 缩放图片

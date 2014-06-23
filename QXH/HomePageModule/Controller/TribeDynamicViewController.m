@@ -47,7 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"xxxxxx部落";
+    self.title = [self.tribeInfoDict objectForKey:@"tribename"];
     // Do any additional setup after loading the view.
     
     //测试数据

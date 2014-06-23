@@ -28,7 +28,7 @@
         [self.contentView addSubview:_selectBtn];
         
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 48)/2.0, 48, 48)];
-        //    _headImgView.backgroundColor = [UIColor greenColor];
+        [_headImgView setRound:YES];
         _headImgView.image = [UIImage imageNamed:@"img_portrait96"];
         [self.contentView addSubview:_headImgView];
         
@@ -77,15 +77,16 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *dict = (NSDictionary *)objt;
     NSString *imageUrlString = [dict objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+
     NSString *nameString = [dict objectForKey:@"displayname"];
-    if ([nameString length] > 0) {
+//    if ([nameString length] > 0) {
         self.name.text = nameString;
-    }
-    NSString *dutyString = [dict objectForKey:@"remark"];
-    if ([dutyString length] > 0) {
+//    }
+    NSString *dutyString = [dict objectForKey:@"signature"];
+//    if ([dutyString length] > 0) {
         self.duty.text = dutyString;
-    }
-    self.duty.text = @"xxxxxxxxxxxxx校长";
+//    }
 }
 @end

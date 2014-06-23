@@ -77,7 +77,9 @@
     NSDictionary *params = (NSDictionary *)objt;
 
     NSString *imageUrlString = [params objectForKey:@"photo"];
-    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+
     NSString *nameString = [params objectForKey:@"displayname"];
     if ([nameString length] > 0) {
         self.name.text = nameString;

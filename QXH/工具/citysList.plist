@@ -213,7 +213,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 1</string>
+		<string>1</string>
 		<key>province</key>
 		<string>北京市</string>
 		<key>provinceid</key>
@@ -430,7 +430,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 2</string>
+		<string>2</string>
 		<key>province</key>
 		<string>天津市</string>
 		<key>provinceid</key>
@@ -2414,7 +2414,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 3</string>
+		<string>3</string>
 		<key>province</key>
 		<string>河北省</string>
 		<key>provinceid</key>
@@ -3868,7 +3868,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 4</string>
+		<string>4</string>
 		<key>province</key>
 		<string>山西省</string>
 		<key>provinceid</key>
@@ -5125,7 +5125,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 5</string>
+		<string>5</string>
 		<key>province</key>
 		<string>内蒙古自治区</string>
 		<key>provinceid</key>
@@ -6458,7 +6458,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 6</string>
+		<string>6</string>
 		<key>province</key>
 		<string>辽宁省</string>
 		<key>provinceid</key>
@@ -7266,7 +7266,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 7</string>
+		<string>7</string>
 		<key>province</key>
 		<string>吉林省</string>
 		<key>provinceid</key>
@@ -8866,7 +8866,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 8</string>
+		<string>8</string>
 		<key>province</key>
 		<string>黑龙江省</string>
 		<key>provinceid</key>
@@ -9093,7 +9093,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 9</string>
+		<string>9</string>
 		<key>province</key>
 		<string>上海市</string>
 		<key>provinceid</key>
@@ -10463,7 +10463,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 10</string>
+		<string>10</string>
 		<key>province</key>
 		<string>江苏省</string>
 		<key>provinceid</key>
@@ -11627,7 +11627,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 11</string>
+		<string>11</string>
 		<key>province</key>
 		<string>浙江省</string>
 		<key>provinceid</key>
@@ -13079,7 +13079,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 12</string>
+		<string>12</string>
 		<key>province</key>
 		<string>安徽省</string>
 		<key>provinceid</key>
@@ -14147,7 +14147,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 13</string>
+		<string>13</string>
 		<key>province</key>
 		<string>福建省</string>
 		<key>provinceid</key>
@@ -15401,7 +15401,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 14</string>
+		<string>14</string>
 		<key>province</key>
 		<string>江西省</string>
 		<key>provinceid</key>
@@ -17203,7 +17203,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 15</string>
+		<string>15</string>
 		<key>province</key>
 		<string>山东省</string>
 		<key>provinceid</key>
@@ -19195,7 +19195,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 16</string>
+		<string>16</string>
 		<key>province</key>
 		<string>河南省</string>
 		<key>provinceid</key>
@@ -20528,7 +20528,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 17</string>
+		<string>17</string>
 		<key>province</key>
 		<string>湖北省</string>
 		<key>provinceid</key>
@@ -22071,7 +22071,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 18</string>
+		<string>18</string>
 		<key>province</key>
 		<string>湖南省</string>
 		<key>provinceid</key>
@@ -23749,7 +23749,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 19</string>
+		<string>19</string>
 		<key>province</key>
 		<string>广东省</string>
 		<key>provinceid</key>
@@ -25172,7 +25172,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 20</string>
+		<string>20</string>
 		<key>province</key>
 		<string>广西壮族自治区</string>
 		<key>provinceid</key>
@@ -25472,7 +25472,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 21</string>
+		<string>21</string>
 		<key>province</key>
 		<string>海南省</string>
 		<key>provinceid</key>
@@ -25922,7 +25922,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 22</string>
+		<string>22</string>
 		<key>province</key>
 		<string>重庆市</string>
 		<key>provinceid</key>
@@ -28196,7 +28196,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 23</string>
+		<string>23</string>
 		<key>province</key>
 		<string>四川省</string>
 		<key>provinceid</key>
@@ -29234,7 +29234,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 24</string>
+		<string>24</string>
 		<key>province</key>
 		<string>贵州省</string>
 		<key>provinceid</key>
@@ -30823,7 +30823,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 25</string>
+		<string>25</string>
 		<key>province</key>
 		<string>云南省</string>
 		<key>provinceid</key>
@@ -31665,7 +31665,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 26</string>
+		<string>26</string>
 		<key>province</key>
 		<string>西藏自治区</string>
 		<key>provinceid</key>
@@ -32976,7 +32976,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 27</string>
+		<string>27</string>
 		<key>province</key>
 		<string>陕西省</string>
 		<key>provinceid</key>
@@ -34149,7 +34149,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 28</string>
+		<string>28</string>
 		<key>province</key>
 		<string>甘肃省</string>
 		<key>provinceid</key>
@@ -34704,7 +34704,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 29</string>
+		<string>29</string>
 		<key>province</key>
 		<string>青海省</string>
 		<key>provinceid</key>
@@ -35040,7 +35040,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 30</string>
+		<string>30</string>
 		<key>province</key>
 		<string>宁夏回族自治区</string>
 		<key>provinceid</key>
@@ -36256,7 +36256,7 @@
 			</dict>
 		</array>
 		<key>id</key>
-		<string>VALUES 31</string>
+		<string>31</string>
 		<key>province</key>
 		<string>新疆维吾尔自治区</string>
 		<key>provinceid</key>
@@ -36264,7 +36264,7 @@
 	</dict>
 	<dict>
 		<key>id</key>
-		<string>VALUES 32</string>
+		<string>32</string>
 		<key>province</key>
 		<string>台湾省</string>
 		<key>provinceid</key>
@@ -36272,7 +36272,7 @@
 	</dict>
 	<dict>
 		<key>id</key>
-		<string>VALUES 33</string>
+		<string>33</string>
 		<key>province</key>
 		<string>香港特别行政区</string>
 		<key>provinceid</key>
@@ -36280,7 +36280,7 @@
 	</dict>
 	<dict>
 		<key>id</key>
-		<string>VALUES 34</string>
+		<string>34</string>
 		<key>province</key>
 		<string>澳门特别行政区</string>
 		<key>provinceid</key>

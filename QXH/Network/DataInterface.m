@@ -201,6 +201,28 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
++ (void)createTribe:(NSString *)tribename
+         tribestyle:(NSString *)tribestyle
+          secretary:(NSString *)userid
+          signature:(NSString *)signature
+               desc:(NSString *)desc
+          condition:(NSString *)condition
+            purpose:(NSString *)purpose
+               rule:(NSString *)rule
+               t9ags:(NSString *)tags
+           district:(NSString *)district
+              photo:(NSString *)photo
+           maxcount:(NSString *)maxcount
+            members:(NSString *)members
+withCompletionHandler:(DictCallback)callback{
+    NSDictionary *param = @{@"opercode": @"0112", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"tribename":tribename,@"tribestyle":tribestyle,@"secretary":userid,@"signature":signature,@"desc":desc,@"condition":condition,@"purpose":purpose,@"rule":rule,@"tags":tags,@"district":district,@"photo":photo,@"maxcount":maxcount,@"members":members};
+    NSLog(@"\n##########创建部落接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获创建部落返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
 + (void)modifyTribeInfo:(NSString *)tribeid
               tribename:(NSString *)tribename
              tribestyle:(NSString *)tribestyle

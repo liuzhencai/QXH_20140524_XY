@@ -228,12 +228,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == IN_THE_ACTIVITY_TAG) {
-        NSDictionary *inActivity = [self.inActivitysList objectAtIndex:indexPath.section];
+        NSDictionary *inActivity = [self.inActivitysList objectAtIndex:indexPath.row];
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
         activityDetail.activityId = [inActivity objectForKey:@"actid"];
         [self.navigationController pushViewController:activityDetail animated:YES];
     }else{
-        NSDictionary *endActivity = [self.endActivitysList objectAtIndex:indexPath.section];
+        NSDictionary *endActivity = [self.endActivitysList objectAtIndex:indexPath.row];
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
         activityDetail.activityId = [endActivity objectForKey:@"actid"];
         activityDetail.isActivityEnd = YES;

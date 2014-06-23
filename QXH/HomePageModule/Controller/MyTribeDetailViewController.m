@@ -15,7 +15,8 @@
 @interface MyTribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic, strong) YSKeyboardTableView *mainTable;
 @property (nonatomic, strong) NSArray *items;
-@property (nonatomic, strong) UIImage *headImage;
+@property (nonatomic, strong) UIImage *headImage;//头像
+@property (nonatomic, strong) NSString *imagePath;//图像上传成功后路径
 
 @property (nonatomic, strong) UITextField *name;//部落名称
 @property (nonatomic, strong) UITextField *leader;//秘书长
@@ -145,6 +146,11 @@
             return;
         }
         
+        if (!self.imagePath) {
+            [self showAlert:@"请先上传头像"];
+            return;
+        }
+        
         /**
          *  创建部落
          *
@@ -195,6 +201,7 @@
                               rule:@""
                               tags:@""
                           district:self.place.text
+                             photo:self.imagePath
                           maxcount:self.count.text
                            members:membersString
              withCompletionHandler:^(NSMutableDictionary *dict){
@@ -316,6 +323,7 @@
             UIButton *head = [UIButton buttonWithType:UIButtonTypeCustom];
             head.frame = CGRectMake(cell.contentView.width - 36 - 10, (cell.contentView.height - 36)/2.0, 36, 36);
             [head setBackgroundImage:[UIImage imageNamed:@"img_portrait72"] forState:UIControlStateNormal];
+            [head setRound:YES];
             head.tag = 201;
             [head addTarget:self action:@selector(addHeadImage:) forControlEvents:UIControlEventTouchUpInside];
             head.enabled = NO;
@@ -327,7 +335,9 @@
             }else{
                 if (self.tribeDetailDict) {
                     NSString *headImageUrlString = [self.tribeDetailDict objectForKey:@"photo"];
-                    [head setImageWithURL:[NSURL URLWithString:headImageUrlString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+//                    [head setImageWithURL:[NSURL URLWithString:headImageUrlString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+                    [head setImageWithURL:IMGURL(headImageUrlString) forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+
                 }
             }
             [cell.contentView addSubview:head];
@@ -394,9 +404,6 @@
                 _tribeDes.tag = 201;
                 _tribeDes.delegate = self;
                 _tribeDes.editable = NO;
-            }
-            if (self.isCreatDetail) {
-                _tribeDes.editable = YES;
                 _placeHolder = [self addLabelWithFrame:CGRectMake(0, 0, _tribeDes.width, 20)
                                                   text:@"部落介绍(少于140字)"
                                                  color:[UIColor lightGrayColor]
@@ -404,7 +411,12 @@
                 _placeHolder.enabled = NO;
                 _placeHolder.backgroundColor = [UIColor clearColor];
                 [_tribeDes addSubview:_placeHolder];
+            }
+            if (self.isCreatDetail) {
+                _tribeDes.editable = YES;
+                
             }else{
+                _placeHolder.text = @"";
                 if (self.tribeDetailDict) {
                     _tribeDes.text = [self.tribeDetailDict objectForKey:@"desc"];
                 }
@@ -567,11 +579,7 @@
         //图片压缩，因为原图都是很大的，不必要传原图
         NSLog(@"图片压缩前大小：%d",[UIImagePNGRepresentation(originImage) length]);
         UIImage *scaleImage = [self scaleImage:originImage toScale:0.3];//[self scaleImage:originImage toScale:0.3];
-        //        if ([data length] > 1024 * 1024 * 2) {
-        //            scaleImage = [self scaleImage:originImage toScale:0.05];
-        //        }else{
-        //            scaleImage = [self scaleImage:originImage toScale:0.1];
-        //        }
+        
         //以下这两步都是比较耗时的操作，最好开一个HUD提示用户，这样体验会好些，不至于阻塞界面
         if (UIImagePNGRepresentation(scaleImage) == nil) {
             //将图片转换为JPG格式的二进制数据
@@ -584,17 +592,25 @@
         UIImage *image = [UIImage imageWithData:data];
         self.headImage = image;
         NSLog(@"图片压缩后大小：%d",[data length]);
-        [self showAlert:@"图片上传成功"];
-        //        NSFileManager *fileManager = [NSFileManager defaultManager];//将图片存储到本地documents
-        //        NSString *filePath = [[NSHomeDirectory() stringByAppendingString:@"/Documents"] stringByAppendingString:@"/imgs"];
-        //        BOOL isExist = [fileManager fileExistsAtPath:filePath];
-        //        if (!isExist) {
-        //            [fileManager createDirectoryAtPath:filePath
-        //                   withIntermediateDirectories:YES
-        //                                    attributes:nil
-        //                                         error:nil];
-        //        }
-        
+        /**
+         *  文件上传
+         *
+         *  @param file     UIImage对象或文件URL
+         *  @param type     1为图片，2为文档，3为音频
+         *  @param callback 回调
+         */
+        [DataInterface fileUpload:image
+                             type:@"1"
+            withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"上传图片返回值%@",dict);
+                self.imagePath = [dict objectForKey:@"filename"];
+                [self showAlert:[dict objectForKey:@"info"]];
+            }
+                       errorBlock:^(NSString *desc) {
+                           NSLog(@"上传图片错误：%@",desc);
+                           [self showAlert:desc];
+                       }];
+
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
     [_mainTable reloadData];

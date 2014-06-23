@@ -224,6 +224,21 @@ withCompletionHandler:(DictCallback)callback;
             members:(NSString *)members
 withCompletionHandler:(DictCallback)callback;
 
++ (void)createTribe:(NSString *)tribename
+         tribestyle:(NSString *)tribestyle
+          secretary:(NSString *)userid
+          signature:(NSString *)signature
+               desc:(NSString *)desc
+          condition:(NSString *)condition
+            purpose:(NSString *)purpose
+               rule:(NSString *)rule
+               tags:(NSString *)tags
+           district:(NSString *)district
+              photo:(NSString *)photo
+           maxcount:(NSString *)maxcount
+            members:(NSString *)members
+withCompletionHandler:(DictCallback)callback;
+
 /**
  *  修改部落信息
  *

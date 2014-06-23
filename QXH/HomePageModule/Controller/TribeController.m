@@ -116,12 +116,14 @@
 }
 
 - (void)getTribeList{
+    
     /**
      *  获取部落/群组/直播间列表
      *
      *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
      *  @param tribename 部落名称
      *  @param authflag  0为全部，1为普通部落，2为官方认证部落
+     *  @param status    1为状态正常的部落(可聊天使用的部落),2为申请中的部落(不能聊天)
      *  @param tribetype 1为部落，2为直播间
      *  @param tag       搜索是只允许单个标签搜索
      *  @param district  地域信息
@@ -133,7 +135,7 @@
     [DataInterface requestTribeList:@"1"
                           tribename:@""
                            authflag:@"0"
-                             status:@"0"
+                             status:@"1"
                           tribetype:@"1"
                                 tag:@""
                            district:@""
