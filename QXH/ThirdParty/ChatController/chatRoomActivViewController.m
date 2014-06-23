@@ -96,7 +96,8 @@
             activityingCell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
             activityingCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        [activityingCell resetCellParamDict:nil];
+    NSDictionary* dic = [self.activitysList objectAtIndex:indexPath.row];
+        [activityingCell resetCellParamDict:dic];
         activityingCell.statusLabel.text = @"进行中";
         
         return activityingCell;

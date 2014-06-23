@@ -747,17 +747,16 @@ static int scout=0;
         {
             /*活动*/
             FrontViewTag = ACTIVITY_TABLE_TAG;
-            UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
-            [self.view bringSubviewToFront:table];
+            [self getActivityListInTribe];
+
         }
             break;
         case 2:
         {
             /*成员*/
             FrontViewTag = NEMBERS_TABLE_TAG;
-            [self getActivityListInTribe];
-            UIView* table = (UIView*)[self.view viewWithTag:NEMBERS_TABLE_TAG];
-            [self.view bringSubviewToFront:table];
+            [self getTribeMembers];
+
         }
             break;
             
@@ -846,6 +845,14 @@ static int scout=0;
 }
 
 - (void)getActivityListInTribe{
+    
+    if (!chatRoomActive  || [chatRoomActive.activitysList count]) {
+        /*如果获取到，就不再获取*/
+        UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+        [self.view bringSubviewToFront:table];
+        return;
+    }
+    
     //获取活动列表
     /**
      *  获取/搜索活动列表(列表按创建时间的逆序排列)
@@ -874,16 +881,83 @@ static int scout=0;
                         begindate:@""
                           enddate:@""
             withCompletionHandler:^(NSMutableDictionary *dict){
+                
+                /*
+                 返回数据格式
+                 Response:{
+                 opercode:"0125",		//operCode为0125，客户端通过该字段确定事件
+                 statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+                 info:"获取成功",		//获取成功/失败!
+                 list:				//消息列表
+                 [
+                 {actid:"1234",actname:"活动名称",photos:"1.jpg,2.jpg",signupbegindate:"2014-05-01 12:00:00",signupenddate:"2014-05-03 12:00:00",begindate:"2014-05-05 12:00:00",enddate:"2014-05-05 13:00:00",actaddr:"活动地址",maxcount:"30",nowcount:"10",folcount:"10",tags:"标签，标签",desc:"",acttype:"活动类型"},
+                 {actid:"1234",actname:"活动名称",photos:"1.jpg,2.jpg",signupbegindate:"2014-05-01 12:00:00",signupenddate:"2014-05-03 12:00:00",begindate:"2014-05-05 12:00:00",enddate:"2014-05-05 13:00:00",actaddr:"活动地址",maxcount:"30",nowcount:"10",folcount:"10",tags:"标签，标签",desc:"",acttype:"活动类型"},
+                 {actid:"1234",actname:"活动名称",photos:"1.jpg,2.jpg",signupbegindate:"2014-05-01 12:00:00",signupenddate:"2014-05-03 12:00:00",begindate:"2014-05-05 12:00:00",enddate:"2014-05-05 13:00:00",actaddr:"活动地址",maxcount:"30",nowcount:"10",folcount:"10",tags:"标签，标签",desc:"",acttype:"活动类型"},
+                 ......
+                 ]
+                 */
+                
                 NSLog(@"活动列表返回数据:%@",dict);
-                NSArray *list = [dict objectForKey:@"list"];
-                self.activitysList = [NSMutableArray arrayWithArray:list];
-                chatRoomActive.activitysList = self.activitysList;
-                [chatRoomActive.tableview reloadData];
-//                UITableView *table = (UITableView *)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
-//                [table reloadData];
-                [self showAlert:[dict objectForKey:@"info"]];
+                NSString* statecode = dict[@"statecode"];
+                if ([statecode isEqualToString:@"0200"]) {
+                    NSArray* list = [dict valueForKey:@"list"];
+                    self.activitysList = [NSMutableArray arrayWithArray:list];
+                    chatRoomActive.activitysList = self.activitysList;
+                    [chatRoomActive.tableview reloadData];
+                    UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+                    [self.view bringSubviewToFront:table];
+                }else{
+                    NSString* info = dict[@"info"];
+                    [self showAlert:info];
+                    
+                }
+   
             }];
     }
+}
+
+- (void)getTribeMembers
+{
+    /*
+     获取部落成员
+     */
+    if (!chatRoomMember  || [chatRoomMember.Arrlist count]) {
+        /*如果获取到，就不再获取*/
+        UIView* table = (UIView*)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+        [self.view bringSubviewToFront:table];
+        return;
+    }
+    if (self.tribeInfoDict) {
+        [DataInterface getTribeMembers:[self.tribeInfoDict objectForKey:@"tribeid"] withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"部落成员返回:%@",dict);
+            
+            /*
+             返回数据
+             opercode:"0117",		//operCode为0117，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+             info:"创建成功",		//获取成功/失败!
+             list:[
+             {userid:"123",username:"周扒皮",photo:"2",displayname:"张三",signature:"这个是签名...",remark:"备注",usertype:"0",level:"1",membertype:"1",online:"1"},
+             {userid:"123",username:"周扒皮",photo:"2",displayname:"张三",signature:"这个是签名...",remark:"备注",usertype:"0",level:"1",membertype:"2",online:"1"},
+             ...
+             ]
+             */
+            NSString* statecode = dict[@"statecode"];
+            if ([statecode isEqualToString:@"0200"]) {
+                NSArray* list = [dict valueForKey:@"list"];
+                chatRoomMember.Arrlist = (NSMutableArray*)list;
+                UIView* table = (UIView*)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+                [self.view bringSubviewToFront:table];
+                [chatRoomMember.tableview reloadData];
+                
+            }else{
+                NSString* info = dict[@"info"];
+                [self showAlert:info];
+                
+            }
+        }];
+    }
+    
 }
 
 - (void)detail:(UIButton *)sender{

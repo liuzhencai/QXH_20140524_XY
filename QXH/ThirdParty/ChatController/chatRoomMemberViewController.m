@@ -56,8 +56,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
   
-//        return [self.Arrlist count];
-    return 20;
+        return [self.Arrlist count];
+//    return 20;
 
 }
 
@@ -99,7 +99,8 @@
         myMsgCell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
         myMsgCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    [myMsgCell resetCellParamDict:nil];
+    NSDictionary* dic = (NSDictionary*)[self.Arrlist objectAtIndex:indexPath.row];
+    [myMsgCell resetCellParamDict:dic];
     return myMsgCell;
     
  
@@ -110,10 +111,10 @@
     NSLog(@"%@",indexPath);
 
     NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+    nameCard.memberDict = (NSDictionary*)[self.Arrlist objectAtIndex:indexPath.row];
+
     [navigation pushViewController:nameCard animated:YES];
     
     
 }
-
-
 @end
