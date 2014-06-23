@@ -165,8 +165,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
             endingLineNumber = "327"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
+            landmarkName = "@implementation TribeController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
