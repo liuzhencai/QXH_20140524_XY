@@ -153,8 +153,30 @@
     NSMutableArray *array = [[NSMutableArray alloc] init];
     NSArray *list = [obj objectForKey:@"list"];
     for (int i = 0; i < [list count]; i++) {
-        SquareInfo *model = [SquareInfo instanceFromDictionary:list[i]];
-        [array addObject:model];
+        SquareInfo *info = [[SquareInfo alloc] init];
+        InfoModel *model = [[InfoModel alloc] init];
+        NSDictionary *subDict = [list[i] objectForKey:@"content"];
+        model.artid = [subDict objectForKey:@"artid"];
+        model.sid = [subDict objectForKey:@"sid"];
+        model.sname = [subDict objectForKey:@"sname"];
+        model.sphoto = [subDict objectForKey:@"sphoto"];
+        model.date = [subDict objectForKey:@"date"];
+        model.title = [subDict objectForKey:@"title"];
+        model.artimgs = [subDict objectForKey:@"artimgs"];
+        model.content = [subDict objectForKey:@"content"];
+        model.authflag = [subDict objectForKey:@"authflag"];
+        model.browsetime = [subDict objectForKey:@"browsetime"];
+        model.contentlength = [[subDict objectForKey:@"contentlength"] integerValue];
+        info.info = model;
+        info.date = [list[i] objectForKey:@"date"];
+        info.psid = [[list[i] objectForKey:@"psid"] integerValue];
+        info.refsign = [list[i] objectForKey:@"refsign"];
+        info.type = [[list[i] objectForKey:@"type"] integerValue];
+        info.uid = [[list[i] objectForKey:@"uid"] integerValue];
+        info.uname = [list[i] objectForKey:@"uname"];
+        info.uphoto = [list[i] objectForKey:@"uphoto"];
+        info.usign = [list[i] objectForKey:@"usign"];
+        [array addObject:info];
     }
     return array;
 }
