@@ -7,6 +7,7 @@
 //
 
 #import "DataInterface.h"
+#import "JSONKit.h"
 
 @implementation DataInterface
 
@@ -603,8 +604,21 @@ withCompletionHandler:(DictCallback)callback
     NSDictionary *param = @{@"opercode": @"0142", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"detailtype":detailtype,@"tag":tag,@"arttype":arttype,@"contentlength":contentlength,@"start":start,@"count":count};
     NSLog(@"\n##########获取广场消息列表接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"\n##########获取广场消息列表返回结果##########\n[结 果]:%@\n#############################\n",dict);
-        callback(dict);
+        NSMutableDictionary *infoDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+        NSArray *list = [dict objectForKey:@"list"];
+        NSMutableArray *resultList = [[NSMutableArray alloc] init];
+        for (NSDictionary *tmpDict in list) {
+            NSString *subJson = [tmpDict objectForKey:@"content"];
+            NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithDictionary:tmpDict];
+            JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+            NSError *error = nil;
+            NSDictionary *subDict = [jd objectWithData:[subJson dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+            [resultDict setValue:subDict forKey:@"content"];
+            [resultList addObject:resultDict];
+        }
+        [infoDict setObject:resultList forKey:@"list"];
+        NSLog(@"\n##########获取广场消息列表返回结果##########\n[结 果]:%@\n#############################\n",infoDict);
+        callback(infoDict);
     }];
 }
 
