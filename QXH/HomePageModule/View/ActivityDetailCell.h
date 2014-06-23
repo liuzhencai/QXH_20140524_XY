@@ -10,14 +10,14 @@
 
 @interface ActivityDetailCell : UITableViewCell
 
-@property (weak, nonatomic)  UILabel *activityTitleLabel; // 活动标题标签
-@property (weak, nonatomic)  UILabel *activityTypeLabel; // 活动类型标签
-@property (weak, nonatomic)  UILabel *activityDescriptionLabel; // 活动描述标签
-@property (weak, nonatomic)  UIImageView *activityImage; // 活动图片
-@property (weak, nonatomic)  UILabel *tribeLabel;//部落标签
-@property (weak, nonatomic)  UILabel *orgnizerLabel; // 发起人标签
-@property (weak, nonatomic)  UILabel *timeLabel; // 时间标签
-@property (weak, nonatomic)  UILabel *addrLabel; // 地址标签
+@property (strong, nonatomic)  UILabel *activityTitleLabel; // 活动标题标签
+@property (strong, nonatomic)  UILabel *activityTypeLabel; // 活动类型标签
+@property (strong, nonatomic)  UILabel *activityDescriptionLabel; // 活动描述标签
+@property (strong, nonatomic)  UIImageView *activityImage; // 活动图片
+@property (strong, nonatomic)  UILabel *tribeLabel;//部落标签
+@property (strong, nonatomic)  UILabel *orgnizerLabel; // 发起人标签
+@property (strong, nonatomic)  UILabel *timeLabel; // 时间标签
+@property (strong, nonatomic)  UILabel *addrLabel; // 地址标签
 //@property (weak, nonatomic)  UILabel *signUpLabel; // 报名标签
 //@property (weak, nonatomic)  UILabel *followLabel; // 关注标签
 //

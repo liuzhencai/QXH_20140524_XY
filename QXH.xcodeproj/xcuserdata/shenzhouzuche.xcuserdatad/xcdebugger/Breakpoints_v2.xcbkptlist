@@ -217,12 +217,12 @@
                   symbolName = "-[MyTribeDetailViewController getTribeDetailInfo]"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/HomePageModule/Controller/MyTribeDetailViewController.m"
-                  timestampString = "424863632.824298"
+                  timestampString = "425209490.945386"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
                   endingLineNumber = "110"
-                  offsetFromSymbolStart = "89">
+                  offsetFromSymbolStart = "102">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -231,12 +231,12 @@
                   symbolName = "__49-[MyTribeDetailViewController getTribeDetailInfo]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/HomePageModule/Controller/MyTribeDetailViewController.m"
-                  timestampString = "424863632.824447"
+                  timestampString = "425209490.945649"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
                   endingLineNumber = "110"
-                  offsetFromSymbolStart = "61">
+                  offsetFromSymbolStart = "40">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -254,22 +254,6 @@
             startingLineNumber = "159"
             endingLineNumber = "159"
             landmarkName = "-detail:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/HomePageModule/Controller/ActivityDetailViewController.m"
-            timestampString = "424776584.403662"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

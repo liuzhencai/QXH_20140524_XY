@@ -21,6 +21,7 @@
         CGFloat lableHeight = 20;
         
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 48)/2.0, 48, 48)];
+        [_headImgView setRound:YES];
         _headImgView.image = [UIImage imageNamed:@"img_portrait96"];
         [self.contentView addSubview:_headImgView];
         

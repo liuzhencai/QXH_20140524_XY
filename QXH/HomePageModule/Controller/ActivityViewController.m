@@ -119,43 +119,15 @@
                 NSArray *list = [dict objectForKey:@"list"];
                 if ([status isEqualToString:ACTIVITY_STATUS_IN]) {
                     self.inActivitysList = [NSMutableArray arrayWithArray:list];
-//                    [self.inActivitysList addObjectsFromArray:list];
                     UITableView *table = (UITableView *)[self.view viewWithTag:IN_THE_ACTIVITY_TAG];
                     [table reloadData];
                 }else{
                     self.endActivitysList = [NSMutableArray arrayWithArray:list];
-//                    [self.endActivitysList addObjectsFromArray:list];
                     UITableView *table = (UITableView *)[self.view viewWithTag:END_ACTIVITY_TAG];
                     [table reloadData];
                 }
             }
         }];
-    
-//    [DataInterface getActList:@"0"
-//                        count:@"20"
-//                      actname:@""
-//                          tag:@""
-//                     district:@""
-//                      canjoin:@"0"
-//                     actstate:status
-//                    begindate:@""
-//                      enddate:@""
-//        withCompletionHandler:^(NSMutableDictionary *dict){
-//            NSLog(@"活动列表返回数据:%@",dict);
-//            if (dict) {
-//                NSArray *list = [dict objectForKey:@"list"];
-//                if ([status isEqualToString:ACTIVITY_STATUS_IN]) {
-//                    [self.inActivitysList addObjectsFromArray:list];
-//                    UITableView *table = (UITableView *)[self.view viewWithTag:IN_THE_ACTIVITY_TAG];
-//                    [table reloadData];
-//                }else{
-//                    [self.endActivitysList addObjectsFromArray:list];
-//                    UITableView *table = (UITableView *)[self.view viewWithTag:END_ACTIVITY_TAG];
-//                    [table reloadData];
-//                }
-//            }
-////            [self showAlert:[dict objectForKey:@"info"]];
-//    }];
 }
 
 - (void)didReceiveMemoryWarning

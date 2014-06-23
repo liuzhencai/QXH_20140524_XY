@@ -50,20 +50,20 @@
         [bgImgView addSubview:_activityDescriptionLabel];
         
         //image
-        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80, 60)
+        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80 - 8, 60 - 6)
                                                        imageName:[UIImage imageNamed:@"img_news"]];
         [bgImgView addSubview:_activityImage];
         
         NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
         for (int i = 0; i < [items count]; i ++) {
             
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(30, _activityDescriptionLabel.bottom + 5 + i * 21, 65, 21)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(30, _activityDescriptionLabel.bottom + 5 + i * 24, 65, 24)
                                                      text:[items objectAtIndex:i]
                                                     color:[UIColor blackColor]
                                                      font:[UIFont systemFontOfSize:14]];
             [bgImgView addSubview:itemTitle];
             
-            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100, 21)
+            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 120, 24)
                                                     text:@""
                                                    color:[UIColor blackColor]
                                                     font:[UIFont systemFontOfSize:14]];
