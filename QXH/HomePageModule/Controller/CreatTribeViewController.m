@@ -14,6 +14,7 @@
 
 @interface CreatTribeViewController ()<UITableViewDataSource,UITableViewDelegate,CreatTribeCellDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) UITableView *membersTable;//选择添加的成员
 
 @property (nonatomic, strong) NSMutableArray *addressList;
 
@@ -108,20 +109,31 @@
     [nextBtn addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:nextBtn];
     
-    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addBtn.frame = CGRectMake(nextBtn.left - 36 - 10 , (footerView.height - 36)/2.0, 36, 36);
-    [addBtn setBackgroundImage:[UIImage imageNamed:@"tribe_btn_add_normal"] forState:UIControlStateNormal];
-    [addBtn setBackgroundImage:[UIImage imageNamed:@"tribe_btn_add_highlight"] forState:UIControlStateHighlighted];
-    [addBtn addTarget:self action:@selector(addItem:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:addBtn];
+//    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    addBtn.frame = CGRectMake(nextBtn.left - 36 - 10 , (footerView.height - 36)/2.0, 36, 36);
+//    [addBtn setBackgroundImage:[UIImage imageNamed:@"tribe_btn_add_normal"] forState:UIControlStateNormal];
+//    [addBtn setBackgroundImage:[UIImage imageNamed:@"tribe_btn_add_highlight"] forState:UIControlStateHighlighted];
+//    [addBtn addTarget:self action:@selector(addItem:) forControlEvents:UIControlEventTouchUpInside];
+//    [footerView addSubview:addBtn];
     
-    UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(10, (footerView.height - 36)/2.0, footerView.width - addBtn.width - nextBtn.width - 40, 36)];
-    for (int i = 0; i < 4; i ++) {
-        UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * (36 + 10), 0, 36, 36)];
-        headImgView.image = [UIImage imageNamed:@"img_portrait72"];
-        [scroll addSubview:headImgView];
-    }
-    [footerView addSubview:scroll];
+    _membersTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [_membersTable.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
+    _membersTable.transform = CGAffineTransformMakeRotation(M_PI/-2);
+    _membersTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _membersTable.showsVerticalScrollIndicator = NO;
+    _membersTable.delegate = self;
+    _membersTable.dataSource = self;
+    _membersTable.frame = CGRectMake(10, (footerView.height - 44)/2.0 + 44, footerView.width - nextBtn.width - 40, 44);
+    [footerView addSubview:_membersTable];
+    
+    
+//    UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(10, (footerView.height - 36)/2.0, footerView.width - addBtn.width - nextBtn.width - 40, 36)];
+//    for (int i = 0; i < 4; i ++) {
+//        UIImageView *headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * (36 + 10), 0, 36, 36)];
+//        headImgView.image = [UIImage imageNamed:@"img_portrait72"];
+//        [scroll addSubview:headImgView];
+//    }
+//    [footerView addSubview:scroll];
     
 }
 
@@ -146,81 +158,129 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.addressList count];
+    if (_membersTable == tableView) {
+        return 1;
+    }else{
+        return [self.addressList count];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dict = [self.addressList objectAtIndex:section];
-    NSArray *list = [dict objectForKey:@"list"];
-    return [list count];
+    if (_membersTable == tableView) {
+        return [_addItems count];
+    }else{
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSArray *list = [dict objectForKey:@"list"];
+        return [list count];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _membersTable) {
+        return 50;
+    }
     return 70;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (_membersTable == tableView) {
+        return 0;
+    }
     return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
-    bgView.image = [UIImage imageNamed:@"bar_transition"];
-    
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-    NSDictionary *dict = [self.addressList objectAtIndex:section];
-    NSString *titleStr = [dict objectForKey:@"name"];
-    title.text = titleStr;
-    title.backgroundColor = [UIColor clearColor];
-    [bgView addSubview:title];
-    
-    return bgView;
+    if (_membersTable == tableView) {
+        return nil;
+    }else{
+        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+        bgView.image = [UIImage imageNamed:@"bar_transition"];
+        
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSString *titleStr = [dict objectForKey:@"name"];
+        title.text = titleStr;
+        title.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:title];
+        return bgView;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"identifier";
-    MultSelectPeopleCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!allListCell) {
-        allListCell = [[MultSelectPeopleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
-    for (int i = 0; i < [_selectIndexPaths count]; i ++) {
-        NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
-        if ([indexPath isEqual:index]) {
-            [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+    if (_membersTable == tableView) {
+        static NSString *identifier = @"memberIdentifier";
+        UITableViewCell *memberCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!memberCell) {
+            memberCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            memberCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            memberCell.textLabel.transform = CGAffineTransformMakeRotation(M_PI/2);
+            UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+            [portrait setRound:YES];
+            portrait.tag = 1500;
+            portrait.image = [UIImage imageNamed:@"img_portrait72"];
+            [memberCell.contentView addSubview:portrait];
         }
+        
+        UIImageView *portrait_ = (UIImageView *)[memberCell.contentView viewWithTag:1500];
+        NSDictionary *dict = [self.addItems objectAtIndex:indexPath.row];
+        if (dict) {
+            NSString *imgUrlStr = [dict objectForKey:@"photo"];
+            [portrait_ setImageWithURL:IMGURL(imgUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
+            memberCell.textLabel.text = [dict objectForKey:@"displayname"];
+        }
+
+        return memberCell;
+    }else{
+        static NSString *identifier = @"identifier";
+        MultSelectPeopleCell *allListCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (!allListCell) {
+            allListCell = [[MultSelectPeopleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+        for (int i = 0; i < [_selectIndexPaths count]; i ++) {
+            NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
+            if ([indexPath isEqual:index]) {
+                [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+            }
+        }
+        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+        NSArray *list = [dict objectForKey:@"list"];
+        NSDictionary *item = [list objectAtIndex:indexPath.row];
+        if (item) {
+            [allListCell resetCellParamDict:item];
+        }
+        return allListCell;
     }
-    NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
-    NSArray *list = [dict objectForKey:@"list"];
-    NSDictionary *item = [list objectAtIndex:indexPath.row];
-    if (item) {
-        [allListCell resetCellParamDict:item];
-    }
-    return allListCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
-    
-    NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
-    NSArray *list = [dict objectForKey:@"list"];
-    NSDictionary *item = [list objectAtIndex:indexPath.row];
-    
-    MultSelectPeopleCell *cell = (MultSelectPeopleCell *)[tableView cellForRowAtIndexPath:indexPath];
-    if ([_selectIndexPaths containsObject:indexPath]) {
-        [_selectIndexPaths removeObject:indexPath];
-        [_addItems removeObject:item];
-        [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+    if (_membersTable == tableView) {
+        NSLog(@"点击选择成员");
     }else{
-        [_selectIndexPaths addObject:indexPath];
-        [_addItems addObject:item];
-        [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+        NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
+        
+        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+        NSArray *list = [dict objectForKey:@"list"];
+        NSDictionary *item = [list objectAtIndex:indexPath.row];
+        
+        MultSelectPeopleCell *cell = (MultSelectPeopleCell *)[tableView cellForRowAtIndexPath:indexPath];
+        if ([_selectIndexPaths containsObject:indexPath]) {
+            [_selectIndexPaths removeObject:indexPath];
+            [_addItems removeObject:item];
+            [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
+        }else{
+            [_selectIndexPaths addObject:indexPath];
+            [_addItems addObject:item];
+            [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
+        }
+        [_membersTable reloadData];
     }
+    
 }
 
 - (void)didselect:(UIButton *)sender{

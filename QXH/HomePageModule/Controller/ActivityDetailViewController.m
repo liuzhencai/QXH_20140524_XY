@@ -268,16 +268,13 @@
         actId = self.activityId;
     }
     if (btn.selected) {
-//        message = @"成功报名";
         [btn setTitle:@"取消报名" forState:UIControlStateNormal];
         /**
          *  加入/关注活动
-         *
          *  @param type     1为申请加入，2为关注
          *  @param actid    活动唯一标示
          *  @param callback 回调
          */
-        
         [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"加入活动申请返回值:%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];
@@ -285,10 +282,8 @@
         
     }else{
         [btn setTitle:@"报名" forState:UIControlStateNormal];
-//        message = @"已取消报名";
         /**
          *  退出活动/取消关注
-         *
          *  @param actid    活动唯一标示
          *  @param callback 回调
          */

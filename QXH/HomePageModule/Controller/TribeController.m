@@ -150,7 +150,7 @@
                       UITableView *table = (UITableView *)[self.view viewWithTag:MY_TRIBE_TABLE_TAG];
                       [table reloadData];
                   }
-                  [self showAlert:[dict objectForKey:@"info"]];
+//                  [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
 
