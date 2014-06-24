@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -144,6 +144,19 @@
                     </view>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="activityTimeLbl" destination="IPi-r9-DQq" id="lg0-BX-Jye"/>
+                <outlet property="activityTitle" destination="t1C-Fd-Psl" id="YRr-Ol-IHd"/>
+                <outlet property="addrLabel" destination="9hI-Pa-s2V" id="mvy-pl-eLZ"/>
+                <outlet property="contentLabel" destination="9JX-Nq-hUu" id="xel-nG-2nM"/>
+                <outlet property="dateLabel" destination="kY7-ZL-8ri" id="Ad6-bD-EbK"/>
+                <outlet property="nameLabel" destination="mOn-Wg-WBE" id="DC9-hQ-uLG"/>
+                <outlet property="picView" destination="N9G-vc-tVN" id="vnk-y4-IvG"/>
+                <outlet property="portraitView" destination="fP7-Jd-OgT" id="Jfv-GG-oHS"/>
+                <outlet property="posterLabel" destination="nyY-RW-Rw1" id="hNu-Wf-mCo"/>
+                <outlet property="postionLabel" destination="LVt-z6-uhe" id="bYk-g1-lJv"/>
+                <outlet property="sourceLabel" destination="762-La-CKu" id="c8h-NJ-qm6"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

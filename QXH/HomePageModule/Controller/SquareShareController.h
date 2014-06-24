@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SquareShareController : MyViewController
+@interface SquareShareController : MyViewController<UIActionSheetDelegate>
 - (IBAction)distribute:(id)sender;
+- (IBAction)selectImage:(id)sender;
 
 @end

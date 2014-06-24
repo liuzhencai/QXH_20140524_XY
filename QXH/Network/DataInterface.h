@@ -670,4 +670,15 @@ withCompletionHandler:(DictCallback)completionBlock
          refsign:(NSString *)refsign
 withCompletionHandler:(DictCallback)callback;
 
+/**
+ *  获取每日一问通用接口
+ *
+ *  @param type     1为广场每日一问，2为部落中置顶消息
+ *  @param tribeid  部落id(sendtype=2时读取该字段)
+ *  @param callback 回调
+ */
++ (void)getEveryDayAsk:(NSString *)type
+               tribeid:(NSString *)tribeid
+ withCompletionHandler:(DictCallback)callback;
+
 @end

@@ -28,8 +28,7 @@
 
 - (void)setCellData:(SquareInfo *)model
 {
-    NSLog(@"sphoto---->%@",model.info.sphoto);
-    [self.portraitView setImageWithURL:IMGURL(model.info.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [self.portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [self.portraitView circular];
     _nameLabel.text = model.uname;
     _dateLabel.text = model.date;

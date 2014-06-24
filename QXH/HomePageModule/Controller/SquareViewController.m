@@ -89,6 +89,7 @@
                     cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
+                [(SquareCell *)cell setCellData:model];
                 tblCell = cell;
             }
                 break;

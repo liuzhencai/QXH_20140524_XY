@@ -38,21 +38,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)distribute:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发布" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-    [alert show];
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex--->%d",buttonIndex);
+    switch (buttonIndex) {
+        case 0:
+        {
+            /**
+             *  拍照
+             */
+        }
+            break;
+        case 2:
+        {
+            /**
+             *  相册
+             */
+        }
+            break;
+        default:
+            break;
+    }
 }
 
-- (void)distributeInfoWithArtType:(NSString *)arttype
-{
-    NSString *userid = @"123456";
-    NSString *token = @"ab123456789";
-    NSString *string = @"content";
-    NSDictionary *param = @{@"opercode": @"0120",@"userid":userid,@"token":token, @"type":@"1",  @"tag":@"标签", @"arttype":arttype, @"content":string};
-    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        
-    }];
+- (IBAction)distribute:(id)sender {
+//  [DataInterface distributeInfo:<#(NSString *)#> tags:<#(NSString *)#> type:<#(NSString *)#> arttype:<#(NSString *)#> content:<#(NSString *)#> withCompletionHandler:<#^(NSMutableDictionary *dict)callback#>]
+}
 
+- (IBAction)selectImage:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"请选择取图片路径" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
+    [actionSheet showInView:self.view];
 }
 
 @end
