@@ -24,6 +24,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _addItems = [[NSMutableArray alloc] initWithCapacity:0];
+        _selectIndexPaths = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -61,6 +63,11 @@
 
 - (void)addOrDeleteMembers:(UIButton *)sender{
     NSLog(@"添加 or 删除 member");
+    if (self.type == deleteTribeMemberType) {//删除
+        
+    }else{//添加
+        
+    }
 }
 
 - (void)getTribeMembers{
@@ -74,6 +81,9 @@
         if (self.tribeDict) {
             [DataInterface getTribeMembers:[self.tribeDict objectForKey:@"tribeid"] withCompletionHandler:^(NSMutableDictionary *dict){
                 NSLog(@"获取部落成员列表返回值:%@",dict);
+                NSArray *list = [dict objectForKey:@"list"];
+                self.tribeMembers = [NSMutableArray arrayWithArray:list];
+                [_mainTable reloadData];
                 [self showAlert:[dict objectForKey:@"info"]];
             }];
         }
@@ -93,7 +103,7 @@
      *  @param count       获取数量
      *  @param callback    回调
      */
-    [DataInterface getFriendInfo:@"1"
+    [DataInterface getFriendInfo:@"2"
                          address:@""
                         domicile:@""
                      displayname:@""
@@ -116,14 +126,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.addressList count];
+    if (_type == deleteTribeMemberType) {
+        return 1;
+    }else{
+        return [self.addressList count];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dict = [self.addressList objectAtIndex:section];
-    NSArray *list = [dict objectForKey:@"list"];
-    return [list count];
+    if (_type == deleteTribeMemberType) {
+        return [self.tribeMembers count];
+    }else{
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSArray *list = [dict objectForKey:@"list"];
+        return [list count];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -135,17 +153,21 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
-    bgView.image = [UIImage imageNamed:@"bar_transition"];
-    
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-    NSDictionary *dict = [self.addressList objectAtIndex:section];
-    NSString *titleStr = [dict objectForKey:@"name"];
-    title.text = titleStr;
-    title.backgroundColor = [UIColor clearColor];
-    [bgView addSubview:title];
-    
-    return bgView;
+    if (_type == deleteTribeMemberType) {
+        return nil;
+    }else{
+        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+        bgView.image = [UIImage imageNamed:@"bar_transition"];
+        
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+        NSDictionary *dict = [self.addressList objectAtIndex:section];
+        NSString *titleStr = [dict objectForKey:@"name"];
+        title.text = titleStr;
+        title.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:title];
+        
+        return bgView;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -164,12 +186,20 @@
             [allListCell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
         }
     }
-    NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
-    NSArray *list = [dict objectForKey:@"list"];
-    NSDictionary *item = [list objectAtIndex:indexPath.row];
-    if (item) {
-        [allListCell resetCellParamDict:item];
+    if (_type == deleteTribeMemberType) {
+        NSDictionary *item = [self.tribeMembers objectAtIndex:indexPath.row];
+        if (item) {
+            [allListCell resetCellParamDict:item];
+        }
+    }else{
+        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+        NSArray *list = [dict objectForKey:@"list"];
+        NSDictionary *item = [list objectAtIndex:indexPath.row];
+        if (item) {
+            [allListCell resetCellParamDict:item];
+        }
     }
+    
     return allListCell;
 }
 
@@ -177,9 +207,14 @@
 {
     NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
     
-    NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
-    NSArray *list = [dict objectForKey:@"list"];
-    NSDictionary *item = [list objectAtIndex:indexPath.row];
+    NSDictionary *item = nil;
+    if (_type == deleteTribeMemberType) {
+        item = [self.tribeMembers objectAtIndex:indexPath.row];
+    }else{
+        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+        NSArray *list = [dict objectForKey:@"list"];
+        item = [list objectAtIndex:indexPath.row];
+    }
     
     MultSelectPeopleCell *cell = (MultSelectPeopleCell *)[tableView cellForRowAtIndexPath:indexPath];
     if ([_selectIndexPaths containsObject:indexPath]) {
