@@ -27,8 +27,9 @@
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     _nameLabel.text = model.uname;
     _postionLabel.text = model.uduty;
-    _contentLabel.text = model.info.content;
-    _dateLabel.text = model.info.date;
+    SquareActInfo *actInfo = model.content;
+    _contentLabel.text =actInfo.actname;
+    _dateLabel.text = model.date;
 }
 
 @end

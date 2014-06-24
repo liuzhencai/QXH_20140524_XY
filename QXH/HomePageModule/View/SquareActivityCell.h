@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SquareInfo.h"
+#import "SquareActInfo.h"
 
 @interface SquareActivityCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;

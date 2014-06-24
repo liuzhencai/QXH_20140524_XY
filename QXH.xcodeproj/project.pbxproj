@@ -150,6 +150,8 @@
 		212F24561928E09A00F738F8 /* top_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F24081928E09A00F738F8 /* top_bar@2x.png */; };
 		212F24571928E09A00F738F8 /* top_btn_arrow_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F24091928E09A00F738F8 /* top_btn_arrow_highlight@2x.png */; };
 		212F24581928E09A00F738F8 /* top_btn_arrow_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F240A1928E09A00F738F8 /* top_btn_arrow_normal@2x.png */; };
+		21391FBD1959CA700002E288 /* CardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 21391FBC1959CA700002E288 /* CardInfo.m */; };
+		21391FC01959CED80002E288 /* SquareActInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 21391FBF1959CED70002E288 /* SquareActInfo.m */; };
 		21401DA719192CD100E9175B /* TribeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DA519192CD100E9175B /* TribeCell.m */; };
 		21401DA819192CD100E9175B /* TribeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DA619192CD100E9175B /* TribeCell.xib */; };
 		21401DAC1919325900E9175B /* AddrListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DAA1919325900E9175B /* AddrListCell.m */; };
@@ -570,6 +572,10 @@
 		212F24081928E09A00F738F8 /* top_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_bar@2x.png"; sourceTree = "<group>"; };
 		212F24091928E09A00F738F8 /* top_btn_arrow_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_btn_arrow_highlight@2x.png"; sourceTree = "<group>"; };
 		212F240A1928E09A00F738F8 /* top_btn_arrow_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_btn_arrow_normal@2x.png"; sourceTree = "<group>"; };
+		21391FBB1959CA700002E288 /* CardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfo.h; sourceTree = SOURCE_ROOT; };
+		21391FBC1959CA700002E288 /* CardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfo.m; sourceTree = SOURCE_ROOT; };
+		21391FBE1959CED70002E288 /* SquareActInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareActInfo.h; sourceTree = "<group>"; };
+		21391FBF1959CED70002E288 /* SquareActInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareActInfo.m; sourceTree = "<group>"; };
 		21401DA419192CD100E9175B /* TribeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeCell.h; sourceTree = "<group>"; };
 		21401DA519192CD100E9175B /* TribeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeCell.m; sourceTree = "<group>"; };
 		21401DA619192CD100E9175B /* TribeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TribeCell.xib; sourceTree = "<group>"; };
@@ -1255,6 +1261,8 @@
 				21C6D60B19508E1B00467717 /* MyTribeModel.m */,
 				2121C8E7195326A900FFEAE5 /* VistorModel.h */,
 				2121C8E8195326A900FFEAE5 /* VistorModel.m */,
+				21391FBE1959CED70002E288 /* SquareActInfo.h */,
+				21391FBF1959CED70002E288 /* SquareActInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1330,6 +1338,8 @@
 				88EE4F2319341DF000734AE1 /* TribeInfoModel.m */,
 				88EE4F68193433B000734AE1 /* ActivityInfoModel.h */,
 				88EE4F69193433B000734AE1 /* ActivityInfoModel.m */,
+				21391FBB1959CA700002E288 /* CardInfo.h */,
+				21391FBC1959CA700002E288 /* CardInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2165,10 +2175,12 @@
 				2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */,
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
+				21391FBD1959CA700002E288 /* CardInfo.m in Sources */,
 				84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */,
 				84FCA856192CC43F0005295A /* HistoryReviewController.m in Sources */,
 				58B87177192F78FB00EB730D /* ShareView.m in Sources */,
 				842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */,
+				21391FC01959CED80002E288 /* SquareActInfo.m in Sources */,
 				84F065EB192AFACD00B09AB5 /* FilterTimeViewController.m in Sources */,
 				848426A3192E0D1100C9474A /* CustomSegmentView.m in Sources */,
 				58B1DEB7192BA38200086C38 /* MyTribeListCell.m in Sources */,

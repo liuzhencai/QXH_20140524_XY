@@ -34,8 +34,9 @@
     _dateLabel.text = model.date;
     _positionLabel.text = model.uduty;
     _contentLabel.text = model.usign;
-    _subContentLabel.text = model.info.content;
-    [_subImageView setImageWithURL:IMGURL(model.info.artimgs)];
+    InfoModel *tmpModel = model.content;
+    _subContentLabel.text = tmpModel.content;
+    [_subImageView setImageWithURL:IMGURL(tmpModel.artimgs)];
 }
 
 @end
