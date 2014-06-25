@@ -329,7 +329,9 @@
     
     share.shareBlack = ^(NSDictionary *dict){
         NSLog(@"block");
-        [self showAlert:@"分享成功"];
+        [DataInterface transmit:@"3" targetid:self.activityId refsign:@"这篇文章还行" withCompletionHandler:^(NSMutableDictionary *dict) {
+            [self showAlert:@"分享成功"];
+        }];
     };
     [share show];
 }
