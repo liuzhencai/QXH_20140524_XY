@@ -126,7 +126,7 @@
      *  @param callback    回调
      */
     
-    [DataInterface getFriendInfo:@"2"
+    [DataInterface getFriendInfo:@"1"
                          address:@""
                         domicile:@""
                      displayname:@""
@@ -173,22 +173,44 @@
          *  @param count       获取数量
          *  @param callback    回调
          */
-        [DataInterface getFriendInfo:@"1"
-                             address:@""
-                            domicile:@""
-                         displayname:@""
-                            usertype:@""
-                               start:@"0"
-                               count:@"10"
-               withCompletionHandler:^(NSMutableDictionary *dict){
-                   NSLog(@"通讯录列表返回数据：%@",dict);
-                   if (dict) {
-                       NSArray *list = [dict objectForKey:@"lists"];
-                       self.myMessageList = [NSMutableArray arrayWithArray:list];
-                       [table reloadData];
-                   }
-//                   [self showAlert:[dict objectForKey:@"info"]];
-               }];
+//        [DataInterface getFriendInfo:@"1"
+//                             address:@""
+//                            domicile:@""
+//                         displayname:@""
+//                            usertype:@""
+//                               start:@"0"
+//                               count:@"10"
+//               withCompletionHandler:^(NSMutableDictionary *dict){
+//                   NSLog(@"通讯录列表返回数据：%@",dict);
+//                   if (dict) {
+//                       NSArray *list = [dict objectForKey:@"lists"];
+//                       self.myMessageList = [NSMutableArray arrayWithArray:list];
+//                       [table reloadData];
+//                   }
+////                   [self showAlert:[dict objectForKey:@"info"]];
+//               }];
+        
+        /**
+         *  获取登录消息
+         *
+         *  @param callback 获取登陆消息（此接口为用户登陆成功后调用，用户获取在用户离线期间收到的消息）
+         */
+//        + (void)getLoginInfoWithCompletionHandler:(DictCallback)callback;
+        [DataInterface getLoginInfoWithCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"获取登录信息：%@",dict);
+            if (dict) {
+                NSArray *officials = [dict objectForKey:@"official"];
+                NSArray *chats = [dict objectForKey:@"chat"];
+                self.myMessageList = [NSMutableArray arrayWithCapacity:0];
+                if ([officials count]) {
+                    [self.myMessageList addObject:@{@"name":@"official",@"list":officials}];
+                }
+                if ([chats count]) {
+                    [self.myMessageList addObject:@{@"name":@"chats",@"list":chats}];
+                }
+                [table reloadData];
+            }
+        }];
     }
 }
 
@@ -201,7 +223,7 @@
     }else{
         return [self.myMessageList count];
     }
-    return [self.myMessageList count];
+//    return [self.myMessageList count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

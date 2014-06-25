@@ -81,7 +81,7 @@
 //              withCompletionHandler:^(NSMutableDictionary *dict)
     
     
-     [DataInterface requestTribeList:@"2"
+     [DataInterface requestTribeList:@"1"
                            tribename:@""
                             authflag:@"0"
                               status:@"0"

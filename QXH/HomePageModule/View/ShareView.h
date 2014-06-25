@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^ShareBlock) (NSDictionary *dict);
+typedef void (^ShareBlock) (id objct);
 
 @interface ShareView : UIView
 @property (nonatomic, copy) ShareBlock shareBlack;

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+//typedef void (^RegisterCallBack) (NSDictionary *dict) ;
+
 @interface UserRegisterViewController : MyViewController
 @property (nonatomic, strong) UITextField *emailField;
 @property (nonatomic, strong) UITextField *pwField;
 @property (nonatomic, strong) UITextField *repeatPWField;
+@property (nonatomic, copy) DictCallback registerCallBack;
 @end

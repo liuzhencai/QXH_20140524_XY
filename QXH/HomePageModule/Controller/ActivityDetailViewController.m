@@ -321,15 +321,34 @@
     view.backgroundColor = [UIColor blackColor];
     view.alpha = 0.5;
     
-    ShareView *share = [[ShareView alloc] initWithParam:nil];
+    ShareView *share = [[ShareView alloc] initWithParam:self.activityDict];
     share.alpha = 0.0;
     [share addSubview:view];
     [share sendSubviewToBack:view];
     [self.view addSubview:share];
     
-    share.shareBlack = ^(NSDictionary *dict){
+    share.shareBlack = ^(id objct){
         NSLog(@"block");
-        [self showAlert:@"分享成功"];
+//        [self showAlert:@"分享成功"];
+        /**
+         *  转发通用接口(转发指将咨询文章，活动转发到广场的操作)
+         *
+         *  @param type     2为咨询转发，3为活动转发
+         *  @param targetid 要转发的目标id
+         *  @param refsign  转发语
+         *  @param callback 回调
+         */
+//        + (void)transmit:(NSString *)type
+//    targetid:(NSString *)targetid
+//    refsign:(NSString *)refsign
+//    withCompletionHandler:(DictCallback)callback;
+        NSString *refsign = (NSString *)objct;
+        [DataInterface transmit:@"3"
+                       targetid:self.activityId
+                        refsign:refsign
+          withCompletionHandler:^(NSMutableDictionary *dict){
+            
+        }];
     };
     [share show];
 }
