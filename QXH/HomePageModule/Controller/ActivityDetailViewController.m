@@ -348,6 +348,7 @@
                         refsign:refsign
           withCompletionHandler:^(NSMutableDictionary *dict){
             
+
         }];
     };
     [share show];
