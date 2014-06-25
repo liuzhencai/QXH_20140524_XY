@@ -476,6 +476,16 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
++ (void)recvRemoteNoficationWithCompletionHandler:(DictCallback)callback
+{
+    [[UDPServiceEngine sharedEngine] receiveDataWithCompletionHandler:^(id data) {
+        NSLog(@"\n##########服务器推送消息/通知返回结果##########\n[结 果]:%@\n#############################\n",data);
+        callback(data);
+    } andErrorHandler:^(id data) {
+        NSLog(@"\n##########服务器推送消息/通知出错##########\n[原 因]:%@\n#############################\n",data);
+    }];
+}
+
 + (void)recvMessage:(NSString *)messids withCompletionHandler:(DictCallback)callback
 {
     NSDictionary *param = @{@"opercode": @"0132", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"messids":messids,@"sign":[SignGenerator getSign]};

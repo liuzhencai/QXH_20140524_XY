@@ -40,6 +40,14 @@
 - (void)removeAllSign;
 
 /**
+ *  接收服务器推送的udp报文
+ *
+ *  @param callback 成功回调
+ *  @param error    失败回调
+ */
+- (void)receiveDataWithCompletionHandler:(Completion)callback andErrorHandler:(Completion)error;
+
+/**
  *  发送udp报文
  *
  *  @param param    参数

@@ -28,8 +28,14 @@
     _nameLabel.text = model.uname;
     _postionLabel.text = model.uduty;
     SquareActInfo *actInfo = model.content;
-    _contentLabel.text =actInfo.actname;
+    _contentLabel.text =actInfo.desc;
     _dateLabel.text = model.date;
+    _activityTitle.text = actInfo.actname;
+    _sourceLabel.text = @"";
+    _posterLabel.text = @"";
+    _activityTimeLbl.text = actInfo.signupbegindate;
+    _addrLabel.text = actInfo.actaddr;
+    
 }
 
 @end
