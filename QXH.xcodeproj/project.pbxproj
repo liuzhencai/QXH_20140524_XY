@@ -1295,6 +1295,7 @@
 				88EE4F6D1934614800734AE1 /* FindPeople */,
 				88EE4F6C1934613D00734AE1 /* Activity */,
 				88EE4F6B1934613400734AE1 /* Tribe */,
+				2120F8C4195B227A00B24A11 /* Square */,
 				84FCA853192CC43F0005295A /* HistoryReviewController.h */,
 				84FCA854192CC43F0005295A /* HistoryReviewController.m */,
 				84FCA855192CC43F0005295A /* HistoryReviewController.xib */,
@@ -1304,9 +1305,6 @@
 				21D7058619169562004950BF /* OneDreamController.h */,
 				21D7058719169562004950BF /* OneDreamController.m */,
 				21D7058819169562004950BF /* OneDreamController.xib */,
-				21D7059019169617004950BF /* SquareViewController.h */,
-				21D7059119169617004950BF /* SquareViewController.m */,
-				21D7059219169617004950BF /* SquareViewController.xib */,
 				21D7059519169674004950BF /* EverydayAskController.h */,
 				21D7059619169674004950BF /* EverydayAskController.m */,
 				21D7059719169674004950BF /* EverydayAskController.xib */,
@@ -1319,12 +1317,6 @@
 				21D705B819169C84004950BF /* CharacterListController.h */,
 				21D705B919169C84004950BF /* CharacterListController.m */,
 				21D705BA19169C84004950BF /* CharacterListController.xib */,
-				21A893F91928ECD200A6DB7E /* SquareShareController.h */,
-				21A893FA1928ECD300A6DB7E /* SquareShareController.m */,
-				21A893FB1928ECD300A6DB7E /* SquareShareController.xib */,
-				21A893FE1928F8CF00A6DB7E /* ShareTextController.h */,
-				21A893FF1928F8CF00A6DB7E /* ShareTextController.m */,
-				21A894001928F8CF00A6DB7E /* ShareTextController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1466,6 +1458,22 @@
 				58E08D0619532549000C25AE /* AddFriendView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2120F8C4195B227A00B24A11 /* Square */ = {
+			isa = PBXGroup;
+			children = (
+				21A893F91928ECD200A6DB7E /* SquareShareController.h */,
+				21A893FA1928ECD300A6DB7E /* SquareShareController.m */,
+				21A893FB1928ECD300A6DB7E /* SquareShareController.xib */,
+				21A893FE1928F8CF00A6DB7E /* ShareTextController.h */,
+				21A893FF1928F8CF00A6DB7E /* ShareTextController.m */,
+				21A894001928F8CF00A6DB7E /* ShareTextController.xib */,
+				21D7059019169617004950BF /* SquareViewController.h */,
+				21D7059119169617004950BF /* SquareViewController.m */,
+				21D7059219169617004950BF /* SquareViewController.xib */,
+			);
+			name = Square;
 			sourceTree = "<group>";
 		};
 		212F239E1928DF2500F738F8 /* 公用基类 */ = {

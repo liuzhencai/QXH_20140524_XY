@@ -32,8 +32,6 @@
     self.title = @"详情";
 
     _contentTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
-//    [self.view addSubview:_toolbarView];
-    
     _toolbarView.frame = CGRectMake(0, SCREEN_H - 49-64, 320, 49);
     [self.view addSubview:_toolbarView];
 }
@@ -77,16 +75,6 @@
     }
     return cell;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    return 49;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    return _toolbarView;
-//}
 
 - (IBAction)click:(id)sender {
     UIButton *btn = (UIButton *)sender;

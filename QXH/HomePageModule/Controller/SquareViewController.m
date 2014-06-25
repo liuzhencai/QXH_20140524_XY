@@ -166,7 +166,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
     ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+    switch (model.type) {
+        case 1:
+            controller.type = SquareInfoTypeSq;
+            break;
+        case 2:
+            controller.type = SquareInfoTypeInf;
+            break;
+        case 3:
+            controller.type = SquareInfoTypeAct;
+            break;
+        default:
+            break;
+    }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
