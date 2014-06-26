@@ -45,7 +45,8 @@
 {
     __block BOOL isSuccess = NO;
     __block NSUInteger failtimes = 0;
-    udp.block = udp.block = ^(NSData *data){
+//    udp.block = udp.block = ^(NSData *data){
+    udp.block = ^(NSData *data){
         id returnValue = nil;
         if (!isSuccess) {
             JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];

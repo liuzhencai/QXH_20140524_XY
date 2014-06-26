@@ -208,7 +208,10 @@
 }
 
 - (void)login{
-    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    
+//    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    [DataInterface login:self.emailField.text andPswd:self.pwField.text withCompletinoHandler:^(NSMutableDictionary *dict) {
+
         NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
         
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {

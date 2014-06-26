@@ -39,7 +39,7 @@
     self.title = @"找人";
     // Do any additional setup after loading the view.
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"cityList" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"provincesAndCitys" ofType:@"plist"];
     _dataList = [[NSArray alloc] initWithContentsOfFile:path];
     
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
@@ -88,7 +88,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.isOpen) {
         if (_selectIndexPath.section == section) {
-            return [[[_dataList objectAtIndex:section] objectForKey:@"list"] count] + 1;
+            return [[[_dataList objectAtIndex:section] objectForKey:@"citysList"] count] + 1;
         }
     }
     return 1;
@@ -135,8 +135,9 @@
         }
         
         NSDictionary *dict = [_dataList objectAtIndex:indexPath.section];
-        NSArray *list = [dict objectForKey:@"list"];
-        cell.titleLabel.text = [list objectAtIndex:indexPath.row - 1];
+        NSArray *list = [dict objectForKey:@"citysList"];
+        NSDictionary *cityDict = [list objectAtIndex:indexPath.row - 1];
+        cell.titleLabel.text = [cityDict objectForKey:@"city"];
         return cell;
     }else{
         static NSString *identifier2 = @"cellId2";
@@ -146,7 +147,7 @@
         }
         
         NSDictionary *dict = [_dataList objectAtIndex:indexPath.section];
-        cell.titleLabel.text = [dict objectForKey:@"name"];
+        cell.titleLabel.text = [dict objectForKey:@"province"];
         [cell changeArrowWithUp:([indexPath isEqual:_selectIndexPath] ? YES : NO)];
         return cell;
     }
@@ -185,9 +186,9 @@
         }
         [_mainTable reloadData];
     }else{
-        NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"list"];
-        NSString *name = [list objectAtIndex:indexPath.row - 1];
-        NSLog(@"%@",name);
+        NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"citysList"];
+        NSDictionary *cityDict = [list objectAtIndex:indexPath.row - 1];
+        NSLog(@"%@",cityDict);
         FindResultViewController *findResult = [[FindResultViewController alloc] init];
         [self.navigationController pushViewController:findResult animated:YES];
     }

@@ -32,7 +32,11 @@
 - (void)login
 {
     //754672546@qq.com
-    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    NSString *name = [defaults objectForKey:@"userName"];
+    NSString *passward = [defaults objectForKey:@"passworld"];
+//    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+
         NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
 //        UIImage *img = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]];
 //        

@@ -265,6 +265,7 @@
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87B1944B3F800401862 /* OnLiveCell.m */; };
+		587C3921195C6E90002D64D1 /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 587C3920195C6E90002D64D1 /* provincesAndCitys.plist */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -772,6 +773,7 @@
 		5869D87819431A6600401862 /* YSKeyboardTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSKeyboardTableView.m; sourceTree = "<group>"; };
 		5869D87A1944B3F800401862 /* OnLiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLiveCell.h; sourceTree = "<group>"; };
 		5869D87B1944B3F800401862 /* OnLiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLiveCell.m; sourceTree = "<group>"; };
+		587C3920195C6E90002D64D1 /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -1528,6 +1530,7 @@
 				5869D87819431A6600401862 /* YSKeyboardTableView.m */,
 				84AB9248192B3FD80000101A /* cityList.plist */,
 				58EEDABF1958549E007E2FA2 /* citysList.plist */,
+				587C3920195C6E90002D64D1 /* provincesAndCitys.plist */,
 				842D3C94192AF8E600374F04 /* UIViewAdditions.h */,
 				842D3C95192AF8E600374F04 /* UIViewAdditions.m */,
 				212F23A31928DF2C00F738F8 /* ClassificationControll.h */,
@@ -2056,6 +2059,7 @@
 				21D7058019169169004950BF /* PersonalInfoController.xib in Resources */,
 				848426DD192E185B00C9474A /* icon_buluo@2x.png in Resources */,
 				848426E3192E185B00C9474A /* icon_zhibo@2x.png in Resources */,
+				587C3921195C6E90002D64D1 /* provincesAndCitys.plist in Resources */,
 				212F24341928E09A00F738F8 /* btn_submit_highlight@2x.png in Resources */,
 				212F24551928E09A00F738F8 /* list_arrow_right_green@2x.png in Resources */,
 				84F0660C192B2F1100B09AB5 /* License in Resources */,
