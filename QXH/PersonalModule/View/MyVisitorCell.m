@@ -28,6 +28,8 @@
 
 - (void)setVistor:(VistorModel *)vistor
 {
+    [_portraitView circular];
+    [_portraitView setImageWithURL:IMGURL(vistor.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     _titleLabel.text = vistor.username;
     _dateLabel.text = vistor.date;
     _displayLabel.text = vistor.displayname;
