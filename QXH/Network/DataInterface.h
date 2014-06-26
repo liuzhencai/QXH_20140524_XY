@@ -104,12 +104,17 @@
             schoolname:(NSString *)schoolname
             schooltype:(NSString *)schooltype
                    sex:(NSString *)sex
+                 photo:(NSString *)photo
                  email:(NSString *)email
                   tags:(NSString *)tags
          attentiontags:(NSString *)attentiontags
                hobbies:(NSString *)hobbies
             educations:(NSString *)educations
                honours:(NSString *)honours
+              usertype:(NSString *)usertype
+                  gold:(NSString *)gold
+                 level:(NSString *)level
+             configure:(NSString *)configure
  withCompletionHandler:(DictCallback)callback;
                                                                                                                                                                         
 /**

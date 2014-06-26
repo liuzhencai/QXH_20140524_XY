@@ -97,15 +97,8 @@
             [cell.contentView addSubview:positionLabel];
         }
         UIImageView *iconImage_ = (UIImageView *)[cell.contentView viewWithTag:1000];
-        NSString *imgurl = [userinfo objectForKey:@"photo"];
-        if ([imgurl isEqualToString:@""])
-        {
-            iconImage_.image = [UIImage imageNamed:@"img_portrait96"];
-        }
-        else
-        {
-            [iconImage_ setImageWithURL:[userinfo objectForKey:@"photo"]];
-        }
+        [iconImage_ circular];
+        [iconImage_ setImageWithURL:IMGURL([userinfo objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
 
         UILabel *nameLabel_ = (UILabel *)[cell.contentView viewWithTag:1001];
         nameLabel_.text = [userinfo objectForKey:@"displayname"];

@@ -20,6 +20,9 @@
     NSArray *titleArr;
     NSDictionary *userinfo;
 }
+
+@property (strong, nonatomic) SNImagePickerNC *imagePickerNavigationController;
+
 @end
 
 @implementation EditCardController
@@ -33,17 +36,24 @@
     {
         
     }else{
-        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-            userinfo = dict;
-            NSString *phone = [userinfo objectForKey:@"phone"];
-            if ([phone isEqualToString:@""]) {
-                phone = @"无手机号";
-            }
-            valueArr = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"%@ %@",[userinfo objectForKey:@"schoolname"],[userinfo objectForKey:@"title"]], [NSString stringWithFormat:@"%@",[userinfo objectForKey:@"domicile"]], [userinfo objectForKey:@"introduce"], [userinfo objectForKey:@"hobbies"], [userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
-            [_editTable reloadData];
-        }];
+        [self loadData];
     }
 
+}
+
+- (void)loadData
+{
+    [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+        userinfo = dict;
+        NSString *phone = [userinfo objectForKey:@"phone"];
+        if ([phone isEqualToString:@""]) {
+            phone = @"无手机号";
+        }
+        valueArr = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"%@ %@",[userinfo objectForKey:@"schoolname"],[userinfo objectForKey:@"title"]], [NSString stringWithFormat:@"%@",[userinfo objectForKey:@"domicile"]], [userinfo objectForKey:@"introduce"], [userinfo objectForKey:@"hobbies"], [userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
+        [_portraitView circular];
+        [_portraitView setImageWithURL:IMGURL([userinfo objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+        [_editTable reloadData];
+    }];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -62,8 +72,7 @@
     if (!self.title) {
         self.title = @"编辑名片";
     }
-    
-    
+
     _editTable.tableHeaderView = _topView;
     
     titleArr = @[@"学校信息（必填）", @"城市（必填）", @"自我介绍", @"兴趣爱好", @"学习经历", @"手机号", @"曾获荣誉"];
@@ -221,11 +230,100 @@
         case 1:
         {
             NSLog(@"从相册选取");
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"SNPicker" bundle:nil];
+            self.imagePickerNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ImagePickerNC"];
+            [self.imagePickerNavigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+            self.imagePickerNavigationController.imagePickerDelegate = self;
+            self.imagePickerNavigationController.pickerType = kPickerTypePhoto;
+            [self presentViewController:self.imagePickerNavigationController animated:YES completion:^{ }];
         }
             break;
         default:
             break;
     }
 }
+
+- (void)callCamera
+{
+    NSString *mediaType = AVMediaTypeVideo;// Or AVMediaTypeAudio
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    NSLog(@"---cui--authStatus--------%d",authStatus);
+    // This status is normally not visible—the AVCaptureDevice class methods for discovering devices do not return devices the user is restricted from accessing.
+    if(authStatus ==AVAuthorizationStatusRestricted){
+        NSLog(@"Restricted");
+    }else if(authStatus == AVAuthorizationStatusDenied){
+        // The user has explicitly denied permission for media capture.
+        NSLog(@"Denied");     //应该是这个，如果不允许的话
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"请在设备的\"设置-隐私-相机\"中允许访问相机。"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    else if(authStatus == AVAuthorizationStatusAuthorized){//允许访问
+        // The user has explicitly granted permission for media capture, or explicit user permission is not necessary for the media type in question.
+        NSLog(@"Authorized");
+        
+    }else if(authStatus == AVAuthorizationStatusNotDetermined){
+        // Explicit user permission is required for media capture, but the user has not yet granted or denied such permission.
+        [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+            if(granted){//点击允许访问时调用
+                //用户明确许可与否，媒体需要捕获，但用户尚未授予或拒绝许可。
+                NSLog(@"Granted access to %@", mediaType);
+            }
+            else {
+                NSLog(@"Not granted access to %@", mediaType);
+            }
+            
+        }];
+    }else {
+        NSLog(@"Unknown authorization status");
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self modifyUserPortrait:image];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)modifyUserPortrait:(UIImage *)image
+{
+    [DataInterface fileUpload:image type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
+        [DataInterface modifyUserInfo:ORIGIN_VAL oldpwd:ORIGIN_VAL newpwd:ORIGIN_VAL signature:ORIGIN_VAL title:ORIGIN_VAL degree:ORIGIN_VAL address:ORIGIN_VAL domicile:ORIGIN_VAL introduce:ORIGIN_VAL comname:ORIGIN_VAL comdesc:ORIGIN_VAL comaddress:ORIGIN_VAL comurl:ORIGIN_VAL induname:ORIGIN_VAL indudesc:ORIGIN_VAL schoolname:ORIGIN_VAL schooltype:ORIGIN_VAL sex:ORIGIN_VAL photo:[dict objectForKey:@"filename"] email:ORIGIN_VAL tags:ORIGIN_VAL attentiontags:ORIGIN_VAL hobbies:ORIGIN_VAL educations:ORIGIN_VAL honours:ORIGIN_VAL usertype:ORIGIN_VAL gold:ORIGIN_VAL level:ORIGIN_VAL configure:ORIGIN_VAL withCompletionHandler:^(NSMutableDictionary *dict) {
+            [self loadData];
+        }];
+    } errorBlock:^(NSString *desc) {
+        
+    }];
+}
+
+#pragma mark - SNImagePickerDelegate
+
+- (void)imagePicker:(SNImagePickerNC *)imagePicker didFinishPickingWithMediaInfo:(NSMutableArray *)info
+{
+     ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
+     [assetLibrary assetForURL:[info lastObject] resultBlock:^(ALAsset *asset) {
+         UIImage *image = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
+         [self modifyUserPortrait:image];
+     } failureBlock:^(NSError *error) {}];
+}
+
+- (void)imagePickerDidCancel:(SNImagePickerNC *)imagePicker
+{
+    
+}
+
 
 @end

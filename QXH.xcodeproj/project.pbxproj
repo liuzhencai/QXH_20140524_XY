@@ -248,6 +248,18 @@
 		21EDAD521926F68100C616CF /* MemberRuleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD501926F68100C616CF /* MemberRuleController.xib */; };
 		21EDAD561926F69500C616CF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD541926F69500C616CF /* SettingViewController.m */; };
 		21EDAD571926F69500C616CF /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD551926F69500C616CF /* SettingViewController.xib */; };
+		21F68BC5195C5CA300C869BC /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BB7195C5CA300C869BC /* check.png */; };
+		21F68BC6195C5CA300C869BC /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BB8195C5CA300C869BC /* check@2x.png */; };
+		21F68BC7195C5CA300C869BC /* check@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BB9195C5CA300C869BC /* check@2x~ipad.png */; };
+		21F68BC8195C5CA300C869BC /* check~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BBA195C5CA300C869BC /* check~ipad.png */; };
+		21F68BC9195C5CA300C869BC /* SNAlbumTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F68BBC195C5CA300C869BC /* SNAlbumTVC.m */; };
+		21F68BCA195C5CA300C869BC /* SNAssetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F68BBE195C5CA300C869BC /* SNAssetsVC.m */; };
+		21F68BCB195C5CA300C869BC /* SNCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F68BC0195C5CA300C869BC /* SNCustomCell.m */; };
+		21F68BCC195C5CA300C869BC /* SNImagePickerNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F68BC2195C5CA300C869BC /* SNImagePickerNC.m */; };
+		21F68BCD195C5CA300C869BC /* SNPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BC3195C5CA300C869BC /* SNPicker.storyboard */; };
+		21F68BCE195C5CA300C869BC /* SNPicker~ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BC4195C5CA300C869BC /* SNPicker~ipad.storyboard */; };
+		21F68BD0195C5E1A00C869BC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F68BCF195C5E1A00C869BC /* AssetsLibrary.framework */; };
+		21F68BD2195C69C400C869BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F68BD1195C69C400C869BC /* AVFoundation.framework */; };
 		58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */; };
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
@@ -735,6 +747,22 @@
 		21EDAD531926F69500C616CF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		21EDAD541926F69500C616CF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		21EDAD551926F69500C616CF /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		21F68BB7195C5CA300C869BC /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		21F68BB8195C5CA300C869BC /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
+		21F68BB9195C5CA300C869BC /* check@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x~ipad.png"; sourceTree = "<group>"; };
+		21F68BBA195C5CA300C869BC /* check~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check~ipad.png"; sourceTree = "<group>"; };
+		21F68BBB195C5CA300C869BC /* SNAlbumTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNAlbumTVC.h; sourceTree = "<group>"; };
+		21F68BBC195C5CA300C869BC /* SNAlbumTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNAlbumTVC.m; sourceTree = "<group>"; };
+		21F68BBD195C5CA300C869BC /* SNAssetsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNAssetsVC.h; sourceTree = "<group>"; };
+		21F68BBE195C5CA300C869BC /* SNAssetsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNAssetsVC.m; sourceTree = "<group>"; };
+		21F68BBF195C5CA300C869BC /* SNCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNCustomCell.h; sourceTree = "<group>"; };
+		21F68BC0195C5CA300C869BC /* SNCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNCustomCell.m; sourceTree = "<group>"; };
+		21F68BC1195C5CA300C869BC /* SNImagePickerNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNImagePickerNC.h; sourceTree = "<group>"; };
+		21F68BC2195C5CA300C869BC /* SNImagePickerNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNImagePickerNC.m; sourceTree = "<group>"; };
+		21F68BC3195C5CA300C869BC /* SNPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SNPicker.storyboard; sourceTree = "<group>"; };
+		21F68BC4195C5CA300C869BC /* SNPicker~ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "SNPicker~ipad.storyboard"; sourceTree = "<group>"; };
+		21F68BCF195C5E1A00C869BC /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		21F68BD1195C69C400C869BC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrDeleteMemberViewController.h; sourceTree = "<group>"; };
 		58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrDeleteMemberViewController.m; sourceTree = "<group>"; };
 		58163D9919323838001B60FE /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
@@ -911,6 +939,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21F68BD2195C69C400C869BC /* AVFoundation.framework in Frameworks */,
+				21F68BD0195C5E1A00C869BC /* AssetsLibrary.framework in Frameworks */,
 				2111B1D2195567D200AA5478 /* QuartzCore.framework in Frameworks */,
 				21DA12BA19362F0E001EDEB1 /* CFNetwork.framework in Frameworks */,
 				2119EE8219168279007DBE68 /* CoreGraphics.framework in Frameworks */,
@@ -967,6 +997,8 @@
 		2119EE7E19168279007DBE68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21F68BD1195C69C400C869BC /* AVFoundation.framework */,
+				21F68BCF195C5E1A00C869BC /* AssetsLibrary.framework */,
 				2111B1D1195567D200AA5478 /* QuartzCore.framework */,
 				21DF758B193F4FC800928450 /* libcommonCrypto.dylib */,
 				21DA12B919362F0E001EDEB1 /* CFNetwork.framework */,
@@ -1032,6 +1064,7 @@
 		2119EEAE191682D0007DBE68 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				21F68BB6195C5CA300C869BC /* SNImagePicker */,
 				21DA12BB1936303F001EDEB1 /* CocoaAyncSocket */,
 				21096A82193616270089286C /* GTMBase64 */,
 				848426F1192E1A7000C9474A /* WX */,
@@ -1732,6 +1765,27 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		21F68BB6195C5CA300C869BC /* SNImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				21F68BB7195C5CA300C869BC /* check.png */,
+				21F68BB8195C5CA300C869BC /* check@2x.png */,
+				21F68BB9195C5CA300C869BC /* check@2x~ipad.png */,
+				21F68BBA195C5CA300C869BC /* check~ipad.png */,
+				21F68BBB195C5CA300C869BC /* SNAlbumTVC.h */,
+				21F68BBC195C5CA300C869BC /* SNAlbumTVC.m */,
+				21F68BBD195C5CA300C869BC /* SNAssetsVC.h */,
+				21F68BBE195C5CA300C869BC /* SNAssetsVC.m */,
+				21F68BBF195C5CA300C869BC /* SNCustomCell.h */,
+				21F68BC0195C5CA300C869BC /* SNCustomCell.m */,
+				21F68BC1195C5CA300C869BC /* SNImagePickerNC.h */,
+				21F68BC2195C5CA300C869BC /* SNImagePickerNC.m */,
+				21F68BC3195C5CA300C869BC /* SNPicker.storyboard */,
+				21F68BC4195C5CA300C869BC /* SNPicker~ipad.storyboard */,
+			);
+			path = SNImagePicker;
+			sourceTree = "<group>";
+		};
 		58B1DEA1192B97EF00086C38 /* addImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -2032,6 +2086,7 @@
 				21D705BC19169C84004950BF /* CharacterListController.xib in Resources */,
 				212F24121928E09A00F738F8 /* btn_share_normal@2x.png in Resources */,
 				210BAEE6192A5C7600B8FBCF /* CollectionCell.xib in Resources */,
+				21F68BCE195C5CA300C869BC /* SNPicker~ipad.storyboard in Resources */,
 				212F24351928E09A00F738F8 /* btn_submit_normal@2x.png in Resources */,
 				212F24151928E09A00F738F8 /* icon_search@2x.png in Resources */,
 				212F24511928E09A00F738F8 /* line_dividing_gray@2x.png in Resources */,
@@ -2085,6 +2140,7 @@
 				212F240E1928E09A00F738F8 /* btn_enroll_normal@2x.png in Resources */,
 				848426AB192E0F2B00C9474A /* tribe_btn_add_highlight@2x.png in Resources */,
 				212F240C1928E09A00F738F8 /* bootom_bar_bg.png in Resources */,
+				21F68BC5195C5CA300C869BC /* check.png in Resources */,
 				212F24171928E09A00F738F8 /* icon_zhujiangren@2x.png in Resources */,
 				84AB9247192B36770000101A /* fanfan.jpeg in Resources */,
 				21401DAD1919325900E9175B /* AddrListCell.xib in Resources */,
@@ -2094,6 +2150,8 @@
 				212F244A1928E09A00F738F8 /* list_img_verticalbar_left@2x.png in Resources */,
 				58B1DEAB192B980500086C38 /* collect_img_share@2x.png in Resources */,
 				210BAEE8192A5C7600B8FBCF /* MyTribeCell.xib in Resources */,
+				21F68BC8195C5CA300C869BC /* check~ipad.png in Resources */,
+				21F68BC6195C5CA300C869BC /* check@2x.png in Resources */,
 				212F24131928E09A00F738F8 /* icon_comefrom@2x.png in Resources */,
 				21EDAD4D1926F67100C616CF /* PersonalCollectionController.xib in Resources */,
 				212F24391928E09A00F738F8 /* details_bootom_bar_bg@2x.png in Resources */,
@@ -2111,6 +2169,7 @@
 				2192EC29191BD8AE00A8FE7F /* EditStuExpController.xib in Resources */,
 				212F24161928E09A00F738F8 /* icon_time@2x.png in Resources */,
 				84F0660E192B2F1100B09AB5 /* Previous.png in Resources */,
+				21F68BCD195C5CA300C869BC /* SNPicker.storyboard in Resources */,
 				21D705C11916A469004950BF /* ImageLabelCell.xib in Resources */,
 				84F0660F192B2F1100B09AB5 /* tempUser.png in Resources */,
 				848426EE192E185B00C9474A /* square_share_btn_@who_normal@2x.png in Resources */,
@@ -2147,6 +2206,7 @@
 				58B1DEAC192B980500086C38 /* collect_label_discuss_gray@2x.png in Resources */,
 				212F243C1928E09A00F738F8 /* details_icon_like_highlight@2x.png in Resources */,
 				2119EEB7191682E0007DBE68 /* 37x-Checkmark@2x.png in Resources */,
+				21F68BC7195C5CA300C869BC /* check@2x~ipad.png in Resources */,
 				212F24491928E09A00F738F8 /* list_img_circle_left@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2212,6 +2272,7 @@
 				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,
 				2119EED5191682E6007DBE68 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				210BAEDD192A5B3E00B8FBCF /* MyVisitorController.m in Sources */,
+				21F68BC9195C5CA300C869BC /* SNAlbumTVC.m in Sources */,
 				21D7059819169674004950BF /* EverydayAskController.m in Sources */,
 				84F06609192B2F1100B09AB5 /* ChatController.m in Sources */,
 				5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */,
@@ -2244,6 +2305,7 @@
 				21EDAD4A1926F67100C616CF /* MyTribeController.m in Sources */,
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,
 				21DA12DB1936303F001EDEB1 /* DDTTYLogger.m in Sources */,
+				21F68BCB195C5CA300C869BC /* SNCustomCell.m in Sources */,
 				2119EED6191682E6007DBE68 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				84F065EA192AFACD00B09AB5 /* ActivityViewController.m in Sources */,
 				21D7059319169617004950BF /* SquareViewController.m in Sources */,
@@ -2281,6 +2343,7 @@
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
 				21401DA719192CD100E9175B /* TribeCell.m in Sources */,
 				58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */,
+				21F68BCC195C5CA300C869BC /* SNImagePickerNC.m in Sources */,
 				2192EC32191BD90100A8FE7F /* PhoneViewController.m in Sources */,
 				2119EF06191682EC007DBE68 /* UIImageView+WebCache.m in Sources */,
 				2192EC23191BD88600A8FE7F /* StudyExperienceController.m in Sources */,
@@ -2304,6 +2367,7 @@
 				84F0660D192B2F1100B09AB5 /* MessageCell.m in Sources */,
 				2192EBDD191BD54900A8FE7F /* MyCardController.m in Sources */,
 				21D6ADE8193CBCFC0018109F /* InfoDetailModel.m in Sources */,
+				21F68BCA195C5CA300C869BC /* SNAssetsVC.m in Sources */,
 				210021E7193E049F006B7D12 /* UDPServiceEngine.m in Sources */,
 				842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */,
 				2119EEDA191682E6007DBE68 /* Reachability.m in Sources */,
