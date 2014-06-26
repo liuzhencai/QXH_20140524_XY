@@ -16,6 +16,7 @@
 #import "ActivityViewController.h"
 #import "TribeController.h"
 #import "chatRoomActivViewController.h"
+#import "ChatController.h"
 
 
 @interface HomePageController ()
@@ -149,6 +150,11 @@
 //            chatRoomActivViewController* chatroomactive = [[chatRoomActivViewController alloc]init];
 //            [self.view addSubview:chatroomactive.view];
 ////            [self.navigationController pushViewController:chatroomactive animated:YES];
+            
+//             NSString* name = @"刘振财测试1";
+//            [DataInterface modifyUserInfo:ORIGIN_VAL oldpwd:ORIGIN_VAL newpwd:ORIGIN_VAL signature:ORIGIN_VAL title:job degree:ORIGIN_VAL address:ORIGIN_VAL domicile:ORIGIN_VAL introduce:ORIGIN_VAL comname:ORIGIN_VAL comdesc:ORIGIN_VAL comaddress:ORIGIN_VAL comurl:ORIGIN_VAL induname:ORIGIN_VAL indudesc:ORIGIN_VAL schoolname:schoolname schooltype:ORIGIN_VAL sex:ORIGIN_VAL email:ORIGIN_VAL tags:ORIGIN_VAL attentiontags:ORIGIN_VAL hobbies:ORIGIN_VAL educations:ORIGIN_VAL honours:ORIGIN_VAL withCompletionHandler:^(NSMutableDictionary *dict) {
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }];
         }
             break;
         default:

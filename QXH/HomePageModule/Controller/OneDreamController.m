@@ -105,31 +105,31 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!_chatController)
-        _chatController = [ChatController new];
-//    _chatController.delegate = self;
-//    _chatController.opponentImg = [UIImage imageNamed:@"tempUser.png"];
-//    _chatController.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
-    _chatController.chatTitle = @"张三";
-    [self.navigationController pushViewController:_chatController animated:YES];
+//    if (!_chatController)
+//        _chatController = [ChatController new];
+////    _chatController.delegate = self;
+////    _chatController.opponentImg = [UIImage imageNamed:@"tempUser.png"];
+////    _chatController.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
+//    _chatController.chatTitle = @"张三";
+//    [self.navigationController pushViewController:_chatController animated:YES];
 }
 
 #pragma mark chatcontroller
-- (void) chatController:(ChatController *)chatController didSendMessage:(NSMutableDictionary *)message
-{
-    // Messages come prepackaged with the contents of the message and a timestamp in milliseconds
-    //    NSLog(@"Message Contents: %@", message[kMessageContent]);
-    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
-    
-    // Evaluate or add to the message here for example, if we wanted to assign the current userId:
-    message[@"sentByUserId"] = @"currentUserId";
-    icout++;
-    
-    message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((icout%2)?kSentByUser:kSentByOpponent)];
-    
-    // Must add message to controller for it to show
-    [_chatController addNewMessage:message];
-}
+//- (void) chatController:(ChatController *)chatController didSendMessage:(NSMutableDictionary *)message
+//{
+//    // Messages come prepackaged with the contents of the message and a timestamp in milliseconds
+//    //    NSLog(@"Message Contents: %@", message[kMessageContent]);
+//    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+//    
+//    // Evaluate or add to the message here for example, if we wanted to assign the current userId:
+//    message[@"sentByUserId"] = @"currentUserId";
+//    icout++;
+//    
+//    message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((icout%2)?kSentByUser:kSentByOpponent)];
+//    
+//    // Must add message to controller for it to show
+//    [_chatController addNewMessage:message];
+//}
 
 /*!
  Close Chat Controller - Will Dismiss If Nothing Selected

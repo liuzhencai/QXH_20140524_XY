@@ -271,6 +271,7 @@
 		58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58EEDABF1958549E007E2FA2 /* citysList.plist */; };
 		8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8405E55E193057D900276964 /* InformationCommentCell.xib */; };
 		8405E562193057E600276964 /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E561193057E600276964 /* InformationCommentCell.m */; };
+		840D73951959BF2B001AC585 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D73941959BF2B001AC585 /* ChatController.m */; };
 		842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C83192AF7F100374F04 /* AddressListViewController.m */; };
 		842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C85192AF7F100374F04 /* ChatViewController.m */; };
 		842D3C90192AF7F100374F04 /* FillNameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C87192AF7F100374F04 /* FillNameCardViewController.m */; };
@@ -333,7 +334,7 @@
 		84F065F4192AFB0F00B09AB5 /* PeocelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065F2192AFB0F00B09AB5 /* PeocelCell.m */; };
 		84F065F9192AFB4800B09AB5 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065F6192AFB4800B09AB5 /* CityCell.m */; };
 		84F065FA192AFB4800B09AB5 /* DistrictCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065F8192AFB4800B09AB5 /* DistrictCell.m */; };
-		84F06609192B2F1100B09AB5 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065FD192B2F1100B09AB5 /* ChatController.m */; };
+		84F06609192B2F1100B09AB5 /* ChatRoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065FD192B2F1100B09AB5 /* ChatRoomController.m */; };
 		84F0660A192B2F1100B09AB5 /* ChatInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065FF192B2F1100B09AB5 /* ChatInput.m */; };
 		84F0660C192B2F1100B09AB5 /* License in Resources */ = {isa = PBXBuildFile; fileRef = 84F06601192B2F1100B09AB5 /* License */; };
 		84F0660D192B2F1100B09AB5 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F06603192B2F1100B09AB5 /* MessageCell.m */; };
@@ -771,6 +772,8 @@
 		8405E55E193057D900276964 /* InformationCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentCell.xib; sourceTree = "<group>"; };
 		8405E560193057E600276964 /* InformationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentCell.h; sourceTree = "<group>"; };
 		8405E561193057E600276964 /* InformationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentCell.m; sourceTree = "<group>"; };
+		840D73931959BF2B001AC585 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
+		840D73941959BF2B001AC585 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 		842D3C82192AF7F100374F04 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
 		842D3C83192AF7F100374F04 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		842D3C84192AF7F100374F04 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
@@ -860,8 +863,8 @@
 		84F065F6192AFB4800B09AB5 /* CityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
 		84F065F7192AFB4800B09AB5 /* DistrictCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictCell.h; sourceTree = "<group>"; };
 		84F065F8192AFB4800B09AB5 /* DistrictCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistrictCell.m; sourceTree = "<group>"; };
-		84F065FC192B2F1100B09AB5 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
-		84F065FD192B2F1100B09AB5 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
+		84F065FC192B2F1100B09AB5 /* ChatRoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomController.h; sourceTree = "<group>"; };
+		84F065FD192B2F1100B09AB5 /* ChatRoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomController.m; sourceTree = "<group>"; };
 		84F065FE192B2F1100B09AB5 /* ChatInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInput.h; sourceTree = "<group>"; };
 		84F065FF192B2F1100B09AB5 /* ChatInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInput.m; sourceTree = "<group>"; };
 		84F06601192B2F1100B09AB5 /* License */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License; sourceTree = "<group>"; };
@@ -1801,8 +1804,10 @@
 		84F065FB192B2F1100B09AB5 /* ChatController */ = {
 			isa = PBXGroup;
 			children = (
-				84F065FC192B2F1100B09AB5 /* ChatController.h */,
-				84F065FD192B2F1100B09AB5 /* ChatController.m */,
+				840D73931959BF2B001AC585 /* ChatController.h */,
+				840D73941959BF2B001AC585 /* ChatController.m */,
+				84F065FC192B2F1100B09AB5 /* ChatRoomController.h */,
+				84F065FD192B2F1100B09AB5 /* ChatRoomController.m */,
 				84F065FE192B2F1100B09AB5 /* ChatInput.h */,
 				84F065FF192B2F1100B09AB5 /* ChatInput.m */,
 				84F06601192B2F1100B09AB5 /* License */,
@@ -2151,6 +2156,7 @@
 				5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */,
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
 				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
+				840D73951959BF2B001AC585 /* ChatController.m in Sources */,
 				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
 				21C6D60C19508E1B00467717 /* MyTribeModel.m in Sources */,
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
@@ -2193,7 +2199,7 @@
 				2119EED5191682E6007DBE68 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				210BAEDD192A5B3E00B8FBCF /* MyVisitorController.m in Sources */,
 				21D7059819169674004950BF /* EverydayAskController.m in Sources */,
-				84F06609192B2F1100B09AB5 /* ChatController.m in Sources */,
+				84F06609192B2F1100B09AB5 /* ChatRoomController.m in Sources */,
 				5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */,
 				88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */,
 				2119EF00191682EC007DBE68 /* SDWebImageManager.m in Sources */,
@@ -2436,7 +2442,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: fangzhi rong (2DJJ2C5YBP)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2448,7 +2454,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "002D539E-C7CE-4EC9-88D5-AF1056911DB1";
+				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2460,7 +2466,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: fangzhi rong (2DJJ2C5YBP)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2472,7 +2478,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "002D539E-C7CE-4EC9-88D5-AF1056911DB1";
+				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

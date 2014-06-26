@@ -13,7 +13,7 @@
 #import "TribeDetailViewController.h"
 #import "CustomSegmentView.h"
 #import "CustomSegmentControl.h"
-#import "ChatController.h"
+#import "ChatRoomController.h"
 
 
 
@@ -332,7 +332,7 @@
     if (tableView.tag == MY_TRIBE_TABLE_TAG) {
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
         NSDictionary *tribeDict = [self.tribeList objectAtIndex:indexPath.row];
-        ChatController *chatview =[[ChatController alloc]init];
+        ChatRoomController *chatview =[[ChatRoomController alloc]init];
         chatview.tribeInfoDict = tribeDict;
         [self.navigationController pushViewController:chatview animated:YES];
         

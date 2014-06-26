@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ChatController.h"
+#import "ChatRoomController.h"
 
 
 

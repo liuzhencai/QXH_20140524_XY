@@ -217,7 +217,7 @@
         {
             NSLog(@"拍照");
         }
-            break;
+            break;feg
         case 1:
         {
             NSLog(@"从相册选取");

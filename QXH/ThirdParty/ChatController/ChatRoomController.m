@@ -13,17 +13,17 @@
  */
 
 
-#import "ChatController.h"
+#import "ChatRoomController.h"
 #import "MessageCell.h"
 #import "MyMacros.h"
 #import "MyTribeDetailViewController.h"
-//#import "chatRoomActivViewController.h"
-//#import "chatRoomMemberViewController.h"
+#import "chatRoomActivViewController.h"
+#import "chatRoomMemberViewController.h"
 
 
 
-#define KTopButtonHight  0
-#define KAskViewHight  0
+#define KTopButtonHight  50
+#define KAskViewHight  100
 
 #define CONVERSATION_TABLE_TAG 2330
 #define ACTIVITY_TABLE_TAG 2331
@@ -38,7 +38,7 @@ static int chatInputStartingHeight = 40;
 
 static int scout=0;
 
-@interface ChatController ()
+@interface ChatRoomController ()
 
 {
     // Used for scroll direction
@@ -47,9 +47,10 @@ static int scout=0;
     NSDictionary* mess;
     /*记录当前展示的界面的tag值*/
     NSInteger FrontViewTag;
-
-    //    /*是否有权限访问会话的标志位*/
-    //    BOOL  isTalk;
+    chatRoomActivViewController* chatRoomActive;
+    chatRoomMemberViewController* chatRoomMember;
+//    /*是否有权限访问会话的标志位*/
+//    BOOL  isTalk;
 }
 
 // View Properties
@@ -59,7 +60,7 @@ static int scout=0;
 
 @end
 
-@implementation ChatController
+@implementation ChatRoomController
 @synthesize opponentImg,activitysList,membersList,tribeInfoDict;
 @synthesize askView,tribeInfoDetailDict;
 
@@ -87,7 +88,7 @@ static int scout=0;
 {
     [super viewDidLoad];
     self.title = @"XXXX部落";
-    
+
     /*默认当前界面是聊天*/
     FrontViewTag = CONVERSATION_TABLE_TAG;
     /*部落档案按钮*/
@@ -100,10 +101,30 @@ static int scout=0;
     self.navigationItem.rightBarButtonItem = rightItem;
     
 	// Do any additional setup after loading the view.
-
     
+    /*顶部选择控件*/
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, KTopButtonHight) andTitles:@[@"会话",@"活动",@"成员"]];
+    segment.delegate = self;
+    [self.view addSubview:segment];
+    
+
+    /*活动界面*/
+    CGRect activeFrame =  CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - KTopButtonHight-64);
+    chatRoomActive =[[chatRoomActivViewController alloc]init];
+    chatRoomActive.view.frame = activeFrame;
+    chatRoomActive.navigation = self.navigationController;
+    chatRoomActive.view.tag = ACTIVITY_TABLE_TAG;
+    [self.view addSubview:chatRoomActive.view];
+    
+    /*成员界面*/
+    chatRoomMember = [[chatRoomMemberViewController alloc]init];
+    chatRoomMember.view.frame = activeFrame;
+    chatRoomMember.navigation = self.navigationController;
+    chatRoomMember.view.tag = NEMBERS_TABLE_TAG;
+    [self.view addSubview:chatRoomMember.view];
+
     /*聊天view*/
-    //    chatview = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-KTopButtonHight-64)];
+//    chatview = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-KTopButtonHight-64)];
     
     [self addMyHeadImage:[UIImage imageNamed:@"tempUser.png"]];
     [self addOHeadImage:[UIImage imageNamed:@"tempUser.png"]];
@@ -119,7 +140,7 @@ static int scout=0;
     _chatInput.textView.editable = NO;
     _chatInput.sendBtn.enabled = NO;
     _chatInput.AddBtn.enabled = NO;
-    
+   
     // 聊天气泡的位置
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
     flow.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
@@ -143,7 +164,7 @@ static int scout=0;
     [_myCollectionView registerClass:[MessageCell class]
           forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
     
-    
+
     
     /*添加聊天*/
     [self.view addSubview:_myCollectionView];
@@ -162,7 +183,7 @@ static int scout=0;
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-    
+
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -170,14 +191,14 @@ static int scout=0;
     
     // Add views here, or they will create problems when launching in landscape
     
-    
+
     switch (FrontViewTag) {
         case CONVERSATION_TABLE_TAG:
         {
             //获取部落信息
-            //            [self getTribeInfo];
+//            [self getTribeInfo];
             [self scrollToBottom];
-            [self.view addSubview:_chatInput];
+             [self.view addSubview:_chatInput];
             
         }
             break;
@@ -195,12 +216,12 @@ static int scout=0;
         default:
             break;
     }
+
     
-    
-    //    [self.view addSubview:_topBar];
+//    [self.view addSubview:_topBar];
     
     // Scroll CollectionView Before We Start
-    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -214,7 +235,7 @@ static int scout=0;
 {
     if (!askView) {
         askView = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, KAskViewHight)];
-        //        [self.view addSubview:askView];
+//        [self.view addSubview:askView];
         askView.backgroundColor = [UIColor whiteColor];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, UI_SCREEN_WIDTH - 20, 25)];
@@ -224,12 +245,12 @@ static int scout=0;
         title.backgroundColor = [UIColor clearColor];
         [askView addSubview:title];
         
-        UIImageView*  askheadImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, title.bottom, 36, 36)];
+      UIImageView*  askheadImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, title.bottom, 36, 36)];
         askheadImgView.tag = 21083;
         //        _headImgView.backgroundColor = [UIColor redColor];
         [askView addSubview:askheadImgView];
         
-        UILabel* _name = [[UILabel alloc] initWithFrame:CGRectMake(askheadImgView.right + 10, askheadImgView.top, 120, 30)];
+       UILabel* _name = [[UILabel alloc] initWithFrame:CGRectMake(askheadImgView.right + 10, askheadImgView.top, 120, 30)];
         _name.tag = 21084;
         _name.font = [UIFont boldSystemFontOfSize:16.0];
         _name.textColor = GREEN_FONT_COLOR;
@@ -254,7 +275,7 @@ static int scout=0;
         
         CGFloat tempHeight = 0.f;
         tempHeight = KTopButtonHight+KAskViewHight;
-        
+       
         _myCollectionView.frame = CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - tempHeight - 64);
         NSLog(@"hide == _myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
         _myCollectionView.scrollEnabled = YES;
@@ -267,14 +288,14 @@ static int scout=0;
     askheadImgView.image = [UIImage imageNamed:@"img_portrait72"];
     
     /*名字*/
-    UILabel* _name = (UILabel*)[askView viewWithTag:21084];
+     UILabel* _name = (UILabel*)[askView viewWithTag:21084];
     _name.text = @"名字";
     
     UILabel* _time = (UILabel*)[askView viewWithTag:21085];
     _time.text = @"19:24";
     
     UILabel* _speechContent = (UILabel*)[askView viewWithTag:21086];
-    _speechContent.text = @"发言内容发言内容发言内容发言内容发言内容发言内容发言内容从前有座山，山里有座庙，庙里有个和尚讲故事，讲的是从前有座山，山里有座庙";
+     _speechContent.text = @"发言内容发言内容发言内容发言内容发言内容发言内容发言内容从前有座山，山里有座庙，庙里有个和尚讲故事，讲的是从前有座山，山里有座庙";
 }
 
 #pragma mark CLEAN UP
@@ -293,10 +314,10 @@ static int scout=0;
     _myCollectionView = nil;
     
     self.opponentImg = nil;
-    //    _PicImg = nil;
+//    _PicImg = nil;
     
-    //    [_topBar removeFromSuperview];
-    //    _topBar = nil;
+//    [_topBar removeFromSuperview];
+//    _topBar = nil;
     
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     
@@ -311,9 +332,9 @@ static int scout=0;
 }
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [_chatInput isRotating];
-    _myCollectionView.frame = CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight);
-    NSLog(@"_myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
-    
+        _myCollectionView.frame = CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight);
+        NSLog(@"_myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
+
     [_myCollectionView reloadData];
 }
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -330,7 +351,7 @@ static int scout=0;
     newMessageOb[kMessageContent] = messageString;
     newMessageOb[kMessageTimestamp] = TimeStamp();
     [self didSendMessage:newMessageOb];
-    
+
 }
 
 //liuzhencai 设置显示照片图片
@@ -400,7 +421,7 @@ static int scout=0;
             DebugLog(@"聊天返回==%@",dict);
         }];
     }
-    
+
 }
 
 #pragma mark KEYBOARD NOTIFICATIONS
@@ -429,7 +450,7 @@ static int scout=0;
                 tempHeight = KTopButtonHight;
             _myCollectionView.frame = CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - keyboardHeight- tempHeight - 60);
             NSLog(@"show == _myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
-            
+
         } completion:^(BOOL finished) {
             if (finished) {
                 [self scrollToBottom];
@@ -449,9 +470,9 @@ static int scout=0;
         UIViewAnimationCurve animationCurve = [keyboardAnimationDetail[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         CGFloat duration = [keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey] floatValue];
         
-        
+
         [UIView animateWithDuration:duration delay:0.0 options:(animationCurve << 16) animations:^{
-            
+
         } completion:^(BOOL finished) {
             if (finished) {
                 CGFloat tempHeight = 0.f;
@@ -480,8 +501,8 @@ static int scout=0;
 //        offlineStatus.font = [UIFont boldSystemFontOfSize:16.0];
 //        offlineStatus.textAlignment = NSTextAlignmentCenter;
 //        offlineStatus.minimumScaleFactor = .3;
-//
-//
+//       
+//        
 //        offlineStatus.text = @"You're offline! Messages may not send.";
 //        offlineStatus.tag = connectionStatusViewTag;
 ////        [self.view insertSubview:offlineStatus belowSubview:_topBar];
@@ -517,27 +538,27 @@ static int scout=0;
 }
 
 /* Scroll To Top
- - (void) scrollToTop {
- if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
- NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
- [_myCollectionView scrollToItemAtIndexPath:firstIndex atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
- }
- }
- */
+- (void) scrollToTop {
+    if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
+        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+        [_myCollectionView scrollToItemAtIndexPath:firstIndex atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }
+}
+*/
 
 /* To Monitor Scroll
- - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
- CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
- if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
- // scrolled up
- }
- else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
- // scrolled down
- 
- }
- lastContentOffset = scrollView.contentOffset.y;
- }
- */
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
+    if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
+        // scrolled up
+    }
+    else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
+        // scrolled down
+        
+    }
+    lastContentOffset = scrollView.contentOffset.y;
+}
+*/
 
 #pragma mark COLLECTION VIEW DELEGATE
 
@@ -575,9 +596,9 @@ static int scout=0;
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
         }else{
             //liuzhencai
-            return CGSizeMake(320,90);
+             return CGSizeMake(320,90);
         }
-        
+       
     }
     else {
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
@@ -588,7 +609,7 @@ static int scout=0;
      numberOfItemsInSection:(NSInteger)section {
     
     return _messagesArray.count;
-    //     return 1;
+//     return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -597,10 +618,10 @@ static int scout=0;
     // Get Cell
     MessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kMessageCellReuseIdentifier
                                                                   forIndexPath:indexPath];
-    
+
     // Set Who Sent Message
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
-    
+ 
     
     // Set the cell
     cell.opponentImage = self.opponentImg;
@@ -610,7 +631,7 @@ static int scout=0;
     cell.message = message;
     
     return cell;
-    
+     
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -633,7 +654,7 @@ static int scout=0;
 {
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
-        //        [self popForwardBack];
+//        [self popForwardBack];
     }else
     {
         if (buttonIndex == 0) {
@@ -641,7 +662,7 @@ static int scout=0;
             [self addAskView];
         }
     }
-    
+
 }
 
 #pragma mark SETTERS | GETTERS
@@ -697,7 +718,7 @@ static int scout=0;
     // Evaluate or add to the message here for example, if we wanted to assign the current userId:
     message[@"sentByUserId"] = @"currentUserId";
     
-    
+
     scout++;
     message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((scout%2)?kSentByUser:kSentByOpponent)];
     
@@ -705,6 +726,67 @@ static int scout=0;
     [self addNewMessage:message];
 }
 
+#pragma mark - CustomSegmentControlDelegate
+/*界面会话切换*/
+- (void)segmentClicked:(NSInteger)index{
+    NSLog(@"segment clicked:%d",index);
+    switch (index) {
+        case 0:
+        {
+           /*会话*/
+            FrontViewTag = CONVERSATION_TABLE_TAG;
+            UIView* table = (UIView*)[self.view viewWithTag:CONVERSATION_TABLE_TAG];
+            [self.view bringSubviewToFront:table];
+             [self.view addSubview:_chatInput];
+            if (askView) {
+                [self.view addSubview:askView];
+            }
+        }
+            break;
+        case 1:
+        {
+            /*活动*/
+            FrontViewTag = ACTIVITY_TABLE_TAG;
+            [self getActivityListInTribe];
+
+        }
+            break;
+        case 2:
+        {
+            /*成员*/
+            FrontViewTag = NEMBERS_TABLE_TAG;
+            [self getTribeMembers];
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+//    if (index == 2) {
+//        if (self.tribeInfoDict) {
+//            /**
+//             *  获取部落成员列表
+//             *
+//             *  @param tribeid  部落id
+//             *  @param callback 回调
+//             */
+//            NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+//            [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+//                NSLog(@"获取部落成员列表返回值:%@",dict);
+//                if (dict) {
+//                    NSArray *list = [dict objectForKey:@"list"];
+//                    self.membersList = [NSMutableArray arrayWithArray:list];
+//                    UITableView *table = (UITableView *)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+//                    [table reloadData];
+//                }
+//                [self showAlert:[dict objectForKey:@"info"]];
+//            }];
+//        }
+//    }
+//    NSInteger tag = CONVERSATION_TABLE_TAG + index;
+
+}
 
 
 #pragma mark 获取网络数据
@@ -715,19 +797,19 @@ static int scout=0;
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-    NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+     NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
     if (self.tribeInfoDict) {
-        
+       
         [DataInterface getTribeInfo:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"部落信息返回值：%@",dict);
             self.tribeInfoDetailDict = dict;
-            //            [self showAlert:[dict objectForKey:@"info"]];
+//            [self showAlert:[dict objectForKey:@"info"]];
             
             [self getinChatRoom];
         }];
     }
     
-    
+
 }
 
 
@@ -739,7 +821,7 @@ static int scout=0;
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-    NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+     NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
     [DataInterface gotoOneDream:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
         NSLog(@"部落信息返回值：%@",dict);
         /*
@@ -760,6 +842,122 @@ static int scout=0;
         }
         
     }];
+}
+
+- (void)getActivityListInTribe{
+    
+    if (!chatRoomActive  || [chatRoomActive.activitysList count]) {
+        /*如果获取到，就不再获取*/
+        UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+        [self.view bringSubviewToFront:table];
+        return;
+    }
+    
+    //获取活动列表
+    /**
+     *  获取/搜索活动列表(列表按创建时间的逆序排列)
+     *
+     *  @param start     起始消息的artid，不填写该字段读取最新消息n个
+     *  @param count     获取消息数量
+     *  @param actname   活动名称
+     *  @param tag       标签
+     *  @param district  地域信息
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param begindate 活动起始时间
+     *  @param enddate   活动结束时间
+     *  @param callback  回调
+     */
+    if (self.tribeInfoDict) {
+        [DataInterface getActList:@"0"
+                            count:@"20"
+                          actname:@""
+                    contentlength:@"30"
+                              tag:@""
+                         district:@""
+                          canjoin:@"0"
+                         actstate:@"0"
+                          tribeid:[self.tribeInfoDict objectForKey:@"tribeid"]
+                        begindate:@""
+                          enddate:@""
+            withCompletionHandler:^(NSMutableDictionary *dict){
+                
+                /*
+                 返回数据格式
+                 Response:{
+                 opercode:"0125",		//operCode为0125，客户端通过该字段确定事件
+                 statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+                 info:"获取成功",		//获取成功/失败!
+                 list:				//消息列表
+                 [
+                 {actid:"1234",actname:"活动名称",photos:"1.jpg,2.jpg",signupbegindate:"2014-05-01 12:00:00",signupenddate:"2014-05-03 12:00:00",begindate:"2014-05-05 12:00:00",enddate:"2014-05-05 13:00:00",actaddr:"活动地址",maxcount:"30",nowcount:"10",folcount:"10",tags:"标签，标签",desc:"",acttype:"活动类型"},
+                 {actid:"1234",actname:"活动名称",photos:"1.jpg,2.jpg",signupbegindate:"2014-05-01 12:00:00",signupenddate:"2014-05-03 12:00:00",begindate:"2014-05-05 12:00:00",enddate:"2014-05-05 13:00:00",actaddr:"活动地址",maxcount:"30",nowcount:"10",folcount:"10",tags:"标签，标签",desc:"",acttype:"活动类型"},
+                 {actid:"1234",actname:"活动名称",photos:"1.jpg,2.jpg",signupbegindate:"2014-05-01 12:00:00",signupenddate:"2014-05-03 12:00:00",begindate:"2014-05-05 12:00:00",enddate:"2014-05-05 13:00:00",actaddr:"活动地址",maxcount:"30",nowcount:"10",folcount:"10",tags:"标签，标签",desc:"",acttype:"活动类型"},
+                 ......
+                 ]
+                 */
+                
+                NSLog(@"活动列表返回数据:%@",dict);
+                NSString* statecode = dict[@"statecode"];
+                if ([statecode isEqualToString:@"0200"]) {
+                    NSArray* list = [dict valueForKey:@"list"];
+                    self.activitysList = [NSMutableArray arrayWithArray:list];
+                    chatRoomActive.activitysList = self.activitysList;
+                    [chatRoomActive.tableview reloadData];
+                    UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+                    [self.view bringSubviewToFront:table];
+                }else{
+                    NSString* info = dict[@"info"];
+                    [self showAlert:info];
+                    
+                }
+   
+            }];
+    }
+}
+
+- (void)getTribeMembers
+{
+    /*
+     获取部落成员
+     */
+    if (!chatRoomMember  || [chatRoomMember.Arrlist count]) {
+        /*如果获取到，就不再获取*/
+        UIView* table = (UIView*)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+        [self.view bringSubviewToFront:table];
+        return;
+    }
+    if (self.tribeInfoDict) {
+        [DataInterface getTribeMembers:[self.tribeInfoDict objectForKey:@"tribeid"] withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"部落成员返回:%@",dict);
+            
+            /*
+             返回数据
+             opercode:"0117",		//operCode为0117，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+             info:"创建成功",		//获取成功/失败!
+             list:[
+             {userid:"123",username:"周扒皮",photo:"2",displayname:"张三",signature:"这个是签名...",remark:"备注",usertype:"0",level:"1",membertype:"1",online:"1"},
+             {userid:"123",username:"周扒皮",photo:"2",displayname:"张三",signature:"这个是签名...",remark:"备注",usertype:"0",level:"1",membertype:"2",online:"1"},
+             ...
+             ]
+             */
+            NSString* statecode = dict[@"statecode"];
+            if ([statecode isEqualToString:@"0200"]) {
+                NSArray* list = [dict valueForKey:@"list"];
+                chatRoomMember.Arrlist = (NSMutableArray*)list;
+                UIView* table = (UIView*)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+                [self.view bringSubviewToFront:table];
+                [chatRoomMember.tableview reloadData];
+                
+            }else{
+                NSString* info = dict[@"info"];
+                [self showAlert:info];
+                
+            }
+        }];
+    }
+    
 }
 
 - (void)detail:(UIButton *)sender{
