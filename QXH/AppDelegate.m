@@ -117,7 +117,7 @@
 //    [self testInterface];
 //    [self registerAction];
     
-    if (![defaults objectForKey:@"userName"] && [defaults objectForKey:@"passworld"]) {
+    if ([defaults objectForKey:@"userName"] && [defaults objectForKey:@"passworld"]) {
         //自动登陆
         [self login];
         [self loadPages];
