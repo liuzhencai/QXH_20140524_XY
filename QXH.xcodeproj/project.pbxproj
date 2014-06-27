@@ -358,6 +358,9 @@
 		848426F0192E185B00C9474A /* square_share_icon_img_+@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848426D3192E185B00C9474A /* square_share_icon_img_+@2x.png */; };
 		84AB9247192B36770000101A /* fanfan.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9246192B36770000101A /* fanfan.jpeg */; };
 		84AB9249192B3FD80000101A /* cityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9248192B3FD80000101A /* cityList.plist */; };
+		84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */; };
+		84BCBBAE195DBA7700E80075 /* msg_state_sending.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BCBBAC195DBA7700E80075 /* msg_state_sending.png */; };
+		84BCBBB1195DC4EF00E80075 /* MessageBySend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BCBBB0195DC4EF00E80075 /* MessageBySend.m */; };
 		84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EED57919527E4100414085 /* chatRoomActivViewController.m */; };
 		84EED57F1952CCC600414085 /* chatRoomMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EED57E1952CCC600414085 /* chatRoomMemberViewController.m */; };
 		84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */; };
@@ -946,6 +949,10 @@
 		848426F4192E1A7000C9474A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		84AB9246192B36770000101A /* fanfan.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fanfan.jpeg; sourceTree = "<group>"; };
 		84AB9248192B3FD80000101A /* cityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityList.plist; sourceTree = "<group>"; };
+		84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msg_state_send_error.png; sourceTree = "<group>"; };
+		84BCBBAC195DBA7700E80075 /* msg_state_sending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msg_state_sending.png; sourceTree = "<group>"; };
+		84BCBBAF195DC4EF00E80075 /* MessageBySend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBySend.h; sourceTree = "<group>"; };
+		84BCBBB0195DC4EF00E80075 /* MessageBySend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBySend.m; sourceTree = "<group>"; };
 		84EED57819527E4100414085 /* chatRoomActivViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chatRoomActivViewController.h; sourceTree = "<group>"; };
 		84EED57919527E4100414085 /* chatRoomActivViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chatRoomActivViewController.m; sourceTree = "<group>"; };
 		84EED57D1952CCC600414085 /* chatRoomMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chatRoomMemberViewController.h; sourceTree = "<group>"; };
@@ -1444,6 +1451,8 @@
 				88EE4F69193433B000734AE1 /* ActivityInfoModel.m */,
 				21391FBB1959CA700002E288 /* CardInfo.h */,
 				21391FBC1959CA700002E288 /* CardInfo.m */,
+				84BCBBAF195DC4EF00E80075 /* MessageBySend.h */,
+				84BCBBB0195DC4EF00E80075 /* MessageBySend.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1954,6 +1963,8 @@
 		848426A4192E0F2B00C9474A /* tribe */ = {
 			isa = PBXGroup;
 			children = (
+				84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */,
+				84BCBBAC195DBA7700E80075 /* msg_state_sending.png */,
 				848426A5192E0F2B00C9474A /* tribe_btn_add_highlight@2x.png */,
 				848426A6192E0F2B00C9474A /* tribe_btn_add_normal@2x.png */,
 				848426A7192E0F2B00C9474A /* tribe_btn_nextstep_highlight@2x.png */,
@@ -2194,6 +2205,7 @@
 				212F24361928E09A00F738F8 /* hengxian.png in Resources */,
 				212F23B41928DF4D00F738F8 /* InformationViewController.xib in Resources */,
 				212F23B61928DF4D00F738F8 /* InformationCell.xib in Resources */,
+				84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */,
 				212F24231928E09A00F738F8 /* title_bar_bg@2x.png in Resources */,
 				848426F0192E185B00C9474A /* square_share_icon_img_+@2x.png in Resources */,
 				212F24481928E09A00F738F8 /* line_dividing_green@2x.png in Resources */,
@@ -2212,6 +2224,7 @@
 				21D7058019169169004950BF /* PersonalInfoController.xib in Resources */,
 				848426DD192E185B00C9474A /* icon_buluo@2x.png in Resources */,
 				848426E3192E185B00C9474A /* icon_zhibo@2x.png in Resources */,
+				84BCBBAE195DBA7700E80075 /* msg_state_sending.png in Resources */,
 				587C3921195C6E90002D64D1 /* provincesAndCitys.plist in Resources */,
 				212F24341928E09A00F738F8 /* btn_submit_highlight@2x.png in Resources */,
 				212F24551928E09A00F738F8 /* list_arrow_right_green@2x.png in Resources */,
@@ -2424,6 +2437,7 @@
 				842D3C91192AF7F100374F04 /* LoginViewController.m in Sources */,
 				84FCA852192CC1D50005295A /* CustomSegmentControl.m in Sources */,
 				21D705C51916A49F004950BF /* SquareCell.m in Sources */,
+				84BCBBB1195DC4EF00E80075 /* MessageBySend.m in Sources */,
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
 				21096A8919361B050089286C /* Base64.m in Sources */,
@@ -2701,6 +2715,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Jiang (FVH8S9WW4A)";
+
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2713,6 +2728,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "D83DD154-D014-4E33-B9D7-8C731DA15A76";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2725,6 +2741,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Jiang (FVH8S9WW4A)";
+
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2737,6 +2754,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "D83DD154-D014-4E33-B9D7-8C731DA15A76";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
