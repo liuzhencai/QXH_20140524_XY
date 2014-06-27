@@ -183,8 +183,7 @@
 //    if (IN_THE_ACTIVITY_TAG) {
 //        return 230;
 //    }
-//    return 220;
-    return 230;
+    return 210;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

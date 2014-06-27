@@ -266,6 +266,27 @@
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87B1944B3F800401862 /* OnLiveCell.m */; };
 		587C3921195C6E90002D64D1 /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 587C3920195C6E90002D64D1 /* provincesAndCitys.plist */; };
+		58826B9C195DD180002F13A5 /* NICommonMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B6B195DD180002F13A5 /* NICommonMetrics.m */; };
+		58826B9D195DD180002F13A5 /* NIDataStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B6D195DD180002F13A5 /* NIDataStructures.m */; };
+		58826B9E195DD180002F13A5 /* NIDebuggingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B6F195DD180002F13A5 /* NIDebuggingTools.m */; };
+		58826B9F195DD180002F13A5 /* NIDeviceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B71195DD180002F13A5 /* NIDeviceOrientation.m */; };
+		58826BA0195DD180002F13A5 /* NIError.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B73195DD180002F13A5 /* NIError.m */; };
+		58826BA1195DD180002F13A5 /* NIFoundationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B75195DD180002F13A5 /* NIFoundationMethods.m */; };
+		58826BA2195DD180002F13A5 /* NIInMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B77195DD180002F13A5 /* NIInMemoryCache.m */; };
+		58826BA3195DD180002F13A5 /* NINavigationAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B7C195DD180002F13A5 /* NINavigationAppearance.m */; };
+		58826BA4195DD180002F13A5 /* NINetworkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B7E195DD180002F13A5 /* NINetworkActivity.m */; };
+		58826BA5195DD180002F13A5 /* NINonEmptyCollectionTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B80195DD180002F13A5 /* NINonEmptyCollectionTesting.m */; };
+		58826BA6195DD180002F13A5 /* NINonRetainingCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B82195DD180002F13A5 /* NINonRetainingCollections.m */; };
+		58826BA7195DD180002F13A5 /* NIOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B85195DD180002F13A5 /* NIOperations.m */; };
+		58826BA8195DD180002F13A5 /* NIPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B87195DD180002F13A5 /* NIPaths.m */; };
+		58826BA9195DD180002F13A5 /* NIRuntimeClassModifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B8A195DD180002F13A5 /* NIRuntimeClassModifications.m */; };
+		58826BAA195DD180002F13A5 /* NISDKAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B8C195DD180002F13A5 /* NISDKAvailability.m */; };
+		58826BAB195DD180002F13A5 /* NISnapshotRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B8E195DD180002F13A5 /* NISnapshotRotation.m */; };
+		58826BAC195DD180002F13A5 /* NIState.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B90195DD180002F13A5 /* NIState.m */; };
+		58826BAD195DD180002F13A5 /* NIViewRecycler.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B92195DD180002F13A5 /* NIViewRecycler.m */; };
+		58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B94195DD180002F13A5 /* NSString+NimbusCore.m */; };
+		58826BAF195DD180002F13A5 /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B97195DD180002F13A5 /* NIAttributedLabel.m */; };
+		58826BB0195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B9B195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -776,6 +797,55 @@
 		5869D87A1944B3F800401862 /* OnLiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLiveCell.h; sourceTree = "<group>"; };
 		5869D87B1944B3F800401862 /* OnLiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLiveCell.m; sourceTree = "<group>"; };
 		587C3920195C6E90002D64D1 /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
+		58826B6A195DD180002F13A5 /* NICommonMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICommonMetrics.h; sourceTree = "<group>"; };
+		58826B6B195DD180002F13A5 /* NICommonMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICommonMetrics.m; sourceTree = "<group>"; };
+		58826B6C195DD180002F13A5 /* NIDataStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDataStructures.h; sourceTree = "<group>"; };
+		58826B6D195DD180002F13A5 /* NIDataStructures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDataStructures.m; sourceTree = "<group>"; };
+		58826B6E195DD180002F13A5 /* NIDebuggingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDebuggingTools.h; sourceTree = "<group>"; };
+		58826B6F195DD180002F13A5 /* NIDebuggingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDebuggingTools.m; sourceTree = "<group>"; };
+		58826B70195DD180002F13A5 /* NIDeviceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDeviceOrientation.h; sourceTree = "<group>"; };
+		58826B71195DD180002F13A5 /* NIDeviceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDeviceOrientation.m; sourceTree = "<group>"; };
+		58826B72195DD180002F13A5 /* NIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIError.h; sourceTree = "<group>"; };
+		58826B73195DD180002F13A5 /* NIError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIError.m; sourceTree = "<group>"; };
+		58826B74195DD180002F13A5 /* NIFoundationMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIFoundationMethods.h; sourceTree = "<group>"; };
+		58826B75195DD180002F13A5 /* NIFoundationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIFoundationMethods.m; sourceTree = "<group>"; };
+		58826B76195DD180002F13A5 /* NIInMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIInMemoryCache.h; sourceTree = "<group>"; };
+		58826B77195DD180002F13A5 /* NIInMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIInMemoryCache.m; sourceTree = "<group>"; };
+		58826B78195DD180002F13A5 /* NimbusCore+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusCore+Additions.h"; sourceTree = "<group>"; };
+		58826B79195DD180002F13A5 /* NimbusCore+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusCore+Namespace.h"; sourceTree = "<group>"; };
+		58826B7A195DD180002F13A5 /* NimbusCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusCore.h; sourceTree = "<group>"; };
+		58826B7B195DD180002F13A5 /* NINavigationAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINavigationAppearance.h; sourceTree = "<group>"; };
+		58826B7C195DD180002F13A5 /* NINavigationAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINavigationAppearance.m; sourceTree = "<group>"; };
+		58826B7D195DD180002F13A5 /* NINetworkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINetworkActivity.h; sourceTree = "<group>"; };
+		58826B7E195DD180002F13A5 /* NINetworkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINetworkActivity.m; sourceTree = "<group>"; };
+		58826B7F195DD180002F13A5 /* NINonEmptyCollectionTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINonEmptyCollectionTesting.h; sourceTree = "<group>"; };
+		58826B80195DD180002F13A5 /* NINonEmptyCollectionTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINonEmptyCollectionTesting.m; sourceTree = "<group>"; };
+		58826B81195DD180002F13A5 /* NINonRetainingCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINonRetainingCollections.h; sourceTree = "<group>"; };
+		58826B82195DD180002F13A5 /* NINonRetainingCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINonRetainingCollections.m; sourceTree = "<group>"; };
+		58826B83195DD180002F13A5 /* NIOperations+Subclassing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIOperations+Subclassing.h"; sourceTree = "<group>"; };
+		58826B84195DD180002F13A5 /* NIOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOperations.h; sourceTree = "<group>"; };
+		58826B85195DD180002F13A5 /* NIOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOperations.m; sourceTree = "<group>"; };
+		58826B86195DD180002F13A5 /* NIPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPaths.h; sourceTree = "<group>"; };
+		58826B87195DD180002F13A5 /* NIPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPaths.m; sourceTree = "<group>"; };
+		58826B88195DD180002F13A5 /* NIPreprocessorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPreprocessorMacros.h; sourceTree = "<group>"; };
+		58826B89195DD180002F13A5 /* NIRuntimeClassModifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIRuntimeClassModifications.h; sourceTree = "<group>"; };
+		58826B8A195DD180002F13A5 /* NIRuntimeClassModifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIRuntimeClassModifications.m; sourceTree = "<group>"; };
+		58826B8B195DD180002F13A5 /* NISDKAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NISDKAvailability.h; sourceTree = "<group>"; };
+		58826B8C195DD180002F13A5 /* NISDKAvailability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NISDKAvailability.m; sourceTree = "<group>"; };
+		58826B8D195DD180002F13A5 /* NISnapshotRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NISnapshotRotation.h; sourceTree = "<group>"; };
+		58826B8E195DD180002F13A5 /* NISnapshotRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NISnapshotRotation.m; sourceTree = "<group>"; };
+		58826B8F195DD180002F13A5 /* NIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIState.h; sourceTree = "<group>"; };
+		58826B90195DD180002F13A5 /* NIState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIState.m; sourceTree = "<group>"; };
+		58826B91195DD180002F13A5 /* NIViewRecycler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIViewRecycler.h; sourceTree = "<group>"; };
+		58826B92195DD180002F13A5 /* NIViewRecycler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIViewRecycler.m; sourceTree = "<group>"; };
+		58826B93195DD180002F13A5 /* NSString+NimbusCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NimbusCore.h"; sourceTree = "<group>"; };
+		58826B94195DD180002F13A5 /* NSString+NimbusCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NimbusCore.m"; sourceTree = "<group>"; };
+		58826B96195DD180002F13A5 /* NIAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIAttributedLabel.h; sourceTree = "<group>"; };
+		58826B97195DD180002F13A5 /* NIAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIAttributedLabel.m; sourceTree = "<group>"; };
+		58826B98195DD180002F13A5 /* NimbusAttributedLabel+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusAttributedLabel+Namespace.h"; sourceTree = "<group>"; };
+		58826B99195DD180002F13A5 /* NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusAttributedLabel.h; sourceTree = "<group>"; };
+		58826B9A195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
+		58826B9B195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -1072,6 +1142,7 @@
 		2119EEAE191682D0007DBE68 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				58826B68195DD180002F13A5 /* attributedlabel */,
 				21F68BB6195C5CA300C869BC /* SNImagePicker */,
 				21DA12BB1936303F001EDEB1 /* CocoaAyncSocket */,
 				21096A82193616270089286C /* GTMBase64 */,
@@ -1797,6 +1868,78 @@
 			path = SNImagePicker;
 			sourceTree = "<group>";
 		};
+		58826B68195DD180002F13A5 /* attributedlabel */ = {
+			isa = PBXGroup;
+			children = (
+				58826B69195DD180002F13A5 /* core */,
+				58826B95195DD180002F13A5 /* src */,
+			);
+			path = attributedlabel;
+			sourceTree = "<group>";
+		};
+		58826B69195DD180002F13A5 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				58826B6A195DD180002F13A5 /* NICommonMetrics.h */,
+				58826B6B195DD180002F13A5 /* NICommonMetrics.m */,
+				58826B6C195DD180002F13A5 /* NIDataStructures.h */,
+				58826B6D195DD180002F13A5 /* NIDataStructures.m */,
+				58826B6E195DD180002F13A5 /* NIDebuggingTools.h */,
+				58826B6F195DD180002F13A5 /* NIDebuggingTools.m */,
+				58826B70195DD180002F13A5 /* NIDeviceOrientation.h */,
+				58826B71195DD180002F13A5 /* NIDeviceOrientation.m */,
+				58826B72195DD180002F13A5 /* NIError.h */,
+				58826B73195DD180002F13A5 /* NIError.m */,
+				58826B74195DD180002F13A5 /* NIFoundationMethods.h */,
+				58826B75195DD180002F13A5 /* NIFoundationMethods.m */,
+				58826B76195DD180002F13A5 /* NIInMemoryCache.h */,
+				58826B77195DD180002F13A5 /* NIInMemoryCache.m */,
+				58826B78195DD180002F13A5 /* NimbusCore+Additions.h */,
+				58826B79195DD180002F13A5 /* NimbusCore+Namespace.h */,
+				58826B7A195DD180002F13A5 /* NimbusCore.h */,
+				58826B7B195DD180002F13A5 /* NINavigationAppearance.h */,
+				58826B7C195DD180002F13A5 /* NINavigationAppearance.m */,
+				58826B7D195DD180002F13A5 /* NINetworkActivity.h */,
+				58826B7E195DD180002F13A5 /* NINetworkActivity.m */,
+				58826B7F195DD180002F13A5 /* NINonEmptyCollectionTesting.h */,
+				58826B80195DD180002F13A5 /* NINonEmptyCollectionTesting.m */,
+				58826B81195DD180002F13A5 /* NINonRetainingCollections.h */,
+				58826B82195DD180002F13A5 /* NINonRetainingCollections.m */,
+				58826B83195DD180002F13A5 /* NIOperations+Subclassing.h */,
+				58826B84195DD180002F13A5 /* NIOperations.h */,
+				58826B85195DD180002F13A5 /* NIOperations.m */,
+				58826B86195DD180002F13A5 /* NIPaths.h */,
+				58826B87195DD180002F13A5 /* NIPaths.m */,
+				58826B88195DD180002F13A5 /* NIPreprocessorMacros.h */,
+				58826B89195DD180002F13A5 /* NIRuntimeClassModifications.h */,
+				58826B8A195DD180002F13A5 /* NIRuntimeClassModifications.m */,
+				58826B8B195DD180002F13A5 /* NISDKAvailability.h */,
+				58826B8C195DD180002F13A5 /* NISDKAvailability.m */,
+				58826B8D195DD180002F13A5 /* NISnapshotRotation.h */,
+				58826B8E195DD180002F13A5 /* NISnapshotRotation.m */,
+				58826B8F195DD180002F13A5 /* NIState.h */,
+				58826B90195DD180002F13A5 /* NIState.m */,
+				58826B91195DD180002F13A5 /* NIViewRecycler.h */,
+				58826B92195DD180002F13A5 /* NIViewRecycler.m */,
+				58826B93195DD180002F13A5 /* NSString+NimbusCore.h */,
+				58826B94195DD180002F13A5 /* NSString+NimbusCore.m */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		58826B95195DD180002F13A5 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				58826B96195DD180002F13A5 /* NIAttributedLabel.h */,
+				58826B97195DD180002F13A5 /* NIAttributedLabel.m */,
+				58826B98195DD180002F13A5 /* NimbusAttributedLabel+Namespace.h */,
+				58826B99195DD180002F13A5 /* NimbusAttributedLabel.h */,
+				58826B9A195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.h */,
+				58826B9B195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		58B1DEA1192B97EF00086C38 /* addImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -2249,6 +2392,7 @@
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
+				58826B9E195DD180002F13A5 /* NIDebuggingTools.m in Sources */,
 				2119EF04191682EC007DBE68 /* UIImage+MultiFormat.m in Sources */,
 				21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */,
 				21A8941019290B7F00A6DB7E /* InformationCommentController.m in Sources */,
@@ -2270,9 +2414,11 @@
 				21DA12D51936303F001EDEB1 /* GCDAsyncSocket.m in Sources */,
 				58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */,
 				21DA12DC1936303F001EDEB1 /* DDContextFilterLogFormatter.m in Sources */,
+				58826BA1195DD180002F13A5 /* NIFoundationMethods.m in Sources */,
 				58B1DEBD192BAB4300086C38 /* CreatTribeCell.m in Sources */,
 				2192EC0F191BD76400A8FE7F /* CitySearchController.m in Sources */,
 				8484269F192E0D0100C9474A /* TribeDetailViewController.m in Sources */,
+				58826BB0195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m in Sources */,
 				21401DAC1919325900E9175B /* AddrListCell.m in Sources */,
 				21DA12D91936303F001EDEB1 /* DDFileLogger.m in Sources */,
 				842D3C91192AF7F100374F04 /* LoginViewController.m in Sources */,
@@ -2282,6 +2428,7 @@
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
 				21096A8919361B050089286C /* Base64.m in Sources */,
 				21C6D6081950867400467717 /* RecInformationCell.m in Sources */,
+				58826BA6195DD180002F13A5 /* NINonRetainingCollections.m in Sources */,
 				2166CDF619339A3400F0312E /* TabBarControl.m in Sources */,
 				212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */,
 				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,
@@ -2297,10 +2444,13 @@
 				21DF758F193F535200928450 /* DataInterface.m in Sources */,
 				21D705CE1916A7C1004950BF /* PortraitView.m in Sources */,
 				58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */,
+				58826B9F195DD180002F13A5 /* NIDeviceOrientation.m in Sources */,
 				848426A0192E0D0100C9474A /* TribeDynamicViewController.m in Sources */,
 				2119EED1191682E6007DBE68 /* NSAlert+MKNetworkKitAdditions.m in Sources */,
+				58826BA8195DD180002F13A5 /* NIPaths.m in Sources */,
 				2119EE9019168279007DBE68 /* AppDelegate.m in Sources */,
 				21EDAD4C1926F67100C616CF /* PersonalCollectionController.m in Sources */,
+				58826BAA195DD180002F13A5 /* NISDKAvailability.m in Sources */,
 				84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */,
 				2119EEFA191682EC007DBE68 /* NSData+GIF.m in Sources */,
 				212F23B51928DF4D00F738F8 /* InformationCell.m in Sources */,
@@ -2331,6 +2481,7 @@
 				210BAEE5192A5C7600B8FBCF /* CollectionCell.m in Sources */,
 				2119EED8191682E6007DBE68 /* MKNetworkEngine.m in Sources */,
 				210BAEF0192A619B00B8FBCF /* MyActivityCell.m in Sources */,
+				58826BA0195DD180002F13A5 /* NIError.m in Sources */,
 				2119EED3191682E6007DBE68 /* NSDate+RFC1123.m in Sources */,
 				2119EED4191682E6007DBE68 /* NSDictionary+RequestEncoding.m in Sources */,
 				2119EEF9191682EC007DBE68 /* MKAnnotationView+WebCache.m in Sources */,
@@ -2346,6 +2497,7 @@
 				84F065F4192AFB0F00B09AB5 /* PeocelCell.m in Sources */,
 				84F065EC192AFACD00B09AB5 /* FindPeopleViewController.m in Sources */,
 				2119EF03191682EC007DBE68 /* UIImage+GIF.m in Sources */,
+				58826B9D195DD180002F13A5 /* NIDataStructures.m in Sources */,
 				21096A86193616270089286C /* GTMBase64.m in Sources */,
 				21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */,
 				214C25B01956A0DF006109FF /* SquareInfo.m in Sources */,
@@ -2355,7 +2507,9 @@
 				58E08D0719532549000C25AE /* AddFriendView.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
 				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,
+				58826BA7195DD180002F13A5 /* NIOperations.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
+				58826BA5195DD180002F13A5 /* NINonEmptyCollectionTesting.m in Sources */,
 				21401DA719192CD100E9175B /* TribeCell.m in Sources */,
 				58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */,
 				21F68BCC195C5CA300C869BC /* SNImagePickerNC.m in Sources */,
@@ -2373,10 +2527,14 @@
 				21D705AC19169A15004950BF /* LabelArrowCell.m in Sources */,
 				2119EF0A1916837D007DBE68 /* HttpServiceEngine.m in Sources */,
 				84F0660A192B2F1100B09AB5 /* ChatInput.m in Sources */,
+				58826BA3195DD180002F13A5 /* NINavigationAppearance.m in Sources */,
 				88C12280194069AA0000533E /* SquareActivityCell.m in Sources */,
+				58826BA4195DD180002F13A5 /* NINetworkActivity.m in Sources */,
+				58826BAC195DD180002F13A5 /* NIState.m in Sources */,
 				2119EEFB191682EC007DBE68 /* SDImageCache.m in Sources */,
 				2119EEFC191682EC007DBE68 /* SDWebImageCompat.m in Sources */,
 				21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */,
+				58826B9C195DD180002F13A5 /* NICommonMetrics.m in Sources */,
 				210BAEEB192A5DAB00B8FBCF /* MyVisitorCell.m in Sources */,
 				58B1DEB4192BA02C00086C38 /* TribeController.m in Sources */,
 				84F0660D192B2F1100B09AB5 /* MessageCell.m in Sources */,
@@ -2393,6 +2551,8 @@
 				58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */,
 				21D705CA1916A60B004950BF /* AskCell.m in Sources */,
 				210021E4193DFAAF006B7D12 /* SignGenerator.m in Sources */,
+				58826BA9195DD180002F13A5 /* NIRuntimeClassModifications.m in Sources */,
+				58826BA2195DD180002F13A5 /* NIInMemoryCache.m in Sources */,
 				21D7057F19169169004950BF /* PersonalInfoController.m in Sources */,
 				88EE4F6A193433B000734AE1 /* ActivityInfoModel.m in Sources */,
 				58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */,
@@ -2405,12 +2565,16 @@
 				2119EED2191682E6007DBE68 /* NSData+MKBase64.m in Sources */,
 				58B87171192F77DE00EB730D /* ShareToTribeViewController.m in Sources */,
 				210BAED8192A4F6100B8FBCF /* SchoolInfoController.m in Sources */,
+				58826BAF195DD180002F13A5 /* NIAttributedLabel.m in Sources */,
 				84F065FA192AFB4800B09AB5 /* DistrictCell.m in Sources */,
 				21EDAD3B1926E29900C616CF /* MoreStudyExpController.m in Sources */,
 				84FCA85E192CC45F0005295A /* HistoryCell.m in Sources */,
 				8852EFB9195CFC0A00E5D9F7 /* EditUserInfoViewController.m in Sources */,
 				21D705C01916A469004950BF /* ImageLabelCell.m in Sources */,
+				58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */,
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
+				58826BAB195DD180002F13A5 /* NISnapshotRotation.m in Sources */,
+				58826BAD195DD180002F13A5 /* NIViewRecycler.m in Sources */,
 				58B1DEBA192BA9DF00086C38 /* CreatTribeViewController.m in Sources */,
 				84F065F9192AFB4800B09AB5 /* CityCell.m in Sources */,
 				84EED57F1952CCC600414085 /* chatRoomMemberViewController.m in Sources */,
@@ -2536,9 +2700,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
-
+				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Jiang (FVH8S9WW4A)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2550,9 +2712,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
-
+				PROVISIONING_PROFILE = "D83DD154-D014-4E33-B9D7-8C731DA15A76";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2564,9 +2724,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
-
+				CODE_SIGN_IDENTITY = "iPhone Developer: Quan Jiang (FVH8S9WW4A)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2578,9 +2736,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
-
+				PROVISIONING_PROFILE = "D83DD154-D014-4E33-B9D7-8C731DA15A76";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -233,7 +233,7 @@
     if (tableView.tag == NEMBERS_TABLE_TAG) {
         return 70;
     }else if(tableView.tag == ACTIVITY_TABLE_TAG){
-        return 230;
+        return 210;
     }else{
         if (indexPath.row == 0) {
             return 140;

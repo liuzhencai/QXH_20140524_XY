@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "NIAttributedLabel.h"
 @interface InActivityCell : UITableViewCell
 
 @property (strong, nonatomic)  UILabel *activityTitleLabel; // 活动标题标签
@@ -18,8 +18,8 @@
 @property (strong, nonatomic)  UILabel *orgnizerLabel; // 发起人标签
 @property (strong, nonatomic)  UILabel *timeLabel; // 时间标签
 @property (strong, nonatomic)  UILabel *addrLabel; // 地址标签
-@property (strong, nonatomic)  UILabel *signUpLabel; // 报名标签
-@property (strong, nonatomic)  UILabel *followLabel; // 关注标签
+@property (strong, nonatomic)  NIAttributedLabel *signUpLabel; // 报名标签
+@property (strong, nonatomic)  NIAttributedLabel *followLabel; // 关注标签
 
 @property (strong, nonatomic)  UIImageView *activityStatus;//活动状态
 @property (strong, nonatomic)  UILabel *statusLabel;//活动状态标签

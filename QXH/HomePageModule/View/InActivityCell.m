@@ -8,6 +8,7 @@
 
 #import "InActivityCell.h"
 
+
 @implementation InActivityCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -15,7 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 210)
+        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 210 - 20)
                                                    imageName:[UIImage imageNamed:@"label"]];
         [self.contentView addSubview:bgImgView];
         
@@ -29,7 +30,7 @@
         //title
         _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 5, 200, 20)
                                                  text:@"活动标题"
-                                                color:[UIColor blackColor]
+                                                color:GREEN_FONT_COLOR
                                                  font:[UIFont systemFontOfSize:16]];
         [bgImgView addSubview:_activityTitleLabel];
         
@@ -39,35 +40,43 @@
                                                 color:[UIColor blackColor]
                                                  font:[UIFont systemFontOfSize:14]];
         _activityTypeLabel.textAlignment = NSTextAlignmentCenter;
+        _activityTypeLabel.textColor = [UIColor whiteColor];
         [bgImgView addSubview:_activityTypeLabel];
         
         //desc
-        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 10, 280, 40)
-                                                 text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
-                                                color:[UIColor blackColor]
-                                                 font:[UIFont systemFontOfSize:16]];
+//        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 10, 280, 40)
+//                                                 text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
+//                                                color:[UIColor blackColor]
+//                                                 font:[UIFont systemFontOfSize:16]];
+        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 0, 280, 0)
+                                                       text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
+                                                      color:[UIColor blackColor]
+                                                       font:[UIFont systemFontOfSize:16]];
         _activityDescriptionLabel.numberOfLines = 0;
         [bgImgView addSubview:_activityDescriptionLabel];
         
         //image
-        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80 - 8, 60 - 6)
+        _activityImage = [self addImageViewWithFrame:CGRectMake(210 - 35, _activityDescriptionLabel.bottom + 5, 80 - 8 + 40, 60 - 6 + 30)
                                                        imageName:[UIImage imageNamed:@"img_news"]];
         [bgImgView addSubview:_activityImage];
         
-        NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
+//        NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
+        NSArray *items = @[@"来自:",@"发起人:",@"时间:",@"地点:"];
         for (int i = 0; i < [items count]; i ++) {
             
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(30, _activityDescriptionLabel.bottom + 5 + i * 24, 65, 24)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(20, _activityDescriptionLabel.bottom + 5 + i * 30, 32, 30)
                                                      text:[items objectAtIndex:i]
                                                     color:[UIColor blackColor]
-                                                     font:[UIFont systemFontOfSize:14]];
+                                                     font:[UIFont systemFontOfSize:12]];
+//            itemTitle.backgroundColor = [UIColor redColor];
             [bgImgView addSubview:itemTitle];
             
-            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 120, 24)
+            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 18, 30)
                                                     text:@""
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:14]];
+                                                    font:[UIFont systemFontOfSize:12]];
             [bgImgView addSubview:itemValue];
+//            itemValue.backgroundColor = [UIColor greenColor];
             
             NSString *imageName = nil;
             switch (i) {
@@ -79,6 +88,8 @@
                     break;
                 case 1:{//发起人
                     imageName = @"icon_zhujiangren";
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 8, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width - 8, itemValue.height);
                     self.orgnizerLabel = itemValue;
                     self.orgnizerLabel.text = @"苍井空";
                 }
@@ -86,6 +97,7 @@
                 case 2:{//时间
                     imageName = @"icon_time";
                     self.timeLabel = itemValue;
+//                    itemValue.font = [UIFont systemFontOfSize:10];
                     self.timeLabel.text = @"2014-05-25";
                 }
                     break;
@@ -93,6 +105,7 @@
                     imageName = @"icon_place";
                     self.addrLabel = itemValue;
                     self.addrLabel.text = @"中关村";
+                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
                 }
                     break;
                     
@@ -100,37 +113,52 @@
                     break;
             }
             
-            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(10, itemTitle.top + 4, 13, 13)
+            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(5, itemTitle.top + 8, 13, 13)
                                                          imageName:[UIImage imageNamed:imageName]];
             [bgImgView addSubview:iconImgView];
         }
         
         //sign up
-        _signUpLabel = [self addLabelWithFrame:CGRectMake(10, 185, 80, 15)
-                                                 text:@"2人报名"
-                                                color:[UIColor blackColor]
-                                                 font:[UIFont systemFontOfSize:14]];
+//        _signUpLabel = [self addLabelWithFrame:CGRectMake(10, 185 - 20, 60, 15)
+//                                                 text:@"2人报名"
+//                                                color:[UIColor blackColor]
+//                                                 font:[UIFont systemFontOfSize:12]];
+        _signUpLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(10, 185 - 20, 60, 15)];
+        _signUpLabel.font = [UIFont systemFontOfSize:12];
+        _signUpLabel.textAlignment = NSTextAlignmentCenter;
         [bgImgView addSubview:_signUpLabel];
+//        _signUpLabel.backgroundColor = [UIColor redColor];
+        
+        //line
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(_signUpLabel.right, _signUpLabel.top, 1, _signUpLabel.height)];
+        lineView.backgroundColor = [UIColor lightGrayColor];
+        [bgImgView addSubview:lineView];
+        
         //follow
-        _followLabel = [self addLabelWithFrame:CGRectMake(112, _signUpLabel.top, 80, 15)
-                                                 text:@"2人关注"
-                                                color:[UIColor blackColor]
-                                                 font:[UIFont systemFontOfSize:16]];
+//        _followLabel = [self addLabelWithFrame:CGRectMake(_signUpLabel.right + 1, _signUpLabel.top, 60, 15)
+//                                                 text:@"2人关注"
+//                                                color:[UIColor blackColor]
+//                                                 font:[UIFont systemFontOfSize:12]];
+        _followLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(_signUpLabel.right + 1, _signUpLabel.top, 60, 15)];
+        _followLabel.font = [UIFont systemFontOfSize:12];
+        _followLabel.textAlignment = NSTextAlignmentCenter;
         [bgImgView addSubview:_followLabel];
+//        _followLabel.backgroundColor = [UIColor greenColor];
         
         //status image
         _activityStatus = [self addImageViewWithFrame:CGRectMake(224, 178, 75, 21)
                                                      imageName:[UIImage imageNamed:@""]];
-//        _activityStatus.backgroundColor = [UIColor greenColor];
         _activityStatus.backgroundColor = COLOR_WITH_ARGB(16, 120, 45, 1.0);
+        _activityStatus.hidden = YES;
         [bgImgView addSubview:_activityStatus];
         
         //stauts label
         _statusLabel = [self addLabelWithFrame:_activityStatus.frame
                                                  text:@"进行中"
-                                                color:[UIColor blackColor]
-                                                 font:[UIFont systemFontOfSize:14]];
+                                                color:[UIColor whiteColor]
+                                                 font:[UIFont systemFontOfSize:12]];
         _statusLabel.textAlignment = NSTextAlignmentCenter;
+        _statusLabel.hidden = YES;
         [bgImgView addSubview:_statusLabel];
     }
     return self;
@@ -155,15 +183,24 @@
         self.activityTypeLabel.text = [params objectForKey:@"acttype"];
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
         NSString *imageUrlStr = [params objectForKey:@"photos"];
-//        [self.activityImage setImageWithURL:IMGURL(imageUrlStr)];
         [self.activityImage setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_news"]];
         self.tribeLabel.text = [params objectForKey:@""];
         self.orgnizerLabel.text = [params objectForKey:@""];
         self.timeLabel.text = [params objectForKey:@"begindate"];
         self.addrLabel.text = [params objectForKey:@"actaddr"];
         
-        self.signUpLabel.text = [NSString stringWithFormat:@"%@人报名",[params objectForKey:@"nowcount"]];
-        self.followLabel.text = [NSString stringWithFormat:@"%@人关注",[params objectForKey:@"folcount"]];
+        
+        //218 134 74
+        NSString *nowCount = [NSString stringWithFormat:@"%d",[[params objectForKey:@"nowcount"] intValue]];
+        NSString *signUpString = [NSString stringWithFormat:@"%@人报名",nowCount];
+        self.signUpLabel.text = signUpString;
+        [self.signUpLabel setTextColor:COLOR_WITH_ARGB(218, 134, 74, 1.0) range:[signUpString rangeOfString:nowCount]];
+
+        NSString *folcount = [NSString stringWithFormat:@"%d",[[params objectForKey:@"folcount"] intValue]];
+        NSString *followString = [NSString stringWithFormat:@"%@人关注",folcount];
+        self.followLabel.text = followString;
+        [self.followLabel setTextColor:COLOR_WITH_ARGB(218, 134, 74, 1.0) range:[followString rangeOfString:folcount]];
+        
         self.activityStatus.image = [UIImage imageNamed:@""];
         self.statusLabel.text = @"进行中";
     }
