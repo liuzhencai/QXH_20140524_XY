@@ -163,10 +163,8 @@
     if (index == 1) {
         /**
          *  获取登录消息
-         *
          *  @param callback 获取登陆消息（此接口为用户登陆成功后调用，用户获取在用户离线期间收到的消息）
          */
-//        + (void)getLoginInfoWithCompletionHandler:(DictCallback)callback;
 //        [DataInterface getLoginInfoWithCompletionHandler:^(NSMutableDictionary *dict){
 //            NSLog(@"获取登录信息：%@",dict);
 //            if (dict) {

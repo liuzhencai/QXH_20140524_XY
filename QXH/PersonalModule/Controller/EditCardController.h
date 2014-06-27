@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SNImagePickerNC.h"
 
-@interface EditCardController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface EditCardController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, SNImagePickerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
+
 @property (weak, nonatomic) IBOutlet UITableView *editTable;
 @property (nonatomic,  strong) NSMutableArray *valueArr;
 

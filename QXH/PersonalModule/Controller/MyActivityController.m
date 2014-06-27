@@ -9,8 +9,12 @@
 #import "MyActivityController.h"
 #import "MyActivityCell.h"
 #import "ActivityDetailViewController.h"
+#import "InActivityCell.h"
 
 @interface MyActivityController ()
+{
+    NSMutableArray *actList;
+}
 
 @end
 
@@ -19,7 +23,9 @@
 - (void)getActList
 {
     [DataInterface getActList:@"10" count:@"20" actname:@"" contentlength:@"30" tag:@"" district:@"" canjoin:@"3" actstate:@"0" tribeid:@"0" begindate:@"" enddate:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
-        [self showAlert:[dict description]];
+        NSArray *list = [dict objectForKey:@"list"];
+        actList = [NSMutableArray arrayWithArray:list];
+        [_myActTbl reloadData];
     }];
 }
 
@@ -49,16 +55,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [actList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = @"myActivity";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString *myMsgIdentifier = @"activingIdentifier";
+    InActivityCell *cell = nil;
+    cell = [tableView dequeueReusableCellWithIdentifier:myMsgIdentifier];
     if (!cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"MyActivityCell" owner:nil options:nil] objectAtIndex:0];
+        cell = [[InActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myMsgIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    NSDictionary *activityDict = [actList objectAtIndex:indexPath.row];
+    [cell resetCellParamDict:activityDict];
+    
+    cell.statusLabel.text = @"进行中";
     return cell;
 }
 

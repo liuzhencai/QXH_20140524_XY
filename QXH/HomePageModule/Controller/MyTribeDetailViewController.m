@@ -146,74 +146,34 @@
             return;
         }
         
-        if (!self.imagePath) {
-            [self showAlert:@"请先上传头像"];
-            return;
-        }
+//        if (!self.imagePath) {
+//            [self showAlert:@"请先上传头像"];
+//            return;
+//        }
         
-        /**
-         *  创建部落
-         *
-         *  @param tribename  部落名称
-         *  @param tribestyle 部落类型
-         *  @param userid     秘书长userid
-         *  @param signature  部落签名
-         *  @param desc       部落描述
-         *  @param condition  加入条件
-         *  @param purpose    宗旨
-         *  @param rule       章程
-         *  @param tags       不同标签之间用逗号隔开
-         *  @param district   地域信息
-         *  @param maxcount   最多人数
-         *  @param members    部落成员，成员(userid)之间以逗号隔开
-         *  @param callback   回调
-         */
-        
-        NSString *leaderId = @"";
-        if (self.leaderDict) {
-            leaderId = [self.leaderDict objectForKey:@"userid"];
+        if (self.headImage) {
+            /**
+             *  文件上传
+             *  @param file     UIImage对象或文件URL
+             *  @param type     1为图片，2为文档，3为音频
+             *  @param callback 回调
+             */
+            [DataInterface fileUpload:self.headImage
+                                 type:@"1"
+                withCompletionHandler:^(NSMutableDictionary *dict){
+                    NSLog(@"上传图片返回值%@",dict);
+                    self.imagePath = [dict objectForKey:@"filename"];
+                    [self submitIsHaveHeadImage:YES];
+                }errorBlock:^(NSString *desc) {
+                    NSLog(@"上传图片错误：%@",desc);
+                    [self showAlert:desc];
+                }];
+        }else{
+            [self submitIsHaveHeadImage:NO];
         }
-        NSString *desStr = @"";
-        if ([self.tribeDes.text length] > 0) {
-            desStr = self.tribeDes.text;
-        }
-        
-        NSString *membersString = @"";
-        int memberCount = [self.membersArray count];
-        for (int i = 0; i < memberCount; i ++) {
-            NSDictionary *member = [self.membersArray objectAtIndex:i];
-            id memberIdStrsss = [member objectForKey:@"userid"];
-            NSString *memberIdStr = [NSString stringWithFormat:@"%@",memberIdStrsss];
-            if (i != memberCount - 1) {
-                memberIdStr = [NSString stringWithFormat:@"%@,",memberIdStr];
-            }
-            membersString = [membersString stringByAppendingString:memberIdStr];
-        }
-
-        
-        [DataInterface createTribe:self.name.text
-                        tribestyle:@""
-                         secretary:leaderId  //userid
-                         signature:self.sign.text
-                              desc:desStr
-                         condition:@""
-                           purpose:@""
-                              rule:@""
-                              tags:@""
-                          district:self.place.text
-                             photo:self.imagePath
-                          maxcount:self.count.text
-                           members:membersString
-             withCompletionHandler:^(NSMutableDictionary *dict){
-                 NSLog(@"创建部落返回值：%@",dict);
-//                 [self showAlert:[dict objectForKey:@"info"]];
-                 NSArray *controllers = self.navigationController.viewControllers;
-                 [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
-        }];
     }else{//退出部落
         /**
          *  退出部落
-         *
          *  @param targetid 被处理的退出成员的userid(如果该字段与userid相同为主动退出，不相同，为管理者踢出部落)
          *  @param tribeid  部落唯一标示
          *  @param callback 回调
@@ -225,6 +185,71 @@
                [self showAlert:[dict objectForKey:@"info"]];
         }];
     }
+}
+
+- (void)submitIsHaveHeadImage:(BOOL)isImage{
+    /**
+     *  创建部落
+     *
+     *  @param tribename  部落名称
+     *  @param tribestyle 部落类型
+     *  @param userid     秘书长userid
+     *  @param signature  部落签名
+     *  @param desc       部落描述
+     *  @param condition  加入条件
+     *  @param purpose    宗旨
+     *  @param rule       章程
+     *  @param tags       不同标签之间用逗号隔开
+     *  @param district   地域信息
+     *  @param maxcount   最多人数
+     *  @param members    部落成员，成员(userid)之间以逗号隔开
+     *  @param callback   回调
+     */
+    
+    NSString *leaderId = @"";
+    if (self.leaderDict) {
+        leaderId = [self.leaderDict objectForKey:@"userid"];
+    }
+    NSString *desStr = @"";
+    if ([self.tribeDes.text length] > 0) {
+        desStr = self.tribeDes.text;
+    }
+    
+    NSString *membersString = @"";
+    int memberCount = [self.membersArray count];
+    for (int i = 0; i < memberCount; i ++) {
+        NSDictionary *member = [self.membersArray objectAtIndex:i];
+        id memberIdStrsss = [member objectForKey:@"userid"];
+        NSString *memberIdStr = [NSString stringWithFormat:@"%@",memberIdStrsss];
+        if (i != memberCount - 1) {
+            memberIdStr = [NSString stringWithFormat:@"%@,",memberIdStr];
+        }
+        membersString = [membersString stringByAppendingString:memberIdStr];
+    }
+    
+    NSString *imageUrl = @"";
+    if (isImage) {
+        imageUrl = self.imagePath;
+    }
+    [DataInterface createTribe:self.name.text
+                    tribestyle:@""
+                     secretary:leaderId  //userid
+                     signature:self.sign.text
+                          desc:desStr
+                     condition:@""
+                       purpose:@""
+                          rule:@""
+                          tags:@""
+                      district:self.place.text
+                         photo:imageUrl
+                      maxcount:self.count.text
+                       members:membersString
+         withCompletionHandler:^(NSMutableDictionary *dict){
+             NSLog(@"创建部落返回值：%@",dict);
+             [self showAlert:[dict objectForKey:@"info"]];
+             NSArray *controllers = self.navigationController.viewControllers;
+             [self.navigationController popToViewController:[controllers objectAtIndex:[controllers count] - 3] animated:YES];
+         }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -592,24 +617,24 @@
         UIImage *image = [UIImage imageWithData:data];
         self.headImage = image;
         NSLog(@"图片压缩后大小：%d",[data length]);
-        /**
-         *  文件上传
-         *
-         *  @param file     UIImage对象或文件URL
-         *  @param type     1为图片，2为文档，3为音频
-         *  @param callback 回调
-         */
-        [DataInterface fileUpload:image
-                             type:@"1"
-            withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"上传图片返回值%@",dict);
-                self.imagePath = [dict objectForKey:@"filename"];
-                [self showAlert:[dict objectForKey:@"info"]];
-            }
-                       errorBlock:^(NSString *desc) {
-                           NSLog(@"上传图片错误：%@",desc);
-                           [self showAlert:desc];
-                       }];
+//        /**
+//         *  文件上传
+//         *
+//         *  @param file     UIImage对象或文件URL
+//         *  @param type     1为图片，2为文档，3为音频
+//         *  @param callback 回调
+//         */
+//        [DataInterface fileUpload:image
+//                             type:@"1"
+//            withCompletionHandler:^(NSMutableDictionary *dict){
+//                NSLog(@"上传图片返回值%@",dict);
+//                self.imagePath = [dict objectForKey:@"filename"];
+//                [self showAlert:[dict objectForKey:@"info"]];
+//            }
+//                       errorBlock:^(NSString *desc) {
+//                           NSLog(@"上传图片错误：%@",desc);
+//                           [self showAlert:desc];
+//                       }];
 
     }
     [picker dismissViewControllerAnimated:YES completion:nil];

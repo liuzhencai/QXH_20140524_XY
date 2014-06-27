@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MyActivityController : MyViewController
+@property (weak, nonatomic) IBOutlet UITableView *myActTbl;
 
 @end

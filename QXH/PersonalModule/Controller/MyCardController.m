@@ -39,12 +39,8 @@
 
 - (void)configureTopView
 {
-    if ([[userinfo objectForKey:@"photo"] isEqualToString:@""])
-    {
-        _portraitView.image = [UIImage imageNamed:@"img_portrait96"];
-    }else{
-        [_portraitView setImageWithURL:[userinfo objectForKey:@"photo"]];
-    }
+    [_portraitView circular];
+    [_portraitView setImageWithURL:IMGURL([userinfo objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     _nameLabel.text = [userinfo objectForKey:@"displayname"];
     _titleLabel.text = [userinfo objectForKey:@"title"];
     if ([[userinfo objectForKey:@"phone"] isEqualToString:@""]) {

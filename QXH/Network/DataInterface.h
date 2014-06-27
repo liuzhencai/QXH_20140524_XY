@@ -104,12 +104,17 @@
             schoolname:(NSString *)schoolname
             schooltype:(NSString *)schooltype
                    sex:(NSString *)sex
+                 photo:(NSString *)photo
                  email:(NSString *)email
                   tags:(NSString *)tags
          attentiontags:(NSString *)attentiontags
                hobbies:(NSString *)hobbies
             educations:(NSString *)educations
                honours:(NSString *)honours
+              usertype:(NSString *)usertype
+                  gold:(NSString *)gold
+                 level:(NSString *)level
+             configure:(NSString *)configure
  withCompletionHandler:(DictCallback)callback;
                                                                                                                                                                         
 /**
@@ -210,19 +215,19 @@ withCompletionHandler:(DictCallback)callback;
  *  @param members    部落成员，成员(userid)之间以逗号隔开
  *  @param callback   回调
  */
-+ (void)createTribe:(NSString *)tribename
-         tribestyle:(NSString *)tribestyle
-          secretary:(NSString *)userid
-          signature:(NSString *)signature
-               desc:(NSString *)desc
-          condition:(NSString *)condition
-            purpose:(NSString *)purpose
-               rule:(NSString *)rule
-               tags:(NSString *)tags
-           district:(NSString *)district
-           maxcount:(NSString *)maxcount
-            members:(NSString *)members
-withCompletionHandler:(DictCallback)callback;
+//+ (void)createTribe:(NSString *)tribename
+//         tribestyle:(NSString *)tribestyle
+//          secretary:(NSString *)userid
+//          signature:(NSString *)signature
+//               desc:(NSString *)desc
+//          condition:(NSString *)condition
+//            purpose:(NSString *)purpose
+//               rule:(NSString *)rule
+//               tags:(NSString *)tags
+//           district:(NSString *)district
+//           maxcount:(NSString *)maxcount
+//            members:(NSString *)members
+//withCompletionHandler:(DictCallback)callback;
 
 + (void)createTribe:(NSString *)tribename
          tribestyle:(NSString *)tribestyle

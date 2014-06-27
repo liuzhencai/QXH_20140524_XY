@@ -32,19 +32,12 @@
 - (void)login
 {
     //754672546@qq.com
-    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    NSString *name = [defaults objectForKey:@"userName"];
+    NSString *passward = [defaults objectForKey:@"passworld"];
+//    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+    [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+
         NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
-//        UIImage *img = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]];
-//        
-//        [DataInterface fileUpload:img type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
-//            
-//        } errorBlock:^(NSString *desc) {
-//            
-//        }];
- 
-//        [DataInterface fileUpload:@"1" data:[NSData dataWithContentsOfFile:]withCompletionHandler:^(NSMutableDictionary *dict) {
-//            
-//        }];
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
             
         }];
@@ -110,6 +103,10 @@
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 }
 
+- (void)startHeartBeat{
+    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -117,19 +114,18 @@
 //    [self testInterface];
 //    [self registerAction];
     
-    if ([defaults objectForKey:@"userName"] && [defaults objectForKey:@"passworld"]) {
-        //自动登陆
-        [self login];
-        [self loadPages];
-    }else{
-        LoginViewController* login = [[LoginViewController alloc]init];
-        login.delegate = self;
-        UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
-        self.window.rootViewController = loginNavigation;
-    }
+//    if ([defaults objectForKey:@"userName"] && [defaults objectForKey:@"passworld"]) {
+//        //自动登陆
+////        [self login];
+//        [self loadPages];
+//    }else{
+////        LoginViewController* login = [[LoginViewController alloc]init];
+////        login.delegate = self;
+////        UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
+////        self.window.rootViewController = loginNavigation;
+//    }
     
-    // 登陆
-//    [self login];
+    [self loadPages];
     
     [WXApi registerApp:@"wxd930ea5d5a258f4f"];
     
