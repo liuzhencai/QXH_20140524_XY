@@ -13,7 +13,7 @@
 #import "HomePageController.h"
 #import "AddressListViewController.h"
 #import "PersonalInfoController.h"
-
+//#import "EditUserInfoViewController.h"
 #import "EditCardController.h"
 
 @interface UserRegisterViewController ()<UITextFieldDelegate>
@@ -159,6 +159,13 @@
 
 //注册
 - (void)userRegister:(UIButton *)sender{
+//    [defaults setObject:@YES forKey:@"isNewMember"];
+//    [defaults synchronize];
+//    if (self.registerCallBack) {
+//        self.registerCallBack(nil);
+//    }
+//    return;
+    
     NSLog(@"注册");
     if ([self.emailField.text length] <= 0) {
         [self showAlert:@"请输入邮箱"];
@@ -181,12 +188,6 @@
         return;
     }
     
-//    [HttpRequest requestWithParams:@{@"opercode":@"0135",@"email":self.emailField.text,@"pwd":self.pwField.text} andCompletionHandler:^(NSMutableDictionary *dict) {
-//        NSLog(@"dict--->>>%@",dict);
-//        [self showAlert:[dict objectForKey:@"info"]];
-//        [self registerAction];
-//    }];
-    
     [DataInterface registerUser:self.emailField.text
                         andPswd:self.pwField.text
           withCompletionHandler:^(NSMutableDictionary *dict){
@@ -196,11 +197,6 @@
                   NSString *statteCode = [dict objectForKey:@"statecode"];
                   if ([statteCode isEqualToString:@"0200"]) {
                       [self login];
-                      
-                      EditCardController *editCard = [[EditCardController alloc] init];
-                      editCard.title = @"注册";
-                      editCard.UserRegisterState = YES;
-                      [self.navigationController pushViewController:editCard animated:YES];
                   }
               }
     }];
@@ -209,17 +205,19 @@
 
 - (void)login{
     
-//    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
     [DataInterface login:self.emailField.text andPswd:self.pwField.text withCompletinoHandler:^(NSMutableDictionary *dict) {
-
-        NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
+        NSLog(@"登录返回值：%@",dict);
+        [defaults setObject:self.emailField.text forKey:USER_NAME];
+        [defaults setObject:self.pwField.text forKey:PASSWORLD];
         
-        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-            
-        }];
-        //
-        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+        [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
         
+        [defaults setObject:@YES forKey:@"isNewMember"];//是否是新会员
+        [defaults synchronize];
+        
+        if (self.registerCallBack) {
+            self.registerCallBack(nil);
+        }
     }];
 }
 

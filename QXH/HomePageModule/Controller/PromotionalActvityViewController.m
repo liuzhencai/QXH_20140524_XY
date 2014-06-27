@@ -168,6 +168,31 @@
         [self showAlert:@"请输入活动限制人数"];
         return;
     }
+    
+    if (self.headImage) {
+        /**
+         *  文件上传
+         *  @param file     UIImage对象或文件URL
+         *  @param type     1为图片，2为文档，3为音频
+         *  @param callback 回调
+         */
+        [DataInterface fileUpload:self.headImage
+                             type:@"1"
+            withCompletionHandler:^(NSMutableDictionary *dict){
+                NSLog(@"上传图片返回值%@",dict);
+                self.imagePath = [dict objectForKey:@"filename"];
+                [self submitIsHaveHeadImage:YES];
+//                [self showAlert:[dict objectForKey:@"info"]];
+            } errorBlock:^(NSString *desc) {
+                NSLog(@"上传图片错误：%@",desc);
+                [self showAlert:desc];
+            }];
+    }else{
+        [self submitIsHaveHeadImage:NO];
+    }
+}
+
+- (void)submitIsHaveHeadImage:(BOOL)isImage{
     /**
      *  创建活动
      *
@@ -188,10 +213,14 @@
      *  @param enddate         活动结束时间
      *  @param callback        回调
      */
+    NSString *imageUrl = @"";
+    if (isImage) {
+        imageUrl = self.imagePath;
+    }
     [DataInterface createAct:self.name.text
                      acttype:self.type.text
                         desc:self.activityDes.text
-                     actimgs:self.imagePath
+                     actimgs:imageUrl
                    condition:@""
                     comefrom:self.comeFrom.text
                         tags:@""
@@ -207,7 +236,7 @@
            NSLog(@"创建活动返回值：%@",dict);
            [self showAlert:[dict objectForKey:@"info"]];
 //           [self.navigationController popViewControllerAnimated:YES];
-    }];
+       }];
 }
 
 - (void)headImage:(UIButton *)sender{
@@ -219,17 +248,6 @@
                                           otherButtonTitles:@"拍照",@"从手机相册选择", nil];
     [alert show];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -273,7 +291,6 @@
         title.text = [_items objectAtIndex:indexPath.row];
         if (!_activityDes) {
             _activityDes = [[UITextView alloc] initWithFrame:CGRectMake(WIDTH_TITLE + 20, title.top, WIDTH_VALUE, 80)];
-//            _activityDes.text = @"输入活动描述";
             _activityDes.delegate = self;
             _activityDes.font = [UIFont systemFontOfSize:14];
             _activityDes.backgroundColor = [UIColor clearColor];
@@ -283,7 +300,6 @@
                                              color:[UIColor lightGrayColor]
                                               font:[UIFont systemFontOfSize:14.0]];
             _placeHolder.enabled = NO;
-//            _placeHolder.backgroundColor = [UIColor clearColor];
             [_activityDes addSubview:_placeHolder];
         }
         [cell.contentView addSubview:_activityDes];
@@ -301,17 +317,6 @@
 //        cell.textLabel.text = [[_items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         
         [cell.contentView removeAllSubViews];
-        
-//        if (indexPath.section == 0) {
-//            if (indexPath.row == 0) {
-//                if (!_name) {
-//                    _name = [self addTextFieldWithFrame:CGRectMake(120, (HEIGHT_CELL - 30)/2.0, 180, 30)
-//                                            placeHolder:@"请输活动名称"];
-////                    _name.backgroundColor = [UIColor greenColor];
-//                }
-//                [cell.contentView addSubview:_name];
-//            }
-//        }else{
             switch (indexPath.row) {
                 case 0:{
                     UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 298, 30)];
@@ -320,7 +325,6 @@
                     if (!_name) {
                         _name = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                  placeHolder:@"请输活动地点"];
-                        //                        _place.backgroundColor = [UIColor greenColor];
                     }
                     [cell.contentView addSubview:_name];
                 }
@@ -329,7 +333,6 @@
                     if (!_place) {
                         _place = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                 placeHolder:@"请输活动地点"];
-//                        _place.backgroundColor = [UIColor greenColor];
                     }
                     [cell.contentView addSubview:_place];
                 }
@@ -338,33 +341,21 @@
                     if (!_comeFrom) {
                         _comeFrom = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                 placeHolder:@"请输活动名称"];
-//                        _comeFrom.backgroundColor = [UIColor greenColor];
                     }
                     [cell.contentView addSubview:_comeFrom];
                 }
                     break;
                 case 4:{
                     if (!_startTime) {
-//                        _startTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-//                                                        text:@"开始时间"
-//                                                       color:[UIColor blackColor]
-//                                                        font:[UIFont systemFontOfSize:14]];
                         _startTime = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                         placeHolder:@"选择开始时间"];
                         _startTime.enabled = NO;
-//                        _startTime.backgroundColor = [UIColor greenColor];
                     }
                     [cell.contentView addSubview:_startTime];
                 }
                     break;
                 case 5:{
                     if (!_endTime) {
-//                        _endTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-//                                                        text:@"结束时间"
-//                                                       color:[UIColor blackColor]
-//                                                        font:[UIFont systemFontOfSize:14]];
-//                        _endTime.backgroundColor = [UIColor greenColor];
-                        
                         _endTime = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                    placeHolder:@"选择结束时间"];
                         _endTime.enabled = NO;
@@ -374,11 +365,6 @@
                     break;
                 case 6:{
                     if (!_type) {
-//                        _type = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-//                                                      text:@"活动类型"
-//                                                     color:[UIColor blackColor]
-//                                                      font:[UIFont systemFontOfSize:14]];
-//                        _type.backgroundColor = [UIColor greenColor];
                         _type = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                 placeHolder:@"选择活动类型"];
                     }
@@ -387,11 +373,6 @@
                     break;
                 case 7:{
                     if (!_cutOffTime) {
-//                        _cutOffTime = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-//                                                      text:@"报名截止时间"
-//                                                     color:[UIColor blackColor]
-//                                                      font:[UIFont systemFontOfSize:14]];
-//                        _cutOffTime.backgroundColor = [UIColor greenColor];
                         _cutOffTime = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                       placeHolder:@"选择报名截止时间"];
                         _cutOffTime.enabled = NO;
@@ -402,12 +383,6 @@
                     break;
                 case 8:{
                     if (!_limitCount) {
-//                        _limitCount = [self addLabelWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-//                                                         text:@"人数限制"
-//                                                        color:[UIColor blackColor]
-//                                                         font:[UIFont systemFontOfSize:14]];
-//                        _limitCount.backgroundColor = [UIColor greenColor];
-                        
                         _limitCount = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
                                                       placeHolder:@"请输入人数限制"];
                     }
@@ -592,53 +567,23 @@
         //将二进制数据生成UIImage
         UIImage *image = [UIImage imageWithData:data];
         self.headImage = image;
-        
-        /**
-         *  文件上传
-         *
-         *  @param file     UIImage对象或文件URL
-         *  @param type     1为图片，2为文档，3为音频
-         *  @param callback 回调
-         */
+        [self resetView];//图片上传成功才能创建活动
 
-        [DataInterface fileUpload:image
-                             type:@"1"
-            withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"上传图片返回值%@",dict);
-                self.imagePath = [dict objectForKey:@"filename"];
-                [self showAlert:[dict objectForKey:@"info"]];
-                [self resetView];//图片上传成功才能创建活动
-        }
-                       errorBlock:^(NSString *desc) {
-                           NSLog(@"上传图片错误：%@",desc);
-                           [self showAlert:desc];
-        }];
-        
-        
-        
-//        NSLog(@"图片压缩后大小：%d",[data length]);
-//        [self showAlert:@"图片上传成功"];
-//        NSFileManager *fileManager = [NSFileManager defaultManager];//将图片存储到本地documents
-//        NSString *filePath = [[NSHomeDirectory() stringByAppendingString:@"/Documents"] stringByAppendingString:@"/imgs"];
-//        BOOL isExist = [fileManager fileExistsAtPath:filePath];
-//        if (!isExist) {
-//            [fileManager createDirectoryAtPath:filePath
-//                   withIntermediateDirectories:YES
-//                                    attributes:nil
-//                                         error:nil];
+//        [DataInterface fileUpload:image
+//                             type:@"1"
+//            withCompletionHandler:^(NSMutableDictionary *dict){
+//                NSLog(@"上传图片返回值%@",dict);
+//                self.imagePath = [dict objectForKey:@"filename"];
+//                [self showAlert:[dict objectForKey:@"info"]];
+//                [self resetView];//图片上传成功才能创建活动
 //        }
-//        
-//        NSString *imageName = @"activityImage";
-//        BOOL isImage = [fileManager createFileAtPath:[filePath stringByAppendingString:[NSString stringWithFormat:@"/%@.png",imageName]] contents:data attributes:nil];
-//        if (isImage) {
-//            NSLog(@"存储成功");
-//        }
+//                       errorBlock:^(NSString *desc) {
+//                           NSLog(@"上传图片错误：%@",desc);
+//                           [self showAlert:desc];
+//        }];
         
-//        NSString *path = [NSString stringWithFormat:@"%@/%@.png",filePath,imageName];
-//        self.imagePath = path;
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
-//    [self resetView];
 }
 
 #pragma mark- 缩放图片

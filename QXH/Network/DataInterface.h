@@ -215,19 +215,19 @@ withCompletionHandler:(DictCallback)callback;
  *  @param members    部落成员，成员(userid)之间以逗号隔开
  *  @param callback   回调
  */
-+ (void)createTribe:(NSString *)tribename
-         tribestyle:(NSString *)tribestyle
-          secretary:(NSString *)userid
-          signature:(NSString *)signature
-               desc:(NSString *)desc
-          condition:(NSString *)condition
-            purpose:(NSString *)purpose
-               rule:(NSString *)rule
-               tags:(NSString *)tags
-           district:(NSString *)district
-           maxcount:(NSString *)maxcount
-            members:(NSString *)members
-withCompletionHandler:(DictCallback)callback;
+//+ (void)createTribe:(NSString *)tribename
+//         tribestyle:(NSString *)tribestyle
+//          secretary:(NSString *)userid
+//          signature:(NSString *)signature
+//               desc:(NSString *)desc
+//          condition:(NSString *)condition
+//            purpose:(NSString *)purpose
+//               rule:(NSString *)rule
+//               tags:(NSString *)tags
+//           district:(NSString *)district
+//           maxcount:(NSString *)maxcount
+//            members:(NSString *)members
+//withCompletionHandler:(DictCallback)callback;
 
 + (void)createTribe:(NSString *)tribename
          tribestyle:(NSString *)tribestyle

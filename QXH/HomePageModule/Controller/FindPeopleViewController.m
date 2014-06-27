@@ -189,8 +189,51 @@
         NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"citysList"];
         NSDictionary *cityDict = [list objectAtIndex:indexPath.row - 1];
         NSLog(@"%@",cityDict);
-        FindResultViewController *findResult = [[FindResultViewController alloc] init];
-        [self.navigationController pushViewController:findResult animated:YES];
+        
+        /**
+         *  获取好友(通讯录)/查找用户列表公用接口
+         *
+         *  @param type        1为获取好友列表，2为搜索
+         *  @param address     籍贯编码
+         *  @param domicile    居住地编码
+         *  @param displayname 昵称
+         *  @param usertype    用户类型,为空时不区分类型
+         *  @param start       起始位置
+         *  @param count       获取数量
+         *  @param callback    回调
+         */
+        [DataInterface getFriendInfo:@"2"
+                             address:@""
+                            domicile:[cityDict objectForKey:@"cityid"]
+                         displayname:@""
+                            usertype:@""
+                               start:@"0"
+                               count:@"20"
+               withCompletionHandler:^(NSMutableDictionary *dict){
+                   NSLog(@"通讯录列表返回数据：%@",dict);
+                   NSArray *findList = [dict objectForKey:@"lists"];
+                   BOOL isHavePeople = NO;
+                   for ( int i = 0; i < [findList count]; i ++) {
+                       NSDictionary *dict = [findList objectAtIndex:i];
+                       NSArray *arr = [dict objectForKey:@"list"];
+                       if ([arr count]) {
+                           isHavePeople = YES;
+                           break;
+                       }
+                   }
+                   if (isHavePeople) {
+                       FindResultViewController *findResult = [[FindResultViewController alloc] init];
+                       findResult.findPeopleResults = findList;
+                       [self.navigationController pushViewController:findResult animated:YES];
+                   }else{
+                       [self showAlert:@"没有找到相关人员"];
+                   }
+                   //                   [self showAlert:[dict objectForKey:@"info"]];
+               }];
+
+        
+//        FindResultViewController *findResult = [[FindResultViewController alloc] init];
+//        [self.navigationController pushViewController:findResult animated:YES];
     }
 }
 
@@ -238,8 +281,6 @@
                    }else{
                        [self showAlert:@"没有找到相关人员"];
                    }
-                   
-
 //                   [self showAlert:[dict objectForKey:@"info"]];
                }];
 

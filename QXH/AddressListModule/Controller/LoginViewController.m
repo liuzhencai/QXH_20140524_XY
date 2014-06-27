@@ -121,31 +121,6 @@
 
 - (void)login:(id)sender{
     NSLog(@"login");
-//    NSDictionary *param = @{@"opercode": @"0102", @"username":@"zhaolilong2012@gmail.com", @"pwd":@"e10adc3949ba59abbe56e057f20f883e",@"sign":[SignGenerator getSign]};
-//    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-//        NSLog(@"返回数据--->%@",data);
-////        // 存储token和userid
-////        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
-////        [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
-//        //登录成功后保存用户名和密码
-//        [defaults setObject:self.nameField.text forKey:USER_NAME];
-//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
-//        NSDate *date = [NSDate date];
-//        [defaults setObject:date forKey:LOGIN_DATE];
-//        [defaults synchronize];
-//        
-//        if (self.delegate) {
-//            [self.delegate didLoginHandle:self];
-//        }
-//    } andErrorHandler:^(id data) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-//                                                        message:data
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"确定"
-//                                              otherButtonTitles:nil, nil];
-//        [alert show];
-//    }];
-    
     if ([self.nameField.text length] <= 0) {
         [self showAlert:@"请输入用户名"];
         return;
@@ -159,6 +134,8 @@
         //登录成功后保存用户名和密码
         [defaults setObject:self.nameField.text forKey:USER_NAME];
         [defaults setObject:self.pwField.text forKey:PASSWORLD];
+        [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
+        [defaults setObject:@NO forKey:@"isNewMember"];
         NSDate *date = [NSDate date];
         [defaults setObject:date forKey:LOGIN_DATE];
         [defaults synchronize];
@@ -166,6 +143,7 @@
         [self showAlert:[dict objectForKey:@"info"]];
         if (self.delegate) {
             [self.delegate didLoginHandle:self];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
@@ -173,6 +151,13 @@
 - (void)userRegister:(id)sender{
     NSLog(@"register");
     UserRegisterViewController *userRegister = [[UserRegisterViewController alloc] init];
+    userRegister.registerCallBack = ^(NSMutableDictionary *dict) {
+        [self.navigationController popViewControllerAnimated:NO];
+        if (self.delegate) {
+            [self.delegate didLoginHandle:self];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    };
     [self.navigationController pushViewController:userRegister animated:YES];
 }
 

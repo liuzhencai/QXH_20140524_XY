@@ -364,6 +364,7 @@
 		84FCA861192CC45F0005295A /* SquareCellEx.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCA85D192CC45F0005295A /* SquareCellEx.xib */; };
 		88347ECE1935D6F100D60193 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ECD1935D6F100D60193 /* DatePickerView.m */; };
 		88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88347ED01935DB3C00D60193 /* InActivityCell.m */; };
+		8852EFB9195CFC0A00E5D9F7 /* EditUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8852EFB8195CFC0A00E5D9F7 /* EditUserInfoViewController.m */; };
 		88C12280194069AA0000533E /* SquareActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C1227E194069AA0000533E /* SquareActivityCell.m */; };
 		88C12281194069AA0000533E /* SquareActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88C1227F194069AA0000533E /* SquareActivityCell.xib */; };
 		88C23E6D1950275500CBBD15 /* ActivityDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C23E6C1950275500CBBD15 /* ActivityDetailCell.m */; };
@@ -923,6 +924,8 @@
 		88347ECD1935D6F100D60193 /* DatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		88347ECF1935DB3C00D60193 /* InActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InActivityCell.h; sourceTree = "<group>"; };
 		88347ED01935DB3C00D60193 /* InActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InActivityCell.m; sourceTree = "<group>"; };
+		8852EFB7195CFC0A00E5D9F7 /* EditUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserInfoViewController.h; sourceTree = "<group>"; };
+		8852EFB8195CFC0A00E5D9F7 /* EditUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserInfoViewController.m; sourceTree = "<group>"; };
 		88C1227D194069AA0000533E /* SquareActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareActivityCell.h; sourceTree = "<group>"; };
 		88C1227E194069AA0000533E /* SquareActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareActivityCell.m; sourceTree = "<group>"; };
 		88C1227F194069AA0000533E /* SquareActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareActivityCell.xib; sourceTree = "<group>"; };
@@ -1455,6 +1458,8 @@
 				842D3C85192AF7F100374F04 /* ChatViewController.m */,
 				842D3C86192AF7F100374F04 /* FillNameCardViewController.h */,
 				842D3C87192AF7F100374F04 /* FillNameCardViewController.m */,
+				8852EFB7195CFC0A00E5D9F7 /* EditUserInfoViewController.h */,
+				8852EFB8195CFC0A00E5D9F7 /* EditUserInfoViewController.m */,
 				842D3C88192AF7F100374F04 /* LoginViewController.h */,
 				842D3C89192AF7F100374F04 /* LoginViewController.m */,
 				842D3C8A192AF7F100374F04 /* NameCardViewController.h */,
@@ -2397,6 +2402,7 @@
 				84F065FA192AFB4800B09AB5 /* DistrictCell.m in Sources */,
 				21EDAD3B1926E29900C616CF /* MoreStudyExpController.m in Sources */,
 				84FCA85E192CC45F0005295A /* HistoryCell.m in Sources */,
+				8852EFB9195CFC0A00E5D9F7 /* EditUserInfoViewController.m in Sources */,
 				21D705C01916A469004950BF /* ImageLabelCell.m in Sources */,
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
 				58B1DEBA192BA9DF00086C38 /* CreatTribeViewController.m in Sources */,

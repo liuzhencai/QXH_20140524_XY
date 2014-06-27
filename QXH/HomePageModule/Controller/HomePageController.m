@@ -16,9 +16,10 @@
 #import "ActivityViewController.h"
 #import "TribeController.h"
 #import "chatRoomActivViewController.h"
+#import "FillNameCardViewController.h"
+#import "LoginViewController.h"
 
-
-@interface HomePageController ()
+@interface HomePageController ()<LoginDelegate>
 {
     NSArray *pics;
 }
@@ -45,6 +46,54 @@
     pics = @[@"banner_img02", @"banner_img01"];
     _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
     [self addTopImage];
+    
+    if (![defaults objectForKey:@"userName"] || ![defaults objectForKey:@"passworld"]) {
+        LoginViewController* login = [[LoginViewController alloc]init];
+        login.delegate = self;
+        UINavigationController *loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
+        [self presentViewController:loginNavigation animated:NO completion:nil];
+    }else{//自动登录
+        [self autoLogin];
+    }
+}
+
+- (void)didLoginHandle:(LoginViewController *)loginViewController{
+    NSLog(@"dddddddd");
+    BOOL isNewMember = [[defaults objectForKey:@"isNewMember"] boolValue];
+    if (isNewMember) {
+        [defaults setObject:@NO forKey:@"isNewMember"];
+        [defaults synchronize];
+        FillNameCardViewController *fillNameCard = [[FillNameCardViewController alloc] init];
+        [self.navigationController pushViewController:fillNameCard animated:YES];
+    }
+    
+    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+}
+
+- (void)autoLogin{//自动登录
+    NSString *name = [defaults objectForKey:@"userName"];
+    NSString *passward = [defaults objectForKey:@"passworld"];
+    [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+        //登录成功后保存用户名和密码
+//        [defaults setObject:self.nameField.text forKey:USER_NAME];
+//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
+        [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
+        [defaults setObject:@NO forKey:@"isNewMember"];
+        NSDate *date = [NSDate date];
+        [defaults setObject:date forKey:LOGIN_DATE];
+        [defaults synchronize];
+        NSLog(@"登陆返回信息：%@",dict);
+//        [self showAlert:[dict objectForKey:@"info"]];
+
+        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+    }];
+}
+
+// 心跳
+- (void)heartBeat
+{
+    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
+    }];
 }
 
 - (void)addTopImage
@@ -83,8 +132,6 @@
         case 2:
         {
             NSLog(@"点击活动");
-//            ActivityController *aController = [[ActivityController alloc] initWithNibName:@"ActivityController" bundle:nil];
-//            [self.navigationController pushViewController:aController animated:YES];
             ActivityViewController *activeCon = [[ActivityViewController alloc] init];
             activeCon.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activeCon animated:YES];
@@ -93,9 +140,6 @@
         case 3:
         {
             NSLog(@"点击找人");
-//            FindPeopleController *fpController = [[FindPeopleController alloc] initWithNibName:@"FindPeopleController" bundle:nil];
-//            [self.navigationController pushViewController:fpController animated:YES];
-            
             FindPeopleViewController *fpController = [[FindPeopleViewController alloc] init];
             fpController.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:fpController animated:YES];

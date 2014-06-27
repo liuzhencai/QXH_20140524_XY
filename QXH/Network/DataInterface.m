@@ -214,7 +214,7 @@ withCompletionHandler:(DictCallback)callback
           condition:(NSString *)condition
             purpose:(NSString *)purpose
                rule:(NSString *)rule
-               t9ags:(NSString *)tags
+               tags:(NSString *)tags
            district:(NSString *)district
               photo:(NSString *)photo
            maxcount:(NSString *)maxcount
