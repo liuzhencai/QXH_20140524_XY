@@ -17,6 +17,7 @@
 #import "CustomTabBarController.h"
 
 #import "NSString+MD5HexDigest.h"
+#import "MessageBySend.h"
 
 @implementation AppDelegate
 
@@ -101,6 +102,8 @@
     [self loadPages];
     
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+    
+    [[MessageBySend sharMessageBySend] getdata];
 }
 
 - (void)startHeartBeat{
