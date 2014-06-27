@@ -89,6 +89,7 @@
                     cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
+                [(SquareCell *)cell setCellData:model];
                 tblCell = cell;
             }
                 break;
@@ -112,6 +113,7 @@
                     cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
+                [(SquareActivityCell *)cell setCellData:model];
                 tblCell = cell;
             }
                 break;
@@ -164,7 +166,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
     ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+    switch (model.type) {
+        case 1:
+            controller.type = SquareInfoTypeSq;
+            break;
+        case 2:
+            controller.type = SquareInfoTypeInf;
+            break;
+        case 3:
+            controller.type = SquareInfoTypeAct;
+            break;
+        default:
+            break;
+    }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -197,16 +213,6 @@
     HistoryReviewController *controller = [[HistoryReviewController alloc] initWithNibName:@"HistoryReviewController" bundle:nil];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)requestInfoListWithType:(NSString *)type arttype:(NSString *)arttype withCompletionBlock:(ListCallback)callback
-{
-    NSString *userid = @"123456";
-    NSString *token = @"ab123456789";
-    NSDictionary *param = @{@"opercode": @"0119",@"userid":userid,@"token":token, @"type":@"1", @"detailtype":type, @"tag":@"标签", @"arttype":arttype, @"start":@"10", @"direction":@"before", @"count":@"20"};
-    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
-        callback([ModelGenerator json2InfoList:dict]);
-    }];
 }
 
 @end

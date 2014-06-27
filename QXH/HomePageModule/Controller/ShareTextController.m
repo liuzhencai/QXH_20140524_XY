@@ -29,28 +29,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"分享正文";
-    
-    UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
-    righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
-    [righttbuttonItem setTitle:@"分享" forState:UIControlStateNormal];
-    [righttbuttonItem addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
-    self.navigationItem.rightBarButtonItem = righttItem;
+    self.title = @"详情";
 
     _contentTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
-//    [self.view addSubview:_toolbarView];
-    
     _toolbarView.frame = CGRectMake(0, SCREEN_H - 49-64, 320, 49);
     [self.view addSubview:_toolbarView];
-}
-
-- (void)share:(id)sender
-{
-    NSLog(@"点击了分享");
-
-    [self showAlert:@"点击了分享"];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,16 +75,6 @@
     }
     return cell;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    return 49;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    return _toolbarView;
-//}
 
 - (IBAction)click:(id)sender {
     UIButton *btn = (UIButton *)sender;

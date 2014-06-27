@@ -28,15 +28,15 @@
 
 - (void)setCellData:(SquareInfo *)model
 {
-    NSLog(@"sphoto---->%@",model.info.sphoto);
-    [self.portraitView setImageWithURL:IMGURL(model.info.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [self.portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [self.portraitView circular];
     _nameLabel.text = model.uname;
     _dateLabel.text = model.date;
     _positionLabel.text = model.uduty;
     _contentLabel.text = model.usign;
-    _subContentLabel.text = model.info.content;
-    [_subImageView setImageWithURL:IMGURL(model.info.artimgs)];
+    InfoModel *tmpModel = model.content;
+    _subContentLabel.text = tmpModel.content;
+    [_subImageView setImageWithURL:IMGURL(tmpModel.artimgs)];
 }
 
 @end

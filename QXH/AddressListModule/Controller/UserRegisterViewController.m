@@ -191,16 +191,33 @@
                         andPswd:self.pwField.text
           withCompletionHandler:^(NSMutableDictionary *dict){
               NSLog(@"注册返回值：%@",dict);
-              [self showAlert:[dict objectForKey:@"info"]];
-//        [self registerAction];
-        EditCardController *editCard = [[EditCardController alloc] init];
-        editCard.title = @"注册";
-        [self.navigationController pushViewController:editCard animated:YES];
+              if (dict) {
+                  [self showAlert:[dict objectForKey:@"info"]];
+                  NSString *statteCode = [dict objectForKey:@"statecode"];
+                  if ([statteCode isEqualToString:@"0200"]) {
+                      [self login];
+                      
+                      EditCardController *editCard = [[EditCardController alloc] init];
+                      editCard.title = @"注册";
+                      editCard.UserRegisterState = YES;
+                      [self.navigationController pushViewController:editCard animated:YES];
+                  }
+              }
     }];
     
-//    EditCardController *editCard = [[EditCardController alloc] init];
-//    editCard.title = @"注册";
-//    [self.navigationController pushViewController:editCard animated:YES];
+}
+
+- (void)login{
+    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
+        
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+            
+        }];
+        //
+        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+        
+    }];
 }
 
 - (void)registerAction

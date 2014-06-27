@@ -11,7 +11,7 @@
 
 @interface SquareInfo : NSObject
 
-@property (nonatomic, strong) InfoModel *info;
+@property (nonatomic, strong) id content;
 
 @property (nonatomic, copy) NSString *date;
 

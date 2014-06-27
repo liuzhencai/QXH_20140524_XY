@@ -14,7 +14,7 @@
 @interface ShareView ()<UITextViewDelegate>
 @property (nonatomic, strong) UIView  *bgView;//背景
 @property (nonatomic, strong) UITextView *activityText;
-
+@property (nonatomic, strong) NSDictionary *params;
 @end
 
 @implementation ShareView
@@ -32,6 +32,7 @@
 - (id)initWithParam:(id)objt{
     self = [super initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
     self.backgroundColor = [UIColor clearColor];
+    self.params = (NSDictionary *)objt;
     _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VIEW_WIDTH, VIEW_HEIGHT)];
     _bgView.center = self.center;
     _bgView.layer.cornerRadius = 5.0;
@@ -41,43 +42,27 @@
     return self;
 }
 
-//- (void)touchButtonxx:(UIButton *)sender{
-//    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-//    view.backgroundColor = [UIColor blackColor];
-//    view.alpha = 0.5;
-//    
-//    ShareView *share = [[ShareView alloc] initWithParam:nil];
-//    share.alpha = 0.0;
-//    [share addSubview:view];
-//    [share sendSubviewToBack:view];
-//    [self.view addSubview:share];
-//    
-//    share.shareBlack = ^(NSDictionary *dict){
-//        NSLog(@"block");
-//    };
-//    
-//    [share show];
-//}
 
 - (void)layoutSubviews{
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, VIEW_WIDTH - 30, 35)];
     title.backgroundColor = [UIColor clearColor];
-    title.text = @"活动名称";
+    NSString *titleStr = [self.params objectForKey:@"actname"];
+    title.text = titleStr;
     [_bgView addSubview:title];
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 35, 80, 60)];
-    imgView.image = [UIImage imageNamed:@"collect_img_share"];
-//    imgView.backgroundColor = [UIColor redColor];
+    NSString *imageUrlString = [self.params objectForKey:@"actimgs"];
+    [imgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"collect_img_share"]];
     [_bgView addSubview:imgView];
     
     UILabel *activityDes = [[UILabel alloc] initWithFrame:CGRectMake(imgView.right + 10, imgView.top, VIEW_WIDTH - imgView.width - 30 - 10, imgView.height)];
-    activityDes.text = @"活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍活动介绍";
+    activityDes.text = [self.params objectForKey:@"desc"];
     activityDes.numberOfLines = 0;
     [_bgView addSubview:activityDes];
     
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(15, imgView.bottom + 10, VIEW_WIDTH - 30, 50)];
     self.activityText = textView;
-    textView.text = @"分享留言";
+    textView.text = @"";//@"分享留言";
     textView.layer.borderWidth = 0.5;
     textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     textView.delegate = self;
@@ -128,7 +113,9 @@
     NSLog(@"show action");
     if (sender.tag == 101) {
         if (self.shareBlack) {
-            self.shareBlack(nil);
+            NSString *activityStr = @"";
+            activityStr = self.activityText.text;
+            self.shareBlack(activityStr);
         }
     }
     [self shareHide];

@@ -14,6 +14,8 @@
 #import "VistorModel.h"
 #import "InfoCommentModel.h"
 #import "SquareInfo.h"
+#import "ActivityInfoModel.h"
+#import "SquareActInfo.h"
 
 @interface ModelGenerator : NSObject
 

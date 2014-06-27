@@ -154,20 +154,49 @@
     NSArray *list = [obj objectForKey:@"list"];
     for (int i = 0; i < [list count]; i++) {
         SquareInfo *info = [[SquareInfo alloc] init];
-        InfoModel *model = [[InfoModel alloc] init];
         NSDictionary *subDict = [list[i] objectForKey:@"content"];
-        model.artid = [subDict objectForKey:@"artid"];
-        model.sid = [subDict objectForKey:@"sid"];
-        model.sname = [subDict objectForKey:@"sname"];
-        model.sphoto = [subDict objectForKey:@"sphoto"];
-        model.date = [subDict objectForKey:@"date"];
-        model.title = [subDict objectForKey:@"title"];
-        model.artimgs = [subDict objectForKey:@"artimgs"];
-        model.content = [subDict objectForKey:@"content"];
-        model.authflag = [subDict objectForKey:@"authflag"];
-        model.browsetime = [subDict objectForKey:@"browsetime"];
-        model.contentlength = [[subDict objectForKey:@"contentlength"] integerValue];
-        info.info = model;
+        switch ([[list[i] objectForKey:@"type"] integerValue]) {
+            case 1:
+            case 2:
+            {
+                InfoModel *model = [[InfoModel alloc] init];
+                model.artid = [subDict objectForKey:@"artid"];
+                model.sid = [subDict objectForKey:@"sid"];
+                model.sname = [subDict objectForKey:@"sname"];
+                model.sphoto = [subDict objectForKey:@"sphoto"];
+                model.date = [subDict objectForKey:@"date"];
+                model.title = [subDict objectForKey:@"title"];
+                model.artimgs = [subDict objectForKey:@"artimgs"];
+                model.content = [subDict objectForKey:@"content"];
+                model.authflag = [subDict objectForKey:@"authflag"];
+                model.browsetime = [subDict objectForKey:@"browsetime"];
+                model.contentlength = [[subDict objectForKey:@"contentlength"] integerValue];
+                info.content = model;
+            }
+                break;
+            case 3:
+            {
+                SquareActInfo *model = [[SquareActInfo alloc] init];
+                model.actid = [subDict objectForKey:@"actid"];
+                model.actname = [subDict objectForKey:@"actname"];
+                model.photos = [subDict objectForKey:@"photos"];
+                model.signupbegindate = [subDict objectForKey:@"signupbegindate"];
+                model.signupenddate = [subDict objectForKey:@"signupenddate"];
+                model.begindate = [subDict objectForKey:@"begindate"];
+                model.enddate = [subDict objectForKey:@"enddate"];
+                model.actaddr = [subDict objectForKey:@"actaddr"];
+                model.maxcount = [subDict objectForKey:@"maxcount"];
+                model.nowcount =  [subDict objectForKey:@"nowcount"];
+                model.folcount = [subDict objectForKey:@"focount"];
+                model.tags = [subDict objectForKey:@"tags"];
+                model.desc = [subDict objectForKey:@"desc"];
+                model.acttype = [subDict objectForKey:@"acttype"];
+                info.content = model;
+            }
+                break;
+            default:
+                break;
+        }
         info.date = [list[i] objectForKey:@"date"];
         info.psid = [[list[i] objectForKey:@"psid"] integerValue];
         info.refsign = [list[i] objectForKey:@"refsign"];

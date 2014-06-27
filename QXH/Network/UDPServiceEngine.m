@@ -41,6 +41,28 @@
     return self;
 }
 
+- (void)receiveDataWithCompletionHandler:(Completion)callback andErrorHandler:(Completion)error
+{
+    __block BOOL isSuccess = NO;
+    __block NSUInteger failtimes = 0;
+    udp.block = udp.block = ^(NSData *data){
+        id returnValue = nil;
+        if (!isSuccess) {
+            JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+            returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
+            if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
+                isSuccess = YES;
+                callback(returnValue);
+            }else{
+                ++failtimes;
+            }
+        }
+        if (failtimes == 4) {
+            error([returnValue objectForKey:@"info"]);
+        }
+    };
+}
+
 - (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback andErrorHandler:(Completion)error
 {
     NSString *sign = [param objectForKey:@"sign"];

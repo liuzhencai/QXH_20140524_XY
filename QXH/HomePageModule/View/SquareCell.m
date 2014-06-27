@@ -22,4 +22,22 @@
     // Configure the view for the selected state
 }
 
+- (void)setCellData:(SquareInfo *)model
+{
+    _nameLabel.text = model.uname;
+    [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    _positionLabel.text = model.uduty;
+    InfoModel *tmpModel = (InfoModel *)model.content;
+    _contentLabel.text = tmpModel.content;
+    if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {
+        NSArray *imgs = [tmpModel.artimgs componentsSeparatedByString:@","];
+        for (int i = 1; i < [imgs count]; i++) {
+            
+        }
+    }else{
+        [_imageView1 setImageWithURL:IMGURL(tmpModel.artimgs)];
+    }
+//    [_imageView1 setImageWithURL:(NSURL *) placeholderImage:(UIImage *)]
+}
+
 @end

@@ -22,4 +22,20 @@
     // Configure the view for the selected state
 }
 
+- (void)setCellData:(SquareInfo *)model
+{
+    [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    _nameLabel.text = model.uname;
+    _postionLabel.text = model.uduty;
+    SquareActInfo *actInfo = model.content;
+    _contentLabel.text =actInfo.desc;
+    _dateLabel.text = model.date;
+    _activityTitle.text = actInfo.actname;
+    _sourceLabel.text = @"";
+    _posterLabel.text = @"";
+    _activityTimeLbl.text = actInfo.signupbegindate;
+    _addrLabel.text = actInfo.actaddr;
+    
+}
+
 @end

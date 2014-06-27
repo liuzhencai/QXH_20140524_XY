@@ -514,6 +514,13 @@ withCompletionHandler:(DictCallback)callback;
 withCompletionHandler:(DictCallback)callback;
 
 /**
+ *  服务器推送消息/通知
+ *
+ *  @param callback 回调
+ */
++ (void)recvRemoteNoficationWithCompletionHandler:(DictCallback)callback;
+
+/**
  *  客户端发送收到消息/通知（此时服务器端更新消息状态，将消息设置为已读）
  *
  *  @param messids  消息唯一标识符,多个消息以逗号隔开
@@ -669,5 +676,16 @@ withCompletionHandler:(DictCallback)completionBlock
         targetid:(NSString *)targetid
          refsign:(NSString *)refsign
 withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取每日一问通用接口
+ *
+ *  @param type     1为广场每日一问，2为部落中置顶消息
+ *  @param tribeid  部落id(sendtype=2时读取该字段)
+ *  @param callback 回调
+ */
++ (void)getEveryDayAsk:(NSString *)type
+               tribeid:(NSString *)tribeid
+ withCompletionHandler:(DictCallback)callback;
 
 @end

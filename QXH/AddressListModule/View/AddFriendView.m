@@ -45,7 +45,9 @@
     title.backgroundColor = [UIColor clearColor];
     title.textAlignment = NSTextAlignmentCenter;
     
-    NSString *titleString = [NSString stringWithFormat:@"添加%@为好友",[self.memberDict objectForKey:@"displayname"]];
+//    NSString *titleString = [NSString stringWithFormat:@"添加%@为好友",[self.memberDict objectForKey:@"displayname"]];
+    NSString *titleString = [NSString stringWithFormat:@"添加为好友"];
+
     title.text = titleString;
     [_bgView addSubview:title];
     

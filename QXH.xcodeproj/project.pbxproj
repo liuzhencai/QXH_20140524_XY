@@ -150,6 +150,8 @@
 		212F24561928E09A00F738F8 /* top_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F24081928E09A00F738F8 /* top_bar@2x.png */; };
 		212F24571928E09A00F738F8 /* top_btn_arrow_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F24091928E09A00F738F8 /* top_btn_arrow_highlight@2x.png */; };
 		212F24581928E09A00F738F8 /* top_btn_arrow_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F240A1928E09A00F738F8 /* top_btn_arrow_normal@2x.png */; };
+		21391FBD1959CA700002E288 /* CardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 21391FBC1959CA700002E288 /* CardInfo.m */; };
+		21391FC01959CED80002E288 /* SquareActInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 21391FBF1959CED70002E288 /* SquareActInfo.m */; };
 		21401DA719192CD100E9175B /* TribeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DA519192CD100E9175B /* TribeCell.m */; };
 		21401DA819192CD100E9175B /* TribeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DA619192CD100E9175B /* TribeCell.xib */; };
 		21401DAC1919325900E9175B /* AddrListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21401DAA1919325900E9175B /* AddrListCell.m */; };
@@ -571,6 +573,10 @@
 		212F24081928E09A00F738F8 /* top_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_bar@2x.png"; sourceTree = "<group>"; };
 		212F24091928E09A00F738F8 /* top_btn_arrow_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_btn_arrow_highlight@2x.png"; sourceTree = "<group>"; };
 		212F240A1928E09A00F738F8 /* top_btn_arrow_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_btn_arrow_normal@2x.png"; sourceTree = "<group>"; };
+		21391FBB1959CA700002E288 /* CardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfo.h; sourceTree = SOURCE_ROOT; };
+		21391FBC1959CA700002E288 /* CardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfo.m; sourceTree = SOURCE_ROOT; };
+		21391FBE1959CED70002E288 /* SquareActInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareActInfo.h; sourceTree = "<group>"; };
+		21391FBF1959CED70002E288 /* SquareActInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareActInfo.m; sourceTree = "<group>"; };
 		21401DA419192CD100E9175B /* TribeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeCell.h; sourceTree = "<group>"; };
 		21401DA519192CD100E9175B /* TribeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeCell.m; sourceTree = "<group>"; };
 		21401DA619192CD100E9175B /* TribeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TribeCell.xib; sourceTree = "<group>"; };
@@ -1258,6 +1264,8 @@
 				21C6D60B19508E1B00467717 /* MyTribeModel.m */,
 				2121C8E7195326A900FFEAE5 /* VistorModel.h */,
 				2121C8E8195326A900FFEAE5 /* VistorModel.m */,
+				21391FBE1959CED70002E288 /* SquareActInfo.h */,
+				21391FBF1959CED70002E288 /* SquareActInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1290,6 +1298,7 @@
 				88EE4F6D1934614800734AE1 /* FindPeople */,
 				88EE4F6C1934613D00734AE1 /* Activity */,
 				88EE4F6B1934613400734AE1 /* Tribe */,
+				2120F8C4195B227A00B24A11 /* Square */,
 				84FCA853192CC43F0005295A /* HistoryReviewController.h */,
 				84FCA854192CC43F0005295A /* HistoryReviewController.m */,
 				84FCA855192CC43F0005295A /* HistoryReviewController.xib */,
@@ -1299,9 +1308,6 @@
 				21D7058619169562004950BF /* OneDreamController.h */,
 				21D7058719169562004950BF /* OneDreamController.m */,
 				21D7058819169562004950BF /* OneDreamController.xib */,
-				21D7059019169617004950BF /* SquareViewController.h */,
-				21D7059119169617004950BF /* SquareViewController.m */,
-				21D7059219169617004950BF /* SquareViewController.xib */,
 				21D7059519169674004950BF /* EverydayAskController.h */,
 				21D7059619169674004950BF /* EverydayAskController.m */,
 				21D7059719169674004950BF /* EverydayAskController.xib */,
@@ -1314,12 +1320,6 @@
 				21D705B819169C84004950BF /* CharacterListController.h */,
 				21D705B919169C84004950BF /* CharacterListController.m */,
 				21D705BA19169C84004950BF /* CharacterListController.xib */,
-				21A893F91928ECD200A6DB7E /* SquareShareController.h */,
-				21A893FA1928ECD300A6DB7E /* SquareShareController.m */,
-				21A893FB1928ECD300A6DB7E /* SquareShareController.xib */,
-				21A893FE1928F8CF00A6DB7E /* ShareTextController.h */,
-				21A893FF1928F8CF00A6DB7E /* ShareTextController.m */,
-				21A894001928F8CF00A6DB7E /* ShareTextController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1333,6 +1333,8 @@
 				88EE4F2319341DF000734AE1 /* TribeInfoModel.m */,
 				88EE4F68193433B000734AE1 /* ActivityInfoModel.h */,
 				88EE4F69193433B000734AE1 /* ActivityInfoModel.m */,
+				21391FBB1959CA700002E288 /* CardInfo.h */,
+				21391FBC1959CA700002E288 /* CardInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1459,6 +1461,22 @@
 				58E08D0619532549000C25AE /* AddFriendView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2120F8C4195B227A00B24A11 /* Square */ = {
+			isa = PBXGroup;
+			children = (
+				21A893F91928ECD200A6DB7E /* SquareShareController.h */,
+				21A893FA1928ECD300A6DB7E /* SquareShareController.m */,
+				21A893FB1928ECD300A6DB7E /* SquareShareController.xib */,
+				21A893FE1928F8CF00A6DB7E /* ShareTextController.h */,
+				21A893FF1928F8CF00A6DB7E /* ShareTextController.m */,
+				21A894001928F8CF00A6DB7E /* ShareTextController.xib */,
+				21D7059019169617004950BF /* SquareViewController.h */,
+				21D7059119169617004950BF /* SquareViewController.m */,
+				21D7059219169617004950BF /* SquareViewController.xib */,
+			);
+			name = Square;
 			sourceTree = "<group>";
 		};
 		212F239E1928DF2500F738F8 /* 公用基类 */ = {
@@ -2171,10 +2189,12 @@
 				2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */,
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
+				21391FBD1959CA700002E288 /* CardInfo.m in Sources */,
 				84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */,
 				84FCA856192CC43F0005295A /* HistoryReviewController.m in Sources */,
 				58B87177192F78FB00EB730D /* ShareView.m in Sources */,
 				842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */,
+				21391FC01959CED80002E288 /* SquareActInfo.m in Sources */,
 				84F065EB192AFACD00B09AB5 /* FilterTimeViewController.m in Sources */,
 				848426A3192E0D1100C9474A /* CustomSegmentView.m in Sources */,
 				58B1DEB7192BA38200086C38 /* MyTribeListCell.m in Sources */,
@@ -2442,7 +2462,9 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+
 				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2454,7 +2476,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+
 				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2466,7 +2490,9 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+
 				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2478,7 +2504,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+
 				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
