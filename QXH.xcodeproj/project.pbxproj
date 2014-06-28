@@ -78,6 +78,8 @@
 		2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121C8E8195326A900FFEAE5 /* VistorModel.m */; };
 		21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21284CC7195F15930019A4D3 /* EditInfoController.m */; };
 		21284CCA195F15930019A4D3 /* EditInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21284CC8195F15930019A4D3 /* EditInfoController.xib */; };
+		21284CCE195F2A120019A4D3 /* MsgSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21284CCC195F2A120019A4D3 /* MsgSettingController.m */; };
+		21284CCF195F2A120019A4D3 /* MsgSettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21284CCD195F2A120019A4D3 /* MsgSettingController.xib */; };
 		212F23A11928DF2500F738F8 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A01928DF2500F738F8 /* MyViewController.m */; };
 		212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A41928DF2C00F738F8 /* ClassificationControll.m */; };
 		212F23A91928DF2C00F738F8 /* MyNavgationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A71928DF2C00F738F8 /* MyNavgationBar.m */; };
@@ -536,6 +538,9 @@
 		21284CC6195F15930019A4D3 /* EditInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditInfoController.h; sourceTree = "<group>"; };
 		21284CC7195F15930019A4D3 /* EditInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditInfoController.m; sourceTree = "<group>"; };
 		21284CC8195F15930019A4D3 /* EditInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditInfoController.xib; sourceTree = "<group>"; };
+		21284CCB195F2A120019A4D3 /* MsgSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSettingController.h; sourceTree = "<group>"; };
+		21284CCC195F2A120019A4D3 /* MsgSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSettingController.m; sourceTree = "<group>"; };
+		21284CCD195F2A120019A4D3 /* MsgSettingController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MsgSettingController.xib; sourceTree = "<group>"; };
 		212F239F1928DF2500F738F8 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		212F23A01928DF2500F738F8 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		212F23A31928DF2C00F738F8 /* ClassificationControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassificationControll.h; sourceTree = "<group>"; };
@@ -1373,6 +1378,9 @@
 				21284CC6195F15930019A4D3 /* EditInfoController.h */,
 				21284CC7195F15930019A4D3 /* EditInfoController.m */,
 				21284CC8195F15930019A4D3 /* EditInfoController.xib */,
+				21284CCB195F2A120019A4D3 /* MsgSettingController.h */,
+				21284CCC195F2A120019A4D3 /* MsgSettingController.m */,
+				21284CCD195F2A120019A4D3 /* MsgSettingController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2214,6 +2222,7 @@
 				212F23B41928DF4D00F738F8 /* InformationViewController.xib in Resources */,
 				212F23B61928DF4D00F738F8 /* InformationCell.xib in Resources */,
 				84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */,
+				21284CCF195F2A120019A4D3 /* MsgSettingController.xib in Resources */,
 				212F24231928E09A00F738F8 /* title_bar_bg@2x.png in Resources */,
 				848426F0192E185B00C9474A /* square_share_icon_img_+@2x.png in Resources */,
 				212F24481928E09A00F738F8 /* line_dividing_green@2x.png in Resources */,
@@ -2461,6 +2470,7 @@
 				21D7059819169674004950BF /* EverydayAskController.m in Sources */,
 				84F06609192B2F1100B09AB5 /* ChatRoomController.m in Sources */,
 				5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */,
+				21284CCE195F2A120019A4D3 /* MsgSettingController.m in Sources */,
 				88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */,
 				2119EF00191682EC007DBE68 /* SDWebImageManager.m in Sources */,
 				2111B1CD19553D9100AA5478 /* NSString+LabelFrame.m in Sources */,

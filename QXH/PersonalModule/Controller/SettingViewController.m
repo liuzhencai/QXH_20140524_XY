@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "MsgSettingController.h"
 
 @interface SettingViewController ()
 
@@ -141,9 +142,8 @@
     switch (indexPath.section) {
         case 0:
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"消息设置" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
-       
+            MsgSettingController *controller = [[MsgSettingController alloc] initWithNibName:@"MsgSettingController" bundle:nil];
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 1:
