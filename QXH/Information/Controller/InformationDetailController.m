@@ -26,6 +26,7 @@
     _commentNumLabel.text = detailmodel.commenttime;
     _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
+    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:nil];
 }
 
 - (void)getDetailInfo
@@ -80,6 +81,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+    CGRect frame = webView.frame;
+    webView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, height);
+    NSLog(@"webViewFrame--->%@",[NSValue valueWithCGRect:webView.frame]);
+}
+
 - (IBAction)click:(id)sender {
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {
@@ -129,6 +138,7 @@
 - (IBAction)showAll:(id)sender {
     NSLog(@"查看全部");
 }
+/*
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -264,5 +274,5 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+*/
 @end

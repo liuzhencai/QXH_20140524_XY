@@ -28,8 +28,6 @@
 @implementation EditCardController
 @synthesize UserRegisterState;
 
-@synthesize valueArr;
-
 - (void)viewWillAppear:(BOOL)animated
 {
     if(UserRegisterState)
@@ -49,7 +47,7 @@
         if ([phone isEqualToString:@""]) {
             phone = @"无手机号";
         }
-        valueArr = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"%@ %@",[userinfo objectForKey:@"schoolname"],[userinfo objectForKey:@"title"]], [NSString stringWithFormat:@"%@",[userinfo objectForKey:@"domicile"]], [userinfo objectForKey:@"introduce"], [userinfo objectForKey:@"hobbies"], [userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
+        _valueArr = [[NSMutableArray alloc] initWithObjects:[userinfo objectForKey:@"displayname"],[userinfo objectForKey:@"signature"], [userinfo objectForKey:@"comname"], [userinfo objectForKey:@"domicile"], [userinfo objectForKey:@"title"], [userinfo objectForKey:@"hobbies"],[userinfo objectForKey:@"educations"], phone, [userinfo objectForKey:@"honours"], nil];
         [_portraitView circular];
         [_portraitView setImageWithURL:IMGURL([userinfo objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
         [_editTable reloadData];
@@ -75,7 +73,7 @@
 
     _editTable.tableHeaderView = _topView;
     
-    titleArr = @[@"学校信息（必填）", @"城市（必填）", @"自我介绍", @"兴趣爱好", @"学习经历", @"手机号", @"曾获荣誉"];
+    titleArr = @[@"真实姓名（必填）", @"个性签名（选填）", @"工作单位（必填）", @"城市（必填）", @"单位职务", @"兴趣爱好", @"毕业院校", @"手机号", @"曾获荣誉"];
     
 //    valueArr = [[NSMutableArray alloc] initWithObjects:@"北京市智障二中 校长", @"北京", @"您的详细介绍", @"您的兴趣爱好", @"您的教育经历", @"您的手机号", @"曾经获得的社会荣誉", nil];
     
@@ -118,7 +116,9 @@
             label.textColor = GREEN_FONT_COLOR;
             [cell.contentView addSubview:label];
         }
-    }else{
+    }
+    else
+    {
         static NSString *cellIdentifier = @"otherCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
@@ -149,16 +149,21 @@
         UILabel *statusLabel_ = (UILabel *)[cell.contentView viewWithTag:3];
 
         titleLabel_.text = [titleArr objectAtIndex:indexPath.row-1];
-        descLabel_.text = [valueArr objectAtIndex:indexPath.row-1];
+        descLabel_.text = [_valueArr objectAtIndex:indexPath.row-1];
         statusLabel_.text = @"已填写";
     }
-    
     return cell;
+}
+
+- (void)submit:(id)sender
+{
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
+    /*
     switch (row) {
         case 1:
         {
@@ -212,6 +217,11 @@
         default:
             break;
     }
+     */
+    EditInfoController *controller = [[EditInfoController alloc] initWithNibName:@"EditInfoController" bundle:nil];
+    controller.selectedIndex = row;
+    controller.delegate = self;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)click:(id)sender {
@@ -325,5 +335,10 @@
     
 }
 
+- (void)changeValue:(NSString *)value WithIndex:(NSInteger)index
+{
+    [_valueArr replaceObjectAtIndex:index withObject:value];
+    [_editTable reloadData];
+}
 
 @end

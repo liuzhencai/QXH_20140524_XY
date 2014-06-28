@@ -76,6 +76,8 @@
 		2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF2D191689DD007DBE68 /* ActivityCell.xib */; };
 		2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119F287194355C800250DB6 /* libWeChatSDK.a */; };
 		2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121C8E8195326A900FFEAE5 /* VistorModel.m */; };
+		21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21284CC7195F15930019A4D3 /* EditInfoController.m */; };
+		21284CCA195F15930019A4D3 /* EditInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21284CC8195F15930019A4D3 /* EditInfoController.xib */; };
 		212F23A11928DF2500F738F8 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A01928DF2500F738F8 /* MyViewController.m */; };
 		212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A41928DF2C00F738F8 /* ClassificationControll.m */; };
 		212F23A91928DF2C00F738F8 /* MyNavgationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A71928DF2C00F738F8 /* MyNavgationBar.m */; };
@@ -531,6 +533,9 @@
 		2119F287194355C800250DB6 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		2121C8E7195326A900FFEAE5 /* VistorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VistorModel.h; sourceTree = "<group>"; };
 		2121C8E8195326A900FFEAE5 /* VistorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VistorModel.m; sourceTree = "<group>"; };
+		21284CC6195F15930019A4D3 /* EditInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditInfoController.h; sourceTree = "<group>"; };
+		21284CC7195F15930019A4D3 /* EditInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditInfoController.m; sourceTree = "<group>"; };
+		21284CC8195F15930019A4D3 /* EditInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditInfoController.xib; sourceTree = "<group>"; };
 		212F239F1928DF2500F738F8 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		212F23A01928DF2500F738F8 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		212F23A31928DF2C00F738F8 /* ClassificationControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassificationControll.h; sourceTree = "<group>"; };
@@ -1365,6 +1370,9 @@
 				210BAEDA192A5B3E00B8FBCF /* MyVisitorController.h */,
 				210BAEDB192A5B3E00B8FBCF /* MyVisitorController.m */,
 				210BAEDC192A5B3E00B8FBCF /* MyVisitorController.xib */,
+				21284CC6195F15930019A4D3 /* EditInfoController.h */,
+				21284CC7195F15930019A4D3 /* EditInfoController.m */,
+				21284CC8195F15930019A4D3 /* EditInfoController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2274,6 +2282,7 @@
 				848426D4192E185B00C9474A /* banner_bar_bg@2x.png in Resources */,
 				21401DB21919326B00E9175B /* MyMsgCell.xib in Resources */,
 				212F243F1928E09A00F738F8 /* details_icon_report_normal@2x.png in Resources */,
+				21284CCA195F15930019A4D3 /* EditInfoController.xib in Resources */,
 				212F244C1928E09A00F738F8 /* navigation_slippage_bar_green@2x.png in Resources */,
 				84FCA857192CC43F0005295A /* HistoryReviewController.xib in Resources */,
 				212F242F1928E09A00F738F8 /* bar_bg_detailed@2x.png in Resources */,
@@ -2521,6 +2530,7 @@
 				58E08D0719532549000C25AE /* AddFriendView.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
 				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,
+				21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */,
 				58826BA7195DD180002F13A5 /* NIOperations.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
 				58826BA5195DD180002F13A5 /* NINonEmptyCollectionTesting.m in Sources */,
@@ -2714,7 +2724,6 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
 				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
@@ -2727,9 +2736,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
 				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
-
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2754,7 +2761,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
-
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
