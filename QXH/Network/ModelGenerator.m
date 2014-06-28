@@ -158,6 +158,7 @@
         switch ([[list[i] objectForKey:@"type"] integerValue]) {
             case 1:
             case 2:
+            case 4:
             {
                 InfoModel *model = [[InfoModel alloc] init];
                 model.artid = [subDict objectForKey:@"artid"];

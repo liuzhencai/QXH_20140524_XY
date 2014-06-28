@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SquareViewController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *everyDayAskContentLbl;
+@property (weak, nonatomic) IBOutlet UILabel *everyDayAskDateLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *everyDayAskImg;
 @property (weak, nonatomic) IBOutlet UIButton *lastestBtn;
 @property (weak, nonatomic) IBOutlet UIButton *hotBtn;
 @property (weak, nonatomic) IBOutlet UITableView *squareTable;
