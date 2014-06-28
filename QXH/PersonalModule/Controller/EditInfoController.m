@@ -34,6 +34,38 @@
     _infoField.text =  tmpValue;
     
     defaultValue = tmpValue;
+    
+    switch (self.selectedIndex) {
+        case 0:
+            self.title = @"真实姓名";
+            break;
+        case 1:
+            self.title = @"个性签名";
+            break;
+        case 2:
+            self.title = @"工作单位";
+            break;
+        case 3:
+            self.title = @"城市信息";
+            break;
+        case 4:
+            self.title = @"单位职务";
+            break;
+        case 5:
+            self.title = @"兴趣爱好";
+            break;
+        case 6:
+            self.title = @"毕业院校";
+            break;
+        case 7:
+            self.title = @"手机号";
+            break;
+        case 8:
+            self.title = @"曾获荣誉";
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning
