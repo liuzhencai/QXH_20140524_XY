@@ -103,7 +103,7 @@
     
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
     
-    [[MessageBySend sharMessageBySend] getdata];
+    [MessageBySend sharMessageBySend];
 }
 
 - (void)startHeartBeat{
@@ -134,6 +134,7 @@
     
     // Override point for customization after application launch.
 //    [self loadPages];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

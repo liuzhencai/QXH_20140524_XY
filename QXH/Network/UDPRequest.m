@@ -7,38 +7,49 @@
 //
 
 #import "UDPRequest.h"
+#import "JSONKit.h"
 
 static UDPRequest *udpRequest;
 
 @interface UDPRequest ()
-{
-    GCDAsyncUdpSocket *udpSocket;
-}
+@property (nonatomic, strong) GCDAsyncUdpSocket *udpSocket;
 @end
 
 @implementation UDPRequest
 
 - (void)setupSocket
 {
-	udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-	
-	NSError *error = nil;
-	
-	if (![udpSocket bindToPort:0 error:&error])
+	_udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+
+    NSError *error;
+    /**
+     *  绑定端口
+     */
+    if (![_udpSocket bindToPort:SOCKET_PORT error:&error])
 	{
 		return;
 	}
-	if (![udpSocket beginReceiving:&error])
+    
+    // 发送广播设置
+    [_udpSocket enableBroadcast:YES error:&error];
+    
+    if (![_udpSocket joinMulticastGroup:SOCKET_SERVER error:&error])
+    {
+        NSLog(@"开启组播失败--->%@",[error description]);
+    }
+    
+	if (![_udpSocket beginReceiving:&error])
 	{
 		return;
 	}
+
 }
 
 - (id)init
 {
     self = [super init];
     if (self) {
-       	if (udpSocket == nil)
+       	if (_udpSocket == nil)
         {
             [self setupSocket];
         }
@@ -52,7 +63,7 @@ static UDPRequest *udpRequest;
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:nil];
     NSData *data = [GTMBase64 encodeData:jsonData];
-	[udpSocket sendData:data toHost:SOCKET_SERVER port:SOCKET_PORT withTimeout:-1 tag:tag];
+	[_udpSocket sendData:data toHost:SOCKET_SERVER port:SOCKET_PORT withTimeout:-1 tag:tag];
     tag++;
 }
 
@@ -70,6 +81,22 @@ static UDPRequest *udpRequest;
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
+    BOOL isSuccess = NO;
+    NSUInteger failtimes = 0;
+    id returnValue = nil;
+    if (!isSuccess) {
+        JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
+        returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
+        if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
+            isSuccess = YES;
+            NSLog(@"接收到消息--->%@",returnValue);
+        }else{
+            ++failtimes;
+        }
+    }
+    //    if (failtimes == 4) {
+    //        error([returnValue objectForKey:@"info"]);
+    //    }
     self.block(data);
 }
 

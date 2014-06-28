@@ -519,13 +519,6 @@ withCompletionHandler:(DictCallback)callback;
 withCompletionHandler:(DictCallback)callback;
 
 /**
- *  服务器推送消息/通知
- *
- *  @param callback 回调
- */
-+ (void)recvRemoteNoficationWithCompletionHandler:(DictCallback)callback;
-
-/**
  *  客户端发送收到消息/通知（此时服务器端更新消息状态，将消息设置为已读）
  *
  *  @param messids  消息唯一标识符,多个消息以逗号隔开

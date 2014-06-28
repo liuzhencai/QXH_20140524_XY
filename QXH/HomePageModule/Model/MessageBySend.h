@@ -42,7 +42,6 @@
 
 +(MessageBySend*)sharMessageBySend;
 
-- (void)getdata;
 @end
 
 
