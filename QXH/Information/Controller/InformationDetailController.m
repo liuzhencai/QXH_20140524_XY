@@ -26,6 +26,8 @@
     _commentNumLabel.text = detailmodel.commenttime;
     _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
+    
+    // 加载webview数据
     [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:nil];
 }
 
@@ -34,7 +36,6 @@
     [DataInterface getDetailInfo:@"2" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
         detailmodel = [ModelGenerator json2InfoDetail:dict];
         [self setValueForView];
-        [_infoDetailTbl reloadData];
     }];
 }
 
@@ -52,10 +53,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"智谷";
-    
-    if (IOS7_OR_LATER) {
-        [_infoDetailTbl setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
-    }
     
     [self getDetailInfo];
 
@@ -79,14 +76,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
-    CGRect frame = webView.frame;
-    webView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, height);
-    NSLog(@"webViewFrame--->%@",[NSValue valueWithCGRect:webView.frame]);
 }
 
 - (IBAction)click:(id)sender {
