@@ -29,13 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    NSString *tmpValue = [((EditCardController *)self.delegate).valueArr objectAtIndex:self.selectedIndex];
+    NSString *tmpValue = [((EditCardController *)self.delegate).valueArr objectAtIndex:self.selectedIndex-1];
     
     _infoField.text =  tmpValue;
     
     defaultValue = tmpValue;
     
-    switch (self.selectedIndex) {
+    switch (self.selectedIndex-1) {
         case 0:
             self.title = @"真实姓名";
             break;
@@ -93,10 +93,10 @@
     }
     
     if ([self.delegate respondsToSelector:@selector(changeValue:WithIndex:)]) {
-        [self.delegate changeValue:_infoField.text WithIndex:_selectedIndex];
+        [self.delegate changeValue:_infoField.text WithIndex:_selectedIndex-1];
     }
     
-    switch (self.selectedIndex) {
+    switch (self.selectedIndex-1) {
         case 0:
         {
             [DataInterface modifyUserInfo:_infoField.text

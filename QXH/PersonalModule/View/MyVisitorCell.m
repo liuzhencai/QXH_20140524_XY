@@ -30,9 +30,9 @@
 {
     [_portraitView circular];
     [_portraitView setImageWithURL:IMGURL(vistor.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    _titleLabel.text = vistor.username;
+    _titleLabel.text = vistor.displayname;
     _dateLabel.text = vistor.date;
-    _displayLabel.text = vistor.displayname;
+    _displayLabel.text = vistor.signature;
 }
 
 @end
