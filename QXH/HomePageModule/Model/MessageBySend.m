@@ -20,21 +20,20 @@ static MessageBySend* ins =nil;
     return self;
 }
 
-
 +(MessageBySend*)sharMessageBySend
 {
     if (!ins) {
         ins = [[MessageBySend alloc]init];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
     }
     return ins ;
 }
 
-- (void)getdata
+- (void)recvMsg:(NSNotification *)notif
 {
-    [DataInterface recvRemoteNoficationWithCompletionHandler:^(NSMutableDictionary *dict){
-        NSLog(@"服务器推送消息/通知：%@",dict);
-//        [self showAlert:[dict objectForKey:@"info"]];
-    }];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器推送消息" message:[[notif userInfo] description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
 }
+
 @end
 

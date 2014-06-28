@@ -3397,8 +3397,9 @@ enum GCDAsyncUdpSocketConfig
 			struct ip_mreq imreq;
 			imreq.imr_multiaddr = nativeGroup->sin_addr;
 			imreq.imr_interface = nativeIface->sin_addr;
-			
+				
 			int status = setsockopt(socket4FD, IPPROTO_IP, requestType, (const void *)&imreq, sizeof(imreq));
+            
 			if (status != 0)
 			{
 				err = [self errnoErrorWithReason:@"Error in setsockopt() function"];

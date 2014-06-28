@@ -21,7 +21,7 @@
 
 #define SOCKET_PORT 9002
 
-#define HEART_BEAT 60
+#define HEART_BEAT 30
 
 #define IMG_URL @"http://"HOST_URL@"/qxh/fileupload/images/"
 

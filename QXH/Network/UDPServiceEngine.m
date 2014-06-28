@@ -45,7 +45,7 @@
 {
     __block BOOL isSuccess = NO;
     __block NSUInteger failtimes = 0;
-//    udp.block = udp.block = ^(NSData *data){
+
     udp.block = ^(NSData *data){
         id returnValue = nil;
         if (!isSuccess) {
@@ -94,6 +94,9 @@
             returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
             if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
                 isSuccess = YES;
+                if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:returnValue];   
+                }
                 callback(returnValue);
             }else{
                 ++failtimes;

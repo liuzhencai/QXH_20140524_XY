@@ -134,7 +134,7 @@
  ---------------------------------------------------------------------------------------------------------------------------------
  */
 
-@interface UDPRequest : NSObject
+@interface UDPRequest : NSObject<GCDAsyncUdpSocketDelegate>
 {
     long tag;
 }
