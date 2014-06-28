@@ -181,10 +181,6 @@
 //            }
 //        }];
 //        recvRemoteNoficationWithCompletionHandler
-        [DataInterface recvRemoteNoficationWithCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"服务器推送消息/通知：%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
-        }];
     }
 }
 
