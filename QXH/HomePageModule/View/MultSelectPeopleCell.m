@@ -34,11 +34,14 @@
         
         _name = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 200, lableHeight)];
         _name.text = @"李某某";
+        _name.font = [UIFont systemFontOfSize:14];
         _name.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_name];
         
         _duty = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight)];
         _duty.text = @"xxxxxxxxxxxxx校长";
+        _duty.font = [UIFont systemFontOfSize:14];
+        _duty.textColor = [UIColor lightGrayColor];
         _duty.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_duty];
         

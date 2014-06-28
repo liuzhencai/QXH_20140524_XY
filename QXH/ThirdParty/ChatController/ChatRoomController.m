@@ -87,7 +87,8 @@ static int scout=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"XXXX部落";
+//    self.title = @"XXXX部落";
+    self.title = [self.tribeInfoDict objectForKey:@"tribename"];
 
     /*默认当前界面是聊天*/
     FrontViewTag = CONVERSATION_TABLE_TAG;

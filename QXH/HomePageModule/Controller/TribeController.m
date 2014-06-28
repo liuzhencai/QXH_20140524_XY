@@ -18,6 +18,8 @@
 
 
 @interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
+@property (nonatomic, strong) UITableView *myTribesTable;
+@property (nonatomic, strong) UITableView *allTribesTable;
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *tribeList;//我的部落
 @property (nonatomic, strong) NSMutableArray *allTribeList;//所有部落
@@ -26,6 +28,8 @@
 
 #define MY_TRIBE_TABLE_TAG 2330
 #define ALL_TRIBE_TABLE_TAG 2331
+
+#define CELL_HEIGHT 80
 
 @implementation TribeController
 
@@ -47,33 +51,7 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
-    // Do any additional setup after loading the view from its nib.
     self.title = @"部落";
-    
-//    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
-//    for (int j = 0; j < 3; j ++) {
-//        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
-//        for (int i = 0; i < 20; i ++) {
-//            [tmp2 addObject:@{@"name":@"北约",@"des":@"最新发言内容",@"creater":@"ABC",@"imgUrl":@""}];
-//        }
-//        NSString *name = @"A";
-//        if (j == 0) {
-//            name = @"A";
-//        }else if(j == 1){
-//            name = @"B";
-//        }else{
-//            name = @"C";
-//        }
-//        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
-//        [tmpArr addObject:dict];
-//    }
-//    self.tribeList = [NSArray arrayWithArray:tmpArr];
-//    
-//    NSMutableArray *tmpMyMessage = [NSMutableArray arrayWithCapacity:0];
-//    for (int i = 0; i < 20; i ++) {
-//        [tmpMyMessage addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
-//    }
-//    self.allTribeList = [NSArray arrayWithArray:tmpMyMessage];
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,80, 30);
@@ -91,14 +69,19 @@
     //table
     UITableView *allTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
     allTribeTable.tag = ALL_TRIBE_TABLE_TAG;
+    self.allTribesTable = allTribeTable;
+    allTribeTable.hidden = YES;
     allTribeTable.delegate = self;
     allTribeTable.dataSource = self;
+    allTribeTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:allTribeTable];
     
     UITableView *myTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
     myTribeTable.tag = MY_TRIBE_TABLE_TAG;
+    self.myTribesTable = myTribeTable;
     myTribeTable.delegate = self;
     myTribeTable.dataSource = self;
+    myTribeTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:myTribeTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, UI_SCREEN_WIDTH, 44.0f)];
@@ -116,7 +99,6 @@
 }
 
 - (void)getTribeList{
-    
     /**
      *  获取部落/群组/直播间列表
      *
@@ -147,10 +129,17 @@
                   if (dict) {
                       NSArray *list = [dict objectForKey:@"list"];
                       self.tribeList = [NSMutableArray arrayWithArray:list];
-                      UITableView *table = (UITableView *)[self.view viewWithTag:MY_TRIBE_TABLE_TAG];
-                      [table reloadData];
+//                      UITableView *table = (UITableView *)[self.view viewWithTag:MY_TRIBE_TABLE_TAG];
+                      
+//                      CGFloat tableHeight = [list count] * CELL_HEIGHT + 44;
+//                      CGFloat viewHight = UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 32;
+//                      tableHeight = tableHeight < viewHight ? tableHeight : viewHight;
+//                      CGRect tableFrame = _myTribesTable.frame;
+//                      tableFrame.size.height = tableHeight;
+//                      _myTribesTable.frame = tableFrame;
+                      
+                      [_myTribesTable reloadData];
                   }
-//                  [self showAlert:[dict objectForKey:@"info"]];
     }];
 }
 
@@ -165,8 +154,12 @@
     NSLog(@"%d",index);
     NSInteger tag = MY_TRIBE_TABLE_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
+    table.hidden = NO;
     [self.view bringSubviewToFront:table];
-
+    
+    NSInteger lastTag = (tag + 1) % 2 + MY_TRIBE_TABLE_TAG;
+    UITableView *lastTable = (UITableView *)[self.view viewWithTag:lastTag];
+    lastTable.hidden = YES;
     if (index == 1) {
         /**
          *  获取部落/群组/直播间列表
@@ -211,9 +204,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-//        return 1;
-//    }
     return 1;
 }
 
@@ -250,38 +240,6 @@
 //        NSDictionary *dict = [self.tribeList objectAtIndex:section];
 //        NSString *titleStr = [dict objectForKey:@"name"];
 //
-//        title.text = titleStr;
-//        title.backgroundColor = [UIColor clearColor];
-//        [bgView addSubview:title];
-//        
-//        return bgView;
-//    }
-//    return nil;
-//}
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-//        return 20;
-//    }else{
-//        return 0;
-//    }
-//}
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-//        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
-//        bgView.image = [UIImage imageNamed:@"bar_transition"];
-//        
-//        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-//        NSDictionary *dict = [self.tribeList objectAtIndex:section];
-//        NSString *titleStr = [dict objectForKey:@"name"];
-////        if (section == 0) {
-////            titleStr = @"A";
-////        }else if (section == 1){
-////            titleStr = @"B";
-////        }else {
-////            titleStr = @"C";
-////        }
 //        title.text = titleStr;
 //        title.backgroundColor = [UIColor clearColor];
 //        [bgView addSubview:title];

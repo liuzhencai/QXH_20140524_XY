@@ -92,7 +92,7 @@
     switch (row) {
         case 0:
         {
-            rowHeight = 210.f;
+            rowHeight = 210 - 20;
         }
             break;
         case 1:

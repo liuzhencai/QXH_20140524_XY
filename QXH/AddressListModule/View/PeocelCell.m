@@ -34,6 +34,7 @@
         
         _duty = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight)];
         _duty.text = @"xxxxxxxxxxxxx校长";
+        _duty.textColor = [UIColor lightGrayColor];
         _duty.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_duty];
         
@@ -88,7 +89,7 @@
 //    if ([nameStr length] > 0) {
         self.name.text = nameStr;
 //    }
-    NSString *dutyString = [params objectForKey:@"remark"];
+    NSString *dutyString = [params objectForKey:@"signature"];
 //    if ([dutyString length] > 0) {
         self.duty.text = dutyString;
 //    }

@@ -245,13 +245,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag == ACTIVITY_TABLE_TAG) {
         static NSString *addrIdentifier = @"activeEndIdentifier";
-//        ActivityCell *activeEndCell = nil;
-//        activeEndCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
-//        if (!activeEndCell) {
-//            activeEndCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
-//            activeEndCell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        }
-//        activeEndCell.statusLabel.text = @"已结束";
         
         InActivityCell *activityingCell = nil;
         activityingCell = [tableView dequeueReusableCellWithIdentifier:addrIdentifier];
