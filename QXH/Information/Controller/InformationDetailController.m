@@ -20,8 +20,6 @@
 - (void)setValueForView
 {
     _articleTitleLabel.text = detailmodel.title;
-    _sourceLabel.text = detailmodel.authflag;
-    _authLabel.text = detailmodel.author;
     _readNumLabel.text = detailmodel.browsetime;
     _commentNumLabel.text = detailmodel.commenttime;
     _postLabel.text = detailmodel.relaytime;
@@ -53,7 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"智谷";
-    
+      
     [self getDetailInfo];
 
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
