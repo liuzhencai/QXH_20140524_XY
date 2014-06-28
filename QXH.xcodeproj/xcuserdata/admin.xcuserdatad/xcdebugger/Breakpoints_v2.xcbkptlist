@@ -247,36 +247,6 @@
             endingLineNumber = "486"
             landmarkName = "+recvRemoteNoficationWithCompletionHandler:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[DataInterface recvRemoteNoficationWithCompletionHandler:]"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/Network/DataInterface.m"
-                  timestampString = "425654248.900594"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "486"
-                  endingLineNumber = "486"
-                  offsetFromSymbolStart = "66">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__59+[DataInterface recvRemoteNoficationWithCompletionHandler:]_block_invoke"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/Network/DataInterface.m"
-                  timestampString = "425654248.900867"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "486"
-                  endingLineNumber = "486"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -309,36 +279,6 @@
             endingLineNumber = "184"
             landmarkName = "-segmentClicked:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AddressListViewController segmentClicked:]"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/AddressListModule/Controller/AddressListViewController.m"
-                  timestampString = "425654248.901624"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "288">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__44-[AddressListViewController segmentClicked:]_block_invoke"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/AddressListModule/Controller/AddressListViewController.m"
-                  timestampString = "425654248.901919"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -353,7 +293,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
             endingLineNumber = "35"
-            landmarkName = "-getdata"
+            landmarkName = "-recvMsg:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -369,38 +309,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
             endingLineNumber = "33"
-            landmarkName = "-getdata"
+            landmarkName = "-recvMsg:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MessageBySend getdata]"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/HomePageModule/Model/MessageBySend.m"
-                  timestampString = "425654248.902526"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__24-[MessageBySend getdata]_block_invoke"
-                  moduleName = "QXH"
-                  urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/HomePageModule/Model/MessageBySend.m"
-                  timestampString = "425654248.902878"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -425,7 +335,7 @@
                   symbolName = "-[UDPServiceEngine receiveDataWithCompletionHandler:andErrorHandler:]"
                   moduleName = "QXH"
                   urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/Network/UDPServiceEngine.m"
-                  timestampString = "425654248.903284"
+                  timestampString = "425656579.296194"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "49"
@@ -439,7 +349,7 @@
                   symbolName = "__69-[UDPServiceEngine receiveDataWithCompletionHandler:andErrorHandler:]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/admin/Desktop/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E5%BC%BA%E5%AD%A6%E4%BC%9A/%E4%BB%A3%E7%A0%81/QXH_20140524_XY/QXH/Network/UDPServiceEngine.m"
-                  timestampString = "425654248.903728"
+                  timestampString = "425656579.296665"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "49"
@@ -494,6 +404,22 @@
             startingLineNumber = "62"
             endingLineNumber = "62"
             landmarkName = "-receiveDataWithCompletionHandler:andErrorHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Network/UDPServiceEngine.m"
+            timestampString = "425656360.118331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "-sendData:withCompletionHandler:andErrorHandler:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
