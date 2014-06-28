@@ -77,12 +77,12 @@ static UDPRequest *udpRequest;
 	// You could add checks here
 }
 
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock
+   didReceiveData:(NSData *)data
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
     BOOL isSuccess = NO;
-    NSUInteger failtimes = 0;
     id returnValue = nil;
     if (!isSuccess) {
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
@@ -90,13 +90,11 @@ withFilterContext:(id)filterContext
         if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
             isSuccess = YES;
             NSLog(@"接收到消息--->%@",returnValue);
-        }else{
-            ++failtimes;
+            if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:returnValue];
+            }
         }
     }
-    //    if (failtimes == 4) {
-    //        error([returnValue objectForKey:@"info"]);
-    //    }
     self.block(data);
 }
 

@@ -94,9 +94,6 @@
             returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
             if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
                 isSuccess = YES;
-                if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:returnValue];   
-                }
                 callback(returnValue);
             }else{
                 ++failtimes;
