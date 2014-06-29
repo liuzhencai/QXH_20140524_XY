@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+//@protocol MessageBySendDelegate <NSObject>
+//
+///*部落聊天室聊天刷新接口*/
+//- (void)ChatRoomReloade:(NSMutableArray*)achatRoomMess;
+//
+//@end
+
 @interface MessageBySend : NSObject
 {
     /*sendtype 0;系统消息存储进该数组，其中元素是字典*/
@@ -38,7 +45,12 @@
     NSMutableArray* someOnMess;
     /*sendtype 13;@部落存储进该数组，其中元素是字典*/
     NSMutableArray* someTribeOnMess;
+    
+    /*存储上一个获取到的消息，如果两个一样，就抛弃*/
+    NSString* messid;
 }
+
+//@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
 
 +(MessageBySend*)sharMessageBySend;
 

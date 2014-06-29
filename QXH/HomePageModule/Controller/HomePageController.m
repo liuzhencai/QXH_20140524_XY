@@ -19,6 +19,7 @@
 #import "ChatController.h"
 #import "FillNameCardViewController.h"
 #import "LoginViewController.h"
+#import "MessageBySend.h"
 
 
 @interface HomePageController ()<LoginDelegate>
@@ -88,6 +89,9 @@
 //        [self showAlert:[dict objectForKey:@"info"]];
 
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+        
+        /*获取系统消息*/
+           [MessageBySend sharMessageBySend];
     }];
 }
 

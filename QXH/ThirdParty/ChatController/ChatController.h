@@ -22,7 +22,7 @@
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;
 //FOUNDATION_EXPORT NSString * const kMessageContent;
-FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
+FOUNDATION_EXPORT NSString * const kMessageSentBy;
 //FOUNDATION_EXPORT NSString * const kMessageTimestamp;
 
 @class ChatController;

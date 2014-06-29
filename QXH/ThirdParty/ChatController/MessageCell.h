@@ -24,6 +24,13 @@ typedef enum {
     kSentByOpponent,
 } SentBy;
 
+
+typedef enum {
+    kSentIng,
+    kSentOk,
+    kSentFail
+} SendState;
+
 // Used for shared drawing btwn self & chatController
 FOUNDATION_EXPORT int const outlineSpace;
 FOUNDATION_EXPORT int const maxBubbleWidth;
@@ -42,7 +49,7 @@ FOUNDATION_EXPORT int const maxBubbleWidth;
 
 // Message Dictionary Keys
 FOUNDATION_EXPORT NSString * const kMessageSize;
-FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
+FOUNDATION_EXPORT NSString * const kMessageSentBy;
 #if defined(__has_include)
 #if __has_include("FSChatManager.h")
 // (namespace)
@@ -87,5 +94,15 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
  拍照的图片
  */
 @property (strong, nonatomic) UIImageView *picImageView;
+
+/*
+ 发送状态的图片
+ */
+@property (strong, nonatomic) UIImageView *stateImageView;
+
+/*
+ 设置状态的图片
+ */
+-(void)addStateImageView:(NSInteger)senstate;
 
 @end

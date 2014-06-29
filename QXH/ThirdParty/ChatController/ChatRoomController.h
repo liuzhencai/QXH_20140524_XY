@@ -22,7 +22,7 @@
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;
 //FOUNDATION_EXPORT NSString * const kMessageContent;
-FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
+FOUNDATION_EXPORT NSString * const kMessageSentBy;
 //FOUNDATION_EXPORT NSString * const kMessageTimestamp;
 
 @class ChatController;
@@ -61,9 +61,14 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
 
 //@property (nonatomic, strong) UIView *chatview;//部落信息
 @property (nonatomic, strong) UIView *askView;//每日一问
+
+- (void)messageSendByUser:(NSMutableDictionary *)message;
+/*对方发送消息*/
+- (void)messageSendByOpponent:(NSMutableDictionary *)message;
 /*设置聊天室标题*/
 //- (void) setChatTitle:(NSString *)chatTitle;
 #pragma mark PROPERTIES
+
 
 /*!
  The color of the user's chat bubbles
@@ -113,7 +118,7 @@ FOUNDATION_EXPORT NSString * const kMessageRuntimeSentBy;
 /*!
  Add new message to view
  */
-- (void) addNewMessage:(NSDictionary *)message;
+//- (void) addNewMessage:(NSDictionary *)message;
 
 #pragma mark CONNECTION UI NOTIFICATIONS
 

@@ -699,7 +699,7 @@ static int scout=0;
     
     
     scout++;
-    message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:((scout%2)?kSentByUser:kSentByOpponent)];
+    message[@"kMessageSentBy"] = [NSNumber numberWithInt:((scout%2)?kSentByUser:kSentByOpponent)];
     
     // Must add message to controller for it to show
     [self addNewMessage:message];

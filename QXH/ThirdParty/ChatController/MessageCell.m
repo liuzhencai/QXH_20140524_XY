@@ -23,7 +23,7 @@ int const maxBubbleWidth = 260; // Max Bubble Size
 // Message Dict Keys
 NSString * const kMessageSize = @"size";
 //消息发送者
-NSString * const kMessageRuntimeSentBy = @"runtimeSentBy";
+NSString * const kMessageSentBy = @"MessageSentBy";
 
 
 
@@ -50,6 +50,9 @@ static int offsetX = 6; // 6 px from each side
 // Minimum Bubble Height
 static int minimumHeight = 30;
 
+#define kStateImageViewWidth 24
+#define kStateImageViewHigth 17
+
 @interface MessageCell()
 
 // Who Sent The Message
@@ -72,6 +75,7 @@ static int minimumHeight = 30;
 
 @implementation MessageCell
 @synthesize MyHeadimageView,picImageView;
+@synthesize stateImageView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -88,6 +92,13 @@ static int minimumHeight = 30;
         // Green
         _userColor = [UIColor colorWithRed:0.14726 green:0.838161 blue:0.533935 alpha:1];
         
+        /*发送状态的图片*/
+        if (!stateImageView) {
+            stateImageView = [[UIImageView alloc]init];
+            stateImageView.backgroundColor = [UIColor clearColor];
+            stateImageView.hidden = YES;
+            [self.contentView addSubview:stateImageView];
+        }
         //由label来做气泡的
         if (!_bgLabel) {
             _bgLabel = [UILabel new];
@@ -194,7 +205,7 @@ static int minimumHeight = 30;
 
 - (void) drawCell {
     
-    NSNumber* kSentby = (NSNumber*)[_message valueForKey:@"kMessageRuntimeSentBy"];
+    NSNumber* kSentby = (NSNumber*)[_message valueForKey:@"kMessageSentBy"];
      _sentBy = [kSentby intValue];
     //liuzhencai 如果显示是图片
     if (_message[kPicContent])
@@ -232,8 +243,9 @@ static int minimumHeight = 30;
         
         if (_sentBy == kSentByUser) {
             // then this is a message that the current user created . . .
-            _bgLabel.frame = (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) ? CGRectMake(ScreenWidth() - offsetX, 0, -_textSize.width - outlineSpace, height) : CGRectMake(ScreenHeight() - offsetX, 0, -_textSize.width - outlineSpace, height);
+            _bgLabel.frame = CGRectMake(ScreenWidth() - offsetX, 0, -_textSize.width - outlineSpace, height) ;
             _bgLabel.layer.borderColor = _userColor.CGColor;
+     
         }
         else {
             // sent by opponent
@@ -251,6 +263,7 @@ static int minimumHeight = 30;
             for (UIView * v in @[_bgLabel, _textLabel]) {
                 v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width, v.center.y);
             }
+            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth, kStateImageViewHigth);
         }
         else {
             for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -268,5 +281,35 @@ static int minimumHeight = 30;
   
 }
 
+-(void)addStateImageView:(NSInteger)senstate
+{
+    stateImageView.hidden = NO;
+    switch (senstate) {
+        case kSentIng:
+        {
+            UIImage* aimage =[UIImage imageNamed:@"msg_state_sending.png"];
+            stateImageView.image = aimage;
+            
+        }
+            break;
+        case kSentOk:
+        {
+            UIImage* aimage =nil;
+            stateImageView.image = aimage;
+            stateImageView.hidden = YES;
+        }
+            break;
+        case kSentFail:
+        {
+            UIImage* aimage =[UIImage imageNamed:@"msg_state_send_error.png"];
+            stateImageView.image = aimage;
+        }
+            break;
+        default:
+            break;
+    }
+    
+
+}
 
 @end
