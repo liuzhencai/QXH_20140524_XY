@@ -121,15 +121,14 @@
 
 - (void)addTopImage
 {
-    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
-        
-    }];
+//    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
+//        
+//    }];
     for (int i = 0; i < pics.count; i++) {
-        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 132)];
+        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 173)];
         image.image = [UIImage imageNamed:pics[i]];
         [_topScroll addSubview:image];
     }
-    [_topScroll bringSubviewToFront:_pageControl];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
