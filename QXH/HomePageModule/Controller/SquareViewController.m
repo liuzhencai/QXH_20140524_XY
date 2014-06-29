@@ -71,53 +71,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (UITableViewCell *)loadCell:(UITableView *)tableView index:(NSInteger)index
-{
-    SquareInfo *model = [squareInfoList objectAtIndex:index];
-    UITableViewCell *tblCell = nil;
-    switch (model.type) {
-        case 1:
-        {
-            static NSString *cellIdentifier = @"squareCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            [(SquareCell *)cell setCellData:model];
-            tblCell = cell;
-        }
-            break;
-        case 2:
-        {
-            static NSString *cellIdentifier = @"squareCellEx";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            [(SquareCellEx *)cell setCellData:model];
-            tblCell = cell;
-        }
-            break;
-        case 3:
-        {
-            static NSString *cellIdentifier = @"squareActivityCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            [(SquareActivityCell *)cell setCellData:model];
-            tblCell = cell;
-        }
-            break;
-        default:
-            break;
-    }
-    return tblCell;
-}
-
 - (UITableViewCell *)loadTblData:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
     SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
