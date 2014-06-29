@@ -135,6 +135,7 @@
         [defaults setObject:self.nameField.text forKey:USER_NAME];
         [defaults setObject:self.pwField.text forKey:PASSWORLD];
         [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
+        [defaults setObject:[dict objectForKey:@"token"] forKey:@"token"];
         [defaults setObject:@NO forKey:@"isNewMember"];
         NSDate *date = [NSDate date];
         [defaults setObject:date forKey:LOGIN_DATE];
