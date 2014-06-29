@@ -26,7 +26,7 @@
     _dateLabel.text = detailmodel.date;
     
     // 加载webview数据
-    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:nil];
+    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:[NSURL URLWithString:@"http://180.97.46.40:8070"]];
 }
 
 - (void)getDetailInfo
