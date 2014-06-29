@@ -76,6 +76,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    _saveBtn.userInteractionEnabled = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -96,6 +97,7 @@
         [self.delegate changeValue:_infoField.text WithIndex:_selectedIndex-1];
     }
     
+    _saveBtn.userInteractionEnabled = NO;
     switch (self.selectedIndex-1) {
         case 0:
         {
