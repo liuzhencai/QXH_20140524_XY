@@ -176,14 +176,24 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    exit(0);
+}
+
 - (void)logout:(id)sender
 {
     NSLog(@"注销");
 
     [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
-//        [defaults removeObjectForKey:@"userid"];
-//        [defaults removeObjectForKey:@"token"];
-        [self showAlert:[dict objectForKey:@"info"]];
+        if ([defaults objectForKey:@"userid"]) {
+            [defaults removeObjectForKey:@"userid"];
+        }
+        if ([defaults objectForKey:@"token"]) {
+            [defaults removeObjectForKey:@"token"];
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
     }];
 }
 
