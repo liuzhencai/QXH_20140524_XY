@@ -91,7 +91,12 @@ withFilterContext:(id)filterContext
             isSuccess = YES;
             NSLog(@"接收到消息--->%@",returnValue);
             if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:returnValue];
+                static NSString *oldSign;
+                NSString *newSign = [returnValue objectForKey:@"sign"];
+                if (![oldSign isEqualToString:newSign]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:returnValue];
+                }
+                oldSign = [returnValue objectForKey:@"sign"];
             }
         }
     }
