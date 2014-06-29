@@ -111,6 +111,9 @@
 
 - (void)addTopImage
 {
+    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
+        
+    }];
     for (int i = 0; i < pics.count; i++) {
         UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 132)];
         image.image = [UIImage imageNamed:pics[i]];

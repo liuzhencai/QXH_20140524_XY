@@ -89,7 +89,6 @@ withFilterContext:(id)filterContext
         returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
         if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
             isSuccess = YES;
-            NSLog(@"接收到消息--->%@",returnValue);
             if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
                 static NSString *oldSign;
                 NSString *newSign = [returnValue objectForKey:@"sign"];
