@@ -40,6 +40,15 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([defaults objectForKey:@"userid"]) {
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+            [self setTopViewValue:dict];
+        }];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -86,9 +95,6 @@
         [defaults setObject:date forKey:LOGIN_DATE];
         [defaults synchronize];
         NSLog(@"登陆返回信息：%@",dict);
-        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-            [self setTopViewValue:dict];
-        }];
         
 //        [self showAlert:[dict objectForKey:@"info"]];
 

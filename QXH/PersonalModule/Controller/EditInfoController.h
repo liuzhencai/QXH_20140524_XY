@@ -21,6 +21,7 @@
 
 @property (nonatomic, weak) id<ChangeUserInfoDelgate> delegate;
 
+@property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UITextField *infoField;
 
 @property (nonatomic, assign) NSInteger selectedIndex;

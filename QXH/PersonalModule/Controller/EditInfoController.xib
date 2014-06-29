@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditInfoController">
             <connections>
                 <outlet property="infoField" destination="SVL-Ns-R9e" id="NSi-hJ-ytv"/>
+                <outlet property="saveBtn" destination="Cew-Go-eo9" id="KDs-lo-t77"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
