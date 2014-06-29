@@ -41,7 +41,7 @@
         [bgImgView addSubview:_activityTypeLabel];
         
         //desc
-        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 10, 280, 40)
+        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(5, titleBgImgView.bottom + 10, 280, 20)
                                                        text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
                                                       color:[UIColor blackColor]
                                                        font:[UIFont systemFontOfSize:16]];
@@ -49,24 +49,27 @@
         [bgImgView addSubview:_activityDescriptionLabel];
         
         //image
-        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80, 60)
+        _activityImage = [self addImageViewWithFrame:CGRectMake(210 - 35, _activityDescriptionLabel.bottom + 5, 80 + 32, 60 + 24)
                                            imageName:[UIImage imageNamed:@"img_news"]];
         [bgImgView addSubview:_activityImage];
         
-        NSArray *items = @[@"来   自:",@"时   间:",@"",@"地   点:"];
+//        NSArray *items = @[@"来   自:",@"时   间:",@"",@"地   点:"];
+        NSArray *items = @[@"来自:",@"时间:",@"",@"地点:"];
         for (int i = 0; i < [items count]; i ++) {
             
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(30, _activityDescriptionLabel.bottom + 5 + i * 21, 65, 21)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 27, 32, 27)
                                                     text:[items objectAtIndex:i]
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:14]];
+                                                    font:[UIFont systemFontOfSize:12]];
             [bgImgView addSubview:itemTitle];
+//            itemTitle.backgroundColor = [UIColor redColor];
             
-            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 110, 21)
+            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 118, 27)
                                                     text:@""
                                                    color:[UIColor blackColor]
                                                     font:[UIFont systemFontOfSize:12]];
             [bgImgView addSubview:itemValue];
+//            itemValue.backgroundColor = [UIColor greenColor];
             
             NSString *imageName = @"";
             switch (i) {
@@ -94,6 +97,7 @@
                     imageName = @"icon_place";
                     self.addrLabel = itemValue;
                     self.addrLabel.text = @"中关村";
+                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
                 }
                     break;
                     
@@ -101,7 +105,7 @@
                     break;
             }
             
-            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(10, itemTitle.top + 4, 13, 13)
+            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(5, itemTitle.top + 7, 13, 13)
                                                          imageName:[UIImage imageNamed:imageName]];
             [bgImgView addSubview:iconImgView];
         }

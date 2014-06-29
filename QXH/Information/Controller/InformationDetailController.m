@@ -20,12 +20,13 @@
 - (void)setValueForView
 {
     _articleTitleLabel.text = detailmodel.title;
-    _sourceLabel.text = detailmodel.authflag;
-    _authLabel.text = detailmodel.author;
     _readNumLabel.text = detailmodel.browsetime;
     _commentNumLabel.text = detailmodel.commenttime;
     _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
+    
+    // 加载webview数据
+    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:nil];
 }
 
 - (void)getDetailInfo
@@ -33,7 +34,6 @@
     [DataInterface getDetailInfo:@"2" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
         detailmodel = [ModelGenerator json2InfoDetail:dict];
         [self setValueForView];
-        [_infoDetailTbl reloadData];
     }];
 }
 
@@ -51,11 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"智谷";
-    
-    if (IOS7_OR_LATER) {
-        [_infoDetailTbl setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
-    }
-    
+      
     [self getDetailInfo];
 
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -129,6 +125,7 @@
 - (IBAction)showAll:(id)sender {
     NSLog(@"查看全部");
 }
+/*
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -264,5 +261,5 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+*/
 @end

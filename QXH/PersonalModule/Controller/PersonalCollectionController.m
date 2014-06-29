@@ -8,6 +8,10 @@
 
 #import "PersonalCollectionController.h"
 #import "SquareViewController.h"
+#import "SquareCell.h"
+#import "SquareCellEx.h"
+#import "SquareActivityCell.h"
+#import "ShareTextController.h"
 
 @interface PersonalCollectionController ()
 {
@@ -20,8 +24,8 @@
 - (void)getInfoList
 {
     [DataInterface getInfoList:@"0" detailtype:@"" tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        info = [ModelGenerator json2InfoList:dict];
-        [self showAlert:[info description]];
+        info = [ModelGenerator json2SquareList:dict];
+        [_collectionTable reloadData];
     }];
 }
 
@@ -53,24 +57,130 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UITableViewCell *)loadTblData:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
+{
+    SquareInfo *model = [info objectAtIndex:indexPath.row];
+    
+    UITableViewCell *tblCell = nil;
+    /**
+     *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
+     */
+    switch (model.type) {
+        case 0:
+        {
+            static NSString *cellIdentifier = @"zeroTypeCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            tblCell = cell;
+        }
+            break;
+        case 1:
+        {
+            static NSString *cellIdentifier = @"squareCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareCell *)cell setCellData:model];
+            tblCell = cell;
+        }
+            break;
+        case 2:
+        {
+            static NSString *cellIdentifier = @"squareCellEx";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareCellEx *)cell setCellData:model];
+            tblCell = cell;
+        }
+            break;
+        case 3:
+        {
+            static NSString *cellIdentifier = @"squareActivityCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareActivityCell *)cell setCellData:model];
+            tblCell = cell;
+        }
+            break;
+        case 4:
+        {
+            static NSString *cellIdentifier = @"everyDayAskCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            tblCell = cell;
+        }
+            break;
+        default:
+            break;
+    }
+    return tblCell;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [info count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat rowHeight = 0.f;
+    SquareInfo *model = [info objectAtIndex:indexPath.row];
+    if (YES) {
+        switch (model.type) {
+            case 1:
+                rowHeight = 162.f;
+                break;
+            case 2:
+                rowHeight = 162.f;
+                break;
+            case 3:
+                rowHeight = 201.f;
+                break;
+            default:
+                break;
+        }
+    }else{
+        
+    }
+    return rowHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = @"collectionCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"CollectionCell" owner:nil options:nil] objectAtIndex:0];
-    }
-    return cell;
+    return [self loadTblData:tableView indexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SquareViewController *controller = [[SquareViewController alloc] initWithNibName:@"SquareViewController" bundle:nil];
+    SquareInfo *model = [info objectAtIndex:indexPath.row];
+    ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+    switch (model.type) {
+        case 1:
+            controller.type = SquareInfoTypeSq;
+            break;
+        case 2:
+            controller.type = SquareInfoTypeInf;
+            break;
+        case 3:
+            controller.type = SquareInfoTypeAct;
+            break;
+        default:
+            break;
+    }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }

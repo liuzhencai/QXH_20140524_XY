@@ -16,7 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 190)
+        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 190 - 20)
                                                    imageName:[UIImage imageNamed:@"label"]];
         [self.contentView addSubview:bgImgView];
         
@@ -30,20 +30,24 @@
         //title
         _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 5, 200, 20)
                                                  text:@"活动标题"
-                                                color:[UIColor blackColor]
+                                                color:GREEN_FONT_COLOR
                                                  font:[UIFont systemFontOfSize:16]];
         [bgImgView addSubview:_activityTitleLabel];
         
         //type
         _activityTypeLabel = [self addLabelWithFrame:typeBgImgView.frame
                                                 text:@"活动类型"
-                                               color:[UIColor blackColor]
+                                               color:[UIColor whiteColor]
                                                 font:[UIFont systemFontOfSize:14]];
         _activityTypeLabel.textAlignment = NSTextAlignmentCenter;
         [bgImgView addSubview:_activityTypeLabel];
         
         //desc
-        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 10, 280, 40)
+//        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 10, 280, 40)
+//                                                       text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
+//                                                      color:[UIColor blackColor]
+//                                                       font:[UIFont systemFontOfSize:16]];
+        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 0, 280, 0)
                                                        text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
                                                       color:[UIColor blackColor]
                                                        font:[UIFont systemFontOfSize:16]];
@@ -51,23 +55,30 @@
         [bgImgView addSubview:_activityDescriptionLabel];
         
         //image
-        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80, 60 - 4)
+//        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80, 60 - 4)
+//                                           imageName:[UIImage imageNamed:@"img_news"]];
+//        [bgImgView addSubview:_activityImage];
+        _activityImage = [self addImageViewWithFrame:CGRectMake(210 - 35, _activityDescriptionLabel.bottom + 5, 112, 84)
                                            imageName:[UIImage imageNamed:@"img_news"]];
+//        _activityImage.backgroundColor = [UIColor greenColor];
         [bgImgView addSubview:_activityImage];
         
-        NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
+//        NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
+        NSArray *items = @[@"来自:",@"发起人:",@"时间:",@"地点:"];
         for (int i = 0; i < [items count]; i ++) {
             
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(30, _activityDescriptionLabel.bottom + 5 + i * 25, 65, 25)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 30, 32, 30)
                                                     text:[items objectAtIndex:i]
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:14]];
+                                                    font:[UIFont systemFontOfSize:12]];
+//            itemTitle.backgroundColor = [UIColor redColor];
             [bgImgView addSubview:itemTitle];
             
-            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 120, 25)
+            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 18, 30)
                                                     text:@""
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:14]];
+                                                    font:[UIFont systemFontOfSize:12]];
+//            itemValue.backgroundColor = [UIColor greenColor];
             [bgImgView addSubview:itemValue];
             
             NSString *imageName = nil;
@@ -82,6 +93,8 @@
                     imageName = @"icon_zhujiangren";
                     self.orgnizerLabel = itemValue;
                     self.orgnizerLabel.text = @"苍井空";
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 8, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width - 8, itemValue.height);
                 }
                     break;
                 case 2:{//时间
@@ -94,6 +107,7 @@
                     imageName = @"icon_place";
                     self.addrLabel = itemValue;
                     self.addrLabel.text = @"中关村";
+                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
                 }
                     break;
                     
@@ -101,7 +115,7 @@
                     break;
             }
             
-            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(10, itemTitle.top + 4, 13, 13)
+            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(5, itemTitle.top + 8, 13, 13)
                                                          imageName:[UIImage imageNamed:imageName]];
             [bgImgView addSubview:iconImgView];
         }

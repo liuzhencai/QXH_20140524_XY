@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *topView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
+@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *topScroll;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 

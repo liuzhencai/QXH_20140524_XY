@@ -54,9 +54,13 @@
     self.title = @"详细资料";
     // Do any additional setup after loading the view.
     
-    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"",@"清空缓存"];
+//    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"",@"清空缓存"];
+//    if (self.isCreatDetail) {
+//        self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员"];
+//    }
+    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"",@"清空缓存"];
     if (self.isCreatDetail) {
-        self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员"];
+        self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"当前部落成员"];
     }
     
     _mainTable = [[YSKeyboardTableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 70) style:UITableViewStylePlain];
@@ -272,7 +276,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 7) {
+//    if (indexPath.row == 7) {
+//        return 80;
+//    }
+    if (indexPath.row == 5) {
         return 80;
     }
     return 44;
@@ -402,27 +409,27 @@
             [cell.contentView addSubview:_place];
         }
             break;
-        case 5:{//新消息通知
-            if (!_newsSwitch) {
-                _newsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
-                _newsSwitch.tag = 201;
-                _newsSwitch.on = YES;
-                [_newsSwitch addTarget:self action:@selector(newsSwitchAction:) forControlEvents:UIControlEventValueChanged];
-            }
-            [cell.contentView addSubview:_newsSwitch];
-        }
-            break;
-        case 6:{//置顶聊天
-            if (!_topSwitch) {
-                _topSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
-                _topSwitch.tag = 201;
-                _topSwitch.on = NO;
-                [_topSwitch addTarget:self action:@selector(topSwitchAction:) forControlEvents:UIControlEventValueChanged];
-            }
-            [cell.contentView addSubview:_topSwitch];
-        }
-            break;
-        case 7:{//介绍
+//        case 5:{//新消息通知
+//            if (!_newsSwitch) {
+//                _newsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
+//                _newsSwitch.tag = 201;
+//                _newsSwitch.on = YES;
+//                [_newsSwitch addTarget:self action:@selector(newsSwitchAction:) forControlEvents:UIControlEventValueChanged];
+//            }
+//            [cell.contentView addSubview:_newsSwitch];
+//        }
+//            break;
+//        case 6:{//置顶聊天
+//            if (!_topSwitch) {
+//                _topSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(cell.contentView.width - 50 - 10, (cell.contentView.height - 30)/2.0, 50, 30)];
+//                _topSwitch.tag = 201;
+//                _topSwitch.on = NO;
+//                [_topSwitch addTarget:self action:@selector(topSwitchAction:) forControlEvents:UIControlEventValueChanged];
+//            }
+//            [cell.contentView addSubview:_topSwitch];
+//        }
+//            break;
+        case 5:{//介绍
             titleLabel.frame = CGRectMake(20, (44 - 30)/2.0, 100, 30);
             if (!_tribeDes) {
                 _tribeDes = [[UITextView alloc] initWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 200, 80 - 14)];
@@ -449,7 +456,7 @@
             [cell.contentView addSubview:_tribeDes];
         }
             break;
-        case 8:{//当前成员数
+        case 6:{//当前成员数
             if (self.isCreatDetail) {
                 if (!_count) {
                     _count = [self addTextFieldWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 180, 30)

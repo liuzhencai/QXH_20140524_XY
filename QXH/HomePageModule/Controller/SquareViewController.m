@@ -79,53 +79,58 @@
     /**
      *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
      */
-    if (YES) {
-        switch (model.type) {
-            case 1:
-            {
-                static NSString *cellIdentifier = @"squareCell";
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                if (!cell) {
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                }
-                [(SquareCell *)cell setCellData:model];
-                tblCell = cell;
+    switch (model.type) {
+        case 1:
+        {
+            static NSString *cellIdentifier = @"squareCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-                break;
-            case 2:
-            {
-                static NSString *cellIdentifier = @"squareCellEx";
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                if (!cell) {
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                }
-                [(SquareCellEx *)cell setCellData:model];
-                tblCell = cell;
-            }
-                break;
-            case 3:
-            {
-                static NSString *cellIdentifier = @"squareActivityCell";
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                if (!cell) {
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                }
-                [(SquareActivityCell *)cell setCellData:model];
-                tblCell = cell;
-            }
-                break;
-            default:
-                break;
+            [(SquareCell *)cell setCellData:model];
+            tblCell = cell;
         }
-    }else{
-        if (indexPath == 0) {
-            // 添加每日一问
-        }else{
-            
+            break;
+        case 2:
+        {
+            static NSString *cellIdentifier = @"squareCellEx";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareCellEx *)cell setCellData:model];
+            tblCell = cell;
         }
+            break;
+        case 3:
+        {
+            static NSString *cellIdentifier = @"squareActivityCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareActivityCell *)cell setCellData:model];
+            tblCell = cell;
+        }
+            break;
+        case 4:
+        {
+            static NSString *cellIdentifier = @"everyDayAskCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell.contentView addSubview:_everydayAskView];
+            }
+            [self setEverydayAskViewValue:model];
+            tblCell = cell;
+        }
+            break;
+        default:
+            break;
     }
     return tblCell;
 }
@@ -183,6 +188,14 @@
     }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)setEverydayAskViewValue:(SquareInfo *)model
+{
+    InfoModel *info = model.content;
+    _everyDayAskContentLbl.text = info.content;
+    [_everyDayAskImg setImageWithURL:IMGURL(info.sphoto) placeholderImage:nil];
+    _everyDayAskDateLbl.text = model.date;
 }
 
 - (IBAction)btnClick:(id)sender {

@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "SNImagePickerNC.h"
+#import "EditInfoController.h"
 
-@interface EditCardController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, SNImagePickerDelegate>
+@interface EditCardController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, ChangeUserInfoDelgate, SNImagePickerDelegate>
+
 @property (strong, nonatomic) IBOutlet UIView *topView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 
 @property (weak, nonatomic) IBOutlet UITableView *editTable;
+
 @property (nonatomic,  strong) NSMutableArray *valueArr;
 
 /*定义是从注册界面跳转过来的*/

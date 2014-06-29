@@ -60,13 +60,22 @@
     NSLog(@"发表评论");
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
     [alertView setUseMotionEffects:TRUE];
-    [alertView setButtonTitles:@[@"发表"]];
+    [alertView setButtonTitles:@[@"取消", @"发表"]];
     UITextView *commentView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+    commentView.backgroundColor = [UIColor clearColor];
     [alertView setContainerView:commentView];
     [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
-        [DataInterface praiseArticle:self.artid laud:@"0" comment:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
-            [alertView close];
-        }];
+        switch (buttonIndex) {
+            case 1:
+            {
+                [DataInterface praiseArticle:self.artid laud:@"0" comment:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
+                    [self getCommentList];
+                    [alertView close];
+                }];
+            }
+            default:
+                break;
+        }
     }];
     [alertView show];
 }

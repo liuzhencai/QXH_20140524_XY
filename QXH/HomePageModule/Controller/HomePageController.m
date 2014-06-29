@@ -86,6 +86,10 @@
         [defaults setObject:date forKey:LOGIN_DATE];
         [defaults synchronize];
         NSLog(@"登陆返回信息：%@",dict);
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+            [self setTopViewValue:dict];
+        }];
+        
 //        [self showAlert:[dict objectForKey:@"info"]];
 
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
@@ -93,6 +97,13 @@
         /*获取系统消息*/
            [MessageBySend sharMessageBySend];
     }];
+}
+
+- (void)setTopViewValue:(NSDictionary *)dict
+{
+    _welcomeLabel.text = [NSString stringWithFormat:@"欢迎%@",[dict objectForKey:@"displayname"]];
+    [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_portraitView circular];
 }
 
 // 心跳
@@ -104,6 +115,9 @@
 
 - (void)addTopImage
 {
+    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
+        
+    }];
     for (int i = 0; i < pics.count; i++) {
         UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 132)];
         image.image = [UIImage imageNamed:pics[i]];

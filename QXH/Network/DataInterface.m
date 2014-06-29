@@ -667,9 +667,32 @@ withCompletionHandler:(DictCallback)callback
  withCompletionHandler:(DictCallback)callback
 {
     NSDictionary *param = @{@"opercode": @"0144", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"tribeid":tribeid};
-    NSLog(@"\n##########获取每日一问通用接口接口##########\n[参 数]:%@\n#############################\n",param);
+    NSLog(@"\n##########获取每日一问通用接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取每日一问通用接口返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getHomePageAdsWithCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0145", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"]};
+    NSLog(@"\n##########获取首页公告位置焦点图接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取首页公告位置焦点图返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)reportInfoType:(NSString *)type
+              targetid:(NSString *)targetid
+               content:(NSString *)content
+ withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0146", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type": type, @"targetid": targetid, @"content": content};
+    NSLog(@"\n##########举报接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########举报接口返回结果##########\n[结 果]:%@\n#############################\n",dict);
         callback(dict);
     }];
 }

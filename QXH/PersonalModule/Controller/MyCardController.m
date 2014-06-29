@@ -56,7 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"个人名片";
-    items = @[@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
+    items = @[@"单位职务",@"所在城市",@"曾获荣誉", @"工作单位",@"兴趣爱好",@"毕业学校", @"手机号码", @"个性签名"];
     _cardTable.tableHeaderView = _topView;
 }
 
@@ -141,26 +141,29 @@
     NSString *value = @"";
     switch (indexPath.row) {
         case 0:
-//            value = @"北京市教育局局长";
             value = [userinfo objectForKey:@"title"];
             break;
         case 1:
-//            value = @"北京";
             value = [userinfo objectForKey:@"domicile"];
             break;
         case 2:
-//            value = @"教授";
-            value = [userinfo objectForKey:@"title"];
-            break;
-        case 3:
-//            value = @"国家级科技成就奖";
             value = [userinfo objectForKey:@"honours"];
             break;
+        case 3:
+            value = [userinfo objectForKey:@"comname"];
+            break;
         case 4:
-//            value = @"不知道";
+            value = [userinfo objectForKey:@"hobbies"];
+            break;
+        case 5:
+            value = [userinfo objectForKey:@"educations"];
+            break;
+        case 6:
+            value = [userinfo objectForKey:@"phone"];
+            break;
+        case 7:
             value = [userinfo objectForKey:@"signature"];
             break;
-            
         default:
             break;
     }

@@ -686,4 +686,24 @@ withCompletionHandler:(DictCallback)callback;
                tribeid:(NSString *)tribeid
  withCompletionHandler:(DictCallback)callback;
 
+/**
+ *  获取首页公告位置焦点图
+ *
+ *  @param callback 回调
+ */
++ (void)getHomePageAdsWithCompletionHandler:(DictCallback)callback;
+
+/**
+ *  举报接口
+ *
+ *  @param type     举报类型,1：举报用户，2为举报部落，3为举报广场文章，4为举报活动
+ *  @param targetid 举报目标id
+ *  @param content  举报内容
+ *  @param callback 回调
+ */
++ (void)reportInfoType:(NSString *)type
+              targetid:(NSString *)targetid
+               content:(NSString *)content
+ withCompletionHandler:(DictCallback)callback;
+
 @end
