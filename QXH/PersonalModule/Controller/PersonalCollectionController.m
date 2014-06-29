@@ -66,6 +66,17 @@
      *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
      */
     switch (model.type) {
+        case 0:
+        {
+            static NSString *cellIdentifier = @"zeroTypeCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            tblCell = cell;
+        }
+            break;
         case 1:
         {
             static NSString *cellIdentifier = @"squareCell";
@@ -99,6 +110,17 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [(SquareActivityCell *)cell setCellData:model];
+            tblCell = cell;
+        }
+            break;
+        case 4:
+        {
+            static NSString *cellIdentifier = @"everyDayAskCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
             tblCell = cell;
         }
             break;
