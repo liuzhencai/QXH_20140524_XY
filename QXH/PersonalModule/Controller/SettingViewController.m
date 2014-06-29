@@ -186,6 +186,12 @@
     NSLog(@"注销");
 
     [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
+        if ([defaults objectForKey:USER_NAME]) {
+            [defaults removeObjectForKey:USER_NAME];
+        }
+        if ([defaults objectForKey:PASSWORLD]) {
+            [defaults removeObjectForKey:PASSWORLD];
+        }
         if ([defaults objectForKey:@"userid"]) {
             [defaults removeObjectForKey:@"userid"];
         }

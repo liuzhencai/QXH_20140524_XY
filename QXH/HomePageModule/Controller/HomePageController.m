@@ -59,7 +59,7 @@
     _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
     [self addTopImage];
     
-    if (![defaults objectForKey:@"userName"] || ![defaults objectForKey:@"passworld"]) {
+    if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
         LoginViewController* login = [[LoginViewController alloc]init];
         login.delegate = self;
         UINavigationController *loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
