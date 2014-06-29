@@ -324,7 +324,7 @@
                     [cell.contentView addSubview:bgImgView];
                     if (!_name) {
                         _name = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                 placeHolder:@"请输活动地点"];
+                                                 placeHolder:@"请输活动名称"];
                     }
                     [cell.contentView addSubview:_name];
                 }
@@ -340,7 +340,7 @@
                 case 3:{
                     if (!_comeFrom) {
                         _comeFrom = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                placeHolder:@"请输活动名称"];
+                                                placeHolder:@"来自**部落"];
                     }
                     [cell.contentView addSubview:_comeFrom];
                 }

@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
-    self.title = @"找人";
+    self.title = @"人脉";
     // Do any additional setup after loading the view.
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"provincesAndCitys" ofType:@"plist"];
@@ -48,7 +48,7 @@
     [self.view addSubview:_mainTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_NAVIGATION_BAR_HEIGHT)];
-    _searchBar.placeholder = @"搜索";
+    _searchBar.placeholder = @"找人";
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.delegate = self;
