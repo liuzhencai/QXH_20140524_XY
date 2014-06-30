@@ -51,7 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"详细资料";
+    self.title = @"部落档案";
     // Do any additional setup after loading the view.
     
 //    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"",@"清空缓存"];
