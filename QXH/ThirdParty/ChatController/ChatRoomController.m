@@ -49,8 +49,8 @@ static int scout=0;
     NSInteger FrontViewTag;
     chatRoomActivViewController* chatRoomActive;
     chatRoomMemberViewController* chatRoomMember;
-//    /*记录当前的cell*/
-    MessageCell* statecell;
+////    /*记录当前的cell*/
+//    MessageCell* statecell;
 }
 
 // View Properties
@@ -588,18 +588,24 @@ static int scout=0;
     // Set Who Sent Message
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
  
-    
+//    cell addStateImageView:ks
+    /*每个cell要存储自己的sendmessage状态*/
     // Set the cell
-    cell.opponentImage = self.opponentImg;
-    cell.MyHeadimageView = self.MyHeadImg;
+//    cell.opponentImage = self.opponentImg;
+//    cell setm
+    [cell AddOpponentImage:self.opponentImg];
+    [cell AddMyHeadimageView:self.MyHeadImg];
+//    cell.MyHeadimageView = self.MyHeadImg;
+
     if (_opponentBubbleColor) cell.opponentColor = _opponentBubbleColor;
     if (_userBubbleColor) cell.userColor = _userBubbleColor;
     cell.message = message;
+    [cell showDate:message];
     
-    /*暂时储存cell*/
-    if (indexPath.row == ([_messagesArray count]-1)) {
-        statecell = cell;
-    }
+//    /*暂时储存cell*/
+//    if (indexPath.row == ([_messagesArray count]-1)) {
+//        statecell = cell;
+//    }
     
     return cell;
      
@@ -688,6 +694,9 @@ static int scout=0;
     
     // Evaluate or add to the message here for example, if we wanted to assign the current userId:
     message[@"sentByUserId"] = @"currentUserId";
+    
+    /*添加属性，消息发送状态*/
+    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
 
     
     if (_messagesArray == nil)  _messagesArray = [NSMutableArray new];
@@ -699,7 +708,6 @@ static int scout=0;
     NSArray* tempArray = @[[NSIndexPath indexPathForRow:_messagesArray.count -1 inSection:0]];
     [_myCollectionView insertItemsAtIndexPaths:tempArray];
     
-//    [statecell addStateImageView:kSentIng];
     // show us the message
     [self scrollToBottom];
     
@@ -720,6 +728,9 @@ static int scout=0;
         NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
         NSString* roomid =[NSString stringWithFormat:@"%d",[aroomid intValue]];
         if (mess && roomid) {
+ 
+
+            
             [DataInterface chat:roomid sendtype:@"2" mess:mess withCompletionHandler:^(NSMutableDictionary *dict){
                 /*
                  Response:{
@@ -727,13 +738,23 @@ static int scout=0;
                  statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
                  info:"发送成功",		//客户端可以使用该info进行提示，如:登录成功/账号或密码错误,登录失败!
                  sign:"9aldai9adsf"		//sign请求唯一标识*/
+//                NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
+//                MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
+//                
                 DebugLog(@"聊天返回==%@",dict);
+                /*设置状态为发送状态图片*/
+                NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
+                MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
                 NSString* stata = [dict valueForKey:@"statecode"];
                 if ([stata isEqualToString:@"0200"]) {
-                    [statecell addStateImageView:kSentOk];
+                      message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+                    
+                    
                 }else{
-                    [statecell addStateImageView:kSentFail];
+                      message[@"SendState"] = [NSNumber numberWithInt:kSentFail];
                 }
+                [cell showDate:message];
+//                [self.myCollectionView reloadData];
             }];
         }
     }
@@ -744,7 +765,7 @@ static int scout=0;
 - (void)messageSendByUser:(NSMutableDictionary *)message
 {
 //       message[@"kMessageSentBy"] = kSentByUser;
-    [statecell addStateImageView:kSentIng];
+ 
         [message setValue:[NSNumber numberWithInt:kSentByUser] forKey:@"kMessageSentBy"];
        [self didSendMessage:message];
 }

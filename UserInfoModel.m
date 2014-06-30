@@ -10,6 +10,6 @@
 
 @implementation UserInfoModel
 
-@synthesize displayname, signature, title, address, domicile, introduce, comname, comdesc, comaddress, comurl,induname, indudesc, schoolname, schooltype, sex, photo, email, tags, attentiontags, hobbies, educations, usertype, gold, level, configure, status;
+@synthesize displayname, signature, title, address, domicile, introduce, comname, comdesc, comaddress, comurl,induname, indudesc, schoolname, schooltype, sex, photo, email, tags, attentiontags, hobbies, educations, usertype, gold, level, configure, status,iconImageview;
 
 @end
