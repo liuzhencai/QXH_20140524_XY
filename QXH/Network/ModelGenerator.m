@@ -211,4 +211,17 @@
     return array;
 }
 
++ (NSMutableArray *)json2CodeSheet:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        CodeSheetObject *model = [[CodeSheetObject alloc] init];
+        model.name =  [list[i] objectForKey:@"name"];
+        model.code =  [list[i] objectForKey:@"code"];
+        [array addObject:model];
+    }
+    return array;
+}
+
 @end

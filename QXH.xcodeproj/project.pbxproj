@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		210021E4193DFAAF006B7D12 /* SignGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 210021E3193DFAAF006B7D12 /* SignGenerator.m */; };
 		210021E7193E049F006B7D12 /* UDPServiceEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 210021E6193E049F006B7D12 /* UDPServiceEngine.m */; };
+		2104D0271961A77000ECCFEE /* CodeSheetObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2104D0261961A77000ECCFEE /* CodeSheetObject.m */; };
 		21096A86193616270089286C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A84193616270089286C /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		21096A8919361B050089286C /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 21096A8819361B050089286C /* Base64.m */; };
 		2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2109D50A191F1E7F003B76D7 /* EditCardCell.m */; };
@@ -417,6 +418,8 @@
 		210021E3193DFAAF006B7D12 /* SignGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignGenerator.m; sourceTree = "<group>"; };
 		210021E5193E049F006B7D12 /* UDPServiceEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPServiceEngine.h; sourceTree = "<group>"; };
 		210021E6193E049F006B7D12 /* UDPServiceEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPServiceEngine.m; sourceTree = "<group>"; };
+		2104D0251961A77000ECCFEE /* CodeSheetObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeSheetObject.h; sourceTree = "<group>"; };
+		2104D0261961A77000ECCFEE /* CodeSheetObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeSheetObject.m; sourceTree = "<group>"; };
 		21096A83193616270089286C /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		21096A84193616270089286C /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		21096A85193616270089286C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
@@ -1816,6 +1819,8 @@
 				21D6ADE7193CBCFC0018109F /* InfoDetailModel.m */,
 				2111B1CE19555D9700AA5478 /* InfoCommentModel.h */,
 				2111B1CF19555D9700AA5478 /* InfoCommentModel.m */,
+				2104D0251961A77000ECCFEE /* CodeSheetObject.h */,
+				2104D0261961A77000ECCFEE /* CodeSheetObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2543,6 +2548,7 @@
 				21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */,
 				58826BA7195DD180002F13A5 /* NIOperations.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
+				2104D0271961A77000ECCFEE /* CodeSheetObject.m in Sources */,
 				58826BA5195DD180002F13A5 /* NINonEmptyCollectionTesting.m in Sources */,
 				21401DA719192CD100E9175B /* TribeCell.m in Sources */,
 				58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */,
@@ -2734,9 +2740,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
 				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
-
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2749,7 +2753,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "35C25F00-2133-4A89-8E86-1E265F38A6E2";
-
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2761,9 +2764,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
 				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
-
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2775,9 +2776,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-
 				PROVISIONING_PROFILE = "35C25F00-2133-4A89-8E86-1E265F38A6E2";
-
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
