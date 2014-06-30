@@ -57,19 +57,14 @@
     CGFloat lableHeight = 25;
     
     _headImgView.frame = CGRectMake(10, (height - 48)/2.0, 48, 48);
-//    _headImgView.layer.cornerRadius = 24;
-//    _headImgView.layer.masksToBounds = YES;
-////    然后再给图层添加一个有色的边框，类似qq空间头像那样
-//    _headImgView.layer.borderWidth = 1;
-//    _headImgView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    
-//    _headImgView.layer.contents = (id)[[UIImage imageNamed:@"backgroundImage.png"] CGImage];
-    
     _headImgView.backgroundColor = [UIColor redColor];
     _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 200, lableHeight);
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
     
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [self.contentView addSubview:line];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

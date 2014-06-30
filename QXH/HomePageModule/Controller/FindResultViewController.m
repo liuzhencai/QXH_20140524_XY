@@ -37,6 +37,7 @@
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_HEIGHT, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
     _mainTable.dataSource = self;
     _mainTable.delegate = self;
+    _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mainTable];
     
 }

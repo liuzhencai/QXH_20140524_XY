@@ -15,6 +15,7 @@
 #import "MyMessageCell.h"
 #import "CustomSegmentControl.h"
 #import "ChatViewController.h"
+#import "MessageBySend.h"
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, assign) int selectIndex;
@@ -53,33 +54,6 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"通讯录";
     
-    //test
-//    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
-//    for (int j = 0; j < 3; j ++) {
-//        NSMutableArray *tmp2 = [NSMutableArray arrayWithArray:0];
-//        for (int i = 0; i < 20; i ++) {
-//            [tmp2 addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
-//        }
-//        NSString *name = @"A";
-//        if (j == 0) {
-//            name = @"A";
-//        }else if(j == 1){
-//            name = @"B";
-//        }else{
-//            name = @"C";
-//        }
-//        NSDictionary *dict = @{@"name":name,@"type":@"1",@"list":tmp2};
-//        [tmpArr addObject:dict];
-//    }
-//    self.addressList = [NSArray arrayWithArray:tmpArr];
-//    
-//    NSMutableArray *tmpMyMessage = [NSMutableArray arrayWithCapacity:0];
-//    for (int i = 0; i < 20; i ++) {
-//        [tmpMyMessage addObject:@{@"name":@"李某某",@"duty":@"xxxxxxxx校长",@"imgUrl":@""}];
-//    }
-//    self.myMessageList = [NSArray arrayWithArray:tmpMyMessage];
-    
-    
     //segment
     CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"通讯录",@"我的消息"]];
     segment.delegate = self;
@@ -90,12 +64,14 @@
     myMessageTable.tag = MY_MESSAGE_LIST_TABLE_TAG;
     myMessageTable.delegate = self;
     myMessageTable.dataSource = self;
+    myMessageTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:myMessageTable];
     
     UITableView *addressListTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
     addressListTable.tag = ADDRESS_LIST_TABLE_TAG;
     addressListTable.delegate = self;
     addressListTable.dataSource = self;
+    addressListTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:addressListTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, UI_SCREEN_WIDTH, 44.0f)];
@@ -142,7 +118,6 @@
                    UITableView *table = (UITableView *)[self.view viewWithTag:ADDRESS_LIST_TABLE_TAG];
                    [table reloadData];
                }
-//               [self showAlert:[dict objectForKey:@"info"]];
            }];
 
 }
@@ -181,6 +156,8 @@
 //            }
 //        }];
 //        recvRemoteNoficationWithCompletionHandler
+        
+//        [MessageBySend sharMessageBySend];
     }
 }
 

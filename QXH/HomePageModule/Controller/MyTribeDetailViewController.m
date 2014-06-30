@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSDictionary *leaderDict;//秘书长信息
 
 @property (nonatomic, strong) NSDictionary *tribeDetailDict;//部落详细信息
+
+@property (nonatomic, assign) BOOL isCreater;//是否是秘书长或者是创建人
 @end
 
 @implementation MyTribeDetailViewController
@@ -43,6 +45,7 @@
     if (self) {
         // Custom initialization
         self.hidesBottomBarWhenPushed = YES;
+        self.isCreater = NO;
         
     }
     return self;
@@ -58,7 +61,7 @@
 //    if (self.isCreatDetail) {
 //        self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员"];
 //    }
-    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"",@"清空缓存"];
+    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"清空缓存"];
     if (self.isCreatDetail) {
         self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"当前部落成员"];
     }
@@ -115,6 +118,16 @@
         [DataInterface getTribeInfo:[self.tribeDict objectForKey:@"tribeid"] withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"获取部落详情信息返回值：%@",dict);
             self.tribeDetailDict = dict;
+//            NSString *createrId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"creater"]];//[dict objectForKey:@"creater"];
+//            NSString *secretaryId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"secretary"]];//[dict objectForKey:@"secretary"];
+//            NSString *userId = [defaults objectForKey:@"userid"];
+            NSInteger createrId = [[dict objectForKey:@"creater"] integerValue];
+            NSInteger secretaryId = [[dict objectForKey:@"secretary"] integerValue];
+            NSInteger userId = [[defaults objectForKey:@"userid"] integerValue];
+            if (!(createrId == userId || secretaryId == userId)) {
+                self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"",@"清空缓存"];
+                self.isCreater = YES;
+            }
             [_mainTable reloadData];
             [self showAlert:[dict objectForKey:@"info"]];
         }];
@@ -367,9 +380,7 @@
             }else{
                 if (self.tribeDetailDict) {
                     NSString *headImageUrlString = [self.tribeDetailDict objectForKey:@"photo"];
-//                    [head setImageWithURL:[NSURL URLWithString:headImageUrlString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
                     [head setImageWithURL:IMGURL(headImageUrlString) forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
-
                 }
             }
             [cell.contentView addSubview:head];
@@ -467,22 +478,29 @@
                 _count.text = [NSString stringWithFormat:@"%d",[self.membersArray count]];
                 [cell.contentView addSubview:_count];
             }else{
-                for (int i = 0; i < 2; i ++) {
-                    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                    button.frame = CGRectMake(20 + (130 + 20) * i, 7, 130, 30);
-                    [button addTarget:self action:@selector(addOrDeleteMembers:) forControlEvents:UIControlEventTouchUpInside];
-                    
-                    button.tag = 880 + i;
-                    if (i == 0) {
-                        [button setTitle:@"添加成员" forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
-                    }else{
-                        [button setTitle:@"删除成员" forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_share_normal.png"] forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
+                if (self.isCreater) {//等于8本人是秘书长或者创建者，等于7时本人为成员
+                    for (int i = 0; i < 2; i ++) {
+                        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                        button.frame = CGRectMake(20 + (130 + 20) * i, 7, 130, 30);
+                        [button addTarget:self action:@selector(addOrDeleteMembers:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        button.tag = 880 + i;
+                        if (i == 0) {
+                            [button setTitle:@"添加成员" forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
+                        }else{
+                            [button setTitle:@"删除成员" forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_share_normal.png"] forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
+                        }
+                        [cell.contentView addSubview:button];
                     }
-                    [cell.contentView addSubview:button];
+                }else{
+                    UIView *view1 = [cell.contentView viewWithTag:880];
+                    [view1 removeFromSuperview];
+                    UIView *view2 = [cell.contentView viewWithTag:881];
+                    [view2 removeFromSuperview];
                 }
             }
             
@@ -516,11 +534,14 @@
             [self.navigationController pushViewController:addressList animated:YES];
         }
     }else{
-        if (indexPath.row == 8) {
-            
-        }else if (indexPath.row == 9) {
-            NSLog(@"清空缓存");
-            [self showAlert:@"缓存已清空"];
+        if (self.isCreater) {
+            if (indexPath.row == 7) {
+                [self showAlert:@"缓存已清空"];
+            }
+        }else{
+            if (indexPath.row == 6) {
+                [self showAlert:@"缓存已清空"];
+            }
         }
     }
 }

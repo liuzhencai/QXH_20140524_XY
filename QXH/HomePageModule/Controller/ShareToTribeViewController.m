@@ -35,6 +35,7 @@
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
+    _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mainTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 44)];
@@ -69,17 +70,6 @@
      *  @param count     获取数量
      *  @param callback  回调
      */
-//    
-//    [DataInterface requestTribeList:@"2"
-//                          tribename:@""
-//                           authflag:@"0"
-//                          tribetype:@"1"
-//                                tag:@""
-//                           district:@""
-//                              start:@"0"
-//                              count:@"20"
-//              withCompletionHandler:^(NSMutableDictionary *dict)
-    
     
      [DataInterface requestTribeList:@"1"
                            tribename:@""
@@ -99,20 +89,10 @@
 //                      UITableView *table = (UITableView *)[self.view viewWithTag:MY_TRIBE_TABLE_TAG];
                       [_mainTable reloadData];
                   }
-                  [self showAlert:[dict objectForKey:@"info"]];
+//                  [self showAlert:[dict objectForKey:@"info"]];
               }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -153,7 +133,7 @@
 //}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 120;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
