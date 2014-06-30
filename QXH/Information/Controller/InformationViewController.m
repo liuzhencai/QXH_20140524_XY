@@ -25,6 +25,22 @@
 
 @synthesize _tableview;
 
+- (void)requestArtClassify
+{
+    [DataInterface getCodeSheet:@"artClassify" fathercode:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSMutableArray *artClassify = [ModelGenerator json2CodeSheet:dict];
+        NSMutableArray *titles = [[NSMutableArray alloc] init];
+        for (CodeSheetObject *obj in artClassify) {
+            [titles addObject:obj.name];
+        }
+        CustomSegmentControl *segmentControl = [[CustomSegmentControl alloc]initWithFrame:CGRectMake(0, 0, 320, 34) andTitles:titles];
+        segmentControl.delegate = self;
+        [self.view addSubview:segmentControl];
+        //    NSInteger height = SCREEN_H;
+        [self requestInfoList:@"1"];
+    }];
+}
+
 - (void)requestInfoList:(NSString *)detailtype
 {
     [DataInterface getInfoList:@"2" detailtype:detailtype tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
@@ -51,18 +67,14 @@
         [_tableview setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
     }
     self._tableview.backgroundColor = [UIColor clearColor];
-    
-    [self requestInfoList:@"1"];
+    self._tableview.frame = CGRectMake(0, 34, 320, SCREEN_H-34) ;
+
+    [self requestArtClassify];
     
 //    ClassificationControll* aview = [[ClassificationControll alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
 //    aview.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:aview];
     
-    CustomSegmentControl *segmentControl = [[CustomSegmentControl alloc]initWithFrame:CGRectMake(0, 0, 320, 34) andTitles:@[@"最新",@"收藏",@"教育",@"学生"]];
-    segmentControl.delegate = self;
-    [self.view addSubview:segmentControl];
-//    NSInteger height = SCREEN_H;
-    self._tableview.frame = CGRectMake(0, 34, 320, SCREEN_H-34) ;
     // Do any additional setup after loading the view from its nib.
 }
 

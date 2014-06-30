@@ -61,5 +61,5 @@
 @property (nonatomic, copy) NSString *configure; // 客户端配置相关信息
 
 @property (nonatomic, copy) NSString *status; // 0为正常用户，1为禁用用户，2为临时用户
-
+@property (nonatomic,copy) UIImageView* iconImageview;//用户头像
 @end

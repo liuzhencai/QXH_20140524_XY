@@ -105,4 +105,12 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
  */
 -(void)addStateImageView:(NSInteger)senstate;
 
+/*添加cell的显示信息*/
+- (void)showDate:(NSDictionary*)adic;
+
+//设置自己头像
+- (void)AddMyHeadimageView:(UIImage *)MyHeadimage;
+
+//设置显示对方头像
+- (void) AddOpponentImage:(UIImage *)opponentImage;
 @end

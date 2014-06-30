@@ -162,13 +162,13 @@ static int minimumHeight = 30;
 #pragma mark GETTERS | SETTERS
 
 //设置显示对方头像
-- (void) setOpponentImage:(UIImage *)opponentImage {
+- (void) AddOpponentImage:(UIImage *)opponentImage {
 
     _imageView.image = opponentImage;
 }
 
 //设置自己头像
-- (void)setMyHeadimageView:(UIImage *)MyHeadimage
+- (void)AddMyHeadimageView:(UIImage *)MyHeadimage
 {
     MyHeadimageView.image = MyHeadimage;
 }
@@ -312,4 +312,22 @@ static int minimumHeight = 30;
 
 }
 
+/*添加cell的显示信息*/
+- (void)showDate:(NSDictionary*)adic
+{
+//    self.opponentImage = self.opponentImg;
+//    self.MyHeadimageView = self.MyHeadImg;
+    
+    /*设置消息发送状态*/
+    NSInteger kState;
+    NSNumber* statesend = [adic valueForKey:@"SendState"];
+    if (!statesend) {
+        kState = kSentOk;
+    }else{
+        kState = [statesend intValue];
+    }
+    [self addStateImageView:kState];
+    self.message = adic;
+
+}
 @end

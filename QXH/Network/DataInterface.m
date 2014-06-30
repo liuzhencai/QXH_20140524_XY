@@ -698,4 +698,50 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
++ (void)inviteToTribe:(NSString *)targetid
+              tribeid:(NSString *)tribeid
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0147", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid": targetid, @"tribeid": tribeid};
+    NSLog(@"\n##########部落创建者或管理员拉人进部落接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########部落创建者或管理员拉人进部落接口返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)infoToTop:(NSString *)tribeid
+             type:(NSString *)type
+           messid:(NSString *)messid
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0148", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"tribeid": tribeid, @"type": type, @"messid":messid};
+    NSLog(@"\n##########部落消息置顶/取消置顶接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########部落消息置顶/取消置顶返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getTribeTopInfo:(NSString *)tribeid
+  withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0149", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"tribeid": tribeid};
+    NSLog(@"\n##########获取部落置顶消息接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取部落置顶消息返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
++ (void)getInfluence:(NSString *)type withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0150", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type": type};
+    NSLog(@"\n##########获取影响力接口##########\n[参 数]:%@\n#############################\n",param);
+    [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"\n##########获取影响力返回结果##########\n[结 果]:%@\n#############################\n",dict);
+        callback(dict);
+    }];
+}
+
 @end

@@ -21,6 +21,7 @@ static   UserInfoModelManger* instance;
     self = [super init];
     if (self) {
         userInfo = [[UserInfoModel alloc]init];
+        
     }
     return self;
 }

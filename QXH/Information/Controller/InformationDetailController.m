@@ -103,9 +103,8 @@
             break;
         case 3:
         {
-            [DataInterface transmit:@"2" targetid:self.artid refsign:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
-                [self showAlert:[dict objectForKey:@"info"]];
-            }];
+            UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"转发到广场" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alerView show];
         }
             break;
         case 4:
@@ -120,6 +119,15 @@
         default:
             break;
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [DataInterface transmit:@"2" targetid:self.artid refsign:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
+    };
 }
 
 - (IBAction)showAll:(id)sender {

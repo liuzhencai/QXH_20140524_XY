@@ -706,4 +706,46 @@ withCompletionHandler:(DictCallback)callback;
                content:(NSString *)content
  withCompletionHandler:(DictCallback)callback;
 
+/**
+ *  部落创建者或管理员拉人进部落
+ *
+ *  @param targetid 被处理的拉入成员的userid
+ *  @param tribeid  部落唯一标示
+ *  @param callback 回调
+ */
++ (void)inviteToTribe:(NSString *)targetid
+              tribeid:(NSString *)tribeid
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  部落消息置顶/取消置顶
+ *
+ *  @param tribeid  部落唯一标示
+ *  @param type     1为消息置顶，2为取消消息置顶
+ *  @param messid   置顶消息的messid
+ *  @param callback 回调
+ */
++ (void)infoToTop:(NSString *)tribeid
+             type:(NSString *)type
+           messid:(NSString *)messid
+withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取部落置顶消息
+ *
+ *  @param tribeid  部落唯一标识
+ *  @param callback 回调
+ */
++ (void)getTribeTopInfo:(NSString *)tribeid
+  withCompletionHandler:(DictCallback)callback;
+
+/**
+ *  获取影响力
+ *
+ *  @param type     1为粉丝榜，2为活跃榜
+ *  @param callback 回调
+ */
++ (void)getInfluence:(NSString *)type
+withCompletionHandler:(DictCallback)callback;
+
 @end

@@ -16,6 +16,7 @@
 #import "SquareInfo.h"
 #import "ActivityInfoModel.h"
 #import "SquareActInfo.h"
+#import "CodeSheetObject.h"
 
 @interface ModelGenerator : NSObject
 
@@ -81,5 +82,14 @@
  *  @return 返回广场列表
  */
 + (NSMutableArray *)json2SquareList:(NSDictionary *)obj;
+
+/**
+ *  json转换为码表
+ *
+ *  @param obj 传入参数
+ *
+ *  @return 返回码表列表
+ */
++ (NSMutableArray *)json2CodeSheet:(NSDictionary *)obj;
 
 @end
