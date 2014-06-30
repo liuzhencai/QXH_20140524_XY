@@ -28,10 +28,16 @@
                                                         imageName:[UIImage imageNamed:@"img_bg_type"]];
         [bgImgView addSubview:typeBgImgView];
         //title
-        _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 5, 200, 20)
-                                                 text:@"活动标题"
+        _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 0, 200, 30)
+                                                 text:@"活动标题活动标题活动标题活动xxx"
                                                 color:GREEN_FONT_COLOR
                                                  font:[UIFont systemFontOfSize:16]];
+//        _activityTitleLabel.backgroundColor = [UIColor redColor];
+        _activityTitleLabel.numberOfLines = 0;
+        if ([_activityTitleLabel.text length] > 14) {
+            self.activityTitleLabel.font = [UIFont systemFontOfSize:12];
+        }
+        
         [bgImgView addSubview:_activityTitleLabel];
         
         //type
@@ -119,10 +125,7 @@
         }
         
         //sign up
-//        _signUpLabel = [self addLabelWithFrame:CGRectMake(10, 185 - 20, 60, 15)
-//                                                 text:@"2人报名"
-//                                                color:[UIColor blackColor]
-//                                                 font:[UIFont systemFontOfSize:12]];
+
         _signUpLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(10, 185 - 20, 60, 15)];
         _signUpLabel.font = [UIFont systemFontOfSize:12];
         _signUpLabel.textAlignment = NSTextAlignmentCenter;
@@ -135,10 +138,6 @@
         [bgImgView addSubview:lineView];
         
         //follow
-//        _followLabel = [self addLabelWithFrame:CGRectMake(_signUpLabel.right + 1, _signUpLabel.top, 60, 15)
-//                                                 text:@"2人关注"
-//                                                color:[UIColor blackColor]
-//                                                 font:[UIFont systemFontOfSize:12]];
         _followLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(_signUpLabel.right + 1, _signUpLabel.top, 60, 15)];
         _followLabel.font = [UIFont systemFontOfSize:12];
         _followLabel.textAlignment = NSTextAlignmentCenter;
@@ -179,6 +178,10 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
     if (params) {
+        NSString *titleString = [params objectForKey:@"actname"];
+        if ([titleString length] > 14) {
+            self.activityTitleLabel.font = [UIFont systemFontOfSize:12];
+        }
         self.activityTitleLabel.text = [params objectForKey:@"actname"];
         self.activityTypeLabel.text = [params objectForKey:@"acttype"];
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];

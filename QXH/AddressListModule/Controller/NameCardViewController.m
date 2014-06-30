@@ -215,40 +215,32 @@
     NSLog(@"选择： %d",index);
     if (index == 1) {
         if (self.isMyFriend) {
-            /**
-             *  加好友确认/修改备注
-             *
-             *  @param targetid 被处理的加入成员的userid
-             *  @param type     0为同意并添加对方为好友(备注不为空添加备注)，1为同意但不添加对方为好友，2为拒绝，3为修改备注
-             *  @param remark   备注
-             *  @param callback 回调
-             */
-
-            if (self.memberDict) {
-                UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-                view.backgroundColor = [UIColor blackColor];
-                view.alpha = 0.5;
-                
-                AddFriendView *addFriend = [[AddFriendView alloc] initWithParam:self.memberDict];
-                addFriend.alpha = 0.0;
-                [addFriend addSubview:view];
-                [addFriend sendSubviewToBack:view];
-                [self.view addSubview:addFriend];
-                
-                addFriend.addFriendBlack = ^(id objct){
-                    NSLog(@"%@",objct);
-                    NSString *remarkString = (NSString *)objct;
-                    
-                    [DataInterface addFriendConfirm:[self.memberDict objectForKey:@"userid"]
-                                               type:@"0"
-                                             remark:remarkString
-                              withCompletionHandler:^(NSMutableDictionary *dict){
-                                  NSLog(@"处理加为好友请求返回值：%@",dict);
-                                  [self showAlert:[dict objectForKey:@"info"]];
-                              }];
-                };
-                [addFriend show];
-            }
+            NSLog(@"发起聊天");
+//            if (self.memberDict) {
+//                UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+//                view.backgroundColor = [UIColor blackColor];
+//                view.alpha = 0.5;
+//                
+//                AddFriendView *addFriend = [[AddFriendView alloc] initWithParam:self.memberDict];
+//                addFriend.alpha = 0.0;
+//                [addFriend addSubview:view];
+//                [addFriend sendSubviewToBack:view];
+//                [self.view addSubview:addFriend];
+//                
+//                addFriend.addFriendBlack = ^(id objct){
+//                    NSLog(@"%@",objct);
+//                    NSString *remarkString = (NSString *)objct;
+//                    
+//                    [DataInterface addFriendConfirm:[self.memberDict objectForKey:@"userid"]
+//                                               type:@"0"
+//                                             remark:remarkString
+//                              withCompletionHandler:^(NSMutableDictionary *dict){
+//                                  NSLog(@"处理加为好友请求返回值：%@",dict);
+//                                  [self showAlert:[dict objectForKey:@"info"]];
+//                              }];
+//                };
+//                [addFriend show];
+//            }
             
         }else{
             /**
@@ -267,7 +259,7 @@
         }
         
     }else{
-        [self showAlert:@"这个拒绝需要吗？"];
+//        [self showAlert:@"这个拒绝需要吗？"];
         
     }
     

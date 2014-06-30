@@ -305,6 +305,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+            nameCard.isMyFriend = YES;
             nameCard.memberDict = item;
             [self.navigationController pushViewController:nameCard animated:YES];
         }

@@ -43,12 +43,22 @@
         _duty.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_duty];
         
+        UILabel *phoneTitle = [[UILabel alloc] init];
+        phoneTitle.text = @"电话:";
+        phoneTitle.font = font;
+        phoneTitle.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:phoneTitle];
         _phone = [[UILabel alloc] init];
         _phone.font = font;
         _phone.text = @"电话";
         _phone.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_phone];
         
+        UILabel *emailTitle = [[UILabel alloc] init];
+        emailTitle.text = @"邮箱:";
+        emailTitle.font = font;
+        emailTitle.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:emailTitle];
         _email = [[UILabel alloc] init];
         _email.font = font;
         _email.text = @"邮箱";
@@ -84,8 +94,14 @@
         _headImgView.layer.cornerRadius = headHight / 2.0;
         _name.frame = CGRectMake(_headImgView.right + 10, widthToLeft, labelWidth, labelHight);
         _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
-        _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
-        _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
+        phoneTitle.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, 40, labelHight);
+        _phone.frame = CGRectMake(phoneTitle.right, _duty.bottom + 5, labelWidth, labelHight);
+//        _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
+        
+        emailTitle.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, 40, labelHight);
+        _email.frame = CGRectMake(emailTitle.right, _phone.bottom + 5, labelWidth, labelHight);
+//        _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
+
 
         _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10 + 5, btnWidth * 2 + 20, btnHight - 10);
 //        _forwardCard.frame = CGRectMake(self.width - widthToLeft - btnWidth, _email.bottom + 10, btnWidth, btnHight);
@@ -95,10 +111,10 @@
 
 - (void)setIsMyFriend:(BOOL)isMyFriend{
     if (isMyFriend) {
-        _addFriend.frame = CGRectMake(20, _addFriend.top, 130, 30);
-        [_addFriend setTitle:@"同意加为好友" forState:UIControlStateNormal];
-        _forwardCard.frame = CGRectMake(_addFriend.right + 20, _addFriend.top, 130, 30);
-        _forwardCard.hidden = NO;
+//        _addFriend.frame = CGRectMake(20, _addFriend.top, 130, 30);
+        [_addFriend setTitle:@"聊 天" forState:UIControlStateNormal];
+//        _forwardCard.frame = CGRectMake(_addFriend.right + 20, _addFriend.top, 130, 30);
+//        _forwardCard.hidden = NO;
         
     }
 }

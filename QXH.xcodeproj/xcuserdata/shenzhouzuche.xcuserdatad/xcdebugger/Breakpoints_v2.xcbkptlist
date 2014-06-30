@@ -297,7 +297,7 @@
                   symbolName = "-[UserRegisterViewController login]"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/UserRegisterViewController.m"
-                  timestampString = "425554549.126129"
+                  timestampString = "425813678.623862"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "208"
@@ -311,7 +311,7 @@
                   symbolName = "__35-[UserRegisterViewController login]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/UserRegisterViewController.m"
-                  timestampString = "425554549.126353"
+                  timestampString = "425813678.624247"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "208"
@@ -335,6 +335,36 @@
             endingLineNumber = "155"
             landmarkName = "-userRegister:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LoginViewController userRegister:]"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/LoginViewController.m"
+                  timestampString = "425813678.624496"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "182">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[LoginViewController userRegister:]_block_invoke"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/LoginViewController.m"
+                  timestampString = "425813678.624704"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -494,6 +524,116 @@
             startingLineNumber = "248"
             endingLineNumber = "248"
             landmarkName = "-submitIsHaveHeadImage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/HomePageModule/Controller/HomePageController.m"
+            timestampString = "425809431.708947"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-didLoginHandle:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/AddressListModule/Controller/LoginViewController.m"
+            timestampString = "425809467.68756"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "-login:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LoginViewController login:]"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/LoginViewController.m"
+                  timestampString = "425813678.627974"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "133"
+                  endingLineNumber = "133"
+                  offsetFromSymbolStart = "508">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__29-[LoginViewController login:]_block_invoke"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/LoginViewController.m"
+                  timestampString = "425813678.628114"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "133"
+                  endingLineNumber = "133"
+                  offsetFromSymbolStart = "58">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/AddressListModule/Controller/NameCardViewController.m"
+            timestampString = "425813051.765623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-didSelectButtonWithIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/AddressListModule/View/NameCardTitleCell.m"
+            timestampString = "425813462.36784"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-setIsMyFriend:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
+            timestampString = "425813514.401937"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

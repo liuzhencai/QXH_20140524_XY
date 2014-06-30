@@ -70,6 +70,7 @@
     }
 }
 
+#pragma mark - loginDelegate
 - (void)didLoginHandle:(LoginViewController *)loginViewController{
     NSLog(@"dddddddd");
     BOOL isNewMember = [[defaults objectForKey:@"isNewMember"] boolValue];
