@@ -151,6 +151,14 @@
         titleLabel_.text = [titleArr objectAtIndex:indexPath.row-1];
         descLabel_.text = [_valueArr objectAtIndex:indexPath.row-1];
         statusLabel_.text = @"已填写";
+        
+        if (indexPath.row == 1) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }else
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        }
+        
     }
     return cell;
 }
@@ -162,6 +170,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
     /*
     switch (row) {
@@ -218,6 +227,9 @@
             break;
     }
      */
+    if (row == 1) {
+        return;
+    }
     EditInfoController *controller = [[EditInfoController alloc] initWithNibName:@"EditInfoController" bundle:nil];
     controller.selectedIndex = row;
     controller.delegate = self;
