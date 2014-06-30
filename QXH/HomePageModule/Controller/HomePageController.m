@@ -109,7 +109,7 @@
 
 - (void)setTopViewValue:(NSDictionary *)dict
 {
-    _welcomeLabel.text = [NSString stringWithFormat:@"欢迎%@",[dict objectForKey:@"displayname"]];
+    _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",[dict objectForKey:@"displayname"]];
     [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
 }
