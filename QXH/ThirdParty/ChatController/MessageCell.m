@@ -48,7 +48,7 @@ NSString * const kMessageSentBy = @"MessageSentBy";
 // Instance Level Constants
 static int offsetX = 6; // 6 px from each side
 // Minimum Bubble Height
-static int minimumHeight = 30;
+//static int minimumHeight = 30;
 
 #define kStateImageViewWidth 24
 #define kStateImageViewHigth 17
@@ -105,7 +105,7 @@ static int minimumHeight = 30;
             _bgLabel.layer.rasterizationScale = 2.0f;
             _bgLabel.layer.shouldRasterize = YES;
             _bgLabel.layer.borderWidth = 2;
-            _bgLabel.layer.cornerRadius = minimumHeight / 2;
+            _bgLabel.layer.cornerRadius = minimumHeight / 5;
             _bgLabel.alpha = .925;
             [self.contentView addSubview:_bgLabel];
         }
@@ -125,7 +125,7 @@ static int minimumHeight = 30;
         if (picImageView == nil) {
             picImageView = [UIImageView new];
 //            _picImageView.frame = CGRectMake(offsetX / 2, 0, minimumHeight*3, minimumHeight*3);
-            picImageView.layer.cornerRadius = minimumHeight / 2;
+            picImageView.layer.cornerRadius = minimumHeight / 5;
             picImageView.layer.masksToBounds = YES;
             picImageView.layer.rasterizationScale = 2;
             picImageView.layer.shouldRasterize = YES;
@@ -135,8 +135,8 @@ static int minimumHeight = 30;
         /*自己的头像*/
         if (!MyHeadimageView) {
             MyHeadimageView = [UIImageView new];
-            MyHeadimageView.frame = CGRectMake(320-minimumHeight, 0, minimumHeight, minimumHeight);
-            MyHeadimageView.layer.cornerRadius = minimumHeight / 2;
+            MyHeadimageView.frame = CGRectMake(320-minimumHeight-5, 0, minimumHeight, minimumHeight);
+            MyHeadimageView.layer.cornerRadius = minimumHeight / 5;
             MyHeadimageView.layer.masksToBounds = YES;
             MyHeadimageView.layer.rasterizationScale = 2;
             MyHeadimageView.layer.shouldRasterize = YES;
@@ -162,15 +162,16 @@ static int minimumHeight = 30;
 #pragma mark GETTERS | SETTERS
 
 //设置显示对方头像
-- (void) AddOpponentImage:(UIImage *)opponentImage {
+- (void) AddOpponentImageView:(UIImageView *)opponentImage {
 
-    _imageView.image = opponentImage;
+    _imageView.image = opponentImage.image;
 }
 
 //设置自己头像
-- (void)AddMyHeadimageView:(UIImage *)MyHeadimage
+- (void)AddMyHeadimageView:(UIImageView *)MyHeadimage
 {
-    MyHeadimageView.image = MyHeadimage;
+    MyHeadimageView.image = MyHeadimage.image;
+  
 }
 
 ////设置消息发送者
@@ -261,13 +262,13 @@ static int minimumHeight = 30;
             _imageView.hidden = YES;
             MyHeadimageView.hidden = NO;
             for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width, v.center.y);
+                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
             }
             self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth, kStateImageViewHigth);
         }
         else {
             for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width, v.center.y);
+                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+5, v.center.y);
             }
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;

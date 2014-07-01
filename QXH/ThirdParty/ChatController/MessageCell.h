@@ -109,8 +109,8 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 - (void)showDate:(NSDictionary*)adic;
 
 //设置自己头像
-- (void)AddMyHeadimageView:(UIImage *)MyHeadimage;
+- (void)AddMyHeadimageView:(UIImageView *)MyHeadimage;
 
 //设置显示对方头像
-- (void) AddOpponentImage:(UIImage *)opponentImage;
+- (void) AddOpponentImageView:(UIImageView *)opponentImage;
 @end

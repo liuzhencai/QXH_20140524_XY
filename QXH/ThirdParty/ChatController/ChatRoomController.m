@@ -19,6 +19,7 @@
 #import "MyTribeDetailViewController.h"
 #import "chatRoomActivViewController.h"
 #import "chatRoomMemberViewController.h"
+#import "UserInfoModelManger.h"
 
 
 
@@ -51,6 +52,9 @@ static int scout=0;
     chatRoomMemberViewController* chatRoomMember;
 ////    /*记录当前的cell*/
 //    MessageCell* statecell;
+    
+    /*自己信息*/
+    UserInfoModel* userinfo;
 }
 
 // View Properties
@@ -127,8 +131,7 @@ static int scout=0;
     /*聊天view*/
 //    chatview = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-KTopButtonHight-64)];
     
-    [self addMyHeadImage:[UIImage imageNamed:@"tempUser.png"]];
-    [self addOHeadImage:[UIImage imageNamed:@"tempUser.png"]];
+
     // ChatInput
     _chatInput = [[ChatInput alloc]init];
     _chatInput.backgroundColor = [UIColor yellowColor];
@@ -146,7 +149,9 @@ static int scout=0;
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
     flow.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
     flow.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flow.minimumLineSpacing = 6;
+    
+    /*每一行之间距离*/
+    flow.minimumLineSpacing = 16;
     
     // Set Up CollectionView2
     CGRect myFrame =  CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - KTopButtonHight - height(_chatInput));
@@ -173,6 +178,12 @@ static int scout=0;
     /*获取部落信息*/
     [self getTribeInfo];
     
+
+    /*获取自己信息*/
+    UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
+    userinfo = [usermang getUserInfo];
+    
+
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -593,8 +604,8 @@ static int scout=0;
     // Set the cell
 //    cell.opponentImage = self.opponentImg;
 //    cell setm
-    [cell AddOpponentImage:self.opponentImg];
-    [cell AddMyHeadimageView:self.MyHeadImg];
+//    [cell AddOpponentImage:self.opponentImg];
+    [cell AddMyHeadimageView:userinfo.iconImageview];
 //    cell.MyHeadimageView = self.MyHeadImg;
 
     if (_opponentBubbleColor) cell.opponentColor = _opponentBubbleColor;
@@ -729,7 +740,8 @@ static int scout=0;
         NSString* roomid =[NSString stringWithFormat:@"%d",[aroomid intValue]];
         if (mess && roomid) {
  
-
+            [self addMyHeadImage:userinfo.iconImageview.image];
+           
             
             [DataInterface chat:roomid sendtype:@"2" mess:mess withCompletionHandler:^(NSMutableDictionary *dict){
                 /*
@@ -1044,6 +1056,7 @@ static int scout=0;
       /*暂时没添加接受图片*/
     }
     userinfo[kMessageTimestamp] = userinfo[@"date"];
+    [self addOHeadImage:[UIImage imageNamed:@"tempUser.png"]];
     [self messageSendByOpponent:userinfo];
 }
 

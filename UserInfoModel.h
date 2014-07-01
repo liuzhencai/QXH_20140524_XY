@@ -6,7 +6,11 @@
 //  Copyright (c) 2014 ZhaoLilong. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
+
+/*定义聊天室中头像大小*/
+#define minimumHeight  40
 
 @interface UserInfoModel : NSObject
 
@@ -61,5 +65,8 @@
 @property (nonatomic, copy) NSString *configure; // 客户端配置相关信息
 
 @property (nonatomic, copy) NSString *status; // 0为正常用户，1为禁用用户，2为临时用户
-@property (nonatomic,copy) UIImageView* iconImageview;//用户头像
+@property (nonatomic,strong) UIImageView* iconImageview;//用户头像
+@property (nonatomic,copy) NSString* phone;//电话号码
+@property (nonatomic,copy) NSString* degree;//学位
+@property (nonatomic,copy) NSString* honours;//贡献
 @end
