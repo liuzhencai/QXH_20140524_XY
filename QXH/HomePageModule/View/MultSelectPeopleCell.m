@@ -68,6 +68,9 @@
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
     
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [self.contentView addSubview:line];
 }
 
 
