@@ -25,7 +25,7 @@ NSString * const kMessageSize = @"size";
 //消息发送者
 NSString * const kMessageSentBy = @"MessageSentBy";
 
-
+#define KheadX 5
 
 
 //#if defined(__has_include) 
@@ -67,7 +67,7 @@ static int offsetX = 6; // 6 px from each side
 /* 
  对方的头像
  */
-@property (strong, nonatomic) UIImageView *imageView;
+//@property (strong, nonatomic) UIImageView *imageView;
 
 
 
@@ -75,7 +75,7 @@ static int offsetX = 6; // 6 px from each side
 
 @implementation MessageCell
 @synthesize MyHeadimageView,picImageView;
-@synthesize stateImageView;
+@synthesize stateImageView,_imageView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -147,8 +147,8 @@ static int offsetX = 6; // 6 px from each side
         /*对方的头像*/
         if (!_imageView) {
             _imageView = [UIImageView new];
-            _imageView.frame = CGRectMake(offsetX / 2, 0, minimumHeight, minimumHeight);
-            _imageView.layer.cornerRadius = minimumHeight / 2;
+            _imageView.frame = CGRectMake(KheadX, 0, minimumHeight, minimumHeight);
+            _imageView.layer.cornerRadius = minimumHeight / 5;
             _imageView.layer.masksToBounds = YES;
             _imageView.layer.rasterizationScale = 2;
             _imageView.layer.shouldRasterize = YES;
@@ -161,18 +161,18 @@ static int offsetX = 6; // 6 px from each side
 
 #pragma mark GETTERS | SETTERS
 
-//设置显示对方头像
-- (void) AddOpponentImageView:(UIImageView *)opponentImage {
-
-    _imageView.image = opponentImage.image;
-}
-
-//设置自己头像
-- (void)AddMyHeadimageView:(UIImageView *)MyHeadimage
-{
-    MyHeadimageView.image = MyHeadimage.image;
-  
-}
+////设置显示对方头像
+//- (void) AddOpponentImageView:(UIImageView *)opponentImage {
+//
+//    _imageView.image = opponentImage.image;
+//}
+//
+////设置自己头像
+//- (void)AddMyHeadimageView:(UIImageView *)MyHeadimage
+//{
+//    MyHeadimageView.image = MyHeadimage.image;
+//  
+//}
 
 ////设置消息发送者
 //- (void)setkMessageRuntimeSentBy:(SentBy)sendby
@@ -181,9 +181,9 @@ static int offsetX = 6; // 6 px from each side
 //
 //}
 
-- (UIImage *) opponentImage {
-    return _imageView.image;
-}
+//- (UIImage *) opponentImage {
+//    return _imageView.image;
+//}
 
 - (void) setOpponentColor:(UIColor *)opponentColor {
     if (_sentBy == kSentByOpponent) {
@@ -222,7 +222,7 @@ static int offsetX = 6; // 6 px from each side
         if (_sentBy == kSentByUser) {
             _imageView.hidden = YES;
             MyHeadimageView.hidden = NO;
-            picImageView.frame = CGRectMake(320-_imageView.bounds.size.width- KPicWidth, 0, minimumHeight*3, minimumHeight*3);
+            picImageView.frame = CGRectMake(320-_imageView.bounds.size.width- KPicWidth - KheadX, 0, minimumHeight*3, minimumHeight*3);
         }else{
             //对方发的
             _imageView.hidden = NO;
@@ -246,33 +246,51 @@ static int offsetX = 6; // 6 px from each side
             // then this is a message that the current user created . . .
             _bgLabel.frame = CGRectMake(ScreenWidth() - offsetX, 0, -_textSize.width - outlineSpace, height) ;
             _bgLabel.layer.borderColor = _userColor.CGColor;
+            MyHeadimageView.hidden = NO;
+            MyHeadimageView.image = _message[@"kHeadIcon"];
+            _imageView.hidden = YES;
+            stateImageView.hidden = NO;
+            for (UIView * v in @[_bgLabel, _textLabel]) {
+                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
+            }
+            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
      
         }
         else {
             // sent by opponent
             _bgLabel.frame = CGRectMake(offsetX, 0, _textSize.width + outlineSpace, height);
             _bgLabel.layer.borderColor = _opponentColor.CGColor;
+            
+            for (UIView * v in @[_bgLabel, _textLabel]) {
+                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
+            }
+            /*如果是对方发送消息，去除图像*/
+            _imageView.image = _message[@"kHeadIcon"];
+            MyHeadimageView.hidden = YES;
+            _imageView.hidden = NO;
+            stateImageView.hidden = YES;
+//            _imageView.backgroundColor = [UIColor redColor];
         }
         
         // Add image if we have one
         //判断是不是对方发送消息
-        if (_sentBy == kSentByUser || !_imageView.image) {
-            // If sentby current user, or no image, hide imageView;
-            _imageView.image = nil;
-            _imageView.hidden = YES;
-            MyHeadimageView.hidden = NO;
-            for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
-            }
-            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth, kStateImageViewHigth);
-        }
-        else {
-            for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+5, v.center.y);
-            }
-            MyHeadimageView.hidden = YES;
-            _imageView.hidden = NO;
-        }
+//        if (_sentBy == kSentByUser) {
+//            // If sentby current user, or no image, hide imageView;
+//            _imageView.image = nil;
+//            _imageView.hidden = YES;
+//            MyHeadimageView.hidden = NO;
+//            for (UIView * v in @[_bgLabel, _textLabel]) {
+//                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
+//            }
+//            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth, kStateImageViewHigth);
+//        }
+//        else {
+//            for (UIView * v in @[_bgLabel, _textLabel]) {
+//                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+5, v.center.y);
+//            }
+//            MyHeadimageView.hidden = YES;
+//            _imageView.hidden = NO;
+//        }
         
         // position _textLabel in the _bgLabel;
         _textLabel.frame = CGRectMake(_bgLabel.frame.origin.x + (outlineSpace / 2), 0, _bgLabel.bounds.size.width - outlineSpace, _bgLabel.bounds.size.height);

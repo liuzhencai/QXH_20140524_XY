@@ -20,6 +20,7 @@
 #import "FillNameCardViewController.h"
 #import "LoginViewController.h"
 #import "MessageBySend.h"
+#import "UserInfoModelManger.h"
 
 
 @interface HomePageController ()<LoginDelegate>
@@ -44,9 +45,19 @@
 {
     NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
     if ([defaults objectForKey:@"userid"]) {
-        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-            [self setTopViewValue:dict];
-        }];
+        /*获取个人信息，并储存起来*/
+        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+         {
+             NSLog(@"获取到用户信息");
+             _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
+//             [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+             _portraitView.image = user.iconImageview.image;
+             [_portraitView circular];
+         }];
+        
+//        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+//            [self setTopViewValue:dict];
+//        }];
     }
 }
 
