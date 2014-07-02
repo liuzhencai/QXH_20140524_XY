@@ -45,6 +45,10 @@
         //        _arrowImgView.backgroundColor = [UIColor redColor];
         _arrowImgView.image = [UIImage imageNamed:@"list_arrow_right_gray"];
         [self.contentView addSubview:_arrowImgView];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [self.contentView addSubview:line];
     }
     return self;
 }
@@ -64,6 +68,10 @@
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
 
     _date.frame = CGRectMake(_name.right - 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [self.contentView addSubview:line];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

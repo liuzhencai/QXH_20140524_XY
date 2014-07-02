@@ -17,10 +17,11 @@
     if (self) {
         // Initialization code
         
-        CGFloat height = 80;
-        CGFloat lableHeight = 23;
+        CGFloat height = 120;
+        CGFloat lableHeight = 30;
         
-        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 52)/2.0, 56, 56)];
+//        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 52)/2.0, 56, 56)];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 72)/2.0, 72, 72)];
         [_headImgView setRound:YES];
         _headImgView.image = [UIImage imageNamed:@"img_portrait96"];
         [self.contentView addSubview:_headImgView];
@@ -50,7 +51,7 @@
         _arrowImgView.image = [UIImage imageNamed:@"list_arrow_right_gray"];
         [self.contentView addSubview:_arrowImgView];
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 80 - 0.5, UI_SCREEN_WIDTH, 0.5)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
         line.backgroundColor = [UIColor lightGrayColor];
         [self.contentView addSubview:line];
     }

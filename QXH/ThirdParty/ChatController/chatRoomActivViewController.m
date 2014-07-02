@@ -38,7 +38,7 @@
     }
     self.activitysList = [NSMutableArray arrayWithArray:tmpArr];
     
-   tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height) style:UITableViewStylePlain];
+   tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 50) style:UITableViewStylePlain];
 //    activityTable.tag = ACTIVITY_TABLE_TAG;
     tableview.delegate = self;
     tableview.dataSource = self;

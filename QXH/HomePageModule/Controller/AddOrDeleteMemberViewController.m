@@ -37,6 +37,7 @@
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
+    _mainTable.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:_mainTable];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
@@ -63,10 +64,48 @@
 
 - (void)addOrDeleteMembers:(UIButton *)sender{
     NSLog(@"添加 or 删除 member");
+    
+    if ([self.addItems count] <= 0) {
+        [self showAlert:@"请选择成员"];
+        return;
+    }
+    NSDictionary *userDict = [self.addItems lastObject];
+    NSString *userId = [[userDict objectForKey:@"userid"] stringValue];
+    NSString *tribeid = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
+    
     if (self.type == deleteTribeMemberType) {//删除
-        
+        /**
+         *  退出部落
+         *  @param targetid 被处理的退出成员的userid(如果该字段与userid相同为主动退出，不相同，为管理者踢出部落)
+         *  @param tribeid  部落唯一标示
+         *  @param callback 回调
+         */
+        [DataInterface quitTribe:userId  //100013
+                         tribeid:tribeid
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"退出部落返回值：%@",dict);
+               NSString *code = [dict objectForKey:@"statecode"];
+               if ([code isEqualToString:@"0200"]) {
+                   [_selectIndexPaths removeAllObjects];
+                   [_addItems removeAllObjects];
+                   [self getTribeMembers];
+               }
+               [self showAlert:[dict objectForKey:@"info"]];
+           }];
+
     }else{//添加
+        /**
+         *  部落创建者或管理员拉人进部落
+         *
+         *  @param targetid 被处理的拉入成员的userid
+         *  @param tribeid  部落唯一标示
+         *  @param callback 回调
+         */
         
+        [DataInterface inviteToTribe:userId tribeid:tribeid withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
     }
 }
 
@@ -84,7 +123,7 @@
                 NSArray *list = [dict objectForKey:@"list"];
                 self.tribeMembers = [NSMutableArray arrayWithArray:list];
                 [_mainTable reloadData];
-                [self showAlert:[dict objectForKey:@"info"]];
+//                [self showAlert:[dict objectForKey:@"info"]];
             }];
         }
     }
@@ -103,7 +142,7 @@
      *  @param count       获取数量
      *  @param callback    回调
      */
-    [DataInterface getFriendInfo:@"2"
+    [DataInterface getFriendInfo:@"1"
                          address:@""
                         domicile:@""
                      displayname:@""
@@ -222,10 +261,15 @@
         [_addItems removeObject:item];
         [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
     }else{
+        //单选（去掉这两句就是多选）
+        [_selectIndexPaths removeAllObjects];
+        [_addItems removeAllObjects];
+        
         [_selectIndexPaths addObject:indexPath];
         [_addItems addObject:item];
         [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
     }
+    [_mainTable reloadData];
 }
 
 

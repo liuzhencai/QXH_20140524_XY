@@ -514,7 +514,8 @@ withCompletionHandler:(DictCallback)callback
             targetid:(NSString *)targetid
 withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0134", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"contenttype":contenttype,@"sharetype":sharetype,@"targetid":targetid};
+//    NSDictionary *param = @{@"opercode": @"0134", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"artid":artid,@"contenttype":contenttype,@"sharetype":sharetype,@"targetid":targetid};
+    NSDictionary *param = @{@"opercode": @"0134", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"sourceid":artid,@"sourcetype":contenttype,@"sharetype":sharetype,@"targetid":targetid};
     NSLog(@"\n##########分享内容接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########分享内容返回结果##########\n[结 果]:%@\n#############################\n",dict);

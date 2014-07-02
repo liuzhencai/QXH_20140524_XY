@@ -278,6 +278,7 @@
         [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"加入活动申请返回值:%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];
+            [self getActivityDetail];
         }];
         
     }else{
@@ -359,8 +360,8 @@
     if (alertView.firstOtherButtonIndex == buttonIndex) {//分享到部落
         NSLog(@"分享到部落");
         ShareToTribeViewController *shareToTribe = [[ShareToTribeViewController alloc] init];
-        shareToTribe.shareToTribeBlock = ^(NSDictionary *dict){
-            NSLog(@"分享不落信息：%@",dict);
+        shareToTribe.shareToTribeBlock = ^(NSDictionary *paramDict){
+            NSLog(@"分享不落信息：%@",paramDict);
             /**
              *  分享内容
              *
@@ -371,11 +372,11 @@
              *  @param callback 回调
              */
 
-            if (dict) {
+            if (paramDict) {
                 [DataInterface shareContent:self.activityId
                                 contenttype:@"3"
                                   sharetype:@"2"
-                                   targetid:[dict objectForKey:@"tribeid"]
+                                   targetid:[paramDict objectForKey:@"tribeid"]
                       withCompletionHandler:^(NSMutableDictionary *dict){
                           NSLog(@"分享到部落返回信息%@",dict);
                           [self showAlert:[dict objectForKey:@"info"]];

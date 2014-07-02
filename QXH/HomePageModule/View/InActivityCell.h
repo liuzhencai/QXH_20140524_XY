@@ -10,6 +10,8 @@
 #import "NIAttributedLabel.h"
 @interface InActivityCell : UITableViewCell
 
+@property (strong, nonatomic)  UIImageView *titleBgImgView;
+@property (strong, nonatomic)  UIImageView *typeBgImgView;
 @property (strong, nonatomic)  UILabel *activityTitleLabel; // 活动标题标签
 @property (strong, nonatomic)  UILabel *activityTypeLabel; // 活动类型标签
 @property (strong, nonatomic)  UILabel *activityDescriptionLabel; // 活动描述标签

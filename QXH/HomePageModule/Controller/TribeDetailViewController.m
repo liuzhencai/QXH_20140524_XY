@@ -7,6 +7,7 @@
 //
 
 #import "TribeDetailViewController.h"
+#import "TribeMembersViewController.h"
 
 @interface TribeDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -216,6 +217,13 @@
         }
         return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"%@",indexPath);
+    TribeMembersViewController *members = [[TribeMembersViewController alloc] init];
+    members.tribeId = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
+    [self.navigationController pushViewController:members animated:YES];
 }
 
 - (UILabel *)addLabelWithFrame:(CGRect)frame

@@ -121,6 +121,7 @@
         UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [portrait setRound:YES];
         portrait.tag = 100;
+        portrait.transform = CGAffineTransformMakeRotation(M_PI/2);
         portrait.image = [UIImage imageNamed:@"img_portrait72"];
         [cell.contentView addSubview:portrait];
     }

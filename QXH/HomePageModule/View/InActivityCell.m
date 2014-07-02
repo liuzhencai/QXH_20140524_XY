@@ -22,21 +22,19 @@
         
         UIImageView *titleBgImgView = [self addImageViewWithFrame:CGRectMake(1, 1, bgImgView.width - 2, 30)
                                                    imageName:[UIImage imageNamed:@"title_bar_bg"]];
+        self.titleBgImgView = titleBgImgView;
         [bgImgView addSubview:titleBgImgView];
         
         UIImageView *typeBgImgView = [self addImageViewWithFrame:CGRectMake(230, 5, 60, 20)
                                                         imageName:[UIImage imageNamed:@"img_bg_type"]];
+        self.typeBgImgView = typeBgImgView;
         [bgImgView addSubview:typeBgImgView];
         //title
         _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 0, 200, 30)
                                                  text:@"活动标题活动标题活动标题活动xxx"
                                                 color:GREEN_FONT_COLOR
                                                  font:[UIFont systemFontOfSize:16]];
-//        _activityTitleLabel.backgroundColor = [UIColor redColor];
         _activityTitleLabel.numberOfLines = 0;
-        if ([_activityTitleLabel.text length] > 14) {
-            self.activityTitleLabel.font = [UIFont systemFontOfSize:12];
-        }
         
         [bgImgView addSubview:_activityTitleLabel];
         
@@ -74,7 +72,6 @@
                                                      text:[items objectAtIndex:i]
                                                     color:[UIColor blackColor]
                                                      font:[UIFont systemFontOfSize:12]];
-//            itemTitle.backgroundColor = [UIColor redColor];
             [bgImgView addSubview:itemTitle];
             
             UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 18, 30)
@@ -82,7 +79,6 @@
                                                    color:[UIColor blackColor]
                                                     font:[UIFont systemFontOfSize:12]];
             [bgImgView addSubview:itemValue];
-//            itemValue.backgroundColor = [UIColor greenColor];
             
             NSString *imageName = nil;
             switch (i) {
@@ -125,12 +121,12 @@
         }
         
         //sign up
-
         _signUpLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(10, 185 - 20, 60, 15)];
         _signUpLabel.font = [UIFont systemFontOfSize:12];
         _signUpLabel.textAlignment = NSTextAlignmentCenter;
+        _signUpLabel.backgroundColor = [UIColor clearColor];
         [bgImgView addSubview:_signUpLabel];
-//        _signUpLabel.backgroundColor = [UIColor redColor];
+        
         
         //line
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(_signUpLabel.right, _signUpLabel.top, 1, _signUpLabel.height)];
@@ -139,10 +135,11 @@
         
         //follow
         _followLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(_signUpLabel.right + 1, _signUpLabel.top, 60, 15)];
+        _followLabel.backgroundColor = [UIColor clearColor];
         _followLabel.font = [UIFont systemFontOfSize:12];
         _followLabel.textAlignment = NSTextAlignmentCenter;
         [bgImgView addSubview:_followLabel];
-//        _followLabel.backgroundColor = [UIColor greenColor];
+        
         
         //status image
         _activityStatus = [self addImageViewWithFrame:CGRectMake(224, 178, 75, 21)
@@ -178,11 +175,30 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
     if (params) {
-        NSString *titleString = [params objectForKey:@"actname"];
-        if ([titleString length] > 14) {
-            self.activityTitleLabel.font = [UIFont systemFontOfSize:12];
+        NSMutableString *titleString = [NSMutableString stringWithFormat:@"%@",[params objectForKey:@"actname"]];
+
+        if ([titleString length] > 12) {
+            CGFloat height = 40;
+            CGRect titleframe = self.activityTitleLabel.frame;
+            titleframe.size.height = height;
+            self.activityTitleLabel.frame = titleframe;
+            [titleString insertString:@"\n" atIndex:12];
+            
+            CGRect titleBGframe = self.titleBgImgView.frame;
+            titleBGframe.size.height = 40;
+            self.titleBgImgView.frame = titleBGframe;
+            
+            CGRect imageframe = self.activityImage.frame;
+            imageframe.origin.y = 43;
+            self.activityImage.frame = imageframe;
+            
+            CGRect typeFrame = self.typeBgImgView.frame;
+            typeFrame.origin.y = 10;
+            self.typeBgImgView.frame = typeFrame;
+            self.activityTypeLabel.frame = typeFrame;
         }
-        self.activityTitleLabel.text = [params objectForKey:@"actname"];
+        self.activityTitleLabel.text = titleString;
+
         self.activityTypeLabel.text = [params objectForKey:@"acttype"];
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
         NSString *imageUrlStr = [params objectForKey:@"photos"];

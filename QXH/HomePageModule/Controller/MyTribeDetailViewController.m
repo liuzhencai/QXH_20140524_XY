@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSDictionary *leaderDict;//秘书长信息
 
 @property (nonatomic, strong) NSDictionary *tribeDetailDict;//部落详细信息
+
+@property (nonatomic, assign) BOOL isCreater;//是否是秘书长或者是创建人
 @end
 
 @implementation MyTribeDetailViewController
@@ -43,6 +45,7 @@
     if (self) {
         // Custom initialization
         self.hidesBottomBarWhenPushed = YES;
+        self.isCreater = NO;
         
     }
     return self;
@@ -58,7 +61,7 @@
 //    if (self.isCreatDetail) {
 //        self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"新消息通知",@"置顶聊天",@"介绍",@"当前部落成员"];
 //    }
-    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"",@"清空缓存"];
+    self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"清空缓存"];
     if (self.isCreatDetail) {
         self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"当前部落成员"];
     }
@@ -67,6 +70,7 @@
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     [_mainTable setup];
+    _mainTable.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:_mainTable];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainTable.bottom, UI_SCREEN_WIDTH, 70)];
@@ -115,8 +119,15 @@
         [DataInterface getTribeInfo:[self.tribeDict objectForKey:@"tribeid"] withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"获取部落详情信息返回值：%@",dict);
             self.tribeDetailDict = dict;
+            NSInteger createrId = [[dict objectForKey:@"creater"] integerValue];
+            NSInteger secretaryId = [[dict objectForKey:@"secretary"] integerValue];
+            NSInteger userId = [[defaults objectForKey:@"userid"] integerValue];
+            if (createrId == userId || secretaryId == userId) {
+                self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"",@"清空缓存"];
+                self.isCreater = YES;
+            }
             [_mainTable reloadData];
-            [self showAlert:[dict objectForKey:@"info"]];
+//            [self showAlert:[dict objectForKey:@"info"]];
         }];
     }
 }
@@ -150,11 +161,6 @@
             return;
         }
         
-//        if (!self.imagePath) {
-//            [self showAlert:@"请先上传头像"];
-//            return;
-//        }
-        
         if (self.headImage) {
             /**
              *  文件上传
@@ -182,8 +188,10 @@
          *  @param tribeid  部落唯一标示
          *  @param callback 回调
          */
-        [DataInterface quitTribe:@"100013"  //100013
-                         tribeid:@"6"
+        NSString *userId = [[defaults objectForKey:@"userid"] stringValue];
+        NSString *tribeId = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
+        [DataInterface quitTribe:userId  //100013
+                         tribeid:tribeId
            withCompletionHandler:^(NSMutableDictionary *dict){
                NSLog(@"退出部落返回值：%@",dict);
                [self showAlert:[dict objectForKey:@"info"]];
@@ -298,6 +306,11 @@
                                             font:[UIFont systemFontOfSize:14]];
         title.tag = 200;
         [cell.contentView addSubview:title];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 44 - 0.5, UI_SCREEN_WIDTH, 0.5)];
+        line.tag = 333;
+        line.backgroundColor = [UIColor lightGrayColor];
+        [cell.contentView addSubview:line];
     }
     UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:200];
     titleLabel.frame = CGRectMake(20, (cell.height - 30)/2.0, 100, 30);
@@ -367,9 +380,7 @@
             }else{
                 if (self.tribeDetailDict) {
                     NSString *headImageUrlString = [self.tribeDetailDict objectForKey:@"photo"];
-//                    [head setImageWithURL:[NSURL URLWithString:headImageUrlString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
                     [head setImageWithURL:IMGURL(headImageUrlString) forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
-
                 }
             }
             [cell.contentView addSubview:head];
@@ -431,6 +442,10 @@
 //            break;
         case 5:{//介绍
             titleLabel.frame = CGRectMake(20, (44 - 30)/2.0, 100, 30);
+            UIView *line = (UIView *)[cell.contentView viewWithTag:333];
+            CGRect lineFrame = line.frame;
+            lineFrame.origin.y = 80 - 0.5;
+            line.frame = lineFrame;
             if (!_tribeDes) {
                 _tribeDes = [[UITextView alloc] initWithFrame:CGRectMake(titleLabel.right, titleLabel.top, 200, 80 - 14)];
                 _tribeDes.tag = 201;
@@ -467,22 +482,29 @@
                 _count.text = [NSString stringWithFormat:@"%d",[self.membersArray count]];
                 [cell.contentView addSubview:_count];
             }else{
-                for (int i = 0; i < 2; i ++) {
-                    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                    button.frame = CGRectMake(20 + (130 + 20) * i, 7, 130, 30);
-                    [button addTarget:self action:@selector(addOrDeleteMembers:) forControlEvents:UIControlEventTouchUpInside];
-                    
-                    button.tag = 880 + i;
-                    if (i == 0) {
-                        [button setTitle:@"添加成员" forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
-                    }else{
-                        [button setTitle:@"删除成员" forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_share_normal.png"] forState:UIControlStateNormal];
-                        [button setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
+                if (self.isCreater) {//等于8本人是秘书长或者创建者，等于7时本人为成员
+                    for (int i = 0; i < 2; i ++) {
+                        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                        button.frame = CGRectMake(20 + (130 + 20) * i, 7, 130, 30);
+                        [button addTarget:self action:@selector(addOrDeleteMembers:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        button.tag = 880 + i;
+                        if (i == 0) {
+                            [button setTitle:@"添加成员" forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
+                        }else{
+                            [button setTitle:@"删除成员" forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_share_normal.png"] forState:UIControlStateNormal];
+                            [button setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
+                        }
+                        [cell.contentView addSubview:button];
                     }
-                    [cell.contentView addSubview:button];
+                }else{
+                    UIView *view1 = [cell.contentView viewWithTag:880];
+                    [view1 removeFromSuperview];
+                    UIView *view2 = [cell.contentView viewWithTag:881];
+                    [view2 removeFromSuperview];
                 }
             }
             
@@ -516,11 +538,14 @@
             [self.navigationController pushViewController:addressList animated:YES];
         }
     }else{
-        if (indexPath.row == 8) {
-            
-        }else if (indexPath.row == 9) {
-            NSLog(@"清空缓存");
-            [self showAlert:@"缓存已清空"];
+        if (self.isCreater) {
+            if (indexPath.row == 7) {
+                [self showAlert:@"缓存已清空"];
+            }
+        }else{
+            if (indexPath.row == 6) {
+                [self showAlert:@"缓存已清空"];
+            }
         }
     }
 }
@@ -624,25 +649,6 @@
         UIImage *image = [UIImage imageWithData:data];
         self.headImage = image;
         NSLog(@"图片压缩后大小：%d",[data length]);
-//        /**
-//         *  文件上传
-//         *
-//         *  @param file     UIImage对象或文件URL
-//         *  @param type     1为图片，2为文档，3为音频
-//         *  @param callback 回调
-//         */
-//        [DataInterface fileUpload:image
-//                             type:@"1"
-//            withCompletionHandler:^(NSMutableDictionary *dict){
-//                NSLog(@"上传图片返回值%@",dict);
-//                self.imagePath = [dict objectForKey:@"filename"];
-//                [self showAlert:[dict objectForKey:@"info"]];
-//            }
-//                       errorBlock:^(NSString *desc) {
-//                           NSLog(@"上传图片错误：%@",desc);
-//                           [self showAlert:desc];
-//                       }];
-
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
     [_mainTable reloadData];

@@ -310,6 +310,7 @@
 		58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B8717C192FABF100EB730D /* TribeConversationCell.m */; };
 		58E08D0719532549000C25AE /* AddFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E08D0619532549000C25AE /* AddFriendView.m */; };
 		58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58EEDABF1958549E007E2FA2 /* citysList.plist */; };
+		58FABF0119631082002C9917 /* TribeMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FABF0019631082002C9917 /* TribeMembersViewController.m */; };
 		8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8405E55E193057D900276964 /* InformationCommentCell.xib */; };
 		8405E562193057E600276964 /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E561193057E600276964 /* InformationCommentCell.m */; };
 		840D73951959BF2B001AC585 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D73941959BF2B001AC585 /* ChatController.m */; };
@@ -892,6 +893,8 @@
 		58E08D0519532549000C25AE /* AddFriendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendView.h; sourceTree = "<group>"; };
 		58E08D0619532549000C25AE /* AddFriendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendView.m; sourceTree = "<group>"; };
 		58EEDABF1958549E007E2FA2 /* citysList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citysList.plist; sourceTree = "<group>"; };
+		58FABEFF19631082002C9917 /* TribeMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeMembersViewController.h; sourceTree = "<group>"; };
+		58FABF0019631082002C9917 /* TribeMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeMembersViewController.m; sourceTree = "<group>"; };
 		8405E55E193057D900276964 /* InformationCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentCell.xib; sourceTree = "<group>"; };
 		8405E560193057E600276964 /* InformationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentCell.h; sourceTree = "<group>"; };
 		8405E561193057E600276964 /* InformationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentCell.m; sourceTree = "<group>"; };
@@ -2109,6 +2112,8 @@
 				848426B2192E130400C9474A /* MyTribeDetailViewController.m */,
 				8484269A192E0D0100C9474A /* TribeDetailViewController.h */,
 				8484269B192E0D0100C9474A /* TribeDetailViewController.m */,
+				58FABEFF19631082002C9917 /* TribeMembersViewController.h */,
+				58FABF0019631082002C9917 /* TribeMembersViewController.m */,
 				8484269C192E0D0100C9474A /* TribeDynamicViewController.h */,
 				8484269D192E0D0100C9474A /* TribeDynamicViewController.m */,
 				58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */,
@@ -2421,6 +2426,7 @@
 			files = (
 				5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */,
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
+				58FABF0119631082002C9917 /* TribeMembersViewController.m in Sources */,
 				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
 				840D73951959BF2B001AC585 /* ChatController.m in Sources */,
 				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
@@ -2753,6 +2759,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "82B4997C-709E-4393-89CB-D6A7D7DE0FB9";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2776,7 +2783,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "82B4997C-709E-4393-89CB-D6A7D7DE0FB9";
+				PROVISIONING_PROFILE = "82B4997C-709E-4393-89CB-
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
