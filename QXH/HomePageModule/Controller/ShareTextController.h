@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, SquareInfoType) {
 @property (weak, nonatomic) IBOutlet UITableView *contentTable;
 @property (strong, nonatomic) IBOutlet UIView *toolbarView;
 @property (strong, nonatomic) IBOutlet UIView *topView;
+@property (nonatomic, strong) SquareInfo *info;
 - (IBAction)click:(id)sender;
 
 @end

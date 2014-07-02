@@ -7,10 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SquareViewController">
             <connections>
-                <outlet property="everyDayAskContentLbl" destination="QUk-5C-FbZ" id="evG-IA-mwv"/>
-                <outlet property="everyDayAskDateLbl" destination="igc-z5-FoX" id="4ds-5w-YeR"/>
-                <outlet property="everyDayAskImg" destination="EBj-r2-dGQ" id="EfM-JF-ZQb"/>
-                <outlet property="everydayAskView" destination="6Er-AH-tAT" id="o2z-Bx-kfZ"/>
                 <outlet property="hotBtn" destination="gXg-xS-GRN" id="YAc-Ma-8ed"/>
                 <outlet property="lastestBtn" destination="HyW-hM-EGV" id="iIu-TR-kcI"/>
                 <outlet property="slipbar" destination="Tnu-WC-HvR" id="lmZ-Iq-pnU"/>
@@ -67,59 +63,8 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <view contentMode="scaleToFill" id="6Er-AH-tAT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="问道" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KBe-bO-1TZ">
-                    <rect key="frame" x="10" y="13" width="58" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.30396360639999997" green="0.77952665440000002" blue="0.23354541509999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="igc-z5-FoX">
-                    <rect key="frame" x="136" y="13" width="76" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QUk-5C-FbZ">
-                    <rect key="frame" x="10" y="37" width="177" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qX1-05-RbZ">
-                    <rect key="frame" x="68" y="13" width="60" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="往期回顾">
-                        <color key="titleColor" red="1" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="history:" destination="-1" eventType="touchUpInside" id="SjE-oT-jqH"/>
-                    </connections>
-                </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list_arrow_right_gray.png" id="lgY-4d-FBf">
-                    <rect key="frame" x="303" y="34" width="8" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="EBj-r2-dGQ">
-                    <rect key="frame" x="218" y="11" width="80" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                </imageView>
-            </subviews>
-            <color key="backgroundColor" red="0.92549019607843142" green="0.96078431372549022" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-        </view>
     </objects>
     <resources>
-        <image name="list_arrow_right_gray.png" width="7" height="12"/>
         <image name="navigation_slippage_bar_bg.png" width="320" height="2"/>
         <image name="navigation_slippage_bar_green.png" width="160" height="2"/>
     </resources>

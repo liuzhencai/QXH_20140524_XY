@@ -42,6 +42,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+/*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 10;
@@ -75,7 +76,43 @@
     }
     return cell;
 }
+*/
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    switch (_info.type) {
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    return cell;
+}
+ 
 - (IBAction)click:(id)sender {
     UIButton *btn = (UIButton *)sender;
     switch (btn.tag) {

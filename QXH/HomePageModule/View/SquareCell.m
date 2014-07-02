@@ -37,7 +37,6 @@
     }else{
         [_imageView1 setImageWithURL:IMGURL(tmpModel.artimgs)];
     }
-//    [_imageView1 setImageWithURL:(NSURL *) placeholderImage:(UIImage *)]
 }
 
 @end

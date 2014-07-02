@@ -165,6 +165,8 @@
 		21401DB21919326B00E9175B /* MyMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21401DB01919326B00E9175B /* MyMsgCell.xib */; };
 		214C25A71956838E006109FF /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 214C25A61956838E006109FF /* CustomIOS7AlertView.m */; };
 		214C25B01956A0DF006109FF /* SquareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 214C25AF1956A0DF006109FF /* SquareInfo.m */; };
+		214E810C19644BF70026BB60 /* SquareAskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214E810A19644BF70026BB60 /* SquareAskCell.m */; };
+		214E810D19644BF70026BB60 /* SquareAskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214E810B19644BF70026BB60 /* SquareAskCell.xib */; };
 		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
 		2166CDF41933970500F0312E /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF31933970500F0312E /* UserInfoModel.m */; };
 		2166CDF619339A3400F0312E /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF519339A3400F0312E /* TabBarControl.m */; };
@@ -642,6 +644,9 @@
 		214C25A61956838E006109FF /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		214C25AE1956A0DF006109FF /* SquareInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareInfo.h; sourceTree = SOURCE_ROOT; };
 		214C25AF1956A0DF006109FF /* SquareInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareInfo.m; sourceTree = SOURCE_ROOT; };
+		214E810919644BF70026BB60 /* SquareAskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareAskCell.h; sourceTree = "<group>"; };
+		214E810A19644BF70026BB60 /* SquareAskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareAskCell.m; sourceTree = "<group>"; };
+		214E810B19644BF70026BB60 /* SquareAskCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareAskCell.xib; sourceTree = "<group>"; };
 		2166CDEF193396AE00F0312E /* ModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelGenerator.h; sourceTree = "<group>"; };
 		2166CDF0193396AE00F0312E /* ModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelGenerator.m; sourceTree = "<group>"; };
 		2166CDF21933970500F0312E /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1540,6 +1545,9 @@
 				5869D87B1944B3F800401862 /* OnLiveCell.m */,
 				88C23E6B1950275500CBBD15 /* ActivityDetailCell.h */,
 				88C23E6C1950275500CBBD15 /* ActivityDetailCell.m */,
+				214E810919644BF70026BB60 /* SquareAskCell.h */,
+				214E810A19644BF70026BB60 /* SquareAskCell.m */,
+				214E810B19644BF70026BB60 /* SquareAskCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2401,6 +2409,7 @@
 				212F24191928E09A00F738F8 /* img_news@2x.png in Resources */,
 				848426EC192E185B00C9474A /* collect_label_share_green@2x.png in Resources */,
 				2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */,
+				214E810D19644BF70026BB60 /* SquareAskCell.xib in Resources */,
 				58B1DEAC192B980500086C38 /* collect_label_discuss_gray@2x.png in Resources */,
 				212F243C1928E09A00F738F8 /* details_icon_like_highlight@2x.png in Resources */,
 				2119EEB7191682E0007DBE68 /* 37x-Checkmark@2x.png in Resources */,
@@ -2426,6 +2435,7 @@
 			files = (
 				5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */,
 				21A894011928F8CF00A6DB7E /* ShareTextController.m in Sources */,
+				214E810C19644BF70026BB60 /* SquareAskCell.m in Sources */,
 				58FABF0119631082002C9917 /* TribeMembersViewController.m in Sources */,
 				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
 				840D73951959BF2B001AC585 /* ChatController.m in Sources */,
@@ -2760,7 +2770,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "82B4997C-709E-4393-89CB-D6A7D7DE0FB9";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2773,6 +2783,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2784,7 +2795,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "82B4997C-709E-4393-89CB-D6A7D7DE0FB9";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

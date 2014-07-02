@@ -9,6 +9,7 @@
 #import "SquareViewController.h"
 #import "SquareCell.h"
 #import "SquareCellEx.h"
+#import "SquareAskCell.h"
 #import "SquareShareController.h"
 #import "ShareTextController.h"
 #import "HistoryReviewController.h"
@@ -118,14 +119,13 @@
             break;
         case 4:
         {
-            static NSString *cellIdentifier = @"everyDayAskCell";
+            static NSString *cellIdentifier = @"SquareAskCell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (!cell) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareAskCell" owner:nil options:nil] objectAtIndex:0];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.contentView addSubview:_everydayAskView];
             }
-            [self setEverydayAskViewValue:model];
+            [(SquareAskCell *)cell setCellData:model];
             tblCell = cell;
         }
             break;
@@ -154,6 +154,9 @@
                 break;
             case 3:
                 rowHeight = 201.f;
+                break;
+            case 4:
+                rowHeight = 82.f;
                 break;
             default:
                 break;
@@ -188,14 +191,6 @@
     }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)setEverydayAskViewValue:(SquareInfo *)model
-{
-    InfoModel *info = model.content;
-    _everyDayAskContentLbl.text = info.content;
-    [_everyDayAskImg setImageWithURL:IMGURL(info.sphoto) placeholderImage:nil];
-    _everyDayAskDateLbl.text = model.date;
 }
 
 - (IBAction)btnClick:(id)sender {
