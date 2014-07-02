@@ -54,7 +54,7 @@ static int scout=0;
 //    MessageCell* statecell;
     
     /*自己信息*/
-    UserInfoModel* userinfo;
+    UserInfoModel* Myuserinfo;
 }
 
 // View Properties
@@ -179,9 +179,7 @@ static int scout=0;
     [self getTribeInfo];
     
 
-    /*获取自己信息*/
-    UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
-    userinfo = [usermang getUserInfo];
+ 
     
 
     // Register Keyboard Notifications
@@ -604,8 +602,8 @@ static int scout=0;
     // Set the cell
 //    cell.opponentImage = self.opponentImg;
 //    cell setm
-//    [cell AddOpponentImage:self.opponentImg];
-    [cell AddMyHeadimageView:userinfo.iconImageview];
+    
+//    [cell AddMyHeadimageView:userinfo.iconImageview];
 //    cell.MyHeadimageView = self.MyHeadImg;
 
     if (_opponentBubbleColor) cell.opponentColor = _opponentBubbleColor;
@@ -740,7 +738,14 @@ static int scout=0;
         NSString* roomid =[NSString stringWithFormat:@"%d",[aroomid intValue]];
         if (mess && roomid) {
  
-            [self addMyHeadImage:userinfo.iconImageview.image];
+//            if (!Myuserinfo) {
+//                UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
+//                [usermang getUserInfo:^(UserInfoModel* tempuser){
+//                    Myuserinfo = tempuser;
+//                }];
+//                
+//            }
+           
            
             
             [DataInterface chat:roomid sendtype:@"2" mess:mess withCompletionHandler:^(NSMutableDictionary *dict){
@@ -777,8 +782,20 @@ static int scout=0;
 - (void)messageSendByUser:(NSMutableDictionary *)message
 {
 //       message[@"kMessageSentBy"] = kSentByUser;
- 
+    if (!Myuserinfo) {
+        UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
+//        Myuserinfo = [usermang getUserInfo];
+        if (!Myuserinfo) {
+            UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
+            [usermang getUserInfo:^(UserInfoModel* tempuser){
+                Myuserinfo = tempuser;
+                message[@"kHeadIcon"] = Myuserinfo.iconImageview.image;
+            }];
+            
+        }
+    }
         [message setValue:[NSNumber numberWithInt:kSentByUser] forKey:@"kMessageSentBy"];
+    
        [self didSendMessage:message];
 }
 
@@ -1033,6 +1050,7 @@ static int scout=0;
 #pragma mark 获取到推送消息
 - (void)reloadeChatRoom:(NSNotification*)chatmessage
 {
+    NSLog(@"reloadeChatRoom");
     NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
 
     /*判断是不是当前聊天室*/
@@ -1044,20 +1062,56 @@ static int scout=0;
     
     NSArray* messageArray = auserinfo[@"messageArray"];
     
-    NSMutableDictionary* userinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
+    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
     /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
 
-    NSNumber* nmesstype = (NSNumber*)userinfo[@"messtype"];
+    NSNumber* nmesstype = (NSNumber*)(buserinfo[@"messtype"]);
     NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
     if ([messtype isEqualToString:@"1"]) {
-       userinfo[kMessageContent] = userinfo[@"mess"];
+       buserinfo[kMessageContent] = buserinfo[@"mess"];
     }else if ([messtype isEqualToString:@"3"])
     {
       /*暂时没添加接受图片*/
     }
-    userinfo[kMessageTimestamp] = userinfo[@"date"];
-    [self addOHeadImage:[UIImage imageNamed:@"tempUser.png"]];
-    [self messageSendByOpponent:userinfo];
+    buserinfo[kMessageTimestamp] = buserinfo[@"date"];
+    
+    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+    NSString* userdiString = [NSString stringWithFormat:@"%d",[buserinfo[@"senderid"] integerValue]];
+    UserInfoModel* aother = nil;
+    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+     {
+          NSLog(@"reloadeChatRoom***getOtherUserInfo");
+         if (other) {
+             /*获取到对方头像*/
+//             [self addOHeadImage:other.iconImageview.image];
+             buserinfo[@"kHeadIcon"] = other.iconImageview.image;
+             [self messageSendByOpponent:buserinfo];
+         }
+         return other;
+     }];
+    
+
 }
 
+/*获取部落置顶*/
+- (void)getTribeTopInfo
+{
+    NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
+    NSString* roomid =[NSString stringWithFormat:@"%d",[aroomid intValue]];
+    [DataInterface getTribeTopInfo:roomid withCompletionHandler:^(NSMutableDictionary* dic){
+        /*
+         opercode:"0149",		//operCode为0149，客户端通过该字段确定事件
+         statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+         info:"获取成功"			//获取成功/失败!
+         messid:"123",			//消息messid
+         sid:"1234",			//发消息的用户的userid
+         sname:"发送人名字",		//发消息的用户的名字
+         sphoto:"1.jpg",			//发消息的用户的头像
+         date:"2014-05-06 22:13:11",	//日期
+         messtype:"1",			//消息类型 1为文本，2为json对象，3为图片，4为录音
+         mess:"这是消息"
+         */
+        
+    }];
+}
 @end

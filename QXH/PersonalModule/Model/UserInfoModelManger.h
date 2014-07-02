@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+//typedef UserInfoModel* (^UserInfoModelCallback) (UserInfoModel *auserInfo);
+
 @interface UserInfoModelManger : NSObject
 {
     UserInfoModel* userInfo;
@@ -16,12 +18,16 @@
     NSMutableDictionary* uerArrayDic;
 }
 
-@property (nonatomic, retain)UserInfoModel* userInfo;
+@property (nonatomic, strong)UserInfoModel* userInfo;
+@property (nonatomic, strong)NSMutableDictionary* uerArrayDic;
 
 +(UserInfoModelManger*)sharUserInfoModelManger;
 
-- (UserInfoModel*)getUserInfo;
+- (void)getUserInfo:(void (^)(UserInfoModel* Userinfo))backUserInfo;
 
-/*通过id获取其他user信息*/
-- (UserInfoModel*)getOtherUserInfo:(NSString*)userid;
+///*通过id获取其他user信息*/
+//- (void)getOtherUserInfo:(NSString*)userid;
+- (void)getOtherUserInfo:(NSString *)userid withCompletionHandler:(UserInfoModel* (^) (UserInfoModel*))backUserinfo;
+
+
 @end

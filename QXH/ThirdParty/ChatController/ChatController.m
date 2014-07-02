@@ -603,8 +603,8 @@ static int scout=0;
     
     
     // Set the cell
-    cell.opponentImage = self.opponentImg;
-    cell.MyHeadimageView = self.MyHeadImg;
+//    cell.opponentImage = self.opponentImg;
+//    cell.MyHeadimageView = self.MyHeadImg;
     if (_opponentBubbleColor) cell.opponentColor = _opponentBubbleColor;
     if (_userBubbleColor) cell.userColor = _userBubbleColor;
     cell.message = message;

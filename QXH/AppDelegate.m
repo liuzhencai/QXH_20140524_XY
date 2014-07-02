@@ -18,6 +18,7 @@
 
 #import "NSString+MD5HexDigest.h"
 #import "MessageBySend.h"
+#import "UserInfoModelManger.h"
 
 @implementation AppDelegate
 
@@ -68,6 +69,7 @@
 
 - (void)loadPages
 {
+    
     tabController = [[CustomTabBarController alloc]init];
 
     // 添加主页导航控制器
@@ -100,6 +102,12 @@
     NSLog(@"登录完成");
    //    [self login];
     [self loadPages];
+    
+    /*获取个人信息，并储存起来*/
+    [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+     {
+         NSLog(@"获取到用户信息");
+     }];
     
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
     

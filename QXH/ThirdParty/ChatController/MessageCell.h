@@ -38,7 +38,7 @@ FOUNDATION_EXPORT int const maxBubbleWidth;
 //liuzhencai
 //定义图片
 #define kPicContent         @"Piccontent"
-
+#define kHeadIcon           @"HeadIcon"
 //定义文字
 #define kMessageContent     @"content"
 #define kMessageTimestamp   @"timestamp"
@@ -81,9 +81,9 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 @property (strong, nonatomic) UIColor * userColor;
 
 /*!
- Opponent image -- nil for blank
+ 其他人头像
  */
-@property (strong, nonatomic) UIImage * opponentImage;
+@property (strong, nonatomic) UIImageView * _imageView;
 
 /*
  我的头像
@@ -109,8 +109,8 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 - (void)showDate:(NSDictionary*)adic;
 
 //设置自己头像
-- (void)AddMyHeadimageView:(UIImageView *)MyHeadimage;
+//- (void)AddMyHeadimageView:(UIImageView *)MyHeadimage;
 
-//设置显示对方头像
-- (void) AddOpponentImageView:(UIImageView *)opponentImage;
+////设置显示对方头像
+//- (void) AddOpponentImageView:(UIImageView *)opponentImage;
 @end
