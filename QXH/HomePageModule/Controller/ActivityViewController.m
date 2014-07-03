@@ -40,6 +40,12 @@
     }
     return self;
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //获取数据
+    [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -80,8 +86,8 @@
     inActivityTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:inActivityTable];
     
-    //获取数据
-    [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
+//    //获取数据
+//    [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
 }
 
 - (void)getActivityListWithStatus:(NSString *)status{
@@ -92,24 +98,27 @@
      *  @param start     起始消息的artid，不填写该字段读取最新消息n个
      *  @param count     获取消息数量
      *  @param actname   活动名称
-     *  @contentlength:30,		//活动描述的长度
+     *  @param tribeid   活动描述的长度
      *  @param tag       标签
      *  @param district  地域信息
-     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动,3为和我有关的活动（参加的，关注的）
      *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param status	 活动状态 0为全部，1为已审批的活动，2为审批中的活动，3为审批拒绝的活动
+     *  @param tribeid   部落id，不为0时读取分享到该部落的活动
      *  @param begindate 活动起始时间
      *  @param enddate   活动结束时间
      *  @param callback  回调
      */
     
     [DataInterface getActList:@"0"
-                        count:@"20"
+                        count:@"100"
                       actname:@""
                 contentlength:@"30"
                           tag:@""
                      district:@""
                       canjoin:@"0"
                      actstate:status
+                       status:@"1"
                       tribeid:@"0"
                     begindate:@""
                       enddate:@""
@@ -201,9 +210,7 @@
             NSDictionary *activityDict = [self.endActivitysList objectAtIndex:indexPath.row];
             [activeEndCell resetCellParamDict:activityDict];
         }
-        [activeEndCell resetCellParamDict:nil];
         activeEndCell.statusLabel.text = @"已结束";
-        
         cell = activeEndCell;
     }else if (tableView.tag == IN_THE_ACTIVITY_TAG) {
         static NSString *myMsgIdentifier = @"activingIdentifier";
@@ -268,10 +275,13 @@
      *  @param start     起始消息的artid，不填写该字段读取最新消息n个
      *  @param count     获取消息数量
      *  @param actname   活动名称
+     *  @param tribeid   活动描述的长度
      *  @param tag       标签
      *  @param district  地域信息
-     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动
+     *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动,3为和我有关的活动（参加的，关注的）
      *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+     *  @param status	 活动状态 0为全部，1为已审批的活动，2为审批中的活动，3为审批拒绝的活动
+     *  @param tribeid   部落id，不为0时读取分享到该部落的活动
      *  @param begindate 活动起始时间
      *  @param enddate   活动结束时间
      *  @param callback  回调
@@ -285,6 +295,7 @@
                      district:@""
                       canjoin:@"0"
                      actstate:@"0"
+                       status:@"1"
                       tribeid:@""
                     begindate:@""
                       enddate:@""

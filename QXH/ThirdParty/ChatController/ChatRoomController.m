@@ -957,6 +957,7 @@ static int scout=0;
                          district:@""
                           canjoin:@"0"
                          actstate:@"0"
+                           status:@"0"
                           tribeid:[self.tribeInfoDict objectForKey:@"tribeid"]
                         begindate:@""
                           enddate:@""

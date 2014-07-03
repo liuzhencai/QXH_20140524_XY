@@ -69,8 +69,16 @@
         [self showAlert:@"请选择成员"];
         return;
     }
-    NSDictionary *userDict = [self.addItems lastObject];
-    NSString *userId = [[userDict objectForKey:@"userid"] stringValue];
+    NSMutableString *userIds = [NSMutableString stringWithString:@""];
+    for (int i = 0; i < [self.addItems count]; i ++) {
+        NSDictionary *userDict = [self.addItems objectAtIndex:i];
+        NSString *userid = [[userDict objectForKey:@"userid"] stringValue];
+        [userIds appendString:userid];
+        if (i != [self.addItems count] - 1) {
+            [userIds appendString:@","];
+        }
+    }
+    
     NSString *tribeid = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
     
     if (self.type == deleteTribeMemberType) {//删除
@@ -80,7 +88,7 @@
          *  @param tribeid  部落唯一标示
          *  @param callback 回调
          */
-        [DataInterface quitTribe:userId  //100013
+        [DataInterface quitTribe:userIds  //100013
                          tribeid:tribeid
            withCompletionHandler:^(NSMutableDictionary *dict){
                NSLog(@"退出部落返回值：%@",dict);
@@ -102,7 +110,7 @@
          *  @param callback 回调
          */
         
-        [DataInterface inviteToTribe:userId tribeid:tribeid withCompletionHandler:^(NSMutableDictionary *dict){
+        [DataInterface inviteToTribe:userIds tribeid:tribeid withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];
         }];
@@ -157,7 +165,7 @@
                    self.addressList = [NSMutableArray arrayWithArray:list];
                    [_mainTable reloadData];
                }
-               [self showAlert:[dict objectForKey:@"info"]];
+//               [self showAlert:[dict objectForKey:@"info"]];
            }];
 }
 
@@ -261,9 +269,11 @@
         [_addItems removeObject:item];
         [cell.selectBtn setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
     }else{
-        //单选（去掉这两句就是多选）
-        [_selectIndexPaths removeAllObjects];
-        [_addItems removeAllObjects];
+        if (_type == deleteTribeMemberType) {
+            //单选（去掉这两句就是多选）
+            [_selectIndexPaths removeAllObjects];
+            [_addItems removeAllObjects];
+        }
         
         [_selectIndexPaths addObject:indexPath];
         [_addItems addObject:item];

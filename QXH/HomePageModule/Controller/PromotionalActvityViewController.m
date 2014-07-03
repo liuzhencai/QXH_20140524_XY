@@ -235,7 +235,7 @@
        withCompletionHandler:^(NSMutableDictionary *dict){
            NSLog(@"创建活动返回值：%@",dict);
            [self showAlert:[dict objectForKey:@"info"]];
-//           [self.navigationController popViewControllerAnimated:YES];
+           [self.navigationController popViewControllerAnimated:YES];
        }];
 }
 
@@ -323,8 +323,8 @@
                     bgImgView.image = [UIImage imageNamed:@"title_bar_bg"];
                     [cell.contentView addSubview:bgImgView];
                     if (!_name) {
-                        _name = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                 placeHolder:@"请输活动名称"];
+                        _name = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE + 20, 30)
+                                                 placeHolder:@"请输入活动标题，最多20个汉字"];
                     }
                     [cell.contentView addSubview:_name];
                 }
@@ -496,6 +496,12 @@
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSString *inputString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (_name == textField) {
+        if ([inputString length] > 20) {
+            return NO;
+        }
+    }
     return YES;
 }
 
