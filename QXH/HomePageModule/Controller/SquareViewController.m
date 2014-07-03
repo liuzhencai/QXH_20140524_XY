@@ -10,6 +10,7 @@
 #import "SquareCell.h"
 #import "SquareCellEx.h"
 #import "SquareAskCell.h"
+#import "SquareTransmitCell.h"
 #import "SquareShareController.h"
 #import "ShareTextController.h"
 #import "HistoryReviewController.h"
@@ -81,6 +82,9 @@
      *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
      */
     switch (model.type) {
+            /**
+             *  广场发布的文章
+             */
         case 1:
         {
             static NSString *cellIdentifier = @"squareCell";
@@ -93,6 +97,9 @@
             tblCell = cell;
         }
             break;
+            /**
+             *  转发到广场的咨询
+             */
         case 2:
         {
             static NSString *cellIdentifier = @"squareCellEx";
@@ -105,6 +112,9 @@
             tblCell = cell;
         }
             break;
+            /**
+             *  转发到广场的活动
+             */
         case 3:
         {
             static NSString *cellIdentifier = @"squareActivityCell";
@@ -117,6 +127,9 @@
             tblCell = cell;
         }
             break;
+            /**
+             *  每日一问
+             */
         case 4:
         {
             static NSString *cellIdentifier = @"SquareAskCell";
@@ -126,6 +139,20 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [(SquareAskCell *)cell setCellData:model];
+            tblCell = cell;
+        }
+            break;
+            /**
+             *  转评到广场的广场文章
+             */
+        case 5:
+        {
+            static NSString *cellIdentifier = @"SquareTransmitCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareTransmitCell" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
             tblCell = cell;
         }
             break;
@@ -146,17 +173,32 @@
     SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
     if (YES) {
         switch (model.type) {
+                /**
+                 *  广场文章
+                 */
             case 1:
                 rowHeight = 162.f;
                 break;
+                /**
+                 *  转发到广场的咨询
+                 */
             case 2:
                 rowHeight = 162.f;
                 break;
+                /**
+                 *  转发到广场的活动
+                 */
             case 3:
                 rowHeight = 201.f;
                 break;
+                /**
+                 *  每日一问
+                 */
             case 4:
                 rowHeight = 82.f;
+                break;
+            case 5:
+                rowHeight = 44.f;
                 break;
             default:
                 break;

@@ -87,21 +87,33 @@
 {
     UITableViewCell *cell = nil;
     switch (_info.type) {
+            /**
+             *  广场文章
+             */
         case 1:
         {
             
         }
             break;
+            /**
+             *  转发到广场的咨询
+             */
         case 2:
         {
             
         }
             break;
+            /**
+             *  转发到广场的活动
+             */
         case 3:
         {
             
         }
             break;
+            /**
+             *  每日一问
+             */
         case 4:
         {
             

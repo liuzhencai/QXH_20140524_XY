@@ -58,7 +58,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="找人">
+                    <state key="normal" title="人脉">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -110,7 +110,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="每日一问">
+                    <state key="normal" title="问道">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

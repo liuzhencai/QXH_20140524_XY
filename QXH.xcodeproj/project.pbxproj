@@ -167,6 +167,10 @@
 		214C25B01956A0DF006109FF /* SquareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 214C25AF1956A0DF006109FF /* SquareInfo.m */; };
 		214E810C19644BF70026BB60 /* SquareAskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214E810A19644BF70026BB60 /* SquareAskCell.m */; };
 		214E810D19644BF70026BB60 /* SquareAskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214E810B19644BF70026BB60 /* SquareAskCell.xib */; };
+		214E811119645EEF0026BB60 /* SquareTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214E810F19645EEF0026BB60 /* SquareTransmitCell.m */; };
+		214E811219645EEF0026BB60 /* SquareTransmitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214E811019645EEF0026BB60 /* SquareTransmitCell.xib */; };
+		214E811619645FF60026BB60 /* SquareNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214E811419645FF60026BB60 /* SquareNoPicCell.m */; };
+		214E811719645FF60026BB60 /* SquareNoPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214E811519645FF60026BB60 /* SquareNoPicCell.xib */; };
 		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
 		2166CDF41933970500F0312E /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF31933970500F0312E /* UserInfoModel.m */; };
 		2166CDF619339A3400F0312E /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF519339A3400F0312E /* TabBarControl.m */; };
@@ -647,6 +651,12 @@
 		214E810919644BF70026BB60 /* SquareAskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareAskCell.h; sourceTree = "<group>"; };
 		214E810A19644BF70026BB60 /* SquareAskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareAskCell.m; sourceTree = "<group>"; };
 		214E810B19644BF70026BB60 /* SquareAskCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareAskCell.xib; sourceTree = "<group>"; };
+		214E810E19645EEF0026BB60 /* SquareTransmitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareTransmitCell.h; sourceTree = "<group>"; };
+		214E810F19645EEF0026BB60 /* SquareTransmitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareTransmitCell.m; sourceTree = "<group>"; };
+		214E811019645EEF0026BB60 /* SquareTransmitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareTransmitCell.xib; sourceTree = "<group>"; };
+		214E811319645FF60026BB60 /* SquareNoPicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareNoPicCell.h; sourceTree = "<group>"; };
+		214E811419645FF60026BB60 /* SquareNoPicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareNoPicCell.m; sourceTree = "<group>"; };
+		214E811519645FF60026BB60 /* SquareNoPicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareNoPicCell.xib; sourceTree = "<group>"; };
 		2166CDEF193396AE00F0312E /* ModelGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelGenerator.h; sourceTree = "<group>"; };
 		2166CDF0193396AE00F0312E /* ModelGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelGenerator.m; sourceTree = "<group>"; };
 		2166CDF21933970500F0312E /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = SOURCE_ROOT; };
@@ -1548,6 +1558,12 @@
 				214E810919644BF70026BB60 /* SquareAskCell.h */,
 				214E810A19644BF70026BB60 /* SquareAskCell.m */,
 				214E810B19644BF70026BB60 /* SquareAskCell.xib */,
+				214E810E19645EEF0026BB60 /* SquareTransmitCell.h */,
+				214E810F19645EEF0026BB60 /* SquareTransmitCell.m */,
+				214E811019645EEF0026BB60 /* SquareTransmitCell.xib */,
+				214E811319645FF60026BB60 /* SquareNoPicCell.h */,
+				214E811419645FF60026BB60 /* SquareNoPicCell.m */,
+				214E811519645FF60026BB60 /* SquareNoPicCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2249,6 +2265,7 @@
 				2192EC24191BD88600A8FE7F /* StudyExperienceController.xib in Resources */,
 				212F24561928E09A00F738F8 /* top_bar@2x.png in Resources */,
 				212F241D1928E09A00F738F8 /* label_blue@2x.png in Resources */,
+				214E811219645EEF0026BB60 /* SquareTransmitCell.xib in Resources */,
 				848426E6192E185B00C9474A /* Thumbs.db in Resources */,
 				21C6D6091950867400467717 /* RecInformationCell.xib in Resources */,
 				2192EC15191BD7A400A8FE7F /* SelfIntroduceController.xib in Resources */,
@@ -2400,6 +2417,7 @@
 				848426E5192E185B00C9474A /* line@2x.png in Resources */,
 				2192EC1F191BD84200A8FE7F /* HobbyViewController.xib in Resources */,
 				58B1DEAD192B980500086C38 /* collect_label_share_green@2x.png in Resources */,
+				214E811719645FF60026BB60 /* SquareNoPicCell.xib in Resources */,
 				848426DE192E185B00C9474A /* icon_guangchang@2x.png in Resources */,
 				21D705B719169C68004950BF /* CategoryListController.xib in Resources */,
 				212F241F1928E09A00F738F8 /* navigation_slippage_bar_bg@2x.png in Resources */,
@@ -2444,6 +2462,7 @@
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
 				21EDAD481926F67100C616CF /* MyActivityController.m in Sources */,
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
+				214E811119645EEF0026BB60 /* SquareTransmitCell.m in Sources */,
 				58826B9E195DD180002F13A5 /* NIDebuggingTools.m in Sources */,
 				2119EF04191682EC007DBE68 /* UIImage+MultiFormat.m in Sources */,
 				21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */,
@@ -2520,6 +2539,7 @@
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,
 				21D6ADE5193CB6190018109F /* InfoModel.m in Sources */,
+				214E811619645FF60026BB60 /* SquareNoPicCell.m in Sources */,
 				2119EED9191682E6007DBE68 /* MKNetworkOperation.m in Sources */,
 				21EDAD4A1926F67100C616CF /* MyTribeController.m in Sources */,
 				21D705B619169C68004950BF /* CategoryListController.m in Sources */,
