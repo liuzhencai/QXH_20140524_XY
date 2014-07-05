@@ -217,15 +217,15 @@
         {
             NSLog(@"点击影响力");
 //            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
-//            ivController.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:ivController ani
-//            ChatController *controller = [[ChatController alloc] initWithCustomView:tempView];
+            InfluenceViewController *ivController = [[InfluenceViewController alloc] init];
+            ivController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ivController animated:YES];
             
             
-            ChatController *controller = [[ChatController alloc]init];
-           
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
+//            ChatController *controller = [[ChatController alloc]init];
+//           
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
 //            chatRoomActivViewController* chatroomactive = [[chatRoomActivViewController alloc]init];
 //            [self.view addSubview:chatroomactive.view];
 ////            [self.navigationController pushViewController:chatroomactive animated:YES];

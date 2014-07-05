@@ -211,6 +211,9 @@
                                count:@"20"
                withCompletionHandler:^(NSMutableDictionary *dict){
                    NSLog(@"通讯录列表返回数据：%@",dict);
+//                   if (condition) {
+//                       <#statements#>
+//                   }
                    NSArray *findList = [dict objectForKey:@"lists"];
                    BOOL isHavePeople = NO;
                    for ( int i = 0; i < [findList count]; i ++) {

@@ -88,6 +88,8 @@ static MessageBySend* ins =nil;
         }
 
    
+    }else if ([bsendtype isEqualToString:@"2"]){
+        
     }
 }
 

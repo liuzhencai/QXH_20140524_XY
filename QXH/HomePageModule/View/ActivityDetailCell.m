@@ -16,7 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 190 - 20)
+        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 190 - 20 + 60)
                                                    imageName:[UIImage imageNamed:@"label"]];
         [self.contentView addSubview:bgImgView];
         
@@ -64,7 +64,7 @@
         [bgImgView addSubview:_activityImage];
         
 //        NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
-        NSArray *items = @[@"来自:",@"发起人:",@"时间:",@"地点:"];
+        NSArray *items = @[@"来自:",@"发起人:",@"时间:",@"地点:",@"活动结束时间:",@"报名截止时间:"];
         for (int i = 0; i < [items count]; i ++) {
             
             UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 30, 32, 30)
@@ -108,6 +108,23 @@
                     self.addrLabel = itemValue;
                     self.addrLabel.text = @"中关村";
                     itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
+                }
+                    break;
+                case 4:{//活动结束时间
+                    imageName = @"icon_time";
+                    self.endTimeLabel = itemValue;
+                    self.endTimeLabel.text = @"中关村";
+//                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
+                }
+                    break;
+                case 5:{//活动报名截止时间
+                    imageName = @"icon_time";
+                    self.signUpEndTimeLabel = itemValue;
+                    self.signUpEndTimeLabel.text = @"中关村";
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
                 }
                     break;
                     
@@ -171,10 +188,12 @@
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
         NSString *imageUrl = [params objectForKey:@"actimgs"];
         [self.activityImage setImageWithURL:IMGURL(imageUrl) placeholderImage:[UIImage imageNamed:@"title_bar_bg"]];
-        self.tribeLabel.text = [params objectForKey:@""];
-        self.orgnizerLabel.text = [params objectForKey:@""];
+        self.tribeLabel.text = [params objectForKey:@"comefrom"];
+        self.orgnizerLabel.text = [params objectForKey:@"creatername"];
         self.timeLabel.text = [params objectForKey:@"begindate"];
         self.addrLabel.text = [params objectForKey:@"actaddr"];
+        self.endTimeLabel.text = [params objectForKey:@"enddate"];
+        self.signUpEndTimeLabel.text = [params objectForKey:@"signupenddate"];
     }
     
     

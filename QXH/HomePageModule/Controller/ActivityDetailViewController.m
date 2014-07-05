@@ -92,7 +92,7 @@
     switch (row) {
         case 0:
         {
-            rowHeight = 210 - 20;
+            rowHeight = 210 - 20 + 60;
         }
             break;
         case 1:
@@ -348,7 +348,8 @@
                        targetid:self.activityId
                         refsign:refsign
           withCompletionHandler:^(NSMutableDictionary *dict){
-            
+              NSLog(@"分享到广场返回信息：%@",dict);
+              [self showAlert:[dict objectForKey:@"info"]];
 
         }];
     };
