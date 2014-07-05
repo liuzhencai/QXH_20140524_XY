@@ -89,6 +89,7 @@
                 <outlet property="imageView3" destination="U5S-q0-HIm" id="ev3-Vi-5w8"/>
                 <outlet property="imageView4" destination="bZF-7u-WCt" id="sUc-WP-zd4"/>
                 <outlet property="nameLabel" destination="LKf-mw-0FU" id="sJ1-aJ-Te6"/>
+                <outlet property="picView" destination="ffa-Jz-Rkx" id="aAs-9x-jkD"/>
                 <outlet property="portraitView" destination="dSC-im-LpZ" id="7wZ-MD-OpI"/>
                 <outlet property="positionLabel" destination="Gr2-kp-G1D" id="bo2-VL-Njz"/>
             </connections>

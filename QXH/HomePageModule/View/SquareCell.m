@@ -29,13 +29,18 @@
     _positionLabel.text = model.uduty;
     InfoModel *tmpModel = (InfoModel *)model.content;
     _contentLabel.text = tmpModel.content;
-    if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {
-        NSArray *imgs = [tmpModel.artimgs componentsSeparatedByString:@","];
-        for (int i = 1; i < [imgs count]; i++) {
-            
-        }
+    if ([tmpModel.artimgs isEqualToString:@""]) {
+        _picView.hidden = YES;
     }else{
-        [_imageView1 setImageWithURL:IMGURL(tmpModel.artimgs)];
+        _picView.hidden = NO;
+        if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {
+            NSArray *imgs = [tmpModel.artimgs componentsSeparatedByString:@","];
+            for (int i = 1; i < [imgs count]; i++) {
+                
+            }
+        }else{
+            [_imageView1 setImageWithURL:IMGURL(tmpModel.artimgs)];
+        }
     }
 }
 

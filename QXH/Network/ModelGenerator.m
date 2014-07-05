@@ -83,7 +83,7 @@
     model.sharetime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"sharetime"]];
     model.relaytime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"relaytime"]];
     model.commenttime = [NSString stringWithFormat:@"%@",[obj objectForKey:@"commenttime"]];
-    model.laud = [obj objectForKey:@"laud"];
+    model.laud = [[obj objectForKey:@"laud"] integerValue];
     return model;
 }
 
