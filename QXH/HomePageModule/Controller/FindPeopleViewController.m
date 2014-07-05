@@ -189,7 +189,6 @@
         NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"citysList"];
         NSDictionary *cityDict = [list objectAtIndex:indexPath.row - 1];
         NSLog(@"%@",cityDict);
-        
         /**
          *  获取好友(通讯录)/查找用户列表公用接口
          *
