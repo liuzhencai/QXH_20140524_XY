@@ -29,11 +29,11 @@
     NSLog(@"\n##########调用用户登陆接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########用户登陆返回结果##########\n[结 果]:%@\n#############################\n",data);
-        callback(data);
         // 存储token和userid
         [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
         [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
         [defaults synchronize];
+        callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########用户登陆出错##########\n[原 因]:%@\n#############################\n",data);
     }];

@@ -40,8 +40,8 @@ FOUNDATION_EXPORT int const maxBubbleWidth;
 #define kPicContent         @"Piccontent"
 #define kHeadIcon           @"HeadIcon"
 //定义文字
-#define kMessageContent     @"content"
-#define kMessageTimestamp   @"timestamp"
+#define kMessageContent     @"mess"
+#define kMessageTimestamp   @"date"
 
 //显示图片时定义宽度和高度
 #define KPicHigth 90

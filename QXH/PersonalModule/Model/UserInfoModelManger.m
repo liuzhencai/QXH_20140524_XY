@@ -11,7 +11,7 @@
 
 @implementation UserInfoModelManger
 @synthesize userInfo,uerArrayDic;
-
+@synthesize Iconimage,MeUserId;
 
 
 static   UserInfoModelManger* instance;
@@ -21,7 +21,6 @@ static   UserInfoModelManger* instance;
     self = [super init];
     if (self) {
 
-        
     }
     return self;
 }
@@ -45,14 +44,22 @@ static   UserInfoModelManger* instance;
            uerArrayDic = [[NSMutableDictionary alloc]init];
         }
         
-        NSString* userid = [defaults objectForKey:@"userid"] ;
+        NSNumber* auserid = [defaults objectForKey:@"userid"] ;
+        NSString* userid = [NSString stringWithFormat:@"%d",[auserid intValue]];
+        self.MeUserId = userid;
         [DataInterface getUserInfo:userid withCompletionHandler:^(NSMutableDictionary *dict) {
             
             [self ByDictonary:dict addUserIn:^(UserInfoModel* buserinfo)
              {
                  /*添加进入本地缓存数组*/
                  [uerArrayDic setObject:buserinfo forKey:userid];
-                 self.userInfo = buserinfo;
+                 if (!buserinfo.iconImageview.image) {
+                   self.userInfo = nil;
+                 }else{
+                   self.userInfo = buserinfo;
+                 }
+                 
+                 
                  backUserInfo(self.userInfo);
                  
              }];
@@ -64,6 +71,10 @@ static   UserInfoModelManger* instance;
     
 }
 
+- (UserInfoModel*)getMe
+{
+    return self.userInfo;
+}
 
 ///*通过id获取其他user信息*/
 //- (void)getOtherUserInfo:(NSString*)userid
@@ -162,15 +173,16 @@ static   UserInfoModelManger* instance;
      status:2			//0为正常用户，1为禁用用户，2为临时用户
      */
     /*先获取头像,获取自己和获取部落中聊天的其他人头像参数不一样*/
-    UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-    //            [iconImage circular];
-    
-    [iconImage setImageWithURL:IMGURL(dict[@"photo"]) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType)
-     {
-         if (!error || image) {
+//    UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+//    //            [iconImage circular];
+//    
+//    iconImage.image = [self getIcon:dict[@"photo"]];
+//    [iconImage setImageWithURL:IMGURL(dict[@"photo"]) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType)
+//     {
+//         if (!error || image) {
             UserInfoModel* auserInfo = [[UserInfoModel alloc]init];
             UIImageView *aconImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-             aconImage.image = image;
+             aconImage.image = [self getIcon:dict[@"photo"]];
              auserInfo.iconImageview = aconImage;
              auserInfo.displayname = [dict valueForKey:@"displayname"];
              auserInfo.signature = [dict valueForKey:@"signature"];
@@ -203,9 +215,9 @@ static   UserInfoModelManger* instance;
              auserInfo.status = [dict valueForKey:@"status"];
              
              backUserInfo(auserInfo);
-         }
-      
-     }];
+//         }
+//      
+//     }];
 
 
     
@@ -214,4 +226,58 @@ static   UserInfoModelManger* instance;
 //    return auserInfo;
 }
 
+
+- (UIImage*)getIcon:(NSString*)photo
+{
+    // 组合一个搜索字符串
+//      NSMutableData* adata = [[NSMutableData alloc] init];
+//    self.Icondata = adata;
+    NSURL *url = IMGURL(photo);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    // 發送同步請求, 這裡得returnData就是返回得數據楽
+    // 發送同步請求, 這裡得returnData就是返回得數據楽
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+                                               returningResponse:nil error:nil];
+    self.Iconimage = [UIImage imageWithData:returnData];
+    return self.Iconimage;
+//    //发起请求，定义代理
+//    [NSURLConnection connectionWithRequest:request delegate:self];
+}
+
+//// 分批返回数据
+//- (void)connection:(NSURLConnection *) connection didReceiveData:(NSData *)data {
+//    [Icondata appendData:data];
+////    NSLog(@"分批返回=%@", _data);
+//}
+//// 数据完全返回完毕
+//- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+////    NSString *dataString =  [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
+//    NSLog(@"接收完毕=%@");
+//    UIImage* aimage = [UIImage imageWithData:self.Icondata];
+//    
+//}
+//
+//// 网络错误时触发
+//- (void)connection:(NSURLConnection *)aConn didFailWithError:(NSError *)error
+//{
+//    DebugLog(@"获取图片错误==%@",error);
+//}
+
+/*通过id，查看本地是否已经存储图片，如果已经存储，则取本地的*/
+- (UIImage*)getImageByLocalId:(NSString*)userid
+{
+    if (!headArrayDic) {
+        headArrayDic = [[NSMutableDictionary alloc]init];
+    }
+    UIImage* aimage = [headArrayDic valueForKey:userid];
+    if (aimage) {
+        //        return aimage;
+    }else{
+        aimage = [self getIcon:userid];
+        [headArrayDic setObject:aimage forKey:userid];
+    }
+    return aimage;
+}
 @end
