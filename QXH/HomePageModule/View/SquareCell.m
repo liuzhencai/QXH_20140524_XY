@@ -24,10 +24,10 @@
 
 - (void)setCellData:(SquareInfo *)model
 {
-    _nameLabel.text = model.uname;
+    InfoModel *tmpModel = (InfoModel *)model.content;
+    _nameLabel.text = tmpModel.sname;
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     _positionLabel.text = model.uduty;
-    InfoModel *tmpModel = (InfoModel *)model.content;
     _contentLabel.text = tmpModel.content;
     if ([tmpModel.artimgs isEqualToString:@""]) {
         _picView.hidden = YES;

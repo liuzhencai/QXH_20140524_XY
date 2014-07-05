@@ -198,6 +198,7 @@
         if ([defaults objectForKey:@"token"]) {
             [defaults removeObjectForKey:@"token"];
         }
+        [defaults synchronize];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
     }];

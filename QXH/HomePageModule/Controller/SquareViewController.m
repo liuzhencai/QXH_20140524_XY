@@ -89,7 +89,7 @@
         case 1:
         {
             InfoModel *tmpModel = (InfoModel *)model.content;
-//            if ([tmpModel.artimgs isEqualToString:@""]) {
+            NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
                 /**
                  *  有图片
                  */
@@ -100,18 +100,6 @@
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
                 [(SquareCell *)cell setCellData:model];
-//            }else{
-//                /**
-//                 *  无图片
-//                 */
-//                static NSString *cellIdentifier = @"SquareNoPicCell";
-//                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//                if (cell==nil) {
-//                    cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareNoPicCell" owner:nil options:nil] objectAtIndex:0];
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                }
-//                [(SquareNoPicCell *)cell setCellData:model];
-//            }
         }
             break;
             /**
