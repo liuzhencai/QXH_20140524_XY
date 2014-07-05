@@ -22,7 +22,7 @@
     /*sendtype 1;好友私聊存储进该数组，其中元素是字典*/
     NSMutableArray* chatMess;
     /*sendtype 2;部落聊天存储进该数组，其中元素是字典*/
-    NSMutableArray* chatRoomMess;
+    NSMutableDictionary* chatRoomMess;
     /*sendtype 3;加好友申请存储进该数组，其中元素是字典*/
     NSMutableArray* friendReceiveMess;
     /*sendtype 4;处理好友申请存储进该数组，其中元素是字典*/
@@ -48,11 +48,18 @@
     
     /*存储上一个获取到的消息，如果两个一样，就抛弃*/
     NSString* messid;
+    
+
 }
 
 //@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
 
 +(MessageBySend*)sharMessageBySend;
+
+/*通过部落id，获取部落聊天内容*/
+-(NSArray*)getChatRoomMessArray:(NSString*)ChatRoomid;
+/*把我自己发送的消息添加进入聊天室*/
+- (void)addChatRoomMessageByMe:(NSMutableDictionary*)Message;
 
 @end
 

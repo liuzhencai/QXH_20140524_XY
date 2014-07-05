@@ -15,6 +15,7 @@
 
 #import "MessageCell.h"
 #import "MyMacros.h"
+#import "UserInfoModelManger.h"
 
 // External Constants
 int const outlineSpace = 22; // 11 px on each side for border
@@ -23,7 +24,7 @@ int const maxBubbleWidth = 260; // Max Bubble Size
 // Message Dict Keys
 NSString * const kMessageSize = @"size";
 //消息发送者
-NSString * const kMessageSentBy = @"MessageSentBy";
+NSString * const kMessageSentBy = @"senderid";
 
 #define KheadX 5
 
@@ -206,8 +207,10 @@ static int offsetX = 6; // 6 px from each side
 
 - (void) drawCell {
     
-    NSNumber* kSentby = (NSNumber*)[_message valueForKey:@"kMessageSentBy"];
+    NSNumber* kSentby = (NSNumber*)[_message valueForKey:@"senderid"];
      _sentBy = [kSentby intValue];
+    NSString* asendId =[NSString stringWithFormat:@"%d",_sentBy];
+ 
     //liuzhencai 如果显示是图片
     if (_message[kPicContent])
     {
@@ -219,7 +222,7 @@ static int offsetX = 6; // 6 px from each side
         
         picImageView.frame = CGRectMake(offsetX / 2, 0, minimumHeight*3, minimumHeight*3);
         //自己发图片
-        if (_sentBy == kSentByUser) {
+        if ([asendId isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId]) {
             _imageView.hidden = YES;
             MyHeadimageView.hidden = NO;
             picImageView.frame = CGRectMake(320-_imageView.bounds.size.width- KPicWidth - KheadX, 0, minimumHeight*3, minimumHeight*3);
@@ -242,12 +245,13 @@ static int offsetX = 6; // 6 px from each side
         CGFloat height = self.contentView.bounds.size.height - 10;
         if (height < minimumHeight) height = minimumHeight;
         
-        if (_sentBy == kSentByUser) {
+        if ([asendId isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId]) {
             // then this is a message that the current user created . . .
             _bgLabel.frame = CGRectMake(ScreenWidth() - offsetX, 0, -_textSize.width - outlineSpace, height) ;
             _bgLabel.layer.borderColor = _userColor.CGColor;
             MyHeadimageView.hidden = NO;
-            MyHeadimageView.image = _message[@"kHeadIcon"];
+
+            MyHeadimageView.image = [[UserInfoModelManger sharUserInfoModelManger]getMe].iconImageview.image;
             _imageView.hidden = YES;
             stateImageView.hidden = NO;
             for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -265,7 +269,8 @@ static int offsetX = 6; // 6 px from each side
                 v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
             }
             /*如果是对方发送消息，去除图像*/
-            _imageView.image = _message[@"kHeadIcon"];
+//            UIImage* ahead = [[UserInfoModelManger sharUserInfoModelManger]getIcon:[_message valueForKey:@"senderphoto"]];
+            _imageView.image = [[UserInfoModelManger sharUserInfoModelManger]getImageByLocalId:[_message valueForKey:@"senderphoto"]];
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;
             stateImageView.hidden = YES;

@@ -18,6 +18,9 @@
 @property (strong, nonatomic)  UILabel *orgnizerLabel; // 发起人标签
 @property (strong, nonatomic)  UILabel *timeLabel; // 时间标签
 @property (strong, nonatomic)  UILabel *addrLabel; // 地址标签
+
+@property (strong, nonatomic) UILabel *endTimeLabel;//结束时间
+@property (strong, nonatomic) UILabel *signUpEndTimeLabel;//报名截止时间
 //@property (weak, nonatomic)  UILabel *signUpLabel; // 报名标签
 //@property (weak, nonatomic)  UILabel *followLabel; // 关注标签
 //

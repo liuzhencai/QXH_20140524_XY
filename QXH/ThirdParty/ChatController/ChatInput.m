@@ -91,7 +91,7 @@
         
         sendBtn.frame = CGRectMake(KtextViewWidh+15, 0, KSendWidh, 40);
         sendBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        [sendBtn setTitle:@"Send" forState:UIControlStateNormal];
+        [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
         sendBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
         [sendBtn addTarget:self action:@selector(sendBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
         sendBtn.userInteractionEnabled = YES;
@@ -107,9 +107,9 @@
         
         AddBtn.frame = CGRectMake(KtextViewWidh+65, 0, KSendWidh, 40);
         AddBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        [AddBtn setTitle:@"Add" forState:UIControlStateNormal];
+        [AddBtn setTitle:@"图片" forState:UIControlStateNormal];
         AddBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
+//        [AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
         AddBtn.userInteractionEnabled = YES;
         [self addSubview:AddBtn];
         

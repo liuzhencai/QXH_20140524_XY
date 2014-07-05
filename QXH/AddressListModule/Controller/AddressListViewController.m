@@ -80,6 +80,9 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     addressListTable.tableHeaderView = self.searchBar;
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
+    
     // Create the search display controller
     //    self.searchDC = [[[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self] autorelease];
     //    self.searchDC.searchResultsDataSource = self;
@@ -87,6 +90,17 @@
     
 //    [self getAddressList];
 }
+
+#pragma mark 获取到推送消息
+- (void)reloadeChatRoom:(NSNotification*)chatmessage
+{
+    NSLog(@"reloadeChatRoom");
+    NSMutableDictionary *auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    
+    NSLog(@"接受到的信息:%@",auserinfo);
+}
+
 
 - (void)getAddressList{
     /**
