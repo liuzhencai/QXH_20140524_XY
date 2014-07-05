@@ -423,6 +423,7 @@ withCompletionHandler:(DictCallback)callback;
  *  @param district  地域信息
  *  @param canjoin   0为全部活动，1为未参加的活动,2为已参加的活动,3为和我有关的活动（参加的，关注的）
  *  @param actstate  活动状态 0为全部，1为未开始的活动，2为正在进行的活动，3为已结束的活动
+ *  @param status	 活动状态 0为全部，1为已审批的活动，2为审批中的活动，3为审批拒绝的活动
  *  @param tribeid   部落id，不为0时读取分享到该部落的活动
  *  @param begindate 活动起始时间
  *  @param enddate   活动结束时间
@@ -436,6 +437,7 @@ withCompletionHandler:(DictCallback)callback;
           district:(NSString *)district
            canjoin:(NSString *)canjoin
           actstate:(NSString *)actstate
+            status:(NSString *)status
            tribeid:(NSString *)tribeid
          begindate:(NSString *)begindate
            enddate:(NSString *)enddate

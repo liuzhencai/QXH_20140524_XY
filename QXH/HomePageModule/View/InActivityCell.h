@@ -16,7 +16,7 @@
 @property (strong, nonatomic)  UILabel *activityTypeLabel; // 活动类型标签
 @property (strong, nonatomic)  UILabel *activityDescriptionLabel; // 活动描述标签
 @property (strong, nonatomic)  UIImageView *activityImage; // 活动图片
-@property (strong, nonatomic)  UILabel *tribeLabel;//部落标签
+@property (strong, nonatomic)  UILabel *tribeLabel;//来自标签
 @property (strong, nonatomic)  UILabel *orgnizerLabel; // 发起人标签
 @property (strong, nonatomic)  UILabel *timeLabel; // 时间标签
 @property (strong, nonatomic)  UILabel *addrLabel; // 地址标签

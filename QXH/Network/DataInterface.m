@@ -395,12 +395,13 @@ withCompletionHandler:(DictCallback)callback
           district:(NSString *)district
            canjoin:(NSString *)canjoin
           actstate:(NSString *)actstate
+            status:(NSString *)status
            tribeid:(NSString *)tribeid
          begindate:(NSString *)begindate
            enddate:(NSString *)enddate
 withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0125", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"start":start,@"count":count,@"actname":actname,@"contentlength":contentlength,@"tag":tag,@"district":district,@"canjoin":canjoin,@"actstate":actstate,@"tribeid":tribeid,@"begindate":begindate,@"enddate":enddate};
+    NSDictionary *param = @{@"opercode": @"0125", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"start":start,@"count":count,@"actname":actname,@"contentlength":contentlength,@"tag":tag,@"district":district,@"canjoin":canjoin,@"actstate":actstate,@"status":status,@"tribeid":tribeid,@"begindate":begindate,@"enddate":enddate};
     NSLog(@"\n##########获取/搜索活动列表接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取/搜索活动列表返回结果##########\n[结 果]:%@\n#############################\n",dict);

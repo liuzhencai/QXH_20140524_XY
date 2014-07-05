@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SNImagePickerNC.h"
 
-@interface SquareShareController : MyViewController<UIActionSheetDelegate>
+@interface SquareShareController : MyViewController<UIActionSheetDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, SNImagePickerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UIView *picView;
+@property (weak, nonatomic) IBOutlet UITextField *contentField;
+@property (weak, nonatomic) IBOutlet UIButton *addPicBtn;
 - (IBAction)distribute:(id)sender;
 - (IBAction)selectImage:(id)sender;
 

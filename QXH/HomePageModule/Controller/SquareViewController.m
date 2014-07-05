@@ -8,6 +8,7 @@
 
 #import "SquareViewController.h"
 #import "SquareCell.h"
+#import "SquareNoPicCell.h"
 #import "SquareCellEx.h"
 #import "SquareAskCell.h"
 #import "SquareTransmitCell.h"
@@ -77,7 +78,7 @@
 {
     SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
 
-    UITableViewCell *tblCell = nil;
+    UITableViewCell *cell = nil;
     /**
      *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
      */
@@ -87,14 +88,18 @@
              */
         case 1:
         {
-            static NSString *cellIdentifier = @"squareCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            [(SquareCell *)cell setCellData:model];
-            tblCell = cell;
+            InfoModel *tmpModel = (InfoModel *)model.content;
+            NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
+                /**
+                 *  有图片
+                 */
+                static NSString *cellIdentifier = @"squareCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                if (cell==nil) {
+                    cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                [(SquareCell *)cell setCellData:model];
         }
             break;
             /**
@@ -103,13 +108,12 @@
         case 2:
         {
             static NSString *cellIdentifier = @"squareCellEx";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [(SquareCellEx *)cell setCellData:model];
-            tblCell = cell;
         }
             break;
             /**
@@ -118,13 +122,12 @@
         case 3:
         {
             static NSString *cellIdentifier = @"squareActivityCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [(SquareActivityCell *)cell setCellData:model];
-            tblCell = cell;
         }
             break;
             /**
@@ -133,13 +136,12 @@
         case 4:
         {
             static NSString *cellIdentifier = @"SquareAskCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareAskCell" owner:nil options:nil] objectAtIndex:0];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [(SquareAskCell *)cell setCellData:model];
-            tblCell = cell;
         }
             break;
             /**
@@ -148,18 +150,17 @@
         case 5:
         {
             static NSString *cellIdentifier = @"SquareTransmitCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareTransmitCell" owner:nil options:nil] objectAtIndex:0];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            tblCell = cell;
         }
             break;
         default:
             break;
     }
-    return tblCell;
+    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -171,13 +172,18 @@
 {
     CGFloat rowHeight = 0.f;
     SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
+    InfoModel *tmpModel = (InfoModel *)model.content;
     if (YES) {
         switch (model.type) {
                 /**
                  *  广场文章
                  */
             case 1:
-                rowHeight = 162.f;
+                if ([tmpModel.artimgs isEqualToString:@""]) {
+                    rowHeight = 100.f;
+                }else{
+                    rowHeight = 162.f;
+                }
                 break;
                 /**
                  *  转发到广场的咨询

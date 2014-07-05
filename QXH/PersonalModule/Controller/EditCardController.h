@@ -10,7 +10,7 @@
 #import "SNImagePickerNC.h"
 #import "EditInfoController.h"
 
-@interface EditCardController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, ChangeUserInfoDelgate, SNImagePickerDelegate>
+@interface EditCardController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UINavigationBarDelegate, UIImagePickerControllerDelegate, ChangeUserInfoDelgate, SNImagePickerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *topView;
 

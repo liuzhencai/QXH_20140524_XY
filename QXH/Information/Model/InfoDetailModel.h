@@ -42,6 +42,6 @@
 
 @property (nonatomic, copy) NSString *commenttime;
 
-@property (nonatomic, copy) NSString *laud;
+@property (nonatomic, assign) NSInteger laud;
 
 @end

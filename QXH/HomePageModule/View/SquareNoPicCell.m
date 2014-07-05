@@ -22,4 +22,13 @@
     // Configure the view for the selected state
 }
 
+- (void)setCellData:(SquareInfo *)model
+{
+    _nameLabel.text = model.uname;
+    [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    _commentLabel.text = model.uduty;
+    InfoModel *tmpModel = (InfoModel *)model.content;
+    _contentLabel.text = tmpModel.content;
+}
+
 @end

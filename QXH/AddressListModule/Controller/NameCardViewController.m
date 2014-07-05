@@ -69,7 +69,7 @@
             NSLog(@"获取用户信息返回值：%@",dict);
             self.userDetailInfo = dict;
             [_mainTable reloadData];
-            [self showAlert:[dict objectForKey:@"info"]];
+//            [self showAlert:[dict objectForKey:@"info"]];
         }];
     }
 }

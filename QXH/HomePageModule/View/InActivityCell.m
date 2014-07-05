@@ -203,13 +203,12 @@
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
         NSString *imageUrlStr = [params objectForKey:@"photos"];
         [self.activityImage setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_news"]];
-        self.tribeLabel.text = [params objectForKey:@""];
-        self.orgnizerLabel.text = [params objectForKey:@""];
+        self.tribeLabel.text = [params objectForKey:@"comefrom"];
+        self.orgnizerLabel.text = [params objectForKey:@"creatername"];
         self.timeLabel.text = [params objectForKey:@"begindate"];
         self.addrLabel.text = [params objectForKey:@"actaddr"];
         
         
-        //218 134 74
         NSString *nowCount = [NSString stringWithFormat:@"%d",[[params objectForKey:@"nowcount"] intValue]];
         NSString *signUpString = [NSString stringWithFormat:@"%@人报名",nowCount];
         self.signUpLabel.text = signUpString;

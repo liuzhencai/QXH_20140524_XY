@@ -22,7 +22,7 @@
 
 - (void)getActList
 {
-    [DataInterface getActList:@"10" count:@"20" actname:@"" contentlength:@"30" tag:@"" district:@"" canjoin:@"3" actstate:@"0" tribeid:@"0" begindate:@"" enddate:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getActList:@"0" count:@"100" actname:@"" contentlength:@"30" tag:@"" district:@"" canjoin:@"2" actstate:@"0" status:@"0" tribeid:@"0" begindate:@"" enddate:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
         NSArray *list = [dict objectForKey:@"list"];
         actList = [NSMutableArray arrayWithArray:list];
         [_myActTbl reloadData];
@@ -76,8 +76,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *activityDict = [actList objectAtIndex:indexPath.row];
     ActivityDetailViewController *controller = [[ActivityDetailViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
+    controller.activityId = [[activityDict objectForKey:@"actid"] stringValue];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

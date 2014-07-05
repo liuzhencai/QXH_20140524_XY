@@ -22,7 +22,7 @@
 }
 
 @property (strong, nonatomic) SNImagePickerNC *imagePickerNavigationController;
-
+@property(nonatomic, strong) UIImagePickerController *cameraPicker;
 @end
 
 @implementation EditCardController
@@ -172,61 +172,6 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    /*
-    switch (row) {
-        case 1:
-        {
-            SchoolInfoController *controller = [[SchoolInfoController alloc] initWithNibName:@"SchoolInfoController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 2:
-        {
-            CityViewController *controller = [[CityViewController alloc] initWithNibName:@"CityViewController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 3:
-        {
-            SelfIntroduceController *controller = [[SelfIntroduceController alloc]initWithNibName:@"SelfIntroduceController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 4:
-        {
-            HobbyViewController *controller = [[HobbyViewController alloc] initWithNibName:@"HobbyViewController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 5:
-        {
-            StudyExperienceController *controller = [[StudyExperienceController alloc] initWithNibName:@"StudyExperienceController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 6:
-        {
-            PhoneViewController *controller = [[PhoneViewController alloc] initWithNibName:@"PhoneViewController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 7:
-        {
-            EverGloryController *controller = [[EverGloryController alloc] initWithNibName:@"EverGloryController" bundle:nil];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
-     */
     if (row == 1) {
         return;
     }
@@ -247,6 +192,7 @@
         case 0:
         {
             NSLog(@"拍照");
+            [self callCamera];
         }
             break;
         case 1:
@@ -263,6 +209,20 @@
         default:
             break;
     }
+}
+
+-(UIImagePickerController *) cameraPicker{
+    if(!_cameraPicker){
+        _cameraPicker = [[UIImagePickerController alloc] init];
+        _cameraPicker.delegate = self;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            _cameraPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        }
+        else{
+            _cameraPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+    }
+    return _cameraPicker;
 }
 
 - (void)callCamera
@@ -287,18 +247,34 @@
     else if(authStatus == AVAuthorizationStatusAuthorized){//允许访问
         // The user has explicitly granted permission for media capture, or explicit user permission is not necessary for the media type in question.
         NSLog(@"Authorized");
-        
+        if ([self cameraPicker]) {
+            [self presentViewController:_cameraPicker animated:YES completion:^{
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+                [self.navigationController setNavigationBarHidden:YES];
+            }];
+        }
+
     }else if(authStatus == AVAuthorizationStatusNotDetermined){
         // Explicit user permission is required for media capture, but the user has not yet granted or denied such permission.
         [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
             if(granted){//点击允许访问时调用
                 //用户明确许可与否，媒体需要捕获，但用户尚未授予或拒绝许可。
                 NSLog(@"Granted access to %@", mediaType);
+                if ([self cameraPicker]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self presentViewController:_cameraPicker animated:YES completion:^{}];
+                    });
+                }
             }
             else {
                 NSLog(@"Not granted access to %@", mediaType);
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                message:@"请在设备的'设置-隐私-相机'中允许访问相机"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+                [alert show];
             }
-            
         }];
     }else {
         NSLog(@"Unknown authorization status");
@@ -307,17 +283,20 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    [picker dismissViewControllerAnimated:YES completion:^{
-        [self modifyUserPortrait:image];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *tmpImage = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0.5)];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self modifyUserPortrait:tmpImage];
     }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)modifyUserPortrait:(UIImage *)image

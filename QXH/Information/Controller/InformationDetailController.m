@@ -24,6 +24,7 @@
     _commentNumLabel.text = detailmodel.commenttime;
     _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
+    _praiseLabel.text = [NSString stringWithFormat:@"%d",detailmodel.laud];
     
     // 加载webview数据
     [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:[NSURL URLWithString:@"http://180.97.46.40:8070"]];

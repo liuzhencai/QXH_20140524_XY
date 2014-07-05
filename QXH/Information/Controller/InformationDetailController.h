@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, InfomationType) {
 @property (weak, nonatomic) IBOutlet UILabel *commentNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *praiseLabel;
 
 @property (nonatomic, assign) InfomationType type;
 @property (nonatomic, copy) NSString *artid;
