@@ -35,8 +35,9 @@
         _picView.hidden = NO;
         if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {
             NSArray *imgs = [tmpModel.artimgs componentsSeparatedByString:@","];
-            for (int i = 1; i < [imgs count]; i++) {
-                
+            for (int i = 0; i < [imgs count]; i++) {
+                [(UIImageView *)[self viewWithTag:(111+i)] setHidden:NO];
+                [(UIImageView *)[self viewWithTag:(111+i)] setImageWithURL:IMGURL(imgs[i])];
             }
         }else{
             [_imageView1 setImageWithURL:IMGURL(tmpModel.artimgs)];

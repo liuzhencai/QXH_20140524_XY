@@ -175,9 +175,6 @@
         case 2:
             controller.type = SquareInfoTypeInf;
             break;
-        case 3:
-            controller.type = SquareInfoTypeAct;
-            break;
         default:
             break;
     }

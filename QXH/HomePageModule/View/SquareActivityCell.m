@@ -28,7 +28,9 @@
     _nameLabel.text = model.uname;
     _postionLabel.text = model.uduty;
     SquareActInfo *actInfo = model.content;
-    _contentLabel.text =actInfo.desc;
+    _statusLabel.layer.cornerRadius = 3.f;
+    _statusLabel.text = actInfo.acttype;
+    _contentLabel.text = model.refsign;
     _dateLabel.text = model.date;
     _activityTitle.text = actInfo.actname;
     _sourceLabel.text = @"";

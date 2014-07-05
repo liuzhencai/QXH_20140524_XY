@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, SquareInfoType) {
+    SquareInfoTypeSq = 1, // 广场发布的信息
     SquareInfoTypeInf, // 资讯转发的信息
-    SquareInfoTypeSq, // 广场发布的信息
-    SquareInfoTypeAct // 活动转发至广场的信息
 };
 
 @interface ShareTextController : MyViewController<UITableViewDataSource, UITableViewDelegate>
