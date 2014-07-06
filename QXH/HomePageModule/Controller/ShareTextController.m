@@ -91,13 +91,13 @@
 {
     NSInteger section = indexPath.section;
     UITableViewCell *cell = nil;
+    InfoModel *tmpModel = (InfoModel *)_info.content;
     switch (self.type) {
             /**
              *  广场文章
              */
         case 1:
         {
-            InfoModel *tmpModel = (InfoModel *)_info.content;
             switch (section) {
                 case 0:
                 {
@@ -108,7 +108,6 @@
                         // 添加用户信息
                         UIImageView *portraitView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 48, 48)];
                         portraitView.tag = 101;
-                        [portraitView setImageWithURL:IMGURL(_info.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                         [portraitView circular];
                         [cell.contentView addSubview:portraitView];
                         
@@ -117,6 +116,8 @@
                         nameLabel.text = tmpModel.sname;
                         [cell.contentView addSubview:nameLabel];
                     }
+                    UIImageView *portraitView_ = (UIImageView *)[cell.contentView viewWithTag:101];
+                    [portraitView_ setImageWithURL:IMGURL(_info.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                 }
                     break;
                 case 1:
@@ -220,7 +221,6 @@
              */
         case 2:
         {
-            InfoModel *tmpModel = (InfoModel *)_info.content;
             switch (section) {
                 case 0:
                 {
@@ -377,37 +377,65 @@
  
 - (IBAction)click:(id)sender {
     UIButton *btn = (UIButton *)sender;
+    InfoModel *tmpModel = (InfoModel *)_info.content;
     switch (btn.tag) {
         case 1:
         {
             NSLog(@"点击了收藏");
-
-            [self showAlert:@"点击了收藏"];
-
+            btn.selected = !btn.selected;
+            NSString *collected = nil;
+            if (btn.selected) {
+                collected = @"1";
+            }else{
+                collected = @"2";
+            }
+            [DataInterface squareArticleCollection:collected artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         case 2:
         {
             NSLog(@"点击了赞");
-
-            [self showAlert:@"点击了赞"];
-
+            [DataInterface praiseArticle:tmpModel.artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         case 3:
         {
             NSLog(@"点击了评论");
-
-            [self showAlert:@"点击了评论"];
-
+            CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
+            [alertView setUseMotionEffects:TRUE];
+            [alertView setButtonTitles:@[@"取消", @"发表"]];
+            UITextView *commentView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+            commentView.backgroundColor = [UIColor clearColor];
+            [alertView setContainerView:commentView];
+            [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
+                switch (buttonIndex) {
+                    case 1:
+                    {
+                        [DataInterface praiseArticle:tmpModel.artid laud:@"0" comment:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
+                            /**
+                             *  刷新评论列表
+                             */
+                            [self showAlert:[dict objectForKey:@"info"]];
+                            [alertView close];
+                        }];
+                    }
+                    default:
+                        break;
+                }
+            }];
+            [alertView show];
         }
             break;
         case 4:
         {
             NSLog(@"点击了举报");
-
-            [self showAlert:@"点击了举报"];
-
+            [DataInterface reportInfoType:@"3" targetid:tmpModel.artid content:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+            }];
         }
             break;
         default:

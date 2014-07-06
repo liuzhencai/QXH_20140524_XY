@@ -91,9 +91,6 @@
         {
             InfoModel *tmpModel = (InfoModel *)model.content;
             NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
-                /**
-                 *  有图片
-                 */
                 static NSString *cellIdentifier = @"squareCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (cell==nil) {

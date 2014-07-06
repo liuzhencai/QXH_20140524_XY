@@ -29,10 +29,7 @@
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     _positionLabel.text = model.uduty;
     _contentLabel.text = tmpModel.content;
-    if ([tmpModel.artimgs isEqualToString:@""]) {
-        _picView.hidden = YES;
-    }else{
-        _picView.hidden = NO;
+    if (![tmpModel.artimgs isEqualToString:@""]) {
         if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {
             NSArray *imgs = [tmpModel.artimgs componentsSeparatedByString:@","];
             for (int i = 0; i < [imgs count]; i++) {
@@ -40,7 +37,8 @@
                 [(UIImageView *)[self viewWithTag:(111+i)] setImageWithURL:IMGURL(imgs[i])];
             }
         }else{
-            [_imageView1 setImageWithURL:IMGURL(tmpModel.artimgs)];
+            [(UIImageView *)[self viewWithTag:111] setHidden:NO];
+            [(UIImageView *)[self viewWithTag:111] setImageWithURL:IMGURL(tmpModel.artimgs)];
         }
     }
 }

@@ -77,7 +77,7 @@
         /*获取个人信息，并储存起来*/
         [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
          {
-             NSLog(@"获取到用户信息");
+             NSLog(@"获取到用户信息--->%@",user.displayname);
              _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
              //             [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
              _portraitView.image = user.iconImageview.image;

@@ -77,10 +77,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentLabel" destination="kDs-FB-fnM" id="MUw-B4-a1p"/>
-                <outlet property="imageView1" destination="t1C-vQ-12S" id="hXN-mh-3gT"/>
-                <outlet property="imageView2" destination="Zcy-ge-Af3" id="Snd-Qc-0Mj"/>
-                <outlet property="imageView3" destination="U5S-q0-HIm" id="ev3-Vi-5w8"/>
-                <outlet property="imageView4" destination="bZF-7u-WCt" id="sUc-WP-zd4"/>
                 <outlet property="nameLabel" destination="LKf-mw-0FU" id="sJ1-aJ-Te6"/>
                 <outlet property="portraitView" destination="dSC-im-LpZ" id="7wZ-MD-OpI"/>
                 <outlet property="positionLabel" destination="Gr2-kp-G1D" id="bo2-VL-Njz"/>
