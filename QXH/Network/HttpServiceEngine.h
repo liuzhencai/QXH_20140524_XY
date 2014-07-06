@@ -7,6 +7,7 @@
 //
 
 #import "MKNetworkEngine.h"
+#import "MBProgressHUD.h"
 
 /**
  *  数据处理回调block
@@ -21,6 +22,9 @@ typedef void (^DataProcessBlock)(NSInteger statusCode, id object);
 typedef void (^DownloadProgressBlock)(double progress);
 
 @interface HttpServiceEngine : MKNetworkEngine
+{
+    MBProgressHUD *progressHUD;
+}
 
 /**
  *  单例实现方法

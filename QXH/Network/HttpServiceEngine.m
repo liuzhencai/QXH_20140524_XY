@@ -136,27 +136,42 @@ static HttpServiceEngine *httpEngine;
 
 - (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock) errorBlock
 {
-    __block __weak MKNetworkOperation *op = nil;
-    if (params == nil) {
-        //        op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
-        op = [self operationWithPath:SERVICE_URL params:params httpMethod:method];
-    }else{
-        if ([method isEqualToString:@"GET"]) {
-            op = [self operationWithPath:[self mergeUrl:SERVICE_URL andParams:params]];
-        }else{
-            //            op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
-            op = [self operationWithPath:SERVICE_URL params:params httpMethod:method];
-        }
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    if (!progressHUD) {
+        progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
+        progressHUD.animationType = MBProgressHUDAnimationFade;
+        [keyWindow addSubview:progressHUD];
     }
-    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-        [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
-            dataProcess(op.HTTPStatusCode,jsonObject);
+    [progressHUD show:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block __weak MKNetworkOperation *op = nil;
+        if (params == nil) {
+            //        op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
+            op = [self operationWithPath:SERVICE_URL params:params httpMethod:method];
+        }else{
+            if ([method isEqualToString:@"GET"]) {
+                op = [self operationWithPath:[self mergeUrl:SERVICE_URL andParams:params]];
+            }else{
+                //            op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
+                op = [self operationWithPath:SERVICE_URL params:params httpMethod:method];
+            }
+        }
+        [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+            [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [progressHUD hide:YES afterDelay:.25f];
+                    dataProcess(op.HTTPStatusCode,jsonObject);
+                });
+            }];
+        } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [progressHUD hide:YES afterDelay:.25f];
+                errorBlock(error);
+            });
         }];
-    } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
-        errorBlock(error);
-    }];
-    
-    [self enqueueOperation:op];
+        
+        [self enqueueOperation:op];
+    });
 }
 
 + (NSString *)jsonSerilizationWithObject:(id)obj
