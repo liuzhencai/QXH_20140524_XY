@@ -15,6 +15,7 @@
 @interface InformationViewController ()
 {
     NSMutableArray *info;
+    NSMutableArray *artClassify;
 }
 
 - (void)requestInfoList:(NSString *)detailtype;
@@ -28,7 +29,7 @@
 - (void)requestArtClassify
 {
     [DataInterface getCodeSheet:@"artClassify" fathercode:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
-        NSMutableArray *artClassify = [ModelGenerator json2CodeSheet:dict];
+        artClassify = [ModelGenerator json2CodeSheet:dict];
         NSMutableArray *titles = [[NSMutableArray alloc] init];
         for (CodeSheetObject *obj in artClassify) {
             [titles addObject:obj.name];
@@ -36,14 +37,13 @@
         CustomSegmentControl *segmentControl = [[CustomSegmentControl alloc]initWithFrame:CGRectMake(0, 0, 320, 34) andTitles:titles];
         segmentControl.delegate = self;
         [self.view addSubview:segmentControl];
-        //    NSInteger height = SCREEN_H;
-        [self requestInfoList:@"1"];
+        [self requestInfoList:@"热推"];
     }];
 }
 
-- (void)requestInfoList:(NSString *)detailtype
+- (void)requestInfoList:(NSString *)classify
 {
-    [DataInterface getInfoList:@"2" detailtype:detailtype tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getInfoList:@"2" detailtype:@"1" tag:@"" classify:classify arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         info = [ModelGenerator json2InfoList:dict];
         [_tableview reloadData];
         NSLog(@"info--->%@",info);
@@ -81,6 +81,7 @@
 - (void)segmentClicked:(NSInteger)index
 {
     NSLog(@"index-->%d",index);
+    [self requestInfoList:((CodeSheetObject *)artClassify[index]).code];
 }
 
 - (void)didReceiveMemoryWarning

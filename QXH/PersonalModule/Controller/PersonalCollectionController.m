@@ -23,7 +23,7 @@
 
 - (void)getInfoList
 {
-    [DataInterface getInfoList:@"0" detailtype:@"" tag:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getInfoList:@"0" detailtype:@"" tag:@"" classify:@"热推" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         info = [ModelGenerator json2SquareList:dict];
         [_collectionTable reloadData];
     }];

@@ -331,6 +331,7 @@ withCompletionHandler:(DictCallback)callback;
  *  @param type          信息类型(0为不区分[获取个人收藏文章时使用],1为广场消息，2为咨询)
  *  @param detailtype    信息明细类型 1为最新，2为最热,3为收藏
  *  @param tag           标签
+ *  @param classify      分类,栏目
  *  @param arttype       文章类型
  *  @param contentlength 文章列表中文章的长度
  *  @param start         起始消息的artid，不填写该字段读取最新消息n个
@@ -339,6 +340,7 @@ withCompletionHandler:(DictCallback)callback;
 + (void)getInfoList:(NSString *)type
          detailtype:(NSString *)detailtype
                 tag:(NSString *)tag
+           classify:(NSString *)classify
             arttype:(NSString *)arttype
       contentlength:(NSString *)contentlength
               start:(NSString *)start

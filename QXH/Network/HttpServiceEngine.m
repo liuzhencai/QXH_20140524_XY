@@ -134,7 +134,7 @@ static HttpServiceEngine *httpEngine;
     [self enqueueOperation:op];
 }
 
-- (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock) errorBlock
+- (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     if (!progressHUD) {
