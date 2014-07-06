@@ -682,12 +682,13 @@ withCompletionHandler:(DictCallback)callback;
 /**
  *  获取每日一问通用接口
  *
- *  @param type     1为广场每日一问，2为部落中置顶消息
- *  @param tribeid  部落id(sendtype=2时读取该字段)
- *  @param callback 回调
+ *  @param contentlength     每日列表中文章的长度
+ *  @param type              起始消息的artid，不填写该字段读取最新消息n个
+ *  @param callback          获取消息数量
  */
-+ (void)getEveryDayAsk:(NSString *)type
-               tribeid:(NSString *)tribeid
++ (void)getEveryDayAsk:(NSString *)contentlength
+                 start:(NSString *)start
+                 count:(NSString *)count
  withCompletionHandler:(DictCallback)callback;
 
 /**

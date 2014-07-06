@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AskInfoModel.h"
 
 @interface AskCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *portraitView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLbl;
+@property (weak, nonatomic) IBOutlet UILabel *contentLbl;
+@property (weak, nonatomic) IBOutlet UILabel *dateLbl;
+@property (weak, nonatomic) IBOutlet UILabel *transmitLbl;
+
+- (void)setCellData:(AskInfoModel *)model;
 
 @end

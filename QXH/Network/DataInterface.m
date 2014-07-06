@@ -665,11 +665,12 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
-+ (void)getEveryDayAsk:(NSString *)type
-               tribeid:(NSString *)tribeid
++ (void)getEveryDayAsk:(NSString *)contentlength
+                 start:(NSString *)start
+                 count:(NSString *)count
  withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0144", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"tribeid":tribeid};
+    NSDictionary *param = @{@"opercode": @"0144", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"contentlength":contentlength,@"start":start,@"count":count};
     NSLog(@"\n##########获取每日一问通用接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取每日一问通用接口返回结果##########\n[结 果]:%@\n#############################\n",dict);

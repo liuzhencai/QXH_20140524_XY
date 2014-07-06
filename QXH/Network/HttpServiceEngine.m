@@ -137,13 +137,11 @@ static HttpServiceEngine *httpEngine;
 - (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    if (!progressHUD) {
-        progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
-        progressHUD.animationType = MBProgressHUDAnimationFade;
-        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
-        progressHUD.labelText = @"加载中...";
-        [keyWindow addSubview:progressHUD];
-    }
+    progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
+    progressHUD.animationType = MBProgressHUDAnimationFade;
+    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+    progressHUD.labelText = @"加载中...";
+    [keyWindow addSubview:progressHUD];
     [progressHUD show:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __block __weak MKNetworkOperation *op = nil;
@@ -161,13 +159,15 @@ static HttpServiceEngine *httpEngine;
         [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
             [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [progressHUD hide:YES afterDelay:.25f];
+                    [progressHUD hide:YES];
+                    [progressHUD removeFromSuperview];
                     dataProcess(op.HTTPStatusCode,jsonObject);
                 });
             }];
         } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [progressHUD hide:YES afterDelay:.25f];
+                [progressHUD hide:YES];
+                [progressHUD removeFromSuperview];
                 errorBlock(error);
             });
         }];

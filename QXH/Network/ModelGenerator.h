@@ -17,6 +17,7 @@
 #import "ActivityInfoModel.h"
 #import "SquareActInfo.h"
 #import "CodeSheetObject.h"
+#import "AskInfoModel.h"
 
 @interface ModelGenerator : NSObject
 
@@ -91,5 +92,14 @@
  *  @return 返回码表列表
  */
 + (NSMutableArray *)json2CodeSheet:(NSDictionary *)obj;
+
+/**
+ *  json转换为问道
+ *
+ *  @param obj 传入参数
+ *
+ *  @return 返回问道对象
+ */
++ (NSMutableArray *)json2AskInfo:(NSDictionary *)obj;
 
 @end

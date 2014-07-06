@@ -76,6 +76,7 @@
 		2119EF2E191689DD007DBE68 /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119EF2C191689DD007DBE68 /* ActivityCell.m */; };
 		2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF2D191689DD007DBE68 /* ActivityCell.xib */; };
 		2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119F287194355C800250DB6 /* libWeChatSDK.a */; };
+		211DBA0C196924510059D1C5 /* AskInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 211DBA0B196924510059D1C5 /* AskInfoModel.m */; };
 		2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121C8E8195326A900FFEAE5 /* VistorModel.m */; };
 		21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21284CC7195F15930019A4D3 /* EditInfoController.m */; };
 		21284CCA195F15930019A4D3 /* EditInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21284CC8195F15930019A4D3 /* EditInfoController.xib */; };
@@ -546,6 +547,8 @@
 		2119EF2C191689DD007DBE68 /* ActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		2119EF2D191689DD007DBE68 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
 		2119F287194355C800250DB6 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		211DBA0A196924510059D1C5 /* AskInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskInfoModel.h; sourceTree = "<group>"; };
+		211DBA0B196924510059D1C5 /* AskInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskInfoModel.m; sourceTree = "<group>"; };
 		2121C8E7195326A900FFEAE5 /* VistorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VistorModel.h; sourceTree = "<group>"; };
 		2121C8E8195326A900FFEAE5 /* VistorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VistorModel.m; sourceTree = "<group>"; };
 		21284CC6195F15930019A4D3 /* EditInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditInfoController.h; sourceTree = "<group>"; };
@@ -1498,6 +1501,8 @@
 				21391FBC1959CA700002E288 /* CardInfo.m */,
 				84BCBBAF195DC4EF00E80075 /* MessageBySend.h */,
 				84BCBBB0195DC4EF00E80075 /* MessageBySend.m */,
+				211DBA0A196924510059D1C5 /* AskInfoModel.h */,
+				211DBA0B196924510059D1C5 /* AskInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2595,6 +2600,7 @@
 				21DA12DA1936303F001EDEB1 /* DDLog.m in Sources */,
 				58E08D0719532549000C25AE /* AddFriendView.m in Sources */,
 				2119EF02191682EC007DBE68 /* UIButton+WebCache.m in Sources */,
+				211DBA0C196924510059D1C5 /* AskInfoModel.m in Sources */,
 				2166CDF41933970500F0312E /* UserInfoModel.m in Sources */,
 				21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */,
 				58826BA7195DD180002F13A5 /* NIOperations.m in Sources */,

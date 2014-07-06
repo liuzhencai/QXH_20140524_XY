@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EverydayAskController : MyViewController
+@interface EverydayAskController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *askTbl;
 
 @end

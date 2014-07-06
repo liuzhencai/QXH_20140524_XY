@@ -225,4 +225,26 @@
     return array;
 }
 
++ (NSMutableArray *)json2AskInfo:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        AskInfoModel *model = [[AskInfoModel alloc] init];
+        model.artid =  [list[i] objectForKey:@"artid"];
+        model.artimgs =  [list[i] objectForKey:@"artimgs"];
+        model.authflag = [list[i] objectForKey:@"authflag"];
+        model.browsetime = [list[i] objectForKey:@"browsetime"];
+        model.content = [list[i] objectForKey:@"content"];
+        model.contentlength = [list[i] objectForKey:@"contentlength"];
+        model.date = [list[i] objectForKey:@"date"];
+        model.sid = [list[i] objectForKey:@"sid"];
+        model.sname = [list[i] objectForKey:@"sname"];
+        model.sphoto = [list[i] objectForKey:@"sphoto"];
+        model.title = [list[i] objectForKey:@"title"];
+        [array addObject:model];
+    }
+    return array;
+}
+
 @end

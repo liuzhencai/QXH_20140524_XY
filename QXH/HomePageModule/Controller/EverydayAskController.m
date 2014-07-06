@@ -8,8 +8,12 @@
 
 #import "EverydayAskController.h"
 #import "AskCell.h"
+#import "ShareTextController.h"
 
 @interface EverydayAskController ()
+{
+    NSMutableArray *askInfo;
+}
 
 @end
 
@@ -29,6 +33,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"每日一问";
+    [DataInterface getEveryDayAsk:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        askInfo = [ModelGenerator json2AskInfo:dict];
+        [_askTbl reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,7 +48,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [askInfo count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -51,8 +59,39 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"AskCell" owner:nil options:nil] objectAtIndex:0];
     }
+    AskInfoModel *model = [askInfo objectAtIndex:indexPath.row];
+    [cell setCellData:model];
     
     return cell;
+}
+
+- (SquareInfo *)convertAskInfoToSquareInfo:(AskInfoModel *)model
+{
+    SquareInfo *squareInfo = [[SquareInfo alloc] init];
+    InfoModel *infoModel = [[InfoModel alloc] init];
+    infoModel.artid = model.artid;
+    infoModel.artimgs = model.artimgs;
+    infoModel.authflag = model.authflag;
+    infoModel.browsetime = model.browsetime;
+    infoModel.content = model.content;
+    infoModel.contentlength = [model.contentlength integerValue];
+    infoModel.date = model.date;
+    infoModel.sid = model.sid;
+    infoModel.sname = model.sname;
+    infoModel.sphoto = model.sphoto;
+    infoModel.title = model.title;
+    squareInfo.content = infoModel;
+    return squareInfo;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+    SquareInfo *squareInfo = [self convertAskInfoToSquareInfo:[askInfo objectAtIndex:indexPath.row]];
+    controller.info = squareInfo;
+    controller.type = SquareInfoTypeSq;
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
