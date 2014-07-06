@@ -117,7 +117,7 @@
                         [cell.contentView addSubview:nameLabel];
                     }
                     UIImageView *portraitView_ = (UIImageView *)[cell.contentView viewWithTag:101];
-                    [portraitView_ setImageWithURL:IMGURL(_info.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+                    [portraitView_ setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                 }
                     break;
                 case 1:
@@ -231,7 +231,7 @@
                         // 添加用户信息
                         UIImageView *portraitView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 48, 48)];
                         portraitView.tag = 101;
-                        [portraitView setImageWithURL:IMGURL(_info.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+                        [portraitView setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                         [portraitView circular];
                         [cell.contentView addSubview:portraitView];
                         

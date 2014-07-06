@@ -29,8 +29,8 @@
 - (void)setCellData:(SquareInfo *)model
 {
     InfoModel *tmpModel = model.content;
-    [self.portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    [self.portraitView circular];
+    [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_portraitView circular];
     _commentLabel.text = model.refsign;
     _nameLabel.text = model.uname;
     _dateLabel.text = model.date;

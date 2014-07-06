@@ -26,7 +26,8 @@
 {
     InfoModel *tmpModel = (InfoModel *)model.content;
     _nameLabel.text = tmpModel.sname;
-    [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_portraitView setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_portraitView circular];
     _positionLabel.text = model.uduty;
     _contentLabel.text = tmpModel.content;
     if (![tmpModel.artimgs isEqualToString:@""]) {

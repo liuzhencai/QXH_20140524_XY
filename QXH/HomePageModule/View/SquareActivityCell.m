@@ -24,10 +24,11 @@
 
 - (void)setCellData:(SquareInfo *)model
 {
+    SquareActInfo *actInfo = model.content;
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_portraitView circular];
     _nameLabel.text = model.uname;
     _postionLabel.text = model.uduty;
-    SquareActInfo *actInfo = model.content;
     _statusLabel.layer.cornerRadius = 3.f;
     _statusLabel.text = actInfo.acttype;
     _contentLabel.text = model.refsign;
