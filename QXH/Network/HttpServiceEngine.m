@@ -140,6 +140,8 @@ static HttpServiceEngine *httpEngine;
     if (!progressHUD) {
         progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
         progressHUD.animationType = MBProgressHUDAnimationFade;
+        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+        progressHUD.labelText = @"加载中...";
         [keyWindow addSubview:progressHUD];
     }
     [progressHUD show:YES];
