@@ -18,6 +18,7 @@
 #import "ChatInput.h"
 #import "MessageCell.h"
 #import "CustomSegmentControl.h"
+#import "PullRefreshTableViewController.h"
 
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;

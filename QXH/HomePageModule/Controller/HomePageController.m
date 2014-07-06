@@ -21,6 +21,7 @@
 #import "LoginViewController.h"
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
+//#import "PullRefreshTableViewController.h"
 
 
 @interface HomePageController ()<LoginDelegate>
@@ -92,7 +93,8 @@
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 }
 
-- (void)autoLogin{//自动登录
+- (void)autoLogin
+{//自动登录
     NSString *name = [defaults objectForKey:@"userName"];
     NSString *passward = [defaults objectForKey:@"passworld"];
     [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
@@ -105,6 +107,19 @@
         [defaults setObject:date forKey:LOGIN_DATE];
         [defaults synchronize];
         NSLog(@"登陆返回信息：%@",dict);
+        
+        NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
+        if ([defaults objectForKey:@"userid"]) {
+//            /*获取个人信息，并储存起来*/
+            [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+             {
+                 NSLog(@"获取到用户信息");
+                 _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
+                 //             [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+                 _portraitView.image = user.iconImageview.image;
+                 [_portraitView circular];
+             }];
+        }
         
 //        [self showAlert:[dict objectForKey:@"info"]];
 
@@ -222,13 +237,11 @@
 //            ChatController *controller = [[ChatController alloc] initWithCustomView:tempView];
             
             
-            ChatController *controller = [[ChatController alloc]init];
-           
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-//            chatRoomActivViewController* chatroomactive = [[chatRoomActivViewController alloc]init];
-//            [self.view addSubview:chatroomactive.view];
-////            [self.navigationController pushViewController:chatroomactive animated:YES];
+//            ChatController *controller = [[ChatController alloc]init];
+//           
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+
             
 //             NSString* name = @"刘振财测试1";
 //            [DataInterface modifyUserInfo:ORIGIN_VAL oldpwd:ORIGIN_VAL newpwd:ORIGIN_VAL signature:ORIGIN_VAL title:job degree:ORIGIN_VAL address:ORIGIN_VAL domicile:ORIGIN_VAL introduce:ORIGIN_VAL comname:ORIGIN_VAL comdesc:ORIGIN_VAL comaddress:ORIGIN_VAL comurl:ORIGIN_VAL induname:ORIGIN_VAL indudesc:ORIGIN_VAL schoolname:schoolname schooltype:ORIGIN_VAL sex:ORIGIN_VAL email:ORIGIN_VAL tags:ORIGIN_VAL attentiontags:ORIGIN_VAL hobbies:ORIGIN_VAL educations:ORIGIN_VAL honours:ORIGIN_VAL withCompletionHandler:^(NSMutableDictionary *dict) {

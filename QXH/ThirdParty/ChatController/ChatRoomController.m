@@ -62,6 +62,8 @@ static int scout=0;
     /*判断是否本地读取的消息记录*/
     BOOL localMessage;
     
+    BOOL isLoading;
+    
 }
 
 // View Properties
@@ -171,7 +173,7 @@ static int scout=0;
     _myCollectionView.dataSource = self;
     _myCollectionView.tag=CONVERSATION_TABLE_TAG;
     _myCollectionView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
-    _myCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 2, 0, -2);
+    _myCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 2, 5, -2);
     _myCollectionView.allowsSelection = YES;
     _myCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [_myCollectionView registerClass:[MessageCell class]
@@ -191,6 +193,11 @@ static int scout=0;
     /*获取部落聊天记录*/
     [self getMessagesArray];
     
+//    /*添加手势*/
+//    UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
+//    
+//    [self.myCollectionView addGestureRecognizer:swipeGesture];
+
 
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -280,8 +287,7 @@ static int scout=0;
     [self GreadAskView];
     UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
     //            [iconImage circular];
-    
-    [headImage setImageWithURL:IMGURL(dic[@"photo"]) placeholderImage:nil];
+    headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
     
     /*头像*/
     UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
@@ -350,7 +356,7 @@ static int scout=0;
         _name.backgroundColor = [UIColor clearColor];
         [askView addSubview:_name];
         
-        UILabel* _time = [[UILabel alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 10 - 120, askheadImgView.top, 120, 30)];
+        UILabel* _time = [[UILabel alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 10 - 150, askheadImgView.top, 150, 30)];
         _time.textAlignment = NSTextAlignmentRight;
         _time.tag = 21085;
         _time.font = [UIFont systemFontOfSize:14.0];
@@ -579,28 +585,32 @@ static int scout=0;
     }
 }
 
-/* Scroll To Top
-- (void) scrollToTop {
-    if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
-        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
-        [_myCollectionView scrollToItemAtIndexPath:firstIndex atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-    }
-}
-*/
 
-/* To Monitor Scroll
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
-    if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
-        // scrolled up
-    }
-    else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
-        // scrolled down
-        
-    }
-    lastContentOffset = scrollView.contentOffset.y;
-}
-*/
+#pragma mark 上刷新
+/* Scroll To Top*/
+//- (void) scrollToTop {
+//    if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
+//        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+//        [_myCollectionView scrollToItemAtIndexPath:firstIndex atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+//    }
+//}
+
+
+/* To Monitor Scroll*/
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
+//    if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
+//        // scrolled up
+//        DebugLog(@"up");
+//    }
+//    else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
+//        // scrolled down
+//         DebugLog(@"down");
+//        
+//    }
+//    lastContentOffset = scrollView.contentOffset.y;
+//}
+
 
 #pragma mark COLLECTION VIEW DELEGATE
 
@@ -744,22 +754,6 @@ static int scout=0;
 //}
 
 
-#pragma mark 界面改造
-
-///*改造方法
-// 设置我的头像
-// */
-//
-//- (void)addMyHeadImage:(UIImage*)aimage
-//{
-//    self.MyHeadImg = aimage;
-//}
-//
-//- (void)addOHeadImage:(UIImage*)aimage
-//{
-//    self.opponentImg = aimage;
-//}
-
 #pragma mark chatcontroller
 /*接受到消息，界面滚动*/
 - (void) didSendMessage:(NSMutableDictionary *)message
@@ -793,13 +787,6 @@ static int scout=0;
 
         NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
         MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
-//        /*设置自己图片*/
-//        if (!Myuserinfo) {
-//            UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
-//            Myuserinfo = [usermang getMe];
-//            
-//        }
-//        message[@"kHeadIcon"] = Myuserinfo.iconImageview.image;
 
         /*设置发送状态图片为ok*/
         if (localMessage ) {
@@ -843,20 +830,6 @@ static int scout=0;
     }else{
         /*如果不是自己发送*/
 
-//        UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-//        NSString* userdiString = [NSString stringWithFormat:@"%d",[message[@"senderid"] integerValue]];
-//        UserInfoModel* aother = nil;
-//        [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-//         {
-//             NSLog(@"reloadeChatRoom***getOtherUserInfo");
-//             if (other) {
-//                 /*获取到对方头像*/
-//                 //             [self addOHeadImage:other.iconImageview.image];
-//                 message[@"kHeadIcon"] = other.iconImageview.image;
-////                 [self messageSendByOpponent:message];
-//             }
-//             return other;
-//         }];
 
     }
    
@@ -1235,4 +1208,80 @@ static int scout=0;
 //        }
     }
 }
+
+#pragma mark 下拉刷新
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+//    if (isLoading) return;
+//    isDragging = YES;
+    DebugLog(@"scrollViewWillBeginDragging");
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+     DebugLog(@"scrollViewDidScroll");
+//    if (isLoading) {
+//        // Update the content inset, good for section headers
+//        if (scrollView.contentOffset.y > 0)
+////            self.myRefreshview.contentInset = UIEdgeInsetsZero;
+//        else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
+////            self.myRefreshview.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+//    } else if (isDragging && scrollView.contentOffset.y < 0) {
+//        // Update the arrow direction and label
+//        [UIView animateWithDuration:0.25 animations:^{
+//            if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
+//                // User is scrolling above the header
+//                refreshLabel.text = self.textRelease;
+//                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+//            } else {
+//                // User is scrolling somewhere within the header
+//                refreshLabel.text = self.textPull;
+//                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+//            }
+//        }];
+//    }
+}
+
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+//{
+//     DebugLog(@"scrollViewDidEndDragging");
+////    if (isLoading) return;
+////    isDragging = NO;
+////    if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
+////        // Released above the header
+////        [self startLoading];
+////    }
+//}
+////- (void)refresh {
+////    
+////    [self performSelector:@selector(addItem) withObject:nil afterDelay:2.0];
+////    [super refresh];
+////}
+////
+////- (void)addItem {
+////    NSLog(@"!!!!!!!!!!!!!!!!!!");
+////}
+
+//#pragma mark 添加手势
+//-(IBAction)handleSwipeGesture:(UIGestureRecognizer*)sender
+//{
+//
+//   UISwipeGestureRecognizerDirection direction=[(UISwipeGestureRecognizer*)sender direction];
+//    switch (direction)
+//    {
+//        case UISwipeGestureRecognizerDirectionUp:
+//        {
+//            DebugLog(@"上");
+//        }
+//            break;
+//        case UISwipeGestureRecognizerDirectionDown:
+//        {
+//            DebugLog(@"下");
+//        }
+//            break;
+//            
+//        default:
+//            break;
+//            
+//    }
+//}
+
 @end

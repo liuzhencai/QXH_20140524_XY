@@ -327,6 +327,8 @@
 		842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8B192AF7F100374F04 /* NameCardViewController.m */; };
 		842D3C93192AF7F100374F04 /* UserRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */; };
 		842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C95192AF8E600374F04 /* UIViewAdditions.m */; };
+		845343D819685E9A00F51B49 /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */; };
+		845343D919685E9A00F51B49 /* PullRefreshTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */; };
 		845D44981947425B0041445D /* UserInfoModelManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D44971947425B0041445D /* UserInfoModelManger.m */; };
 		8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84842699192E0D0100C9474A /* SelectTribeViewController.m */; };
 		8484269F192E0D0100C9474A /* TribeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8484269B192E0D0100C9474A /* TribeDetailViewController.m */; };
@@ -929,6 +931,9 @@
 		842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegisterViewController.m; sourceTree = "<group>"; };
 		842D3C94192AF8E600374F04 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAdditions.h; sourceTree = "<group>"; };
 		842D3C95192AF8E600374F04 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
+		845343D519685E9A00F51B49 /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
+		845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
+		845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullRefreshTableViewController.xib; sourceTree = "<group>"; };
 		845D44961947425B0041445D /* UserInfoModelManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModelManger.h; sourceTree = "<group>"; };
 		845D44971947425B0041445D /* UserInfoModelManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModelManger.m; sourceTree = "<group>"; };
 		84842698192E0D0100C9474A /* SelectTribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTribeViewController.h; sourceTree = "<group>"; };
@@ -2104,6 +2109,9 @@
 				84EED57919527E4100414085 /* chatRoomActivViewController.m */,
 				84EED57D1952CCC600414085 /* chatRoomMemberViewController.h */,
 				84EED57E1952CCC600414085 /* chatRoomMemberViewController.m */,
+				845343D519685E9A00F51B49 /* PullRefreshTableViewController.h */,
+				845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */,
+				845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -2407,6 +2415,7 @@
 				848426DF192E185B00C9474A /* icon_huodong@2x.png in Resources */,
 				848426AD192E0F2B00C9474A /* tribe_btn_nextstep_highlight@2x.png in Resources */,
 				848426EA192E185B00C9474A /* collect_img_share@2x.png in Resources */,
+				845343D919685E9A00F51B49 /* PullRefreshTableViewController.xib in Resources */,
 				21A893FD1928ECD300A6DB7E /* SquareShareController.xib in Resources */,
 				2192EC10191BD76400A8FE7F /* CitySearchController.xib in Resources */,
 				21D705AD19169A15004950BF /* LabelArrowCell.xib in Resources */,
@@ -2464,6 +2473,7 @@
 				212F23A11928DF2500F738F8 /* MyViewController.m in Sources */,
 				214E811119645EEF0026BB60 /* SquareTransmitCell.m in Sources */,
 				58826B9E195DD180002F13A5 /* NIDebuggingTools.m in Sources */,
+				845343D819685E9A00F51B49 /* PullRefreshTableViewController.m in Sources */,
 				2119EF04191682EC007DBE68 /* UIImage+MultiFormat.m in Sources */,
 				21DA12DE1936303F001EDEB1 /* DDMultiFormatter.m in Sources */,
 				21A8941019290B7F00A6DB7E /* InformationCommentController.m in Sources */,
