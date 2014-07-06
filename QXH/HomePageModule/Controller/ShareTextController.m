@@ -433,14 +433,6 @@
             [alertView show];
         }
             break;
-        case 4:
-        {
-            NSLog(@"点击了举报");
-            [DataInterface reportInfoType:@"3" targetid:tmpModel.artid content:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
-                [self showAlert:[dict objectForKey:@"info"]];
-            }];
-        }
-            break;
         default:
             break;
     }
