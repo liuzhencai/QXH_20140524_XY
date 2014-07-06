@@ -131,14 +131,14 @@
         //line
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(_signUpLabel.right, _signUpLabel.top, 1, _signUpLabel.height)];
         lineView.backgroundColor = [UIColor lightGrayColor];
-        [bgImgView addSubview:lineView];
+//        [bgImgView addSubview:lineView];
         
         //follow
         _followLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(_signUpLabel.right + 1, _signUpLabel.top, 60, 15)];
         _followLabel.backgroundColor = [UIColor clearColor];
         _followLabel.font = [UIFont systemFontOfSize:12];
         _followLabel.textAlignment = NSTextAlignmentCenter;
-        [bgImgView addSubview:_followLabel];
+//        [bgImgView addSubview:_followLabel];
         
         
         //status image

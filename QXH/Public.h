@@ -54,4 +54,17 @@ typedef void (^DictCallback) (NSMutableDictionary *dict);
 
 #define ORIGIN_VAL @"------"
 
+/*******************************************
+ Square Module Constant 广场模块常量定义
+ ********************************************/
+#define SQUARE_LIST_PIC_SIZE 48.f
+
+#define SQUARE_DETAIL_CONTENT_FONT 13.f
+
+#define SQUARE_DETAIL_CONTENT_WIDTH 300.f
+
+#define SQUARE_DETAIL_PIC_SIZE 67.5
+
+#define SQUARE_DETAIL_PICINF_SIZE 50
+
 #endif

@@ -78,7 +78,7 @@
         /*获取个人信息，并储存起来*/
         [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
          {
-             NSLog(@"获取到用户信息");
+             NSLog(@"获取到用户信息--->%@",user.displayname);
              _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
              //             [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
              _portraitView.image = user.iconImageview.image;
@@ -232,9 +232,9 @@
         {
             NSLog(@"点击影响力");
 //            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
-//            ivController.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:ivController ani
-//            ChatController *controller = [[ChatController alloc] initWithCustomView:tempView];
+            InfluenceViewController *ivController = [[InfluenceViewController alloc] init];
+            ivController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:ivController animated:YES];
             
             
 //            ChatController *controller = [[ChatController alloc]init];

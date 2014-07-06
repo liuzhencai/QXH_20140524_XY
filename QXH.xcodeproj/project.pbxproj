@@ -314,6 +314,7 @@
 		58B87177192F78FB00EB730D /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87176192F78FB00EB730D /* ShareView.m */; };
 		58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87179192FA57100EB730D /* TribeQuestionCell.m */; };
 		58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B8717C192FABF100EB730D /* TribeConversationCell.m */; };
+		58D3F4E119685C0900A5FA4E /* InfluenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D3F4E019685C0900A5FA4E /* InfluenceCell.m */; };
 		58E08D0719532549000C25AE /* AddFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E08D0619532549000C25AE /* AddFriendView.m */; };
 		58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58EEDABF1958549E007E2FA2 /* citysList.plist */; };
 		58FABF0119631082002C9917 /* TribeMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FABF0019631082002C9917 /* TribeMembersViewController.m */; };
@@ -907,6 +908,8 @@
 		58B87179192FA57100EB730D /* TribeQuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeQuestionCell.m; sourceTree = "<group>"; };
 		58B8717B192FABF100EB730D /* TribeConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeConversationCell.h; sourceTree = "<group>"; };
 		58B8717C192FABF100EB730D /* TribeConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeConversationCell.m; sourceTree = "<group>"; };
+		58D3F4DF19685C0900A5FA4E /* InfluenceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfluenceCell.h; sourceTree = "<group>"; };
+		58D3F4E019685C0900A5FA4E /* InfluenceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfluenceCell.m; sourceTree = "<group>"; };
 		58E08D0519532549000C25AE /* AddFriendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendView.h; sourceTree = "<group>"; };
 		58E08D0619532549000C25AE /* AddFriendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendView.m; sourceTree = "<group>"; };
 		58EEDABF1958549E007E2FA2 /* citysList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citysList.plist; sourceTree = "<group>"; };
@@ -1569,6 +1572,8 @@
 				214E811319645FF60026BB60 /* SquareNoPicCell.h */,
 				214E811419645FF60026BB60 /* SquareNoPicCell.m */,
 				214E811519645FF60026BB60 /* SquareNoPicCell.xib */,
+				58D3F4DF19685C0900A5FA4E /* InfluenceCell.h */,
+				58D3F4E019685C0900A5FA4E /* InfluenceCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2617,6 +2622,7 @@
 				88C12280194069AA0000533E /* SquareActivityCell.m in Sources */,
 				58826BA4195DD180002F13A5 /* NINetworkActivity.m in Sources */,
 				58826BAC195DD180002F13A5 /* NIState.m in Sources */,
+				58D3F4E119685C0900A5FA4E /* InfluenceCell.m in Sources */,
 				2119EEFB191682EC007DBE68 /* SDImageCache.m in Sources */,
 				2119EEFC191682EC007DBE68 /* SDWebImageCompat.m in Sources */,
 				21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */,
@@ -2788,7 +2794,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2800,7 +2806,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2812,8 +2818,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2825,7 +2831,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

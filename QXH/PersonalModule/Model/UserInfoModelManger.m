@@ -53,7 +53,7 @@ static   UserInfoModelManger* instance;
              {
                  /*添加进入本地缓存数组*/
                  [uerArrayDic setObject:buserinfo forKey:userid];
-                 if (!buserinfo.iconImageview.image) {
+                 if (!buserinfo.iconImageview) {
                    self.userInfo = nil;
                  }else{
                    self.userInfo = buserinfo;

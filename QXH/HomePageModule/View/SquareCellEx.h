@@ -10,12 +10,12 @@
 #import "SquareInfo.h"
 
 @interface SquareCellEx : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *subContentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *subImageView;
 - (void)setCellData:(SquareInfo *)model;
 @end

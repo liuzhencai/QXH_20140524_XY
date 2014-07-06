@@ -16,6 +16,7 @@
 #import "ShareTextController.h"
 #import "HistoryReviewController.h"
 #import "SquareActivityCell.h"
+#import "ActivityDetailViewController.h"
 
 @interface SquareViewController ()
 {
@@ -54,7 +55,7 @@
 }
 
 - (void)getSquareList{
-    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:@"0" count:@"50" withCompletionHandler:^(NSMutableDictionary *dict) {
         squareInfoList = [ModelGenerator json2SquareList:dict];
         [_squareTable reloadData];
     }];
@@ -90,9 +91,6 @@
         {
             InfoModel *tmpModel = (InfoModel *)model.content;
             NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
-                /**
-                 *  有图片
-                 */
                 static NSString *cellIdentifier = @"squareCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
                 if (cell==nil) {
@@ -223,22 +221,39 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
-    ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
     switch (model.type) {
         case 1:
+        {
+            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+            controller.info = model;
             controller.type = SquareInfoTypeSq;
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
             break;
         case 2:
+        {
+            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+            controller.info = model;
             controller.type = SquareInfoTypeInf;
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
             break;
         case 3:
-            controller.type = SquareInfoTypeAct;
+            /**
+             *  活动跳转至活动详情
+             */
+        {
+            ActivityDetailViewController *tmpController = [[ActivityDetailViewController alloc]init];
+            SquareActInfo *tmpInfo = model.content;
+            tmpController.activityId = tmpInfo.actid;
+            [self.navigationController pushViewController:tmpController animated:YES];
+        }
             break;
         default:
             break;
     }
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)btnClick:(id)sender {

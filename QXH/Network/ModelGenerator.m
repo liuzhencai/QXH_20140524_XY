@@ -206,6 +206,7 @@
         info.uname = [list[i] objectForKey:@"uname"];
         info.uphoto = [list[i] objectForKey:@"uphoto"];
         info.usign = [list[i] objectForKey:@"usign"];
+        info.uduty = [list[i] objectForKey:@"uduty"];
         [array addObject:info];
     }
     return array;
