@@ -26,8 +26,9 @@
     _dateLabel.text = detailmodel.date;
     _praiseLabel.text = [NSString stringWithFormat:@"%d",detailmodel.laud];
     
+    [_infoDetailWeb loadRequest:[NSURLRequest requestWithURL:INFURL(self.artid) cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.f]];
     // 加载webview数据
-    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:[NSURL URLWithString:@"http://180.97.46.40:8070"]];
+//    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:[NSURL URLWithString:@"http://180.97.46.40:8070"]];
 }
 
 - (void)getDetailInfo

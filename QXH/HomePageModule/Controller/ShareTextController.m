@@ -351,12 +351,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    InfoModel *tmpModel = (InfoModel *)_info.content;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger section = indexPath.section;
     switch (section) {
         case 0:
         {
             NameCardViewController *controller = [[NameCardViewController alloc]init];
+            NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:_info.uid] forKey:@"userid"];
+            controller.memberDict = item;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

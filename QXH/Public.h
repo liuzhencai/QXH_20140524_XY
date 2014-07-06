@@ -27,6 +27,10 @@
 
 #define IMGURL(x) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",IMG_URL,x]]
 
+#define INF_URL @"http://"HOST_URL@"/qxh/articleAction_artilce.action?artid="
+
+#define INFURL(x) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",INF_URL,x]]
+
 /*******************************************
  Custom Block Callback 自定义block回调
  ********************************************/
