@@ -137,7 +137,8 @@
 
 #pragma mark - UITextFieldViewDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if ([string length] > 0) {
+//    NSString *inputString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if ([textField.text length] > 0) {
         self.submit.enabled = YES;
     }else{
         self.submit.enabled = NO;

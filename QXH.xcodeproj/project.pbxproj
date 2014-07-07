@@ -277,7 +277,6 @@
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87B1944B3F800401862 /* OnLiveCell.m */; };
-		587C3921195C6E90002D64D1 /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 587C3920195C6E90002D64D1 /* provincesAndCitys.plist */; };
 		58826B9C195DD180002F13A5 /* NICommonMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B6B195DD180002F13A5 /* NICommonMetrics.m */; };
 		58826B9D195DD180002F13A5 /* NIDataStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B6D195DD180002F13A5 /* NIDataStructures.m */; };
 		58826B9E195DD180002F13A5 /* NIDebuggingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B6F195DD180002F13A5 /* NIDebuggingTools.m */; };
@@ -299,6 +298,8 @@
 		58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B94195DD180002F13A5 /* NSString+NimbusCore.m */; };
 		58826BAF195DD180002F13A5 /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B97195DD180002F13A5 /* NIAttributedLabel.m */; };
 		58826BB0195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58826B9B195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m */; };
+		58979DBF196AE80A00B945BF /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58979DBE196AE80A00B945BF /* provincesAndCitys.plist */; };
+		58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58979DC1196AFDE200B945BF /* SelectCityViewController.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -834,7 +835,6 @@
 		5869D87819431A6600401862 /* YSKeyboardTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSKeyboardTableView.m; sourceTree = "<group>"; };
 		5869D87A1944B3F800401862 /* OnLiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnLiveCell.h; sourceTree = "<group>"; };
 		5869D87B1944B3F800401862 /* OnLiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnLiveCell.m; sourceTree = "<group>"; };
-		587C3920195C6E90002D64D1 /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
 		58826B6A195DD180002F13A5 /* NICommonMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICommonMetrics.h; sourceTree = "<group>"; };
 		58826B6B195DD180002F13A5 /* NICommonMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICommonMetrics.m; sourceTree = "<group>"; };
 		58826B6C195DD180002F13A5 /* NIDataStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDataStructures.h; sourceTree = "<group>"; };
@@ -884,6 +884,9 @@
 		58826B99195DD180002F13A5 /* NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusAttributedLabel.h; sourceTree = "<group>"; };
 		58826B9A195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
 		58826B9B195DD180002F13A5 /* NSMutableAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
+		58979DBE196AE80A00B945BF /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
+		58979DC0196AFDE200B945BF /* SelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityViewController.h; sourceTree = "<group>"; };
+		58979DC1196AFDE200B945BF /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -1610,6 +1613,8 @@
 				842D3C8B192AF7F100374F04 /* NameCardViewController.m */,
 				842D3C8C192AF7F100374F04 /* UserRegisterViewController.h */,
 				842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */,
+				58979DC0196AFDE200B945BF /* SelectCityViewController.h */,
+				58979DC1196AFDE200B945BF /* SelectCityViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1679,7 +1684,7 @@
 				5869D87819431A6600401862 /* YSKeyboardTableView.m */,
 				84AB9248192B3FD80000101A /* cityList.plist */,
 				58EEDABF1958549E007E2FA2 /* citysList.plist */,
-				587C3920195C6E90002D64D1 /* provincesAndCitys.plist */,
+				58979DBE196AE80A00B945BF /* provincesAndCitys.plist */,
 				842D3C94192AF8E600374F04 /* UIViewAdditions.h */,
 				842D3C95192AF8E600374F04 /* UIViewAdditions.m */,
 				212F23A31928DF2C00F738F8 /* ClassificationControll.h */,
@@ -2295,7 +2300,6 @@
 				848426DD192E185B00C9474A /* icon_buluo@2x.png in Resources */,
 				848426E3192E185B00C9474A /* icon_zhibo@2x.png in Resources */,
 				84BCBBAE195DBA7700E80075 /* msg_state_sending.png in Resources */,
-				587C3921195C6E90002D64D1 /* provincesAndCitys.plist in Resources */,
 				212F24341928E09A00F738F8 /* btn_submit_highlight@2x.png in Resources */,
 				212F24551928E09A00F738F8 /* list_arrow_right_green@2x.png in Resources */,
 				84F0660C192B2F1100B09AB5 /* License in Resources */,
@@ -2352,6 +2356,7 @@
 				21401DA819192CD100E9175B /* TribeCell.xib in Resources */,
 				84FCA861192CC45F0005295A /* SquareCellEx.xib in Resources */,
 				212F244F1928E09A00F738F8 /* bootom_icon_home@2x.png in Resources */,
+				58979DBF196AE80A00B945BF /* provincesAndCitys.plist in Resources */,
 				848426B0192E0F2B00C9474A /* tribe_icon_establish_normal@2x.png in Resources */,
 				212F24521928E09A00F738F8 /* line_dividing_green@2x.png in Resources */,
 				212F24181928E09A00F738F8 /* img_bg_type@2x.png in Resources */,
@@ -2559,6 +2564,7 @@
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,
 				21D6ADE5193CB6190018109F /* InfoModel.m in Sources */,
+				58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */,
 				214E811619645FF60026BB60 /* SquareNoPicCell.m in Sources */,
 				2119EED9191682E6007DBE68 /* MKNetworkOperation.m in Sources */,
 				21EDAD4A1926F67100C616CF /* MyTribeController.m in Sources */,
@@ -2812,7 +2818,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2837,7 +2843,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -45,6 +45,7 @@
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 70) style:UITableViewStylePlain];
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
+    _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mainTable];
     
     [self addFooter];
@@ -71,7 +72,7 @@
      *  @param callback    回调
      */
     
-    [DataInterface getFriendInfo:@"2"
+    [DataInterface getFriendInfo:@"1"
                          address:@""
                         domicile:@""
                      displayname:@""

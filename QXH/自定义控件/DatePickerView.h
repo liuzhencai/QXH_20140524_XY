@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^DatePickerBlock) (NSString *dateString);
+#define DATE_STRING @"dateString"
+#define DATE  @"date"
+typedef void (^DatePickerBlock) (NSDictionary *dateDict);
 
 @interface DatePickerView : UIView
 @property (nonatomic, copy) DatePickerBlock datePickerBlock;

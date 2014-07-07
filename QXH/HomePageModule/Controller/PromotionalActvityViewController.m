@@ -24,17 +24,16 @@
 @property (nonatomic, strong) UITextField *place;//活动地点
 @property (nonatomic, strong) UITextField *comeFrom;//活动来源
 
-//@property (nonatomic, strong) UILabel *startTime;//活动开始时间
-//@property (nonatomic, strong) UILabel *endTime;//活动结束时间
-//@property (nonatomic, strong) UILabel *type;//活动类型
-//@property (nonatomic, strong) UILabel *cutOffTime;//报名截止时间
-//@property (nonatomic, strong) UILabel *limitCount;//报名截止时间
+@property (nonatomic, strong) NSDictionary *startDateDict;//活动开始时间
+@property (nonatomic, strong) NSDictionary *endDateDict;//活动结束时间
+@property (nonatomic, strong) NSDictionary *cutOffDateDict;//报名截止时间
+
 
 @property (nonatomic, strong) UITextField *startTime;//活动开始时间
 @property (nonatomic, strong) UITextField *endTime;//活动结束时间
 @property (nonatomic, strong) UITextField *type;//活动类型
 @property (nonatomic, strong) UITextField *cutOffTime;//报名截止时间
-@property (nonatomic, strong) UITextField *limitCount;//报名截止时间
+@property (nonatomic, strong) UITextField *limitCount;//人数
 
 @property (nonatomic, strong) UIImage *headImage;//头像
 @property (nonatomic, strong) UIImageView *headImgView;//头像
@@ -366,7 +365,7 @@
                 case 6:{
                     if (!_type) {
                         _type = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                placeHolder:@"选择活动类型"];
+                                                placeHolder:@"输入活动类型"];
                     }
                     [cell.contentView addSubview:_type];
                 }
@@ -417,12 +416,23 @@
     
     switch (indexPath.row) {
         case 4:{//开始时间
-            
             DatePickerView *datePicker = [[DatePickerView alloc] init];
             datePicker.tag = 2222;
-            datePicker.datePickerBlock = ^(NSString *dateString){
-                NSLog(@"选择时间：%@",dateString);
-                self.startTime.text = dateString;
+            datePicker.datePickerBlock = ^(NSDictionary *dateDict){
+                NSLog(@"选择时间：%@",dateDict);
+                if (self.endDateDict) {
+                    NSDate *endDate = [self.endDateDict objectForKey:DATE];
+                    NSDate *startDate = [dateDict objectForKey:DATE];
+                    if (endDate == [endDate laterDate:startDate]) {
+                        self.startDateDict = dateDict;
+                        self.startTime.text = [dateDict objectForKey:DATE_STRING];
+                    }else{
+                        [self showAlert:@"开始时间必须晚于结束时间"];
+                    }
+                }else{
+                    self.startDateDict = dateDict;
+                    self.startTime.text = [dateDict objectForKey:DATE_STRING];
+                }
             };
             [self.view addSubview:datePicker];
             [datePicker pickerShow];
@@ -431,9 +441,21 @@
         case 5:{//结束时间
             DatePickerView *datePicker = [[DatePickerView alloc] init];
             datePicker.tag = 2222;
-            datePicker.datePickerBlock = ^(NSString *dateString){
-                NSLog(@"选择时间：%@",dateString);
-                self.endTime.text = dateString;
+            datePicker.datePickerBlock = ^(NSDictionary *dateDict){
+                NSLog(@"选择时间：%@",dateDict);
+                if (self.startDateDict) {
+                    NSDate *endDate = [dateDict objectForKey:DATE];
+                    NSDate *startDate = [self.startDateDict objectForKey:DATE];
+                    if (endDate == [endDate laterDate:startDate]) {
+                        self.endDateDict = dateDict;
+                        self.endTime.text = [dateDict objectForKey:DATE_STRING];
+                    }else{
+                        [self showAlert:@"开始时间必须晚于结束时间"];
+                    }
+                }else{
+                    self.endDateDict = dateDict;
+                    self.endTime.text = [dateDict objectForKey:DATE_STRING];
+                }
             };
             [self.view addSubview:datePicker];
             [datePicker pickerShow];
@@ -446,9 +468,21 @@
         case 7:{//报名截止时间
             DatePickerView *datePicker = [[DatePickerView alloc] init];
             datePicker.tag = 2222;
-            datePicker.datePickerBlock = ^(NSString *dateString){
-                NSLog(@"选择时间：%@",dateString);
-                self.cutOffTime.text = dateString;
+            datePicker.datePickerBlock = ^(NSDictionary *dateDict){
+                NSLog(@"选择时间：%@",dateDict);
+                if (self.startDateDict) {
+                    NSDate *cutOffDate = [dateDict objectForKey:DATE];
+                    NSDate *startDate = [self.startDateDict objectForKey:DATE];
+                    if (startDate == [cutOffDate laterDate:startDate]) {
+                        self.cutOffDateDict = dateDict;
+                        self.cutOffTime.text = [dateDict objectForKey:DATE_STRING];
+                    }else{
+                        [self showAlert:@"报名截止时间必须早于开始时间"];
+                    }
+                }else{
+                    self.cutOffDateDict = dateDict;
+                    self.cutOffTime.text = [dateDict objectForKey:DATE_STRING];
+                }
             };
             [self.view addSubview:datePicker];
             [datePicker pickerShow];

@@ -13,6 +13,8 @@
 #import "InActivityCell.h"
 #import "ActivityDetailCell.h"
 
+#import "SelectCityViewController.h"//test
+
 @interface ActivityDetailViewController ()
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) NSDictionary *activityDict;//活动详情
@@ -92,7 +94,7 @@
     switch (row) {
         case 0:
         {
-            rowHeight = 210 - 20 + 60;
+            rowHeight = 250 + 60;
         }
             break;
         case 1:
@@ -256,6 +258,20 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
+    selectCity.selectCityCallBack = ^(NSDictionary *cityDict){
+        NSLog(@"选择城市:%@",cityDict);
+        NSString *provinceName = [cityDict objectForKey:@"province"];
+        provinceName = [provinceName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *cityName = [cityDict objectForKey:@"city"];
+//        NSString *cityCode = [cityDict objectForKeyedSubscript:@"cityid"];
+        NSString *address = [NSString stringWithFormat:@"%@%@",provinceName,cityName];
+        NSLog(@"%@",address);
+    };
+    [self.navigationController pushViewController:selectCity animated:YES];
 }
 
 - (void)signUp:(id)sender

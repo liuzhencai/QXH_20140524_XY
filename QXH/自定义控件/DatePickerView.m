@@ -52,8 +52,8 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = [NSString stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSString *dateStr = [dateFormatter stringFromDate:self.selectDate];
-        
-        self.datePickerBlock(dateStr);
+        NSDictionary *params = @{DATE:self.selectDate,DATE_STRING:dateStr};
+        self.datePickerBlock(params);
     }
     [self pickerHide];
 }

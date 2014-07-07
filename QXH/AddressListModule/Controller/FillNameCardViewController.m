@@ -8,6 +8,7 @@
 
 #import "FillNameCardViewController.h"
 #import "EditUserInfoViewController.h"
+#import "SelectCityViewController.h"
 
 @interface FillNameCardViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -25,6 +26,8 @@
 @property (nonatomic, strong) NSString *school;//毕业院校
 @property (nonatomic, strong) NSString *phone;//手机号码
 @property (nonatomic, strong) NSString *honor;//曾获荣誉
+
+@property (nonatomic, strong) NSDictionary *cityInfo;//城市信息
 @end
 #define FONT  16
 #define CELL_HEIGHT 44
@@ -100,7 +103,7 @@
         return;
     }
     if (!self.city) {
-        [self showAlert:@"请输入城市信息"];
+        [self showAlert:@"请选择城市信息"];
         return;
     }
     if (self.headImage) {
@@ -152,6 +155,8 @@
         imageUrl = self.imageString;
     }
     
+    NSString *cityCode = [self.cityInfo objectForKey:@"cityid"];
+    
     /**
      *  修改用户信息(注：如果某个字段不修改请将字段的值置为“------”,其他情况视为修改)
      *
@@ -188,7 +193,7 @@
                             title:duty
                            degree:ORIGIN_VAL
                           address:ORIGIN_VAL
-                         domicile:self.city
+                         domicile:cityCode
                         introduce:ORIGIN_VAL
                           comname:ORIGIN_VAL
                           comdesc:ORIGIN_VAL
@@ -376,46 +381,63 @@
                                               otherButtonTitles:@"拍照",@"从手机相册选择", nil];
         [alert show];
     }else{
-        EditUserInfoViewController *editUserInfo = [[EditUserInfoViewController alloc] init];
-        editUserInfo.type = indexPath.row;
-        editUserInfo.editUserInfoCallBack = ^(NSString *str){
-            NSLog(@"返回值：%@",str);
-            if([str length]){
-                switch (indexPath.row) {
-                    case 0://姓名
-                        self.name = str;
-                        break;
-                    case 1://签名
-                        self.signature = str;
-                        break;
-                    case 2://工作单位
-                        self.workUnit = str;
-                        break;
-                    case 3://城市
-                        self.city = str;
-                        break;
-                    case 4://单位职务
-                        self.duty = str;
-                        break;
-                    case 5://兴趣爱好
-                        self.interest = str;
-                        break;
-                    case 6://毕业院校
-                        self.school = str;
-                        break;
-                    case 7://手机号码
-                        self.phone = str;
-                        break;
-                    case 8://曾获荣誉
-                        self.honor = str;
-                        break;
-                    default:
-                        break;
+        if (indexPath.row == 3) {//城市
+            SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
+            selectCity.selectCityCallBack = ^(NSDictionary *cityDict){
+                if (cityDict) {
+                    NSLog(@"选择城市:%@",cityDict);
+                    self.cityInfo = cityDict;
+                    NSString *provinceName = [cityDict objectForKey:@"province"];
+                    provinceName = [provinceName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    NSString *cityName = [cityDict objectForKey:@"city"];
+                    NSString *address = [NSString stringWithFormat:@"%@%@",provinceName,cityName];
+                    self.city = address;
+                    [_mainTable reloadData];
                 }
-                [_mainTable reloadData];
-            }
-        };
-        [self.navigationController pushViewController:editUserInfo animated:YES];
+            };
+            [self.navigationController pushViewController:selectCity animated:YES];
+        }else{
+            EditUserInfoViewController *editUserInfo = [[EditUserInfoViewController alloc] init];
+            editUserInfo.type = indexPath.row;
+            editUserInfo.editUserInfoCallBack = ^(NSString *str){
+                NSLog(@"返回值：%@",str);
+                if([str length]){
+                    switch (indexPath.row) {
+                        case 0://姓名
+                            self.name = str;
+                            break;
+                        case 1://签名
+                            self.signature = str;
+                            break;
+                        case 2://工作单位
+                            self.workUnit = str;
+                            break;
+//                        case 3://城市
+//                            self.city = str;
+//                            break;
+                        case 4://单位职务
+                            self.duty = str;
+                            break;
+                        case 5://兴趣爱好
+                            self.interest = str;
+                            break;
+                        case 6://毕业院校
+                            self.school = str;
+                            break;
+                        case 7://手机号码
+                            self.phone = str;
+                            break;
+                        case 8://曾获荣誉
+                            self.honor = str;
+                            break;
+                        default:
+                            break;
+                    }
+                    [_mainTable reloadData];
+                }
+            };
+            [self.navigationController pushViewController:editUserInfo animated:YES];
+        }
     }
 }
 #pragma mark - 拍照选择照片协议方法

@@ -9,6 +9,7 @@
 #import "ActivityDetailCell.h"
 #import "UIImageView+WebCache.h"
 
+
 @implementation ActivityDetailCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -16,7 +17,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 190 - 20 + 60)
+        UIImageView *bgImgView = [self addImageViewWithFrame:CGRectMake(10, 10, 300, 230 + 60)
                                                    imageName:[UIImage imageNamed:@"label"]];
         [self.contentView addSubview:bgImgView];
         
@@ -55,29 +56,23 @@
         [bgImgView addSubview:_activityDescriptionLabel];
         
         //image
-//        _activityImage = [self addImageViewWithFrame:CGRectMake(210, _activityDescriptionLabel.bottom + 5, 80, 60 - 4)
-//                                           imageName:[UIImage imageNamed:@"img_news"]];
-//        [bgImgView addSubview:_activityImage];
         _activityImage = [self addImageViewWithFrame:CGRectMake(210 - 35, _activityDescriptionLabel.bottom + 5, 112, 84)
                                            imageName:[UIImage imageNamed:@"img_news"]];
-//        _activityImage.backgroundColor = [UIColor greenColor];
         [bgImgView addSubview:_activityImage];
         
-//        NSArray *items = @[@"来   自:",@"发起人:",@"时   间:",@"地   点:"];
-        NSArray *items = @[@"来自:",@"发起人:",@"时间:",@"地点:",@"活动结束时间:",@"报名截止时间:"];
+        NSArray *items = @[@"来自:",@"发起人:",@"活动开始时间:",@"活动结束时间:",@"报名截止时间:",@"地点:"];
         for (int i = 0; i < [items count]; i ++) {
-            
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 30, 32, 30)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 40, 32 + 10, 40)
                                                     text:[items objectAtIndex:i]
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:12]];
+                                                    font:[UIFont systemFontOfSize:14]];
 //            itemTitle.backgroundColor = [UIColor redColor];
             [bgImgView addSubview:itemTitle];
             
-            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 18, 30)
+            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 18 - 10, 40)
                                                     text:@""
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:12]];
+                                                    font:[UIFont systemFontOfSize:14]];
 //            itemValue.backgroundColor = [UIColor greenColor];
             [bgImgView addSubview:itemValue];
             
@@ -101,30 +96,36 @@
                     imageName = @"icon_time";
                     self.timeLabel = itemValue;
                     self.timeLabel.text = @"2014-05-25";
-                }
-                    break;
-                case 3:{//地点
-                    imageName = @"icon_place";
-                    self.addrLabel = itemValue;
-                    self.addrLabel.text = @"中关村";
-                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
-                }
-                    break;
-                case 4:{//活动结束时间
-                    imageName = @"icon_time";
-                    self.endTimeLabel = itemValue;
-                    self.endTimeLabel.text = @"中关村";
-//                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
                     itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
                     itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
                 }
                     break;
-                case 5:{//活动报名截止时间
+                case 3:{//活动结束时间
+//                    imageName = @"icon_place";
+//                    self.addrLabel = itemValue;
+//                    self.addrLabel.text = @"中关村";
+//                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
+                    imageName = @"icon_time";
+                    self.endTimeLabel = itemValue;
+                    self.endTimeLabel.text = @"中关村";
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
+                }
+                    break;
+                case 4:{//活动报名截止时间
                     imageName = @"icon_time";
                     self.signUpEndTimeLabel = itemValue;
                     self.signUpEndTimeLabel.text = @"中关村";
                     itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
                     itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
+                }
+                    break;
+                case 5:{//地点
+                    imageName = @"icon_place";
+                    self.addrLabel = itemValue;
+                    self.addrLabel.text = @"中关村";
+                    self.addrLabel.numberOfLines = 0;
+                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top - 5, itemValue.width + 120, itemValue.height + 10);
                 }
                     break;
                     
@@ -195,7 +196,6 @@
         self.endTimeLabel.text = [params objectForKey:@"enddate"];
         self.signUpEndTimeLabel.text = [params objectForKey:@"signupenddate"];
     }
-    
     
 //    self.signUpLabel.text = @"2人报名";
 //    self.followLabel.text = @"2人关注";
