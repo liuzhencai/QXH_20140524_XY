@@ -14,6 +14,7 @@
 #import "StudyExperienceController.h"
 #import "PhoneViewController.h"
 #import "EverGloryController.h"
+#import "SelectCityViewController.h"
 
 @interface EditCardController ()
 {
@@ -175,10 +176,51 @@
     if (row == 1) {
         return;
     }
-    EditInfoController *controller = [[EditInfoController alloc] initWithNibName:@"EditInfoController" bundle:nil];
-    controller.selectedIndex = row;
-    controller.delegate = self;
-    [self.navigationController pushViewController:controller animated:YES];
+    if (row == 4) {
+        SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
+        selectCity.selectCityCallBack = ^(NSDictionary *cityDict){
+            NSLog(@"cityDict--->%@",cityDict);
+            [DataInterface modifyUserInfo:ORIGIN_VAL
+                                   oldpwd:ORIGIN_VAL
+                                   newpwd:ORIGIN_VAL
+                                signature:ORIGIN_VAL
+                                    title:ORIGIN_VAL
+                                   degree:ORIGIN_VAL
+                                  address:ORIGIN_VAL
+                                 domicile:[cityDict objectForKey:@"cityid"]
+                                introduce:ORIGIN_VAL
+                                  comname:ORIGIN_VAL
+                                  comdesc:ORIGIN_VAL
+                               comaddress:ORIGIN_VAL
+                                   comurl:ORIGIN_VAL
+                                 induname:ORIGIN_VAL
+                                 indudesc:ORIGIN_VAL
+                               schoolname:ORIGIN_VAL
+                               schooltype:ORIGIN_VAL
+                                      sex:ORIGIN_VAL
+                                    photo:ORIGIN_VAL
+                                    email:ORIGIN_VAL
+                                     tags:ORIGIN_VAL
+                            attentiontags:ORIGIN_VAL
+                                  hobbies:ORIGIN_VAL
+                               educations:ORIGIN_VAL
+                                  honours:ORIGIN_VAL
+                                 usertype:ORIGIN_VAL
+                                     gold:ORIGIN_VAL
+                                    level:ORIGIN_VAL
+                                configure:ORIGIN_VAL
+                    withCompletionHandler:^(NSMutableDictionary *dict) {
+                        [_valueArr replaceObjectAtIndex:4 withObject:[NSString stringWithFormat:@"%@%@",[cityDict objectForKey:@"province"],[cityDict objectForKey:@"city"]]];
+                        [_editTable reloadData];
+                    }];
+        };
+        [self.navigationController pushViewController:selectCity animated:YES];
+    }else{
+        EditInfoController *controller = [[EditInfoController alloc] initWithNibName:@"EditInfoController" bundle:nil];
+        controller.selectedIndex = row;
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (IBAction)click:(id)sender {
