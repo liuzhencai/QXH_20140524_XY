@@ -221,9 +221,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
-    TribeMembersViewController *members = [[TribeMembersViewController alloc] init];
-    members.tribeId = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
-    [self.navigationController pushViewController:members animated:YES];
+    if (indexPath.row == 5) {
+        TribeMembersViewController *members = [[TribeMembersViewController alloc] init];
+        members.tribeId = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
+        [self.navigationController pushViewController:members animated:YES];
+    }
 }
 
 - (UILabel *)addLabelWithFrame:(CGRect)frame

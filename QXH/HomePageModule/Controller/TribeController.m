@@ -11,11 +11,9 @@
 #import "CreatTribeViewController.h"
 #import "TribeDynamicViewController.h"
 #import "TribeDetailViewController.h"
-#import "CustomSegmentView.h"
 #import "CustomSegmentControl.h"
 #import "ChatRoomController.h"
-
-
+#import "FindTribeResultViewController.h"
 
 @interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
 @property (nonatomic, strong) UITableView *myTribesTable;
@@ -88,12 +86,8 @@
     self.searchBar.placeholder = @"输入名字查找部落";
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    myTribeTable.tableHeaderView = self.searchBar;
-    
-    // Create the search display controller
-    //    self.searchDC = [[[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self] autorelease];
-    //    self.searchDC.searchResultsDataSource = self;
-    //    self.searchDC.searchResultsDelegate = self;
+    self.searchBar.delegate = self;
+    allTribeTable.tableHeaderView = self.searchBar;
     
     [self getTribeList];
 }
@@ -129,15 +123,6 @@
                   if (dict) {
                       NSArray *list = [dict objectForKey:@"list"];
                       self.tribeList = [NSMutableArray arrayWithArray:list];
-//                      UITableView *table = (UITableView *)[self.view viewWithTag:MY_TRIBE_TABLE_TAG];
-                      
-//                      CGFloat tableHeight = [list count] * CELL_HEIGHT + 44;
-//                      CGFloat viewHight = UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 32;
-//                      tableHeight = tableHeight < viewHight ? tableHeight : viewHight;
-//                      CGRect tableFrame = _myTribesTable.frame;
-//                      tableFrame.size.height = tableHeight;
-//                      _myTribesTable.frame = tableFrame;
-                      
                       [_myTribesTable reloadData];
                   }
     }];
@@ -210,9 +195,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-//        NSDictionary *dict = [self.tribeList objectAtIndex:section];
-//        NSArray *list = [dict objectForKey:@"list"];
-//        return [list count];
         return [self.tribeList count];
     }else{
         return [self.allTribeList count];
@@ -223,35 +205,8 @@
     return 120;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-//        return 20;
-//    }else{
-//        return 0;
-//    }
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-//        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
-//        bgView.image = [UIImage imageNamed:@"bar_transition"];
-//        
-//        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-//        NSDictionary *dict = [self.tribeList objectAtIndex:section];
-//        NSString *titleStr = [dict objectForKey:@"name"];
-//
-//        title.text = titleStr;
-//        title.backgroundColor = [UIColor clearColor];
-//        [bgView addSubview:title];
-//        
-//        return bgView;
-//    }
-//    return nil;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UITableViewCell *cell = nil;
     if (tableView.tag == ALL_TRIBE_TABLE_TAG) {
         static NSString *myMsgIdentifier = @"myMsgIdentifier";
         MyTribeListCell *allListCell = nil;
@@ -304,32 +259,36 @@
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
         detail.tribeDict = tribeDict;
         [self.navigationController pushViewController:detail animated:YES];
-        
- 
-        
     }
 }
-//83,170,97
-- (void)btnClick:(id)sender {
-    UIButton *btn = (UIButton *)sender;
-    if (btn.tag == self.selectIndex) {
-        return;
-    }
-    self.selectIndex = btn.tag;
-    
-    [btn setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
-    UIButton *otherBtn = (UIButton *)[self.view viewWithTag:btn.tag%2 + 1];
-    [otherBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    NSInteger tag = btn.tag + 99;
-    UIImageView *slippag1 = (UIImageView *)[self.view viewWithTag:1000];
-    UIImageView *slippag2 = (UIImageView *)[self.view viewWithTag:1001];
-    [UIView animateWithDuration:0.1 animations:^{
-        slippag1.hidden = !slippag1.hidden;
-        slippag2.hidden = !slippag2.hidden;
-    } completion:nil];
-    [self.view bringSubviewToFront:[self.view viewWithTag:tag]];
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSLog(@"搜索");
+    [DataInterface requestTribeList:@"2"
+                          tribename:searchBar.text
+                           authflag:@"0"
+                             status:@"0"
+                          tribetype:@""
+                                tag:@""
+                           district:@""
+                              start:@"0"
+                              count:@"20"
+              withCompletionHandler:^(NSMutableDictionary *dict){
+                  NSLog(@"部落列表返回值：%@",dict);
+                  NSArray *list = [dict objectForKey:@"list"];
+                  if ([list count]) {
+                      //跳到下一页
+                      FindTribeResultViewController *tribeResult = [[FindTribeResultViewController alloc] init];
+                      tribeResult.allTribeList = [[NSMutableArray alloc] initWithArray:list];
+                      [self.navigationController pushViewController:tribeResult animated:YES];
+                  }else{
+                      [self showAlert:@"没有找到相关部落"];
+                  }
+//                  [self showAlert:[dict objectForKey:@"info"]];
+              }];
 }
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
