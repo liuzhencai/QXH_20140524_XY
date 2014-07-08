@@ -117,18 +117,18 @@ static int scout=0;
 	// Do any additional setup after loading the view.
     
     /*顶部选择控件*/
-    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, KTopButtonHight) andTitles:@[@"会话",@"成员"]];
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, KTopButtonHight) andTitles:@[@"会话",@"活动",@"成员"]];
     segment.delegate = self;
     [self.view addSubview:segment];
     
 
 //    /*活动界面*/
     CGRect activeFrame =  CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - KTopButtonHight-64);
-//    chatRoomActive =[[chatRoomActivViewController alloc]init];
-//    chatRoomActive.view.frame = activeFrame;
-//    chatRoomActive.navigation = self.navigationController;
-//    chatRoomActive.view.tag = ACTIVITY_TABLE_TAG;
-//    [self.view addSubview:chatRoomActive.view];
+    chatRoomActive =[[chatRoomActivViewController alloc]init];
+    chatRoomActive.view.frame = activeFrame;
+    chatRoomActive.navigation = self.navigationController;
+    chatRoomActive.view.tag = ACTIVITY_TABLE_TAG;
+    [self.view addSubview:chatRoomActive.view];
     
     /*成员界面*/
     chatRoomMember = [[chatRoomMemberViewController alloc]init];
@@ -285,13 +285,14 @@ static int scout=0;
         return;
     }
     [self GreadAskView];
-    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-    //            [iconImage circular];
-    headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
+//    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+//    //            [iconImage circular];
+//    headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
     
     /*头像*/
     UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
-    askheadImgView.image = headImage.image;
+//    [askheadImgView setFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+    [askheadImgView setImageWithURL:IMGURL(photo) placeholderImage:[UIImage imageNamed:@"img_portrait96.png"]];
     
     /*名字*/
      UILabel* _name = (UILabel*)[askView viewWithTag:21084];
@@ -305,26 +306,60 @@ static int scout=0;
 }
 
 /*自己创建时置顶热门话题*/
-- (void)addAskViewByMe
+- (void)addAskViewByMe:(NSDictionary*)dic
 {
     [self GreadAskView];
- 
-    [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* auserinfo)
+    NSString* name = [dic valueForKey:@"sname"];
+    NSString* photo = [dic valueForKey:@"sphoto"];
+    NSString* amess = [dic valueForKey:@"mess"];
+    NSString* messageUserid = [dic valueForKey:@"sid"];
+    NSString* date = [dic valueForKey:@"date"];
+    /*自己创建没有messid*/
+    NSString* messid = [dic valueForKey:@"messid"];
+    
+    if (![amess length]) {
+        /*如果置顶消息长度为0，就要置顶了*/
+        return;
+    }
+    
+    /*
      {
-         /*头像*/
-//         UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
-//         askheadImgView.image = auserinfo.iconImageview.image;
-//         
-//         /*名字*/
-//         UILabel* _name = (UILabel*)[askView viewWithTag:21084];
-//         _name.text = auserinfo.displayname;
-//         
-//         UILabel* _time = (UILabel*)[askView viewWithTag:21085];
-////         _time.text = auserinfo.;
-//         
-//         UILabel* _speechContent = (UILabel*)[askView viewWithTag:21086];
-//         _speechContent.text = ;
-     }];
+     opercode:"0148",
+     userid:"1234565",		//用户唯一标识
+     token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户
+     tribeid:"123444",		//部落唯一标示
+     type:1,				//1为消息置顶，2为取消消息置顶
+     messid:12345			//置顶消息的messid
+     }
+     Response:{
+     opercode:"0148",		//operCode为0148，客户端通过该字段确定事件
+     statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+     info:"操作成功"			//操作成功/失败!
+     }
+     */
+ 
+    [DataInterface infoToTop:ChatRoomId type:@"1" messid:messid withCompletionHandler:^(NSMutableDictionary* backDic){
+        /*头像*/
+//        UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+//        //            [iconImage circular];
+//        headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
+        
+        /*头像*/
+        UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
+        [askheadImgView setImageWithURL:IMGURL(photo) placeholderImage:[UIImage imageNamed:@"img_portrait96.png"]];
+//        askheadImgView.image = headImage.image;
+        
+        /*名字*/
+        UILabel* _name = (UILabel*)[askView viewWithTag:21084];
+        _name.text = name;
+        
+        UILabel* _time = (UILabel*)[askView viewWithTag:21085];
+        _time.text = date;
+        
+        UILabel* _speechContent = (UILabel*)[askView viewWithTag:21086];
+        _speechContent.text = amess;
+        
+    }];
     
 
 }
@@ -722,7 +757,7 @@ static int scout=0;
     {
         if (buttonIndex == 0) {
             DebugLog(@"0");
-//            [self addAskView];
+            [self addAskViewByMe:mess];
         }
     }
 
@@ -760,7 +795,7 @@ static int scout=0;
 {
 
     NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
-    message[@"sentByUserId"] = @"currentUserId";
+//    message[@"sentByUserId"] = @"currentUserId";
     
     /*添加属性，消息发送状态*/
     message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
@@ -851,12 +886,13 @@ static int scout=0;
 //    [message setValue:[NSNumber numberWithInt:kSentByUser] forKey:@"kMessageSentBy"];
     
     /*把自己发送的消息添加进入部落数组*/
-    NSMutableDictionary* messagebyme =[[NSMutableDictionary alloc]init];
-    [messagebyme setObject:message[kMessageContent] forKey:@"mess"];
+//    NSMutableDictionary* messagebyme =[[NSMutableDictionary alloc]init];
+//    [message setObject:message[kMessageContent] forKey:@"mess"];
     NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
-    [messagebyme setObject:aroomid forKey:@"tribeid"];
-    [messagebyme setObject:TimeStamp() forKey:@"date"];
-    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:messagebyme];
+    [message setObject:aroomid forKey:@"tribeid"];
+    [message setObject:TimeStamp() forKey:@"date"];
+    [message setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
+    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:message];
     
     /*界面刷新并且发送消息*/
     [self didSendMessage:message];
@@ -885,15 +921,15 @@ static int scout=0;
             }
         }
             break;
-//        case 1:
-//        {
-//            /*活动*/
-//            FrontViewTag = ACTIVITY_TABLE_TAG;
-//            [self getActivityListInTribe];
-//
-//        }
-//            break;
         case 1:
+        {
+            /*活动*/
+            FrontViewTag = ACTIVITY_TABLE_TAG;
+            [self getActivityListInTribe];
+
+        }
+            break;
+        case 2:
         {
             /*成员*/
             FrontViewTag = NEMBERS_TABLE_TAG;
@@ -1024,7 +1060,7 @@ static int scout=0;
                           canjoin:@"0"
                          actstate:@"0"
                            status:@"0"
-                          tribeid:[self.tribeInfoDict objectForKey:@"tribeid"]
+                          tribeid:ChatRoomId
                         begindate:@""
                           enddate:@""
             withCompletionHandler:^(NSMutableDictionary *dict){
@@ -1150,12 +1186,9 @@ static int scout=0;
     [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
      {
           NSLog(@"reloadeChatRoom***getOtherUserInfo");
-         if (other) {
-             /*获取到对方头像*/
-//             [self addOHeadImage:other.iconImageview.image];
-             auserinfo[@"kHeadIcon"] = other.iconImageview.image;
-             [self messageSendByOpponent:auserinfo];
-         }
+   
+        [self messageSendByOpponent:auserinfo];
+        
          return other;
      }];
     
@@ -1200,7 +1233,7 @@ static int scout=0;
 //        if ([tempArray count]>10) {
 //            NSRange rang = NSMakeRange([tempArray count], 10);
             _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
-        localMessage = YES;
+//        localMessage = YES;
 //        for (int i=0; i<[tempArray count]; i++) {
 //            NSMutableDictionary* messagetemp = [[NSMutableDictionary alloc]initWithDictionary:[tempArray objectAtIndex:i]];
 //            [self didSendMessage:messagetemp];

@@ -51,14 +51,14 @@ static   UserInfoModelManger* instance;
             
             [self ByDictonary:dict addUserIn:^(UserInfoModel* buserinfo)
              {
-                 /*添加进入本地缓存数组*/
-                 [uerArrayDic setObject:buserinfo forKey:userid];
-                 if (!buserinfo.iconImageview) {
-                   self.userInfo = nil;
-                 }else{
+ 
+//                 if (!buserinfo.iconImageview) {
+//                   self.userInfo = nil;
+//                 }else{
                    self.userInfo = buserinfo;
-                 }
-                 
+                    /*添加进入本地缓存数组*/
+                    [uerArrayDic setObject:buserinfo forKey:userid];
+//                 }
                  
                  backUserInfo(self.userInfo);
                  
@@ -76,28 +76,6 @@ static   UserInfoModelManger* instance;
     return self.userInfo;
 }
 
-///*通过id获取其他user信息*/
-//- (void)getOtherUserInfo:(NSString*)userid
-//{
-//    UserInfoModel* auerinfo = nil;
-//    if (!uerArrayDic) {
-//        uerArrayDic = [[NSMutableDictionary alloc]init];
-//    }else{
-//      auerinfo = (UserInfoModel*)[uerArrayDic valueForKey:userid];
-//    }
-//    
-//    if (!auerinfo) {
-//      /*如果没有则创建一个*/
-//        auerinfo = [[UserInfoModel alloc]init];
-//        
-//        [DataInterface getUserInfo:userid withCompletionHandler:^(NSMutableDictionary *dict) {
-//            [self addUserIn:auerinfo ByDictonary:dict];
-//            /*添加进入本地缓存数组*/
-//            [uerArrayDic setObject:auerinfo forKey:userid];
-//
-//        }];
-//    }
-//}
 
 - (void)getOtherUserInfo:(NSString *)userid withCompletionHandler:(UserInfoModel* (^) (UserInfoModel*))backUserinfo
 {
@@ -115,7 +93,7 @@ static   UserInfoModelManger* instance;
         [DataInterface getUserInfo:userid withCompletionHandler:^(NSMutableDictionary *dict) {
            UserInfoModel* TempUerinfo = (UserInfoModel*)[uerArrayDic valueForKey:userid];
             if (TempUerinfo) {
-                return ;
+                backUserinfo(auerinfo);
             }
 
             [self ByDictonary:dict addUserIn:^(UserInfoModel* buserinfo)
@@ -180,10 +158,14 @@ static   UserInfoModelManger* instance;
 //    [iconImage setImageWithURL:IMGURL(dict[@"photo"]) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType)
 //     {
 //         if (!error || image) {
+    
+//            UIImageView *aconImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+//            auserInfo.iconImageview = aconImage;
+//            NSURL *url = IMGURL(dict[@"photo"]);
+//            [auserInfo.iconImageview setImageWithURL:url placeholderImage:nil];
+//             aconImage.image = [self getIcon:dict[@"photo"]];
+//             auserInfo.iconImageview = aconImage;
             UserInfoModel* auserInfo = [[UserInfoModel alloc]init];
-            UIImageView *aconImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-             aconImage.image = [self getIcon:dict[@"photo"]];
-             auserInfo.iconImageview = aconImage;
              auserInfo.displayname = [dict valueForKey:@"displayname"];
              auserInfo.signature = [dict valueForKey:@"signature"];
              auserInfo.phone = [dict valueForKey:@"phone"];
@@ -227,25 +209,25 @@ static   UserInfoModelManger* instance;
 }
 
 
-- (UIImage*)getIcon:(NSString*)photo
-{
-    // 组合一个搜索字符串
-//      NSMutableData* adata = [[NSMutableData alloc] init];
-//    self.Icondata = adata;
-    NSURL *url = IMGURL(photo);
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"GET"];
-    // 發送同步請求, 這裡得returnData就是返回得數據楽
-    // 發送同步請求, 這裡得returnData就是返回得數據楽
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
-                                               returningResponse:nil error:nil];
-    self.Iconimage = [UIImage imageWithData:returnData];
-    return self.Iconimage;
-//    //发起请求，定义代理
-//    [NSURLConnection connectionWithRequest:request delegate:self];
-}
-
+//- (UIImage*)getIcon:(NSString*)photo
+//{
+//    // 组合一个搜索字符串
+////      NSMutableData* adata = [[NSMutableData alloc] init];
+////    self.Icondata = adata;
+//    NSURL *url = IMGURL(photo);
+//    
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//    [request setHTTPMethod:@"GET"];
+//    // 發送同步請求, 這裡得returnData就是返回得數據楽
+//    // 發送同步請求, 這裡得returnData就是返回得數據楽
+//    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+//                                               returningResponse:nil error:nil];
+//    self.Iconimage = [UIImage imageWithData:returnData];
+//    return self.Iconimage;
+////    //发起请求，定义代理
+////    [NSURLConnection connectionWithRequest:request delegate:self];
+//}
+//
 //// 分批返回数据
 //- (void)connection:(NSURLConnection *) connection didReceiveData:(NSData *)data {
 //    [Icondata appendData:data];
@@ -258,26 +240,26 @@ static   UserInfoModelManger* instance;
 //    UIImage* aimage = [UIImage imageWithData:self.Icondata];
 //    
 //}
-//
+
 //// 网络错误时触发
-//- (void)connection:(NSURLConnection *)aConn didFailWithError:(NSError *)error
-//{
-//    DebugLog(@"获取图片错误==%@",error);
-//}
+- (void)connection:(NSURLConnection *)aConn didFailWithError:(NSError *)error
+{
+    DebugLog(@"获取图片错误==%@",error);
+}
 
 /*通过id，查看本地是否已经存储图片，如果已经存储，则取本地的*/
-- (UIImage*)getImageByLocalId:(NSString*)userid
-{
-    if (!headArrayDic) {
-        headArrayDic = [[NSMutableDictionary alloc]init];
-    }
-    UIImage* aimage = [headArrayDic valueForKey:userid];
-    if (aimage) {
-        //        return aimage;
-    }else{
-        aimage = [self getIcon:userid];
-        [headArrayDic setObject:aimage forKey:userid];
-    }
-    return aimage;
-}
+//- (UIImage*)getImageByLocalId:(NSString*)userid
+//{
+//    if (!headArrayDic) {
+//        headArrayDic = [[NSMutableDictionary alloc]init];
+//    }
+//    UIImage* aimage = [headArrayDic valueForKey:userid];
+//    if (aimage) {
+//        //        return aimage;
+//    }else{
+//        aimage = [self getIcon:userid];
+//        [headArrayDic setObject:aimage forKey:userid];
+//    }
+//    return aimage;
+//}
 @end

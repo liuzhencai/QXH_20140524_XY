@@ -695,7 +695,7 @@ static int scout=0;
     NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
     
     // Evaluate or add to the message here for example, if we wanted to assign the current userId:
-    message[@"sentByUserId"] = @"currentUserId";
+//    message[@"sentByUserId"] = @"currentUserId";
     
     
     scout++;

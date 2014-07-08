@@ -251,7 +251,10 @@ static int offsetX = 6; // 6 px from each side
             _bgLabel.layer.borderColor = _userColor.CGColor;
             MyHeadimageView.hidden = NO;
 
-            MyHeadimageView.image = [[UserInfoModelManger sharUserInfoModelManger]getMe].iconImageview.image;
+//            MyHeadimageView.image = [[UserInfoModelManger sharUserInfoModelManger]getMe].iconImageview.image;
+            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+            [MyHeadimageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            
             _imageView.hidden = YES;
             stateImageView.hidden = NO;
             for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -270,32 +273,16 @@ static int offsetX = 6; // 6 px from each side
             }
             /*如果是对方发送消息，去除图像*/
 //            UIImage* ahead = [[UserInfoModelManger sharUserInfoModelManger]getIcon:[_message valueForKey:@"senderphoto"]];
-            _imageView.image = [[UserInfoModelManger sharUserInfoModelManger]getImageByLocalId:[_message valueForKey:@"senderphoto"]];
+            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+            [_imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;
             stateImageView.hidden = YES;
 //            _imageView.backgroundColor = [UIColor redColor];
         }
         
-        // Add image if we have one
-        //判断是不是对方发送消息
-//        if (_sentBy == kSentByUser) {
-//            // If sentby current user, or no image, hide imageView;
-//            _imageView.image = nil;
-//            _imageView.hidden = YES;
-//            MyHeadimageView.hidden = NO;
-//            for (UIView * v in @[_bgLabel, _textLabel]) {
-//                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
-//            }
-//            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth, kStateImageViewHigth);
-//        }
-//        else {
-//            for (UIView * v in @[_bgLabel, _textLabel]) {
-//                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+5, v.center.y);
-//            }
-//            MyHeadimageView.hidden = YES;
-//            _imageView.hidden = NO;
-//        }
+       
         
         // position _textLabel in the _bgLabel;
         _textLabel.frame = CGRectMake(_bgLabel.frame.origin.x + (outlineSpace / 2), 0, _bgLabel.bounds.size.width - outlineSpace, _bgLabel.bounds.size.height);

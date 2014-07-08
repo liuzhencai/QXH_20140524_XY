@@ -367,7 +367,7 @@
     else if (targetHeight < 40) targetHeight = 40;
     
     self.frame = CGRectMake(0, inputStartingPoint -60, self.bounds.size.width, -targetHeight);
-    NSLog(@"chatInputFrame:%@",[NSValue valueWithCGRect:self.frame]);
+//    NSLog(@"chatInputFrame:%@",[NSValue valueWithCGRect:self.frame]);
     
     // in case they backspaced and we need to block send
     if (textView.text.length > 0) {

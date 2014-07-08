@@ -80,8 +80,9 @@
          {
              NSLog(@"获取到用户信息--->%@",user.displayname);
              _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
-             //             [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-             _portraitView.image = user.iconImageview.image;
+             [_portraitView setImageWithURL:IMGURL(user.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+           
+//             _portraitView.image = user.iconImageview.image;
              [_portraitView circular];
          }];
         
@@ -114,13 +115,12 @@
             [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
              {
                  NSLog(@"获取到用户信息");
-                 _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
-                 //             [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-                 _portraitView.image = user.iconImageview.image;
-                 [_portraitView circular];
              }];
         }
-        
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
+            NSLog(@"dic==%@",dic);
+            [self setTopViewValue:dic];
+        }];
 //        [self showAlert:[dict objectForKey:@"info"]];
 
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
