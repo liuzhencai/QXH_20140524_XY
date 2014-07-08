@@ -10,5 +10,4 @@
 
 @interface TribeController : MyViewController
 @property (strong, nonatomic)  UISearchBar *searchBar;
-- (void)btnClick:(id)sender;
 @end
