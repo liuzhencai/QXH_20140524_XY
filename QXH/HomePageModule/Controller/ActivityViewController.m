@@ -19,6 +19,7 @@
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *inActivitysList;//进行的活动
 @property (nonatomic, strong) NSMutableArray *endActivitysList;//结束的活动
+@property (nonatomic, assign) BOOL isFilter;//是否是筛选
 @end
 
 #define IN_THE_ACTIVITY_TAG 2330
@@ -44,7 +45,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //获取数据
-    [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
+    if (!_isFilter) {
+        [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
+    }
 }
 - (void)viewDidLoad
 {
@@ -256,19 +259,22 @@
     }else if (2 == buttonIndex){//筛选
         NSLog(@"筛选");
         FilterTimeViewController *filterTime = [[FilterTimeViewController alloc] init];
+        self.isFilter = YES;
         filterTime.filterTimeCallBack = ^(id object){
-            NSArray *arr = (NSArray *)object;
-            NSLog(@"筛选条件：%@",arr);
+            [self.navigationController popViewControllerAnimated:YES];
+//            self.isFilter = NO;
+            NSString *dateString = (NSString *)object;
+            NSLog(@"筛选条件：%@",dateString);
             //此处根据筛选条件请求数据
-            if ([arr count]) {
-                [self selectActivityWithconditions:arr];
+            if ([dateString length]) {
+                [self selectActivityWithconditions:dateString];
             }
         };
         [self.navigationController pushViewController:filterTime animated:YES];
     }
 }
 
-- (void)selectActivityWithconditions:(NSArray *)conditions{
+- (void)selectActivityWithconditions:(NSString *)beginDate{
     /**
      *  获取/搜索活动列表(列表按创建时间的逆序排列)
      *
@@ -297,9 +303,10 @@
                      actstate:@"0"
                        status:@"1"
                       tribeid:@""
-                    begindate:@""
+                    begindate:beginDate
                       enddate:@""
         withCompletionHandler:^(NSMutableDictionary *dict){
+            self.isFilter = NO;
             NSLog(@"活动列表筛选返回数据:%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];
         }];

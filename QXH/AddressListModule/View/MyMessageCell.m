@@ -46,9 +46,9 @@
         _arrowImgView.image = [UIImage imageNamed:@"list_arrow_right_gray"];
         [self.contentView addSubview:_arrowImgView];
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
-        line.backgroundColor = [UIColor lightGrayColor];
-        [self.contentView addSubview:line];
+//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
+//        line.backgroundColor = [UIColor lightGrayColor];
+//        [self.contentView addSubview:line];
     }
     return self;
 }

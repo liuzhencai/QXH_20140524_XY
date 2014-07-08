@@ -18,6 +18,7 @@
 #import "MessageBySend.h"
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>
+@property (nonatomic, strong) UITableView *messageTable;
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *addressList;//通讯录列表
 @property (nonatomic, strong) NSMutableArray *myMessageList;//我的消息列表
@@ -62,6 +63,7 @@
     //table
     UITableView *myMessageTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
     myMessageTable.tag = MY_MESSAGE_LIST_TABLE_TAG;
+    self.messageTable = myMessageTable;
     myMessageTable.delegate = self;
     myMessageTable.dataSource = self;
     myMessageTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -92,13 +94,15 @@
 }
 
 #pragma mark 获取到推送消息
-- (void)reloadeChatRoom:(NSNotification*)chatmessage
+- (void)reloadMessage:(NSNotification*)chatmessage
 {
     NSLog(@"reloadeChatRoom");
     NSMutableDictionary *auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
     //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
     
     NSLog(@"接受到的信息:%@",auserinfo);
+    [self.myMessageList addObject:auserinfo];
+    [_messageTable reloadData];
 }
 
 
@@ -150,28 +154,6 @@
     [self.view bringSubviewToFront:table];
 
     if (index == 1) {
-        /**
-         *  获取登录消息
-         *  @param callback 获取登陆消息（此接口为用户登陆成功后调用，用户获取在用户离线期间收到的消息）
-         */
-//        [DataInterface getLoginInfoWithCompletionHandler:^(NSMutableDictionary *dict){
-//            NSLog(@"获取登录信息：%@",dict);
-//            if (dict) {
-//                NSArray *officials = [dict objectForKey:@"official"];
-//                NSArray *chats = [dict objectForKey:@"chat"];
-//                self.myMessageList = [NSMutableArray arrayWithCapacity:0];
-//                if ([officials count]) {
-//                    [self.myMessageList addObject:@{@"name":@"official",@"list":officials}];
-//                }
-//                if ([chats count]) {
-//                    [self.myMessageList addObject:@{@"name":@"chats",@"list":chats}];
-//                }
-//                [table reloadData];
-//            }
-//        }];
-//        recvRemoteNoficationWithCompletionHandler
-        
-//        [MessageBySend sharMessageBySend];
     }
 }
 
@@ -182,9 +164,9 @@
     if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         return [self.addressList count];
     }else{
-        return [self.myMessageList count];
+//        return [self.myMessageList count];
+        return 1;
     }
-//    return [self.myMessageList count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -194,10 +176,10 @@
         NSArray *list = [dict objectForKey:@"list"];
         return [list count];
     }else{
-        NSDictionary *dict = [self.myMessageList objectAtIndex:section];
-        NSArray *list = [dict objectForKey:@"list"];
-        return [list count];
-//        return [self.myMessageList count];
+//        NSDictionary *dict = [self.myMessageList objectAtIndex:section];
+//        NSArray *list = [dict objectForKey:@"list"];
+//        return [list count];
+        return 5;
     }
 }
 
@@ -206,16 +188,16 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 20;
-//    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
-//        return 20;
-//    }else{
-//        return 0;
-//    }
+//    return 20;
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
+        return 20;
+    }else{
+        return 0;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
+    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
         bgView.image = [UIImage imageNamed:@"bar_transition"];
         
@@ -235,8 +217,8 @@
         }
         [bgView addSubview:title];
         return bgView;
-//    }
-//    return nil;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -251,12 +233,12 @@
             myMsgCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        if (self.myMessageList) {
-            NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.section];
-            NSArray *list = [dict objectForKey:@"list"];
-            NSDictionary *address = [list objectAtIndex:indexPath.row];
-            [myMsgCell resetCellParamDict:address];
-        }
+//        if (self.myMessageList) {
+//            NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.section];
+//            NSArray *list = [dict objectForKey:@"list"];
+//            NSDictionary *address = [list objectAtIndex:indexPath.row];
+//            [myMsgCell resetCellParamDict:address];
+//        }
 
         cell = myMsgCell;
     }else if(tableView.tag == ADDRESS_LIST_TABLE_TAG){

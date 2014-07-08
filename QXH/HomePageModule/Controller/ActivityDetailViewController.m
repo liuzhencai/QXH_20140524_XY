@@ -353,10 +353,7 @@
          *  @param refsign  转发语
          *  @param callback 回调
          */
-//        + (void)transmit:(NSString *)type
-//    targetid:(NSString *)targetid
-//    refsign:(NSString *)refsign
-//    withCompletionHandler:(DictCallback)callback;
+
         NSString *refsign = (NSString *)objct;
         [DataInterface transmit:@"3"
                        targetid:self.activityId

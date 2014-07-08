@@ -34,7 +34,13 @@
     self.backgroundColor = [UIColor clearColor];
     self.params = (NSDictionary *)objt;
     _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VIEW_WIDTH, VIEW_HEIGHT)];
-    _bgView.center = self.center;
+//    _bgView.center = self.center;
+    if (iPhone5) {
+        _bgView.center = CGPointMake(self.center.x, self.center.y - 40);
+    }else{
+        _bgView.center = CGPointMake(self.center.x, self.center.y - 60);
+    }
+
     _bgView.layer.cornerRadius = 5.0;
     _bgView.layer.masksToBounds = YES;
     _bgView.backgroundColor = [UIColor whiteColor];
