@@ -16,6 +16,7 @@
 #import "CustomSegmentControl.h"
 #import "ChatViewController.h"
 #import "MessageBySend.h"
+#import "MessagesViewController.h"
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, strong) UITableView *messageTable;
@@ -179,6 +180,7 @@
 //        NSDictionary *dict = [self.myMessageList objectAtIndex:section];
 //        NSArray *list = [dict objectForKey:@"list"];
 //        return [list count];
+//        return [_myMessageList count];
         return 5;
     }
 }
@@ -234,10 +236,8 @@
         }
         
 //        if (self.myMessageList) {
-//            NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.section];
-//            NSArray *list = [dict objectForKey:@"list"];
-//            NSDictionary *address = [list objectAtIndex:indexPath.row];
-//            [myMsgCell resetCellParamDict:address];
+//            NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.row];
+//            [myMsgCell resetCellParamDict:dict];
 //        }
 
         cell = myMsgCell;
@@ -284,15 +284,18 @@
         }
     }else if(tableView.tag == MY_MESSAGE_LIST_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
+        MessagesViewController *messages = [[MessagesViewController alloc] init];
+        messages.messagesList = self.myMessageList;
+        [self.navigationController pushViewController:messages animated:YES];
 //        ChatViewController *chat = [[ChatViewController alloc] init];
 //        [self.navigationController pushViewController:chat animated:YES];
-        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
-        NSArray *list = [dict objectForKey:@"list"];
-        NSDictionary *item = [list objectAtIndex:indexPath.row];
-        NameCardViewController *nameCard = [[NameCardViewController alloc] init];
-        nameCard.memberDict = item;
-        nameCard.isMyFriend = YES;
-        [self.navigationController pushViewController:nameCard animated:YES];
+//        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
+//        NSArray *list = [dict objectForKey:@"list"];
+//        NSDictionary *item = [list objectAtIndex:indexPath.row];
+//        NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+//        nameCard.memberDict = item;
+//        nameCard.isMyFriend = YES;
+//        [self.navigationController pushViewController:nameCard animated:YES];
     }
 }
 

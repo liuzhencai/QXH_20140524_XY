@@ -9,5 +9,5 @@
 #import "MyViewController.h"
 
 @interface MessagesViewController : MyViewController
-
+@property (nonatomic, strong) NSMutableArray *messagesList;
 @end
