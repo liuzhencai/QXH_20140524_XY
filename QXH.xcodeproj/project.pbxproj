@@ -324,7 +324,6 @@
 		8405E562193057E600276964 /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E561193057E600276964 /* InformationCommentCell.m */; };
 		840D73951959BF2B001AC585 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D73941959BF2B001AC585 /* ChatController.m */; };
 		842D3C8E192AF7F100374F04 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C83192AF7F100374F04 /* AddressListViewController.m */; };
-		842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C85192AF7F100374F04 /* ChatViewController.m */; };
 		842D3C90192AF7F100374F04 /* FillNameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C87192AF7F100374F04 /* FillNameCardViewController.m */; };
 		842D3C91192AF7F100374F04 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C89192AF7F100374F04 /* LoginViewController.m */; };
 		842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8B192AF7F100374F04 /* NameCardViewController.m */; };
@@ -928,8 +927,6 @@
 		840D73941959BF2B001AC585 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 		842D3C82192AF7F100374F04 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
 		842D3C83192AF7F100374F04 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
-		842D3C84192AF7F100374F04 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		842D3C85192AF7F100374F04 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		842D3C86192AF7F100374F04 /* FillNameCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FillNameCardViewController.h; sourceTree = "<group>"; };
 		842D3C87192AF7F100374F04 /* FillNameCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FillNameCardViewController.m; sourceTree = "<group>"; };
 		842D3C88192AF7F100374F04 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1601,8 +1598,6 @@
 			children = (
 				842D3C82192AF7F100374F04 /* AddressListViewController.h */,
 				842D3C83192AF7F100374F04 /* AddressListViewController.m */,
-				842D3C84192AF7F100374F04 /* ChatViewController.h */,
-				842D3C85192AF7F100374F04 /* ChatViewController.m */,
 				842D3C86192AF7F100374F04 /* FillNameCardViewController.h */,
 				842D3C87192AF7F100374F04 /* FillNameCardViewController.m */,
 				8852EFB7195CFC0A00E5D9F7 /* EditUserInfoViewController.h */,
@@ -2646,7 +2641,6 @@
 				21D6ADE8193CBCFC0018109F /* InfoDetailModel.m in Sources */,
 				21F68BCA195C5CA300C869BC /* SNAssetsVC.m in Sources */,
 				210021E7193E049F006B7D12 /* UDPServiceEngine.m in Sources */,
-				842D3C8F192AF7F100374F04 /* ChatViewController.m in Sources */,
 				2119EEDA191682E6007DBE68 /* Reachability.m in Sources */,
 				8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */,
 				21A893FC1928ECD300A6DB7E /* SquareShareController.m in Sources */,
@@ -2742,8 +2736,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2761,7 +2755,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "AA9B45C9-1EF7-494E-9608-180717B05800";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2782,8 +2776,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2794,7 +2788,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PROVISIONING_PROFILE = "03EF7C91-237C-4A2C-8921-B5477D180C63";
+				PROVISIONING_PROFILE = "AA9B45C9-1EF7-494E-9608-180717B05800";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2806,7 +2800,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2818,7 +2812,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "AA9B45C9-1EF7-494E-9608-180717B05800";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2830,8 +2824,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 振财 刘 (3MBC54K5TN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: lei pan (L63ZVBVK6H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lei pan (L63ZVBVK6H)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QXH/QXH-Prefix.pch";
 				INFOPLIST_FILE = "QXH/QXH-Info.plist";
@@ -2843,7 +2837,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "AA9B45C9-1EF7-494E-9608-180717B05800";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

@@ -176,6 +176,7 @@ static int scout=0;
     _myCollectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 2, 5, -2);
     _myCollectionView.allowsSelection = YES;
     _myCollectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_myCollectionView setUserInteractionEnabled:YES];
     [_myCollectionView registerClass:[MessageCell class]
           forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
     
@@ -882,17 +883,12 @@ static int scout=0;
     NSInteger userid = [[UserInfoModelManger sharUserInfoModelManger].MeUserId integerValue];
     NSNumber* meuserid = [NSNumber numberWithInt:userid];
     message[@"senderid"] = meuserid;
-//    message[@"kHeadIcon"] = Myuserinfo.iconImageview.image;
-//    [message setValue:[NSNumber numberWithInt:kSentByUser] forKey:@"kMessageSentBy"];
-    
-    /*把自己发送的消息添加进入部落数组*/
-//    NSMutableDictionary* messagebyme =[[NSMutableDictionary alloc]init];
-//    [message setObject:message[kMessageContent] forKey:@"mess"];
+
     NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
     [message setObject:aroomid forKey:@"tribeid"];
     [message setObject:TimeStamp() forKey:@"date"];
     [message setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
-    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:message];
+    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:message andSendtype:[NSNumber numberWithInt:2] ];
     
     /*界面刷新并且发送消息*/
     [self didSendMessage:message];
@@ -924,8 +920,8 @@ static int scout=0;
         case 1:
         {
             /*活动*/
-            FrontViewTag = ACTIVITY_TABLE_TAG;
-            [self getActivityListInTribe];
+//            FrontViewTag = ACTIVITY_TABLE_TAG;
+//            [self getActivityListInTribe];
 
         }
             break;

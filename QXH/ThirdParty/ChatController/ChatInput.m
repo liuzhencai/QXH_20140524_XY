@@ -381,7 +381,11 @@
 - (void) alignTextViewWithAnimation:(BOOL)shouldAnimate {
     
     // where the blinky caret is
-    CGRect line = [textView caretRectForPosition:textView.selectedTextRange.start];
+    UITextPosition* astarte = textView.selectedTextRange.start;
+    if (!astarte) {
+        return;
+    }
+    CGRect line = [textView caretRectForPosition:astarte];
     CGFloat overflow = line.origin.y + line.size.height - (textView.contentOffset.y + textView.bounds.size.height - textView.contentInset.bottom - textView.contentInset.top);
     
     CGPoint offsetP = textView.contentOffset;

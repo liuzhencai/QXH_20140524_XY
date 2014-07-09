@@ -7,7 +7,7 @@
 //
 
 #import "NameCardViewController.h"
-#import "ChatViewController.h"
+#import "ChatController.h"
 #import "NameCardTitleCell.h"
 #import "AddFriendView.h"
 
@@ -216,31 +216,9 @@
     if (index == 1) {
         if (self.isMyFriend) {
             NSLog(@"发起聊天");
-//            if (self.memberDict) {
-//                UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
-//                view.backgroundColor = [UIColor blackColor];
-//                view.alpha = 0.5;
-//                
-//                AddFriendView *addFriend = [[AddFriendView alloc] initWithParam:self.memberDict];
-//                addFriend.alpha = 0.0;
-//                [addFriend addSubview:view];
-//                [addFriend sendSubviewToBack:view];
-//                [self.view addSubview:addFriend];
-//                
-//                addFriend.addFriendBlack = ^(id objct){
-//                    NSLog(@"%@",objct);
-//                    NSString *remarkString = (NSString *)objct;
-//                    
-//                    [DataInterface addFriendConfirm:[self.memberDict objectForKey:@"userid"]
-//                                               type:@"0"
-//                                             remark:remarkString
-//                              withCompletionHandler:^(NSMutableDictionary *dict){
-//                                  NSLog(@"处理加为好友请求返回值：%@",dict);
-//                                  [self showAlert:[dict objectForKey:@"info"]];
-//                              }];
-//                };
-//                [addFriend show];
-//            }
+            ChatController* chatview = [[ChatController alloc]init];
+            chatview.otherDic = self.memberDict;
+            [self.navigationController pushViewController:chatview animated:YES];
             
         }else{
             /**

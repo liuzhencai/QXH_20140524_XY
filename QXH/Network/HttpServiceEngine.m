@@ -136,13 +136,14 @@ static HttpServiceEngine *httpEngine;
 
 - (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
 {
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
-    progressHUD.animationType = MBProgressHUDAnimationFade;
-    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
-    progressHUD.labelText = @"加载中...";
-    [keyWindow addSubview:progressHUD];
-    [progressHUD show:YES];
+    /*暂时屏蔽刘振财，因为总不消失*/
+//    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+//    progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
+//    progressHUD.animationType = MBProgressHUDAnimationFade;
+//    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+//    progressHUD.labelText = @"加载中...";
+//    [keyWindow addSubview:progressHUD];
+//    [progressHUD show:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __block __weak MKNetworkOperation *op = nil;
         if (params == nil) {

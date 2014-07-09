@@ -47,24 +47,22 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 //@property (retain, nonatomic) id<ChatControllerDelegate>delegate;
 
 
-/*改造方法
- 设置我的头像
- */
-
-- (void)addMyHeadImage:(UIImage*)aimage;
-- (void)addOHeadImage:(UIImage*)aimage;
-
-@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
-@property (nonatomic, strong) NSMutableArray *membersList;//成员列表
-@property (nonatomic, strong) NSDictionary *tribeInfoDict;//部落信息
-@property (nonatomic, strong) NSDictionary *tribeInfoDetailDict;//部落返回信息
-
-//@property (nonatomic, strong) UIView *chatview;//部落信息
-@property (nonatomic, strong) UIView *askView;//每日一问
 /*设置聊天室标题*/
 //- (void) setChatTitle:(NSString *)chatTitle;
 #pragma mark PROPERTIES
 
+/*
+ displayname = "\U5218\U6b63\U624d111";
+ level = 1;
+ online = 0;
+ photo = "20140629/0034251930.png";
+ remark = "";
+ signature = jintiankenkuaile;
+ userid = 100069;
+ username = "";
+ usertype = 1;
+ */
+@property (strong,nonatomic)NSDictionary* otherDic;
 /*!
  The color of the user's chat bubbles
  */

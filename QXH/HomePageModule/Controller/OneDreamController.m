@@ -105,13 +105,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (!_chatController)
-//        _chatController = [ChatController new];
-////    _chatController.delegate = self;
-////    _chatController.opponentImg = [UIImage imageNamed:@"tempUser.png"];
-////    _chatController.MyHeadImg = [UIImage imageNamed:@"tempUser.png"];
-//    _chatController.chatTitle = @"张三";
-//    [self.navigationController pushViewController:_chatController animated:YES];
+
 }
 
 #pragma mark chatcontroller

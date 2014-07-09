@@ -14,7 +14,7 @@
 #import "PeocelCell.h"
 #import "MyMessageCell.h"
 #import "CustomSegmentControl.h"
-#import "ChatViewController.h"
+//#import "ChatViewController.h"
 #import "MessageBySend.h"
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>

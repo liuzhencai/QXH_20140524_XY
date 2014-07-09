@@ -20,7 +20,7 @@
     /*sendtype 0;系统消息存储进该数组，其中元素是字典*/
     NSMutableArray* sysMess;
     /*sendtype 1;好友私聊存储进该数组，其中元素是字典*/
-    NSMutableArray* chatMess;
+//    NSMutableArray* chatMess;
     /*sendtype 2;部落聊天存储进该数组，其中元素是字典*/
     NSMutableDictionary* chatRoomMess;
     /*sendtype 3;加好友申请存储进该数组，其中元素是字典*/
@@ -45,6 +45,8 @@
     NSMutableArray* someOnMess;
     /*sendtype 13;@部落存储进该数组，其中元素是字典*/
     NSMutableArray* someTribeOnMess;
+    /*未阅读聊天记录存储进该数组，其中元素是字典*/
+    NSMutableArray* unKnowCharMessAyyay;
     
     /*存储上一个获取到的消息，如果两个一样，就抛弃*/
     NSString* messid;
@@ -58,9 +60,14 @@
 
 /*通过部落id，获取部落聊天内容*/
 -(NSArray*)getChatRoomMessArray:(NSString*)ChatRoomid;
-/*把我自己发送的消息添加进入聊天室*/
-- (void)addChatRoomMessageByMe:(NSMutableDictionary*)Message;
+/*
+ 1、把我自己发送的消息添加进入聊天室
+ 2、对方发送私聊
+ */
+- (void)addChatRoomMessageByMe:(NSMutableDictionary*)Message andSendtype:(NSNumber*)asendtype;
 
+/*自己私聊时调用*/
+- (void)addChatRoomMessageArray:(NSMutableDictionary*)notif toOtherid:(NSNumber*)otherid;
 @end
 
 
