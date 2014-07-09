@@ -21,7 +21,7 @@
         CGFloat lableHeight = 25;
         
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 48)/2.0, 48, 48)];
-        //    _headImgView.backgroundColor = [UIColor greenColor];
+        [_headImgView setRound:YES];
         _headImgView.image = [UIImage imageNamed:@"img_portrait96"];
         [self.contentView addSubview:_headImgView];
         
@@ -46,9 +46,9 @@
         _arrowImgView.image = [UIImage imageNamed:@"list_arrow_right_gray"];
         [self.contentView addSubview:_arrowImgView];
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
-        line.backgroundColor = [UIColor lightGrayColor];
-        [self.contentView addSubview:line];
+//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
+//        line.backgroundColor = [UIColor lightGrayColor];
+//        [self.contentView addSubview:line];
     }
     return self;
 }
@@ -83,20 +83,43 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
-
-    NSString *imageUrlString = [params objectForKey:@"photo"];
-//    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-
-    NSString *nameString = [params objectForKey:@"displayname"];
-    if ([nameString length] > 0) {
+    int sendType = [[params objectForKey:@"sendtype"] intValue];
+    if (sendType == 3) {//3为加好友申请
+        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+        
+        NSString *nameString = [params objectForKey:@"sendername"];
         self.name.text = nameString;
-    }
-    NSString *descString = [params objectForKey:@"signature"];
-    if ([descString length] > 0) {
+        NSString *descString = [params objectForKey:@"sign"];
         self.duty.text = descString;
+        self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
+    }else if(sendType == 5){//5为加入部落申请
+        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+        
+        NSString *nameString = [params objectForKey:@"sendername"];
+        self.name.text = nameString;
+        NSString *descString = [params objectForKey:@"sign"];
+        self.duty.text = descString;
+        self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
+    }else if(sendType == 0 || sendType == 4 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){//0为系统消息,4为处理请求好友申,6为处理部落加入申请,7为完全退出部落,12 @某人,13 @部落
+        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+        
+        NSString *nameString = [params objectForKey:@"sendername"];
+        self.name.text = nameString;
+        NSString *descString = [params objectForKey:@"sign"];
+        self.duty.text = descString;
+        self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
     }
-    self.date.text = @"2014-05-19";
+//    NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+//    [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//
+//    NSString *nameString = [params objectForKey:@"sendername"];
+//        self.name.text = nameString;
+//    NSString *descString = [params objectForKey:@"sign"];
+//        self.duty.text = descString;
+//    self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
 }
 
 @end

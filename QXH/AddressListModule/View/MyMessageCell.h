@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    E_Message_Type_System = 0,//系统消息
+    E_Message_Type_AddFriend = 3,//加好友申请
+    E_Message_Type_AddFriendResult = 4,//处理请求好友申请
+    E_Message_Type_AddTribe = 5,//加入部落申请
+    E_Message_Type_AddTribeResult = 6,//处理部落加入申请
+    E_Message_Type_OutTribe = 7,//完全退出部落
+    E_Message_Type_InformSb = 12,//@某人，@某部落
+    
+}MessageType;
+
 @interface MyMessageCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *headImgView;

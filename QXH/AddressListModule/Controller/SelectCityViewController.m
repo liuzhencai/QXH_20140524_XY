@@ -136,6 +136,7 @@
         //省份名称
         NSDictionary *provinceDict = [_dataList objectAtIndex:indexPath.section];
         NSString *provinceName = [provinceDict objectForKey:@"province"];
+        provinceName = [provinceName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         //城市信息
         NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"citysList"];
         NSDictionary *cityDict = [list objectAtIndex:indexPath.row - 1];

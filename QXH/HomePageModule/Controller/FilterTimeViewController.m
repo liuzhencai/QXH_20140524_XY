@@ -105,6 +105,82 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+//        CGRect btnFrame = CGRectMake(cell.contentView.frame.size.width-30-12, 16,12,12);
+//        UIImageView *selectImgView = [[UIImageView alloc] initWithFrame:btnFrame];
+//        selectImgView.image = [UIImage imageNamed:@"choice_box"];
+//        selectImgView.tag = 220;
+//        [cell.contentView addSubview:selectImgView];
+        
+    }
+    
+    cell.textLabel.text = [_items objectAtIndex:indexPath.row];
+//    UIImageView *selectImgView = (UIImageView *)[cell.contentView viewWithTag:220];
+//    for (int i = 0; i < [_selectIndexPaths count]; i ++) {
+//        NSIndexPath *index = [_selectIndexPaths objectAtIndex:i];
+//        if ([indexPath isEqual:index]) {
+//            selectImgView.image = [UIImage imageNamed:@"tribe_icon_establish_highlight"];
+//        }
+//    }
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"%@",indexPath);
+    NSDate *date = [NSDate date];
+    switch (indexPath.row) {
+        case 0:{
+            date = [date dateByAddingTimeInterval:3 * 24 * 60 * 60];
+        }
+            break;
+        case 1:{
+            date = [date dateByAddingTimeInterval:7 * 24 * 60 * 60];
+        }
+            break;
+        case 2:{
+            date = [date dateByAddingTimeInterval:30 * 24 * 60 * 60];
+        }
+            break;
+        case 3:{
+            date = [date dateByAddingTimeInterval:365 * 24 * 60 * 60];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    formater.dateFormat = [NSString stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [formater stringFromDate:date];
+    NSLog(@"%@",dateString);
+    if (self.filterTimeCallBack) {
+        self.filterTimeCallBack(dateString);
+    }
+    
+//    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    UIImageView *imgView = (UIImageView *)[cell.contentView viewWithTag:220];
+//    if ([_selectIndexPaths containsObject:indexPath]) {
+//        [_selectIndexPaths removeObject:indexPath];
+//        [_addItems removeObject:indexPath];
+//        imgView.image = [UIImage imageNamed:@"choice_box"];
+//    }else{
+//        [_selectIndexPaths addObject:indexPath];
+//        [_addItems addObject:indexPath];
+//        imgView.image = [UIImage imageNamed:@"tribe_icon_establish_highlight"];
+//    }
+}
+
+
+/*多选
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *indentifier = @"cellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         CGRect btnFrame = CGRectMake(cell.contentView.frame.size.width-30-12, 16,12,12);
         UIImageView *selectImgView = [[UIImageView alloc] initWithFrame:btnFrame];
@@ -126,16 +202,6 @@
     return cell;
 }
 
-//- (void)selectTime:(UIButton *)sender{
-//    sender.selected = !sender.selected;
-//    if (sender.selected) {
-//        [sender setBackgroundImage:[UIImage imageNamed:@"tribe_icon_establish_highlight"] forState:UIControlStateNormal];
-//    }else{
-//        [sender setBackgroundImage:[UIImage imageNamed:@"choice_box"] forState:UIControlStateNormal];
-//    }
-//    NSLog(@"button action");
-//}
-
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%@",indexPath);
@@ -152,5 +218,6 @@
         imgView.image = [UIImage imageNamed:@"tribe_icon_establish_highlight"];
     }
 }
+*/
 
 @end

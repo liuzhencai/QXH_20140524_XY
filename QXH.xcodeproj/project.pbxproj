@@ -260,6 +260,14 @@
 		21EDAD521926F68100C616CF /* MemberRuleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD501926F68100C616CF /* MemberRuleController.xib */; };
 		21EDAD561926F69500C616CF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD541926F69500C616CF /* SettingViewController.m */; };
 		21EDAD571926F69500C616CF /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD551926F69500C616CF /* SettingViewController.xib */; };
+		21F50D03196C2FB700492A82 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21F50CF3196C2FB700492A82 /* MJRefresh.bundle */; };
+		21F50D04196C2FB700492A82 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CF6196C2FB700492A82 /* MJRefreshBaseView.m */; };
+		21F50D05196C2FB700492A82 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CF8196C2FB700492A82 /* MJRefreshConst.m */; };
+		21F50D06196C2FB700492A82 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CFA196C2FB700492A82 /* MJRefreshFooterView.m */; };
+		21F50D07196C2FB700492A82 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CFC196C2FB700492A82 /* MJRefreshHeaderView.m */; };
+		21F50D08196C2FB700492A82 /* UIScrollView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CFE196C2FB700492A82 /* UIScrollView+Extension.m */; };
+		21F50D09196C2FB700492A82 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50D00196C2FB700492A82 /* UIScrollView+MJRefresh.m */; };
+		21F50D0A196C2FB700492A82 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50D02196C2FB700492A82 /* UIView+Extension.m */; };
 		21F68BC5195C5CA300C869BC /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BB7195C5CA300C869BC /* check.png */; };
 		21F68BC6195C5CA300C869BC /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BB8195C5CA300C869BC /* check@2x.png */; };
 		21F68BC7195C5CA300C869BC /* check@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BB9195C5CA300C869BC /* check@2x~ipad.png */; };
@@ -274,6 +282,8 @@
 		21F68BD2195C69C400C869BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F68BD1195C69C400C869BC /* AVFoundation.framework */; };
 		58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */; };
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
+		5839E437196C345D00326270 /* FindTribeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839E436196C345D00326270 /* FindTribeResultViewController.m */; };
+		5839E43A196C3F4C00326270 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839E439196C3F4C00326270 /* MessagesViewController.m */; };
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87B1944B3F800401862 /* OnLiveCell.m */; };
@@ -316,6 +326,7 @@
 		58B87177192F78FB00EB730D /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87176192F78FB00EB730D /* ShareView.m */; };
 		58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87179192FA57100EB730D /* TribeQuestionCell.m */; };
 		58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B8717C192FABF100EB730D /* TribeConversationCell.m */; };
+		58BC41A5196D989800F80383 /* MessageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC41A4196D989800F80383 /* MessageDetailCell.m */; };
 		58D3F4E119685C0900A5FA4E /* InfluenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D3F4E019685C0900A5FA4E /* InfluenceCell.m */; };
 		58E08D0719532549000C25AE /* AddFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E08D0619532549000C25AE /* AddFriendView.m */; };
 		58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58EEDABF1958549E007E2FA2 /* citysList.plist */; };
@@ -809,6 +820,22 @@
 		21EDAD531926F69500C616CF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		21EDAD541926F69500C616CF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		21EDAD551926F69500C616CF /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		21F50CF3196C2FB700492A82 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
+		21F50CF4196C2FB700492A82 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
+		21F50CF5196C2FB700492A82 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
+		21F50CF6196C2FB700492A82 /* MJRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshBaseView.m; sourceTree = "<group>"; };
+		21F50CF7196C2FB700492A82 /* MJRefreshConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshConst.h; sourceTree = "<group>"; };
+		21F50CF8196C2FB700492A82 /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
+		21F50CF9196C2FB700492A82 /* MJRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooterView.h; sourceTree = "<group>"; };
+		21F50CFA196C2FB700492A82 /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
+		21F50CFB196C2FB700492A82 /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
+		21F50CFC196C2FB700492A82 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		21F50CFD196C2FB700492A82 /* UIScrollView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Extension.h"; sourceTree = "<group>"; };
+		21F50CFE196C2FB700492A82 /* UIScrollView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Extension.m"; sourceTree = "<group>"; };
+		21F50CFF196C2FB700492A82 /* UIScrollView+MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJRefresh.h"; sourceTree = "<group>"; };
+		21F50D00196C2FB700492A82 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
+		21F50D01196C2FB700492A82 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		21F50D02196C2FB700492A82 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		21F68BB7195C5CA300C869BC /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		21F68BB8195C5CA300C869BC /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		21F68BB9195C5CA300C869BC /* check@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x~ipad.png"; sourceTree = "<group>"; };
@@ -828,6 +855,10 @@
 		58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrDeleteMemberViewController.h; sourceTree = "<group>"; };
 		58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrDeleteMemberViewController.m; sourceTree = "<group>"; };
 		58163D9919323838001B60FE /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
+		5839E435196C345D00326270 /* FindTribeResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTribeResultViewController.h; sourceTree = "<group>"; };
+		5839E436196C345D00326270 /* FindTribeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTribeResultViewController.m; sourceTree = "<group>"; };
+		5839E438196C3F4C00326270 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
+		5839E439196C3F4C00326270 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		5869D8741943156C00401862 /* MultSelectPeopleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultSelectPeopleCell.h; sourceTree = "<group>"; };
 		5869D8751943156C00401862 /* MultSelectPeopleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultSelectPeopleCell.m; sourceTree = "<group>"; };
 		5869D87719431A6600401862 /* YSKeyboardTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSKeyboardTableView.h; sourceTree = "<group>"; };
@@ -913,6 +944,8 @@
 		58B87179192FA57100EB730D /* TribeQuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeQuestionCell.m; sourceTree = "<group>"; };
 		58B8717B192FABF100EB730D /* TribeConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeConversationCell.h; sourceTree = "<group>"; };
 		58B8717C192FABF100EB730D /* TribeConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeConversationCell.m; sourceTree = "<group>"; };
+		58BC41A3196D989800F80383 /* MessageDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailCell.h; sourceTree = "<group>"; };
+		58BC41A4196D989800F80383 /* MessageDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailCell.m; sourceTree = "<group>"; };
 		58D3F4DF19685C0900A5FA4E /* InfluenceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfluenceCell.h; sourceTree = "<group>"; };
 		58D3F4E019685C0900A5FA4E /* InfluenceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfluenceCell.m; sourceTree = "<group>"; };
 		58E08D0519532549000C25AE /* AddFriendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendView.h; sourceTree = "<group>"; };
@@ -1191,6 +1224,7 @@
 		2119EEAE191682D0007DBE68 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				21F50CF2196C2FB700492A82 /* MJRefresh */,
 				58826B68195DD180002F13A5 /* attributedlabel */,
 				21F68BB6195C5CA300C869BC /* SNImagePicker */,
 				21DA12BB1936303F001EDEB1 /* CocoaAyncSocket */,
@@ -1610,6 +1644,8 @@
 				842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */,
 				58979DC0196AFDE200B945BF /* SelectCityViewController.h */,
 				58979DC1196AFDE200B945BF /* SelectCityViewController.m */,
+				5839E438196C3F4C00326270 /* MessagesViewController.h */,
+				5839E439196C3F4C00326270 /* MessagesViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1640,6 +1676,8 @@
 				58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */,
 				58E08D0519532549000C25AE /* AddFriendView.h */,
 				58E08D0619532549000C25AE /* AddFriendView.m */,
+				58BC41A3196D989800F80383 /* MessageDetailCell.h */,
+				58BC41A4196D989800F80383 /* MessageDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1919,6 +1957,29 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		21F50CF2196C2FB700492A82 /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				21F50CF3196C2FB700492A82 /* MJRefresh.bundle */,
+				21F50CF4196C2FB700492A82 /* MJRefresh.h */,
+				21F50CF5196C2FB700492A82 /* MJRefreshBaseView.h */,
+				21F50CF6196C2FB700492A82 /* MJRefreshBaseView.m */,
+				21F50CF7196C2FB700492A82 /* MJRefreshConst.h */,
+				21F50CF8196C2FB700492A82 /* MJRefreshConst.m */,
+				21F50CF9196C2FB700492A82 /* MJRefreshFooterView.h */,
+				21F50CFA196C2FB700492A82 /* MJRefreshFooterView.m */,
+				21F50CFB196C2FB700492A82 /* MJRefreshHeaderView.h */,
+				21F50CFC196C2FB700492A82 /* MJRefreshHeaderView.m */,
+				21F50CFD196C2FB700492A82 /* UIScrollView+Extension.h */,
+				21F50CFE196C2FB700492A82 /* UIScrollView+Extension.m */,
+				21F50CFF196C2FB700492A82 /* UIScrollView+MJRefresh.h */,
+				21F50D00196C2FB700492A82 /* UIScrollView+MJRefresh.m */,
+				21F50D01196C2FB700492A82 /* UIView+Extension.h */,
+				21F50D02196C2FB700492A82 /* UIView+Extension.m */,
+			);
+			path = MJRefresh;
+			sourceTree = "<group>";
+		};
 		21F68BB6195C5CA300C869BC /* SNImagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -2160,6 +2221,8 @@
 				8484269D192E0D0100C9474A /* TribeDynamicViewController.m */,
 				58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */,
 				58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */,
+				5839E435196C345D00326270 /* FindTribeResultViewController.h */,
+				5839E436196C345D00326270 /* FindTribeResultViewController.m */,
 			);
 			name = Tribe;
 			sourceTree = "<group>";
@@ -2363,6 +2426,7 @@
 				210BAEED192A5DB900B8FBCF /* MyVisitorCell.xib in Resources */,
 				848426DC192E185B00C9474A /* bootom_icon_me@2x.png in Resources */,
 				212F24401928E09A00F738F8 /* details_icon_share_highlight@2x.png in Resources */,
+				21F50D03196C2FB700492A82 /* MJRefresh.bundle in Resources */,
 				21EDAD521926F68100C616CF /* MemberRuleController.xib in Resources */,
 				848426EB192E185B00C9474A /* collect_label_discuss_gray@2x.png in Resources */,
 				848426AE192E0F2B00C9474A /* tribe_btn_nextstep_normal@2x.png in Resources */,
@@ -2476,6 +2540,7 @@
 				58FABF0119631082002C9917 /* TribeMembersViewController.m in Sources */,
 				21DA12D61936303F001EDEB1 /* GCDAsyncUdpSocket.m in Sources */,
 				840D73951959BF2B001AC585 /* ChatController.m in Sources */,
+				58BC41A5196D989800F80383 /* MessageDetailCell.m in Sources */,
 				88EE4F27193425C300734AE1 /* MemberInfoModel.m in Sources */,
 				21C6D60C19508E1B00467717 /* MyTribeModel.m in Sources */,
 				21A894051928FE4700A6DB7E /* CommentCell.m in Sources */,
@@ -2523,6 +2588,7 @@
 				58826BA6195DD180002F13A5 /* NINonRetainingCollections.m in Sources */,
 				2166CDF619339A3400F0312E /* TabBarControl.m in Sources */,
 				212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */,
+				21F50D08196C2FB700492A82 /* UIScrollView+Extension.m in Sources */,
 				8405E562193057E600276964 /* InformationCommentCell.m in Sources */,
 				2119EED5191682E6007DBE68 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				210BAEDD192A5B3E00B8FBCF /* MyVisitorController.m in Sources */,
@@ -2545,6 +2611,7 @@
 				21EDAD4C1926F67100C616CF /* PersonalCollectionController.m in Sources */,
 				58826BAA195DD180002F13A5 /* NISDKAvailability.m in Sources */,
 				84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */,
+				21F50D06196C2FB700492A82 /* MJRefreshFooterView.m in Sources */,
 				2119EEFA191682EC007DBE68 /* NSData+GIF.m in Sources */,
 				212F23B51928DF4D00F738F8 /* InformationCell.m in Sources */,
 				212F23B31928DF4D00F738F8 /* InformationViewController.m in Sources */,
@@ -2554,10 +2621,12 @@
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
 				2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */,
 				21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */,
+				21F50D05196C2FB700492A82 /* MJRefreshConst.m in Sources */,
 				5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */,
 				2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */,
 				2192EC28191BD8AE00A8FE7F /* EditStuExpController.m in Sources */,
 				842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */,
+				21F50D07196C2FB700492A82 /* MJRefreshHeaderView.m in Sources */,
 				21D6ADE5193CB6190018109F /* InfoModel.m in Sources */,
 				58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */,
 				214E811619645FF60026BB60 /* SquareNoPicCell.m in Sources */,
@@ -2606,8 +2675,10 @@
 				21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */,
 				58826BA7195DD180002F13A5 /* NIOperations.m in Sources */,
 				2119EE8C19168279007DBE68 /* main.m in Sources */,
+				21F50D09196C2FB700492A82 /* UIScrollView+MJRefresh.m in Sources */,
 				2104D0271961A77000ECCFEE /* CodeSheetObject.m in Sources */,
 				58826BA5195DD180002F13A5 /* NINonEmptyCollectionTesting.m in Sources */,
+				21F50D0A196C2FB700492A82 /* UIView+Extension.m in Sources */,
 				21401DA719192CD100E9175B /* TribeCell.m in Sources */,
 				58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */,
 				21F68BCC195C5CA300C869BC /* SNImagePickerNC.m in Sources */,
@@ -2647,6 +2718,7 @@
 				21DA12D81936303F001EDEB1 /* DDASLLogger.m in Sources */,
 				21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */,
 				58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */,
+				21F50D04196C2FB700492A82 /* MJRefreshBaseView.m in Sources */,
 				21D705CA1916A60B004950BF /* AskCell.m in Sources */,
 				210021E4193DFAAF006B7D12 /* SignGenerator.m in Sources */,
 				58826BA9195DD180002F13A5 /* NIRuntimeClassModifications.m in Sources */,
@@ -2671,6 +2743,7 @@
 				21D705C01916A469004950BF /* ImageLabelCell.m in Sources */,
 				58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */,
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
+				5839E43A196C3F4C00326270 /* MessagesViewController.m in Sources */,
 				58826BAB195DD180002F13A5 /* NISnapshotRotation.m in Sources */,
 				58826BAD195DD180002F13A5 /* NIViewRecycler.m in Sources */,
 				58B1DEBA192BA9DF00086C38 /* CreatTribeViewController.m in Sources */,
@@ -2678,6 +2751,7 @@
 				84EED57F1952CCC600414085 /* chatRoomMemberViewController.m in Sources */,
 				84FCA860192CC45F0005295A /* SquareCellEx.m in Sources */,
 				21DA12D71936303F001EDEB1 /* DDAbstractDatabaseLogger.m in Sources */,
+				5839E437196C345D00326270 /* FindTribeResultViewController.m in Sources */,
 				21EDAD3E1926F3C500C616CF /* EditCardController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,7 +14,7 @@
 
 @end
 
-@interface CustomSegmentControl : UIView
+@interface CustomSegmentControl : UIScrollView
 
 - (id)initWithFrame:(CGRect)frame andTitles:(NSArray *)titles;
 

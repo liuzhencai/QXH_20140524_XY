@@ -119,7 +119,9 @@ static MessageBySend* ins =nil;
         }
 
    
-    }else if ([bsendtype isEqualToString:@"3"]){
+    }else if ([bsendtype isEqualToString:@"3"] || [bsendtype isEqualToString:@"4"] || [bsendtype isEqualToString:@"0"] || [bsendtype isEqualToString:@"5"]
+              || [bsendtype isEqualToString:@"6"]
+              || [bsendtype isEqualToString:@"7"] || [bsendtype isEqualToString:@"12"] || [bsendtype isEqualToString:@"13"]){
         NSLog(@"info:%@",notif);
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];

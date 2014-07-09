@@ -136,14 +136,20 @@ static HttpServiceEngine *httpEngine;
 
 - (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
 {
+
     /*暂时屏蔽刘振财，因为总不消失*/
+
 //    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-//    progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
-//    progressHUD.animationType = MBProgressHUDAnimationFade;
-//    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
-//    progressHUD.labelText = @"加载中...";
+//    if (!progressHUD) {
+//        progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
+//        progressHUD.animationType = MBProgressHUDAnimationFade;
+//        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+//        progressHUD.labelText = @"加载中...";
+//    }
+//
 //    [keyWindow addSubview:progressHUD];
 //    [progressHUD show:YES];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __block __weak MKNetworkOperation *op = nil;
         if (params == nil) {
@@ -161,14 +167,12 @@ static HttpServiceEngine *httpEngine;
             [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [progressHUD hide:YES];
-                    [progressHUD removeFromSuperview];
                     dataProcess(op.HTTPStatusCode,jsonObject);
                 });
             }];
         } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [progressHUD hide:YES];
-                [progressHUD removeFromSuperview];
                 errorBlock(error);
             });
         }];

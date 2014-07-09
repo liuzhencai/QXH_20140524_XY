@@ -261,17 +261,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
-    selectCity.selectCityCallBack = ^(NSDictionary *cityDict){
-        NSLog(@"选择城市:%@",cityDict);
-        NSString *provinceName = [cityDict objectForKey:@"province"];
-        provinceName = [provinceName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSString *cityName = [cityDict objectForKey:@"city"];
-//        NSString *cityCode = [cityDict objectForKeyedSubscript:@"cityid"];
-        NSString *address = [NSString stringWithFormat:@"%@%@",provinceName,cityName];
-        NSLog(@"%@",address);
-    };
-    [self.navigationController pushViewController:selectCity animated:YES];
+//    SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
+//    selectCity.selectCityCallBack = ^(NSDictionary *cityDict){
+//        NSLog(@"选择城市:%@",cityDict);
+//        NSString *provinceName = [cityDict objectForKey:@"province"];
+//        NSString *cityName = [cityDict objectForKey:@"city"];
+//        NSString *address = [NSString stringWithFormat:@"%@%@",provinceName,cityName];
+//        NSLog(@"%@",address);
+//    };
+//    [self.navigationController pushViewController:selectCity animated:YES];
 }
 
 - (void)signUp:(id)sender
@@ -355,10 +353,7 @@
          *  @param refsign  转发语
          *  @param callback 回调
          */
-//        + (void)transmit:(NSString *)type
-//    targetid:(NSString *)targetid
-//    refsign:(NSString *)refsign
-//    withCompletionHandler:(DictCallback)callback;
+
         NSString *refsign = (NSString *)objct;
         [DataInterface transmit:@"3"
                        targetid:self.activityId
