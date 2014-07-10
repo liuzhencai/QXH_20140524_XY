@@ -180,8 +180,8 @@
 //        NSDictionary *dict = [self.myMessageList objectAtIndex:section];
 //        NSArray *list = [dict objectForKey:@"list"];
 //        return [list count];
-//        return [_myMessageList count];
-        return 5;
+        return [_myMessageList count];
+//        return 5;
     }
 }
 
@@ -235,10 +235,10 @@
             myMsgCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-//        if (self.myMessageList) {
-//            NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.row];
-//            [myMsgCell resetCellParamDict:dict];
-//        }
+        if (self.myMessageList) {
+            NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.row];
+            [myMsgCell resetCellParamDict:dict];
+        }
 
         cell = myMsgCell;
     }else if(tableView.tag == ADDRESS_LIST_TABLE_TAG){
