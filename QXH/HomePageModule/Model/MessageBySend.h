@@ -46,7 +46,7 @@
     /*sendtype 13;@部落存储进该数组，其中元素是字典*/
     NSMutableArray* someTribeOnMess;
     /*未阅读聊天记录存储进该数组，其中元素是字典*/
-    NSMutableArray* unKnowCharMessAyyay;
+    NSMutableDictionary* unKnowCharMessDic;
     
     /*存储上一个获取到的消息，如果两个一样，就抛弃*/
     NSString* messid;
@@ -68,6 +68,9 @@
 
 /*自己私聊时调用*/
 - (void)addChatRoomMessageArray:(NSMutableDictionary*)notif toOtherid:(NSNumber*)otherid;
+
+/*主动获取聊天记录接口*/
+- (NSMutableDictionary*)getunKnowCharMessDic;
 @end
 
 

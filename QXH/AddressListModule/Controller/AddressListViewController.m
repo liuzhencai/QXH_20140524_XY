@@ -17,6 +17,8 @@
 //#import "ChatViewController.h"
 #import "MessageBySend.h"
 #import "MessagesViewController.h"
+#import "ChatController.h"
+#import "ChatRoomController.h"
 
 @interface AddressListViewController ()<CustomSegmentControlDelegate>
 @property (nonatomic, strong) UITableView *messageTable;
@@ -47,6 +49,9 @@
     [super viewWillAppear:animated];
     //登陆
     [self getAddressList];
+    
+    /*获取系统推送的聊天数据*/
+    [self getChatMessInfo];
 }
 
 - (void)viewDidLoad
@@ -62,7 +67,7 @@
     [self.view addSubview:segment];
     
     //table
-    UITableView *myMessageTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
+    myMessageTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
     myMessageTable.tag = MY_MESSAGE_LIST_TABLE_TAG;
     self.messageTable = myMessageTable;
     myMessageTable.delegate = self;
@@ -70,7 +75,7 @@
     myMessageTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:myMessageTable];
     
-    UITableView *addressListTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
+    addressListTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
     addressListTable.tag = ADDRESS_LIST_TABLE_TAG;
     addressListTable.delegate = self;
     addressListTable.dataSource = self;
@@ -83,9 +88,11 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     addressListTable.tableHeaderView = self.searchBar;
     
+    //暂时屏蔽
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
-    
+    /*系统推送聊天接口*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatMessInfo:) name:@"reloadeChatMessInfo" object:nil];
     // Create the search display controller
     //    self.searchDC = [[[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self] autorelease];
     //    self.searchDC.searchResultsDataSource = self;
@@ -106,6 +113,36 @@
     [_messageTable reloadData];
 }
 
+#pragma mark 系统推送的部落聊天或者私聊接口
+/*系统推送的部落聊天或者私聊接口*/
+- (void)reloadeChatMessInfo:(NSNotification*)chatmessage
+{
+    NSLog(@"chatmessage==%@",chatmessage);
+//    NSMutableArray* keys = [chatmessage ]
+//    NSMutableDictionary *messDic = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+    NSMutableDictionary* achatmessage = (NSMutableDictionary*)[chatmessage valueForKey:@"userInfo"];
+    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
+    self.myMessageList = values;
+    [myMessageTable reloadData];
+//
+//    NSLog(@"接受到的信息:%@",auserinfo);
+//    [self.myMessageList addObject:auserinfo];
+//    [_messageTable reloadData];
+}
+
+#pragma mark 主动获取部落聊天或者私聊接口
+- (void)getChatMessInfo
+{
+    NSLog(@"getChatMessInfo\n");
+    NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
+    NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
+    self.myMessageList = values;
+    [myMessageTable reloadData];
+    //
+    //    NSLog(@"接受到的信息:%@",auserinfo);
+    //    [self.myMessageList addObject:auserinfo];
+    //    [_messageTable reloadData];
+}
 
 - (void)getAddressList{
     /**
@@ -238,6 +275,11 @@
         if (self.myMessageList) {
             NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.row];
             [myMsgCell resetCellParamDict:dict];
+//        NSInteger arow = indexPath.row;
+//        if ([self.myMessageList count]) {
+//            NSMutableArray* temparray = (NSMutableArray*)[self.myMessageList objectAtIndex:arow];
+////            NSDictionary *dict = 
+//            [myMsgCell resetCellParamDict:temparray];
         }
 
         cell = myMsgCell;
@@ -284,9 +326,56 @@
         }
     }else if(tableView.tag == MY_MESSAGE_LIST_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
-        MessagesViewController *messages = [[MessagesViewController alloc] init];
-        messages.messagesList = self.myMessageList;
-        [self.navigationController pushViewController:messages animated:YES];
+        id objct = [_myMessageList objectAtIndex:indexPath.row];
+        if ([objct isKindOfClass:[NSMutableArray class]]) {
+            NSMutableArray* temp = (NSMutableArray*)objct;
+            NSMutableDictionary* message = (NSMutableDictionary*)[temp lastObject];
+            /*聊天数据*/
+            NSNumber*  asendtype = (NSNumber*)[message valueForKey:@"sendtype"];
+            NSString* bsendtype =[NSString stringWithFormat:@"%d",[asendtype intValue]];
+            if ([bsendtype isEqualToString:@"1"])
+            {
+
+                /*
+                 displayname = "\U5218\U6b63\U624d111";
+                 level = 1;
+                 online = 0;
+                 photo = "20140629/0034251930.png";
+                 remark = "";
+                 signature = jintiankenkuaile;
+                 userid = 100069;
+                 username = "";
+                 usertype = 1;*/
+                NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"senderid"];
+                NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+                [DataInterface getUserInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
+                    /*私聊*/
+                    ChatController* chat = [[ChatController alloc]init];
+                    NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
+                    tempdic[@"userid"]=ntribeid;
+                    chat.otherDic = tempdic;
+                    [self.navigationController pushViewController:chat animated:YES];
+                }];
+         
+          
+            }else if([bsendtype isEqualToString:@"2"])
+            {
+                NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"tribeid"];
+                NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+                [DataInterface getTribeInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
+                    /*部落聊天*/
+                    ChatRoomController* chatroom = [[ChatRoomController alloc]init];
+                    chatroom.tribeInfoDict = dic;
+                    [self.navigationController pushViewController:chatroom animated:YES];
+                }];
+ 
+            }
+        }else{
+            MessagesViewController *messages = [[MessagesViewController alloc] init];
+            messages.messagesList = self.myMessageList;
+            [self.navigationController pushViewController:messages animated:YES];
+        }
+
 //        ChatViewController *chat = [[ChatViewController alloc] init];
 //        [self.navigationController pushViewController:chat animated:YES];
 //        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];

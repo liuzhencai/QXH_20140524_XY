@@ -20,7 +20,7 @@ static MessageBySend* ins =nil;
     if (self) {
         
         chatRoomMess = [[NSMutableDictionary alloc]init];
-        unKnowCharMessAyyay = [[NSMutableArray alloc]init];
+        unKnowCharMessDic = [[NSMutableDictionary alloc]init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
     }
     return self;
@@ -53,6 +53,7 @@ static MessageBySend* ins =nil;
     messid = amessid;
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
+    [self AddTounKnowCharMessAyyay:userinfo];
   
     
 }
@@ -172,14 +173,16 @@ static MessageBySend* ins =nil;
 //    }
 }
 
-/*通过部落id，获取部落聊天内容*/
+/*通过部落id，获取部落聊天内容，
+ 或者好友id获取私聊内容*/
 -(NSArray*)getChatRoomMessArray:(NSString*)ChatRoomid
 {
    NSArray* chatRoomArray = (NSArray*) [chatRoomMess valueForKey:ChatRoomid];
     return chatRoomArray;
 }
 
-/*把我自己发送的消息添加进入聊天室*/
+/*把我自己发送的消息添加进入聊天室
+ 或者好友私聊*/
 - (void)addChatRoomMessageByMe:(NSMutableDictionary*)Message andSendtype:(NSNumber*)asendtype
 {
     /*
@@ -228,6 +231,68 @@ static MessageBySend* ins =nil;
     
 }
 
+#pragma mark 系统推送的聊天加入通讯录聊天当中
+- (void)AddTounKnowCharMessAyyay:(NSMutableDictionary*)message
+{
+    /*判断接受到的消息类型*/
+    NSNumber*  asendtype = (NSNumber*)[message valueForKey:@"sendtype"];
+    NSString* bsendtype =[NSString stringWithFormat:@"%d",[asendtype intValue]];
+    if ([bsendtype isEqualToString:@"1"])
+    {
+        /*好友私聊*/
+        /*同样加入聊天记录中*/
+        /*
+         chatRoomMess每一个元素是一个聊天室数组tempchatroomArray，通过tribeid查找
+         */
+        NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"senderid"];
+        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+        NSMutableArray* tempchatroomarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+        //        /*以私聊对象的id创建聊天室id，便于查找聊天记录时使用*/
+        [message setValue:ntribeid forKey:@"tribeid"];
+        if (tempchatroomarray) {
+            /*如果该聊天部落，聊天记录已经存在*/
+            [tempchatroomarray addObject:message];
+        }else{
+            /*如果该聊天部落，聊天记录不存在*/
+            tempchatroomarray = [[NSMutableArray alloc]initWithObjects:message, nil];
+            [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
+        }
+        DebugLog(@"chatRoomMess == %@",chatRoomMess);
+        NSNumber* asenderId = [message valueForKey:@"senderid"] ;
+//        NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
+//        NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+       
+        /*如果是自己发送的就不用发消息刷新界面了*/
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+    }
+    else if ([bsendtype isEqualToString:@"2"]){
+        /*部落聊天*/
+        /*
+         chatRoomMess每一个元素是一个聊天室数组tempchatroomArray，通过tribeid查找
+         */
+        NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"tribeid"];
+        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+        NSMutableArray* tempchatroomarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+        if (tempchatroomarray) {
+            /*如果该聊天部落，聊天记录已经存在*/
+            [tempchatroomarray addObject:message];
+        }else{
+            /*如果该聊天部落，聊天记录不存在*/
+            tempchatroomarray = [[NSMutableArray alloc]initWithObjects:message, nil];
+            [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
+        }
+        
+        DebugLog(@"unKnowCharMessDic == %@",unKnowCharMessDic);
+    
+            /*如果是自己发送的就不用发消息刷新界面了*/
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+    }
+}
 
+#pragma mark 主动获取聊天记录接口
+- (NSMutableDictionary*)getunKnowCharMessDic
+{
+    return unKnowCharMessDic;
+}
 @end
 

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 typedef void (^AddressListCallBlock) (NSDictionary *dict);
 @interface AddressListViewController : MyViewController<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+{
+    UITableView* myMessageTable;
+    UITableView *addressListTable;
+}
 
 @property (nonatomic, strong)  UISearchBar *searchBar;
 @property (nonatomic, copy) AddressListCallBlock addressListBlock;

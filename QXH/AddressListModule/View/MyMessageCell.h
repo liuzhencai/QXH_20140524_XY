@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *duty;
 @property (nonatomic, strong) UILabel *date;
 @property (nonatomic, strong) UIImageView *arrowImgView;
+@property (nonatomic, strong) UIImageView* countImage;
+@property (nonatomic, strong) UILabel* countlabel;
 
 - (void)resetCellParamDict:(id)objt;
 @end
