@@ -15,6 +15,9 @@
 #import "InformationDetailController.h"
 
 @interface ShareTextController ()
+{
+    NSMutableArray *commentList;
+}
 
 @end
 
@@ -39,6 +42,8 @@
     _contentTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
     _toolbarView.frame = CGRectMake(0, SCREEN_H - 49-64, 320, 49);
     [self.view addSubview:_toolbarView];
+    
+    [self getCommentList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,6 +59,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 3)
+        return [commentList count];
+    else
     return 1;
 }
 
@@ -208,7 +216,7 @@
                         cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationCommentCell" owner:nil options:nil] objectAtIndex:0];
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
-//                    [(InformationCommentCell *)cell setModel:[commentList objectAtIndex:indexPath.row]];
+                    [(InformationCommentCell *)cell setModel:[commentList objectAtIndex:indexPath.row]];
                 }
                     break;
                 default:
@@ -335,7 +343,7 @@
                         cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationCommentCell" owner:nil options:nil] objectAtIndex:0];
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
-                    //                    [(InformationCommentCell *)cell setModel:[commentList objectAtIndex:indexPath.row]];
+                    [(InformationCommentCell *)cell setModel:[commentList objectAtIndex:indexPath.row]];
                 }
                     break;
                 default:
@@ -435,6 +443,15 @@
         default:
             break;
     }
+}
+
+- (void)getCommentList
+{
+    InfoModel *tmpModel = (InfoModel *)_info.content;
+    [DataInterface getCommentList:tmpModel.artid start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        commentList = [ModelGenerator json2CommentList:dict];
+        [_contentTable reloadData];
+    }];
 }
 
 
