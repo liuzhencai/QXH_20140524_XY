@@ -11,6 +11,7 @@
 #import "ClassificationControll.h"
 #import "InformationDetailController.h"
 #import "InfoModel.h"
+#import "MJRefresh.h"
 
 @interface InformationViewController ()
 {
@@ -27,7 +28,7 @@
 
 @property (nonatomic, assign) NSInteger curIndex;
 
-- (void)requestInfoList:(NSString *)detailtype withKey:(NSInteger)key;
+- (void)requestInfoList:(NSString *)classify start:(NSString *)start withCompletionHandler:(ListCallback)callback;
 
 @end
 
@@ -45,8 +46,6 @@
 #pragma mark - 添加动态导航目录
 - (void)addDynamicMenu
 {
-    [self requestInfoList:((CodeSheetObject *)[artClassify objectAtIndex:0]).code withKey:0];
-    
     menuScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, MENU_FIXED_HEIGHT)];
     NSInteger menuNum = [artClassify count];
     menuScroll.contentSize = CGSizeMake(menuNum*MENU_FIXED_WIDTH, MENU_FIXED_HEIGHT);
@@ -91,10 +90,80 @@
             [tableView setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
         }
         tableView.backgroundColor = [UIColor clearColor];
+        [self setupRefresh:tableView];
         [_tableArr addObject:tableView];
         [infoScroll addSubview:tableView];
     }
     [self.view addSubview:infoScroll];
+    
+    UITableView *tableView = [_tableArr objectAtIndex:0];
+    [tableView headerBeginRefreshing];
+}
+
+/**
+ *  集成刷新控件
+ */
+- (void)setupRefresh:(UITableView *)tableView
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    [tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
+    
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    [tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+}
+
+#pragma mark 开始进入刷新状态
+- (void)headerRereshing
+{
+    [self requestInfoList:((CodeSheetObject *)[artClassify objectAtIndex:_curIndex]).code start:@"0" withCompletionHandler:^(NSMutableArray *list) {
+        // 1.添加数据
+        NSString *indexKey = [NSString stringWithFormat:@"%d",_curIndex];
+        NSArray *data = [_artListData objectForKey:indexKey];
+        if ([data count] != 0) {
+            [_artListData removeObjectForKey:indexKey];
+        }
+        [_artListData setObject:list forKey:indexKey];
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // 刷新表格
+            UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
+            [tableView reloadData];
+            
+            // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+            [tableView headerEndRefreshing];
+        });
+    }];
+}
+
+- (void)footerRereshing
+{
+    NSString *indexKey = [NSString stringWithFormat:@"%d",_curIndex];
+    NSArray *data = [_artListData objectForKey:indexKey];
+    InfoModel *model = [data lastObject];
+    // 1.添加数据
+    [self requestInfoList:((CodeSheetObject *)[artClassify objectAtIndex:_curIndex]).code start:model.artid withCompletionHandler:^(NSMutableArray *list) {
+        NSMutableArray *classifyArr = [_artListData objectForKey:indexKey];
+        if ([classifyArr count] != 0) {
+            if (loadingMore) {
+                [classifyArr addObjectsFromArray:list];
+            }else{
+                [classifyArr removeAllObjects];
+                [_artListData setObject:list forKey:indexKey];
+            }
+        }else{
+            [_artListData setObject:list forKey:indexKey];
+        }
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
+            [infoScroll scrollRectToVisible:CGRectMake(320*_curIndex, MENU_FIXED_HEIGHT, 320, SCREEN_H - MENU_FIXED_HEIGHT - 64) animated:NO];
+            // 刷新表格
+            [tableView reloadData];
+            
+            // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+            [tableView footerEndRefreshing];
+        });
+    }];
 }
 
 - (void)requestArtClassify
@@ -106,25 +175,11 @@
     }];
 }
 
-- (void)requestInfoList:(NSString *)classify withKey:(NSInteger)key
+- (void)requestInfoList:(NSString *)classify start:(NSString *)start withCompletionHandler:(ListCallback)callback
 {
-    [DataInterface getInfoList:@"2" detailtype:@"1" tag:@"" classify:classify arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getInfoList:@"2" detailtype:@"1" tag:@"" classify:classify arttype:@"" contentlength:@"30" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         NSMutableArray *tmpArr = [ModelGenerator json2InfoList:dict];
-        NSString *indexKey = [NSString stringWithFormat:@"%d",key];
-        NSMutableArray *classifyArr = [_artListData objectForKey:indexKey];
-        if ([classifyArr count] != 0) {
-            if (loadingMore) {
-                [classifyArr addObjectsFromArray:tmpArr];
-            }else{
-                [classifyArr removeAllObjects];
-                [_artListData setObject:tmpArr forKey:indexKey];
-            }
-        }else{
-            [_artListData setObject:tmpArr forKey:indexKey];
-        }
-        UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
-        [infoScroll scrollRectToVisible:CGRectMake(320*key, MENU_FIXED_HEIGHT, 320, SCREEN_H - MENU_FIXED_HEIGHT - 64) animated:NO];
-        [tableView reloadData];
+        callback(tmpArr);
     }];
 }
 
@@ -241,7 +296,8 @@
     NSString *indexKey = [NSString stringWithFormat:@"%d",_curIndex];
     NSArray *data = [_artListData objectForKey:indexKey];
     if ([data count] == 0) {
-        [self requestInfoList:((CodeSheetObject *)[artClassify objectAtIndex:_curIndex]).code withKey:_curIndex];
+        UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
+        [tableView headerBeginRefreshing];
     }
 }
 
