@@ -86,7 +86,6 @@
 		212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A41928DF2C00F738F8 /* ClassificationControll.m */; };
 		212F23A91928DF2C00F738F8 /* MyNavgationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A71928DF2C00F738F8 /* MyNavgationBar.m */; };
 		212F23B31928DF4D00F738F8 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23AD1928DF4D00F738F8 /* InformationViewController.m */; };
-		212F23B41928DF4D00F738F8 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212F23AE1928DF4D00F738F8 /* InformationViewController.xib */; };
 		212F23B51928DF4D00F738F8 /* InformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23B11928DF4D00F738F8 /* InformationCell.m */; };
 		212F23B61928DF4D00F738F8 /* InformationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212F23B21928DF4D00F738F8 /* InformationCell.xib */; };
 		212F240B1928E09A00F738F8 /* bar_transition@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23B91928E09900F738F8 /* bar_transition@2x.png */; };
@@ -577,7 +576,6 @@
 		212F23A71928DF2C00F738F8 /* MyNavgationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavgationBar.m; sourceTree = "<group>"; };
 		212F23AC1928DF4D00F738F8 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		212F23AD1928DF4D00F738F8 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
-		212F23AE1928DF4D00F738F8 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationViewController.xib; sourceTree = "<group>"; };
 		212F23B01928DF4D00F738F8 /* InformationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCell.h; sourceTree = "<group>"; };
 		212F23B11928DF4D00F738F8 /* InformationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCell.m; sourceTree = "<group>"; };
 		212F23B21928DF4D00F738F8 /* InformationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCell.xib; sourceTree = "<group>"; };
@@ -1750,7 +1748,6 @@
 			children = (
 				212F23AC1928DF4D00F738F8 /* InformationViewController.h */,
 				212F23AD1928DF4D00F738F8 /* InformationViewController.m */,
-				212F23AE1928DF4D00F738F8 /* InformationViewController.xib */,
 				21A8941219290BFE00A6DB7E /* InformationDetailController.h */,
 				21A8941319290BFE00A6DB7E /* InformationDetailController.m */,
 				21A8941419290BFE00A6DB7E /* InformationDetailController.xib */,
@@ -2334,7 +2331,6 @@
 			files = (
 				212F243A1928E09A00F738F8 /* details_icon_discuss_highlight@2x.png in Resources */,
 				212F24361928E09A00F738F8 /* hengxian.png in Resources */,
-				212F23B41928DF4D00F738F8 /* InformationViewController.xib in Resources */,
 				212F23B61928DF4D00F738F8 /* InformationCell.xib in Resources */,
 				84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */,
 				21284CCF195F2A120019A4D3 /* MsgSettingController.xib in Resources */,
@@ -2886,7 +2882,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2911,7 +2907,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
