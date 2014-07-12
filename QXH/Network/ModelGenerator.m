@@ -59,6 +59,7 @@
         model.authflag = [list[i] objectForKey:@"authflag"];
         model.browsetime = [list[i] objectForKey:@"browsetime"];
         model.contentlength = [[list[i] objectForKey:@"contentlength"] integerValue];
+        model.type = [list[i] objectForKey:@"type"];
         [array addObject:model];
     }
     return array;
