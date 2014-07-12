@@ -26,6 +26,7 @@
 		210BAEED192A5DB900B8FBCF /* MyVisitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210BAEEC192A5DB900B8FBCF /* MyVisitorCell.xib */; };
 		210BAEF0192A619B00B8FBCF /* MyActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210BAEEF192A619B00B8FBCF /* MyActivityCell.m */; };
 		210BAEF4192A61B800B8FBCF /* MyActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210BAEF3192A61B800B8FBCF /* MyActivityCell.xib */; };
+		211163C41970C18700452B6E /* CustomWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 211163C31970C18700452B6E /* CustomWebView.m */; };
 		2111B1CA1955393800AA5478 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1C91955393800AA5478 /* UILabel+StringFrame.m */; };
 		2111B1CD19553D9100AA5478 /* NSString+LabelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1CC19553D9100AA5478 /* NSString+LabelFrame.m */; };
 		2111B1D019555D9700AA5478 /* InfoCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1CF19555D9700AA5478 /* InfoCommentModel.m */; };
@@ -86,7 +87,6 @@
 		212F23A81928DF2C00F738F8 /* ClassificationControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A41928DF2C00F738F8 /* ClassificationControll.m */; };
 		212F23A91928DF2C00F738F8 /* MyNavgationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23A71928DF2C00F738F8 /* MyNavgationBar.m */; };
 		212F23B31928DF4D00F738F8 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23AD1928DF4D00F738F8 /* InformationViewController.m */; };
-		212F23B41928DF4D00F738F8 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212F23AE1928DF4D00F738F8 /* InformationViewController.xib */; };
 		212F23B51928DF4D00F738F8 /* InformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 212F23B11928DF4D00F738F8 /* InformationCell.m */; };
 		212F23B61928DF4D00F738F8 /* InformationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212F23B21928DF4D00F738F8 /* InformationCell.xib */; };
 		212F240B1928E09A00F738F8 /* bar_transition@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23B91928E09900F738F8 /* bar_transition@2x.png */; };
@@ -468,6 +468,8 @@
 		210BAEEE192A619B00B8FBCF /* MyActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyActivityCell.h; sourceTree = "<group>"; };
 		210BAEEF192A619B00B8FBCF /* MyActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActivityCell.m; sourceTree = "<group>"; };
 		210BAEF3192A61B800B8FBCF /* MyActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyActivityCell.xib; sourceTree = "<group>"; };
+		211163C21970C18700452B6E /* CustomWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomWebView.h; sourceTree = "<group>"; };
+		211163C31970C18700452B6E /* CustomWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomWebView.m; sourceTree = "<group>"; };
 		2111B1C81955393800AA5478 /* UILabel+StringFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+StringFrame.h"; sourceTree = "<group>"; };
 		2111B1C91955393800AA5478 /* UILabel+StringFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+StringFrame.m"; sourceTree = "<group>"; };
 		2111B1CB19553D9100AA5478 /* NSString+LabelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LabelFrame.h"; sourceTree = "<group>"; };
@@ -577,7 +579,6 @@
 		212F23A71928DF2C00F738F8 /* MyNavgationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavgationBar.m; sourceTree = "<group>"; };
 		212F23AC1928DF4D00F738F8 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		212F23AD1928DF4D00F738F8 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
-		212F23AE1928DF4D00F738F8 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationViewController.xib; sourceTree = "<group>"; };
 		212F23B01928DF4D00F738F8 /* InformationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCell.h; sourceTree = "<group>"; };
 		212F23B11928DF4D00F738F8 /* InformationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCell.m; sourceTree = "<group>"; };
 		212F23B21928DF4D00F738F8 /* InformationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCell.xib; sourceTree = "<group>"; };
@@ -1750,7 +1751,6 @@
 			children = (
 				212F23AC1928DF4D00F738F8 /* InformationViewController.h */,
 				212F23AD1928DF4D00F738F8 /* InformationViewController.m */,
-				212F23AE1928DF4D00F738F8 /* InformationViewController.xib */,
 				21A8941219290BFE00A6DB7E /* InformationDetailController.h */,
 				21A8941319290BFE00A6DB7E /* InformationDetailController.m */,
 				21A8941419290BFE00A6DB7E /* InformationDetailController.xib */,
@@ -1773,6 +1773,8 @@
 				21C6D6051950867400467717 /* RecInformationCell.h */,
 				21C6D6061950867400467717 /* RecInformationCell.m */,
 				21C6D6071950867400467717 /* RecInformationCell.xib */,
+				211163C21970C18700452B6E /* CustomWebView.h */,
+				211163C31970C18700452B6E /* CustomWebView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2334,7 +2336,6 @@
 			files = (
 				212F243A1928E09A00F738F8 /* details_icon_discuss_highlight@2x.png in Resources */,
 				212F24361928E09A00F738F8 /* hengxian.png in Resources */,
-				212F23B41928DF4D00F738F8 /* InformationViewController.xib in Resources */,
 				212F23B61928DF4D00F738F8 /* InformationCell.xib in Resources */,
 				84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */,
 				21284CCF195F2A120019A4D3 /* MsgSettingController.xib in Resources */,
@@ -2580,6 +2581,7 @@
 				842D3C91192AF7F100374F04 /* LoginViewController.m in Sources */,
 				84FCA852192CC1D50005295A /* CustomSegmentControl.m in Sources */,
 				21D705C51916A49F004950BF /* SquareCell.m in Sources */,
+				211163C41970C18700452B6E /* CustomWebView.m in Sources */,
 				84BCBBB1195DC4EF00E80075 /* MessageBySend.m in Sources */,
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,
@@ -2886,7 +2888,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2911,7 +2913,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

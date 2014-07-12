@@ -181,7 +181,8 @@
         self.name.text = nameString;
         
         /*1为文本，2为json对象，3为图片，4为录音*/
-        NSString* messtype = [params objectForKey:@"messtype"];
+        NSNumber* amesstype = [params objectForKey:@"messtype"];
+        NSString* messtype = [NSString stringWithFormat:@"%d",[amesstype intValue]];
         if ([messtype isEqualToString:@"1"]) {
             NSString *descString = [params objectForKey:@"mess"];
             self.duty.text = descString;

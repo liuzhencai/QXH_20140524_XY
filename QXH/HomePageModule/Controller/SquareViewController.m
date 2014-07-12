@@ -49,6 +49,9 @@
     self.navigationItem.rightBarButtonItem = righttItem;
     
     self.squareTable.frame = CGRectMake(0, 49, 320, SCREEN_H-49);
+    if (IOS7_OR_LATER) {
+        [self.squareTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
     
     //获取列表
     [self getSquareList];

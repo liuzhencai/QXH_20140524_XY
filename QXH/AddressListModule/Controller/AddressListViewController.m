@@ -121,9 +121,9 @@
 //    NSMutableArray* keys = [chatmessage ]
 //    NSMutableDictionary *messDic = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
     NSMutableDictionary* achatmessage = (NSMutableDictionary*)[chatmessage valueForKey:@"userInfo"];
-//    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
-    NSMutableArray* values = [NSMutableArray arrayWithArray:[achatmessage  allValues]];
-    self.myMessageList = values;
+
+    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
+    _myMessageList = [[NSMutableArray alloc]initWithArray:values];
     [myMessageTable reloadData];
 //
 //    NSLog(@"接受到的信息:%@",auserinfo);
@@ -136,9 +136,9 @@
 {
     NSLog(@"getChatMessInfo\n");
     NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
-//    NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
-    NSMutableArray* values = [NSMutableArray arrayWithArray:[messagedic  allValues]];
-    self.myMessageList = values;
+
+    NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
+    _myMessageList = [[NSMutableArray alloc]initWithArray:values];
     [myMessageTable reloadData];
     //
     //    NSLog(@"接受到的信息:%@",auserinfo);
@@ -329,6 +329,7 @@
     }else if(tableView.tag == MY_MESSAGE_LIST_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
         id objct = [_myMessageList objectAtIndex:indexPath.row];
+        
         if ([objct isKindOfClass:[NSMutableArray class]]) {
             NSMutableArray* temp = (NSMutableArray*)objct;
             NSMutableDictionary* message = (NSMutableDictionary*)[temp lastObject];
@@ -367,7 +368,9 @@
                 [DataInterface getTribeInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
                     /*部落聊天*/
                     ChatRoomController* chatroom = [[ChatRoomController alloc]init];
-                    chatroom.tribeInfoDict = dic;
+                    NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
+                    tempdic[@"tribeid"] = ntribeid;
+                    chatroom.tribeInfoDict = tempdic;
                     [self.navigationController pushViewController:chatroom animated:YES];
                 }];
  
@@ -377,16 +380,10 @@
             messages.messagesList = self.myMessageList;
             [self.navigationController pushViewController:messages animated:YES];
         }
+        
+        /*进入以后去掉该数据*/
+        [_myMessageList removeObject:objct];
 
-//        ChatViewController *chat = [[ChatViewController alloc] init];
-//        [self.navigationController pushViewController:chat animated:YES];
-//        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
-//        NSArray *list = [dict objectForKey:@"list"];
-//        NSDictionary *item = [list objectAtIndex:indexPath.row];
-//        NameCardViewController *nameCard = [[NameCardViewController alloc] init];
-//        nameCard.memberDict = item;
-//        nameCard.isMyFriend = YES;
-//        [self.navigationController pushViewController:nameCard animated:YES];
     }
 }
 
@@ -396,5 +393,8 @@
         [_searchBar resignFirstResponder];
     }
 }
+
+#pragma mark 查看部落聊天私聊接口
+
 
 @end
