@@ -295,5 +295,57 @@ static MessageBySend* ins =nil;
 {
     return unKnowCharMessDic;
 }
+
+#pragma mark 查看部落聊天私聊接口
+-(void)ReceiveAndSeeMessige:(NSString*)messigeid
+                       type:(NSString*)type
+                    tribeid:(NSString*)tribeid
+{
+    /*将服务器状态置为已读*/
+    [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
+        /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
+         statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
+         info:"操作成功",		//客户端可以使用该info进行提示
+         sign:"9aldai9adsf"*/
+        NSLog(@"info==%@",dic[@"info"]);
+        NSString* statecode = dic[@"statecode"];
+//        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
+        if ([statecode isEqualToString:@"0200"]) {
+            if ([tribeid length]) {
+                /*未读消息中移除*/
+                [unKnowCharMessDic removeObjectForKey:tribeid];
+                /*如果是自己发送的就不用发消息刷新界面了*/
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+            }
+        }
+    }];
+}
+
+#pragma mark 登录成功后获取用户离线消息
+/*登录成功后获取用户离线消息*/
+- (void)getOfflineMessage
+{
+    [DataInterface getLoginInfoWithCompletionHandler:^(NSMutableDictionary*backDic){
+        /*
+         opercode:"0140",		//operCode为0140，客户端通过该字段确定事件
+         statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+         info:"获取成功"			//修改成功/失败!
+         official:[			/官方消息(添加好友，部落添加，等消息)
+         {messid:12345,senderid:"123456",sendername:"名字",senderphoto:"1.jpg",sendtype:3,messtype:1,date:"2014-05-17 17:57:11",tribeid:1,tribename:"名字",tribephoto:"123",mess:"消息内容",count:1},
+         {messid:12345,senderid:"123456",sendername:"名字",senderphoto:"1.jpg",sendtype:4,messtype:1,date:"2014-05-17 17:57:11",tribeid:1,tribename:"名字",tribephoto:"123",mess:"消息内容",count:1},
+         {messid:12345,senderid:"123456",sendername:"名字",senderphoto:"1.jpg",sendtype:6,messtype:1,date:"2014-05-17 17:57:11",tribeid:1,tribename:"名字",tribephoto:"123",mess:"消息内容",count:1},
+         ...
+         
+         ]
+         chat:[				//好友聊天，部落聊天
+         {messid:12345,senderid:"123456",sendername:"名字",senderphoto:"1.jpg",sendtype:3,messtype:1,date:"2014-05-17 17:57:11",tribeid:1,tribephoto:"123",mess:"消息内容",count:1},
+         {messid:12345,senderid:"123456",sendername:"名字",senderphoto:"1.jpg",sendtype:4,messtype:1,date:"2014-05-17 17:57:11",tribeid:1,tribephoto:"123",mess:"消息内容",count:1},
+         {messid:12345,senderid:"123456",sendername:"名字",senderphoto:"1.jpg",sendtype:6,messtype:1,date:"2014-05-17 17:57:11",tribeid:1,tribephoto:"123",mess:"消息内容",count:1},
+         ...
+         ]
+         */
+        NSLog(@"backDic");
+    }];
+}
 @end
 

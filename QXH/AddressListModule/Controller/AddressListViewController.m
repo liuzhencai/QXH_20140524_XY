@@ -127,10 +127,7 @@
     NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
     _myMessageList = [[NSMutableArray alloc]initWithArray:values];
     [myMessageTable reloadData];
-//
-//    NSLog(@"接受到的信息:%@",auserinfo);
-//    [self.myMessageList addObject:auserinfo];
-//    [_messageTable reloadData];
+
 }
 
 #pragma mark 主动获取部落聊天或者私聊接口
@@ -431,7 +428,7 @@
     }
 }
 
-#pragma mark 查看部落聊天私聊接口
+
 
 
 @end

@@ -254,6 +254,14 @@ static int scout=0;
 
 }
 
+#pragma mark 界面消失
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_chatInput close];
+    /*把未读消息置为已读*/
+    [self ReceiveAndSeeMessige];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -807,26 +815,19 @@ static int scout=0;
     // preload message into array;
     [_messagesArray addObject:message];
     
-    // add extra cell, and load it into view;
-    NSInteger arow = _messagesArray.count -1;
-    NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
-    [_myCollectionView insertItemsAtIndexPaths:tempArray];
-    
-    // show us the message
-    [self scrollToBottom];
-    
     /*判断是不是自己发送的，自己发送的添加发送状态图片*/
     NSNumber* nkMessageSentBy = (NSNumber*)message[@"senderid"];
     NSString* kMessageSentBy = [NSString stringWithFormat:@"%d",[nkMessageSentBy integerValue]];
     if ([kMessageSentBy isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId] ) {
-        /*如果是自己发送*/
-
+        
         NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
         MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
-
-        /*设置发送状态图片为ok*/
+        /*
+         是本地获取消息
+         设置发送状态图片为ok*/
         if (localMessage ) {
              message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+
             [cell showDate:message];
             return;
         }
@@ -841,7 +842,7 @@ static int scout=0;
         NSString* mess = (NSString*)message[kMessageContent];
         if (mess && ChatRoomId) {
             
-            [DataInterface chat:ChatRoomId sendtype:@"2" mess:mess withCompletionHandler:^(NSMutableDictionary *dict){
+            [DataInterface chatRoomMess:message withCompletionHandler:^(NSMutableDictionary *dict){
                 /*
                  Response:{
                  opercode:"0130",		//operCode为0130，客户端通过该字段确定事件
@@ -850,16 +851,49 @@ static int scout=0;
                  sign:"9aldai9adsf"		//sign请求唯一标识*/
                
                 DebugLog(@"聊天返回==%@",dict);
-                /*设置状态为发送状态图片*/
-                NSString* stata = [dict valueForKey:@"statecode"];
-                if ([stata isEqualToString:@"0200"]) {
-                      message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
-                    
-                    
+                /*判断返回状态的是不是该mess*/
+                NSString* Backsign = dict[@"sign"];
+                NSString* sendsign = (NSString*)message[@"sign"];
+                if ([sendsign isEqual:Backsign] ) {
+                    /*设置状态为发送状态图片*/
+                    NSString* stata = [dict valueForKey:@"statecode"];
+                    if ([stata isEqualToString:@"0200"]) {
+                        message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+                        
+                        
+                    }else{
+                        message[@"SendState"] = [NSNumber numberWithInt:kSentFail];
+                    }
+                    /*返回以后，有messid，加进去messid*/
+                    message[@"messid"] = dict[@"messid"];
+                    [cell showDate:message];
                 }else{
-                      message[@"SendState"] = [NSNumber numberWithInt:kSentFail];
+                    NSMutableDictionary* Temadict = nil;
+                    /*搜索返回消息是第几个*/
+                    for (int i=[_messagesArray count]-1; i>=0; i--) {
+                        Temadict = (NSMutableDictionary*)[_messagesArray objectAtIndex:i];
+                         NSString* amesssend = Temadict[@"sign"];
+                        if ([Backsign isEqualToString:amesssend]) {
+                            
+                            NSIndexPath* aindex =[NSIndexPath indexPathForRow:i inSection:0];
+                            MessageCell* acell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
+                            
+                            /*设置状态为发送状态图片*/
+                            NSString* stata = [dict valueForKey:@"statecode"];
+                            if ([stata isEqualToString:@"0200"]) {
+                                Temadict[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+                                
+                            }else{
+                                Temadict[@"SendState"] = [NSNumber numberWithInt:kSentFail];
+                            }
+                            Temadict[@"messid"] = dict[@"messid"];
+                            [acell showDate:message];
+                            break;
+                        }
+                    }
+    
                 }
-                [cell showDate:message];
+
 //                [self.myCollectionView reloadData];
             }];
         }
@@ -869,6 +903,12 @@ static int scout=0;
 
     }
    
+    // add extra cell, and load it into view;
+    NSInteger arow = _messagesArray.count -1;
+    NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
+    [_myCollectionView insertItemsAtIndexPaths:tempArray];
+    // show us the message
+    [self scrollToBottom];
 }
 
 /*自己发送消息*/
@@ -886,6 +926,11 @@ static int scout=0;
 
     NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
     [message setObject:aroomid forKey:@"tribeid"];
+    [message setObject:[NSString stringWithFormat:@"%d",[aroomid integerValue]] forKey:@"targetid"];
+    /*2,部落聊天*/
+    [message setObject:@"2" forKey:@"sendtype"];
+    /*发送时签名*/
+    [message setObject:[SignGenerator getSign] forKey:@"sign"];
     [message setObject:TimeStamp() forKey:@"date"];
     [message setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
     [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:message andSendtype:[NSNumber numberWithInt:2] ];
@@ -1312,5 +1357,22 @@ static int scout=0;
 //            
 //    }
 //}
+
+#pragma mark 查看消息接口
+-(void)ReceiveAndSeeMessige
+{
+  /*查看接受的消息，服务器置为已读*/
+    /*
+     type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
+     type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
+     当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
+    NSMutableDictionary* amess = [_messagesArray lastObject];
+    NSString* messid = amess[@"messid"];
+    if (messid) {
+        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"2" tribeid:ChatRoomId];
+    }
+
+}
+
 
 @end
