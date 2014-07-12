@@ -49,13 +49,10 @@
     self.title = @"我的收藏";
     [self getInfoList];
     
-    _collectionTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
+    _collectionTable.frame = CGRectMake(0, 0, 320, SCREEN_H);
     if (IOS7_OR_LATER) {
         [_collectionTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
     }
-    
-    _toolbarView.frame = CGRectMake(0, SCREEN_H - 49 - 64, 320, 49);
-    [self.view addSubview:_toolbarView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -208,38 +205,6 @@
             controller.artid = model.artid;
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
-}
-
-- (IBAction)btnClick:(id)sender {
-    UIButton *btn = (UIButton *)sender;
-    switch (btn.tag) {
-        case 1:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"收藏" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
-        }
-            break;
-        case 2:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"赞" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
-        }
-            break;
-        case 3:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"评论" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
-        }
-            break;
-        case 4:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"举报" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
         }
             break;
         default:
