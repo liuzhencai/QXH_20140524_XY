@@ -65,12 +65,16 @@
  2、对方发送私聊
  */
 - (void)addChatRoomMessageByMe:(NSMutableDictionary*)Message andSendtype:(NSNumber*)asendtype;
-
 /*自己私聊时调用*/
 - (void)addChatRoomMessageArray:(NSMutableDictionary*)notif toOtherid:(NSNumber*)otherid;
-
 /*主动获取聊天记录接口*/
 - (NSMutableDictionary*)getunKnowCharMessDic;
+/*查卡系统发送的消息，将聊天记录中消息置为已读*/
+-(void)ReceiveAndSeeMessige:(NSString*)messigeid
+                       type:(NSString*)type
+                    tribeid:(NSString*)tribeid;
+/*登录成功后获取用户离线消息*/
+- (void)getOfflineMessage;
 @end
 
 

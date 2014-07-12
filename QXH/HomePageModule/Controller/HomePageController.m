@@ -100,8 +100,6 @@
     NSString *passward = [defaults objectForKey:@"passworld"];
     [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
         //登录成功后保存用户名和密码
-//        [defaults setObject:self.nameField.text forKey:USER_NAME];
-//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
         [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
         [defaults setObject:@NO forKey:@"isNewMember"];
         NSDate *date = [NSDate date];
@@ -127,6 +125,7 @@
         
         /*获取系统消息*/
            [MessageBySend sharMessageBySend];
+        [[MessageBySend sharMessageBySend]getOfflineMessage];
     }];
 }
 

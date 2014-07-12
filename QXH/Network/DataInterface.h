@@ -522,13 +522,28 @@ withCompletionHandler:(DictCallback)callback;
         mess:(NSString *)mess
 withCompletionHandler:(DictCallback)callback;
 
+/*
+ 新加
+ 部落聊天接口
+ */
++ (void)chatRoomMess:(NSMutableDictionary *)mess
+withCompletionHandler:(DictCallback)callback;
 /**
  *  客户端发送收到消息/通知（此时服务器端更新消息状态，将消息设置为已读）
- *
+ *	opercode:"0132",
+ userid:"1234565",		//用户唯一标识
+ token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+ type:1,				//1为用户私聊,2为部落聊天
+ tribeid:"12345",		//部落id(type=2时读取该字段)
+ messids:"123456,23456",		//消息唯一标识符,多个消息以逗号隔开
+ sign:"9aldai9adsf"		//sign请求唯一标识
  *  @param messids  消息唯一标识符,多个消息以逗号隔开
  *  @param callback 回调
  */
-+ (void)recvMessage:(NSString *)messids withCompletionHandler:(DictCallback)callback;
++ (void)recvMessage:(NSString *)messids
+            tribeid:(NSString*)tribeid
+               type:(NSString*)type
+withCompletionHandler:(DictCallback)callback;
 
 /**
  *  获取聊天记录信息
