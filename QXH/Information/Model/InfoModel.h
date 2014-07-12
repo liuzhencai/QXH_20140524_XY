@@ -10,6 +10,8 @@
 
 @interface InfoModel : NSObject
 
+@property (nonatomic,  copy) NSString *type;
+
 @property (nonatomic, copy) NSString *artid;
 
 @property (nonatomic, copy) NSString *sid;
