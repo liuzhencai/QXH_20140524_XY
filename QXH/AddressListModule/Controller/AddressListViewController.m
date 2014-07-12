@@ -89,7 +89,7 @@
     addressListTable.tableHeaderView = self.searchBar;
     
     //暂时屏蔽
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
     
     /*系统推送聊天接口*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatMessInfo:) name:@"reloadeChatMessInfo" object:nil];
@@ -121,7 +121,8 @@
 //    NSMutableArray* keys = [chatmessage ]
 //    NSMutableDictionary *messDic = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
     NSMutableDictionary* achatmessage = (NSMutableDictionary*)[chatmessage valueForKey:@"userInfo"];
-    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
+//    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
+    NSMutableArray* values = [NSMutableArray arrayWithArray:[achatmessage  allValues]];
     self.myMessageList = values;
     [myMessageTable reloadData];
 //
@@ -135,7 +136,8 @@
 {
     NSLog(@"getChatMessInfo\n");
     NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
-    NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
+//    NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
+    NSMutableArray* values = [NSMutableArray arrayWithArray:[messagedic  allValues]];
     self.myMessageList = values;
     [myMessageTable reloadData];
     //
