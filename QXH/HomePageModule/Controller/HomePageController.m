@@ -21,15 +21,18 @@
 #import "LoginViewController.h"
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
+#import "GuideView.h"
 //#import "PullRefreshTableViewController.h"
 
 
-@interface HomePageController ()<LoginDelegate>
+@interface HomePageController ()<LoginDelegate,GuideViewDelegate>
 {
     NSArray *pics;
 }
 
 @end
+
+#define FIRST_LAUNCH @"isFirstLaunch"
 
 @implementation HomePageController
 
@@ -51,10 +54,16 @@
     pics = @[@"banner_img02", @"banner_img01"];
     _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
     [self addTopImage];
-    NSString *string = [self cityNameWithCode:@"110102"];
-    NSLog(@"%@",string);
     
     if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
+        //guide
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH]) {
+            GuideView *guide = [[GuideView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+            guide.delegate = self;
+            UIView *windowView = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController].view;
+            [windowView addSubview:guide];
+        }
+        //login
         LoginViewController* login = [[LoginViewController alloc]init];
         login.delegate = self;
         UINavigationController *loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
@@ -273,5 +282,16 @@
 //    [chatController addNewMessage:message];
 //}
 
-
+#pragma mark - GuideViewDelegate
+- (void)guideDidFinish:(GuideView *)guide{
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_LAUNCH];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (guide) {
+        [UIView animateWithDuration:0.3 animations:^{
+            guide.alpha = 0.0;
+        } completion:^(BOOL finish){
+            [guide removeFromSuperview];
+        }];
+    }
+}
 @end

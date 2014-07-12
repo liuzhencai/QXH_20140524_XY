@@ -26,7 +26,7 @@
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *addressList;//通讯录列表
 @property (nonatomic, strong) NSMutableArray *myMessageList;//我的消息列表
-
+@property (nonatomic, strong) UILabel *tipLabel;
 @end
 
 #define ADDRESS_LIST_TABLE_TAG 2330  //通讯录tag
@@ -67,6 +67,17 @@
     segment.delegate = self;
     [self.view addSubview:segment];
     
+    UILabel *tipCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 5, 20, 20)];
+    tipCountLabel.layer.cornerRadius = tipCountLabel.width/2.0;
+    self.tipLabel = tipCountLabel;
+    tipCountLabel.font = [UIFont systemFontOfSize:12];
+    tipCountLabel.textAlignment = NSTextAlignmentCenter;
+    tipCountLabel.textColor = [UIColor whiteColor];
+    tipCountLabel.text = @"5";
+    tipCountLabel.backgroundColor = [UIColor redColor];
+    [segment addSubview:tipCountLabel];
+    [self resetTipLabelWithMessage:self.myMessageList];
+    
     //table
     myMessageTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
     myMessageTable.tag = MY_MESSAGE_LIST_TABLE_TAG;
@@ -103,15 +114,37 @@
 //    [self getAddressList];
 }
 
+- (void)resetTipLabelWithMessage:(NSMutableArray *)messagesList{
+    int count = 0;
+    for (int i = 0; i < [messagesList count]; i ++) {
+        NSArray *list = [messagesList objectAtIndex:i];
+        count += [list count];
+    }
+    if (count == 0) {
+        self.tipLabel.hidden = YES;
+        self.tipLabel.text = @"0";//[NSString stringWithFormat:@"%d",count];
+    }else{
+        self.tipLabel.hidden = NO;
+        if (count > 99) {
+            self.tipLabel.text = [NSString stringWithFormat:@"99+"];
+        }else{
+            self.tipLabel.text = [NSString stringWithFormat:@"%d",count];
+        }
+    }
+}
+
 #pragma mark 获取到推送消息
 - (void)reloadMessage:(NSNotification*)chatmessage
 {
-    NSLog(@"reloadeChatRoom");
+    NSLog(@"addFirend");
     NSMutableDictionary *auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-    
     NSLog(@"接受到的信息:%@",auserinfo);
-    [self.myMessageList addObject:auserinfo];
+//    [self.myMessageList addObject:auserinfo];
+//    [_messageTable reloadData];
+    
+    NSMutableArray *systemArr = [[NSMutableArray alloc] initWithArray:[auserinfo allValues]];
+    self.myMessageList = systemArr;
+    [self resetTipLabelWithMessage:self.myMessageList];
     [_messageTable reloadData];
 }
 
@@ -125,7 +158,10 @@
     NSMutableDictionary* achatmessage = (NSMutableDictionary*)[chatmessage valueForKey:@"userInfo"];
 
     NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
-    _myMessageList = [[NSMutableArray alloc]initWithArray:values];
+    NSLog(@"%@",values);
+    
+    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+    [self resetTipLabelWithMessage:_myMessageList];
     [myMessageTable reloadData];
 
 }
@@ -137,8 +173,12 @@
     NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
 
     NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
-    _myMessageList = [[NSMutableArray alloc]initWithArray:values];
-    [myMessageTable reloadData];
+    if ([values count]) {
+        self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+        [self resetTipLabelWithMessage:self.myMessageList];
+        [myMessageTable reloadData];
+    }
+
     //
     //    NSLog(@"接受到的信息:%@",auserinfo);
     //    [self.myMessageList addObject:auserinfo];
@@ -373,15 +413,21 @@
                     [self.navigationController pushViewController:chatroom animated:YES];
                 }];
  
+            }else{
+                MessagesViewController *messages = [[MessagesViewController alloc] init];
+                //            messages.messagesList = [self.myMessageList copy];
+                messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
+                [self.navigationController pushViewController:messages animated:YES];
             }
         }else{
-            MessagesViewController *messages = [[MessagesViewController alloc] init];
-            messages.messagesList = self.myMessageList;
-            [self.navigationController pushViewController:messages animated:YES];
+//            MessagesViewController *messages = [[MessagesViewController alloc] init];
+////            messages.messagesList = [self.myMessageList copy];
+//            messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
+//            [self.navigationController pushViewController:messages animated:YES];
         }
         
         /*进入以后去掉该数据*/
-        [_myMessageList removeObject:objct];
+//        [_myMessageList removeObject:objct];
 
     }
 }

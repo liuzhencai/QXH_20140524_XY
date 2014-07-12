@@ -315,6 +315,13 @@
 		5891047119717B9500533F16 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5891046B19717B9500533F16 /* icon_120@2x.png */; };
 		5891047219717B9500533F16 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5891046C19717B9500533F16 /* icon.png */; };
 		5891047319717B9500533F16 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5891046D19717B9500533F16 /* icon@2x.png */; };
+		589104761971865C00533F16 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 589104751971865C00533F16 /* GuideView.m */; };
+		5891047C1971898D00533F16 /* guide1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 589104781971898D00533F16 /* guide1@2x.jpg */; };
+		5891047D1971898D00533F16 /* guide2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 589104791971898D00533F16 /* guide2@2x.jpg */; };
+		5891047E1971898D00533F16 /* guide3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5891047A1971898D00533F16 /* guide3@2x.jpg */; };
+		5891047F1971898D00533F16 /* guide4@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5891047B1971898D00533F16 /* guide4@2x.jpg */; };
+		589104821971AB5800533F16 /* ConstitutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 589104811971AB5800533F16 /* ConstitutionViewController.m */; };
+		589104851971AD5600533F16 /* 强学会章程.docx in Resources */ = {isa = PBXBuildFile; fileRef = 589104841971AD5600533F16 /* 强学会章程.docx */; };
 		58979DBF196AE80A00B945BF /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58979DBE196AE80A00B945BF /* provincesAndCitys.plist */; };
 		58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58979DC1196AFDE200B945BF /* SelectCityViewController.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
@@ -930,6 +937,15 @@
 		5891046B19717B9500533F16 /* icon_120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_120@2x.png"; sourceTree = "<group>"; };
 		5891046C19717B9500533F16 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		5891046D19717B9500533F16 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		589104741971865C00533F16 /* GuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideView.h; sourceTree = "<group>"; };
+		589104751971865C00533F16 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
+		589104781971898D00533F16 /* guide1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide1@2x.jpg"; sourceTree = "<group>"; };
+		589104791971898D00533F16 /* guide2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide2@2x.jpg"; sourceTree = "<group>"; };
+		5891047A1971898D00533F16 /* guide3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide3@2x.jpg"; sourceTree = "<group>"; };
+		5891047B1971898D00533F16 /* guide4@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide4@2x.jpg"; sourceTree = "<group>"; };
+		589104801971AB5800533F16 /* ConstitutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstitutionViewController.h; sourceTree = "<group>"; };
+		589104811971AB5800533F16 /* ConstitutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstitutionViewController.m; sourceTree = "<group>"; };
+		589104841971AD5600533F16 /* 强学会章程.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "强学会章程.docx"; sourceTree = "<group>"; };
 		58979DBE196AE80A00B945BF /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
 		58979DC0196AFDE200B945BF /* SelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityViewController.h; sourceTree = "<group>"; };
 		58979DC1196AFDE200B945BF /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
@@ -1664,6 +1680,8 @@
 				58979DC1196AFDE200B945BF /* SelectCityViewController.m */,
 				5839E438196C3F4C00326270 /* MessagesViewController.h */,
 				5839E439196C3F4C00326270 /* MessagesViewController.m */,
+				589104801971AB5800533F16 /* ConstitutionViewController.h */,
+				589104811971AB5800533F16 /* ConstitutionViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1736,6 +1754,7 @@
 				84AB9248192B3FD80000101A /* cityList.plist */,
 				58EEDABF1958549E007E2FA2 /* citysList.plist */,
 				58979DBE196AE80A00B945BF /* provincesAndCitys.plist */,
+				589104841971AD5600533F16 /* 强学会章程.docx */,
 				842D3C94192AF8E600374F04 /* UIViewAdditions.h */,
 				842D3C95192AF8E600374F04 /* UIViewAdditions.m */,
 				212F23A31928DF2C00F738F8 /* ClassificationControll.h */,
@@ -1799,6 +1818,7 @@
 		212F23B71928E07400F738F8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				589104771971897D00533F16 /* guides */,
 				5891046719717B8200533F16 /* iocns */,
 				848426B4192E185B00C9474A /* home page */,
 				848426CB192E185B00C9474A /* share */,
@@ -2106,6 +2126,17 @@
 			name = iocns;
 			sourceTree = "<group>";
 		};
+		589104771971897D00533F16 /* guides */ = {
+			isa = PBXGroup;
+			children = (
+				589104781971898D00533F16 /* guide1@2x.jpg */,
+				589104791971898D00533F16 /* guide2@2x.jpg */,
+				5891047A1971898D00533F16 /* guide3@2x.jpg */,
+				5891047B1971898D00533F16 /* guide4@2x.jpg */,
+			);
+			name = guides;
+			sourceTree = "<group>";
+		};
 		58B1DEA1192B97EF00086C38 /* addImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -2231,6 +2262,8 @@
 				84FCA851192CC1D50005295A /* CustomSegmentControl.m */,
 				88347ECC1935D6F100D60193 /* DatePickerView.h */,
 				88347ECD1935D6F100D60193 /* DatePickerView.m */,
+				589104741971865C00533F16 /* GuideView.h */,
+				589104751971865C00533F16 /* GuideView.m */,
 			);
 			path = "自定义控件";
 			sourceTree = "<group>";
@@ -2390,9 +2423,11 @@
 				21D7058019169169004950BF /* PersonalInfoController.xib in Resources */,
 				848426DD192E185B00C9474A /* icon_buluo@2x.png in Resources */,
 				848426E3192E185B00C9474A /* icon_zhibo@2x.png in Resources */,
+				5891047C1971898D00533F16 /* guide1@2x.jpg in Resources */,
 				84BCBBAE195DBA7700E80075 /* msg_state_sending.png in Resources */,
 				5891046E19717B9500533F16 /* icon_29.png in Resources */,
 				212F24341928E09A00F738F8 /* btn_submit_highlight@2x.png in Resources */,
+				589104851971AD5600533F16 /* 强学会章程.docx in Resources */,
 				212F24551928E09A00F738F8 /* list_arrow_right_green@2x.png in Resources */,
 				84F0660C192B2F1100B09AB5 /* License in Resources */,
 				210BAEDE192A5B3E00B8FBCF /* MyVisitorController.xib in Resources */,
@@ -2467,6 +2502,7 @@
 				848426AE192E0F2B00C9474A /* tribe_btn_nextstep_normal@2x.png in Resources */,
 				848426DA192E185B00C9474A /* bootom_icon_contacts@2x.png in Resources */,
 				848426ED192E185B00C9474A /* square_share_btn_@who_highlight@2x.png in Resources */,
+				5891047E1971898D00533F16 /* guide3@2x.jpg in Resources */,
 				8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */,
 				212F24411928E09A00F738F8 /* details_icon_share_normal@2x.png in Resources */,
 				2192EC0B191BD73700A8FE7F /* CityViewController.xib in Resources */,
@@ -2476,6 +2512,7 @@
 				212F24141928E09A00F738F8 /* icon_place@2x.png in Resources */,
 				58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */,
 				848426AF192E0F2B00C9474A /* tribe_icon_establish_highlight@2x.png in Resources */,
+				5891047F1971898D00533F16 /* guide4@2x.jpg in Resources */,
 				848426E2192E185B00C9474A /* icon_zhaoren@2x.png in Resources */,
 				212F240E1928E09A00F738F8 /* btn_enroll_normal@2x.png in Resources */,
 				848426AB192E0F2B00C9474A /* tribe_btn_add_highlight@2x.png in Resources */,
@@ -2524,6 +2561,7 @@
 				848426DF192E185B00C9474A /* icon_huodong@2x.png in Resources */,
 				848426AD192E0F2B00C9474A /* tribe_btn_nextstep_highlight@2x.png in Resources */,
 				848426EA192E185B00C9474A /* collect_img_share@2x.png in Resources */,
+				5891047D1971898D00533F16 /* guide2@2x.jpg in Resources */,
 				845343D919685E9A00F51B49 /* PullRefreshTableViewController.xib in Resources */,
 				21A893FD1928ECD300A6DB7E /* SquareShareController.xib in Resources */,
 				5891047319717B9500533F16 /* icon@2x.png in Resources */,
@@ -2635,6 +2673,7 @@
 				21D7059819169674004950BF /* EverydayAskController.m in Sources */,
 				84F06609192B2F1100B09AB5 /* ChatRoomController.m in Sources */,
 				5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */,
+				589104821971AB5800533F16 /* ConstitutionViewController.m in Sources */,
 				21284CCE195F2A120019A4D3 /* MsgSettingController.m in Sources */,
 				88EE4F2419341DF000734AE1 /* TribeInfoModel.m in Sources */,
 				2119EF00191682EC007DBE68 /* SDWebImageManager.m in Sources */,
@@ -2725,6 +2764,7 @@
 				2192EC32191BD90100A8FE7F /* PhoneViewController.m in Sources */,
 				2119EF06191682EC007DBE68 /* UIImageView+WebCache.m in Sources */,
 				2192EC23191BD88600A8FE7F /* StudyExperienceController.m in Sources */,
+				589104761971865C00533F16 /* GuideView.m in Sources */,
 				2119EF01191682EC007DBE68 /* SDWebImagePrefetcher.m in Sources */,
 				21D705BB19169C84004950BF /* CharacterListController.m in Sources */,
 				842D3C90192AF7F100374F04 /* FillNameCardViewController.m in Sources */,
@@ -2926,7 +2966,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2951,7 +2991,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

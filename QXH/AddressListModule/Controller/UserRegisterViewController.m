@@ -15,6 +15,7 @@
 #import "PersonalInfoController.h"
 //#import "EditUserInfoViewController.h"
 #import "EditCardController.h"
+#import "ConstitutionViewController.h"
 
 @interface UserRegisterViewController ()<UITextFieldDelegate>
 @property (nonatomic, assign) BOOL isAgreeConvention;//是否同意公约
@@ -154,6 +155,8 @@
 //查看会员公约
 - (void)checkConvention:(UIButton *)sender{
     NSLog(@"查看");
+    ConstitutionViewController *constitution = [[ConstitutionViewController alloc] init];
+    [self.navigationController pushViewController:constitution animated:YES];
     
 }
 

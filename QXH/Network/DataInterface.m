@@ -36,6 +36,12 @@
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########用户登陆出错##########\n[原 因]:%@\n#############################\n",data);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:data
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
     }];
 }
 
