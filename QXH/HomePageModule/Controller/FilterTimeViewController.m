@@ -50,7 +50,7 @@
     [selectBtn setBackgroundImage:[UIImage imageNamed:@"btn_screening_normal"] forState:UIControlStateNormal];
     [selectBtn setBackgroundImage:[UIImage imageNamed:@"btn_screening_highlight"] forState:UIControlStateHighlighted];
     [selectBtn addTarget:self action:@selector(beginSelect:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:selectBtn];
+//    [self.view addSubview:selectBtn];
 }
 
 - (void)didReceiveMemoryWarning

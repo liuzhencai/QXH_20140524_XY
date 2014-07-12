@@ -19,8 +19,9 @@
 #import "MessagesViewController.h"
 #import "ChatController.h"
 #import "ChatRoomController.h"
+#import "FindAddressResultViewController.h"
 
-@interface AddressListViewController ()<CustomSegmentControlDelegate>
+@interface AddressListViewController ()<CustomSegmentControlDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) UITableView *messageTable;
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *addressList;//通讯录列表
@@ -86,6 +87,7 @@
     self.searchBar.placeholder = @"输入名字查找朋友";
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchBar.delegate = self;
     addressListTable.tableHeaderView = self.searchBar;
     
     //暂时屏蔽
@@ -385,6 +387,41 @@
         [_myMessageList removeObject:objct];
 
     }
+}
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSLog(@"搜索");
+    /**
+     *  获取好友(通讯录)/查找用户列表公用接口
+     *
+     *  @param type        1为获取好友列表，2为搜索
+     *  @param address     籍贯编码
+     *  @param domicile    居住地编码
+     *  @param displayname 昵称
+     *  @param usertype    用户类型,为空时不区分类型
+     *  @param start       起始位置
+     *  @param count       获取数量
+     *  @param callback    回调
+     */
+    
+    [DataInterface getFriendInfo:@"1"
+                         address:@""
+                        domicile:@""
+                     displayname:searchBar.text
+                        usertype:@""
+                           start:@"0"
+                           count:@"100"
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"通讯录列表返回数据：%@",dict);
+               
+               if (dict) {
+                   NSArray *list = [dict objectForKey:@"lists"];
+                   FindAddressResultViewController *findAddressResult = [[FindAddressResultViewController alloc] init];
+                   findAddressResult.membersList = [NSMutableArray arrayWithArray:list];
+                   [self.navigationController pushViewController:findAddressResult animated:YES];
+               }
+           }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

@@ -128,6 +128,7 @@ static MessageBySend* ins =nil;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         if (![tempSenderId isEqualToString:meid]) {
+            
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
         }

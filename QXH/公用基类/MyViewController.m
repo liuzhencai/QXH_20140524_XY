@@ -108,6 +108,34 @@
    
 }
 
+- (NSString *)cityNameWithCode:(NSString *)code{
+    if ([code length]) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"provincesAndCitys" ofType:@"plist"];
+        NSArray *provList = [[NSArray alloc] initWithContentsOfFile:path];
+        NSString *codeSubStr = [code substringToIndex:3];
+        for (int i = 0; i < [provList count]; i ++) {
+            NSDictionary *provDict = [provList objectAtIndex:i];
+            NSString *provinceId = [provDict objectForKey:@"provinceid"];
+            NSString *provSubStr = [provinceId substringToIndex:3];
+            if ([codeSubStr isEqualToString:provSubStr]) {
+                NSArray *cityList = [provDict objectForKey:@"citysList"];
+                for (int j = 0; j < [cityList count]; j ++) {
+                    NSDictionary *cityDict = [cityList objectAtIndex:j];
+                    NSString *cityId = [cityDict objectForKey:@"cityid"];
+                    if ([cityId isEqualToString:code]) {
+                        NSString *provinceName = [provDict objectForKey:@"province"];
+                        provinceName = [provinceName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        NSString *cityName = [cityDict objectForKey:@"city"];
+                        NSString *returnString = [NSString stringWithFormat:@"%@%@",provinceName,cityName];
+                        return returnString;
+                    }
+                }
+            }
+        }
+    }
+    return @"";
+}
+
 - (void)showAlert:(NSString *)msg{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
                                                     message:msg

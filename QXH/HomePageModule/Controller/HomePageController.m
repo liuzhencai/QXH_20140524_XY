@@ -51,6 +51,8 @@
     pics = @[@"banner_img02", @"banner_img01"];
     _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
     [self addTopImage];
+    NSString *string = [self cityNameWithCode:@"110102"];
+    NSLog(@"%@",string);
     
     if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
         LoginViewController* login = [[LoginViewController alloc]init];
