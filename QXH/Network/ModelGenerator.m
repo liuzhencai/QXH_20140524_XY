@@ -156,6 +156,7 @@
         SquareInfo *info = [[SquareInfo alloc] init];
         NSDictionary *subDict = [list[i] objectForKey:@"content"];
         switch ([[list[i] objectForKey:@"type"] integerValue]) {
+            case 0:
             case 1:
             case 2:
             case 4:

@@ -17,11 +17,15 @@
 #import "HistoryReviewController.h"
 #import "SquareActivityCell.h"
 #import "ActivityDetailViewController.h"
+#import "MJRefresh.h"
 
 @interface SquareViewController ()
 {
+    UIScrollView *infoScroll;
     NSMutableArray *squareInfoList;
+    NSMutableArray *hotestInfoList;
 }
+@property (nonatomic, assign)     NSInteger curIndex;
 @end
 
 @implementation SquareViewController
@@ -41,6 +45,11 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"广场";
     
+    _curIndex = 1;
+    
+    squareInfoList = [[NSMutableArray alloc] init];
+    hotestInfoList = [[NSMutableArray alloc] init];
+    
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
     [righttbuttonItem setTitle:@"发布" forState:UIControlStateNormal];
@@ -48,19 +57,39 @@
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
     self.navigationItem.rightBarButtonItem = righttItem;
     
-    self.squareTable.frame = CGRectMake(0, 49, 320, SCREEN_H-49);
+    infoScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 51, 320, SCREEN_H-51)];
+    infoScroll.pagingEnabled = YES;
+    infoScroll.delegate = self;
+    infoScroll.showsHorizontalScrollIndicator = NO;
+    infoScroll.contentSize = CGSizeMake(640, infoScroll.bounds.size.height);
+    self.squareTable.frame = CGRectMake(0, 0, 320, SCREEN_H-102);
     if (IOS7_OR_LATER) {
         [self.squareTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
     }
-    
-    //获取列表
-    [self getSquareList];
+    self.hotestTable.frame = CGRectMake(320, 0, 320, SCREEN_H-102);
+    if (IOS7_OR_LATER) {
+        [self.hotestTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
+    [self setupRefresh:_squareTable];
+    [_squareTable headerBeginRefreshing];
+    [self setupRefresh:_hotestTable];
+    [_hotestTable headerBeginRefreshing];
+    [infoScroll addSubview:_squareTable];
+    [infoScroll addSubview:_hotestTable];
+    [self.view addSubview:infoScroll];
 }
 
-- (void)getSquareList{
-    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:@"0" count:@"50" withCompletionHandler:^(NSMutableDictionary *dict) {
-        squareInfoList = [ModelGenerator json2SquareList:dict];
-        [_squareTable reloadData];
+- (void)getHotestListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
+{
+    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        callback([ModelGenerator json2SquareList:dict]);
+    }];
+}
+
+- (void)getSquareListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
+{
+    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        callback([ModelGenerator json2SquareList:dict]);
     }];
 }
 
@@ -78,34 +107,140 @@
     // Dispose of any resources that can be recreated.
 }
 
+/**
+ *  集成刷新控件
+ */
+- (void)setupRefresh:(UITableView *)tableView
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    [tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
+    
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    [tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+}
+
+#pragma mark 开始进入刷新状态
+- (void)headerRereshing
+{
+    switch (_curIndex) {
+        case 1:
+        {
+            [self getSquareListWithStart:@"0" withCompletionHandler:^(NSMutableArray *list) {
+                // 1.添加数据
+                if ([squareInfoList count]!=0) {
+                    [squareInfoList removeAllObjects];
+                }
+                [squareInfoList addObjectsFromArray:list];
+                // 2.2秒后刷新表格UI
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    // 刷新表格
+                    [_squareTable reloadData];
+                    
+                    // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+                    [_squareTable headerEndRefreshing];
+                });
+
+            }];
+        }
+            break;
+        case 2:
+        {
+            [self getHotestListWithStart:@"0" withCompletionHandler:^(NSMutableArray *list) {
+                // 1.添加数据
+                if ([hotestInfoList count]!=0) {
+                    [hotestInfoList removeAllObjects];
+                }
+                [hotestInfoList addObjectsFromArray:list];
+                // 2.2秒后刷新表格UI
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    // 刷新表格
+                    [_hotestTable reloadData];
+                    // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+                    [_hotestTable headerEndRefreshing];
+                });
+
+            }];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)footerRereshing
+{
+    switch (_curIndex) {
+        case 1:
+        {
+            // 1.添加数据
+            SquareInfo *model = [squareInfoList lastObject];
+            InfoModel *tmpModel = (InfoModel *)model.content;
+            [self getSquareListWithStart:tmpModel.artid withCompletionHandler:^(NSMutableArray *list) {
+                [squareInfoList addObjectsFromArray:list] ;
+                // 2.2秒后刷新表格UI
+                // 2.2秒后刷新表格UI
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [infoScroll scrollRectToVisible:CGRectMake(0, 51, 320, infoScroll.bounds.size.height) animated:NO];
+                    // 刷新表格
+                    [_squareTable reloadData];
+                    
+                    // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+                    [_squareTable footerEndRefreshing];
+                });
+            }];
+        }
+            break;
+        case 2:
+        {
+            SquareInfo *model = [squareInfoList lastObject];
+            InfoModel *tmpModel = (InfoModel *)model.content;
+            // 1.添加数据
+            [self getHotestListWithStart:tmpModel.artid withCompletionHandler:^(NSMutableArray *list) {
+                [hotestInfoList addObjectsFromArray:list] ;
+                // 2.2秒后刷新表格UI
+                // 2.2秒后刷新表格UI
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [infoScroll scrollRectToVisible:CGRectMake(320, 51, 320, infoScroll.bounds.size.height) animated:NO];
+                    // 刷新表格
+                    [_hotestTable reloadData];
+                    
+                    // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+                    [_hotestTable footerEndRefreshing];
+                });
+            }];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 - (UITableViewCell *)loadTblData:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
-    SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
+    SquareInfo *model = nil;
+    if (_curIndex == 1) {
+        model = [squareInfoList objectAtIndex:indexPath.row];
+    }else{
+        model = [hotestInfoList objectAtIndex:indexPath.row];
+    }
 
-    UITableViewCell *cell = nil;
-    /**
-     *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
-     */
+    UITableViewCell *cell;
     switch (model.type) {
-            /**
-             *  广场发布的文章
-             */
         case 1:
         {
             InfoModel *tmpModel = (InfoModel *)model.content;
             NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
-                static NSString *cellIdentifier = @"squareCell";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                if (cell==nil) {
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                }
-                [(SquareCell *)cell setCellData:model];
+            static NSString *cellIdentifier = @"squareCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell==nil) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareCell *)cell setCellData:model];
         }
             break;
-            /**
-             *  转发到广场的咨询
-             */
         case 2:
         {
             static NSString *cellIdentifier = @"squareCellEx";
@@ -117,9 +252,6 @@
             [(SquareCellEx *)cell setCellData:model];
         }
             break;
-            /**
-             *  转发到广场的活动
-             */
         case 3:
         {
             static NSString *cellIdentifier = @"squareActivityCell";
@@ -131,9 +263,6 @@
             [(SquareActivityCell *)cell setCellData:model];
         }
             break;
-            /**
-             *  每日一问
-             */
         case 4:
         {
             static NSString *cellIdentifier = @"SquareAskCell";
@@ -145,9 +274,6 @@
             [(SquareAskCell *)cell setCellData:model];
         }
             break;
-            /**
-             *  转评到广场的广场文章
-             */
         case 5:
         {
             static NSString *cellIdentifier = @"SquareTransmitCell";
@@ -166,53 +292,43 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [squareInfoList count];
+    if (_curIndex == 1) {
+        return [squareInfoList count];
+    }
+    return [hotestInfoList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat rowHeight = 0.f;
-    SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
-    InfoModel *tmpModel = (InfoModel *)model.content;
-    if (YES) {
-        switch (model.type) {
-                /**
-                 *  广场文章
-                 */
-            case 1:
-                if ([tmpModel.artimgs isEqualToString:@""]) {
-                    rowHeight = 100.f;
-                }else{
-                    rowHeight = 162.f;
-                }
-                break;
-                /**
-                 *  转发到广场的咨询
-                 */
-            case 2:
-                rowHeight = 162.f;
-                break;
-                /**
-                 *  转发到广场的活动
-                 */
-            case 3:
-                rowHeight = 201.f;
-                break;
-                /**
-                 *  每日一问
-                 */
-            case 4:
-                rowHeight = 82.f;
-                break;
-            case 5:
-                rowHeight = 44.f;
-                break;
-            default:
-                break;
-        }
+    SquareInfo *model = nil;
+    if (_curIndex == 1) {
+            model = [squareInfoList objectAtIndex:indexPath.row];
     }else{
-        
+        model = [hotestInfoList objectAtIndex:indexPath.row];
     }
+    InfoModel *tmpModel = (InfoModel *)model.content;
+    switch (model.type) {
+        case 1:
+            if ([tmpModel.artimgs isEqualToString:@""]) {
+                rowHeight = 100.f;
+            }else{
+                rowHeight = 162.f;
+            }
+            break;
+        case 2:
+            rowHeight = 162.f;
+            break;
+        case 3:
+            rowHeight = 201.f;
+            break;
+        case 4:
+            rowHeight = 82.f;
+            break;
+        default:
+            break;
+    }
+    NSLog(@"第%d行   高度--->%f", indexPath.row, rowHeight);
     return rowHeight;
 }
 
@@ -265,17 +381,26 @@
     [UIView setAnimationDuration:.25f];
     _slipbar.frame = CGRectMake((btn.tag - 1)*160, 49, 160, 2);
     [UIView commitAnimations];
+    _curIndex = btn.tag;
     switch (btn.tag) {
         case 1:
         {
             [_lastestBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
             [_hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [infoScroll scrollRectToVisible:CGRectMake(0, 51, 320, infoScroll.bounds.size.height) animated:NO];
+            if ([squareInfoList count] == 0) {
+                [_squareTable headerBeginRefreshing];
+            }
         }
             break;
         case 2:
         {
             [_lastestBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_hotBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+            [infoScroll scrollRectToVisible:CGRectMake(320, 51, 320, infoScroll.bounds.size.height) animated:NO];
+            if ([hotestInfoList count] == 0) {
+                [_hotestTable headerBeginRefreshing];
+            }
         }
             break;
         default:
@@ -287,6 +412,30 @@
     HistoryReviewController *controller = [[HistoryReviewController alloc] initWithNibName:@"HistoryReviewController" bundle:nil];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == infoScroll) {
+        _curIndex = (NSInteger)scrollView.contentOffset.x/320;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:.25f];
+        _slipbar.frame = CGRectMake(_curIndex*160, 49, 160, 2);
+        [UIView commitAnimations];
+        if (_curIndex == 1) {
+            [_lastestBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+            [_hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            if ([squareInfoList count] == 0) {
+                [_squareTable headerBeginRefreshing];
+            }
+        }else{
+            [_lastestBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_hotBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+            if ([hotestInfoList count] == 0) {
+                [_hotestTable headerBeginRefreshing];
+            }
+        }
+    }
 }
 
 @end

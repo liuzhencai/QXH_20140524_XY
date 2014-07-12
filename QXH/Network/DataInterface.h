@@ -663,13 +663,13 @@ withCompletionHandler:(DictCallback)completionBlock
 /**
  *  获取广场消息列表
  *
- *  @param type          type值：0为不区分,1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
+ *  @param type             0为不区分,1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动,5为转评到广场的广场文章
  *  @param detailtype    信息明细类型 1为最新,2为我发布的(注：关于广场中最热获取，认为是获取广场发布文章的最热请调用API:0119(HTTP)接口)
- *  @param tag           标签(暂时保留，客户端不需填写值)
+ *  @param tag              标签(暂时保留，客户端不需填写值)
  *  @param arttype       文章类型(暂时保留，客户端不需填写值)
  *  @param contentlength 文章列表中文章的长度
- *  @param start         起始消息的artid，不填写该字段读取最新消息n个
- *  @param count         获取消息数量
+ *  @param start           起始消息的artid，不填写该字段读取最新消息n个
+ *  @param count          获取消息数量
  *  @param callback      回调
  */
 + (void)getSquareInfoList:(NSString *)type
