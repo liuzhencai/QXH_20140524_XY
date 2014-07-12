@@ -7,6 +7,14 @@
 //
 
 #import "SquareCellEx.h"
+#import "InformationDetailController.h"
+#import "AppDelegate.h"
+
+@interface SquareCellEx ()
+
+@property (nonatomic, strong) InfoModel *infoModel;
+
+@end
 
 @implementation SquareCellEx
 
@@ -26,17 +34,27 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)tap:(id)sender {
+    NSLog(@"%s",__FUNCTION__);
+    InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+    controller.artid = _infoModel.artid;
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [[delegate.tabController.viewControllers objectAtIndex:0] pushViewController:controller animated:YES];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)setCellData:(SquareInfo *)model
 {
-    InfoModel *tmpModel = model.content;
+    _infoModel = model.content;
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
     _commentLabel.text = model.refsign;
     _nameLabel.text = model.uname;
     _dateLabel.text = model.date;
     _positionLabel.text = model.uduty;
-    _contentLabel.text = tmpModel.title;
-    [_subImageView setImageWithURL:IMGURL(tmpModel.artimgs)];
+    _contentLabel.text = _infoModel.title;
+    [_subImageView setImageWithURL:IMGURL(_infoModel.artimgs)];
 }
 
 @end

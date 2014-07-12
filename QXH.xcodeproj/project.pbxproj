@@ -26,6 +26,7 @@
 		210BAEED192A5DB900B8FBCF /* MyVisitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210BAEEC192A5DB900B8FBCF /* MyVisitorCell.xib */; };
 		210BAEF0192A619B00B8FBCF /* MyActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210BAEEF192A619B00B8FBCF /* MyActivityCell.m */; };
 		210BAEF4192A61B800B8FBCF /* MyActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210BAEF3192A61B800B8FBCF /* MyActivityCell.xib */; };
+		211163C41970C18700452B6E /* CustomWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 211163C31970C18700452B6E /* CustomWebView.m */; };
 		2111B1CA1955393800AA5478 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1C91955393800AA5478 /* UILabel+StringFrame.m */; };
 		2111B1CD19553D9100AA5478 /* NSString+LabelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1CC19553D9100AA5478 /* NSString+LabelFrame.m */; };
 		2111B1D019555D9700AA5478 /* InfoCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2111B1CF19555D9700AA5478 /* InfoCommentModel.m */; };
@@ -467,6 +468,8 @@
 		210BAEEE192A619B00B8FBCF /* MyActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyActivityCell.h; sourceTree = "<group>"; };
 		210BAEEF192A619B00B8FBCF /* MyActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyActivityCell.m; sourceTree = "<group>"; };
 		210BAEF3192A61B800B8FBCF /* MyActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyActivityCell.xib; sourceTree = "<group>"; };
+		211163C21970C18700452B6E /* CustomWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomWebView.h; sourceTree = "<group>"; };
+		211163C31970C18700452B6E /* CustomWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomWebView.m; sourceTree = "<group>"; };
 		2111B1C81955393800AA5478 /* UILabel+StringFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+StringFrame.h"; sourceTree = "<group>"; };
 		2111B1C91955393800AA5478 /* UILabel+StringFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+StringFrame.m"; sourceTree = "<group>"; };
 		2111B1CB19553D9100AA5478 /* NSString+LabelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LabelFrame.h"; sourceTree = "<group>"; };
@@ -1770,6 +1773,8 @@
 				21C6D6051950867400467717 /* RecInformationCell.h */,
 				21C6D6061950867400467717 /* RecInformationCell.m */,
 				21C6D6071950867400467717 /* RecInformationCell.xib */,
+				211163C21970C18700452B6E /* CustomWebView.h */,
+				211163C31970C18700452B6E /* CustomWebView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2576,6 +2581,7 @@
 				842D3C91192AF7F100374F04 /* LoginViewController.m in Sources */,
 				84FCA852192CC1D50005295A /* CustomSegmentControl.m in Sources */,
 				21D705C51916A49F004950BF /* SquareCell.m in Sources */,
+				211163C41970C18700452B6E /* CustomWebView.m in Sources */,
 				84BCBBB1195DC4EF00E80075 /* MessageBySend.m in Sources */,
 				58B87174192F780E00EB730D /* ShareToTribeCell.m in Sources */,
 				2119EF05191682EC007DBE68 /* UIImage+WebP.m in Sources */,

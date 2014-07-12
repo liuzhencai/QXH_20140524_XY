@@ -116,16 +116,24 @@
                         // 添加用户信息
                         UIImageView *portraitView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 48, 48)];
                         portraitView.tag = 101;
+                        [portraitView setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                         [portraitView circular];
                         [cell.contentView addSubview:portraitView];
                         
-                        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, 100, 21)];
+                        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(68, 10, 100, 21)];
                         nameLabel.tag = 102;
                         nameLabel.text = tmpModel.sname;
                         [cell.contentView addSubview:nameLabel];
+                        
+                        UILabel *posLabel = [[UILabel alloc] initWithFrame:CGRectMake(68, 31, 240, 21)];
+                        posLabel.textColor = [UIColor grayColor];
+                        posLabel.font = [UIFont systemFontOfSize:13.f];
+                        posLabel.tag = 103;
+                        posLabel.text = _info.uduty;
+                        [cell.contentView addSubview:posLabel];
+                        
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
-                    UIImageView *portraitView_ = (UIImageView *)[cell.contentView viewWithTag:101];
-                    [portraitView_ setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                 }
                     break;
                 case 1:
@@ -239,14 +247,22 @@
                         // 添加用户信息
                         UIImageView *portraitView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 48, 48)];
                         portraitView.tag = 101;
-                        [portraitView setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+                        [portraitView setImageWithURL:IMGURL(_info.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
                         [portraitView circular];
                         [cell.contentView addSubview:portraitView];
                         
-                        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, 100, 21)];
+                        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(68, 10, 100, 21)];
                         nameLabel.tag = 102;
                         nameLabel.text = _info.uname;
                         [cell.contentView addSubview:nameLabel];
+                        
+                        UILabel *posLabel = [[UILabel alloc] initWithFrame:CGRectMake(68, 31, 240, 21)];
+                        posLabel.textColor = [UIColor grayColor];
+                        posLabel.font = [UIFont systemFontOfSize:13.f];
+                        posLabel.tag = 103;
+                        posLabel.text = _info.uduty;
+                        [cell.contentView addSubview:posLabel];
+                        
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
                 }

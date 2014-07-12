@@ -31,6 +31,9 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="yq8-QJ-OGg" appends="YES" id="kLg-t3-idq"/>
+                        </connections>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img_portrait.png" translatesAutoresizingMaskIntoConstraints="NO" id="ctb-j2-wCv">
                         <rect key="frame" x="10" y="6" width="48" height="48"/>
@@ -84,6 +87,11 @@
                 <outlet property="subImageView" destination="ktC-I3-Rxk" id="yyR-6J-gn0"/>
             </connections>
         </tableViewCell>
+        <tapGestureRecognizer id="yq8-QJ-OGg">
+            <connections>
+                <action selector="tap:" destination="NOt-T7-6yI" id="sst-oY-yKc"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="img_portrait.png" width="36" height="36"/>

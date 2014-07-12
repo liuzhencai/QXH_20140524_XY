@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomWebView.h"
 
 typedef NS_ENUM(NSInteger, InfomationType) {
     InfomationTypeNormal,   // 普通
@@ -14,7 +15,7 @@ typedef NS_ENUM(NSInteger, InfomationType) {
 };
 
 @interface InformationDetailController : MyViewController<UIAlertViewDelegate, UIWebViewDelegate>
-@property (weak, nonatomic) IBOutlet UIWebView *infoDetailWeb;
+@property (weak, nonatomic) IBOutlet CustomWebView *infoDetailWeb;
 @property (weak, nonatomic) IBOutlet UILabel *articleTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *readNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentNumLabel;

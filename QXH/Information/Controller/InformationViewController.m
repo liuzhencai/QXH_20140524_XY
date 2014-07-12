@@ -81,7 +81,7 @@
     infoScroll.pagingEnabled = YES;
     infoScroll.showsHorizontalScrollIndicator = NO;
     infoScroll.contentSize = CGSizeMake(320*[artClassify count], SCREEN_H - MENU_FIXED_HEIGHT - 64);
-    for (int i = 0; i < [artClassify count]; i++) {
+    for (int i = 0; i < [artClassify count]&&artClassify; i++) {
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(i*320, 0, 320, SCREEN_H - MENU_FIXED_HEIGHT - 64) style:UITableViewStylePlain];
         tableView.showsVerticalScrollIndicator = NO;
         tableView.dataSource = self;
@@ -272,7 +272,7 @@
 
 - (void)changeMenuState
 {
-    for (int i = 0; i < [artClassify count]; i++) {
+    for (int i = 0; i < [artClassify count]&&artClassify; i++) {
         UIButton *menuBtn_ = (UIButton *)[self.view viewWithTag:1000+i];
         if (i == _curIndex) {
             [menuBtn_ setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
