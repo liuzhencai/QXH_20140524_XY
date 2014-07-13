@@ -7,6 +7,7 @@
 //
 
 #import "ConstitutionViewController.h"
+#import "CustomWebView.h"
 
 @interface ConstitutionViewController ()
 
@@ -27,8 +28,8 @@
 {
     [super viewDidLoad];
     self.title = @"校长强学会会员章程";
-    UIWebView *_webview=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"强学会章程" ofType:@"docx"];
+    CustomWebView *_webview=[[CustomWebView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"qxh_rule" ofType:@"html"];
      NSLog(@"文件路径：%@",path);
     NSURL *url = [NSURL fileURLWithPath:path];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
