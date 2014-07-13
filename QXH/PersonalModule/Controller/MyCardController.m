@@ -144,7 +144,7 @@
             value = [userinfo objectForKey:@"title"];
             break;
         case 1:
-            value = [userinfo objectForKey:@"domicile"];
+            value = [self cityNameWithCode:[userinfo objectForKey:@"domicile"]];
             break;
         case 2:
             value = [userinfo objectForKey:@"honours"];

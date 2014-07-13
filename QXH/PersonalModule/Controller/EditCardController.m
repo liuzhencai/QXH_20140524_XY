@@ -150,7 +150,11 @@
         UILabel *statusLabel_ = (UILabel *)[cell.contentView viewWithTag:3];
 
         titleLabel_.text = [titleArr objectAtIndex:indexPath.row-1];
-        descLabel_.text = [_valueArr objectAtIndex:indexPath.row-1];
+        if (indexPath.row == 4) {
+            descLabel_.text = [self cityNameWithCode:[_valueArr objectAtIndex:3]];
+        }else{
+            descLabel_.text = [_valueArr objectAtIndex:indexPath.row-1];
+        }
         statusLabel_.text = @"已填写";
         
         if (indexPath.row == 1) {
