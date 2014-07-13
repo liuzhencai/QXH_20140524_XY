@@ -174,8 +174,7 @@
         {
             // 1.添加数据
             SquareInfo *model = [squareInfoList lastObject];
-            InfoModel *tmpModel = (InfoModel *)model.content;
-            [self getSquareListWithStart:tmpModel.artid withCompletionHandler:^(NSMutableArray *list) {
+            [self getSquareListWithStart:[NSString stringWithFormat:@"%d",model.psid] withCompletionHandler:^(NSMutableArray *list) {
                 [squareInfoList addObjectsFromArray:list] ;
                 // 2.2秒后刷新表格UI
                 // 2.2秒后刷新表格UI
