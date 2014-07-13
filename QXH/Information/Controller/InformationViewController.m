@@ -99,9 +99,10 @@
         [infoScroll addSubview:tableView];
     }
     [self.view addSubview:infoScroll];
-    
-    UITableView *tableView = [_tableArr objectAtIndex:0];
-    [tableView headerBeginRefreshing];
+    if ([artClassify count] > 0) {
+        UITableView *tableView = [_tableArr objectAtIndex:0];
+        [tableView headerBeginRefreshing];
+    }
 }
 
 /**
