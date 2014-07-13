@@ -45,7 +45,6 @@
 
 - (void)hideTabBar:(BOOL)hidden
 {
-    UIView *barView = (UIView  *)[self.view viewWithTag:101];
     UIImageView *tabView_ = (UIImageView *)[self.view viewWithTag:101];
     if (hidden) {
         tabView_.frame = CGRectMake(0, SCREEN_H, 320, 49);

@@ -90,8 +90,8 @@
 {
     [super viewWillAppear:animated];
     if (!IOS7_OR_LATER) {
-        AppDelegate* dele = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        [dele.tabController hideTabBar:NO];
+//        AppDelegate* dele = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//        [dele.tabController hideTabBar:NO];
     }
 }
 

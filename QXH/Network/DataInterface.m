@@ -8,18 +8,8 @@
 
 #import "DataInterface.h"
 #import "JSONKit.h"
-#import "AppDelegate.h"
-#import "HomePageController.h"
 
 @implementation DataInterface
-
-+ (void)reConnection
-{
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UINavigationController *nav = (UINavigationController *)[delegate.tabController.viewControllers objectAtIndex:0];
-    HomePageController *controller = [nav.viewControllers objectAtIndex:0];
-    [controller reConnection];
-}
 
 + (void)heartBeatWithCompletionHandler:(DictCallback)callback
 {
@@ -30,16 +20,9 @@
     NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
-        /**
-         *  udp心跳出错，重新连接
-         */
-        if ([[data objectForKey:@"statecode"] isEqualToString:@"0441"]) {
-            [self reConnection];
-        }
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
-        [self reConnection];
     }];
 }
 

@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.title = @"校长强学会会员章程";
     CustomWebView *_webview=[[CustomWebView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"qxh_rule" ofType:@"html"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"qxh_rule" ofType:@"htm"];
      NSLog(@"文件路径：%@",path);
     NSURL *url = [NSURL fileURLWithPath:path];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

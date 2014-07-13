@@ -9,8 +9,18 @@
 #import "HttpRequest.h"
 #import "HttpServiceEngine.h"
 #import "Base64.h"
+#import "AppDelegate.h"
+#import "HomePageController.h"
 
 @implementation HttpRequest
+
++ (void)reConnection
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *nav = (UINavigationController *)[delegate.tabController.viewControllers objectAtIndex:0];
+    HomePageController *controller = [nav.viewControllers objectAtIndex:0];
+    [controller reConnection];
+}
 
 + (void)requestWithParams:(NSDictionary *)params andCompletionHandler:(DictCallback)callback
 {
@@ -22,9 +32,16 @@
     NSString *base64Str = [Base64 encodeBase64String:json];
     NSDictionary *param = @{@"reqMess": base64Str};
     [[HttpServiceEngine sharedEngine] sendData:param andMethod:nil completionHandler:^(NSInteger statusCode, id object) {
+        /**
+         *  udp心跳出错，重新连接
+         */
+        if ([[object objectForKey:@"statecode"] isEqualToString:@"0441"]) {
+            [self reConnection];
+            return;
+        }
         callback(object);
     } errorHandler:^(NSError *error) {
-        
+        [self reConnection];
     }];
 }
 

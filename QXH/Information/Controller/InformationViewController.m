@@ -34,6 +34,11 @@
 
 @implementation InformationViewController
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
 #pragma mark - 目录点击响应
 - (void)menuClicked:(id)sender
 {

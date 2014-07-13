@@ -8,6 +8,7 @@
 
 #import "MyViewController.h"
 #import "config.h"
+#import "AppDelegate.h"
 
 @interface MyViewController (privateLiu)
 /*返回按钮函数*/
@@ -35,6 +36,15 @@
 //    [backGroundImageView release];
 //    [super dealloc];
 //}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.hidesBottomBarWhenPushed) {
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.tabController setTabBarHiddenNow:NO];
+    }
+}
 
 - (void)viewDidLoad
 {
