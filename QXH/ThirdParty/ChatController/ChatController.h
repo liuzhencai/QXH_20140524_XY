@@ -63,6 +63,9 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
  usertype = 1;
  */
 @property (strong,nonatomic)NSDictionary* otherDic;
+
+/*离线消息个数*/
+@property (assign, nonatomic)NSInteger integerCount;
 /*!
  The color of the user's chat bubbles
  */

@@ -157,11 +157,16 @@
 //    NSMutableDictionary *messDic = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
     NSMutableDictionary* achatmessage = (NSMutableDictionary*)[chatmessage valueForKey:@"userInfo"];
 
-    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
-    NSLog(@"%@",values);
-    
-    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
-    [self resetTipLabelWithMessage:_myMessageList];
+
+    NSArray* values = [achatmessage  allValues];
+    _myMessageList = [[NSMutableArray alloc]initWithArray:values];
+
+//    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
+//    NSLog(@"%@",values);
+//    
+//    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+//    [self resetTipLabelWithMessage:_myMessageList];
+
     [myMessageTable reloadData];
 
 }
@@ -398,7 +403,19 @@
                     chat.otherDic = tempdic;
                     [self.navigationController pushViewController:chat animated:YES];
                 }];
-         
+                
+                /*如果count值大于数组个数，则有没有查看的离线消息*/
+                 NSNumber* acount = [message valueForKey:@"count"];
+                NSInteger bcount = [acount integerValue];
+                if (bcount >[temp count]) {
+                    /*获取所有离线消息*/
+                    NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+                    [tempdic setValue:atribeid forKey:@"targetid"];
+                    [tempdic setValue:@"0" forKey:@"start"];
+                   
+                    [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
+                    [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"1"];
+                }
           
             }else if([bsendtype isEqualToString:@"2"])
             {
@@ -412,6 +429,19 @@
                     chatroom.tribeInfoDict = tempdic;
                     [self.navigationController pushViewController:chatroom animated:YES];
                 }];
+                
+                /*如果count值大于数组个数，则有没有查看的离线消息*/
+                NSNumber* acount = [message valueForKey:@"count"];
+                NSInteger bcount = [acount integerValue];
+                if (bcount >[temp count]) {
+                    /*获取所有离线消息*/
+                    NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+                    [tempdic setValue:atribeid forKey:@"targetid"];
+                    [tempdic setValue:@"0" forKey:@"start"];
+                    
+                    [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
+                    [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"2"];
+                }
  
             }else{
                 MessagesViewController *messages = [[MessagesViewController alloc] init];
@@ -425,9 +455,6 @@
 //            messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
 //            [self.navigationController pushViewController:messages animated:YES];
         }
-        
-        /*进入以后去掉该数据*/
-//        [_myMessageList removeObject:objct];
 
     }
 }

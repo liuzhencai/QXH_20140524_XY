@@ -213,6 +213,8 @@ static int scout=0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoom:) name:@"reloadeChatRoom" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoomAll:) name:@"reloadeChatRoomAll" object:nil];
+    
 
 }
 
@@ -923,7 +925,8 @@ static int scout=0;
     NSInteger userid = [[UserInfoModelManger sharUserInfoModelManger].MeUserId integerValue];
     NSNumber* meuserid = [NSNumber numberWithInt:userid];
     message[@"senderid"] = meuserid;
-
+    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
+    [message setObject:@"1" forKey:@"messtype"];
     NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
     [message setObject:aroomid forKey:@"tribeid"];
     [message setObject:[NSString stringWithFormat:@"%d",[aroomid integerValue]] forKey:@"targetid"];
@@ -1236,6 +1239,53 @@ static int scout=0;
 
 }
 
+#pragma mark 获取到所有离线消息展示
+- (void)reloadeChatRoomAll:(NSNotification*)chatmessage
+{
+    NSLog(@"reloadeChatRoom==%@",chatmessage);
+    [self getMessagesArray];
+    
+//    NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+//    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+//    
+//    /*判断是不是当前聊天室*/
+//    NSNumber* atribeid = auserinfo[@"tribeid"];
+//    NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+//    if ([atribeid intValue] != [tribeId intValue]) {
+//        return;
+//    }
+//    
+//    //    NSArray* messageArray = auserinfo[@"messageArray"];
+//    
+//    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
+//    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
+//    
+//    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
+//    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
+//    if ([messtype isEqualToString:@"1"]) {
+//        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
+//    }else if ([messtype isEqualToString:@"3"])
+//    {
+//        /*暂时没添加接受图片*/
+//    }
+//    
+//    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
+//    
+//    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+//    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
+//    UserInfoModel* aother = nil;
+//    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+//     {
+//         NSLog(@"reloadeChatRoom***getOtherUserInfo");
+//         
+//         [self messageSendByOpponent:auserinfo];
+//         
+//         return other;
+//     }];
+//    
+    
+}
+
 /*获取部落置顶*/
 - (void)getTribeTopInfo
 {
@@ -1268,19 +1318,20 @@ static int scout=0;
 /*获取聊天室聊天记录*/
 - (void)getMessagesArray
 {
-    if ([_messagesArray count]==0) {
+//    if ([_messagesArray count]==0) {
         /*如果没有消息获取本地的*/
       NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId];
-//        if ([tempArray count]>10) {
+        if ([tempArray count]) {
 //            NSRange rang = NSMakeRange([tempArray count], 10);
-            _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
+            NSMutableArray* temp1 = [[NSMutableArray alloc]initWithArray:tempArray];
+            self.messagesArray = temp1;
 //        localMessage = YES;
 //        for (int i=0; i<[tempArray count]; i++) {
 //            NSMutableDictionary* messagetemp = [[NSMutableDictionary alloc]initWithDictionary:[tempArray objectAtIndex:i]];
 //            [self didSendMessage:messagetemp];
+        }
 //        }
-//        }
-    }
+//    }
 }
 
 #pragma mark 下拉刷新
@@ -1367,7 +1418,10 @@ static int scout=0;
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
      当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
     NSMutableDictionary* amess = [_messagesArray lastObject];
-    NSString* messid = amess[@"messid"];
+    NSLog(@"状态置为已读的_messagesArray == %@",_messagesArray);
+    NSLog(@"状态置为已读的message == %@",amess);
+    NSNumber* amessid = amess[@"messid"];
+    NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
     if (messid) {
         [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"2" tribeid:ChatRoomId];
     }
