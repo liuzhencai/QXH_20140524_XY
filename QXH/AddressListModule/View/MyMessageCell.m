@@ -108,12 +108,20 @@
         _countImage.hidden = NO;
         NSMutableArray* tempArray = (NSMutableArray*)objt;
         params = [tempArray lastObject];
-        if ([tempArray count]>99) {
-            _countlabel.text = @"99+";
-        }else{
-            _countlabel.text = [NSString stringWithFormat:@"%d",[tempArray count]];
+        NSNumber* acount = params[@"count"];
+        if (acount) {
+            /*如果存在count值，
+             则为离线消息，消息数按照count值显示*/
+            NSInteger count = [acount integerValue];
+            if (count >99) {
+                 _countlabel.text = @"99+";
+            }else
+            {
+                _countlabel.text = [NSString stringWithFormat:@"%d",count];
+            }
+           
         }
-
+ 
         
     }else {
       params = (NSDictionary *)objt;
@@ -169,6 +177,15 @@
         {
 //            NSString *descString = [params objectForKey:@"sign"];
             self.duty.text = @"图片信息";
+        }else if([messtype isEqualToString:@"0"])
+        {
+            /*如果是0，则是以前接口，没有添加该字段造成*/
+            NSString *descString = [params objectForKey:@"mess"];
+            if ([descString length]) {
+               self.duty.text = descString;
+            }else{
+               self.duty.text = @"图片信息"; 
+            }
         }
 
         self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
@@ -190,6 +207,15 @@
         {
             //            NSString *descString = [params objectForKey:@"sign"];
             self.duty.text = @"图片信息";
+        }else if([messtype isEqualToString:@"0"])
+        {
+            /*如果是0，则是以前接口，没有添加该字段造成*/
+            NSString *descString = [params objectForKey:@"mess"];
+            if ([descString length]) {
+                self.duty.text = descString;
+            }else{
+                self.duty.text = @"图片信息";
+            }
         }
         
         self.date.text = [params objectForKey:@"date"];//@"2014-05-19";

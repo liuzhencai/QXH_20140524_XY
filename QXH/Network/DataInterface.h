@@ -525,6 +525,10 @@ withCompletionHandler:(DictCallback)callback;
 /*
  新加
  部落聊天接口
+ mess中包含以下key
+tribeid，部落或者私聊对方id
+sign，签名
+sendtype 1、私聊；2,部落聊天
  */
 + (void)chatRoomMess:(NSMutableDictionary *)mess
 withCompletionHandler:(DictCallback)callback;

@@ -47,6 +47,8 @@
     NSMutableArray* someTribeOnMess;
     /*未阅读聊天记录存储进该数组，其中元素是字典*/
     NSMutableDictionary* unKnowCharMessDic;
+    /*获取离线消息时，临时存储，其中元素是字典*/
+    NSMutableArray* tempUnKnowCharMessArray;
     
     /*存储上一个获取到的消息，如果两个一样，就抛弃*/
     NSString* messid;
@@ -75,6 +77,8 @@
                     tribeid:(NSString*)tribeid;
 /*登录成功后获取用户离线消息*/
 - (void)getOfflineMessage;
+#pragma mark 获取聊天历史记录
+-(void)getMessageHistory:(NSMutableDictionary *)fromdic andSendtype:(NSString*)sendtype;
 @end
 
 
