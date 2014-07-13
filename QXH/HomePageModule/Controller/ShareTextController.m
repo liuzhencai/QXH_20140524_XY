@@ -38,6 +38,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"详情";
+    
+    if (IOS7_OR_LATER) {
+        [_contentTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
 
     _contentTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
     _toolbarView.frame = CGRectMake(0, SCREEN_H - 49-64, 320, 49);

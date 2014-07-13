@@ -56,7 +56,11 @@
         UIButton *menuItem = [UIButton buttonWithType:UIButtonTypeCustom];
         menuItem.tag = 1000+i;
         [menuItem setTitle:obj.name forState:UIControlStateNormal];
-        [menuItem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        if (i == 0) {
+            [menuItem setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
+        }else{
+            [menuItem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
         [menuItem addTarget:self action:@selector(menuClicked:) forControlEvents:UIControlEventTouchDown];
         menuItem.frame = CGRectMake(i*MENU_FIXED_WIDTH, 0, MENU_FIXED_WIDTH, MENU_FIXED_HEIGHT);
         [menuScroll addSubview:menuItem];
@@ -81,7 +85,7 @@
     infoScroll.pagingEnabled = YES;
     infoScroll.showsHorizontalScrollIndicator = NO;
     infoScroll.contentSize = CGSizeMake(320*[artClassify count], SCREEN_H - MENU_FIXED_HEIGHT - 64);
-    for (int i = 0; i < [artClassify count]&&artClassify; i++) {
+    for (int i = 0; i < [artClassify count]&&[artClassify count] > 0; i++) {
         UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(i*320, 0, 320, SCREEN_H - MENU_FIXED_HEIGHT - 64) style:UITableViewStylePlain];
         tableView.showsVerticalScrollIndicator = NO;
         tableView.dataSource = self;
@@ -95,9 +99,10 @@
         [infoScroll addSubview:tableView];
     }
     [self.view addSubview:infoScroll];
-    
-    UITableView *tableView = [_tableArr objectAtIndex:0];
-    [tableView headerBeginRefreshing];
+    if ([artClassify count] > 0) {
+        UITableView *tableView = [_tableArr objectAtIndex:0];
+        [tableView headerBeginRefreshing];
+    }
 }
 
 /**
@@ -272,7 +277,7 @@
 
 - (void)changeMenuState
 {
-    for (int i = 0; i < [artClassify count]&&artClassify; i++) {
+    for (int i = 0; i < [artClassify count]&&[artClassify count] > 0; i++) {
         UIButton *menuBtn_ = (UIButton *)[self.view viewWithTag:1000+i];
         if (i == _curIndex) {
             [menuBtn_ setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];

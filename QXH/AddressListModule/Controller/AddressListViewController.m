@@ -19,13 +19,14 @@
 #import "MessagesViewController.h"
 #import "ChatController.h"
 #import "ChatRoomController.h"
+#import "FindAddressResultViewController.h"
 
-@interface AddressListViewController ()<CustomSegmentControlDelegate>
+@interface AddressListViewController ()<CustomSegmentControlDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) UITableView *messageTable;
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *addressList;//通讯录列表
 @property (nonatomic, strong) NSMutableArray *myMessageList;//我的消息列表
-
+@property (nonatomic, strong) UILabel *tipLabel;
 @end
 
 #define ADDRESS_LIST_TABLE_TAG 2330  //通讯录tag
@@ -66,6 +67,17 @@
     segment.delegate = self;
     [self.view addSubview:segment];
     
+    UILabel *tipCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 5, 20, 20)];
+    tipCountLabel.layer.cornerRadius = tipCountLabel.width/2.0;
+    self.tipLabel = tipCountLabel;
+    tipCountLabel.font = [UIFont systemFontOfSize:12];
+    tipCountLabel.textAlignment = NSTextAlignmentCenter;
+    tipCountLabel.textColor = [UIColor whiteColor];
+    tipCountLabel.text = @"5";
+    tipCountLabel.backgroundColor = [UIColor redColor];
+    [segment addSubview:tipCountLabel];
+    [self resetTipLabelWithMessage:self.myMessageList];
+    
     //table
     myMessageTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_TAB_BAR_HEIGHT - 32) style:UITableViewStylePlain];
     myMessageTable.tag = MY_MESSAGE_LIST_TABLE_TAG;
@@ -86,6 +98,7 @@
     self.searchBar.placeholder = @"输入名字查找朋友";
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchBar.delegate = self;
     addressListTable.tableHeaderView = self.searchBar;
     
     //暂时屏蔽
@@ -101,15 +114,37 @@
 //    [self getAddressList];
 }
 
+- (void)resetTipLabelWithMessage:(NSMutableArray *)messagesList{
+    int count = 0;
+    for (int i = 0; i < [messagesList count]; i ++) {
+        NSArray *list = [messagesList objectAtIndex:i];
+        count += [list count];
+    }
+    if (count == 0) {
+        self.tipLabel.hidden = YES;
+        self.tipLabel.text = @"0";//[NSString stringWithFormat:@"%d",count];
+    }else{
+        self.tipLabel.hidden = NO;
+        if (count > 99) {
+            self.tipLabel.text = [NSString stringWithFormat:@"99+"];
+        }else{
+            self.tipLabel.text = [NSString stringWithFormat:@"%d",count];
+        }
+    }
+}
+
 #pragma mark 获取到推送消息
 - (void)reloadMessage:(NSNotification*)chatmessage
 {
-    NSLog(@"reloadeChatRoom");
+    NSLog(@"addFirend");
     NSMutableDictionary *auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-    
     NSLog(@"接受到的信息:%@",auserinfo);
-    [self.myMessageList addObject:auserinfo];
+//    [self.myMessageList addObject:auserinfo];
+//    [_messageTable reloadData];
+    
+    NSMutableArray *systemArr = [[NSMutableArray alloc] initWithArray:[auserinfo allValues]];
+    self.myMessageList = systemArr;
+    [self resetTipLabelWithMessage:self.myMessageList];
     [_messageTable reloadData];
 }
 
@@ -122,8 +157,16 @@
 //    NSMutableDictionary *messDic = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
     NSMutableDictionary* achatmessage = (NSMutableDictionary*)[chatmessage valueForKey:@"userInfo"];
 
+
     NSArray* values = [achatmessage  allValues];
     _myMessageList = [[NSMutableArray alloc]initWithArray:values];
+
+//    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
+//    NSLog(@"%@",values);
+//    
+//    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+//    [self resetTipLabelWithMessage:_myMessageList];
+
     [myMessageTable reloadData];
 
 }
@@ -135,8 +178,12 @@
     NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
 
     NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
-    _myMessageList = [[NSMutableArray alloc]initWithArray:values];
-    [myMessageTable reloadData];
+    if ([values count]) {
+        self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+        [self resetTipLabelWithMessage:self.myMessageList];
+        [myMessageTable reloadData];
+    }
+
     //
     //    NSLog(@"接受到的信息:%@",auserinfo);
     //    [self.myMessageList addObject:auserinfo];
@@ -396,17 +443,55 @@
                     [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"2"];
                 }
  
+            }else{
+                MessagesViewController *messages = [[MessagesViewController alloc] init];
+                //            messages.messagesList = [self.myMessageList copy];
+                messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
+                [self.navigationController pushViewController:messages animated:YES];
             }
         }else{
-            MessagesViewController *messages = [[MessagesViewController alloc] init];
-            messages.messagesList = self.myMessageList;
-            [self.navigationController pushViewController:messages animated:YES];
+//            MessagesViewController *messages = [[MessagesViewController alloc] init];
+////            messages.messagesList = [self.myMessageList copy];
+//            messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
+//            [self.navigationController pushViewController:messages animated:YES];
         }
-        
-//        /*进入以后去掉该数据，放在这没有意义，因为界面刷新时又会获取一遍_myMessageList*/
-//        [_myMessageList removeObject:objct];
 
     }
+}
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSLog(@"搜索");
+    /**
+     *  获取好友(通讯录)/查找用户列表公用接口
+     *
+     *  @param type        1为获取好友列表，2为搜索
+     *  @param address     籍贯编码
+     *  @param domicile    居住地编码
+     *  @param displayname 昵称
+     *  @param usertype    用户类型,为空时不区分类型
+     *  @param start       起始位置
+     *  @param count       获取数量
+     *  @param callback    回调
+     */
+    
+    [DataInterface getFriendInfo:@"1"
+                         address:@""
+                        domicile:@""
+                     displayname:searchBar.text
+                        usertype:@""
+                           start:@"0"
+                           count:@"100"
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"通讯录列表返回数据：%@",dict);
+               
+               if (dict) {
+                   NSArray *list = [dict objectForKey:@"lists"];
+                   FindAddressResultViewController *findAddressResult = [[FindAddressResultViewController alloc] init];
+                   findAddressResult.membersList = [NSMutableArray arrayWithArray:list];
+                   [self.navigationController pushViewController:findAddressResult animated:YES];
+               }
+           }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

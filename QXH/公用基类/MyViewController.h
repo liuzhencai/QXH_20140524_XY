@@ -26,4 +26,5 @@
                          color:(UIColor *)color
                           font:(UIFont *)font;
 
+- (NSString *)cityNameWithCode:(NSString *)code;
 @end

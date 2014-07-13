@@ -14,6 +14,7 @@
 #import "MemberRuleController.h"
 #import "SettingViewController.h"
 #import "MyVisitorController.h"
+#import "ConstitutionViewController.h"
 
 @interface PersonalInfoController ()
 {
@@ -177,7 +178,10 @@
             break;
         case 6:
         {
-            MemberRuleController *controller = [[MemberRuleController alloc] initWithNibName:@"MemberRuleController" bundle:nil];
+//            MemberRuleController *controller = [[MemberRuleController alloc] initWithNibName:@"MemberRuleController" bundle:nil];
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            ConstitutionViewController *controller = [[ConstitutionViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }

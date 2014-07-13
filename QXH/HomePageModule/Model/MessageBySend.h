@@ -19,6 +19,7 @@
 {
     /*sendtype 0;系统消息存储进该数组，其中元素是字典*/
     NSMutableArray* sysMess;
+    NSMutableDictionary *sysMessDict;
     /*sendtype 1;好友私聊存储进该数组，其中元素是字典*/
 //    NSMutableArray* chatMess;
     /*sendtype 2;部落聊天存储进该数组，其中元素是字典*/

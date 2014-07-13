@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PersonalCollectionController : MyViewController<UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) IBOutlet UIView *toolbarView;
 @property (weak, nonatomic) IBOutlet UITableView *collectionTable;
-- (IBAction)btnClick:(id)sender;
 
 @end

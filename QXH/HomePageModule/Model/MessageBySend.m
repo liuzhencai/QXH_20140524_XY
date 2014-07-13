@@ -22,6 +22,8 @@ static MessageBySend* ins =nil;
         chatRoomMess = [[NSMutableDictionary alloc]init];
         unKnowCharMessDic = [[NSMutableDictionary alloc]init];
         tempUnKnowCharMessArray = [[NSMutableArray alloc]init];
+        sysMessDict = [[NSMutableDictionary alloc] init];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
     }
     return self;
@@ -55,6 +57,7 @@ static MessageBySend* ins =nil;
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
     [self AddTounKnowCharMessAyyay:userinfo];
+//    [self AddSystemMessAyyay:userinfo];
   
     
 }
@@ -129,8 +132,9 @@ static MessageBySend* ins =nil;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         if (![tempSenderId isEqualToString:meid]) {
+            [self AddSystemMessAyyay:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
         }
     }
 }
@@ -231,6 +235,41 @@ static MessageBySend* ins =nil;
     }
     
 }
+//系统消息
+- (void)AddSystemMessAyyay:(NSMutableDictionary*)message{
+    /*判断接受到的消息类型*/
+//    NSNumber*  asendtype = (NSNumber*)[message valueForKey:@"sendtype"];
+//    NSString* bsendtype =[NSString stringWithFormat:@"%dId",[asendtype intValue]];
+//    NSMutableArray* tempchatroomarray = (NSMutableArray*)[sysMessDict valueForKey:bsendtype];
+//    if (tempchatroomarray) {
+//        [tempchatroomarray addObject:message];
+//    }else{
+//        NSString *key = [NSString stringWithFormat:@"%@Id",bsendtype];
+//        tempchatroomarray = [[NSMutableArray alloc]initWithObjects:message, nil];
+//        [sysMessDict setObject:tempchatroomarray forKey:bsendtype];
+//    }
+//    
+//    DebugLog(@"unKnowCharMessDic == %@",sysMessDict);
+//    
+//    /*如果是自己发送的就不用发消息刷新界面了*/
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:sysMessDict];
+    
+    NSNumber*  asendtype = (NSNumber*)[message valueForKey:@"sendtype"];
+    NSString* bsendtype =[NSString stringWithFormat:@"%d",[asendtype intValue]];
+    NSMutableArray* tempchatroomarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:bsendtype];
+    if (tempchatroomarray) {
+        [tempchatroomarray addObject:message];
+    }else{
+        tempchatroomarray = [[NSMutableArray alloc]initWithObjects:message, nil];
+        [unKnowCharMessDic setObject:tempchatroomarray forKey:bsendtype];
+    }
+    
+    DebugLog(@"unKnowCharMessDic == %@",unKnowCharMessDic);
+    
+    /*如果是自己发送的就不用发消息刷新界面了*/
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:unKnowCharMessDic];
+}
+
 
 #pragma mark 系统推送的聊天加入通讯录聊天当中
 - (void)AddTounKnowCharMessAyyay:(NSMutableDictionary*)message
@@ -350,6 +389,13 @@ static MessageBySend* ins =nil;
 {
     return unKnowCharMessDic;
 }
+
+#pragma mark 主动获取聊天记录接口
+- (NSMutableArray*)getSystemMessDic
+{
+    return sysMess;
+}
+
 
 #pragma mark 查看部落聊天私聊接口
 -(void)ReceiveAndSeeMessige:(NSString*)messigeid
