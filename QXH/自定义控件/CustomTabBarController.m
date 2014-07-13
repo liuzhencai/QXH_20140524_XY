@@ -55,7 +55,7 @@
             }
         #endif
     }else{
-        tabView_.frame = CGRectMake(0, SCREEN_H - 49, 320, 49);
+            tabView_.frame = CGRectMake(0, SCREEN_H - 49, 320, 49);
     }
 }
 

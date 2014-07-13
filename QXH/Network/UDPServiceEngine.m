@@ -66,6 +66,9 @@
 
 - (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback andErrorHandler:(Completion)error
 {
+    NSLog(@"刘振财==%@\n",callback);
+    NSLog(@"param==%@\n",param);
+
     NSString *sign = [param objectForKey:@"sign"];
     if ([signs containsObject:sign]) {
         // 当签名队列总数超出80时，移除第一个队列签名
