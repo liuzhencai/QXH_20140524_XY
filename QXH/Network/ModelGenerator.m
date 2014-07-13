@@ -59,6 +59,7 @@
         model.authflag = [list[i] objectForKey:@"authflag"];
         model.browsetime = [list[i] objectForKey:@"browsetime"];
         model.contentlength = [[list[i] objectForKey:@"contentlength"] integerValue];
+        model.type = [list[i] objectForKey:@"type"];
         [array addObject:model];
     }
     return array;
@@ -156,6 +157,7 @@
         SquareInfo *info = [[SquareInfo alloc] init];
         NSDictionary *subDict = [list[i] objectForKey:@"content"];
         switch ([[list[i] objectForKey:@"type"] integerValue]) {
+            case 0:
             case 1:
             case 2:
             case 4:

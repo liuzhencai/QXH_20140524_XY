@@ -21,15 +21,18 @@
 #import "LoginViewController.h"
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
+#import "GuideView.h"
 //#import "PullRefreshTableViewController.h"
 
 
-@interface HomePageController ()<LoginDelegate>
+@interface HomePageController ()<LoginDelegate,GuideViewDelegate>
 {
     NSArray *pics;
 }
 
 @end
+
+#define FIRST_LAUNCH @"isFirstLaunch"
 
 @implementation HomePageController
 
@@ -53,6 +56,14 @@
     [self addTopImage];
     
     if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
+        //guide
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH]) {
+            GuideView *guide = [[GuideView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+            guide.delegate = self;
+            UIView *windowView = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController].view;
+            [windowView addSubview:guide];
+        }
+        //login
         LoginViewController* login = [[LoginViewController alloc]init];
         login.delegate = self;
         UINavigationController *loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
@@ -100,8 +111,6 @@
     NSString *passward = [defaults objectForKey:@"passworld"];
     [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
         //登录成功后保存用户名和密码
-//        [defaults setObject:self.nameField.text forKey:USER_NAME];
-//        [defaults setObject:self.pwField.text forKey:PASSWORLD];
         [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
         [defaults setObject:@NO forKey:@"isNewMember"];
         NSDate *date = [NSDate date];
@@ -127,6 +136,7 @@
         
         /*获取系统消息*/
            [MessageBySend sharMessageBySend];
+        [[MessageBySend sharMessageBySend]getOfflineMessage];
     }];
 }
 
@@ -272,5 +282,16 @@
 //    [chatController addNewMessage:message];
 //}
 
-
+#pragma mark - GuideViewDelegate
+- (void)guideDidFinish:(GuideView *)guide{
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_LAUNCH];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (guide) {
+        [UIView animateWithDuration:0.3 animations:^{
+            guide.alpha = 0.0;
+        } completion:^(BOOL finish){
+            [guide removeFromSuperview];
+        }];
+    }
+}
 @end

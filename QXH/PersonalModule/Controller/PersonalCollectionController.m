@@ -12,6 +12,10 @@
 #import "SquareCellEx.h"
 #import "SquareActivityCell.h"
 #import "ShareTextController.h"
+#import "InfoModel.h"
+#import "InformationCell.h"
+#import "InformationDetailController.h"
+#import "SquareInfo.h"
 
 @interface PersonalCollectionController ()
 {
@@ -23,8 +27,8 @@
 
 - (void)getInfoList
 {
-    [DataInterface getInfoList:@"0" detailtype:@"" tag:@"" classify:@"热推" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        info = [ModelGenerator json2SquareList:dict];
+    [DataInterface getInfoList:@"0" detailtype:@"3" tag:@"" classify:@"" arttype:@"" contentlength:@"" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        info = [ModelGenerator json2InfoList:dict];
         [_collectionTable reloadData];
     }];
 }
@@ -45,10 +49,10 @@
     self.title = @"我的收藏";
     [self getInfoList];
     
-    _collectionTable.frame = CGRectMake(0, 0, 320, SCREEN_H-49);
-    
-    _toolbarView.frame = CGRectMake(0, SCREEN_H - 49 - 64, 320, 49);
-    [self.view addSubview:_toolbarView];
+    _collectionTable.frame = CGRectMake(0, 0, 320, SCREEN_H);
+    if (IOS7_OR_LATER) {
+        [_collectionTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,72 +63,86 @@
 
 - (UITableViewCell *)loadTblData:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
-    SquareInfo *model = [info objectAtIndex:indexPath.row];
+    InfoModel *model = [info objectAtIndex:indexPath.row];
     
     UITableViewCell *tblCell = nil;
     /**
      *  1为广场发布的文章，2为转发到广场的咨询，3为转发到广场的活动
      */
-    switch (model.type) {
-        case 0:
+    switch ([model.type integerValue]) {
+            case 1:
         {
-            static NSString *cellIdentifier = @"zeroTypeCell";
+            // 来自于广场
+            static NSString *cellIdentifier = @"oneTypeCell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (!cell) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                UIImageView *portraitView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 48, 48)];
+                portraitView.tag = 101;
+                [cell.contentView addSubview:portraitView];
+                
+                UILabel *nameLabel  = [[UILabel alloc] initWithFrame:CGRectMake(68, 10, 100, 21)];
+                nameLabel.tag = 102;
+                [cell.contentView addSubview:nameLabel];
+                
+                UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 10, 140, 21)];
+                dateLabel.tag = 103;
+                [cell.contentView addSubview:dateLabel];
+                
+                UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(68, 50, 232, 21)];
+                contentLabel.tag = 104;
+                [cell.contentView addSubview:contentLabel];
+                
+                for (int i = 0; i < 4; i++) {
+                    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(68+i*50+i*10, 80, 50, 50)];
+                    imageView.tag = 105+i;
+                    imageView.hidden = YES;
+                    [cell.contentView addSubview:imageView];
+                }
             }
-            tblCell = cell;
-        }
-            break;
-        case 1:
-        {
-            static NSString *cellIdentifier = @"squareCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UIImageView *portraitView_  = (UIImageView *)[cell.contentView viewWithTag:101];
+            UILabel *nameLabel_ = (UILabel *)[cell.contentView viewWithTag:102];
+            UILabel *dateLabel_ = (UILabel *)[cell.contentView viewWithTag:103];
+            UILabel *contentLabel_ = (UILabel *)[cell.contentView viewWithTag:104];
+            [portraitView_ setImageWithURL:IMGURL(model.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            [portraitView_ circular];
+            nameLabel_.text = model.sname;
+            dateLabel_.text = model.date;
+            contentLabel_.text = model.content;
+            
+            if (![model.artimgs isEqualToString:@""]) {
+                if ([model.artimgs rangeOfString:@","].location != NSNotFound) {
+                    NSArray *imgs = [model.artimgs componentsSeparatedByString:@","];
+                    for (int i = 0; i < [imgs count]; i++) {
+                        [(UIImageView *)[cell.contentView viewWithTag:(105+i)] setHidden:NO];
+                        [(UIImageView *)[cell.contentView viewWithTag:(105+i)] setImageWithURL:IMGURL(imgs[i])];
+                    }
+                }else{
+                    [(UIImageView *)[cell.contentView viewWithTag:105] setHidden:NO];
+                    [(UIImageView *)[cell.contentView viewWithTag:105] setImageWithURL:IMGURL(model.artimgs)];
+                }
+            }else{
+                for (int i = 0; i < 4; i++) {
+                    [(UIImageView *)[cell.contentView viewWithTag:(105+i)] setHidden:YES];
+                }
             }
-            [(SquareCell *)cell setCellData:model];
+            
             tblCell = cell;
         }
             break;
         case 2:
         {
-            static NSString *cellIdentifier = @"squareCellEx";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            // 来自于智谷
+            static NSString *infoIdentifier = @"InformationCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:infoIdentifier];
             if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationCell" owner:nil options:nil] objectAtIndex:0];
             }
-            [(SquareCellEx *)cell setCellData:model];
+            [(InformationCell *)cell setModel:model];
             tblCell = cell;
         }
-            break;
-        case 3:
-        {
-            static NSString *cellIdentifier = @"squareActivityCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareActivityCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            [(SquareActivityCell *)cell setCellData:model];
-            tblCell = cell;
-        }
-            break;
-        case 4:
-        {
-            static NSString *cellIdentifier = @"everyDayAskCell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (!cell) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-            tblCell = cell;
-        }
-            break;
-        default:
             break;
     }
     return tblCell;
@@ -137,24 +155,25 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat rowHeight = 0.f;
-    SquareInfo *model = [info objectAtIndex:indexPath.row];
-    if (YES) {
-        switch (model.type) {
-            case 1:
+    CGFloat rowHeight = 44.f;
+    InfoModel *model = [info objectAtIndex:indexPath.row];
+    switch ([model.type integerValue]) {
+        case 1:
+        {
+            if ([model.artimgs isEqualToString:@""]) {
+                rowHeight = 100.f;
+            }else{
                 rowHeight = 162.f;
-                break;
-            case 2:
-                rowHeight = 162.f;
-                break;
-            case 3:
-                rowHeight = 201.f;
-                break;
-            default:
-                break;
+            }
         }
-    }else{
-        
+            break;
+        case 2:
+        {
+            rowHeight = 80;
+        }
+            break;
+        default:
+            break;
     }
     return rowHeight;
 }
@@ -166,47 +185,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SquareInfo *model = [info objectAtIndex:indexPath.row];
-    ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
-    switch (model.type) {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    InfoModel *model = [info objectAtIndex:indexPath.row];
+    switch ([model.type integerValue]) {
         case 1:
+        {
+            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+            SquareInfo *tmpModel = [[SquareInfo alloc] init];
+            tmpModel.content = model;
+            controller.info = tmpModel;
             controller.type = SquareInfoTypeSq;
-            break;
-        case 2:
-            controller.type = SquareInfoTypeInf;
-            break;
-        default:
-            break;
-    }
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (IBAction)btnClick:(id)sender {
-    UIButton *btn = (UIButton *)sender;
-    switch (btn.tag) {
-        case 1:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"收藏" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 2:
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"赞" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
-        }
-            break;
-        case 3:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"评论" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
-        }
-            break;
-        case 4:
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"举报" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [alert show];
+            InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+            controller.artid = model.artid;
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         default:

@@ -56,7 +56,11 @@
         UIButton *menuItem = [UIButton buttonWithType:UIButtonTypeCustom];
         menuItem.tag = 1000+i;
         [menuItem setTitle:obj.name forState:UIControlStateNormal];
-        [menuItem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        if (i == 0) {
+            [menuItem setTitleColor:COLOR_WITH_ARGB(83, 170, 97, 1.0) forState:UIControlStateNormal];
+        }else{
+            [menuItem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
         [menuItem addTarget:self action:@selector(menuClicked:) forControlEvents:UIControlEventTouchDown];
         menuItem.frame = CGRectMake(i*MENU_FIXED_WIDTH, 0, MENU_FIXED_WIDTH, MENU_FIXED_HEIGHT);
         [menuScroll addSubview:menuItem];

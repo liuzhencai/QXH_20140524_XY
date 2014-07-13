@@ -36,6 +36,12 @@
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########用户登陆出错##########\n[原 因]:%@\n#############################\n",data);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:data
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
     }];
 }
 
@@ -472,7 +478,8 @@ withCompletionHandler:(DictCallback)callback
         mess:(NSString *)mess
 withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0130", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid,@"sendtype":sendtype,@"mess":mess,@"sign":[SignGenerator getSign]};
+    NSString* sign = [SignGenerator getSign];
+    NSDictionary *param = @{@"opercode": @"0130", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid,@"sendtype":sendtype,@"mess":mess,@"sign":sign};
     NSLog(@"\n##########通用聊天接口##########\n[参 数]:%@\n#############################\n",param);
     
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
@@ -483,9 +490,34 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
-+ (void)recvMessage:(NSString *)messids withCompletionHandler:(DictCallback)callback
+/*
+ 新加
+ 部落聊天接口
+ */
++ (void)chatRoomMess:(NSMutableDictionary *)mess
+withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0132", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"messids":messids,@"sign":[SignGenerator getSign]};
+    mess[@"token"]=[defaults objectForKey:@"token"];
+    mess[@"opercode"]=@"0130";
+    mess[@"userid"]=[defaults objectForKey:@"userid"];
+   
+    NSLog(@"\n##########通用聊天接口##########\n[参 数]:%@\n#############################\n",mess);
+    
+    [[UDPServiceEngine sharedEngine] sendData:mess withCompletionHandler:^(id data) {
+        NSLog(@"\n##########通用聊天返回结果##########\n[结 果]:%@\n#############################\n",data);
+        callback(data);
+    } andErrorHandler:^(id data) {
+        NSLog(@"\n##########通用聊天出错##########\n[原 因]:%@\n#############################\n",data);
+    }];
+}
+
+
++ (void)recvMessage:(NSString *)messids
+            tribeid:(NSString*)tribeid
+               type:(NSString*)type
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0132", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"messids":messids,@"tribeid":tribeid,@"type":type,@"sign":[SignGenerator getSign]};
     NSLog(@"\n##########客户端发送收到消息接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########客户端发送收到消息返回结果##########\n[结 果]:%@\n#############################\n",data);

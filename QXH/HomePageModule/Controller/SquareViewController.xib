@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SquareViewController">
             <connections>
                 <outlet property="hotBtn" destination="gXg-xS-GRN" id="YAc-Ma-8ed"/>
+                <outlet property="hotestTable" destination="Uqs-8Z-22Y" id="N8i-Jb-Y33"/>
                 <outlet property="lastestBtn" destination="HyW-hM-EGV" id="iIu-TR-kcI"/>
                 <outlet property="slipbar" destination="Tnu-WC-HvR" id="lmZ-Iq-pnU"/>
                 <outlet property="squareTable" destination="Yri-M0-9ck" id="HIm-Qh-uqi"/>
@@ -19,15 +20,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yri-M0-9ck">
-                    <rect key="frame" x="0.0" y="49" width="320" height="519"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="W0B-jP-ug8"/>
-                        <outlet property="delegate" destination="-1" id="fGO-3d-hM2"/>
-                    </connections>
-                </tableView>
                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HyW-hM-EGV">
                     <rect key="frame" x="0.0" y="0.0" width="160" height="49"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -63,6 +55,24 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yri-M0-9ck">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="W0B-jP-ug8"/>
+                <outlet property="delegate" destination="-1" id="fGO-3d-hM2"/>
+            </connections>
+        </tableView>
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Uqs-8Z-22Y">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="TCd-5z-PKw"/>
+                <outlet property="delegate" destination="-1" id="OZp-dy-Crm"/>
+            </connections>
+        </tableView>
     </objects>
     <resources>
         <image name="navigation_slippage_bar_bg.png" width="320" height="2"/>
