@@ -22,6 +22,14 @@
 
 - (IBAction)btnClick:(id)sender;
 
+
+/*4寸适配*/
+@property (strong, nonatomic) IBOutlet UIView *viewfour;
+
+/*3.5寸适配*/
+@property (strong, nonatomic) IBOutlet UIView *viewThree;
+
 - (void)reConnection;
+
 
 @end

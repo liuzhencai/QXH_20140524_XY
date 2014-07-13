@@ -481,7 +481,7 @@ static MessageBySend* ins =nil;
     NSString* count = fromdic[@"count"];
     [DataInterface getChatHistory:targetid sendtype:sendtype start:@"0" direction:@"after" count:count withCompletionHandler:^(NSMutableDictionary *dict) {
         NSArray* list = [dict valueForKey:@"list"];
-        for (int i = 0; i<[list count]; i++) {
+        for (int i = ([list count]-1); i>=0; i--) {
             NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:[list objectAtIndex:i]];
             NSLog(@"tempdic == %@",tempdic);
             [self AddToTempunKnowCharMessAyyay:tempdic];

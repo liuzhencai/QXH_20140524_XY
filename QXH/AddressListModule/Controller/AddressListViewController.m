@@ -165,7 +165,7 @@
 //    NSLog(@"%@",values);
 //    
 //    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
-//    [self resetTipLabelWithMessage:_myMessageList];
+    [self resetTipLabelWithMessage:_myMessageList];
 
     [myMessageTable reloadData];
 

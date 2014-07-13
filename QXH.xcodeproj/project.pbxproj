@@ -400,6 +400,7 @@
 		848426F0192E185B00C9474A /* square_share_icon_img_+@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848426D3192E185B00C9474A /* square_share_icon_img_+@2x.png */; };
 		84AB9247192B36770000101A /* fanfan.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9246192B36770000101A /* fanfan.jpeg */; };
 		84AB9249192B3FD80000101A /* cityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AB9248192B3FD80000101A /* cityList.plist */; };
+		84B94AC8197236EA001974E8 /* NSDate-Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B94AC7197236EA001974E8 /* NSDate-Helper.m */; };
 		84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */; };
 		84BCBBAE195DBA7700E80075 /* msg_state_sending.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BCBBAC195DBA7700E80075 /* msg_state_sending.png */; };
 		84BCBBB1195DC4EF00E80075 /* MessageBySend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BCBBB0195DC4EF00E80075 /* MessageBySend.m */; };
@@ -1058,6 +1059,8 @@
 		848426F4192E1A7000C9474A /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		84AB9246192B36770000101A /* fanfan.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fanfan.jpeg; sourceTree = "<group>"; };
 		84AB9248192B3FD80000101A /* cityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityList.plist; sourceTree = "<group>"; };
+		84B94AC6197236EA001974E8 /* NSDate-Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Helper.h"; sourceTree = "<group>"; };
+		84B94AC7197236EA001974E8 /* NSDate-Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Helper.m"; sourceTree = "<group>"; };
 		84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msg_state_send_error.png; sourceTree = "<group>"; };
 		84BCBBAC195DBA7700E80075 /* msg_state_sending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msg_state_sending.png; sourceTree = "<group>"; };
 		84BCBBAF195DC4EF00E80075 /* MessageBySend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBySend.h; sourceTree = "<group>"; };
@@ -1749,7 +1752,12 @@
 		212F23A21928DF2C00F738F8 /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
+
+				84B94AC6197236EA001974E8 /* NSDate-Helper.h */,
+				84B94AC7197236EA001974E8 /* NSDate-Helper.m */,
+
 				216EF4FC19725A9E00B75A6C /* qxh_rule.html */,
+
 				214C25A51956838E006109FF /* CustomIOS7AlertView.h */,
 				214C25A61956838E006109FF /* CustomIOS7AlertView.m */,
 				5869D87719431A6600401862 /* YSKeyboardTableView.h */,
@@ -2828,6 +2836,7 @@
 				58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */,
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
 				5839E43A196C3F4C00326270 /* MessagesViewController.m in Sources */,
+				84B94AC8197236EA001974E8 /* NSDate-Helper.m in Sources */,
 				58826BAB195DD180002F13A5 /* NISnapshotRotation.m in Sources */,
 				58826BAD195DD180002F13A5 /* NIViewRecycler.m in Sources */,
 				58B1DEBA192BA9DF00086C38 /* CreatTribeViewController.m in Sources */,
@@ -2913,7 +2922,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2946,7 +2955,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PROVISIONING_PROFILE = "DC6BF6EC-C5F6-431F-B48B-709A54617991";
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2970,7 +2979,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
+
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2995,7 +3006,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
+
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

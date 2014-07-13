@@ -35,6 +35,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+Circular.h"
 #import "CustomIOS7AlertView.h"
+#import "NSDate-Helper.h"
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 

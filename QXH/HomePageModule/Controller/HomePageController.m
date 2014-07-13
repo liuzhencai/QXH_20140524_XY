@@ -22,6 +22,7 @@
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
 #import "GuideView.h"
+#import "AppDelegate.h"
 //#import "PullRefreshTableViewController.h"
 
 
@@ -51,6 +52,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (iPhone5) {
+        self.view = self.viewfour;
+    }else
+    {
+        
+        self.view = self.viewThree;
+//        [self.view addSubview:self.viewThree];
+//        [self.view addSubview self.viewThree];
+    }
     self.hidesBottomBarWhenPushed = NO;
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.titleView = _topView;
@@ -73,6 +83,15 @@
         [self presentViewController:loginNavigation animated:NO completion:nil];
     }else{//自动登录
         [self autoLogin];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!IOS7_OR_LATER) {
+        AppDelegate* dele = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        [dele.tabController hideTabBar:NO];
     }
 }
 
@@ -215,7 +234,7 @@
 //    }];
 
     for (int i = 0; i < pics.count; i++) {
-        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, 173)];
+        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, iPhone5?173:153 )];
         image.image = [UIImage imageNamed:pics[i]];
         [_topScroll addSubview:image];
     }
