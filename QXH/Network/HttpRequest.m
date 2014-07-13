@@ -64,4 +64,41 @@
     }];
 }
 
++ (void)uploadFiles:(NSArray *)files andType:(NSString *)type andCompletionBlock:(ListCallback)uploadComplete
+{
+    __block NSMutableArray *imageUrls = [[NSMutableArray alloc] initWithCapacity:1];
+    __block NSInteger count = 0;
+//        for (UIImage *tempImage in images) {
+//            [self uploadImage:tempImage AndType:type andCompletionBlock:^(NSDictionary *dict) {
+//                ++count;
+//                if ([[dict objectForKey:@"error"] isEqual:[NSNull null]]) {
+//                    NSLog(@"图片上传成功");
+//                    [imageUrls addObject:[dict objectForKey:@"success"]];
+//                } else {
+//                    NSLog(@"error: %@", [dict objectForKey:@"error"]);
+//                }
+//                NSLog(@"count:%d,imagescount:%d",count, [images count]);
+//                if (count == [images count]) {
+//                    NSLog(@"图片上传完毕");
+//                    uploadComplete(imageUrls);
+//                }
+//            }];
+//        }
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        dispatch_apply([files count], queue, ^(size_t index) {
+            dispatch_async(queue, ^{
+                [self uploadFile:files[index] type:type completionHandler:^(id data) {
+                    ++count;
+                    [imageUrls addObject:[data objectForKey:@"filename"]];
+                    if (count == [files count]) {
+                        NSLog(@"图片上传完毕");
+                        uploadComplete(imageUrls);
+                    }
+                } errorHandler:^(NSString *desc) {
+                    
+                }];
+            });
+        });
+}
+
 @end

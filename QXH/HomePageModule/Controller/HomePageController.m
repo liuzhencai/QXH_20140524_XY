@@ -29,7 +29,10 @@
 @interface HomePageController ()<LoginDelegate,GuideViewDelegate>
 {
     NSArray *pics;
+    BOOL flag;
 }
+
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -166,10 +169,61 @@
     [_portraitView circular];
 }
 
+- (void)reConnection
+{
+    NSString *name = [defaults objectForKey:@"userName"];
+    NSString *passward = [defaults objectForKey:@"passworld"];
+    [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+        //登录成功后保存用户名和密码
+        [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
+        [defaults setObject:@NO forKey:@"isNewMember"];
+        NSDate *date = [NSDate date];
+        [defaults setObject:date forKey:LOGIN_DATE];
+        [defaults synchronize];
+        NSLog(@"登陆返回信息：%@",dict);
+        
+        NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
+        if ([defaults objectForKey:@"userid"]) {
+            //            /*获取个人信息，并储存起来*/
+            [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+             {
+                 NSLog(@"获取到用户信息");
+             }];
+        }
+        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
+            NSLog(@"dic==%@",dic);
+            [self setTopViewValue:dic];
+        }];
+        
+        /*获取系统消息*/
+        [MessageBySend sharMessageBySend];
+        [[MessageBySend sharMessageBySend]getOfflineMessage];
+    }];
+}
+
+- (void)tryReConnect
+{
+    NSLog(@"%s",__FUNCTION__);
+    if (!flag) {
+        [self reConnection];
+    }
+}
+
 // 心跳
 - (void)heartBeat
 {
+    /**
+     *  长时间无返回，重新连接，判定时间为30s，若收不到心跳回应，则进行重新连接
+     */
+    flag = NO;
+    if (!_timer) {
+        _timer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:99999999.f target:self selector:@selector(tryReConnect) userInfo:nil repeats:YES];
+    }
+    [_timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:30.f]];
+
     [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
+        flag = YES;
+        [_timer setFireDate:[NSDate distantFuture]];
     }];
 }
 

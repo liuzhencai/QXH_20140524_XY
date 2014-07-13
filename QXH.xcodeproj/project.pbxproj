@@ -175,6 +175,7 @@
 		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
 		2166CDF41933970500F0312E /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF31933970500F0312E /* UserInfoModel.m */; };
 		2166CDF619339A3400F0312E /* TabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF519339A3400F0312E /* TabBarControl.m */; };
+		216EF4FD19725A9E00B75A6C /* qxh_rule.html in Resources */ = {isa = PBXBuildFile; fileRef = 216EF4FC19725A9E00B75A6C /* qxh_rule.html */; };
 		2192EBDD191BD54900A8FE7F /* MyCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2192EBDB191BD54900A8FE7F /* MyCardController.m */; };
 		2192EBDE191BD54900A8FE7F /* MyCardController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2192EBDC191BD54900A8FE7F /* MyCardController.xib */; };
 		2192EBE3191BD56400A8FE7F /* EditCardController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2192EBE1191BD56400A8FE7F /* EditCardController.xib */; };
@@ -695,6 +696,7 @@
 		2166CDF21933970500F0312E /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = SOURCE_ROOT; };
 		2166CDF31933970500F0312E /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = SOURCE_ROOT; };
 		2166CDF519339A3400F0312E /* TabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarControl.m; sourceTree = "<group>"; };
+		216EF4FC19725A9E00B75A6C /* qxh_rule.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = qxh_rule.html; sourceTree = "<group>"; };
 		2192EBDA191BD54900A8FE7F /* MyCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCardController.h; sourceTree = "<group>"; };
 		2192EBDB191BD54900A8FE7F /* MyCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCardController.m; sourceTree = "<group>"; };
 		2192EBDC191BD54900A8FE7F /* MyCardController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCardController.xib; sourceTree = "<group>"; };
@@ -1750,8 +1752,12 @@
 		212F23A21928DF2C00F738F8 /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
+
 				84B94AC6197236EA001974E8 /* NSDate-Helper.h */,
 				84B94AC7197236EA001974E8 /* NSDate-Helper.m */,
+
+				216EF4FC19725A9E00B75A6C /* qxh_rule.html */,
+
 				214C25A51956838E006109FF /* CustomIOS7AlertView.h */,
 				214C25A61956838E006109FF /* CustomIOS7AlertView.m */,
 				5869D87719431A6600401862 /* YSKeyboardTableView.h */,
@@ -2587,6 +2593,7 @@
 				212F241F1928E09A00F738F8 /* navigation_slippage_bar_bg@2x.png in Resources */,
 				848426EF192E185B00C9474A /* square_share_icon_expression@2x.png in Resources */,
 				21A894021928F8CF00A6DB7E /* ShareTextController.xib in Resources */,
+				216EF4FD19725A9E00B75A6C /* qxh_rule.html in Resources */,
 				212F24311928E09A00F738F8 /* btn_arrow_normal@2x.png in Resources */,
 				212F24191928E09A00F738F8 /* img_news@2x.png in Resources */,
 				848426EC192E185B00C9474A /* collect_label_share_green@2x.png in Resources */,
@@ -2972,7 +2979,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+
 				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2997,7 +3006,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+
 				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

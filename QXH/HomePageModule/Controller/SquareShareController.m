@@ -7,6 +7,7 @@
 //
 
 #import "SquareShareController.h"
+#import "MJRefresh.h"
 
 @interface SquareShareController ()
 @property (nonatomic, strong) SNImagePickerNC *imagePickerNavigationController;
@@ -212,14 +213,40 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    [self.controller.squareTable headerBeginRefreshing];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)distributeSquareInfo:(NSString *)artimgs
+{
+    [DataInterface distributeInfo:@"" tags:@"" type:@"1" artimgs:artimgs arttype:@"" content:_contentField.text withCompletionHandler:^(NSMutableDictionary *dict) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+
+- (NSString *)mergeUrl:(NSArray *)urls
+{
+    NSMutableString *tmpStr = [[NSMutableString alloc] init];
+    for (NSString *str in urls) {
+        if (![str isEqualToString:[urls lastObject]]) {
+            [tmpStr appendFormat:@"%@,",str];
+        }else{
+            [tmpStr appendString:str];
+        }
+    }
+    return [NSString stringWithFormat:@"%@",tmpStr];
+}
+
 - (IBAction)distribute:(id)sender {
-  [DataInterface distributeInfo:@"" tags:@"" type:@"1" arttype:@"" content:_contentField.text withCompletionHandler:^(NSMutableDictionary *dict) {
-      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-      [alert show];
-  }];
+    __block NSString *artimgs = @"";
+    if ([_imgs count]!=0) {
+        [HttpRequest uploadFiles:_imgs andType:@"1" andCompletionBlock:^(NSMutableArray *list) {
+            [self distributeSquareInfo:[self mergeUrl:list]];
+        }];
+    }else{
+        [self distributeSquareInfo:artimgs];
+    }
 }
 
 - (IBAction)selectImage:(id)sender {

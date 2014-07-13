@@ -360,6 +360,7 @@ withCompletionHandler:(DictCallback)callback;
 + (void)distributeInfo:(NSString *)title
                   tags:(NSString *)tags
                   type:(NSString *)type
+               artimgs:(NSString *)artimgs
                arttype:(NSString *)arttype
                content:(NSString *)content
  withCompletionHandler:(DictCallback)callback;

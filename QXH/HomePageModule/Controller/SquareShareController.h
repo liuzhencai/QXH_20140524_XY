@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SNImagePickerNC.h"
+#import "SquareViewController.h"
 
 @interface SquareShareController : MyViewController<UIActionSheetDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, SNImagePickerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *picView;
 @property (weak, nonatomic) IBOutlet UITextField *contentField;
 @property (weak, nonatomic) IBOutlet UIButton *addPicBtn;
+@property (nonatomic, assign) SquareViewController *controller;
 - (IBAction)distribute:(id)sender;
 - (IBAction)selectImage:(id)sender;
 

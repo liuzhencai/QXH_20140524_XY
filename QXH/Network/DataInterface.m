@@ -8,18 +8,38 @@
 
 #import "DataInterface.h"
 #import "JSONKit.h"
+#import "AppDelegate.h"
+#import "HomePageController.h"
 
 @implementation DataInterface
 
++ (void)reConnection
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *nav = (UINavigationController *)[delegate.tabController.viewControllers objectAtIndex:0];
+    HomePageController *controller = [nav.viewControllers objectAtIndex:0];
+    [controller reConnection];
+}
+
 + (void)heartBeatWithCompletionHandler:(DictCallback)callback
 {
+    /**
+     *  记录心跳超时
+     */
     NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
     NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
+        /**
+         *  udp心跳出错，重新连接
+         */
+        if ([[data objectForKey:@"statecode"] isEqualToString:@"0441"]) {
+            [self reConnection];
+        }
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
+        [self reConnection];
     }];
 }
 
@@ -332,11 +352,12 @@ withCompletionHandler:(DictCallback)callback
 + (void)distributeInfo:(NSString *)title
                   tags:(NSString *)tags
                   type:(NSString *)type
+               artimgs:(NSString *)artimgs
                arttype:(NSString *)arttype
                content:(NSString *)content
  withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0120", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"title":title,@"tags":tags, @"arttype":arttype, @"content":content};
+    NSDictionary *param = @{@"opercode": @"0120", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"title":title,@"tags":tags, @"type":type, @"artimgs":artimgs, @"arttype":arttype, @"content":content};
     NSLog(@"\n##########发布广场/资讯信息接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########发布广场/资讯信息返回结果##########\n[结 果]:%@\n#############################\n",dict);

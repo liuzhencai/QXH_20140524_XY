@@ -56,7 +56,7 @@
 - (void)heartBeat
 {
     [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
-        
+        NSLog(@"心跳返回--->%@",dict);
     }];
 }
 

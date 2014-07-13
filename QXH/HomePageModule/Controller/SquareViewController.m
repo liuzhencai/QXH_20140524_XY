@@ -97,6 +97,7 @@
 - (void)distribute:(id)sender
 {
     SquareShareController *controller = [[SquareShareController alloc]initWithNibName:@"SquareShareController" bundle:nil];
+    controller.controller = self;
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
