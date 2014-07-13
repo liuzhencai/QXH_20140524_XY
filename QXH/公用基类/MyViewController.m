@@ -55,6 +55,9 @@
         [self.navigationController.navigationBar
          setBackgroundImage:[UIImage imageNamed:@"top_bar"]
          forBarMetrics:UIBarMetricsDefault];
+        if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+            self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        }
     }
 #endif
     

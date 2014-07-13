@@ -10,7 +10,7 @@
 #import "MyViewController.h"
 #import "CustomSegmentControl.h"
 
-#define MENU_FIXED_WIDTH 64
+#define MENU_FIXED_WIDTH 80
 #define MENU_FIXED_HEIGHT 34
 
 @interface InformationViewController : MyViewController<UITableViewDataSource,UITableViewDelegate, UIScrollViewDelegate>
