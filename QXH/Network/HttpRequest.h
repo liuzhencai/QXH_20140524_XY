@@ -912,4 +912,7 @@ info:"修改成功"			//修改成功/失败!
               type:(NSString *)type
  completionHandler:(Completion)completionBlock
       errorHandler:(DescriptionBlock)errorBlock;
+
++ (void)uploadFiles:(NSArray *)files andType:(NSString *)type andCompletionBlock:(ListCallback)uploadComplete;
+
 @end

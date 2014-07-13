@@ -17,6 +17,10 @@
     NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
+        if ([[data objectForKey:@"statecode"] isEqualToString:@"0441"]) {
+            NSLog(@"心跳出错，重新连接");
+            return;
+        }
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
@@ -332,11 +336,12 @@ withCompletionHandler:(DictCallback)callback
 + (void)distributeInfo:(NSString *)title
                   tags:(NSString *)tags
                   type:(NSString *)type
+               artimgs:(NSString *)artimgs
                arttype:(NSString *)arttype
                content:(NSString *)content
  withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0120", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"title":title,@"tags":tags, @"arttype":arttype, @"content":content};
+    NSDictionary *param = @{@"opercode": @"0120", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"title":title,@"tags":tags, @"type":type, @"artimgs":artimgs, @"arttype":arttype, @"content":content};
     NSLog(@"\n##########发布广场/资讯信息接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########发布广场/资讯信息返回结果##########\n[结 果]:%@\n#############################\n",dict);
