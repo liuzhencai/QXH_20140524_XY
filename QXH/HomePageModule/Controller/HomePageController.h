@@ -22,4 +22,6 @@
 
 - (IBAction)btnClick:(id)sender;
 
+- (void)reConnection;
+
 @end
