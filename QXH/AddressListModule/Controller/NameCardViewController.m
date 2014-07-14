@@ -180,7 +180,8 @@
             case 1://所在城市
 //                value = @"北京";
                 if (self.userDetailInfo) {
-                    value = [self.userDetailInfo objectForKey:@"address"];
+                    NSString *cityName = [self cityNameWithCode:[self.userDetailInfo objectForKey:@"domicile"]];
+                    value = cityName;//[self.userDetailInfo objectForKey:@"address"];
                 }
                 break;
             case 2://学校职务
