@@ -9,7 +9,8 @@
             <connections>
                 <outlet property="pageControl" destination="fWH-dB-i0u" id="gZT-5x-UZk"/>
                 <outlet property="portraitView" destination="fZc-B8-fhT" id="uVT-8Z-Hw8"/>
-                <outlet property="topScroll" destination="8Fw-4n-sBS" id="xqI-Ou-g2G"/>
+                <outlet property="topScrollfour" destination="12z-Gk-cer" id="bwa-Jx-cbz"/>
+                <outlet property="topScrollthree" destination="8Fw-4n-sBS" id="ma3-6t-MQP"/>
                 <outlet property="topView" destination="dNt-zo-9dA" id="DiC-1Y-bLr"/>
                 <outlet property="view" destination="40m-oJ-Vdj" id="5oE-D8-CEC"/>
                 <outlet property="viewThree" destination="yUc-na-t4W" id="7t1-kE-OeA"/>

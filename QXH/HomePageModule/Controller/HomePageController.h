@@ -17,7 +17,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView *topScroll;
+/*3.5寸适配*/
+@property (weak, nonatomic) IBOutlet UIScrollView *topScrollthree;
+/*4寸适配*/
+@property (weak, nonatomic) IBOutlet UIScrollView *topScrollfour;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 - (IBAction)btnClick:(id)sender;

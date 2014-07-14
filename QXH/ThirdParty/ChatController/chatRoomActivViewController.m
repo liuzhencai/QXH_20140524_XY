@@ -32,11 +32,11 @@
     [super viewDidLoad];
     
     //测试数据
-    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < 20; i ++) {
-        [tmpArr addObject:@{@"":@""}];
-    }
-    self.activitysList = [NSMutableArray arrayWithArray:tmpArr];
+//    NSMutableArray *tmpArr = [NSMutableArray arrayWithCapacity:0];
+//    for (int i = 0; i < 20; i ++) {
+//        [tmpArr addObject:@{@"":@""}];
+//    }
+//    self.activitysList = [NSMutableArray arrayWithArray:tmpArr];
     
    tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - 50) style:UITableViewStylePlain];
 //    activityTable.tag = ACTIVITY_TABLE_TAG;
@@ -63,8 +63,8 @@
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//        return [self.activitysList count];
-    return 5;
+        return [self.activitysList count];
+//    return 5;
  
 }
 
@@ -114,6 +114,8 @@
     //    }
   
         ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
+    NSDictionary* dic = (NSDictionary*)[self.activitysList objectAtIndex:indexPath.row];
+    activityDetail.activityId = dic[@"actid"];
         [navigation pushViewController:activityDetail animated:YES];
 }
 

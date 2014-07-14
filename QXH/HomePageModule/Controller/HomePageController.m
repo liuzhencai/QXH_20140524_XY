@@ -65,7 +65,8 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.titleView = _topView;
     pics = @[@"banner_img02", @"banner_img01"];
-    _topScroll.contentSize = CGSizeMake(320*pics.count, 132);
+    _topScrollfour.contentSize = CGSizeMake(320*pics.count, 132);
+    _topScrollthree.contentSize = CGSizeMake(320*pics.count, 132);
     [self addTopImage];
     
     if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
@@ -236,7 +237,11 @@
     for (int i = 0; i < pics.count; i++) {
         UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, iPhone5?173:153 )];
         image.image = [UIImage imageNamed:pics[i]];
-        [_topScroll addSubview:image];
+        if (iPhone5) {
+            [_topScrollfour addSubview:image];
+        }else{
+            [_topScrollthree addSubview:image];
+        }
     }
 }
 

@@ -270,6 +270,7 @@ static int scout=0;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 获取到服务器来的置顶消息
 /*添加每日一问*/
 - (void)addAskView:(NSDictionary*)dic
 {
@@ -316,22 +317,20 @@ static int scout=0;
      _speechContent.text = amess;
 }
 
-/*自己创建时置顶热门话题*/
+#pragma mark 自己创建消息置顶
 - (void)addAskViewByMe:(NSDictionary*)dic
 {
-    [self GreadAskView];
-    NSString* name = [dic valueForKey:@"sname"];
-    NSString* photo = [dic valueForKey:@"sphoto"];
-    NSString* amess = [dic valueForKey:@"mess"];
-    NSString* messageUserid = [dic valueForKey:@"sid"];
-    NSString* date = [dic valueForKey:@"date"];
-    /*自己创建没有messid*/
     NSString* messid = [dic valueForKey:@"messid"];
-    
-    if (![amess length]) {
-        /*如果置顶消息长度为0，就要置顶了*/
+    NSString* amess = [dic valueForKey:@"mess"];
+    if (!messid || ![amess length]) {
+        [self showAlert:@"该消息暂时无法置顶"];
         return;
     }
+    [self GreadAskView];
+    NSString* name = [dic valueForKey:@"sendername"];
+    NSString* photo = [dic valueForKey:@"senderphoto"];
+    NSString* messageUserid = [dic valueForKey:@"senderid"];
+    NSString* date = [dic valueForKey:@"date"];
     
     /*
      {
@@ -375,7 +374,7 @@ static int scout=0;
 
 }
 
-/*创建热门话题view*/
+#pragma mark 创建热门话题view
 - (void)GreadAskView
 {
     if (!askView) {
@@ -557,6 +556,7 @@ static int scout=0;
     }
 }
 
+#pragma mark 键盘隐藏
 - (void) keyboardWillHide:(NSNotification *)note {
     
     if (!_chatInput.shouldIgnoreKeyboardNotifications) {
@@ -743,6 +743,7 @@ static int scout=0;
      
 }
 
+#pragma mark 点击被选择的聊天记录
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     int row = indexPath.row;
@@ -750,15 +751,49 @@ static int scout=0;
     
     /*记录被选中的消息*/
     mess = amess;
-    //liuzhencai 如果显示是图片
-    if (mess[kMessageContent])
-    {
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"你确定要把该条评论置顶吗" delegate:self cancelButtonTitle:@"置顶" otherButtonTitles:@"取消", nil];
-        [alert show];
+    if (!mess[kMessageContent]) {
+        return;
     }
+    /*messtype:"1",			
+     //消息类型 1为文本，2为json对象，3为图片，4为录音*/
+
+    NSNumber* Nmesstype = mess[@"messtype"];
+    NSInteger messtype = [Nmesstype integerValue];
+    switch (messtype) {
+        case 1:
+        {
+            /*判断自己有没有置顶权限，如果没有，则不理*/
+            NSString* meuserid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+            NSInteger Imeuserid = [meuserid integerValue];
+            NSNumber* NGreadid = [self.tribeInfoDetailDict valueForKey:@"creater"];
+            NSInteger IGreadid = [NGreadid integerValue];
+            NSNumber* Nsecretaryid = [self.tribeInfoDetailDict valueForKey:@"secretary"];
+            NSInteger Isecretaryid = [Nsecretaryid integerValue];
+            
+            if (Imeuserid == IGreadid || Imeuserid == Isecretaryid)
+            {
+                UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"你确定要把该条评论置顶吗" delegate:self cancelButtonTitle:@"置顶" otherButtonTitles:@"取消", nil];
+                [alert show];
+            }
+        }
+            break;
+        case 2:
+        {
+            NSLog(@"其他类型");
+            /*json对象的mess说明：
+             sourcetype:1为广场文章，2为智谷分享，3为活动分享,4为名片分享
+             */
+        }
+            break;
+            
+        default:
+            break;
+    }
+
     
 }
 
+#pragma mark 提示框
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == KInToChatRoomErrorTag) {
@@ -969,8 +1004,8 @@ static int scout=0;
         case 1:
         {
             /*活动*/
-//            FrontViewTag = ACTIVITY_TABLE_TAG;
-//            [self getActivityListInTribe];
+            FrontViewTag = ACTIVITY_TABLE_TAG;
+            [self getActivityListInTribe];
 
         }
             break;
@@ -1012,7 +1047,7 @@ static int scout=0;
 }
 
 
-#pragma mark 获取网络数据
+#pragma mark 获取部落详细信息
 - (void)getTribeInfo{
     /**
      *  获取部落信息
@@ -1028,6 +1063,33 @@ static int scout=0;
        
         [DataInterface getTribeInfo:ChatRoomId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"部落信息返回值：%@",dict);
+            /*
+             opercode:"0114",		//operCode为0114，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
+             info:"创建成功",		//获取成功/失败!
+             tribename:"部落名称",		//部落名称
+             tribestyle:"部落类型",		//部落类型
+             signature:"部落签名",		//部落签名
+             desc:"部落描述",		//部落描述
+             condition:"加入条件",		//加入条件
+             purpose:"宗旨",			//宗旨
+             rule:"章程",			//章程
+             tags:"标签，标签"，		//不同标签之间用逗号隔开
+             creater:"123456",		//创建人userid
+             creatername:"张三",		//创建人名称
+             createrphoto:"1.jpg",		//创建人头像
+             creatersign:"签名",		//创建人签名
+             secretary:"秘书长userid",	//秘书长userid
+             secretaryname:"秘书长userid",	//秘书长名称
+             secretaryphoto:"秘书长userid",	//秘书长头像
+             secretarysign:"秘书长userid",	//秘书长签名
+             district:"130400",		//地域信息
+             photo:"2.jpg",			//部落头像
+             status:1,			//状态 1为状态正常的部落(可聊天使用的部落),2为申请中的部落(不能聊天)
+             authflag:"1",			//认证标识,0为普通部落,1为官方认证
+             maxcount:"30",			//部落最多人数
+             nowcount:"20"			//当前部落人数
+             */
             self.tribeInfoDetailDict = dict;
 //            [self showAlert:[dict objectForKey:@"info"]];
             
@@ -1073,12 +1135,12 @@ static int scout=0;
 
 - (void)getActivityListInTribe{
     
-//    if (!chatRoomActive  || [chatRoomActive.activitysList count]) {
-//        /*如果获取到，就不再获取*/
-//        UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
-//        [self.view bringSubviewToFront:table];
-//        return;
-//    }
+    if (chatRoomActive  && [chatRoomActive.activitysList count]) {
+        /*如果获取到，就不再获取*/
+        UIView* table = (UIView*)[self.view viewWithTag:ACTIVITY_TABLE_TAG];
+        [self.view bringSubviewToFront:table];
+        return;
+    }
     
     //获取活动列表
     /**
@@ -1129,6 +1191,10 @@ static int scout=0;
                 NSString* statecode = dict[@"statecode"];
                 if ([statecode isEqualToString:@"0200"]) {
                     NSArray* list = [dict valueForKey:@"list"];
+                    if ([list count] == 0) {
+                        [self showAlert:@"该部落暂时没有可分享的活动!"];
+                        return ;
+                    }
                     self.activitysList = [NSMutableArray arrayWithArray:list];
                     chatRoomActive.activitysList = self.activitysList;
                     [chatRoomActive.tableview reloadData];
@@ -1287,7 +1353,7 @@ static int scout=0;
     
 }
 
-/*获取部落置顶*/
+#pragma mark 获取部落置顶
 - (void)getTribeTopInfo
 {
 
@@ -1316,7 +1382,7 @@ static int scout=0;
     }];
 }
 
-/*获取聊天室聊天记录*/
+#pragma amrk 获取聊天室聊天记录
 - (void)getMessagesArray
 {
 //    if ([_messagesArray count]==0) {

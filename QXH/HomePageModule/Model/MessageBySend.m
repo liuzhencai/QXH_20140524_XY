@@ -62,10 +62,12 @@ static MessageBySend* ins =nil;
     
 }
 
-
+#pragma mark 判断系统消息是不是部落消息聊天
 - (void)addChatRoomMessageArray:(NSMutableDictionary*)notif
 {
-    /*判断接受到的消息类型*/
+    /*判断接受到的消息类型
+     0为系统消息,1为好友私聊，2为部落聊天,3为加好友申请，4为处理请求好友申请，5为加入部落申请,6为处理部落加入申请,7为完全退出部落,8为进入部落，9为退出部落房间,10好友上线通知
+     */
     NSNumber*  asendtype = (NSNumber*)[notif valueForKey:@"sendtype"];
     NSString* bsendtype =[NSString stringWithFormat:@"%d",[asendtype intValue]];
     if ([bsendtype isEqualToString:@"1"])
@@ -97,22 +99,42 @@ static MessageBySend* ins =nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatView" object:nil userInfo:notif];
         }
         
-    }else if ([bsendtype isEqualToString:@"2"]) {
+    }else if ([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"13"]) {
+        /*
+         分享进入部落里的文章，活动，个人名片也添加进入部落聊天当中
+         数据格式
+         date = "2014-07-14 11:59:15";
+         info = message;
+         mess = "{\"actaddr\":\"\",\"actid\":43,\"actname\":\"\U5e72\U561b\",\"acttype\":\"\",\"begindate\":\"\",\"comefrom\":\"\",\"creater\":0,\"creatername\":\"\",\"desc\":\"\",\"enddate\":\"\",\"folcount\":0,\"isjoin\":0,\"maxcount\":0,\"nowcount\":0,\"photos\":\"20140712/2037065000.png\",\"signupbegindate\":\"\",\"signupenddate\":\"\",\"sourcetype\":3,\"status\":0,\"tags\":\"\"}";
+         messid = 0;
+         messtype = 2;
+         opercode = 0131;
+         senderid = 100070;
+         sendername = "\U5218\U632f\U624d2";
+         senderphoto = "20140629/1043057210.png";
+         sendtype = 13;
+         sign = L8j34rKx;
+         statecode = 0200;
+         tribeid = 38;
+         tribename = "\U771f\U624d";
+         tribephoto = "20140627/2227514720.png";
+         */
+        
         /*部落聊天*/
-            /*
-             chatRoomMess每一个元素是一个聊天室数组tempchatroomArray，通过tribeid查找
-             */
-            NSNumber* ntribeid = (NSNumber*)[notif valueForKey:@"tribeid"];
-            NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
-            NSMutableArray* tempchatroomarray = (NSMutableArray*)[chatRoomMess valueForKey:atribeid];
-            if (tempchatroomarray) {
-                /*如果该聊天部落，聊天记录已经存在*/
-                [tempchatroomarray addObject:notif];
-            }else{
-             /*如果该聊天部落，聊天记录不存在*/
-                tempchatroomarray = [[NSMutableArray alloc]initWithObjects:notif, nil];
-                [chatRoomMess setObject:tempchatroomarray forKey:atribeid];
-            }
+        /*
+         chatRoomMess每一个元素是一个聊天室数组tempchatroomArray，通过tribeid查找
+         */
+        NSNumber* ntribeid = (NSNumber*)[notif valueForKey:@"tribeid"];
+        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+        NSMutableArray* tempchatroomarray = (NSMutableArray*)[chatRoomMess valueForKey:atribeid];
+        if (tempchatroomarray) {
+            /*如果该聊天部落，聊天记录已经存在*/
+            [tempchatroomarray addObject:notif];
+        }else{
+            /*如果该聊天部落，聊天记录不存在*/
+            tempchatroomarray = [[NSMutableArray alloc]initWithObjects:notif, nil];
+            [chatRoomMess setObject:tempchatroomarray forKey:atribeid];
+        }
         
         DebugLog(@"chatRoomMess == %@",chatRoomMess);
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
@@ -126,7 +148,7 @@ static MessageBySend* ins =nil;
    
     }else if ([bsendtype isEqualToString:@"3"] || [bsendtype isEqualToString:@"4"] || [bsendtype isEqualToString:@"0"] || [bsendtype isEqualToString:@"5"]
               || [bsendtype isEqualToString:@"6"]
-              || [bsendtype isEqualToString:@"7"] || [bsendtype isEqualToString:@"12"] || [bsendtype isEqualToString:@"13"]){
+              || [bsendtype isEqualToString:@"7"] || [bsendtype isEqualToString:@"12"] /*|| [bsendtype isEqualToString:@"13"]这是分享到部落的活动，文章和名片*/){
         NSLog(@"info:%@",notif);
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
@@ -402,7 +424,13 @@ static MessageBySend* ins =nil;
                        type:(NSString*)type
                     tribeid:(NSString*)tribeid
 {
-    /*将服务器状态置为已读*/
+    /*
+     1、将服务器状态置为已读
+     此处应该启动计时器，
+     如果没有返回则过30秒，
+     继续发送消息
+     2、进行该操作同事，删除本地离线消息
+     */
     [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
         /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
          statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
