@@ -34,6 +34,20 @@
 
 @implementation InformationViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_NEWS];
+    [MobClick beginEvent:TYPE_LOOK_NEWS];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_NEWS];
+    [MobClick endEvent:TYPE_LOOK_NEWS];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

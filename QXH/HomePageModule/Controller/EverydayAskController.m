@@ -28,6 +28,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK__DAY_QUES];
+    [MobClick beginEvent:TYPE_LOOK__DAY_QUES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK__DAY_QUES];
+    [MobClick endEvent:TYPE_LOOK__DAY_QUES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

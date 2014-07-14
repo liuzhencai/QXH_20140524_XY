@@ -26,6 +26,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_STUDIO];
+    [MobClick beginEvent:TYPE_LOOK_STUDIO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_STUDIO];
+    [MobClick endEvent:TYPE_LOOK_STUDIO];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

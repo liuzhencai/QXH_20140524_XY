@@ -44,11 +44,21 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_ACTIVITY];
+    [MobClick beginEvent:TYPE_LOOK_ACTIVITY];
     //获取数据
     if (!_isFilter) {
         [self getActivityListWithStatus:ACTIVITY_STATUS_IN];
     }
 }
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_ACTIVITY];
+    [MobClick endEvent:TYPE_LOOK_ACTIVITY];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

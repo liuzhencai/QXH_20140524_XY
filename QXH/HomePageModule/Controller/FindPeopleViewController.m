@@ -32,6 +32,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_SEARCH_USER];
+    [MobClick beginEvent:TYPE_LOOK_SEARCH_USER];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_SEARCH_USER];
+    [MobClick endEvent:TYPE_LOOK_SEARCH_USER];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

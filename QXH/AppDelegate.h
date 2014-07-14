@@ -10,6 +10,8 @@
 #import "WXApi.h"
 #import "CustomTabBarController.h"
 
+#define UMENG_APPKEY @"53c3db8e56240b17ae05ec28"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

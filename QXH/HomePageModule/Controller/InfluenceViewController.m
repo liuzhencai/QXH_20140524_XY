@@ -33,6 +33,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_INFLUENCE];
+    [MobClick beginEvent:TYPE_LOOK_INFLUENCE];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_INFLUENCE];
+    [MobClick endEvent:TYPE_LOOK_INFLUENCE];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

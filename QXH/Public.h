@@ -71,4 +71,29 @@ typedef void (^DictCallback) (NSMutableDictionary *dict);
 
 #define SQUARE_DETAIL_PICINF_SIZE 50
 
+/*******************************************
+ Umeng Statistics Constant 友盟统计常量
+ *******************************************/
+#define TYPE_LOOK_BANNER  @"type_look_banner" // 看广告条
+
+#define TYPE_LOOK_NEWS    @"type_look_news"   // 看资讯
+
+#define TYPE_LOOK_SEARCH_USER @"type_look_search_user"  // 看人
+
+#define TYPE_LOOK_GROUP @"type_look_group" // 看部落
+
+#define TYPE_LOOK_ACTIVITY @"type_look_activity" // 看活动
+
+#define TYPE_LOOK_PUBLIC @"type_look_public" // 看广场
+
+#define TYPE_LOOK_STUDIO @"type_look_studio"  // 看直播间
+
+#define TYPE_LOOK__DAY_QUES @"type_look__day_ques" // 看问道
+
+#define TYPE_LOOK_INFLUENCE @"type_look_studio" // 看影响力
+
+#define TYPE_LOOK_NEWS_TIME @"type_look_news_time" // 看咨询时间
+
+#define TYPE_LOOK_USER @"type_look_user" // 看人
+
 #endif

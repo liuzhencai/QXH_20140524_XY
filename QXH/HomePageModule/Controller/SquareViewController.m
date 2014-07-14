@@ -39,6 +39,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_PUBLIC];
+    [MobClick beginEvent:TYPE_LOOK_PUBLIC];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_PUBLIC];
+    [MobClick endEvent:TYPE_LOOK_PUBLIC];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

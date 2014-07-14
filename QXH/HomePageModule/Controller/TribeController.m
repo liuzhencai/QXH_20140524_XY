@@ -43,6 +43,15 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:TYPE_LOOK_GROUP];
+    [MobClick beginEvent:TYPE_LOOK_GROUP];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:TYPE_LOOK_GROUP];
+    [MobClick endEvent:TYPE_LOOK_GROUP];
 }
 
 - (void)viewDidLoad
