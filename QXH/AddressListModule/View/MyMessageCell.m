@@ -109,6 +109,9 @@
         NSMutableArray* tempArray = (NSMutableArray*)objt;
         params = [tempArray lastObject];
         NSNumber* acount = params[@"count"];
+        if (!acount) {
+            acount = [NSNumber numberWithInt:[tempArray count]];
+        }
         if (acount) {
             /*如果存在count值，
              则为离线消息，消息数按照count值显示*/
