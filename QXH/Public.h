@@ -29,6 +29,8 @@
 
 #define INF_URL @"http://"HOST_URL@"/qxh/articleAction_artilce.action?artid="
 
+#define INF_SHARE_URL(x) [NSString stringWithFormat:@"%@%@",INF_URL,x]
+
 #define INFURL(x) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",INF_URL,x]]
 
 /*******************************************

@@ -8,11 +8,15 @@
 
 #import "InformationDetailController.h"
 #import "InformationCommentController.h"
+#import "WXApi.h"
+#import "WXApiObject.h"
 
 @interface InformationDetailController ()
 {
     InfoDetailModel *detailmodel;
+    enum WXScene _scene;
 }
+
 @end
 
 @implementation InformationDetailController
@@ -67,9 +71,54 @@
     [self.view addSubview:_toolbarView];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"clickbtn--->%d",buttonIndex);
+    switch (buttonIndex) {
+        case 0:
+        {
+            // 微信
+            _scene = WXSceneSession;
+        }
+            break;
+        case 1:
+        {
+            // 朋友圈
+            _scene = WXSceneTimeline;
+        }
+            break;
+        default:
+            break;
+    }
+    [self sendLinkContent];
+}
+
+- (void) sendLinkContent
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = detailmodel.title;
+    message.description = detailmodel.title;
+//    [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:IMGURL(detailmodel.sphoto)]]];
+    [message setThumbImage:[UIImage imageNamed:@"img_news"]];
+    
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = INF_SHARE_URL(self.artid);
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = _scene;
+    
+    [WXApi sendReq:req];
+}
+
 - (void)share:(id)sender
 {
     NSLog(@"微信分享");
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分 享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信朋友", @"微信朋友圈", nil];
+    [actionSheet showInView:self.view];
 }
 
 - (void)didReceiveMemoryWarning

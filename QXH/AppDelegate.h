@@ -12,11 +12,17 @@
 
 #define UMENG_APPKEY @"53c3db8e56240b17ae05ec28"
 
+@protocol RespForWeChatViewDelegate <NSObject>
+- (void) RespLinkContent;
+@end
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, strong) CustomTabBarController *tabController;
+
+@property (nonatomic, assign) id<RespForWeChatViewDelegate,NSObject> delegate;
 
 //- (void)login;
 @end
