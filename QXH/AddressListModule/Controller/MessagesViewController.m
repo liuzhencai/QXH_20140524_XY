@@ -8,6 +8,7 @@
 
 #import "MessagesViewController.h"
 #import "MessageDetailCell.h"
+#import "MessageBySend.h"
 
 @interface MessagesViewController ()<UITableViewDataSource,UITableViewDelegate,MessageDetailDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -132,6 +133,12 @@
             [DataInterface addFriendConfirm:memberId type:@"2" remark:@"" withCompletionHandler:^(NSMutableDictionary *dict){
                 NSLog(@"%@",dict);
                 [self showAlert:[dict objectForKey:@"info"]];
+                NSMutableDictionary *messageDict = [[MessageBySend sharMessageBySend] getunKnowCharMessDic];
+                NSMutableArray *arr = [messageDict objectForKey:[NSString stringWithFormat:@"%d",stauts]];
+                for (int i = 0; i < [arr count]; i ++) {
+                    
+                    NSLog(@"");
+                }
             }];
         }
         
