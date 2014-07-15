@@ -248,6 +248,7 @@
 		21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12E119363129001EDEB1 /* UDPRequest.m */; };
 		21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF7589193F4F9800928450 /* NSString+MD5HexDigest.m */; };
 		21DF758F193F535200928450 /* DataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF758E193F535200928450 /* DataInterface.m */; };
+		21E5F8FD19758C6000CA3997 /* AdVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E5F8FC19758C6000CA3997 /* AdVIewController.m */; };
 		21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD341926E28A00C616CF /* EverGloryController.m */; };
 		21EDAD371926E28A00C616CF /* EverGloryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD351926E28A00C616CF /* EverGloryController.xib */; };
 		21EDAD3B1926E29900C616CF /* MoreStudyExpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD391926E29900C616CF /* MoreStudyExpController.m */; };
@@ -821,6 +822,8 @@
 		21DF758B193F4FC800928450 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
 		21DF758D193F535200928450 /* DataInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInterface.h; sourceTree = "<group>"; };
 		21DF758E193F535200928450 /* DataInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInterface.m; sourceTree = "<group>"; };
+		21E5F8FB19758C6000CA3997 /* AdVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdVIewController.h; sourceTree = "<group>"; };
+		21E5F8FC19758C6000CA3997 /* AdVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdVIewController.m; sourceTree = "<group>"; };
 		21EDAD331926E28A00C616CF /* EverGloryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverGloryController.h; sourceTree = "<group>"; };
 		21EDAD341926E28A00C616CF /* EverGloryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverGloryController.m; sourceTree = "<group>"; };
 		21EDAD351926E28A00C616CF /* EverGloryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EverGloryController.xib; sourceTree = "<group>"; };
@@ -1564,6 +1567,8 @@
 				21D705B819169C84004950BF /* CharacterListController.h */,
 				21D705B919169C84004950BF /* CharacterListController.m */,
 				21D705BA19169C84004950BF /* CharacterListController.xib */,
+				21E5F8FB19758C6000CA3997 /* AdVIewController.h */,
+				21E5F8FC19758C6000CA3997 /* AdVIewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2659,6 +2664,7 @@
 				21D7058919169562004950BF /* OneDreamController.m in Sources */,
 				84F06610192B2F1100B09AB5 /* TopBar.m in Sources */,
 				2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */,
+				21E5F8FD19758C6000CA3997 /* AdVIewController.m in Sources */,
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
 				21391FBD1959CA700002E288 /* CardInfo.m in Sources */,
@@ -2995,7 +3001,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3021,7 +3027,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
