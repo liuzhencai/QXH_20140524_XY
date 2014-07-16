@@ -18,5 +18,7 @@
 @property (nonatomic, strong) UIImageView* countImage;
 @property (nonatomic, strong) UILabel* countlabel;
 
+@property (nonatomic, strong) NSMutableArray *lastMessages;
+
 - (void)resetCellParamDict:(id)objt;
 @end

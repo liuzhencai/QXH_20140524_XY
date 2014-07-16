@@ -10,4 +10,5 @@
 
 @interface MessagesViewController : MyViewController
 @property (nonatomic, strong) NSMutableArray *messagesList;
+@property (nonatomic, strong) NSMutableArray *lastMessagesList;//上次查看的消息列表
 @end

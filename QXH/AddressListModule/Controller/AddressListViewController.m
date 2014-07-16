@@ -27,6 +27,10 @@
 @property (nonatomic, strong) NSMutableArray *addressList;//通讯录列表
 @property (nonatomic, strong) NSMutableArray *myMessageList;//我的消息列表
 @property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, assign) NSInteger curIndex;//当前下标
+
+@property (nonatomic, strong) NSMutableArray *lastMessages;//上次查看的消息
+
 @end
 
 #define ADDRESS_LIST_TABLE_TAG 2330  //通讯录tag
@@ -42,6 +46,8 @@
         _selectIndex = 1;
         _addressList = [[NSMutableArray alloc] initWithCapacity:0];
         _myMessageList = [[NSMutableArray alloc] initWithCapacity:0];
+        _lastMessages = [[NSMutableArray alloc] initWithCapacity:0];
+        _curIndex = 0;
     }
     return self;
 }
@@ -49,7 +55,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //登陆
-    [self getAddressList];
+    if (_curIndex == 0) {
+        [self getAddressList];
+    }
     
     /*获取系统推送的聊天数据*/
     [self getChatMessInfo];
@@ -118,7 +126,33 @@
     int count = 0;
     for (int i = 0; i < [messagesList count]; i ++) {
         NSArray *list = [messagesList objectAtIndex:i];
-        count += [list count];
+        NSDictionary *messageDict = [list lastObject];
+        NSInteger sendtype = [[messageDict objectForKey:@"sendtype"] integerValue];
+        if (sendtype != 1 && sendtype != 2) {
+            int newCount = 0;
+            for (int i = 0; i < [list count]; i ++) {
+                NSDictionary *newDict = [list objectAtIndex:i];
+                NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+                BOOL isNew = YES;
+                for (int j = 0; j < [self.lastMessages count]; j ++) {
+                    NSDictionary *oldDict = [self.lastMessages objectAtIndex:j];
+                    NSInteger oldMessid = [[oldDict objectForKey:@"messid"] integerValue];
+                    if (newMessid == oldMessid) {
+                        isNew = NO;
+                        break;
+                    }
+                }
+                if (isNew) {
+                    newCount ++;
+                }
+            }
+            count += newCount;
+        }else{
+            NSDictionary *messageDict = [list lastObject];
+            NSInteger chatsCount = [[messageDict objectForKey:@"count"] integerValue];
+            count += chatsCount;
+//            count += [list count];
+        }
     }
     if (count == 0) {
         self.tipLabel.hidden = YES;
@@ -237,6 +271,7 @@
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
 
+    _curIndex = index;
     if (index == 1) {
     }
 }
@@ -320,6 +355,7 @@
         
         if (self.myMessageList) {
             NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.row];
+            myMsgCell.lastMessages = self.lastMessages;
             [myMsgCell resetCellParamDict:dict];
 //        NSInteger arow = indexPath.row;
 //        if ([self.myMessageList count]) {
@@ -445,8 +481,31 @@
  
             }else{
                 MessagesViewController *messages = [[MessagesViewController alloc] init];
-                //            messages.messagesList = [self.myMessageList copy];
                 messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
+                messages.lastMessagesList = [self.lastMessages copy];
+                
+                if ([self.lastMessages count] == 0) {
+                    [self.lastMessages addObjectsFromArray:messages.messagesList];
+                }else{
+                    NSMutableArray *newMessages = [[NSMutableArray alloc] initWithCapacity:0];
+                    for (int i = 0; i < [messages.messagesList count]; i ++) {
+                        NSDictionary *newDict = [messages.messagesList objectAtIndex:i];
+                        NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+                        BOOL isNew = YES;
+                        for (int j = 0; j < [self.lastMessages count]; j ++) {
+                            NSDictionary *oldDict = [self.lastMessages objectAtIndex:j];
+                            NSInteger oldMessid = [[oldDict objectForKey:@"messid"] integerValue];
+                            if (newMessid == oldMessid) {
+                                isNew = NO;
+                                break;
+                            }
+                        }
+                        if (isNew) {
+                            [newMessages addObject:newDict];
+                        }
+                    }
+                    [self.lastMessages addObjectsFromArray:newMessages];
+                }
                 [self.navigationController pushViewController:messages animated:YES];
             }
         }else{
