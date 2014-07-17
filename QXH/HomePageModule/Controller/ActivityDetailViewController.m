@@ -386,7 +386,7 @@
 
             if (paramDict) {
                 [DataInterface shareContent:self.activityId
-                                contenttype:@"3"
+                                 sourcetype:@"3"
                                   sharetype:@"2"
                                    targetid:[paramDict objectForKey:@"tribeid"]
                       withCompletionHandler:^(NSMutableDictionary *dict){

@@ -81,7 +81,10 @@
         {
             NSLog(@"点击了转发名片");
 
-            [self showAlert:@"点击了转发名片"];
+//            [self showAlert:@"点击了转发名片"];
+            [DataInterface shareContent:@"" sourcetype:@"4" sharetype:@"2" targetid:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                
+            }];
 
         }
             break;

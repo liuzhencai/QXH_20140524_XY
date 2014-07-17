@@ -570,14 +570,14 @@ withCompletionHandler:(DictCallback)callback;
 /**
  *  分享内容
  *
- *  @param artid       广场消息的唯一标示
- *  @param contenttype 1为广场文章，2为咨询分享，3为活动分享
+ *  @param sourceid    广场消息的唯一标示
+ *  @param sourcetype  1为广场文章，2为咨询分享，3为活动分享,4为名片分享
  *  @param sharetype   1为分享给好友，2为分享给部落
  *  @param targetid    分享给好友或部落的id，如果为多个好友或部落，中间以逗号隔开
  *  @param callback 回调
  */
-+ (void)shareContent:(NSString *)artid
-         contenttype:(NSString *)contenttype
++ (void)shareContent:(NSString *)sourceid
+          sourcetype:(NSString *)sourcetype
            sharetype:(NSString *)sharetype
             targetid:(NSString *)targetid
 withCompletionHandler:(DictCallback)callback;
