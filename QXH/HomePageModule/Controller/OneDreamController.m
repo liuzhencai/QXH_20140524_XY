@@ -9,19 +9,21 @@
 #import "OneDreamController.h"
 #import "ActivityCell.h"
 #import "OnLiveCell.h"
+#import "ChatLiveViewController.h"
 
 @interface OneDreamController ()
 @property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
 @end
 
 @implementation OneDreamController
+@synthesize tableview;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _activitysList = [[NSMutableArray alloc] initWithCapacity:0];
+//        _activitysList = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -44,9 +46,11 @@
     [super viewDidLoad];
     self.title = @"直播间";
     
-    for (int i = 0; i < 10; i ++) {
-        [self.activitysList addObject:@{@"":@""}];
-    }
+    self.tableview.backgroundColor = [UIColor clearColor];
+    
+//    for (int i = 0; i < 10; i ++) {
+//        [self.activitysList addObject:@{@"":@""}];
+//    }
     
     [self getActivitysList];
 }
@@ -82,6 +86,18 @@
                               count:@"20"
               withCompletionHandler:^(NSMutableDictionary *dict){
                   NSLog(@"部落列表返回值：%@",dict);
+                  NSNumber* statecode = (NSNumber*)dict[@"statecode"];
+                  if ([statecode integerValue] == 200) {
+                      NSMutableArray* list = (NSMutableArray*)dict[@"list"];
+                      if ([list count]>0) {
+                          _activitysList = [[NSMutableArray alloc]initWithArray:list];
+                          [self.tableview reloadData];
+                      }
+                      
+                  }else{
+                      NSString* info = (NSString*)dict[@"info"];
+                      [self showAlert:info];
+                  }
 //                  [self showAlert:[dict objectForKey:@"info"]];
               }];
 }
@@ -112,13 +128,16 @@
         cell = [[OnLiveCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    [cell resetCellParamDict:[_activitysList objectAtIndex:indexPath.row]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    NSDictionary* dic = (NSDictionary*)[_activitysList objectAtIndex:indexPath.row];
+    ChatLiveViewController* chatlive = [[ChatLiveViewController alloc]init];
+    chatlive.tribeInfoDict = dic;
+    [self.navigationController pushViewController:chatlive animated:NO];
 }
 
 #pragma mark chatcontroller

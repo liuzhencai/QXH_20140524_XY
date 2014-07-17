@@ -24,13 +24,13 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 
 @interface ChatLiveViewController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
-@property (nonatomic, strong) NSMutableArray *membersList;//成员列表
+//@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
+//@property (nonatomic, strong) NSMutableArray *membersList;//成员列表
 @property (nonatomic, strong) NSDictionary *tribeInfoDict;//部落信息
 @property (nonatomic, strong) NSDictionary *tribeInfoDetailDict;//部落返回信息
 
 //@property (nonatomic, strong) UIView *chatview;//部落信息
-@property (nonatomic, strong) UIView *askView;//每日一问
+//@property (nonatomic, strong) UIView *askView;//每日一问
 
 - (void)messageSendByUser:(NSMutableDictionary *)message;
 /*对方发送消息*/

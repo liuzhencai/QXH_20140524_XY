@@ -54,10 +54,10 @@
         [bgImgView addSubview:_activityImage];
         
 //        NSArray *items = @[@"来   自:",@"时   间:",@"",@"地   点:"];
-        NSArray *items = @[@"来自:",@"时间:",@"",@"地点:"];
+        NSArray *items = @[@"发起人:",@"开始时间:",@"结束时间:",@"地点:"];
         for (int i = 0; i < [items count]; i ++) {
             
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 27, 32, 27)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 27, 50, 27)
                                                     text:[items objectAtIndex:i]
                                                    color:[UIColor blackColor]
                                                     font:[UIFont systemFontOfSize:12]];
@@ -73,13 +73,13 @@
             
             NSString *imageName = @"";
             switch (i) {
-                case 0:{//来自
+                case 0:{//创建者
                     imageName = @"icon_comefrom";
                     self.tribeLabel = itemValue;
                     self.tribeLabel.text = @"XXXX部落";
                 }
                     break;
-                case 1:{//时间
+                case 1:{//开始时间
                     //                    imageName = @"icon_zhujiangren";
                     imageName = @"icon_time";
                     
@@ -87,7 +87,7 @@
                     self.orgnizerLabel.text = @"2014-05-25/09:30";
                 }
                     break;
-                case 2:{//时间
+                case 2:{//结束时间
                     //                    imageName = @"icon_time";
                     self.timeLabel = itemValue;
                     self.timeLabel.text = @"2014-05-25/09:30";
@@ -154,19 +154,27 @@
 }
 
 - (void)resetCellParamDict:(id)objt{
-    self.activityTitleLabel.text = @"活动标题";
-    self.activityTypeLabel.text = @"活动类型";
-    self.activityDescriptionLabel.text = @"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述";
-    self.activityImage.image = [UIImage imageNamed:@""];
-    self.tribeLabel.text = @"XXXX部落";
-    self.orgnizerLabel.text = @"苍井空";
-    self.timeLabel.text = @"2014-05-25";
-    self.addrLabel.text = @"中关村";
+    NSDictionary* dic = (NSDictionary*)objt;
     
-    self.signUpLabel.text = @"2人报名";
-    self.followLabel.text = @"2人关注";
-    self.activityStatus.image = [UIImage imageNamed:@""];
-    self.statusLabel.text = @"进行中";
+    
+    self.activityTitleLabel.text = (NSString*)dic[@"tribename"];
+    self.activityTypeLabel.text = @"活动类型";
+    /*直播间描述的地方放签名是否合适*/
+    self.activityDescriptionLabel.text = (NSString*)dic[@"signature"];;
+    [self.activityImage setImageWithURL:IMGURL((NSString*)dic[@"photo"]) placeholderImage:[UIImage imageNamed:@""]];
+    self.tribeLabel.text = (NSString*)dic[@"creatername"];
+    /*发起时间*/
+    self.orgnizerLabel.text = [((NSString*)dic[@"startdate"]) substringToIndex:16];
+    self.timeLabel.text = [((NSString*)dic[@"enddate"]) substringToIndex:16];
+    self.addrLabel.text = (NSString*)dic[@"address"];
+    
+    NSNumber* amaxcount = (NSNumber*)dic[@"maxcount"];
+    self.signUpLabel.text = [NSString stringWithFormat:@"直播间最大收听人数：%d人",[amaxcount integerValue]];//@"2人报名";
+    NSNumber* nowcount = (NSNumber*)dic[@"nowcount"];
+    self.followLabel.text = [NSString stringWithFormat:@"当前收听人数：%d人",[nowcount integerValue]];;
+//    self.activityStatus.image = [UIImage imageNamed:@""];
+//    self.statusLabel.text = @"进行中";
+    
 }
 
 @end

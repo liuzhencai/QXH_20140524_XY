@@ -54,6 +54,13 @@ static MessageBySend* ins =nil;
         return;
     }
     messid = amessid;
+      /*因为直播间消息也会给自己推送*/
+    NSNumber* senderid = (NSNumber*)[userinfo valueForKey:@"senderid"];
+    NSNumber* meuserid = [defaults objectForKey:@"userid"] ;
+    if ([senderid integerValue] == [meuserid integerValue]) {
+        return;
+    }
+  
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
     [self AddTounKnowCharMessAyyay:userinfo];

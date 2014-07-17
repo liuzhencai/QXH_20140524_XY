@@ -1080,5 +1080,11 @@ static int chatInputStartingHeight = 40;
     
 }
 
+#pragma mark 返回上一界面
+-(void)popForwardBack
+{
+    [_chatInput.textView resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

@@ -1808,4 +1808,11 @@ static int chatInputStartingHeight = 40;
     //    [_editTable reloadData];
 }
 
+#pragma mark 返回上一界面
+-(void)popForwardBack
+{
+    [_chatInput.textView resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end
