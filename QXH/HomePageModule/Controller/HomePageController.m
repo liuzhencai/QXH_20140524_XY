@@ -23,6 +23,9 @@
 #import "UserInfoModelManger.h"
 #import "GuideView.h"
 #import "AppDelegate.h"
+#import "ActivityDetailViewController.h"
+#import "AdVIewController.h"
+#import "InformationDetailController.h"
 //#import "PullRefreshTableViewController.h"
 
 
@@ -33,6 +36,8 @@
 }
 
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic, strong) NSArray *ads;
 
 @end
 
@@ -64,10 +69,10 @@
     self.hidesBottomBarWhenPushed = NO;
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.titleView = _topView;
-    pics = @[@"banner_img02", @"banner_img01"];
-    _topScrollfour.contentSize = CGSizeMake(320*pics.count, 132);
-    _topScrollthree.contentSize = CGSizeMake(320*pics.count, 132);
-    [self addTopImage];
+//    pics = @[@"banner_img02", @"banner_img01"];
+//    _topScrollfour.contentSize = CGSizeMake(320*pics.count, 132);
+//    _topScrollthree.contentSize = CGSizeMake(320*pics.count, 132);
+//    [self addTopImage];
     
     if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
         //guide
@@ -153,6 +158,7 @@
             NSLog(@"dic==%@",dic);
             [self setTopViewValue:dic];
         }];
+        [self setHomePageAds];
 //        [self showAlert:[dict objectForKey:@"info"]];
 
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
@@ -161,6 +167,85 @@
            [MessageBySend sharMessageBySend];
         [[MessageBySend sharMessageBySend]getOfflineMessage];
     }];
+}
+
+- (void)setHomePageAds
+{
+    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"首页公告--->%@",dict);
+        NSArray *list = [dict objectForKey:@"list"];
+        __block NSMutableArray *tmpAds = [[NSMutableArray alloc]init];
+        if ([list count] > 0) {
+            for (int i = 0; i < [list count]; i++) {
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[list[i] objectForKey:@"desc"], @"desc", [list[i] objectForKey:@"img"], @"img",[list[i] objectForKey:@"target"], @"target",[list[i] objectForKey:@"type"], @"type",nil];
+                [tmpAds addObject:dict];
+            }
+            _ads = tmpAds;
+            _pageControl.numberOfPages = _ads.count;
+            _topScrollfour.contentSize = CGSizeMake(320*_ads.count, 132);
+            _topScrollthree.contentSize = CGSizeMake(320*_ads.count, 132);
+            _adTitleLabelfour.text = [_ads[0] objectForKey:@"desc"];
+        }
+        for (int i = 0; i < _ads.count; i++) {
+            @autoreleasepool {
+                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, iPhone5?173:153 )];
+                UIControl *control = [[UIControl alloc] initWithFrame:image.bounds];
+                control.backgroundColor = [UIColor clearColor];
+                control.tag = 5000+i;
+                [control addTarget:self action:@selector(clickAd:) forControlEvents:UIControlEventTouchDown];
+                [image addSubview:control];
+                image.userInteractionEnabled = YES;
+                [image setContentMode:UIViewContentModeScaleAspectFill];
+                [image setImageWithURL:IMGURL([_ads[i] objectForKey:@"img"])];
+                if (iPhone5) {
+                    [_topScrollfour addSubview:image];
+                }else{
+                    [_topScrollthree addSubview:image];
+                }
+            }
+        }
+    }];
+}
+
+- (void)clickAd:(id)sender
+{
+    UIControl *control_ = (UIControl *)sender;
+    NSInteger index = control_.tag - 5000;
+    switch ([[_ads[index] objectForKey:@"type"] integerValue]) {
+        case 1:
+        {
+            // 跳转至广场详情
+            
+        }
+            break;
+        case 2:
+        {
+            // 跳转至智谷详情
+            InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+            controller.artid = [_ads[index] objectForKey:@"target"];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 3:
+        {
+            // 跳转至活动详情
+            ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
+            activityDetail.activityId = [_ads[index] objectForKey:@"target"];
+            [self.navigationController pushViewController:activityDetail animated:YES];
+        }
+            break;
+        case 4:
+        {
+            // 跳转至自定义webview
+            AdVIewController *controller = [[AdVIewController alloc] init];
+            controller.url = [_ads[index] objectForKey:@"target"];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)setTopViewValue:(NSDictionary *)dict
@@ -248,6 +333,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     _pageControl.currentPage = (int)scrollView.contentOffset.x/320;
+    _adTitleLabelfour.text = [_ads[_pageControl.currentPage] objectForKey:@"desc"];
 }
 
 - (void)didReceiveMemoryWarning

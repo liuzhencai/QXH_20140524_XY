@@ -109,6 +109,26 @@
         NSMutableArray* tempArray = (NSMutableArray*)objt;
         params = [tempArray lastObject];
         NSNumber* acount = params[@"count"];
+        if (!acount) {
+            int count = 0;
+            for (int i = 0; i < [tempArray count]; i ++) {
+                NSDictionary *newDict = [tempArray objectAtIndex:i];
+                NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+                BOOL isNew = YES;
+                for (int j = 0; j < [self.lastMessages count]; j ++) {
+                    NSDictionary *oldDict = [self.lastMessages objectAtIndex:j];
+                    NSInteger oldMessid = [[oldDict objectForKey:@"messid"] integerValue];
+                    if (newMessid == oldMessid) {
+                        isNew = NO;
+                        break;
+                    }
+                }
+                if (isNew) {
+                    count ++;
+                }
+            }
+            acount = [NSNumber numberWithInt:count];
+        }
         if (acount) {
             /*如果存在count值，
              则为离线消息，消息数按照count值显示*/
@@ -119,9 +139,11 @@
             {
                 _countlabel.text = [NSString stringWithFormat:@"%d",count];
             }
-           
+            if (count == 0) {
+                _countlabel.hidden = YES;
+                _countImage.hidden = YES;
+            }
         }
- 
         
     }else {
       params = (NSDictionary *)objt;

@@ -60,16 +60,21 @@
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.jpg",imageName]];
         if (i == [imagesArr count] - 1) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake((UI_SCREEN_WIDTH - 135)/2.0, UI_SCREEN_HEIGHT - 60, 135, 30);
+            button.frame = CGRectMake((UI_SCREEN_WIDTH - 135)/2.0 + 3, UI_SCREEN_HEIGHT - 60, 135, 30);
             if (!iPhone5) {
                 button.frame = CGRectMake((UI_SCREEN_WIDTH - 135)/2.0, UI_SCREEN_HEIGHT - 60, 135, 30);
             }
-//            button.backgroundColor = [UIColor greenColor];
+//            button.backgroundColor = [UIColor redColor];
             [button setTitle:@"立即进入" forState:UIControlStateNormal];
             [button addTarget:self action:@selector(startApp:) forControlEvents:UIControlEventTouchUpInside];
             [imageView addSubview:button];
         }
     }
+    
+    self.PageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((UI_SCREEN_WIDTH - 100) / 2.0, UI_SCREEN_HEIGHT - 35, 100, 20)];
+    self.PageControl.backgroundColor = [UIColor clearColor];
+    self.PageControl.numberOfPages = [imagesArr count];
+    [self addSubview:self.PageControl];
 }
 
 - (void)startApp:(UIButton *)sender{

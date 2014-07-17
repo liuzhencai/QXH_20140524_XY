@@ -31,6 +31,7 @@
 #define UI_STATUS_BAR_HEIGHT            20
 #define UI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
 #define UI_SCREEN_HEIGHT                ([[UIScreen mainScreen] bounds].size.height)
+#define MENU_HEIGHT 34
 
 #pragma mark - color Macro
 //

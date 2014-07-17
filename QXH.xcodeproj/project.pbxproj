@@ -248,6 +248,7 @@
 		21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DA12E119363129001EDEB1 /* UDPRequest.m */; };
 		21DF758A193F4F9800928450 /* NSString+MD5HexDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF7589193F4F9800928450 /* NSString+MD5HexDigest.m */; };
 		21DF758F193F535200928450 /* DataInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DF758E193F535200928450 /* DataInterface.m */; };
+		21E5F8FD19758C6000CA3997 /* AdVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E5F8FC19758C6000CA3997 /* AdVIewController.m */; };
 		21EDAD361926E28A00C616CF /* EverGloryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD341926E28A00C616CF /* EverGloryController.m */; };
 		21EDAD371926E28A00C616CF /* EverGloryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD351926E28A00C616CF /* EverGloryController.xib */; };
 		21EDAD3B1926E29900C616CF /* MoreStudyExpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD391926E29900C616CF /* MoreStudyExpController.m */; };
@@ -328,7 +329,7 @@
 		58979DBF196AE80A00B945BF /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58979DBE196AE80A00B945BF /* provincesAndCitys.plist */; };
 		58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58979DC1196AFDE200B945BF /* SelectCityViewController.m */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
-		58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterViewController.m */; };
+		58B1DEA0192B92F300086C38 /* FilterActivityResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterActivityResultViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
 		58B1DEAB192B980500086C38 /* collect_img_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA3192B980500086C38 /* collect_img_share@2x.png */; };
 		58B1DEAC192B980500086C38 /* collect_label_discuss_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA4192B980500086C38 /* collect_label_discuss_gray@2x.png */; };
@@ -822,6 +823,8 @@
 		21DF758B193F4FC800928450 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
 		21DF758D193F535200928450 /* DataInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataInterface.h; sourceTree = "<group>"; };
 		21DF758E193F535200928450 /* DataInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataInterface.m; sourceTree = "<group>"; };
+		21E5F8FB19758C6000CA3997 /* AdVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdVIewController.h; sourceTree = "<group>"; };
+		21E5F8FC19758C6000CA3997 /* AdVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdVIewController.m; sourceTree = "<group>"; };
 		21EDAD331926E28A00C616CF /* EverGloryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverGloryController.h; sourceTree = "<group>"; };
 		21EDAD341926E28A00C616CF /* EverGloryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverGloryController.m; sourceTree = "<group>"; };
 		21EDAD351926E28A00C616CF /* EverGloryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EverGloryController.xib; sourceTree = "<group>"; };
@@ -960,8 +963,8 @@
 		58979DC1196AFDE200B945BF /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
-		58B1DE9E192B92F300086C38 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
-		58B1DE9F192B92F300086C38 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		58B1DE9E192B92F300086C38 /* FilterActivityResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActivityResultViewController.h; sourceTree = "<group>"; };
+		58B1DE9F192B92F300086C38 /* FilterActivityResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterActivityResultViewController.m; sourceTree = "<group>"; };
 		58B1DEA2192B980500086C38 /* choice_box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choice_box@2x.png"; sourceTree = "<group>"; };
 		58B1DEA3192B980500086C38 /* collect_img_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collect_img_share@2x.png"; sourceTree = "<group>"; };
 		58B1DEA4192B980500086C38 /* collect_label_discuss_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "collect_label_discuss_gray@2x.png"; sourceTree = "<group>"; };
@@ -1567,6 +1570,8 @@
 				21D705B819169C84004950BF /* CharacterListController.h */,
 				21D705B919169C84004950BF /* CharacterListController.m */,
 				21D705BA19169C84004950BF /* CharacterListController.xib */,
+				21E5F8FB19758C6000CA3997 /* AdVIewController.h */,
+				21E5F8FC19758C6000CA3997 /* AdVIewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2335,8 +2340,8 @@
 				84F065E0192AFACD00B09AB5 /* ActivityViewController.m */,
 				84F065E1192AFACD00B09AB5 /* FilterTimeViewController.h */,
 				84F065E2192AFACD00B09AB5 /* FilterTimeViewController.m */,
-				58B1DE9E192B92F300086C38 /* FilterViewController.h */,
-				58B1DE9F192B92F300086C38 /* FilterViewController.m */,
+				58B1DE9E192B92F300086C38 /* FilterActivityResultViewController.h */,
+				58B1DE9F192B92F300086C38 /* FilterActivityResultViewController.m */,
 				84F065E7192AFACD00B09AB5 /* PromotionalActvityViewController.h */,
 				84F065E8192AFACD00B09AB5 /* PromotionalActvityViewController.m */,
 			);
@@ -2664,6 +2669,7 @@
 				21D7058919169562004950BF /* OneDreamController.m in Sources */,
 				84F06610192B2F1100B09AB5 /* TopBar.m in Sources */,
 				2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */,
+				21E5F8FD19758C6000CA3997 /* AdVIewController.m in Sources */,
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
 				21391FBD1959CA700002E288 /* CardInfo.m in Sources */,
@@ -2792,7 +2798,7 @@
 				58826BA5195DD180002F13A5 /* NINonEmptyCollectionTesting.m in Sources */,
 				21F50D0A196C2FB700492A82 /* UIView+Extension.m in Sources */,
 				21401DA719192CD100E9175B /* TribeCell.m in Sources */,
-				58B1DEA0192B92F300086C38 /* FilterViewController.m in Sources */,
+				58B1DEA0192B92F300086C38 /* FilterActivityResultViewController.m in Sources */,
 				21F68BCC195C5CA300C869BC /* SNImagePickerNC.m in Sources */,
 				2192EC32191BD90100A8FE7F /* PhoneViewController.m in Sources */,
 				2119EF06191682EC007DBE68 /* UIImageView+WebCache.m in Sources */,
@@ -3001,7 +3007,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+
 				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3027,7 +3035,9 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+
 				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

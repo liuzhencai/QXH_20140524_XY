@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilterViewController : MyViewController
-
+@interface FilterActivityResultViewController : MyViewController
+@property (nonatomic, strong) NSMutableArray *activitysList;
 @end

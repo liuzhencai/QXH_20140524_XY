@@ -75,12 +75,12 @@
     self.navigationItem.rightBarButtonItem = righttItem;
     
     //segment
-    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 32) andTitles:@[@"我的部落",@"推荐部落"]];
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, MENU_HEIGHT) andTitles:@[@"我的部落",@"推荐部落"]];
     segment.delegate = self;
     [self.view addSubview:segment];
     
     //table
-    UITableView *allTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
+    UITableView *allTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, segment.bottom, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
     allTribeTable.tag = ALL_TRIBE_TABLE_TAG;
     self.allTribesTable = allTribeTable;
     allTribeTable.hidden = YES;
@@ -90,7 +90,7 @@
     [self setupRefresh:allTribeTable];
     [self.view addSubview:allTribeTable];
     
-    UITableView *myTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 32, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
+    UITableView *myTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, segment.bottom, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
     myTribeTable.tag = MY_TRIBE_TABLE_TAG;
     self.myTribesTable = myTribeTable;
     myTribeTable.delegate = self;
@@ -105,44 +105,6 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
     allTribeTable.tableHeaderView = self.searchBar;
-    
-    [self getTribeList];
-}
-
-- (void)getTribeList{
-    /**
-     *  获取部落/群组/直播间列表
-     *
-     *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
-     *  @param tribename 部落名称
-     *  @param authflag  0为全部，1为普通部落，2为官方认证部落
-     *  @param status    1为状态正常的部落(可聊天使用的部落),2为申请中的部落(不能聊天)
-     *  @param tribetype 1为部落，2为直播间
-     *  @param tag       搜索是只允许单个标签搜索
-     *  @param district  地域信息
-     *  @param start     起始位置
-     *  @param count     获取数量
-     *  @param callback  回调
-     */
-
-//    [DataInterface requestTribeList:@"1"
-//                          tribename:@""
-//                           authflag:@"0"
-//                             status:@"1"
-//                          tribetype:@"1"
-//                                tag:@""
-//                           district:@""
-//                              start:@"0"
-//                              count:@"20"
-//              withCompletionHandler:^(NSMutableDictionary *dict){
-//                  NSLog(@"部落列表返回值：%@",dict);
-//
-//                  if (dict) {
-//                      NSArray *list = [dict objectForKey:@"list"];
-//                      self.tribeList = [NSMutableArray arrayWithArray:list];
-//                      [_myTribesTable reloadData];
-//                  }
-//    }];
     
     [self.myTribesTable headerBeginRefreshing];
 }
@@ -173,39 +135,6 @@
         if ([self.allTribeList count] == 0) {
             [self.allTribesTable headerBeginRefreshing];
         }
-    }
-    if (index == 1) {
-        /**
-         *  获取部落/群组/直播间列表
-         *
-         *  @param type      1为获取已加入的部落列表，2为搜索相关部落列表(为2时读取下列条件)
-         *  @param tribename 部落名称
-         *  @param authflag  0为全部，1为普通部落，2为官方认证部落
-         *  @param tribetype 1为部落，2为直播间
-         *  @param tag       搜索是只允许单个标签搜索
-         *  @param district  地域信息
-         *  @param start     起始位置
-         *  @param count     获取数量
-         *  @param callback  回调
-         */
-
-//        [DataInterface requestTribeList:@"2"
-//                              tribename:@""
-//                               authflag:@"0"
-//                                 status:@"0"
-//                              tribetype:@"1"
-//                                    tag:@""
-//                               district:@""
-//                                  start:@"0"
-//                                  count:@"20"
-//                  withCompletionHandler:^(NSMutableDictionary *dict){
-//                      NSLog(@"部落列表返回值：%@",dict);
-//
-//                      NSArray *list = [dict objectForKey:@"list"];
-//                      self.allTribeList = [NSMutableArray arrayWithArray:list];
-//                      [table reloadData];
-////                      [self showAlert:[dict objectForKey:@"info"]];
-//                  }];
     }
 }
 
@@ -265,7 +194,6 @@
             [self.allTribesTable headerEndRefreshing];
         }
         
-        
         // 2.2秒后刷新表格UI
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            // 刷新表格
@@ -302,8 +230,6 @@
             [self.allTribesTable reloadData];
             [self.allTribesTable footerEndRefreshing];
         }
-        
-        
         // 2.2秒后刷新表格UI
         //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //            // 刷新表格
@@ -313,33 +239,6 @@
         //            [tableView headerEndRefreshing];
         //        });
     }];
-//    NSString *indexKey = [NSString stringWithFormat:@"%d",_curIndex];
-//    NSArray *data = [_artListData objectForKey:indexKey];
-//    InfoModel *model = [data lastObject];
-//    // 1.添加数据
-//    [self requestInfoList:((CodeSheetObject *)[artClassify objectAtIndex:_curIndex]).code start:model.artid withCompletionHandler:^(NSMutableArray *list) {
-//        NSMutableArray *classifyArr = [_artListData objectForKey:indexKey];
-//        if ([classifyArr count] != 0) {
-//            if (loadingMore) {
-//                [classifyArr addObjectsFromArray:list];
-//            }else{
-//                [classifyArr removeAllObjects];
-//                [_artListData setObject:list forKey:indexKey];
-//            }
-//        }else{
-//            [_artListData setObject:list forKey:indexKey];
-//        }
-//        // 2.2秒后刷新表格UI
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
-//            [infoScroll scrollRectToVisible:CGRectMake(320*_curIndex, MENU_FIXED_HEIGHT, 320, SCREEN_H - MENU_FIXED_HEIGHT - 64) animated:NO];
-//            // 刷新表格
-//            [tableView reloadData];
-//            
-//            // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-//            [tableView footerEndRefreshing];
-//        });
-//    }];
 }
 
 #pragma mark - UITableViewDelegate

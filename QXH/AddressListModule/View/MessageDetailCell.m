@@ -127,22 +127,22 @@
     int status = [[params objectForKey:@"sendtype"] intValue];
     if (status == 0 || status == 4 || status == 6 || status == 7 || status == 12 || status == 13) {
         self.title.text = @"系统消息";
-        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.width, 100);
+        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 100);
         self.agreeBtn.hidden = YES;
         self.refuseBtn.hidden = YES;
     }else if(status == 3) {
-        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.width, 150);
+        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 150);
         self.agreeBtn.hidden = NO;
         self.refuseBtn.hidden = NO;
         self.title.text = @"好友申请";
     }else if (status == 5){
-        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.width, 150);
+        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 150);
         self.agreeBtn.hidden = NO;
         self.refuseBtn.hidden = NO;
         self.title.text = @"部落申请";
     }
     NSString *imageUrlStr = [params objectForKey:@"senderphoto"];
     [self.headImageView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    self.textDes.text = [NSString stringWithFormat:@"\"%@\" %@",[params objectForKey:@"sendername"],[params objectForKey:@"mess"]];
+    self.textDes.text = [NSString stringWithFormat:@"%@",[params objectForKey:@"mess"]];
 }
 @end

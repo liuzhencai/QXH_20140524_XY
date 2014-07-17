@@ -22,6 +22,7 @@
 /*4寸适配*/
 @property (weak, nonatomic) IBOutlet UIScrollView *topScrollfour;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UILabel *adTitleLabelfour;
 
 - (IBAction)btnClick:(id)sender;
 

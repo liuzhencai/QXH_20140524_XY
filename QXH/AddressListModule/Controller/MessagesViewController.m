@@ -8,6 +8,7 @@
 
 #import "MessagesViewController.h"
 #import "MessageDetailCell.h"
+#import "MessageBySend.h"
 
 @interface MessagesViewController ()<UITableViewDataSource,UITableViewDelegate,MessageDetailDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -63,7 +64,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150 + 10;
+    NSDictionary *dict = [self.messagesList objectAtIndex:indexPath.row];
+    int sendType = [[dict objectForKey:@"sendtype"] intValue];
+    if (sendType == 3 || sendType == 5) {
+        return 160;
+    }
+    return 160 - 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -77,6 +83,11 @@
     if (self.messagesList) {
         NSDictionary *dict = [self.messagesList objectAtIndex:indexPath.row];
         [cell resetCellParamDict:dict];
+//        CGRect rect = CGRectMake(0, 0, UI_SCREEN_WIDTH, 160);
+        int sendType = [[dict objectForKey:@"sendtype"] intValue];
+        if (sendType == 3 || sendType == 5) {
+            
+        }
     }
 //        NSDictionary *dict = [self.messagesList objectAtIndex:indexPath.row];
 //        cell.titleLabel.text = [dict objectForKey:@"city"];
@@ -132,6 +143,12 @@
             [DataInterface addFriendConfirm:memberId type:@"2" remark:@"" withCompletionHandler:^(NSMutableDictionary *dict){
                 NSLog(@"%@",dict);
                 [self showAlert:[dict objectForKey:@"info"]];
+                NSMutableDictionary *messageDict = [[MessageBySend sharMessageBySend] getunKnowCharMessDic];
+                NSMutableArray *arr = [messageDict objectForKey:[NSString stringWithFormat:@"%d",stauts]];
+                for (int i = 0; i < [arr count]; i ++) {
+                    
+                    NSLog(@"");
+                }
             }];
         }
         
