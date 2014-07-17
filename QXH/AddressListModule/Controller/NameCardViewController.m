@@ -219,7 +219,7 @@
             NSLog(@"发起聊天");
             ChatController* chatview = [[ChatController alloc]init];
             chatview.otherDic = self.memberDict;
-            [self.navigationController pushViewController:chatview animated:YES];
+            [self.navigationController pushViewController:chatview animated:NO];
             
         }else{
             /**

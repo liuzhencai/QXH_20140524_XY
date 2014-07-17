@@ -18,6 +18,7 @@
 #import "ChatInput.h"
 #import "MessageCell.h"
 #import "CustomSegmentControl.h"
+#import "SNImagePickerNC.h"
 
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;
@@ -41,7 +42,7 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 
 //@end
 
-@interface ChatController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface ChatController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 
 //@property (retain, nonatomic) id<ChatControllerDelegate>delegate;

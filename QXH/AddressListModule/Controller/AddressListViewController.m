@@ -401,7 +401,7 @@
                     NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
                     tempdic[@"userid"]=ntribeid;
                     chat.otherDic = tempdic;
-                    [self.navigationController pushViewController:chat animated:YES];
+                    [self.navigationController pushViewController:chat animated:NO];
                 }];
                 
                 /*如果count值大于数组个数，则有没有查看的离线消息*/
@@ -427,7 +427,7 @@
                     NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
                     tempdic[@"tribeid"] = ntribeid;
                     chatroom.tribeInfoDict = tempdic;
-                    [self.navigationController pushViewController:chatroom animated:YES];
+                    [self.navigationController pushViewController:chatroom animated:NO];
                 }];
                 
                 /*如果count值大于数组个数，则有没有查看的离线消息*/

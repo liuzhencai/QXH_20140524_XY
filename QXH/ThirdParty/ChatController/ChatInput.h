@@ -15,6 +15,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define KTextDefault   @"  输入文字点我"
+
 @protocol ChatInputDelegate
 
 /*!
@@ -22,7 +24,7 @@
  */
 @required
 - (void) chatInputNewMessageSent:(NSString *)messageString;
-- (void) chatInputPicMessageSent:(NSString *)messageString;
+- (void) chatInputPicMessageSent;
 
 @end
 

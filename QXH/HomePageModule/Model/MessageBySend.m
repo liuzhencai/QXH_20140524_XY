@@ -208,8 +208,7 @@ static MessageBySend* ins =nil;
     return chatRoomArray;
 }
 
-/*把我自己发送的消息添加进入聊天室
- 或者好友私聊*/
+/*把我自己发送的消息添加进入聊天室*/
 - (void)addChatRoomMessageByMe:(NSMutableDictionary*)Message andSendtype:(NSNumber*)asendtype
 {
     /*

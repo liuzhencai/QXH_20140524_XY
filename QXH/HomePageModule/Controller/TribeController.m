@@ -400,11 +400,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-        NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
+        NSLog(@"点击我的部落第%d部分第%d行", indexPath.section, indexPath.row);
         NSDictionary *tribeDict = [self.tribeList objectAtIndex:indexPath.row];
         ChatRoomController *chatview =[[ChatRoomController alloc]init];
         chatview.tribeInfoDict = tribeDict;
-        [self.navigationController pushViewController:chatview animated:YES];
+        [self.navigationController pushViewController:chatview animated:NO];
         
 //        TribeDynamicViewController *tribeDynamic = [[TribeDynamicViewController alloc] init];
 //        tribeDynamic.tribeInfoDict = tribeDict;

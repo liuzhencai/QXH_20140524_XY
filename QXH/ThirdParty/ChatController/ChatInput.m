@@ -109,7 +109,7 @@
         AddBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         [AddBtn setTitle:@"图片" forState:UIControlStateNormal];
         AddBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-//        [AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
         AddBtn.userInteractionEnabled = YES;
         [self addSubview:AddBtn];
         
@@ -239,8 +239,9 @@
 
 - (void)AddPressed:(id)sender
 {
-     NSString * string = @"fanfan.jpeg";
-     [_delegate chatInputPicMessageSent:string];
+//     NSString * string = @"fanfan.jpeg";
+    /*点击发送图片*/
+     [_delegate chatInputPicMessageSent];
 }
 
 

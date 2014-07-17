@@ -1,17 +1,10 @@
 //
-//  ChatController.h
-//  LowriDev
+//  ChatLiveViewController.h
+//  QXH
 //
-//  Created by Logan Wright on 3/17/14
-//  Copyright (c) 2014 liuzhencai. All rights reserved.
-//  聊天界面
-
-
-/*
- Mozilla Public License
- Version 2.0
- */
-
+//  Created by liuzhencai on 14-7-16.
+//  Copyright (c) 2014年 ZhaoLilong. All rights reserved.
+//  直播间
 
 #import <UIKit/UIKit.h>
 #import "TopBar.h"
@@ -21,6 +14,7 @@
 #import "PullRefreshTableViewController.h"
 #import "SNImagePickerNC.h"
 
+
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;
 //FOUNDATION_EXPORT NSString * const kMessageContent;
@@ -28,12 +22,7 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 //FOUNDATION_EXPORT NSString * const kMessageTimestamp;
 
 
-
-@interface ChatRoomController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
-
-
-//@property (retain, nonatomic) id<ChatControllerDelegate>delegate;
-
+@interface ChatLiveViewController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
 @property (nonatomic, strong) NSMutableArray *membersList;//成员列表
@@ -97,5 +86,6 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 @property (nonatomic, strong) UIView *topCustomView;
 
 - (id)initWithCustomView:(UIView *)customView;
+
 
 @end

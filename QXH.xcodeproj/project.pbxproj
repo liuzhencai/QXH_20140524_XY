@@ -348,6 +348,7 @@
 		58E08D0719532549000C25AE /* AddFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E08D0619532549000C25AE /* AddFriendView.m */; };
 		58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58EEDABF1958549E007E2FA2 /* citysList.plist */; };
 		58FABF0119631082002C9917 /* TribeMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FABF0019631082002C9917 /* TribeMembersViewController.m */; };
+		8400F6151976CA5E008FA433 /* ChatLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8400F6141976CA5E008FA433 /* ChatLiveViewController.m */; };
 		8405E55F193057D900276964 /* InformationCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8405E55E193057D900276964 /* InformationCommentCell.xib */; };
 		8405E562193057E600276964 /* InformationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E561193057E600276964 /* InformationCommentCell.m */; };
 		840D73951959BF2B001AC585 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840D73941959BF2B001AC585 /* ChatController.m */; };
@@ -993,6 +994,8 @@
 		58EEDABF1958549E007E2FA2 /* citysList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citysList.plist; sourceTree = "<group>"; };
 		58FABEFF19631082002C9917 /* TribeMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TribeMembersViewController.h; sourceTree = "<group>"; };
 		58FABF0019631082002C9917 /* TribeMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeMembersViewController.m; sourceTree = "<group>"; };
+		8400F6131976CA5E008FA433 /* ChatLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLiveViewController.h; sourceTree = "<group>"; };
+		8400F6141976CA5E008FA433 /* ChatLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLiveViewController.m; sourceTree = "<group>"; };
 		8405E55E193057D900276964 /* InformationCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentCell.xib; sourceTree = "<group>"; };
 		8405E560193057E600276964 /* InformationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentCell.h; sourceTree = "<group>"; };
 		8405E561193057E600276964 /* InformationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentCell.m; sourceTree = "<group>"; };
@@ -2273,6 +2276,8 @@
 				845343D519685E9A00F51B49 /* PullRefreshTableViewController.h */,
 				845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */,
 				845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */,
+				8400F6131976CA5E008FA433 /* ChatLiveViewController.h */,
+				8400F6141976CA5E008FA433 /* ChatLiveViewController.m */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -2662,6 +2667,7 @@
 				2192EC14191BD7A400A8FE7F /* SelfIntroduceController.m in Sources */,
 				2119EF24191686C2007DBE68 /* HomePageController.m in Sources */,
 				21391FBD1959CA700002E288 /* CardInfo.m in Sources */,
+				8400F6151976CA5E008FA433 /* ChatLiveViewController.m in Sources */,
 				84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */,
 				84FCA856192CC43F0005295A /* HistoryReviewController.m in Sources */,
 				58B87177192F78FB00EB730D /* ShareView.m in Sources */,
@@ -2995,7 +3001,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3021,7 +3027,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

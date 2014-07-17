@@ -1,19 +1,12 @@
 //
-//  ChatController.m
-//  LowriDev
+//  ChatLiveViewController.m
+//  QXH
 //
-//  Created by Logan Wright on 3/17/14
-//  Copyright (c) 2014 Logan Wright. All rights reserved.
+//  Created by liuzhencai on 14-7-16.
+//  Copyright (c) 2014年 ZhaoLilong. All rights reserved.
 //
 
-
-/*
- Mozilla Public License
- Version 2.0
- */
-
-
-#import "ChatRoomController.h"
+#import "ChatLiveViewController.h"
 #import "MessageCell.h"
 #import "MyMacros.h"
 #import "MyTribeDetailViewController.h"
@@ -21,6 +14,7 @@
 #import "chatRoomMemberViewController.h"
 #import "UserInfoModelManger.h"
 #import "MessageBySend.h"
+
 
 
 #define KTopButtonHight  50
@@ -37,10 +31,7 @@ static NSString * kMessageCellReuseIdentifier = @"MessageCell";
 //static int connectionStatusViewTag = 1701;
 static int chatInputStartingHeight = 40;
 
-//static int scout=0;
-
-@interface ChatRoomController ()
-
+@interface ChatLiveViewController ()
 {
     // Used for scroll direction
     CGFloat lastContentOffset;
@@ -50,8 +41,8 @@ static int chatInputStartingHeight = 40;
     NSInteger FrontViewTag;
     chatRoomActivViewController* chatRoomActive;
     chatRoomMemberViewController* chatRoomMember;
-////    /*记录当前的cell*/
-//    MessageCell* statecell;
+    ////    /*记录当前的cell*/
+    //    MessageCell* statecell;
     
     /*自己信息*/
     UserInfoModel* Myuserinfo;
@@ -75,11 +66,9 @@ static int chatInputStartingHeight = 40;
 
 @end
 
-@implementation ChatRoomController
+@implementation ChatLiveViewController
 @synthesize activitysList,membersList,tribeInfoDict;
 @synthesize askView,tribeInfoDetailDict;
-
-#pragma mark INITIALIZATION
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -102,9 +91,9 @@ static int chatInputStartingHeight = 40;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.title = @"XXXX部落";
+    //    self.title = @"XXXX部落";
     self.title = [self.tribeInfoDict objectForKey:@"tribename"];
-
+    
     /*默认当前界面是聊天*/
     FrontViewTag = CONVERSATION_TABLE_TAG;
     /*部落档案按钮*/
@@ -123,8 +112,8 @@ static int chatInputStartingHeight = 40;
     segment.delegate = self;
     [self.view addSubview:segment];
     
-
-//    /*活动界面*/
+    
+    //    /*活动界面*/
     CGRect activeFrame =  CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - KTopButtonHight-64);
     chatRoomActive =[[chatRoomActivViewController alloc]init];
     chatRoomActive.view.frame = activeFrame;
@@ -138,11 +127,11 @@ static int chatInputStartingHeight = 40;
     chatRoomMember.navigation = self.navigationController;
     chatRoomMember.view.tag = NEMBERS_TABLE_TAG;
     [self.view addSubview:chatRoomMember.view];
-
-    /*聊天view*/
-//    chatview = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-KTopButtonHight-64)];
     
-
+    /*聊天view*/
+    //    chatview = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-KTopButtonHight-64)];
+    
+    
     // ChatInput
     _chatInput = [[ChatInput alloc]init];
     _chatInput.backgroundColor = [UIColor yellowColor];
@@ -155,7 +144,7 @@ static int chatInputStartingHeight = 40;
     _chatInput.textView.editable = NO;
     _chatInput.sendBtn.enabled = NO;
     _chatInput.AddBtn.enabled = NO;
-   
+    
     // 聊天气泡的位置
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
     flow.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
@@ -182,7 +171,7 @@ static int chatInputStartingHeight = 40;
     [_myCollectionView registerClass:[MessageCell class]
           forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
     
-
+    
     
     /*添加聊天*/
     [self.view addSubview:_myCollectionView];
@@ -192,16 +181,16 @@ static int chatInputStartingHeight = 40;
     
     /*获取部落置顶消息*/
     [self getTribeTopInfo];
- 
+    
     /*获取部落聊天记录*/
     [self getMessagesArray];
     
-//    /*添加手势*/
-//    UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
-//    
-//    [self.myCollectionView addGestureRecognizer:swipeGesture];
-
-
+    //    /*添加手势*/
+    //    UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
+    //
+    //    [self.myCollectionView addGestureRecognizer:swipeGesture];
+    
+    
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -217,7 +206,7 @@ static int chatInputStartingHeight = 40;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoomAll:) name:@"reloadeChatRoomAll" object:nil];
     
-
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -225,14 +214,14 @@ static int chatInputStartingHeight = 40;
     
     // Add views here, or they will create problems when launching in landscape
     
-
+    
     switch (FrontViewTag) {
         case CONVERSATION_TABLE_TAG:
         {
             //获取部落信息
-//            [self getTribeInfo];
+            //            [self getTribeInfo];
             [self scrollToBottom];
-             [self.view addSubview:_chatInput];
+            [self.view addSubview:_chatInput];
             
         }
             break;
@@ -250,12 +239,12 @@ static int chatInputStartingHeight = 40;
         default:
             break;
     }
-
     
-//    [self.view addSubview:_topBar];
+    
+    //    [self.view addSubview:_topBar];
     
     // Scroll CollectionView Before We Start
-
+    
 }
 
 #pragma mark 界面消失
@@ -299,24 +288,24 @@ static int chatInputStartingHeight = 40;
         return;
     }
     [self GreadAskView];
-//    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-//    //            [iconImage circular];
-//    headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
+    //    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+    //    //            [iconImage circular];
+    //    headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
     
     /*头像*/
     UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
-//    [askheadImgView setFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+    //    [askheadImgView setFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
     [askheadImgView setImageWithURL:IMGURL(photo) placeholderImage:[UIImage imageNamed:@"img_portrait96.png"]];
     
     /*名字*/
-     UILabel* _name = (UILabel*)[askView viewWithTag:21084];
+    UILabel* _name = (UILabel*)[askView viewWithTag:21084];
     _name.text = name;
     
     UILabel* _time = (UILabel*)[askView viewWithTag:21085];
     _time.text = date;
     
     UILabel* _speechContent = (UILabel*)[askView viewWithTag:21086];
-     _speechContent.text = amess;
+    _speechContent.text = amess;
 }
 
 #pragma mark 自己创建消息置顶
@@ -331,7 +320,7 @@ static int chatInputStartingHeight = 40;
     [self GreadAskView];
     NSString* name = [dic valueForKey:@"sendername"];
     NSString* photo = [dic valueForKey:@"senderphoto"];
-//    NSString* messageUserid = [dic valueForKey:@"senderid"];
+    //    NSString* messageUserid = [dic valueForKey:@"senderid"];
     NSString* date = [dic valueForKey:@"date"];
     
     /*
@@ -349,17 +338,17 @@ static int chatInputStartingHeight = 40;
      info:"操作成功"			//操作成功/失败!
      }
      */
- 
+    
     [DataInterface infoToTop:ChatRoomId type:@"1" messid:messid withCompletionHandler:^(NSMutableDictionary* backDic){
         /*头像*/
-//        UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-//        //            [iconImage circular];
-//        headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
+        //        UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
+        //        //            [iconImage circular];
+        //        headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
         
         /*头像*/
         UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
         [askheadImgView setImageWithURL:IMGURL(photo) placeholderImage:[UIImage imageNamed:@"img_portrait96.png"]];
-//        askheadImgView.image = headImage.image;
+        //        askheadImgView.image = headImage.image;
         
         /*名字*/
         UILabel* _name = (UILabel*)[askView viewWithTag:21084];
@@ -373,7 +362,7 @@ static int chatInputStartingHeight = 40;
         
     }];
     
-
+    
 }
 
 #pragma mark 创建热门话题view
@@ -445,11 +434,11 @@ static int chatInputStartingHeight = 40;
     _myCollectionView.dataSource = nil;
     _myCollectionView = nil;
     
-//    self.opponentImg = nil;
-//    _PicImg = nil;
+    //    self.opponentImg = nil;
+    //    _PicImg = nil;
     
-//    [_topBar removeFromSuperview];
-//    _topBar = nil;
+    //    [_topBar removeFromSuperview];
+    //    _topBar = nil;
     
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     
@@ -464,9 +453,9 @@ static int chatInputStartingHeight = 40;
 }
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [_chatInput isRotating];
-        _myCollectionView.frame = CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight);
-        NSLog(@"_myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
-
+    _myCollectionView.frame = CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight);
+    NSLog(@"_myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
+    
     [_myCollectionView reloadData];
 }
 - (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -482,9 +471,9 @@ static int chatInputStartingHeight = 40;
     NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
     newMessageOb[kMessageContent] = messageString;
     newMessageOb[kMessageTimestamp] = TimeStamp();
-//    [self didSendMessage:newMessageOb];
+    //    [self didSendMessage:newMessageOb];
     [self messageSendByUser:newMessageOb];
-
+    
 }
 
 //liuzhencai 设置显示照片图片
@@ -493,8 +482,8 @@ static int chatInputStartingHeight = 40;
     NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
     [newMessageOb setValue:messageString forKey:kPicContent ];
     newMessageOb[kMessageTimestamp] = TimeStamp();
-//    [self didSendMessage:newMessageOb];
-     [self messageSendByUser:newMessageOb];
+    //    [self didSendMessage:newMessageOb];
+    [self messageSendByUser:newMessageOb];
 }
 
 //#pragma mark TOP BAR DELEGATE
@@ -545,7 +534,7 @@ static int chatInputStartingHeight = 40;
                 tempHeight = KTopButtonHight;
             _myCollectionView.frame = CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - keyboardHeight- tempHeight - 60);
             NSLog(@"show == _myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
-
+            
         } completion:^(BOOL finished) {
             if (finished) {
                 [self scrollToBottom];
@@ -566,9 +555,9 @@ static int chatInputStartingHeight = 40;
         UIViewAnimationCurve animationCurve = [keyboardAnimationDetail[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         CGFloat duration = [keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey] floatValue];
         
-
+        
         [UIView animateWithDuration:duration delay:0.0 options:(animationCurve << 16) animations:^{
-
+            
         } completion:^(BOOL finished) {
             if (finished) {
                 CGFloat tempHeight = 0.f;
@@ -597,8 +586,8 @@ static int chatInputStartingHeight = 40;
 //        offlineStatus.font = [UIFont boldSystemFontOfSize:16.0];
 //        offlineStatus.textAlignment = NSTextAlignmentCenter;
 //        offlineStatus.minimumScaleFactor = .3;
-//       
-//        
+//
+//
 //        offlineStatus.text = @"You're offline! Messages may not send.";
 //        offlineStatus.tag = connectionStatusViewTag;
 ////        [self.view insertSubview:offlineStatus belowSubview:_topBar];
@@ -654,7 +643,7 @@ static int chatInputStartingHeight = 40;
 //    else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
 //        // scrolled down
 //         DebugLog(@"down");
-//        
+//
 //    }
 //    lastContentOffset = scrollView.contentOffset.y;
 //}
@@ -698,15 +687,15 @@ static int chatInputStartingHeight = 40;
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
         }else{
             //liuzhencai
-             return CGSizeMake(320,KPicHigth);
+            return CGSizeMake(320,KPicHigth);
         }
-       
+        
     }
     else {
-//        float height = KPicHigth;
-//        if (height < [message[kMessageSize] CGSizeValue].height + offset) {
-//            height = [message[kMessageSize] CGSizeValue].height + offset;
-//        }
+        //        float height = KPicHigth;
+        //        if (height < [message[kMessageSize] CGSizeValue].height + offset) {
+        //            height = [message[kMessageSize] CGSizeValue].height + offset;
+        //        }
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
     }
 }
@@ -715,7 +704,7 @@ static int chatInputStartingHeight = 40;
      numberOfItemsInSection:(NSInteger)section {
     
     return _messagesArray.count;
-//     return 1;
+    //     return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -724,31 +713,31 @@ static int chatInputStartingHeight = 40;
     // Get Cell
     MessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kMessageCellReuseIdentifier
                                                                   forIndexPath:indexPath];
-
+    
     // Set Who Sent Message
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
- 
-//    cell addStateImageView:ks
+    
+    //    cell addStateImageView:ks
     /*每个cell要存储自己的sendmessage状态*/
     // Set the cell
-//    cell.opponentImage = self.opponentImg;
-//    cell setm
+    //    cell.opponentImage = self.opponentImg;
+    //    cell setm
     
-//    [cell AddMyHeadimageView:userinfo.iconImageview];
-//    cell.MyHeadimageView = self.MyHeadImg;
-
+    //    [cell AddMyHeadimageView:userinfo.iconImageview];
+    //    cell.MyHeadimageView = self.MyHeadImg;
+    
     if (_opponentBubbleColor) cell.opponentColor = _opponentBubbleColor;
     if (_userBubbleColor) cell.userColor = _userBubbleColor;
     cell.message = message;
     [cell showDate:message];
     
-//    /*暂时储存cell*/
-//    if (indexPath.row == ([_messagesArray count]-1)) {
-//        statecell = cell;
-//    }
+    //    /*暂时储存cell*/
+    //    if (indexPath.row == ([_messagesArray count]-1)) {
+    //        statecell = cell;
+    //    }
     
     return cell;
-     
+    
 }
 
 #pragma mark 点击被选择的聊天记录
@@ -762,9 +751,9 @@ static int chatInputStartingHeight = 40;
     if (!mess[kMessageContent]) {
         return;
     }
-    /*messtype:"1",			
+    /*messtype:"1",
      //消息类型 1为文本，2为json对象，3为图片，4为录音*/
-
+    
     NSNumber* Nmesstype = mess[@"messtype"];
     NSInteger messtype = [Nmesstype integerValue];
     switch (messtype) {
@@ -797,7 +786,7 @@ static int chatInputStartingHeight = 40;
         default:
             break;
     }
-
+    
     
 }
 
@@ -806,7 +795,7 @@ static int chatInputStartingHeight = 40;
 {
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
-//        [self popForwardBack];
+        //        [self popForwardBack];
     }else
     {
         if (buttonIndex == 0) {
@@ -814,7 +803,7 @@ static int chatInputStartingHeight = 40;
             [self addAskViewByMe:mess];
         }
     }
-
+    
 }
 
 #pragma mark SETTERS | GETTERS
@@ -847,13 +836,13 @@ static int chatInputStartingHeight = 40;
 /*接受到消息，界面滚动*/
 - (void) didSendMessage:(NSMutableDictionary *)message
 {
-
+    
     NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
-//    message[@"sentByUserId"] = @"currentUserId";
+    //    message[@"sentByUserId"] = @"currentUserId";
     
     /*添加属性，消息发送状态*/
     message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
-
+    
     
     if (_messagesArray == nil)  _messagesArray = [NSMutableArray new];
     
@@ -864,18 +853,18 @@ static int chatInputStartingHeight = 40;
     NSNumber* nkMessageSentBy = (NSNumber*)message[@"senderid"];
     NSString* kMessageSentBy = [NSString stringWithFormat:@"%d",[nkMessageSentBy integerValue]];
     
-
+    
     if ([kMessageSentBy isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId] ) {
-//        /*
-//         是本地获取消息
-//         设置发送状态图片为ok*/
-//        if (localMessage ) {
-//             message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
-//            NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
-//            MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
-//            [cell showDate:message];
-//            return;
-//        }
+        //        /*
+        //         是本地获取消息
+        //         设置发送状态图片为ok*/
+        //        if (localMessage ) {
+        //             message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+        //            NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
+        //            MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
+        //            [cell showDate:message];
+        //            return;
+        //        }
         /**
          *  聊天通用接口
          *
@@ -894,7 +883,7 @@ static int chatInputStartingHeight = 40;
                  statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
                  info:"发送成功",		//客户端可以使用该info进行提示，如:登录成功/账号或密码错误,登录失败!
                  sign:"9aldai9adsf"		//sign请求唯一标识*/
-               
+                
                 DebugLog(@"聊天返回==%@",dict);
                 /*判断返回状态的是不是该mess*/
                 NSString* Backsign = dict[@"clientsign"];
@@ -919,7 +908,7 @@ static int chatInputStartingHeight = 40;
                     /*搜索返回消息是第几个*/
                     for (int i=[_messagesArray count]-1; i>=0; i--) {
                         Temadict = (NSMutableDictionary*)[_messagesArray objectAtIndex:i];
-                         NSString* amesssend = Temadict[@"clientsign"];
+                        NSString* amesssend = Temadict[@"clientsign"];
                         if ([Backsign isEqualToString:amesssend]) {
                             
                             NSIndexPath* aindex =[NSIndexPath indexPathForRow:i inSection:0];
@@ -939,16 +928,16 @@ static int chatInputStartingHeight = 40;
                             break;
                         }
                     }
-    
+                    
                 }
             }];
         }
     }else{
         /*如果不是自己发送*/
-
-
+        
+        
     }
-   
+    
     // add extra cell, and load it into view;
     NSInteger arow = _messagesArray.count -1;
     NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
@@ -968,7 +957,7 @@ static int chatInputStartingHeight = 40;
     if (!Myuserinfo) {
         UserInfoModelManger* usermang =  [UserInfoModelManger sharUserInfoModelManger];
         Myuserinfo = [usermang getMe];
-
+        
     }
     NSInteger userid = [[UserInfoModelManger sharUserInfoModelManger].MeUserId integerValue];
     NSNumber* meuserid = [NSNumber numberWithInt:userid];
@@ -995,7 +984,7 @@ static int chatInputStartingHeight = 40;
 /*对方发送消息*/
 - (void)messageSendByOpponent:(NSMutableDictionary *)message
 {
-//    [message setValue:[NSNumber numberWithInt:kSentByOpponent] forKey:@"kMessageSentBy"];
+    //    [message setValue:[NSNumber numberWithInt:kSentByOpponent] forKey:@"kMessageSentBy"];
     [self didSendMessage:message];
 }
 #pragma mark - CustomSegmentControlDelegate
@@ -1005,11 +994,11 @@ static int chatInputStartingHeight = 40;
     switch (index) {
         case 0:
         {
-           /*会话*/
+            /*会话*/
             FrontViewTag = CONVERSATION_TABLE_TAG;
             UIView* table = (UIView*)[self.view viewWithTag:CONVERSATION_TABLE_TAG];
             [self.view bringSubviewToFront:table];
-             [self.view addSubview:_chatInput];
+            [self.view addSubview:_chatInput];
             if (askView) {
                 [self.view addSubview:askView];
             }
@@ -1020,7 +1009,7 @@ static int chatInputStartingHeight = 40;
             /*活动*/
             FrontViewTag = ACTIVITY_TABLE_TAG;
             [self getActivityListInTribe];
-
+            
         }
             break;
         case 2:
@@ -1028,36 +1017,36 @@ static int chatInputStartingHeight = 40;
             /*成员*/
             FrontViewTag = NEMBERS_TABLE_TAG;
             [self getTribeMembers];
-
+            
         }
             break;
             
         default:
             break;
     }
-//    if (index == 2) {
-//        if (self.tribeInfoDict) {
-//            /**
-//             *  获取部落成员列表
-//             *
-//             *  @param tribeid  部落id
-//             *  @param callback 回调
-//             */
-//            NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
-//            [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
-//                NSLog(@"获取部落成员列表返回值:%@",dict);
-//                if (dict) {
-//                    NSArray *list = [dict objectForKey:@"list"];
-//                    self.membersList = [NSMutableArray arrayWithArray:list];
-//                    UITableView *table = (UITableView *)[self.view viewWithTag:NEMBERS_TABLE_TAG];
-//                    [table reloadData];
-//                }
-//                [self showAlert:[dict objectForKey:@"info"]];
-//            }];
-//        }
-//    }
-//    NSInteger tag = CONVERSATION_TABLE_TAG + index;
-
+    //    if (index == 2) {
+    //        if (self.tribeInfoDict) {
+    //            /**
+    //             *  获取部落成员列表
+    //             *
+    //             *  @param tribeid  部落id
+    //             *  @param callback 回调
+    //             */
+    //            NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+    //            [DataInterface getTribeMembers:tribeId withCompletionHandler:^(NSMutableDictionary *dict){
+    //                NSLog(@"获取部落成员列表返回值:%@",dict);
+    //                if (dict) {
+    //                    NSArray *list = [dict objectForKey:@"list"];
+    //                    self.membersList = [NSMutableArray arrayWithArray:list];
+    //                    UITableView *table = (UITableView *)[self.view viewWithTag:NEMBERS_TABLE_TAG];
+    //                    [table reloadData];
+    //                }
+    //                [self showAlert:[dict objectForKey:@"info"]];
+    //            }];
+    //        }
+    //    }
+    //    NSInteger tag = CONVERSATION_TABLE_TAG + index;
+    
 }
 
 
@@ -1074,7 +1063,7 @@ static int chatInputStartingHeight = 40;
     NSString* roomid =[NSString stringWithFormat:@"%d",[aroomid intValue]];
     ChatRoomId = roomid;
     if (self.tribeInfoDict) {
-       
+        
         [DataInterface getTribeInfo:ChatRoomId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"部落信息返回值：%@",dict);
             /*
@@ -1105,13 +1094,13 @@ static int chatInputStartingHeight = 40;
              nowcount:"20"			//当前部落人数
              */
             self.tribeInfoDetailDict = dict;
-//            [self showAlert:[dict objectForKey:@"info"]];
+            //            [self showAlert:[dict objectForKey:@"info"]];
             
             [self getinChatRoom];
         }];
     }
     
-
+    
 }
 
 
@@ -1123,7 +1112,7 @@ static int chatInputStartingHeight = 40;
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-//     NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+    //     NSString *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
     [DataInterface gotoOneDream:ChatRoomId withCompletionHandler:^(NSMutableDictionary *dict){
         NSLog(@"部落信息返回值：%@",dict);
         /*
@@ -1141,7 +1130,7 @@ static int chatInputStartingHeight = 40;
             _chatInput.textView.editable = YES;
             _chatInput.sendBtn.enabled = YES;
             _chatInput.AddBtn.enabled = YES;
-
+            
         }
         
     }];
@@ -1219,7 +1208,7 @@ static int chatInputStartingHeight = 40;
                     [self showAlert:info];
                     
                 }
-   
+                
             }];
     }
 }
@@ -1280,8 +1269,8 @@ static int chatInputStartingHeight = 40;
 {
     NSLog(@"reloadeChatRoom");
     NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-//    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-
+    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    
     /*判断是不是当前聊天室*/
     NSNumber* atribeid = auserinfo[@"tribeid"];
     NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
@@ -1289,18 +1278,18 @@ static int chatInputStartingHeight = 40;
         return;
     }
     
-//    NSArray* messageArray = auserinfo[@"messageArray"];
+    //    NSArray* messageArray = auserinfo[@"messageArray"];
     
-//    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
+    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
     /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
-
+    
     NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
     NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
     if ([messtype isEqualToString:@"1"]) {
-//       auserinfo[kMessageContent] = auserinfo[@"mess"];
+        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
     }else if ([messtype isEqualToString:@"3"])
     {
-      /*暂时没添加接受图片*/
+        /*暂时没添加接受图片*/
     }
     
     auserinfo[kMessageTimestamp] = auserinfo[@"date"];
@@ -1310,14 +1299,14 @@ static int chatInputStartingHeight = 40;
     UserInfoModel* aother = nil;
     [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
      {
-          NSLog(@"reloadeChatRoom***getOtherUserInfo");
-   
-        [self messageSendByOpponent:auserinfo];
-        
+         NSLog(@"reloadeChatRoom***getOtherUserInfo");
+         
+         [self messageSendByOpponent:auserinfo];
+         
          return other;
      }];
     
-
+    
 }
 
 #pragma mark 获取到所有离线消息展示
@@ -1326,51 +1315,51 @@ static int chatInputStartingHeight = 40;
     NSLog(@"reloadeChatRoom==%@",chatmessage);
     [self getMessagesArray];
     
-//    NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-//    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-//    
-//    /*判断是不是当前聊天室*/
-//    NSNumber* atribeid = auserinfo[@"tribeid"];
-//    NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
-//    if ([atribeid intValue] != [tribeId intValue]) {
-//        return;
-//    }
-//    
-//    //    NSArray* messageArray = auserinfo[@"messageArray"];
-//    
-//    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
-//    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
-//    
-//    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
-//    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
-//    if ([messtype isEqualToString:@"1"]) {
-//        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
-//    }else if ([messtype isEqualToString:@"3"])
-//    {
-//        /*暂时没添加接受图片*/
-//    }
-//    
-//    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
-//    
-//    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-//    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
-//    UserInfoModel* aother = nil;
-//    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-//     {
-//         NSLog(@"reloadeChatRoom***getOtherUserInfo");
-//         
-//         [self messageSendByOpponent:auserinfo];
-//         
-//         return other;
-//     }];
-//    
+    //    NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+    //    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    //
+    //    /*判断是不是当前聊天室*/
+    //    NSNumber* atribeid = auserinfo[@"tribeid"];
+    //    NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+    //    if ([atribeid intValue] != [tribeId intValue]) {
+    //        return;
+    //    }
+    //
+    //    //    NSArray* messageArray = auserinfo[@"messageArray"];
+    //
+    //    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
+    //    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
+    //
+    //    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
+    //    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
+    //    if ([messtype isEqualToString:@"1"]) {
+    //        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
+    //    }else if ([messtype isEqualToString:@"3"])
+    //    {
+    //        /*暂时没添加接受图片*/
+    //    }
+    //
+    //    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
+    //
+    //    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+    //    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
+    //    UserInfoModel* aother = nil;
+    //    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+    //     {
+    //         NSLog(@"reloadeChatRoom***getOtherUserInfo");
+    //
+    //         [self messageSendByOpponent:auserinfo];
+    //
+    //         return other;
+    //     }];
+    //
     
 }
 
 #pragma mark 获取部落置顶
 - (void)getTribeTopInfo
 {
-
+    
     [DataInterface getTribeTopInfo:ChatRoomId withCompletionHandler:^(NSMutableDictionary* dic){
         DebugLog(@"部落置顶消息==%@",dic);
         /*
@@ -1399,45 +1388,45 @@ static int chatInputStartingHeight = 40;
 #pragma amrk 获取聊天室聊天记录
 - (void)getMessagesArray
 {
-//    if ([_messagesArray count]==0) {
-        /*如果没有消息获取本地的*/
-      NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId];
-        if ([tempArray count]) {
-
-            NSMutableArray* temp1 = [[NSMutableArray alloc]initWithArray:tempArray];
-            self.messagesArray = temp1;
-        }
+    //    if ([_messagesArray count]==0) {
+    /*如果没有消息获取本地的*/
+    NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId];
+    if ([tempArray count]) {
+        
+        NSMutableArray* temp1 = [[NSMutableArray alloc]initWithArray:tempArray];
+        self.messagesArray = temp1;
+    }
 }
 
 #pragma mark 下拉刷新
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    if (isLoading) return;
-//    isDragging = YES;
+    //    if (isLoading) return;
+    //    isDragging = YES;
     DebugLog(@"scrollViewWillBeginDragging");
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-     DebugLog(@"scrollViewDidScroll");
-//    if (isLoading) {
-//        // Update the content inset, good for section headers
-//        if (scrollView.contentOffset.y > 0)
-////            self.myRefreshview.contentInset = UIEdgeInsetsZero;
-//        else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
-////            self.myRefreshview.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//    } else if (isDragging && scrollView.contentOffset.y < 0) {
-//        // Update the arrow direction and label
-//        [UIView animateWithDuration:0.25 animations:^{
-//            if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
-//                // User is scrolling above the header
-//                refreshLabel.text = self.textRelease;
-//                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
-//            } else {
-//                // User is scrolling somewhere within the header
-//                refreshLabel.text = self.textPull;
-//                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
-//            }
-//        }];
-//    }
+    DebugLog(@"scrollViewDidScroll");
+    //    if (isLoading) {
+    //        // Update the content inset, good for section headers
+    //        if (scrollView.contentOffset.y > 0)
+    ////            self.myRefreshview.contentInset = UIEdgeInsetsZero;
+    //        else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
+    ////            self.myRefreshview.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    //    } else if (isDragging && scrollView.contentOffset.y < 0) {
+    //        // Update the arrow direction and label
+    //        [UIView animateWithDuration:0.25 animations:^{
+    //            if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
+    //                // User is scrolling above the header
+    //                refreshLabel.text = self.textRelease;
+    //                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+    //            } else {
+    //                // User is scrolling somewhere within the header
+    //                refreshLabel.text = self.textPull;
+    //                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+    //            }
+    //        }];
+    //    }
 }
 
 //- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -1451,7 +1440,7 @@ static int chatInputStartingHeight = 40;
 ////    }
 //}
 ////- (void)refresh {
-////    
+////
 ////    [self performSelector:@selector(addItem) withObject:nil afterDelay:2.0];
 ////    [super refresh];
 ////}
@@ -1477,17 +1466,17 @@ static int chatInputStartingHeight = 40;
 //            DebugLog(@"下");
 //        }
 //            break;
-//            
+//
 //        default:
 //            break;
-//            
+//
 //    }
 //}
 
 #pragma mark 查看消息接口
 -(void)ReceiveAndSeeMessige
 {
-  /*查看接受的消息，服务器置为已读*/
+    /*查看接受的消息，服务器置为已读*/
     /*
      type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
@@ -1502,7 +1491,7 @@ static int chatInputStartingHeight = 40;
             [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"2" tribeid:ChatRoomId];
         }
     }
-
+    
 }
 
 #pragma mark 点击发送照片
@@ -1798,5 +1787,6 @@ static int chatInputStartingHeight = 40;
     //    [_valueArr replaceObjectAtIndex:index withObject:value];
     //    [_editTable reloadData];
 }
+
 
 @end

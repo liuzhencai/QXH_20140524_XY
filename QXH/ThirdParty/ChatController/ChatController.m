@@ -38,7 +38,7 @@ static NSString * kMessageCellReuseIdentifier = @"MessageCell";
 //static int connectionStatusViewTag = 1701;
 static int chatInputStartingHeight = 40;
 
-static int scout=0;
+//static int scout=0;
 
 @interface ChatController ()
 
@@ -58,7 +58,8 @@ static int scout=0;
 @property (strong, nonatomic) TopBar * topBar;
 @property (strong, nonatomic) ChatInput * chatInput;
 @property (strong, nonatomic) UICollectionView * myCollectionView;
-
+@property (strong, nonatomic) SNImagePickerNC *imagePickerNavigationController;
+@property(nonatomic, strong) UIImagePickerController *cameraPicker;
 @end
 
 @implementation ChatController
@@ -111,7 +112,7 @@ static int scout=0;
     _chatInput.backgroundColor = [UIColor yellowColor];
     _chatInput.chatOffset = KTopButtonHight;
     _chatInput.stopAutoClose = NO;
-    _chatInput.placeholderLabel.text = @"  Send A Message";
+    _chatInput.placeholderLabel.text = KTextDefault;
     _chatInput.delegate = self;
     _chatInput.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
     /*默认访问会话*/
@@ -243,17 +244,305 @@ static int scout=0;
     NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
     newMessageOb[kMessageContent] = messageString;
     newMessageOb[kMessageTimestamp] = TimeStamp();
+    newMessageOb[@"messtype"] = @"1";
     [self messageSendByUser:newMessageOb];
     
 }
 
-//liuzhencai 设置显示照片图片
-- (void) chatInputPicMessageSent:(NSString *)messageString {
+#pragma mark 点击发送照片
+- (void) chatInputPicMessageSent {
     
-    NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
-    [newMessageOb setValue:messageString forKey:kPicContent ];
-    newMessageOb[kMessageTimestamp] = TimeStamp();
-    [self messageSendByUser:newMessageOb];
+//    NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
+//    [newMessageOb setValue:messageString forKey:kPicContent ];
+//    newMessageOb[kMessageTimestamp] = TimeStamp();
+//    [self messageSendByUser:newMessageOb];
+//    [self keyboardWillHide:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
+    [actionSheet showInView:self.view];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            NSLog(@"拍照");
+            [self callCamera];
+        }
+            break;
+        case 1:
+        {
+            NSLog(@"从相册选取");
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"SNPicker" bundle:nil];
+            self.imagePickerNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ImagePickerNC"];
+            [self.imagePickerNavigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+            self.imagePickerNavigationController.imagePickerDelegate = self;
+            self.imagePickerNavigationController.pickerType = kPickerTypePhoto;
+            [self presentViewController:self.imagePickerNavigationController animated:YES completion:^{ }];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)callCamera
+{
+    /*调用拍照*/
+    NSString *mediaType = AVMediaTypeVideo;// Or AVMediaTypeAudio
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
+    NSLog(@"---cui--authStatus--------%d",authStatus);
+    // This status is normally not visible—the AVCaptureDevice class methods for discovering devices do not return devices the user is restricted from accessing.
+    if(authStatus ==AVAuthorizationStatusRestricted){
+        NSLog(@"Restricted");
+    }else if(authStatus == AVAuthorizationStatusDenied){
+        // The user has explicitly denied permission for media capture.
+        NSLog(@"Denied");     //应该是这个，如果不允许的话
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"请在设备的\"设置-隐私-相机\"中允许访问相机。"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    else if(authStatus == AVAuthorizationStatusAuthorized){//允许访问
+        // The user has explicitly granted permission for media capture, or explicit user permission is not necessary for the media type in question.
+        NSLog(@"Authorized");
+        if ([self cameraPicker]) {
+            [self presentViewController:_cameraPicker animated:YES completion:^{
+                [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+                [self.navigationController setNavigationBarHidden:YES];
+            }];
+        }
+        
+    }else if(authStatus == AVAuthorizationStatusNotDetermined){
+        // Explicit user permission is required for media capture, but the user has not yet granted or denied such permission.
+        [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
+            if(granted){//点击允许访问时调用
+                //用户明确许可与否，媒体需要捕获，但用户尚未授予或拒绝许可。
+                NSLog(@"Granted access to %@", mediaType);
+                if ([self cameraPicker]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self presentViewController:_cameraPicker animated:YES completion:^{}];
+                    });
+                }
+            }
+            else {
+                NSLog(@"Not granted access to %@", mediaType);
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                message:@"请在设备的'设置-隐私-相机'中允许访问相机"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
+    }else {
+        NSLog(@"Unknown authorization status");
+    }
+}
+
+-(UIImagePickerController *) cameraPicker{
+    if(!_cameraPicker){
+        _cameraPicker = [[UIImagePickerController alloc] init];
+        _cameraPicker.delegate = self;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            _cameraPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        }
+        else{
+            _cameraPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+    }
+    return _cameraPicker;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"点击完成");
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *tmpImage = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0.5)];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self modifyUserPortrait:tmpImage];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    NSLog(@"点击取消");
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+/*此处调用发送图片*/
+- (void)modifyUserPortrait:(UIImage *)image
+{
+    /*此处应该让图片显示聊天框中*/
+    NSMutableDictionary* date = [[NSMutableDictionary alloc]init];
+    
+    NSNumber* aroomid = self.otherDic[@"userid"];
+    NSString* otherid = [NSString stringWithFormat:@"%d",[aroomid intValue]];
+    /*字典中写入图片,因为太耗时，暂时不用*/
+//    NSData* picdata = UIImagePNGRepresentation(image);
+    
+    [date setValue:otherid forKey:@"targetid"];
+    [date setObject:aroomid forKey:@"tribeid"];
+    /*2,部落聊天*/
+    [date setValue:@"1" forKey:@"sendtype"];
+    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
+    [date setValue:@"3" forKey:@"messtype"];
+    NSInteger userid = [[UserInfoModelManger sharUserInfoModelManger].MeUserId integerValue];
+    NSNumber* meuserid = [NSNumber numberWithInt:userid];
+    date[@"senderid"] = meuserid;
+    
+    /*唯一标识*/
+    [date setObject:TimeStamp() forKey:@"clientsign"];
+    /*发送时签名*/
+    [date setObject:[SignGenerator getSign] forKey:@"sign"];
+    [date setObject:TimeStamp() forKey:@"date"];
+    NSString* sendphoto = [UserInfoModelManger sharUserInfoModelManger].userInfo.photo;
+    if (!sendphoto) {
+        [self showAlert:@"您的网络太慢，请稍后尝试!"];
+        return;
+    }
+    [date setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
+
+    
+    if (_messagesArray == nil)
+        _messagesArray = [NSMutableArray new];
+    
+    // preload message into array;
+    [_messagesArray addObject:date];
+    
+  [DataInterface fileUpload:image type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSLog(@"图片发送==%@\n",dict);
+        NSNumber* Nstatecode = dict[@"statecode"];
+        NSInteger Istatecode = [Nstatecode intValue];
+        if (Istatecode == 200) {
+    
+            NSString* messIcon = dict[@"filename"];
+              [date setValue:messIcon forKey:@"mess"];
+            /*另生成一个新的字典，因为原自己图片，会崩溃*/
+            NSMutableDictionary* tempSendDic = [[NSMutableDictionary alloc]initWithDictionary:date];
+            [tempSendDic removeObjectForKey:kPicContent];
+            [DataInterface chatRoomMess:tempSendDic withCompletionHandler:^(NSMutableDictionary* dict){
+                NSLog(@"dict == %@\n",dict);
+//            [DataInterface chat:otherid sendtype:@"1" mess:messIcon withCompletionHandler:^(NSMutableDictionary* dict){
+//                NSLog(@"dict == %@\n",dict);
+                /*发送完成*/
+                DebugLog(@"聊天返回==%@",dict);
+                /*判断返回状态的是不是该mess*/
+                NSString* Backsign = dict[@"clientsign"];
+                NSString* sendsign = (NSString*)date[@"clientsign"];
+                if ([sendsign isEqual:Backsign] ) {
+                    /*设置状态为发送状态图片*/
+                    NSString* stata = [dict valueForKey:@"statecode"];
+                    if ([stata isEqualToString:@"0200"]) {
+                        date[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+                        
+                        
+                    }else{
+                        date[@"SendState"] = [NSNumber numberWithInt:kSentFail];
+                    }
+                    /*返回以后，有messid，加进去messid*/
+                    date[@"messid"] = dict[@"messid"];
+                    NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
+                    MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
+                    [cell showDate:date];
+                }else{
+                    NSMutableDictionary* Temadict = nil;
+                    /*搜索返回消息是第几个*/
+                    for (int i=[_messagesArray count]-1; i>=0; i--) {
+                        Temadict = (NSMutableDictionary*)[_messagesArray objectAtIndex:i];
+                        NSString* amesssend = Temadict[@"clientsign"];
+                        if ([Backsign isEqualToString:amesssend]) {
+                            
+                            NSIndexPath* aindex =[NSIndexPath indexPathForRow:i inSection:0];
+                            MessageCell* acell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
+                            
+                            /*设置状态为发送状态图片*/
+                            NSString* stata = [dict valueForKey:@"statecode"];
+                            if ([stata isEqualToString:@"0200"]) {
+                                Temadict[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+                                
+                            }else{
+                                Temadict[@"SendState"] = [NSNumber numberWithInt:kSentFail];
+                            }
+                            Temadict[@"messid"] = dict[@"messid"];
+                            [acell showDate:Temadict];
+                            break;
+                        }
+                    }
+                    
+                }
+
+                
+            }];
+
+        }else{
+            NSLog(@"info==%@\n",dict[@"info"]);
+        }
+//        NSString* statecode = [NSString stringWithFormat:@"%d",[Nstatecode intValue]];
+
+//        [DataInterface modifyUserInfo:ORIGIN_VAL oldpwd:ORIGIN_VAL newpwd:ORIGIN_VAL signature:ORIGIN_VAL title:ORIGIN_VAL degree:ORIGIN_VAL address:ORIGIN_VAL domicile:ORIGIN_VAL introduce:ORIGIN_VAL comname:ORIGIN_VAL comdesc:ORIGIN_VAL comaddress:ORIGIN_VAL comurl:ORIGIN_VAL induname:ORIGIN_VAL indudesc:ORIGIN_VAL schoolname:ORIGIN_VAL schooltype:ORIGIN_VAL sex:ORIGIN_VAL photo:[dict objectForKey:@"filename"] email:ORIGIN_VAL tags:ORIGIN_VAL attentiontags:ORIGIN_VAL hobbies:ORIGIN_VAL educations:ORIGIN_VAL honours:ORIGIN_VAL usertype:ORIGIN_VAL gold:ORIGIN_VAL level:ORIGIN_VAL configure:ORIGIN_VAL withCompletionHandler:^(NSMutableDictionary *dict) {
+//            NSLog(@"图片发送==%@\n",dict);
+////            [self loadData];
+//        }];
+    } errorBlock:^(NSString *desc) {
+        NSLog(@"图片发送==%@\n",desc);
+        
+    }];
+    
+    
+    /*界面刷新时*/
+    // add extra cell, and load it into view;
+    NSInteger arow = _messagesArray.count -1;
+    NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
+    [_myCollectionView insertItemsAtIndexPaths:tempArray];
+    
+    date[@"SendState"] = [NSNumber numberWithInt:kSentIng];
+    [date setObject:image forKey:kPicContent];
+    /*添加进入聊天记录*/
+    [[MessageBySend sharMessageBySend] addChatRoomMessageArray:date toOtherid:self.otherDic[@"userid"]];
+    
+    NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
+    MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
+    cell.message = date;
+    [cell showDate:date];
+    
+    // show us the message
+    [self scrollToBottom];
+}
+
+
+#pragma mark - SNImagePickerDelegate
+
+- (void)imagePicker:(SNImagePickerNC *)imagePicker didFinishPickingWithMediaInfo:(NSMutableArray *)info
+{
+    /*拍照完成*/
+    NSLog(@"didFinishPickingWithMediaInfo\n");
+    ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
+    [assetLibrary assetForURL:[info lastObject] resultBlock:^(ALAsset *asset) {
+        UIImage *image = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
+        [self modifyUserPortrait:image];
+    } failureBlock:^(NSError *error) {}];
+}
+
+- (void)imagePickerDidCancel:(SNImagePickerNC *)imagePicker
+{
+    /*拍照取消完成*/
+     NSLog(@"imagePickerDidCancel\n");
+}
+
+- (void)changeValue:(NSString *)value WithIndex:(NSInteger)index
+{
+    NSLog(@"changeValue:(NSString *)value WithIndex:(NSInteger)index\n");
+//    [_valueArr replaceObjectAtIndex:index withObject:value];
+//    [_editTable reloadData];
 }
 
 //#pragma mark TOP BAR DELEGATE
@@ -298,7 +587,8 @@ static int scout=0;
             
             CGFloat tempHeight = 0.f;
                 tempHeight = KTopButtonHight;
-            _myCollectionView.frame = CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - keyboardHeight- tempHeight - 60);
+            _myCollectionView.frame = CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - keyboardHeight- tempHeight - 65);
+//            _myCollectionView.backgroundColor = [UIColor redColor];
             NSLog(@"show == _myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
             
         } completion:^(BOOL finished) {
@@ -419,7 +709,8 @@ static int scout=0;
     
     if (!message[kMessageSize]) {
         NSString * content = [message objectForKey:kMessageContent];
-        if (content) {
+        id pic = [message objectForKey:kPicContent];
+        if (!pic && content) {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
             attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15.0f];
@@ -443,11 +734,15 @@ static int scout=0;
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
         }else{
             //liuzhencai
-            return CGSizeMake(320,90);
+            return CGSizeMake(320,KPicHigth);
         }
         
     }
     else {
+//        float height = KPicHigth;
+//        if (height < [message[kMessageSize] CGSizeValue].height + offset) {
+//            height = [message[kMessageSize] CGSizeValue].height + offset;
+//        }
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
     }
 }
@@ -537,6 +832,14 @@ static int scout=0;
 //    _tintColor = tintColor;
 //}
 
+#pragma mark 图片滚动
+/*接受到消息，界面滚动*/
+- (void) didSendPicMessage:(NSMutableDictionary *)message
+{
+
+    
+}
+
 
 #pragma mark chatcontroller
 /*接受到消息，界面滚动*/
@@ -575,7 +878,8 @@ static int scout=0;
          *  @param callback 回调
          */
         NSString* mess = (NSString*)message[kMessageContent];
-        if (mess ) {
+        id pic = message[@"kPicContent"];
+        if (mess) {
             
             [DataInterface chatRoomMess:message withCompletionHandler:^(NSMutableDictionary *dict){
                 /*
@@ -585,16 +889,17 @@ static int scout=0;
                  info:"发送成功",		//客户端可以使用该info进行提示，如:登录成功/账号或密码错误,登录失败!
                  sign:"9aldai9adsf"		//sign请求唯一标识*/
                 
+                
+                
                 DebugLog(@"聊天返回==%@",dict);
                 /*判断返回状态的是不是该mess*/
-                NSString* Backsign = dict[@"sign"];
-                NSString* sendsign = (NSString*)message[@"sign"];
+                NSString* Backsign = dict[@"clientsign"];
+                NSString* sendsign = (NSString*)message[@"clientsign"];
                 if ([sendsign isEqual:Backsign] ) {
                     /*设置状态为发送状态图片*/
                     NSString* stata = [dict valueForKey:@"statecode"];
                     if ([stata isEqualToString:@"0200"]) {
                         message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
-                        
                         
                     }else{
                         message[@"SendState"] = [NSNumber numberWithInt:kSentFail];
@@ -609,7 +914,7 @@ static int scout=0;
                     /*搜索返回消息是第几个*/
                     for (int i=[_messagesArray count]-1; i>=0; i--) {
                         Temadict = (NSMutableDictionary*)[_messagesArray objectAtIndex:i];
-                        NSString* amesssend = Temadict[@"sign"];
+                        NSString* amesssend = Temadict[@"clientsign"];
                         if ([Backsign isEqualToString:amesssend]) {
                             
                             NSIndexPath* aindex =[NSIndexPath indexPathForRow:i inSection:0];
@@ -631,7 +936,7 @@ static int scout=0;
                     
                 }
                 
-                //                [self.myCollectionView reloadData];
+           
             }];
         }
     }else{
@@ -669,15 +974,18 @@ static int scout=0;
     [message setObject:[NSString stringWithFormat:@"%d",[aroomid integerValue]] forKey:@"targetid"];
     /*2,私人聊天*/
     [message setObject:@"1" forKey:@"sendtype"];
-    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
-    [message setObject:@"1" forKey:@"messtype"];
+//    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
+//    [message setObject:@"1" forKey:@"messtype"];
     /*发送时签名*/
     [message setObject:[SignGenerator getSign] forKey:@"sign"];
     
     /*私人聊天对方的userid，一样以tribeid存入部落聊天数组中*/
 //    [message setObject:aroomid forKey:@"tribeid"];
     [message setObject:TimeStamp() forKey:@"date"];
+    /*唯一标识*/
+    [message setObject:TimeStamp() forKey:@"clientsign"];
     [message setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
+    
     [[MessageBySend sharMessageBySend] addChatRoomMessageArray:message toOtherid:aroomid];
     
     /*界面刷新并且发送消息*/
@@ -757,7 +1065,7 @@ static int scout=0;
     NSNumber* amessid = amess[@"messid"];
     NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
     NSNumber* aroomid = self.otherDic[@"userid"];
-    if (messid) {
+    if (amessid && messid) {
         [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
     }
     

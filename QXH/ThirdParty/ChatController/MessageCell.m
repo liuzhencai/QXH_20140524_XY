@@ -210,30 +210,62 @@ static int offsetX = 6; // 6 px from each side
     NSNumber* kSentby = (NSNumber*)[_message valueForKey:@"senderid"];
      _sentBy = [kSentby intValue];
     NSString* asendId =[NSString stringWithFormat:@"%d",_sentBy];
- 
-    //liuzhencai 如果显示是图片
-    if (_message[kPicContent])
+    NSNumber* Nmesstype = (NSNumber*)[_message valueForKey:@"messtype"];
+    //liuzhencai 如果显示是图片 3是图片
+    if ([Nmesstype intValue] == 3)
     {
         _textLabel.hidden =YES;
         _bgLabel.hidden = YES;
-        picImageView.image = [UIImage imageNamed:_message[kPicContent]];
-   
+//        picImageView.image = [UIImage imageNamed:_message[kPicContent]];
+    
         picImageView.hidden = NO;
         
-        picImageView.frame = CGRectMake(offsetX / 2, 0, minimumHeight*3, minimumHeight*3);
+
+     
         //自己发图片
         if ([asendId isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId]) {
             _imageView.hidden = YES;
             MyHeadimageView.hidden = NO;
-            picImageView.frame = CGRectMake(320-_imageView.bounds.size.width- KPicWidth - KheadX, 0, minimumHeight*3, minimumHeight*3);
+            /*设置我的头像*/
+            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+            [MyHeadimageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            UIImage* meSendPic = (UIImage*)_message[kPicContent];
+            if (meSendPic) {
+                /*设置发送图片*/
+                picImageView.image = meSendPic;
+            }else{
+                NSURL *url2 = IMGURL([_message valueForKey:@"mess"]);
+                [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            }
+
+            picImageView.frame = CGRectMake(320-minimumHeight- KPicWidth - KheadX-5, 0, KPicWidth, KPicHigth);
+            NSLog(@"picImageView.frame==%@",[NSValue valueWithCGRect:picImageView.frame]);
+            
+            /*设置发送状态图片*/
+            stateImageView.hidden = NO;
+            self.stateImageView.frame = CGRectMake(picImageView.frame.origin.x-kStateImageViewWidth,picImageView.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
+            
+        NSLog(@"self.stateImageView.frame==%@",[NSValue valueWithCGRect:self.stateImageView.frame]);
+            
+
         }else{
             //对方发的
             _imageView.hidden = NO;
             MyHeadimageView.hidden = YES;
-            picImageView.center = CGPointMake(picImageView.center.x + _imageView.bounds.size.width, picImageView.center.y);
+             stateImageView.hidden = NO;
+            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+            [_imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            /*显示的图片*/
+            NSURL *url2 = IMGURL([_message valueForKey:@"mess"]);
+            [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            
+            picImageView.frame = CGRectMake(offsetX / 2, 0, KPicWidth, KPicHigth);
+            picImageView.center = CGPointMake(picImageView.center.x + _imageView.bounds.size.width+5, picImageView.center.y);
         }
   
-    }else{
+    }else if([Nmesstype intValue] == 1){
+        /*1为文本*/
+        picImageView.image = nil;
         picImageView.hidden = YES;
         _textLabel.hidden =NO;
         _bgLabel.hidden = NO;
@@ -262,15 +294,14 @@ static int offsetX = 6; // 6 px from each side
             }
             self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
      
-        }
-        else {
+        }else {
             // sent by opponent
             _bgLabel.frame = CGRectMake(offsetX, 0, _textSize.width + outlineSpace, height);
             _bgLabel.layer.borderColor = _opponentColor.CGColor;
             
             for (UIView * v in @[_bgLabel, _textLabel]) {
                 v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
-            }
+        }
             /*如果是对方发送消息，去除图像*/
 //            UIImage* ahead = [[UserInfoModelManger sharUserInfoModelManger]getIcon:[_message valueForKey:@"senderphoto"]];
             NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
@@ -317,6 +348,10 @@ static int offsetX = 6; // 6 px from each side
         }
             break;
         default:
+        {
+            UIImage* aimage =[UIImage imageNamed:@"msg_state_send_error.png"];
+            stateImageView.image = aimage;
+        }
             break;
     }
     
@@ -338,7 +373,8 @@ static int offsetX = 6; // 6 px from each side
         kState = [statesend intValue];
     }
     [self addStateImageView:kState];
-    self.message = adic;
+    /*暂时屏蔽该句*/
+//    self.message = adic;
 
 }
 @end

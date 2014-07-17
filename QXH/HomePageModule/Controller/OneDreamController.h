@@ -13,7 +13,7 @@
 
 @interface OneDreamController : MyViewController<UITableViewDataSource, UITableViewDelegate>
 {
-    ChatController* _chatController;
+//    ChatController* _chatController;
     NSInteger icout;
 }
 
