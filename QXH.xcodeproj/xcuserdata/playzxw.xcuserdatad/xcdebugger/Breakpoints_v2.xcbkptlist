@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Controller/MyTribeDetailViewController.m"
-            timestampString = "425922272.658148"
+            timestampString = "427311578.444169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
             landmarkName = "-newsSwitchAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -229,7 +229,7 @@
                   symbolName = "+[DataInterface chat:sendtype:mess:withCompletionHandler:]"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/Network/DataInterface.m"
-                  timestampString = "427222407.678053"
+                  timestampString = "427312111.256695"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "489"
@@ -243,7 +243,7 @@
                   symbolName = "__58+[DataInterface chat:sendtype:mess:withCompletionHandler:]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/Network/DataInterface.m"
-                  timestampString = "427222407.678246"
+                  timestampString = "427312111.256857"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "489"
@@ -433,7 +433,7 @@
                   symbolName = "-[ActivityDetailViewController shareToSquare]"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/HomePageModule/Controller/ActivityDetailViewController.m"
-                  timestampString = "427222407.681368"
+                  timestampString = "427312111.259511"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "345"
@@ -447,7 +447,7 @@
                   symbolName = "__45-[ActivityDetailViewController shareToSquare]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/HomePageModule/Controller/ActivityDetailViewController.m"
-                  timestampString = "427222407.68157"
+                  timestampString = "427312111.259705"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "345"
@@ -558,11 +558,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427217745.273019"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -574,11 +574,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -621,7 +621,7 @@
                   symbolName = "-[ActivityViewController alertView:clickedButtonAtIndex:]"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/HomePageModule/Controller/ActivityViewController.m"
-                  timestampString = "427222407.68422"
+                  timestampString = "427312111.26225"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "380"
@@ -635,7 +635,7 @@
                   symbolName = "-[ActivityViewController alertView:clickedButtonAtIndex:]"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/HomePageModule/Controller/ActivityViewController.m"
-                  timestampString = "427222407.684412"
+                  timestampString = "427312111.262469"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "380"
@@ -668,11 +668,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/MessagesViewController.m"
-            timestampString = "427218796.160222"
+            timestampString = "427310226.717636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-selectButtonWithCell:atIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -700,11 +700,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -731,7 +731,7 @@
                   symbolName = "-[LoginViewController userRegister:]"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/AddressListModule/Controller/LoginViewController.m"
-                  timestampString = "427222407.685741"
+                  timestampString = "427312111.263899"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
@@ -745,7 +745,7 @@
                   symbolName = "__36-[LoginViewController userRegister:]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/AddressListModule/Controller/LoginViewController.m"
-                  timestampString = "427222407.68593"
+                  timestampString = "427312111.264096"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "155"
@@ -762,11 +762,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -778,11 +778,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-reloadMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -794,11 +794,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "-reloadeChatMessInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -810,11 +810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "-reloadeChatMessInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -890,11 +890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/View/MessageDetailCell.m"
-            timestampString = "427128750.332401"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "-resetCellParamDict:"
             landmarkType = "5">
          </BreakpointContent>
@@ -906,11 +906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222214.478832"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -937,13 +937,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/AddressListModule/View/MyMessageCell.m"
-            timestampString = "427221583.729986"
+            filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
+            timestampString = "427309887.056391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "-resetCellParamDict:"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
+            landmarkName = "-didDealMessageVC:withMessages:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -953,13 +953,59 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222137.759338"
+            filePath = "QXH/AddressListModule/Controller/MessagesViewController.m"
+            timestampString = "427310261.29637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "-resetTipLabelWithMessage:"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "-selectButtonWithCell:atIndex:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MessagesViewController selectButtonWithCell:atIndex:]"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/AddressListModule/Controller/MessagesViewController.m"
+                  timestampString = "427312111.271084"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "1162">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__55-[MessagesViewController selectButtonWithCell:atIndex:]_block_invoke99"
+                  moduleName = "QXH"
+                  urlString = "file:///Users/playzxw/Desktop/SVN/QXH_20140524_XY/QXH/AddressListModule/Controller/MessagesViewController.m"
+                  timestampString = "427312111.271284"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "61">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/AddressListModule/Controller/MessagesViewController.m"
+            timestampString = "427310266.51101"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-selectButtonWithCell:atIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -969,13 +1015,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/AddressListModule/Controller/AddressListViewController.m"
-            timestampString = "427222140.961237"
+            filePath = "QXH/HomePageModule/Controller/MyTribeDetailViewController.m"
+            timestampString = "427311642.590328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-resetTipLabelWithMessage:"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/HomePageModule/Controller/CreatTribeViewController.m"
+            timestampString = "427312074.460599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "-next:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

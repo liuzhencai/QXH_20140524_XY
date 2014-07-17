@@ -21,7 +21,7 @@
 #import "ChatRoomController.h"
 #import "FindAddressResultViewController.h"
 
-@interface AddressListViewController ()<CustomSegmentControlDelegate,UISearchBarDelegate>
+@interface AddressListViewController ()<CustomSegmentControlDelegate,UISearchBarDelegate,MessagesDelegate>
 @property (nonatomic, strong) UITableView *messageTable;
 @property (nonatomic, assign) int selectIndex;
 @property (nonatomic, strong) NSMutableArray *addressList;//通讯录列表
@@ -30,7 +30,7 @@
 @property (nonatomic, assign) NSInteger curIndex;//当前下标
 
 @property (nonatomic, strong) NSMutableArray *lastMessages;//上次查看的消息
-
+@property (nonatomic, strong) NSMutableDictionary *dealMessages;//处理过的消息（加好友，加入部落）
 @end
 
 #define ADDRESS_LIST_TABLE_TAG 2330  //通讯录tag
@@ -47,6 +47,11 @@
         _addressList = [[NSMutableArray alloc] initWithCapacity:0];
         _myMessageList = [[NSMutableArray alloc] initWithCapacity:0];
         _lastMessages = [[NSMutableArray alloc] initWithCapacity:0];
+        _dealMessages = [[NSMutableDictionary alloc] initWithCapacity:0];
+        NSMutableArray *agreeList = [[NSMutableArray alloc] initWithCapacity:0];
+        NSMutableArray *refuseList = [[NSMutableArray alloc] initWithCapacity:0];
+        [_dealMessages setObject:agreeList forKey:@"agreeList"];
+        [_dealMessages setObject:refuseList forKey:@"refuseList"];
         _curIndex = 0;
     }
     return self;
@@ -481,8 +486,10 @@
  
             }else{
                 MessagesViewController *messages = [[MessagesViewController alloc] init];
+                messages.delegate = self;
                 messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];
                 messages.lastMessagesList = [self.lastMessages copy];
+                messages.dealMessages = self.dealMessages;
                 
                 if ([self.lastMessages count] == 0) {
                     [self.lastMessages addObjectsFromArray:messages.messagesList];
@@ -560,7 +567,9 @@
     }
 }
 
-
-
+#pragma mark - MessageDelegate
+- (void)didDealMessageVC:(MessagesViewController *)messageVC withMessages:(NSMutableDictionary *)messages{
+    NSLog(@"message:%@",messages);
+}
 
 @end

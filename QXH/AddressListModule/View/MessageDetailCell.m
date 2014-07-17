@@ -116,13 +116,10 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
     NSLog(@"参数：%@",params);
-//        E_Message_Type_System = 0,//系统消息
-//        E_Message_Type_AddFriend = 3,//加好友申请
-//        E_Message_Type_AddFriendResult = 4,//处理请求好友申请
-//        E_Message_Type_AddTribe = 5,//加入部落申请
-//        E_Message_Type_AddTribeResult = 6,//处理部落加入申请
-//        E_Message_Type_OutTribe = 7,//完全退出部落
-//        E_Message_Type_InformSb = 12,//@某人，@某部落
+
+    NSString *imageUrlStr = [params objectForKey:@"senderphoto"];
+    [self.headImageView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    self.textDes.text = [NSString stringWithFormat:@"%@",[params objectForKey:@"mess"]];
     
     int status = [[params objectForKey:@"sendtype"] intValue];
     if (status == 0 || status == 4 || status == 6 || status == 7 || status == 12 || status == 13) {
@@ -131,18 +128,79 @@
         self.agreeBtn.hidden = YES;
         self.refuseBtn.hidden = YES;
     }else if(status == 3) {
-        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 150);
-        self.agreeBtn.hidden = NO;
-        self.refuseBtn.hidden = NO;
+        BOOL isAgreeDeal = [self isAgreeListHaveMessage:params];//是否已经同意处理
+        BOOL isRefuseDeal = [self isRefuseListHaveMessage:params];//是否已经拒绝处理
+        
+        if (isAgreeDeal) {//已同意
+            self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 100);
+            self.agreeBtn.hidden = YES;
+            self.refuseBtn.hidden = YES;
+            self.textDes.text = [NSString stringWithFormat:@"你已经同意了\"%@\"的好友请求",[params objectForKey:@"sendername"]];
+        }else if(isRefuseDeal){//已拒绝
+            self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 100);
+            self.agreeBtn.hidden = YES;
+            self.refuseBtn.hidden = YES;
+            self.textDes.text = [NSString stringWithFormat:@"你已经拒绝了\"%@\"的好友请求",[params objectForKey:@"sendername"]];
+        }else {
+            self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 150);
+            self.agreeBtn.hidden = NO;
+            self.refuseBtn.hidden = NO;
+        }
         self.title.text = @"好友申请";
+        
     }else if (status == 5){
-        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 150);
-        self.agreeBtn.hidden = NO;
-        self.refuseBtn.hidden = NO;
+        BOOL isAgreeDeal = [self isAgreeListHaveMessage:params];//是否已经同意处理
+        BOOL isRefuseDeal = [self isRefuseListHaveMessage:params];//是否已经拒绝处理
+        
+        if (isAgreeDeal) {//已同意
+            self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 100);
+            self.agreeBtn.hidden = YES;
+            self.refuseBtn.hidden = YES;
+            self.textDes.text = [NSString stringWithFormat:@"你已经同意\"%@\"加入%@部落",[params objectForKey:@"sendername"],[params objectForKey:@"tribename"]];
+        }else if(isRefuseDeal){//已拒绝
+            self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 100);
+            self.agreeBtn.hidden = YES;
+            self.refuseBtn.hidden = YES;
+            self.textDes.text = [NSString stringWithFormat:@"你已经拒绝\"%@\"加入%@部落",[params objectForKey:@"sendername"],[params objectForKey:@"tribename"]];
+        }else{
+            self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 150);
+            self.agreeBtn.hidden = NO;
+            self.refuseBtn.hidden = NO;
+        }
         self.title.text = @"部落申请";
     }
-    NSString *imageUrlStr = [params objectForKey:@"senderphoto"];
-    [self.headImageView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-    self.textDes.text = [NSString stringWithFormat:@"%@",[params objectForKey:@"mess"]];
 }
+
+//检查消息是否在同意列表里
+- (BOOL)isAgreeListHaveMessage:(NSDictionary *)message{
+    BOOL isAgreeDeal = NO;
+    NSMutableArray *agreeList = [self.dealMessages objectForKey:@"agreeList"];
+    NSInteger oldMessid = [[message objectForKey:@"messid"] integerValue];
+    for (int i = 0; i < [agreeList count]; i ++) {//先检查同意列表信息
+        NSDictionary *newDict = [agreeList objectAtIndex:i];
+        NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+        if (newMessid == oldMessid) {
+            isAgreeDeal = YES;//如果处理过的列表里面有此消息，就不在处理
+            break;
+        }
+    }
+    return isAgreeDeal;
+}
+
+//检查消息是否在拒绝列表里
+- (BOOL)isRefuseListHaveMessage:(NSDictionary *)message{
+    BOOL isRefuseDeal = NO;
+    NSMutableArray *agreeList = [self.dealMessages objectForKey:@"refuseList"];
+    NSInteger oldMessid = [[message objectForKey:@"messid"] integerValue];
+    for (int i = 0; i < [agreeList count]; i ++) {//检查拒绝列表信息
+        NSDictionary *newDict = [agreeList objectAtIndex:i];
+        NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+        if (newMessid == oldMessid) {
+            isRefuseDeal = YES;//如果处理过的列表里面有此消息，就不在处理
+            break;
+        }
+    }
+    return isRefuseDeal;
+}
+
 @end

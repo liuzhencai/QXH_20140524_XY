@@ -146,7 +146,8 @@
     }
     MyTribeDetailViewController *myTribeDetail = [[MyTribeDetailViewController alloc] init];
     myTribeDetail.isCreatDetail = YES;
-    myTribeDetail.membersArray = self.addItems;
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:self.addItems];
+    myTribeDetail.membersArray = arr;
     [self.navigationController pushViewController:myTribeDetail animated:YES];
 }
 

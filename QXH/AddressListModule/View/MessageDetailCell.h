@@ -34,6 +34,7 @@ typedef enum {
 @property (nonatomic, strong) UIButton *agreeBtn;//同意
 @property (nonatomic, strong) UIButton *refuseBtn;//拒绝
 
+@property (nonatomic, strong) NSMutableDictionary *dealMessages;//处理过的消息
 - (void)resetCellParamDict:(id)objt;
 
 @end

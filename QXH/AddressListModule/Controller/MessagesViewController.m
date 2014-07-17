@@ -67,6 +67,11 @@
     NSDictionary *dict = [self.messagesList objectAtIndex:indexPath.row];
     int sendType = [[dict objectForKey:@"sendtype"] intValue];
     if (sendType == 3 || sendType == 5) {
+        BOOL isAgreeDeal = [self isAgreeListHaveMessage:dict];//是否已经同意处理
+        BOOL isRefuseDeal = [self isRefuseListHaveMessage:dict];//是否已经拒绝处理
+        if (isAgreeDeal || isRefuseDeal) {
+            return 110;
+        }
         return 160;
     }
     return 160 - 50;
@@ -82,8 +87,8 @@
         }
     if (self.messagesList) {
         NSDictionary *dict = [self.messagesList objectAtIndex:indexPath.row];
+        cell.dealMessages = self.dealMessages;
         [cell resetCellParamDict:dict];
-//        CGRect rect = CGRectMake(0, 0, UI_SCREEN_WIDTH, 160);
         int sendType = [[dict objectForKey:@"sendtype"] intValue];
         if (sendType == 3 || sendType == 5) {
             
@@ -99,10 +104,6 @@
 }
 
 #pragma mark - MessageDetailDelegate
-//- (void)selectButtonWithIndex:(int)index{
-//    NSLog(@"%d",index);
-//    UITableViewCell *cell = [];
-//}
 - (void)selectButtonWithCell:(MessageDetailCell *)cell atIndex:(int)index{
     NSLog(@"%@,%d",cell,index);
     NSIndexPath *indexPath = (NSIndexPath *)[_mainTable indexPathForCell:cell];
@@ -111,7 +112,7 @@
     int stauts = [[dict objectForKey:@"sendtype"] intValue];
     NSString *memberId = [dict objectForKey:@"senderid"];
     if (index == 0) {
-        if (stauts == 3) {
+        if (stauts == 3) {//同意
             /**
              *  加好友确认/修改备注
              *  @param targetid 被处理的加入成员的userid
@@ -119,9 +120,15 @@
              *  @param remark   备注
              *  @param callback 回调
              */
-            [DataInterface addFriendConfirm:memberId type:@"1" remark:@"" withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"%@",dict);
-                [self showAlert:[dict objectForKey:@"info"]];
+            [DataInterface addFriendConfirm:memberId type:@"1" remark:@"" withCompletionHandler:^(NSMutableDictionary *messageDict){
+                NSLog(@"%@",messageDict);
+                
+                NSMutableArray *refuseList = [self.dealMessages objectForKey:@"agreeList"];
+                [refuseList addObject:dict];
+                [self.dealMessages setObject:refuseList forKey:@"agreeList"];
+                [self.mainTable reloadData];
+                
+                [self showAlert:[messageDict objectForKey:@"info"]];
             }];
         }
         if (stauts == 5) {
@@ -133,35 +140,76 @@
              *  @param callback 回调
              */
             NSString *tribeId = [dict objectForKey:@"tribeid"];
-            [DataInterface dealAddTribeRequest:tribeId targetid:memberId permitflag:@"1" withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"%@",dict);
-                [self showAlert:[dict objectForKey:@"info"]];
+            [DataInterface dealAddTribeRequest:tribeId targetid:memberId permitflag:@"1" withCompletionHandler:^(NSMutableDictionary *messageDict){
+                NSLog(@"%@",messageDict);
+                
+                NSMutableArray *refuseList = [self.dealMessages objectForKey:@"agreeList"];
+                [refuseList addObject:dict];
+                [self.dealMessages setObject:refuseList forKey:@"agreeList"];
+                [self.mainTable reloadData];
+                
+                [self showAlert:[messageDict objectForKey:@"info"]];
             }];
         }
-    }else{
+    }else{//拒绝
         if (stauts == 3) {
-            [DataInterface addFriendConfirm:memberId type:@"2" remark:@"" withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"%@",dict);
-                [self showAlert:[dict objectForKey:@"info"]];
-                NSMutableDictionary *messageDict = [[MessageBySend sharMessageBySend] getunKnowCharMessDic];
-                NSMutableArray *arr = [messageDict objectForKey:[NSString stringWithFormat:@"%d",stauts]];
-                for (int i = 0; i < [arr count]; i ++) {
-                    
-                    NSLog(@"");
-                }
+            [DataInterface addFriendConfirm:memberId type:@"2" remark:@"" withCompletionHandler:^(NSMutableDictionary *messageDict){
+                NSLog(@"%@",messageDict);
+                
+                NSMutableArray *refuseList = [self.dealMessages objectForKey:@"refuseList"];
+                [refuseList addObject:dict];
+                [self.dealMessages setObject:refuseList forKey:@"refuseList"];
+                [self.mainTable reloadData];
+
+                [self showAlert:[messageDict objectForKey:@"info"]];
             }];
         }
         
         if (stauts == 5) {
             NSString *tribeId = [dict objectForKey:@"tribeid"];
-            [DataInterface dealAddTribeRequest:tribeId targetid:memberId permitflag:@"2" withCompletionHandler:^(NSMutableDictionary *dict){
-                NSLog(@"%@",dict);
-                [self showAlert:[dict objectForKey:@"info"]];
+            [DataInterface dealAddTribeRequest:tribeId targetid:memberId permitflag:@"2" withCompletionHandler:^(NSMutableDictionary *messageDict){
+                NSLog(@"%@",messageDict);
+                NSMutableArray *refuseList = [self.dealMessages objectForKey:@"refuseList"];
+                [refuseList addObject:dict];
+                [self.dealMessages setObject:refuseList forKey:@"refuseList"];
+                [self.mainTable reloadData];
+                
+                [self showAlert:[messageDict objectForKey:@"info"]];
             }];
         }
-        
     }
 }
 
+//检查消息是否在同意列表里
+- (BOOL)isAgreeListHaveMessage:(NSDictionary *)message{
+    BOOL isAgreeDeal = NO;
+    NSMutableArray *agreeList = [self.dealMessages objectForKey:@"agreeList"];
+    NSInteger oldMessid = [[message objectForKey:@"messid"] integerValue];
+    for (int i = 0; i < [agreeList count]; i ++) {//先检查同意列表信息
+        NSDictionary *newDict = [agreeList objectAtIndex:i];
+        NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+        if (newMessid == oldMessid) {
+            isAgreeDeal = YES;//如果处理过的列表里面有此消息，就不在处理
+            break;
+        }
+    }
+    return isAgreeDeal;
+}
+
+//检查消息是否在拒绝列表里
+- (BOOL)isRefuseListHaveMessage:(NSDictionary *)message{
+    BOOL isRefuseDeal = NO;
+    NSMutableArray *agreeList = [self.dealMessages objectForKey:@"refuseList"];
+    NSInteger oldMessid = [[message objectForKey:@"messid"] integerValue];
+    for (int i = 0; i < [agreeList count]; i ++) {//检查拒绝列表信息
+        NSDictionary *newDict = [agreeList objectAtIndex:i];
+        NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+        if (newMessid == oldMessid) {
+            isRefuseDeal = YES;//如果处理过的列表里面有此消息，就不在处理
+            break;
+        }
+    }
+    return isRefuseDeal;
+}
 
 @end

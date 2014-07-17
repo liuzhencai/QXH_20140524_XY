@@ -348,7 +348,7 @@
             if (self.isCreatDetail) {
                 _leader.placeholder = @"选择部落秘书长";
                 if (self.leaderDict) {
-                    NSString *leaderName = [self.leaderDict objectForKey:@"username"];
+                    NSString *leaderName = [self.leaderDict objectForKey:@"displayname"];
                     if (leaderName.length <= 0) {
                         leaderName = @"姓名为空";
                     }
@@ -526,8 +526,10 @@
             AddressListViewController *addressList = [[AddressListViewController alloc] init];
             addressList.addressListBlock = ^(NSDictionary *dict){
                 NSLog(@"通讯录列表返回值%@",dict);
+                //从member列表里剔除秘书长
+                [self membersListIsHaveUser:dict];
+                
                 self.leaderDict = dict;
-
                 NSString *leaderName = [dict objectForKey:@"displayname"];
                 if ([leaderName length] > 0) {
                     self.leader.text = leaderName;
@@ -548,6 +550,26 @@
             }
         }
     }
+}
+
+- (BOOL)membersListIsHaveUser:(NSDictionary *)userInfo{
+    BOOL isHaveInMembers = NO;//是否存在
+    int index = 0;
+    NSInteger newUserId = [[userInfo objectForKey:@"userid"] integerValue];
+    for (int i = 0; i < [self.membersArray count]; i ++) {
+        NSDictionary *userInfo = [self.membersArray objectAtIndex:i];
+        NSInteger userId = [[userInfo objectForKey:@"userid"] integerValue];
+        if (newUserId == userId) {
+            isHaveInMembers = YES;
+            index = i;
+            break;
+        }
+    }
+    if (isHaveInMembers) {
+        [self.membersArray removeObjectAtIndex:index];
+        [self.mainTable reloadData];
+    }
+    return isHaveInMembers;
 }
 
 - (void)addOrDeleteMembers:(UIButton *)sender{
