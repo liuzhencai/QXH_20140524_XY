@@ -20,4 +20,6 @@
 
 - (IBAction)btnClicked:(id)sender;
 
+- (void)transmitNameCard:(NSString *)tribeid;
+
 @end

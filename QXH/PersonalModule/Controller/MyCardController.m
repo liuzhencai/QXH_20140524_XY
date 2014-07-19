@@ -8,6 +8,7 @@
 
 #import "MyCardController.h"
 #import "EditCardController.h"
+#import "SelectTribeController.h"
 
 @interface MyCardController ()
 {
@@ -82,10 +83,9 @@
             NSLog(@"点击了转发名片");
 
 //            [self showAlert:@"点击了转发名片"];
-            [DataInterface shareContent:@"" sourcetype:@"4" sharetype:@"2" targetid:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
-                
-            }];
-
+            SelectTribeController *controller = [[SelectTribeController alloc] initWithNibName:@"SelectTribeController" bundle:nil];
+            controller.parentController = self;
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         default:
@@ -172,6 +172,13 @@
     }
     valueLabel.text = value;
     return cell;
+}
+
+- (void)transmitNameCard:(NSString *)tribeid
+{
+        [DataInterface shareContent:[defaults objectForKey:@"userid"] sourcetype:@"4" sharetype:@"2" targetid:tribeid withCompletionHandler:^(NSMutableDictionary *dict) {
+            [self showAlert:[dict objectForKey:@"info"]];
+        }];
 }
 
 @end

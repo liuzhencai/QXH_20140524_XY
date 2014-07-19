@@ -264,6 +264,8 @@
 		21EDAD521926F68100C616CF /* MemberRuleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD501926F68100C616CF /* MemberRuleController.xib */; };
 		21EDAD561926F69500C616CF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EDAD541926F69500C616CF /* SettingViewController.m */; };
 		21EDAD571926F69500C616CF /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EDAD551926F69500C616CF /* SettingViewController.xib */; };
+		21F3B514197AA80600609AF5 /* SelectTribeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F3B512197AA80600609AF5 /* SelectTribeController.m */; };
+		21F3B515197AA80600609AF5 /* SelectTribeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F3B513197AA80600609AF5 /* SelectTribeController.xib */; };
 		21F50D03196C2FB700492A82 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 21F50CF3196C2FB700492A82 /* MJRefresh.bundle */; };
 		21F50D04196C2FB700492A82 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CF6196C2FB700492A82 /* MJRefreshBaseView.m */; };
 		21F50D05196C2FB700492A82 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F50CF8196C2FB700492A82 /* MJRefreshConst.m */; };
@@ -847,6 +849,9 @@
 		21EDAD531926F69500C616CF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		21EDAD541926F69500C616CF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		21EDAD551926F69500C616CF /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		21F3B511197AA80600609AF5 /* SelectTribeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTribeController.h; sourceTree = "<group>"; };
+		21F3B512197AA80600609AF5 /* SelectTribeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTribeController.m; sourceTree = "<group>"; };
+		21F3B513197AA80600609AF5 /* SelectTribeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTribeController.xib; sourceTree = "<group>"; };
 		21F50CF3196C2FB700492A82 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		21F50CF4196C2FB700492A82 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		21F50CF5196C2FB700492A82 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -1499,6 +1504,9 @@
 				21284CCB195F2A120019A4D3 /* MsgSettingController.h */,
 				21284CCC195F2A120019A4D3 /* MsgSettingController.m */,
 				21284CCD195F2A120019A4D3 /* MsgSettingController.xib */,
+				21F3B511197AA80600609AF5 /* SelectTribeController.h */,
+				21F3B512197AA80600609AF5 /* SelectTribeController.m */,
+				21F3B513197AA80600609AF5 /* SelectTribeController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2466,6 +2474,7 @@
 				589104851971AD5600533F16 /* 强学会章程.docx in Resources */,
 				212F24551928E09A00F738F8 /* list_arrow_right_green@2x.png in Resources */,
 				84F0660C192B2F1100B09AB5 /* License in Resources */,
+				21F3B515197AA80600609AF5 /* SelectTribeController.xib in Resources */,
 				210BAEDE192A5B3E00B8FBCF /* MyVisitorController.xib in Resources */,
 				848426E0192E185B00C9474A /* icon_mryw@2x.png in Resources */,
 				212F243B1928E09A00F738F8 /* details_icon_discuss_normal@2x.png in Resources */,
@@ -2768,6 +2777,7 @@
 				2119EED4191682E6007DBE68 /* NSDictionary+RequestEncoding.m in Sources */,
 				2119EEF9191682EC007DBE68 /* MKAnnotationView+WebCache.m in Sources */,
 				88347ECE1935D6F100D60193 /* DatePickerView.m in Sources */,
+				21F3B514197AA80600609AF5 /* SelectTribeController.m in Sources */,
 				842D3C93192AF7F100374F04 /* UserRegisterViewController.m in Sources */,
 				21EDAD511926F68100C616CF /* MemberRuleController.m in Sources */,
 				88347ED11935DB3C00D60193 /* InActivityCell.m in Sources */,
@@ -3007,7 +3017,8 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3033,7 +3044,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "73BE09EA-32EB-43BA-8071-56AC3ED915DC";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

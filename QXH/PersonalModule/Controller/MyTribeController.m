@@ -8,10 +8,12 @@
 
 #import "MyTribeController.h"
 #import "TribeDynamicViewController.h"
+#import "ChatRoomController.h"
 
 @interface MyTribeController ()
 {
     NSMutableArray *mytribes;
+    NSMutableArray *tribeList;
 }
 @end
 
@@ -22,6 +24,7 @@
     [DataInterface requestTribeList:@"1" tribename:@"" authflag:@"0" status:@"0" tribetype:@"1" tag:@"" district:@"" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
 //        [self showAlert:[dict description]];
         mytribes = [ModelGenerator json2TribeList:dict];
+        tribeList = [dict objectForKey:@"list"];
         [_mytribeTbl reloadData];
     }];
 }
@@ -69,9 +72,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TribeDynamicViewController *controller = [[TribeDynamicViewController alloc]init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
+//    TribeDynamicViewController *controller = [[TribeDynamicViewController alloc]init];
+//    controller.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:controller animated:YES];
+    NSDictionary *tribeDict = [tribeList objectAtIndex:indexPath.row];
+    ChatRoomController *chatview =[[ChatRoomController alloc]init];
+    chatview.tribeInfoDict = tribeDict;
+    [self.navigationController pushViewController:chatview animated:NO];
 }
 
 @end

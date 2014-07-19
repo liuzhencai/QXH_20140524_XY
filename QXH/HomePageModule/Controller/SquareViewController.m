@@ -94,6 +94,7 @@
 
 - (void)getHotestListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
 {
+//    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:<#(NSString *)#> contentlength:<#(NSString *)#> start:<#(NSString *)#> count:<#(NSString *)#> withCompletionHandler:<#^(NSMutableDictionary *dict)callback#>]
     [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         callback([ModelGenerator json2SquareList:dict]);
     }];
