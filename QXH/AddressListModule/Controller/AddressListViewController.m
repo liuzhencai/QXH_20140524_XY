@@ -82,12 +82,13 @@
     
     UILabel *tipCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 5, 20, 20)];
     tipCountLabel.layer.cornerRadius = tipCountLabel.width/2.0;
+    tipCountLabel.layer.backgroundColor = [UIColor redColor].CGColor;
     self.tipLabel = tipCountLabel;
     tipCountLabel.font = [UIFont systemFontOfSize:12];
     tipCountLabel.textAlignment = NSTextAlignmentCenter;
     tipCountLabel.textColor = [UIColor whiteColor];
     tipCountLabel.text = @"5";
-    tipCountLabel.backgroundColor = [UIColor redColor];
+    tipCountLabel.backgroundColor = [UIColor clearColor];
     [segment addSubview:tipCountLabel];
     [self resetTipLabelWithMessage:self.myMessageList];
     

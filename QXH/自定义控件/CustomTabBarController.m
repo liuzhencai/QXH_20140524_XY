@@ -12,6 +12,8 @@
 @property (nonatomic, strong) TabBarControl *firstControl;
 @property (nonatomic, strong) TabBarControl *secondControl;
 @property (nonatomic, strong) TabBarControl *thirdControl;
+
+@property (nonatomic, strong) UILabel *tipLabel;
 @end
 
 @implementation CustomTabBarController
@@ -104,6 +106,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self addCustomElements];
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 10, 10)];
+    tipLabel.layer.cornerRadius = tipLabel.width/2.0;
+    tipLabel.layer.backgroundColor = [UIColor redColor].CGColor;
+    tipLabel.backgroundColor = [UIColor clearColor];
+    self.tipLabel = tipLabel;
+    tipLabel.hidden =  YES;
+    [self.secondControl addSubview:tipLabel];
+    
+    //暂时屏蔽
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
+    
+    /*系统推送聊天接口*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatMessInfo:) name:@"reloadeChatMessInfo" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,6 +145,7 @@
             secondControl.backgroundColor = [UIColor clearColor];
             [thirdControl setSelected:NO];
             thirdControl.backgroundColor = [UIColor clearColor];
+            self.tipLabel.hidden = YES;
         }
             break;
         case 1:
@@ -149,6 +166,7 @@
             secondControl.backgroundColor = [UIColor clearColor];
             [thirdControl setSelected:YES];
             thirdControl.backgroundColor = RGBCOLOR(0, 121, 40);
+            self.tipLabel.hidden = YES;
         }
             break;
     }
@@ -159,6 +177,18 @@
 {
     int tagNum = [sender tag];
     [self selectTab:tagNum-1];
+}
+
+#pragma mark - NSNotification
+- (void)reloadMessage:(NSNotification *)notification{
+    NSLog(@"接收到系统消息通知");
+    self.tipLabel.hidden = NO;
+}
+
+- (void)reloadeChatMessInfo:(NSNotification *)notification{
+    NSLog(@"接收到聊天消息");
+    self.tipLabel.hidden = NO;
+    
 }
 
 @end
