@@ -23,6 +23,7 @@
 #import "MessageBySend.h"
 
 
+
 #define KTopButtonHight  50
 #define KAskViewHight  100
 
@@ -64,6 +65,7 @@ static int chatInputStartingHeight = 40;
     
     BOOL isLoading;
     
+    
 }
 
 // View Properties
@@ -78,6 +80,7 @@ static int chatInputStartingHeight = 40;
 @implementation ChatRoomController
 @synthesize activitysList,membersList,tribeInfoDict;
 @synthesize askView,tribeInfoDetailDict;
+@synthesize offMessageDic;
 
 #pragma mark INITIALIZATION
 
@@ -195,6 +198,9 @@ static int chatInputStartingHeight = 40;
  
     /*获取部落聊天记录*/
     [self getMessagesArray];
+    
+    /*获取离线消息*/
+    [self getOffMessageFromServer];
     
 //    /*添加手势*/
 //    UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
@@ -667,6 +673,7 @@ static int chatInputStartingHeight = 40;
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
+    NSNumber* messtype = (NSNumber*)message[@"messtype"];
     NSLog(@"message==%@\n",message);
     static int offset = 20;
     
@@ -702,11 +709,10 @@ static int chatInputStartingHeight = 40;
         }
        
     }
-    else {
-//        float height = KPicHigth;
-//        if (height < [message[kMessageSize] CGSizeValue].height + offset) {
-//            height = [message[kMessageSize] CGSizeValue].height + offset;
-//        }
+    else if([messtype integerValue] == 3){
+        return CGSizeMake(320,KPicHigth);
+    }else{
+        
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
     }
 }
@@ -1323,6 +1329,7 @@ static int chatInputStartingHeight = 40;
 #pragma mark 获取到所有离线消息展示
 - (void)reloadeChatRoomAll:(NSNotification*)chatmessage
 {
+    [[MessageBySend sharMessageBySend] hideprogressHUD];
     NSLog(@"reloadeChatRoom==%@",chatmessage);
     [self getMessagesArray];
     
@@ -1812,7 +1819,19 @@ static int chatInputStartingHeight = 40;
 -(void)popForwardBack
 {
     [_chatInput.textView resignFirstResponder];
+    [[MessageBySend sharMessageBySend] hideprogressHUD];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark 获取离线消息
+- (void)getOffMessageFromServer
+{
+    if (self.offMessageDic) {
+//        [self showAlert:@"正在获取离线消息，请耐心等待"];
+        [[MessageBySend sharMessageBySend] showprogressHUD:@"正在获取离线消息，请耐心等待" withView:self.view];
+        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2" andStartMessageid:nil];
+//        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2"];
+    }
+    
+}
 @end

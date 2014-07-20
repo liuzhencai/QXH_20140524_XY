@@ -17,6 +17,7 @@
 #import "MyMacros.h"
 #import "UserInfoModelManger.h"
 
+
 // External Constants
 int const outlineSpace = 22; // 11 px on each side for border
 int const maxBubbleWidth = 260; // Max Bubble Size
@@ -155,6 +156,7 @@ static int offsetX = 6; // 6 px from each side
             _imageView.layer.shouldRasterize = YES;
             [self.contentView addSubview:_imageView];
         }
+        messageSendBy = [MessageBySend sharMessageBySend];
     }
     
     return self;
@@ -220,22 +222,24 @@ static int offsetX = 6; // 6 px from each side
     
         picImageView.hidden = NO;
         
-
-     
         //自己发图片
         if ([asendId isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId]) {
             _imageView.hidden = YES;
             MyHeadimageView.hidden = NO;
             /*设置我的头像*/
-            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
-            [MyHeadimageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
+//            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+//            [MyHeadimageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
             UIImage* meSendPic = (UIImage*)_message[kPicContent];
             if (meSendPic) {
                 /*设置发送图片*/
                 picImageView.image = meSendPic;
             }else{
-                NSURL *url2 = IMGURL([_message valueForKey:@"mess"]);
-                [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//                NSURL *url2 = IMGURL([_message valueForKey:@"mess"]);
+//                [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+                picImageView.image = nil;
+                NSLog(@"%@",[_message valueForKey:@"mess"]);
+                [messageSendBy getimageView:picImageView byImagePath:[_message valueForKey:@"mess"]];
             }
 
             picImageView.frame = CGRectMake(320-minimumHeight- KPicWidth - KheadX-5, 0, KPicWidth, KPicHigth);
@@ -253,11 +257,15 @@ static int offsetX = 6; // 6 px from each side
             _imageView.hidden = NO;
             MyHeadimageView.hidden = YES;
              stateImageView.hidden = NO;
-            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
-            [_imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            [messageSendBy getimageView:_imageView byImagePath:[_message valueForKey:@"senderphoto"]];
+//            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+//            [_imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
             /*显示的图片*/
-            NSURL *url2 = IMGURL([_message valueForKey:@"mess"]);
-            [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//            NSURL *url2 = IMGURL([_message valueForKey:@"mess"]);
+//            [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            NSLog(@"_message==%@",_message);
+            picImageView.image = nil;
+            [messageSendBy getimageView:picImageView byImagePath:[_message valueForKey:@"mess"]];
             
             picImageView.frame = CGRectMake(offsetX / 2, 0, KPicWidth, KPicHigth);
             picImageView.center = CGPointMake(picImageView.center.x + _imageView.bounds.size.width+5, picImageView.center.y);
@@ -268,6 +276,7 @@ static int offsetX = 6; // 6 px from each side
         picImageView.image = nil;
         picImageView.hidden = YES;
         _textLabel.hidden =NO;
+        _textLabel.backgroundColor = [UIColor clearColor];
         _bgLabel.hidden = NO;
         _textSize = [_message[kMessageSize] CGSizeValue];
         _textLabel.text = _message[kMessageContent];
@@ -283,9 +292,9 @@ static int offsetX = 6; // 6 px from each side
             _bgLabel.layer.borderColor = _userColor.CGColor;
             MyHeadimageView.hidden = NO;
 
-//            MyHeadimageView.image = [[UserInfoModelManger sharUserInfoModelManger]getMe].iconImageview.image;
-            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
-            [MyHeadimageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
+//            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+//            [MyHeadimageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
             
             _imageView.hidden = YES;
             stateImageView.hidden = NO;
@@ -303,9 +312,9 @@ static int offsetX = 6; // 6 px from each side
                 v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
         }
             /*如果是对方发送消息，去除图像*/
-//            UIImage* ahead = [[UserInfoModelManger sharUserInfoModelManger]getIcon:[_message valueForKey:@"senderphoto"]];
-            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
-            [_imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+            [messageSendBy getimageView:_imageView byImagePath:[_message valueForKey:@"senderphoto"]];
+//            NSURL *url = IMGURL([_message valueForKey:@"senderphoto"]);
+//            [_imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
 
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;

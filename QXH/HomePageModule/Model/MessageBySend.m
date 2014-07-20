@@ -8,6 +8,7 @@
 
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
+//#import "MBProgressHUD.h"
 
 @implementation MessageBySend
 static MessageBySend* ins =nil;
@@ -209,9 +210,9 @@ static MessageBySend* ins =nil;
 
 /*通过部落id，获取部落聊天内容，
  或者好友id获取私聊内容*/
--(NSArray*)getChatRoomMessArray:(NSString*)ChatRoomid
+-(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid
 {
-   NSArray* chatRoomArray = (NSArray*) [chatRoomMess valueForKey:ChatRoomid];
+   NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
     return chatRoomArray;
 }
 
@@ -405,7 +406,7 @@ static MessageBySend* ins =nil;
         [message setValue:ntribeid forKey:@"senderid"];
         [message setValue:[message valueForKey:@"sphoto"] forKey:@"senderphoto"];
 
-        [tempUnKnowCharMessArray addObject:message];
+        [tempUnKnowCharMessArray insertObject:message atIndex:0];
             
  
         DebugLog(@"tempUnKnowCharMessArray == %@",tempUnKnowCharMessArray);
@@ -508,25 +509,58 @@ static MessageBySend* ins =nil;
  count:"20"			//获取消息数量
  */
 #pragma mark 获取聊天历史记录
--(void)getMessageHistory:(NSMutableDictionary *)fromdic andSendtype:(NSString*)sendtype
+-(void)getMessageHistory:(NSMutableDictionary *)fromdic andSendtype:(NSString*)sendtype andStartMessageid:(NSString*)startid
 {
+    NSString* astartid = nil;
+    NSString* direction = nil;
+    if (!startid) {
+          astartid= @"0";
+         direction= @"after";
+       
+    }else{
+        astartid = startid;
+        direction= @"before";
+    }
+    
     NSLog(@"获取聊天历史记录\n");
     NSString* targetid = fromdic[@"targetid"];
-    NSString* count = fromdic[@"count"];
-    [DataInterface getChatHistory:targetid sendtype:sendtype start:@"0" direction:@"after" count:count withCompletionHandler:^(NSMutableDictionary *dict) {
-        NSArray* list = [dict valueForKey:@"list"];
-        for (int i = ([list count]-1); i>=0; i--) {
+//    NSString* count = fromdic[@"count"];
+//    if ([count integerValue]>20) {
+//        count= [NSString stringWithFormat:@"%d",20];
+//    }else{
+       NSString* count= [NSString stringWithFormat:@"%d",20];
+//    }
+    [DataInterface getChatHistory:targetid sendtype:sendtype start:astartid  direction:direction count:count withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSMutableArray* list = (NSMutableArray*)[dict valueForKey:@"list"];
+        NSMutableArray* chatRoomMessArray = (NSMutableArray*)[chatRoomMess valueForKey:targetid];
+        if (!chatRoomMessArray) {
+            chatRoomMessArray = [[NSMutableArray alloc]init];
+        }
+//        for (int i = ([list count]-1); i>=0; i--)
+        for (int i = 0; i<([list count]-1); i++)
+        {
             NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:[list objectAtIndex:i]];
             NSLog(@"tempdic == %@",tempdic);
-            [self AddToTempunKnowCharMessAyyay:tempdic];
+            
+            NSNumber* ntribeid = (NSNumber*)[tempdic valueForKey:@"sid"];
+            NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+            [tempdic setValue:ntribeid forKey:@"tribeid"];
+            [tempdic setValue:ntribeid forKey:@"senderid"];
+            [tempdic setValue:[tempdic valueForKey:@"sphoto"] forKey:@"senderphoto"];
+            
+            [chatRoomMessArray insertObject:tempdic atIndex:0];
+//            NSMutableDictionary* temdic = (NSMutableDictionary*)[list objectAtIndex:i];
+//            [self AddToTempunKnowCharMessAyyay:tempdic];
         }
         
        NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:targetid];
         [unKnowCharMessDic removeObjectForKey:temparray1];
         
-        NSMutableArray* temp2 = [[NSMutableArray alloc]initWithArray:tempUnKnowCharMessArray];
-        [chatRoomMess setObject:temp2 forKey:targetid];
-         [tempUnKnowCharMessArray removeAllObjects];
+//        NSMutableArray* temp2 = [[NSMutableArray alloc]initWithArray:tempUnKnowCharMessArray];
+        NSLog(@"chatRoomMessArray == %@",chatRoomMessArray);
+        [chatRoomMess setObject:chatRoomMessArray forKey:targetid];
+        /*暂时不移除*/
+//         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatViewAll" object:nil userInfo:nil];
@@ -543,6 +577,64 @@ static MessageBySend* ins =nil;
          ]
          */
     }];
+}
+
+#pragma mark 显示加载框
+- (void)showprogressHUD:(NSString*)string withView:(UIView*)aview
+{
+//    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    if (!progressHUD) {
+        progressHUD = [[MBProgressHUD alloc] initWithView:aview];
+        progressHUD.animationType = MBProgressHUDAnimationFade;
+        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+//       [keyWindow addSubview:progressHUD];
+    }
+//    progressHUD.labelText = @"正在获取离线消息，请耐心等待...";
+    [aview addSubview:progressHUD];
+    progressHUD.labelText = string;
+   
+    [progressHUD show:YES];
+}
+
+- (void)hideprogressHUD
+{
+     [progressHUD hide:YES];
+}
+
+#pragma mark 获取图片接口
+
+- (void)getimageView:(UIImageView*)picImageView byImagePath:(NSString*)pic
+{
+    if(!historyPicDic)
+    {
+        historyPicDic = [[NSMutableDictionary alloc]init];
+        /*正在获取是1，成功是2，字符串*/
+        querPic = [[NSMutableDictionary alloc]init];
+    }
+    UIImage* tempic = (UIImage*)[historyPicDic valueForKey:pic];
+    id  state = [querPic valueForKey:pic];
+    /*因为总内存警报，所以每次最多获取10个图片*/
+    if (!tempic && !state &&[[querPic allKeys]count]<10) {
+        piccount++;
+        NSLog(@"获取图片次数==%d\n",piccount);
+        NSURL *url2 = IMGURL(pic);
+        [querPic setObject:@"1" forKey:pic];
+        [picImageView setImageWithURL:url2 completed:^(UIImage* aimage, NSError *error, SDImageCacheType cacheType)
+         {
+             [querPic removeObjectForKey:pic];
+             
+             NSLog(@"getimageView == %@\n pic==%@",aimage,pic);
+//             tempic = picImageView.image;
+             [historyPicDic setObject:aimage forKey:pic];
+         }];
+//        [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+        
+//        UIImageView* tempview = [[UIImageView alloc]initWithImage:picImageView.image];
+//        [historyPicDic setObject:tempic forKey:pic];
+    }else if(tempic){
+        NSLog(@"getimageView == %@\n pic==%@",tempic,pic);
+        picImageView.image = tempic;
+    }
 }
 @end
 

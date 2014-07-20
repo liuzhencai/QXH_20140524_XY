@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
 
 //@protocol MessageBySendDelegate <NSObject>
 //
@@ -54,7 +55,13 @@
     /*存储上一个获取到的消息，如果两个一样，就抛弃*/
     NSString* messid;
     
-
+    MBProgressHUD* progressHUD;
+    
+    /*历史图片字典*/
+    NSMutableDictionary* historyPicDic;
+    /*获取图片的队列*/
+    NSMutableDictionary* querPic;
+    NSInteger piccount;
 }
 
 //@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
@@ -62,7 +69,7 @@
 +(MessageBySend*)sharMessageBySend;
 
 /*通过部落id，获取部落聊天内容*/
--(NSArray*)getChatRoomMessArray:(NSString*)ChatRoomid;
+-(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid;
 /*
  1、把我自己发送的消息添加进入聊天室
  2、对方发送私聊
@@ -79,7 +86,13 @@
 /*登录成功后获取用户离线消息*/
 - (void)getOfflineMessage;
 #pragma mark 获取聊天历史记录
--(void)getMessageHistory:(NSMutableDictionary *)fromdic andSendtype:(NSString*)sendtype;
+-(void)getMessageHistory:(NSMutableDictionary *)fromdic andSendtype:(NSString*)sendtype andStartMessageid:(NSString*)startid;
+#pragma mark 全屏等待框
+- (void)showprogressHUD:(NSString*)string withView:(UIView*)aview;
+- (void)hideprogressHUD;
+
+#pragma mark 获取图片接口
+- (void)getimageView:(UIImageView*)picImageView byImagePath:(NSString*)pic;
 @end
 
 

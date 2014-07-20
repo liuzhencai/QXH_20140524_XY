@@ -14,6 +14,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "MessageBySend.h"
 
 /*!
  Who sent the message
@@ -65,6 +66,9 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 #endif
 
 @interface MessageCell : UICollectionViewCell
+{
+    MessageBySend* messageSendBy;
+}
 
 /*
  Message Property

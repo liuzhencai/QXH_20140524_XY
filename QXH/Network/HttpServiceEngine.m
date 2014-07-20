@@ -149,7 +149,9 @@ static HttpServiceEngine *httpEngine;
 
     [keyWindow addSubview:progressHUD];
     [progressHUD show:YES];
-
+//    [keyWindow addSubview:progressHUD];
+//    [progressHUD show:YES];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __block __weak MKNetworkOperation *op = nil;
         if (params == nil) {

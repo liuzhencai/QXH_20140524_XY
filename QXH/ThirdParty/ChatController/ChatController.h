@@ -67,6 +67,9 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 
 /*离线消息个数*/
 @property (assign, nonatomic)NSInteger integerCount;
+
+/*需要获取的离线消息的字典*/
+@property (strong, nonatomic)NSMutableDictionary* offMessageDic;
 /*!
  The color of the user's chat bubbles
  */

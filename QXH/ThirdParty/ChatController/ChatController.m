@@ -52,6 +52,9 @@ static int chatInputStartingHeight = 40;
 
     /*自己信息*/
     UserInfoModel* Myuserinfo;
+    
+    /*是否获取历史聊天记录*/
+    BOOL hisState;
 }
 
 // View Properties
@@ -63,7 +66,7 @@ static int chatInputStartingHeight = 40;
 @end
 
 @implementation ChatController
-@synthesize opponentImg,otherDic;
+@synthesize opponentImg,otherDic,offMessageDic;
 
 #pragma mark INITIALIZATION
 
@@ -151,6 +154,9 @@ static int chatInputStartingHeight = 40;
     /*获取聊天记录*/
     [self getMessagesArray];
     
+    /*获取离线消息*/
+    [self getOffMessageFromServer];
+    
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -162,6 +168,8 @@ static int chatInputStartingHeight = 40;
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatView:) name:@"reloadeChatView" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatViewAll:) name:@"reloadeChatViewAll" object:nil];
     
     
 }
@@ -683,28 +691,42 @@ static int chatInputStartingHeight = 40;
     }
 }
 
-/* Scroll To Top
- - (void) scrollToTop {
- if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
- NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
- [_myCollectionView scrollToItemAtIndexPath:firstIndex atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
- }
- }
- */
+/* Scroll To Top */
+//- (void) scrollToTop {
+//    NSLog(@"scrollToTop\n");
+//    if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
+//        NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+//        [_myCollectionView scrollToItemAtIndexPath:firstIndex atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+//    }
+//}
 
-/* To Monitor Scroll
+
+/* To Monitor Scroll */
  - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
  CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
  if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
  // scrolled up
+     NSLog(@"up");
+     
  }
  else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
  // scrolled down
+      NSLog(@"down");
  
  }
  lastContentOffset = scrollView.contentOffset.y;
+     
+///*暂时屏蔽添加下拉刷新*/
+//     if (lastContentOffset<-20 && !hisState) {
+//         hisState = YES;
+//         [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
+//         NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
+//         NSNumber* amessid = temp[@"messid"];
+//         NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+//        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
+//     }
  }
- */
+
 
 #pragma mark COLLECTION VIEW DELEGATE
 
@@ -713,13 +735,15 @@ static int chatInputStartingHeight = 40;
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
+    NSLog(@"collectionViewLayout == %@\n",message);
+    NSNumber* messtype= (NSNumber*)message[@"messtype"];
     
     static int offset = 20;
     
-    if (!message[kMessageSize]) {
+//    if (!message[kMessageSize]) {
         NSString * content = [message objectForKey:kMessageContent];
         id pic = [message objectForKey:kPicContent];
-        if (!pic && content) {
+        if ([messtype integerValue]==1 && content) {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
             attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15.0f];
@@ -740,20 +764,22 @@ static int chatInputStartingHeight = 40;
             
             message[kMessageSize] = [NSValue valueWithCGSize:rect.size];
             
+            NSLog(@"size1\n");
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
-        }else{
+        }else if([messtype integerValue] == 3){
+            NSLog(@"size2\n");
             //liuzhencai
             return CGSizeMake(320,KPicHigth);
         }
-        
-    }
-    else {
-//        float height = KPicHigth;
-//        if (height < [message[kMessageSize] CGSizeValue].height + offset) {
-//            height = [message[kMessageSize] CGSizeValue].height + offset;
-//        }
+    
+//    }
+//    else if([messtype integerValue] == 3){
+//        NSLog(@"size3\n");
+//        return CGSizeMake(320,KPicHigth);
+//    }else{
+        NSLog(@"size4\n");
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
-    }
+//    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
@@ -767,8 +793,8 @@ static int chatInputStartingHeight = 40;
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     // Get Cell
-    MessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kMessageCellReuseIdentifier
-                                                                  forIndexPath:indexPath];
+    MessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kMessageCellReuseIdentifier forIndexPath:indexPath];
+   
     
     // Set Who Sent Message
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
@@ -777,8 +803,10 @@ static int chatInputStartingHeight = 40;
     // Set the cell
 //    cell.opponentImage = self.opponentImg;
 //    cell.MyHeadimageView = self.MyHeadImg;
-    if (_opponentBubbleColor) cell.opponentColor = _opponentBubbleColor;
-    if (_userBubbleColor) cell.userColor = _userBubbleColor;
+    if (_opponentBubbleColor)
+        cell.opponentColor = _opponentBubbleColor;
+    if (_userBubbleColor)
+        cell.userColor = _userBubbleColor;
     cell.message = message;
     
     return cell;
@@ -1049,18 +1077,31 @@ static int chatInputStartingHeight = 40;
     
 }
 
+#pragma mark 获取到离线消息
+- (void)reloadeChatViewAll:(NSNotification*)chatmessage
+{
+    hisState =  NO;
+    [[MessageBySend sharMessageBySend]hideprogressHUD];
+    [self getMessagesArray];
+}
+
 /*获取聊天室聊天记录*/
 - (void)getMessagesArray
 {
-    if ([_messagesArray count]==0) {
+//    if ([_messagesArray count]==0) {
         /*如果没有消息获取本地的*/
         NSNumber* aothetid = [self.otherDic valueForKey:@"userid"];
         NSString* otherid = [NSString stringWithFormat:@"%d",[aothetid intValue]];
-        NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:otherid];
-        _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
-   
+        NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:otherid];
+    if ([tempArray count]>0) {
+        [self setMessagesArray:tempArray];
     }
+    
+//        _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
+   
+//    }
 }
+
 
 #pragma mark 查看消息接口
 -(void)ReceiveAndSeeMessige
@@ -1070,6 +1111,7 @@ static int chatInputStartingHeight = 40;
      type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
      当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
+
     NSMutableDictionary* amess = [_messagesArray lastObject];
     NSNumber* amessid = amess[@"messid"];
     NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
@@ -1083,8 +1125,21 @@ static int chatInputStartingHeight = 40;
 #pragma mark 返回上一界面
 -(void)popForwardBack
 {
+    /*返回上一页时关闭本页键盘*/
     [_chatInput.textView resignFirstResponder];
+    [[MessageBySend sharMessageBySend] hideprogressHUD];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark 获取离线消息
+- (void)getOffMessageFromServer
+{
+    if (self.offMessageDic ) {
+
+       [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取离线消息，请耐心等待" withView:self.view];
+        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:nil];
+
+    }
+
+}
 @end

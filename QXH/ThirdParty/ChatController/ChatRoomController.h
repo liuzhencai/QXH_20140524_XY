@@ -39,6 +39,7 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 @property (nonatomic, strong) NSMutableArray *membersList;//成员列表
 @property (nonatomic, strong) NSDictionary *tribeInfoDict;//部落信息
 @property (nonatomic, strong) NSDictionary *tribeInfoDetailDict;//部落返回信息
+@property (nonatomic, strong)NSMutableDictionary* offMessageDic;//离线消息字典
 
 //@property (nonatomic, strong) UIView *chatview;//部落信息
 @property (nonatomic, strong) UIView *askView;//每日一问
@@ -46,6 +47,10 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 - (void)messageSendByUser:(NSMutableDictionary *)message;
 /*对方发送消息*/
 - (void)messageSendByOpponent:(NSMutableDictionary *)message;
+
+
+
+
 /*设置聊天室标题*/
 //- (void) setChatTitle:(NSString *)chatTitle;
 #pragma mark PROPERTIES
