@@ -350,8 +350,7 @@
     
     UIButton *btn  = (UIButton *)sender;
     switch (btn.tag) {
-        case 1:
-        {
+        case 1:        {
             NSLog(@"点击资讯");
             InformationViewController* ainfor = [[InformationViewController alloc]init];
             ainfor.hidesBottomBarWhenPushed = YES;
