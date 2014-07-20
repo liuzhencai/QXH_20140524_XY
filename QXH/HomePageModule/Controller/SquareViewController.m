@@ -86,7 +86,7 @@
     [self setupRefresh:_squareTable];
     [_squareTable headerBeginRefreshing];
     [self setupRefresh:_hotestTable];
-    [_hotestTable headerBeginRefreshing];
+//    [_hotestTable headerBeginRefreshing];
     [infoScroll addSubview:_squareTable];
     [infoScroll addSubview:_hotestTable];
     [self.view addSubview:infoScroll];
@@ -94,10 +94,12 @@
 
 - (void)getHotestListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
 {
-//    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:<#(NSString *)#> contentlength:<#(NSString *)#> start:<#(NSString *)#> count:<#(NSString *)#> withCompletionHandler:<#^(NSMutableDictionary *dict)callback#>]
-    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:@"" contentlength:@"30" start:@"" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         callback([ModelGenerator json2SquareList:dict]);
     }];
+//    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+//        callback([ModelGenerator json2SquareList:dict]);
+//    }];
 }
 
 - (void)getSquareListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
@@ -154,7 +156,6 @@
                     // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
                     [_squareTable headerEndRefreshing];
                 });
-
             }];
         }
             break;
@@ -173,7 +174,6 @@
                     // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
                     [_hotestTable headerEndRefreshing];
                 });
-
             }];
         }
             break;
@@ -430,26 +430,26 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView == infoScroll) {
-        _curIndex = (NSInteger)scrollView.contentOffset.x/320;
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:.25f];
-        _slipbar.frame = CGRectMake(_curIndex*160, 49, 160, 2);
-        [UIView commitAnimations];
-        if (_curIndex == 1) {
-            [_lastestBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
-            [_hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            if ([squareInfoList count] == 0) {
-                [_squareTable headerBeginRefreshing];
-            }
-        }else{
-            [_lastestBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_hotBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
-            if ([hotestInfoList count] == 0) {
-                [_hotestTable headerBeginRefreshing];
-            }
-        }
-    }
+//    if (scrollView == infoScroll) {
+//        _curIndex = (NSInteger)scrollView.contentOffset.x/320+1;
+//        [UIView beginAnimations:nil context:nil];
+//        [UIView setAnimationDuration:.25f];
+//        _slipbar.frame = CGRectMake((_curIndex-1)*160, 49, 160, 2);
+//        [UIView commitAnimations];
+//        if (_curIndex == 1) {
+//            [_lastestBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+//            [_hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            if ([squareInfoList count] == 0) {
+//                [_squareTable headerBeginRefreshing];
+//            }
+//        }else{
+//            [_lastestBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_hotBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+//            if ([hotestInfoList count] == 0) {
+//                [_hotestTable headerBeginRefreshing];
+//            }
+//        }
+//    }
 }
 
 @end
