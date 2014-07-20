@@ -72,13 +72,16 @@
         if (0 == i) {
             self.emailField = textField;
             textField.secureTextEntry = NO;
+            textField.returnKeyType = UIReturnKeyNext;
             placeholderStr = @"请输入邮箱";
         }else if(1 == i){
             self.pwField = textField;
             placeholderStr = @"请输入密码";
+            textField.returnKeyType = UIReturnKeyNext;
         }else{
             self.repeatPWField = textField;
             placeholderStr = @"请再次输入密码";
+            textField.returnKeyType = UIReturnKeyDone;
         }
         textField.placeholder = placeholderStr;
         

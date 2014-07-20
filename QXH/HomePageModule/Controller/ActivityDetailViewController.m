@@ -163,6 +163,7 @@
                 UITextView *actContentView = [[UITextView alloc] initWithFrame:CGRectMake(bgImage.left + 10, titleLabel.bottom + 5, bgImage.width - 20, 80)];
                 NSLog(@"frame:%@",NSStringFromCGRect(actContentView.frame));
                 actContentView.tag = 220;
+                actContentView.font = [UIFont systemFontOfSize:16];
                 actContentView.backgroundColor = [UIColor clearColor];
                 actContentView.text = @"";
                 actContentView.editable = NO;
@@ -300,12 +301,12 @@
 //         *  @param actid    活动唯一标示
 //         *  @param callback 回调
 //         */
-//        [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
-//            NSLog(@"加入活动申请返回值:%@",dict);
-//            [self showAlert:[dict objectForKey:@"info"]];
-//            [self getActivityDetail];
-//        }];
-//        
+        [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"加入活动申请返回值:%@",dict);
+            [self showAlert:[dict objectForKey:@"info"]];
+            [self getActivityDetail];
+        }];
+//
 //    }else{
 //        [btn setTitle:@"报名" forState:UIControlStateNormal];
         /**
@@ -313,11 +314,11 @@
          *  @param actid    活动唯一标示
          *  @param callback 回调
          */
-        [DataInterface quitAct:actId withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"退出活动：%@",dict);
-            [self getActivityDetail];
-            [self showAlert:[dict objectForKey:@"info"]];
-        }];
+//        [DataInterface quitAct:actId withCompletionHandler:^(NSMutableDictionary *dict){
+//            NSLog(@"退出活动：%@",dict);
+//            [self getActivityDetail];
+//            [self showAlert:[dict objectForKey:@"info"]];
+//        }];
 //    }
 }
 

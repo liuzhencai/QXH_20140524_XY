@@ -34,6 +34,7 @@
     self.title = [_titles objectAtIndex:self.type];
     UITextField *textField = [self addTextFieldWithFrame:CGRectMake(20, 20, 280, 30) placeHolder:[_placeHolders objectAtIndex:self.type]];
     self.textField = textField;
+    self.textField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:textField];
     
     UIButton *submit = [UIButton buttonWithType:UIButtonTypeCustom];

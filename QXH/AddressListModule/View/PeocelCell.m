@@ -22,24 +22,21 @@
         
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (height - 48)/2.0, 48, 48)];
         [_headImgView setRound:YES];
-//        _headImgView.layer.cornerRadius = 24;//_headImgView.width/2.0;
-        //    _headImgView.backgroundColor = [UIColor greenColor];
         _headImgView.image = [UIImage imageNamed:@"img_portrait96"];
         [self.contentView addSubview:_headImgView];
         
         _name = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 200, lableHeight)];
-        _name.text = @"李某某";
+        _name.text = @"";
         _name.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_name];
         
         _duty = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight)];
-        _duty.text = @"xxxxxxxxxxxxx校长";
+        _duty.text = @"";
         _duty.textColor = [UIColor lightGrayColor];
         _duty.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_duty];
         
         _arrowImgView = [[UIImageView alloc] initWithFrame:CGRectMake(290, (height - 12) / 2.0, 8, 12)];
-//        _arrowImgView.backgroundColor = [UIColor redColor];
         _arrowImgView.image = [UIImage imageNamed:@"list_arrow_right_gray"];
         [self.contentView addSubview:_arrowImgView];
         
@@ -78,16 +75,11 @@
     NSDictionary *params = (NSDictionary *)objt;
 
     NSString *imageUrlStr = [params objectForKey:@"photo"];
-//    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [self.headImgView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *nameStr = [params objectForKey:@"displayname"];
-//    if ([nameStr length] > 0) {
-        self.name.text = nameStr;
-//    }
-    NSString *dutyString = [params objectForKey:@"signature"];
-//    if ([dutyString length] > 0) {
-        self.duty.text = dutyString;
-//    }
+    self.name.text = nameStr;
+    NSString *dutyString = [NSString stringWithFormat:@"%@ %@",[params objectForKey:@"schoolname"],[params objectForKey:@"title"]];//[params objectForKey:@"signature"];
+    self.duty.text = dutyString;
 }
 
 

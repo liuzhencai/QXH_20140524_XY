@@ -536,6 +536,12 @@
             return NO;
         }
     }
+//    if (_limitCount) {
+//        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789\b"];
+//        if ([string rangeOfCharacterFromSet:[characterSet invertedSet]].location != NSNotFound) {
+//            return NO;
+//        }
+//    }
     return YES;
 }
 
@@ -560,6 +566,7 @@
     textField.backgroundColor = [UIColor clearColor];
     textField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     textField.placeholder = placeHolder;
+    textField.returnKeyType = UIReturnKeyDone;
 //    textField.backgroundColor = [UIColor redColor];
 //    textField.textColor = UIColorFromRGB(0x000000);;
     textField.font = [UIFont systemFontOfSize:14];

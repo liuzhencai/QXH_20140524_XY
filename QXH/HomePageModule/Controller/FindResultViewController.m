@@ -105,6 +105,7 @@
     PeocelCell *cell = [tableView dequeueReusableCellWithIdentifier:identifiter];
     if (!cell) {
         cell = [[PeocelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifiter];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 //    cell.name.text = @"李某某";
 //    cell.duty.text = @"xxxxxxxxxxxxxx校长";

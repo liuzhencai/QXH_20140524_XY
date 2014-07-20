@@ -66,14 +66,12 @@
                                                     text:[items objectAtIndex:i]
                                                    color:[UIColor blackColor]
                                                     font:[UIFont systemFontOfSize:14]];
-//            itemTitle.backgroundColor = [UIColor redColor];
             [bgImgView addSubview:itemTitle];
             
             UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 100 + 18 - 10, 40)
                                                     text:@""
                                                    color:[UIColor blackColor]
                                                     font:[UIFont systemFontOfSize:14]];
-//            itemValue.backgroundColor = [UIColor greenColor];
             [bgImgView addSubview:itemValue];
             
             NSString *imageName = nil;
@@ -101,10 +99,6 @@
                 }
                     break;
                 case 3:{//活动结束时间
-//                    imageName = @"icon_place";
-//                    self.addrLabel = itemValue;
-//                    self.addrLabel.text = @"中关村";
-//                    itemValue.frame = CGRectMake(itemValue.left, itemValue.top, itemValue.width + 120, itemValue.height);
                     imageName = @"icon_time";
                     self.endTimeLabel = itemValue;
                     self.endTimeLabel.text = @"中关村";
@@ -133,7 +127,7 @@
                     break;
             }
             
-            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(5, itemTitle.top + 8, 13, 13)
+            UIImageView *iconImgView = [self addImageViewWithFrame:CGRectMake(5, itemTitle.top + 15, 13, 13)
                                                          imageName:[UIImage imageNamed:imageName]];
             [bgImgView addSubview:iconImgView];
         }

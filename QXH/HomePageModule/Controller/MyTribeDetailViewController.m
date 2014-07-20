@@ -629,6 +629,7 @@
     textField.backgroundColor = [UIColor clearColor];
     textField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     textField.placeholder = placeHolder;
+    textField.returnKeyType = UIReturnKeyDone;
     //    textField.backgroundColor = [UIColor redColor];
     //    textField.textColor = UIColorFromRGB(0x000000);;
     textField.font = [UIFont systemFontOfSize:14];
