@@ -190,7 +190,7 @@
                                 signature:ORIGIN_VAL
                                     title:ORIGIN_VAL
                                    degree:ORIGIN_VAL
-                                  address:ORIGIN_VAL
+                                  address:[cityDict objectForKey:@"cityid"]
                                  domicile:[cityDict objectForKey:@"cityid"]
                                 introduce:ORIGIN_VAL
                                   comname:ORIGIN_VAL

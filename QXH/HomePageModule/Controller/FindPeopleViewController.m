@@ -215,8 +215,8 @@
          *  @param callback    回调
          */
         [DataInterface getFriendInfo:@"2"
-                             address:@""
-                            domicile:[cityDict objectForKey:@"cityid"]
+                             address:[cityDict objectForKey:@"cityid"]
+                            domicile:@""
                          displayname:@""
                             usertype:@""
                                start:@"0"

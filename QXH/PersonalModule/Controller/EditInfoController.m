@@ -215,7 +215,7 @@
                                 signature:ORIGIN_VAL
                                     title:ORIGIN_VAL
                                    degree:ORIGIN_VAL
-                                  address:ORIGIN_VAL
+                                  address:_infoField.text
                                  domicile:_infoField.text
                                 introduce:ORIGIN_VAL
                                   comname:ORIGIN_VAL
