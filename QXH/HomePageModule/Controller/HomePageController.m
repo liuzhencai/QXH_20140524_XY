@@ -182,9 +182,11 @@
             }
             _ads = tmpAds;
             _pageControl.numberOfPages = _ads.count;
+            _pageControlThree.numberOfPages = _ads.count;
             _topScrollfour.contentSize = CGSizeMake(320*_ads.count, 132);
             _topScrollthree.contentSize = CGSizeMake(320*_ads.count, 132);
             _adTitleLabelfour.text = [_ads[0] objectForKey:@"desc"];
+            _adTitleLabelThree.text = [_ads[0] objectForKey:@"desc"];
         }
         for (int i = 0; i < _ads.count; i++) {
             @autoreleasepool {
@@ -333,7 +335,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     _pageControl.currentPage = (int)scrollView.contentOffset.x/320;
+    _pageControlThree.currentPage = (int)scrollView.contentOffset.x/320;
     _adTitleLabelfour.text = [_ads[_pageControl.currentPage] objectForKey:@"desc"];
+    _adTitleLabelThree.text = [_ads[_pageControlThree.currentPage] objectForKey:@"desc"];
 }
 
 - (void)didReceiveMemoryWarning
