@@ -94,12 +94,12 @@
 
 - (void)getHotestListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
 {
-    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:@"" contentlength:@"30" start:@"" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        callback([ModelGenerator json2SquareList:dict]);
-    }];
-//    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+//    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:@"" contentlength:@"30" start:@"" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
 //        callback([ModelGenerator json2SquareList:dict]);
 //    }];
+    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        callback([ModelGenerator json2SquareList:dict]);
+    }];
 }
 
 - (void)getSquareListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
@@ -430,26 +430,26 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    if (scrollView == infoScroll) {
-//        _curIndex = (NSInteger)scrollView.contentOffset.x/320+1;
-//        [UIView beginAnimations:nil context:nil];
-//        [UIView setAnimationDuration:.25f];
-//        _slipbar.frame = CGRectMake((_curIndex-1)*160, 49, 160, 2);
-//        [UIView commitAnimations];
-//        if (_curIndex == 1) {
-//            [_lastestBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
-//            [_hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            if ([squareInfoList count] == 0) {
-//                [_squareTable headerBeginRefreshing];
-//            }
-//        }else{
-//            [_lastestBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            [_hotBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
-//            if ([hotestInfoList count] == 0) {
-//                [_hotestTable headerBeginRefreshing];
-//            }
-//        }
-//    }
+    if (scrollView == infoScroll) {
+        _curIndex = (NSInteger)scrollView.contentOffset.x/320+1;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:.25f];
+        _slipbar.frame = CGRectMake((_curIndex-1)*160, 49, 160, 2);
+        [UIView commitAnimations];
+        if (_curIndex == 1) {
+            [_lastestBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+            [_hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            if ([squareInfoList count] == 0) {
+                [_squareTable headerBeginRefreshing];
+            }
+        }else{
+            [_lastestBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_hotBtn setTitleColor:RGBCOLOR(78, 199, 60) forState:UIControlStateNormal];
+            if ([hotestInfoList count] == 0) {
+                [_hotestTable headerBeginRefreshing];
+            }
+        }
+    }
 }
 
 @end
