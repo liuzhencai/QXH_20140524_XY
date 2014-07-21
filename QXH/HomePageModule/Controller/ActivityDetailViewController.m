@@ -163,6 +163,7 @@
                 UITextView *actContentView = [[UITextView alloc] initWithFrame:CGRectMake(bgImage.left + 10, titleLabel.bottom + 5, bgImage.width - 20, 80)];
                 NSLog(@"frame:%@",NSStringFromCGRect(actContentView.frame));
                 actContentView.tag = 220;
+                actContentView.font = [UIFont systemFontOfSize:16];
                 actContentView.backgroundColor = [UIColor clearColor];
                 actContentView.text = @"";
                 actContentView.editable = NO;
@@ -236,6 +237,7 @@
                 //                signUpBtn.backgroundColor = [UIColor redColor];
                 signUpBtn.frame = CGRectMake(15, 15, 130, 44);
                 [signUpBtn setTitle:@"报名" forState:UIControlStateNormal];
+                signUpBtn.tag = 1101;
                 [signUpBtn setBackgroundImage:[self stretchiOS6:@"btn_enroll_normal.png"] forState:UIControlStateNormal];
                 [signUpBtn setBackgroundImage:[self stretchiOS6:@"btn_enroll_highlight.png"] forState:UIControlStateHighlighted];
                 [signUpBtn addTarget:self action:@selector(signUp:) forControlEvents:UIControlEventTouchUpInside];
@@ -249,6 +251,16 @@
                 [shareBtn setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
                 [shareBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
                 [dataCell.contentView addSubview:shareBtn];
+            }
+            if (self.activityDict) {
+                UIButton *signupBtn = (UIButton *)[cell.contentView viewWithTag:1101];
+                if ([self isInFollowers]) {
+                    [signupBtn setTitle:@"已报名" forState:UIControlStateNormal];
+                    signupBtn.enabled = NO;
+                }else{
+                    [signupBtn setTitle:@"报名" forState:UIControlStateNormal];
+                    signupBtn.enabled = YES;
+                }
             }
             cell = dataCell;
         }
@@ -281,32 +293,33 @@
     if (self.activityId) {
         actId = self.activityId;
     }
-    if (btn.selected) {
-        [btn setTitle:@"取消报名" forState:UIControlStateNormal];
-        /**
-         *  加入/关注活动
-         *  @param type     1为申请加入，2为关注
-         *  @param actid    活动唯一标示
-         *  @param callback 回调
-         */
+//    if (btn.selected) {
+//        [btn setTitle:@"" forState:UIControlStateNormal];
+//        /**
+//         *  加入/关注活动
+//         *  @param type     1为申请加入，2为关注
+//         *  @param actid    活动唯一标示
+//         *  @param callback 回调
+//         */
         [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"加入活动申请返回值:%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];
             [self getActivityDetail];
         }];
-        
-    }else{
-        [btn setTitle:@"报名" forState:UIControlStateNormal];
+//
+//    }else{
+//        [btn setTitle:@"报名" forState:UIControlStateNormal];
         /**
          *  退出活动/取消关注
          *  @param actid    活动唯一标示
          *  @param callback 回调
          */
-        [DataInterface quitAct:actId withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"退出活动：%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
-        }];
-    }
+//        [DataInterface quitAct:actId withCompletionHandler:^(NSMutableDictionary *dict){
+//            NSLog(@"退出活动：%@",dict);
+//            [self getActivityDetail];
+//            [self showAlert:[dict objectForKey:@"info"]];
+//        }];
+//    }
 }
 
 - (void)share:(id)sender
@@ -318,6 +331,21 @@
                                           cancelButtonTitle:@"取消"
                                           otherButtonTitles:@"分享到部落",@"分享到广场",@"分享到微信", nil];
     [alert show];
+}
+
+- (BOOL)isInFollowers{
+    NSArray *followers = [self.activityDict objectForKey:@"followers"];
+    BOOL isIn = NO;
+    for (int i = 0; i < [followers count]; i ++) {
+        NSDictionary *follower = [followers objectAtIndex:i];
+        NSInteger followerId = [[follower objectForKey:@"userid"] integerValue];
+        NSInteger userId = [[defaults objectForKey:@"userid"] integerValue];
+        if (followerId == userId) {
+            isIn= YES;
+            break;
+        }
+    }
+    return isIn;
 }
 
 #pragma mark - PortraitViewDelegate

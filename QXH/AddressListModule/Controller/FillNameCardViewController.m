@@ -192,7 +192,7 @@
                         signature:self.signature
                             title:duty
                            degree:ORIGIN_VAL
-                          address:ORIGIN_VAL
+                          address:cityCode
                          domicile:cityCode
                         introduce:ORIGIN_VAL
                           comname:ORIGIN_VAL

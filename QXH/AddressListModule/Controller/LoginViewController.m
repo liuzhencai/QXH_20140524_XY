@@ -61,6 +61,7 @@
     _nameField.placeholder = @"请输入用户名";//@"cellnumber/identifyID/email";
     _nameField.text = @"zhaolilong2012@gmail.com";
     _nameField.delegate = self;
+    _nameField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:_nameField];
     
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_TO_LEFT, _nameField.bottom + 4, UI_SCREEN_WIDTH - 2 * WIDTH_TO_LEFT, 0.5)];
@@ -83,6 +84,7 @@
     _pwField.delegate = self;
     _pwField.secureTextEntry = YES;
     _pwField.text = @"123456";
+    _pwField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:_pwField];
     
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_TO_LEFT, _pwField.bottom + 4, UI_SCREEN_WIDTH - 2 * WIDTH_TO_LEFT, 0.5)];

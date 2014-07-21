@@ -625,7 +625,9 @@ static MessageBySend* ins =nil;
              
              NSLog(@"getimageView == %@\n pic==%@",aimage,pic);
 //             tempic = picImageView.image;
-             [historyPicDic setObject:aimage forKey:pic];
+             if (aimage) {
+                 [historyPicDic setObject:aimage forKey:pic];
+             }
          }];
 //        [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
         
