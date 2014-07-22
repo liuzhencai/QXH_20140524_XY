@@ -64,12 +64,15 @@
 
 - (void)getUserInfo{
 
-    if (self.memberDict) {
-        [DataInterface getUserInfo:[self.memberDict objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict){
+    if (self.memberDict || self.memberId) {
+        NSString *memberid = self.memberId;
+        if (self.memberDict) {
+            memberid = [self.memberDict objectForKey:@"userid"];
+        }
+        [DataInterface getUserInfo:memberid withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"获取用户信息返回值：%@",dict);
             self.userDetailInfo = dict;
             [_mainTable reloadData];
-//            [self showAlert:[dict objectForKey:@"info"]];
         }];
     }
 }
@@ -229,8 +232,12 @@
              *  @param mess     好友请求验证消息
              *  @param callback 回调
              */
-            if (self.memberDict) {
-                [DataInterface requestAddFriend:[self.memberDict objectForKey:@"userid"] mess:@"我是张三" withCompletionHandler:^(NSMutableDictionary *dict){
+            if (self.memberDict || self.memberId) {
+                NSString *memberid = self.memberId;
+                if (self.memberDict) {
+                    memberid = [self.memberDict objectForKey:@"userid"];
+                }
+                [DataInterface requestAddFriend:memberid mess:@"" withCompletionHandler:^(NSMutableDictionary *dict){
                     NSLog(@"%@",dict);
                     [self showAlert:[dict objectForKey:@"info"]];
                 }];

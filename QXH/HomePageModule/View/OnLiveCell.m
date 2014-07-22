@@ -25,9 +25,10 @@
         
         UIImageView *typeBgImgView = [self addImageViewWithFrame:CGRectMake(230, 5, 60, 20)
                                                        imageName:[UIImage imageNamed:@"img_bg_type"]];
+        typeBgImgView.hidden = YES;
         [bgImgView addSubview:typeBgImgView];
         //title
-        _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 5, 200, 20)
+        _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 5, 280, 20)
                                                  text:@"活动标题"
                                                 color:[UIColor blackColor]
                                                  font:[UIFont systemFontOfSize:16]];
@@ -38,7 +39,7 @@
                                                 text:@"活动类型"
                                                color:[UIColor blackColor]
                                                 font:[UIFont systemFontOfSize:14]];
-        [bgImgView addSubview:_activityTypeLabel];
+//        [bgImgView addSubview:_activityTypeLabel];
         
         //desc
         _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(5, titleBgImgView.bottom + 10, 280, 20)
@@ -49,25 +50,25 @@
         [bgImgView addSubview:_activityDescriptionLabel];
         
         //image
-        _activityImage = [self addImageViewWithFrame:CGRectMake(210 - 35, _activityDescriptionLabel.bottom + 5, 80 + 32, 60 + 24)
+        _activityImage = [self addImageViewWithFrame:CGRectMake(210 - 35 + 5, _activityDescriptionLabel.bottom + 5, 80 + 32, 60 + 24)
                                            imageName:[UIImage imageNamed:@"img_news"]];
         [bgImgView addSubview:_activityImage];
         
 //        NSArray *items = @[@"来   自:",@"时   间:",@"",@"地   点:"];
-        NSArray *items = @[@"发起人:",@"开始时间:",@"结束时间:",@"地点:"];
+        NSArray *items = @[@"发起人:",@"时间:",@"",@"地点:"];
         for (int i = 0; i < [items count]; i ++) {
             
-            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 27, 50, 27)
+            UILabel *itemTitle = [self addLabelWithFrame:CGRectMake(22, _activityDescriptionLabel.bottom + 5 + i * 27, 50 - 3, 27)
                                                     text:[items objectAtIndex:i]
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:12]];
+                                                    font:[UIFont systemFontOfSize:14]];
             [bgImgView addSubview:itemTitle];
 //            itemTitle.backgroundColor = [UIColor redColor];
             
-            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 118, 27)
+            UILabel *itemValue = [self addLabelWithFrame:CGRectMake(itemTitle.right, itemTitle.top, 110, 27)
                                                     text:@""
                                                    color:[UIColor blackColor]
-                                                    font:[UIFont systemFontOfSize:12]];
+                                                    font:[UIFont systemFontOfSize:14]];
             [bgImgView addSubview:itemValue];
 //            itemValue.backgroundColor = [UIColor greenColor];
             
@@ -82,13 +83,16 @@
                 case 1:{//开始时间
                     //                    imageName = @"icon_zhujiangren";
                     imageName = @"icon_time";
-                    
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width - 12, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemValue.left - 12, itemValue.top, itemValue.width + 12, itemValue.height);
                     self.orgnizerLabel = itemValue;
                     self.orgnizerLabel.text = @"2014-05-25/09:30";
                 }
                     break;
                 case 2:{//结束时间
                     //                    imageName = @"icon_time";
+                    itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width - 12, itemTitle.height);
+                    itemValue.frame = CGRectMake(itemValue.left - 12, itemValue.top, itemValue.width + 12, itemValue.height);
                     self.timeLabel = itemValue;
                     self.timeLabel.text = @"2014-05-25/09:30";
                 }

@@ -9,6 +9,8 @@
 #import "MessagesViewController.h"
 #import "MessageDetailCell.h"
 #import "MessageBySend.h"
+#import "NameCardViewController.h"
+#import "MyTribeDetailViewController.h"
 
 @interface MessagesViewController ()<UITableViewDataSource,UITableViewDelegate,MessageDetailDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -100,7 +102,22 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSDictionary *dict = [self.messagesList objectAtIndex:indexPath.row];
+    NSLog(@"%@",dict);
+    int stauts = [[dict objectForKey:@"sendtype"] intValue];
+        if (stauts == 3) {
+            NSString *memberId = [dict objectForKey:@"senderid"];
+            NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+            nameCard.isMyFriend = NO;
+            nameCard.memberId = memberId;
+            [self.navigationController pushViewController:nameCard animated:YES];
+        }
+        if (stauts == 5) {
+            MyTribeDetailViewController *tribeDetail = [[MyTribeDetailViewController alloc] init];
+            tribeDetail.isCreatDetail = NO;
+            tribeDetail.tribeId = [dict objectForKey:@"tribeid"];
+            [self.navigationController pushViewController:tribeDetail animated:YES];
+        }
 }
 
 #pragma mark - MessageDetailDelegate

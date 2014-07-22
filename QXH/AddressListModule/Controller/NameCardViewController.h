@@ -11,5 +11,5 @@
 @interface NameCardViewController : MyViewController
 @property (nonatomic, assign) BOOL isMyFriend;
 @property (nonatomic, strong) NSDictionary *memberDict;
-
+@property (nonatomic, strong) NSString *memberId;//
 @end

@@ -237,8 +237,6 @@
     NSString *type = _curIndex == 0 ? ACTIVITY_STATUS_IN:ACTIVITY_STATUS_END;
     [self requestInfoList:type start:@"0" withCompletionHandler:^(NSMutableArray *list) {
         // 1.添加数据
-//        @property (nonatomic, strong) NSMutableArray *inActivitysList;//进行的活动
-//        @property (nonatomic, strong) NSMutableArray *endActivitysList;//结束的活动
         if (_curIndex == 0) {
             [self.inActivitysList removeAllObjects];
             [self.inActivitysList addObjectsFromArray:list];

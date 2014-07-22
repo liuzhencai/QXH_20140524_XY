@@ -10,6 +10,7 @@
 #import "ActivityCell.h"
 #import "OnLiveCell.h"
 #import "ChatLiveViewController.h"
+#import "MJRefresh.h"
 
 @interface OneDreamController ()
 @property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
@@ -23,7 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        _activitysList = [[NSMutableArray alloc] initWithCapacity:0];
+        _activitysList = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -46,13 +47,15 @@
     [super viewDidLoad];
     self.title = @"直播间";
     
+    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
     self.tableview.backgroundColor = [UIColor clearColor];
+    self.tableview.delegate = self;
+    self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableview];
+    [self setupRefresh:self.tableview];
+    [self.tableview headerBeginRefreshing];
     
-//    for (int i = 0; i < 10; i ++) {
-//        [self.activitysList addObject:@{@"":@""}];
-//    }
-    
-    [self getActivitysList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,7 +64,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)getActivitysList{
+#pragma mark - Refresh
+- (void)requestInfoListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback{
     /**
      *  获取部落/群组/直播间列表
      *
@@ -82,25 +86,56 @@
                           tribetype:@"2" //1为部落，2为直播间
                                 tag:@""
                            district:@""
-                              start:@"0"
+                              start:start
                               count:@"20"
               withCompletionHandler:^(NSMutableDictionary *dict){
                   NSLog(@"部落列表返回值：%@",dict);
-                  NSNumber* statecode = (NSNumber*)dict[@"statecode"];
-                  if ([statecode integerValue] == 200) {
-                      NSMutableArray* list = (NSMutableArray*)dict[@"list"];
-                      if ([list count]>0) {
-                          _activitysList = [[NSMutableArray alloc]initWithArray:list];
-                          [self.tableview reloadData];
-                      }
-                      
-                  }else{
-                      NSString* info = (NSString*)dict[@"info"];
-                      [self showAlert:info];
+                  if (dict) {
+                      NSMutableArray *list = (NSMutableArray *)[dict objectForKey:@"list"];
+                      callback(list);
                   }
-//                  [self showAlert:[dict objectForKey:@"info"]];
+                  
               }];
 }
+
+/**
+ *  集成刷新控件
+ */
+- (void)setupRefresh:(UITableView *)tableView
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    [tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
+    
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    [tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+}
+
+#pragma mark 开始进入刷新状态
+- (void)headerRereshing
+{
+    [self requestInfoListWithStart:@"0" withCompletionHandler:^(NSMutableArray *list){
+        [self.activitysList removeAllObjects];
+        [self.activitysList addObjectsFromArray:list];
+        [self.tableview reloadData];
+        [self.tableview headerEndRefreshing];
+    }];
+}
+
+- (void)footerRereshing{
+    NSString *startId = @"0";
+    if ([self.activitysList count]) {
+        NSDictionary *dict = [self.activitysList lastObject];
+        startId = [[dict objectForKey:@"tribeid"] stringValue];
+    }
+    
+    [self requestInfoListWithStart:startId withCompletionHandler:^(NSMutableArray *list) {
+        // 1.添加数据
+            [self.activitysList addObjectsFromArray:list];
+            [self.tableview reloadData];
+            [self.tableview footerEndRefreshing];
+    }];
+}
+
 
 #pragma mark - UITableViewDelegate
 
@@ -115,12 +150,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ActivityCell *cell;
-//    static NSString *cellIdentifier = @"ActivityIdentifier";
-//    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//    if (!cell) {
-//        cell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityCell" owner:nil options:nil] objectAtIndex:0];
-//    }
     OnLiveCell *cell;
     static NSString *cellIdentifier = @"ActivityIdentifier";
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

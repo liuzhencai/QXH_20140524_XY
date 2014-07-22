@@ -115,8 +115,12 @@
      *  @param tribeid  部落id
      *  @param callback 回调
      */
-    if (self.tribeDict) {
-        [DataInterface getTribeInfo:[self.tribeDict objectForKey:@"tribeid"] withCompletionHandler:^(NSMutableDictionary *dict){
+    if (self.tribeDict || self.tribeId) {
+        NSString *tribeid = self.tribeId;
+        if (self.tribeDict) {
+            tribeid = [self.tribeDict objectForKey:@"tribeid"];
+        }
+        [DataInterface getTribeInfo:tribeid withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"获取部落详情信息返回值：%@",dict);
             self.tribeDetailDict = dict;
             NSInteger createrId = [[dict objectForKey:@"creater"] integerValue];
