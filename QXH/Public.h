@@ -13,17 +13,28 @@
  Network Connection Config 网络信息配置
  ********************************************/
 
-#define HOST_URL @"180.97.46.40:8070" // 正式环境
+#define UAT//测试地址打开
 
-//#define HOST_URL @"180.97.46.40:8080" // 测试环境
+#ifndef UAT  //正式环境
+#define HOST_URL @"180.97.46.40:8070" // 正式环境
+#define SOCKET_PORT 9002 // 正式环境端口
+
+#else
+#define HOST_URL @"180.97.46.40:8080" // 测试环境
+//#define SOCKET_PORT 19002 // 测试环境端口
+#define SOCKET_PORT 9004
+
+
+#endif
+
 
 #define SERVICE_URL @"qxh/mobile/qxhService.action"
 
 #define SOCKET_SERVER @"180.97.46.40"
 
-#define SOCKET_PORT 9002 // 正式环境端口
 
-//#define SOCKET_PORT 19002 // 测试环境端口
+
+
 
 #define HEART_BEAT 30
 

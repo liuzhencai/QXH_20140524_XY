@@ -59,7 +59,7 @@
     _nameField.font = [UIFont systemFontOfSize:FONT];
     _nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _nameField.placeholder = @"请输入用户名";//@"cellnumber/identifyID/email";
-    _nameField.text = @"zhaolilong2012@gmail.com";
+//    _nameField.text = @"zhaolilong2012@gmail.com";
     _nameField.delegate = self;
     _nameField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:_nameField];
@@ -83,7 +83,7 @@
     _pwField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _pwField.delegate = self;
     _pwField.secureTextEntry = YES;
-    _pwField.text = @"123456";
+//    _pwField.text = @"123456";
     _pwField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:_pwField];
     

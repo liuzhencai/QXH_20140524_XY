@@ -22,7 +22,7 @@ static MessageBySend* ins =nil;
         
         chatRoomMess = [[NSMutableDictionary alloc]init];
         unKnowCharMessDic = [[NSMutableDictionary alloc]init];
-        tempUnKnowCharMessArray = [[NSMutableArray alloc]init];
+//        tempUnKnowCharMessArray = [[NSMutableArray alloc]init];
         sysMessDict = [[NSMutableDictionary alloc] init];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
@@ -342,7 +342,7 @@ static MessageBySend* ins =nil;
             [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
         }
         DebugLog(@"chatRoomMess == %@",chatRoomMess);
-        NSNumber* asenderId = [message valueForKey:@"senderid"] ;
+//        NSNumber* asenderId = [message valueForKey:@"senderid"] ;
 //        NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
 //        NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
        
@@ -386,32 +386,32 @@ static MessageBySend* ins =nil;
     }
 }
 
-#pragma mark 临时存储离线消息
-- (void)AddToTempunKnowCharMessAyyay:(NSMutableDictionary*)message
-{
-    /*判断接受到的消息类型*/
-    /*
-     date = "2014-07-12 05:41:40";
-     mess = Thy;
-     messid = 1591;
-     messtype = 1;
-     sid = 100070;
-     sname = "\U5218\U632f\U624d2";
-     sphoto = "20140629/1043057210.png";
-     */
-
-        NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"sid"];
-        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
-        [message setValue:ntribeid forKey:@"tribeid"];
-        [message setValue:ntribeid forKey:@"senderid"];
-        [message setValue:[message valueForKey:@"sphoto"] forKey:@"senderphoto"];
-
-        [tempUnKnowCharMessArray insertObject:message atIndex:0];
-            
- 
-        DebugLog(@"tempUnKnowCharMessArray == %@",tempUnKnowCharMessArray);
-
-}
+//#pragma mark 临时存储离线消息
+//- (void)AddToTempunKnowCharMessAyyay:(NSMutableDictionary*)message
+//{
+//    /*判断接受到的消息类型*/
+//    /*
+//     date = "2014-07-12 05:41:40";
+//     mess = Thy;
+//     messid = 1591;
+//     messtype = 1;
+//     sid = 100070;
+//     sname = "\U5218\U632f\U624d2";
+//     sphoto = "20140629/1043057210.png";
+//     */
+//
+//        NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"sid"];
+////        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+//        [message setValue:ntribeid forKey:@"tribeid"];
+//        [message setValue:ntribeid forKey:@"senderid"];
+//        [message setValue:[message valueForKey:@"sphoto"] forKey:@"senderphoto"];
+//
+//        [tempUnKnowCharMessArray insertObject:message atIndex:0];
+//            
+// 
+//        DebugLog(@"tempUnKnowCharMessArray == %@",tempUnKnowCharMessArray);
+//
+//}
 
 #pragma mark 主动获取聊天记录接口
 - (NSMutableDictionary*)getunKnowCharMessDic
@@ -514,8 +514,8 @@ static MessageBySend* ins =nil;
     NSString* astartid = nil;
     NSString* direction = nil;
     if (!startid) {
-          astartid= @"0";
-         direction= @"after";
+        astartid= @"0";
+        direction= @"after";
        
     }else{
         astartid = startid;
@@ -524,12 +524,14 @@ static MessageBySend* ins =nil;
     
     NSLog(@"获取聊天历史记录\n");
     NSString* targetid = fromdic[@"targetid"];
-//    NSString* count = fromdic[@"count"];
-//    if ([count integerValue]>20) {
-//        count= [NSString stringWithFormat:@"%d",20];
-//    }else{
-       NSString* count= [NSString stringWithFormat:@"%d",20];
-//    }
+    NSString* count = fromdic[@"count"];
+    if ([count integerValue]>20) {
+        count= [NSString stringWithFormat:@"%d",20];
+    }else if(!count){
+        
+        count= [NSString stringWithFormat:@"%d",20];
+    }
+    
     [DataInterface getChatHistory:targetid sendtype:sendtype start:astartid  direction:direction count:count withCompletionHandler:^(NSMutableDictionary *dict) {
         NSMutableArray* list = (NSMutableArray*)[dict valueForKey:@"list"];
         NSMutableArray* chatRoomMessArray = (NSMutableArray*)[chatRoomMess valueForKey:targetid];
@@ -543,7 +545,7 @@ static MessageBySend* ins =nil;
             NSLog(@"tempdic == %@",tempdic);
             
             NSNumber* ntribeid = (NSNumber*)[tempdic valueForKey:@"sid"];
-            NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+//            NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
             [tempdic setValue:ntribeid forKey:@"tribeid"];
             [tempdic setValue:ntribeid forKey:@"senderid"];
             [tempdic setValue:[tempdic valueForKey:@"sphoto"] forKey:@"senderphoto"];
@@ -554,11 +556,16 @@ static MessageBySend* ins =nil;
         }
         
        NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:targetid];
-        [unKnowCharMessDic removeObjectForKey:temparray1];
+        if (temparray1) {
+             [unKnowCharMessDic removeObjectForKey:temparray1];
+        }
+       
         
 //        NSMutableArray* temp2 = [[NSMutableArray alloc]initWithArray:tempUnKnowCharMessArray];
         NSLog(@"chatRoomMessArray == %@",chatRoomMessArray);
         [chatRoomMess setObject:chatRoomMessArray forKey:targetid];
+        
+
         /*暂时不移除*/
 //         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {
@@ -605,38 +612,87 @@ static MessageBySend* ins =nil;
 
 - (void)getimageView:(UIImageView*)picImageView byImagePath:(NSString*)pic
 {
-    if(!historyPicDic)
-    {
-        historyPicDic = [[NSMutableDictionary alloc]init];
-        /*正在获取是1，成功是2，字符串*/
-        querPic = [[NSMutableDictionary alloc]init];
-    }
-    UIImage* tempic = (UIImage*)[historyPicDic valueForKey:pic];
-    id  state = [querPic valueForKey:pic];
-    /*因为总内存警报，所以每次最多获取10个图片*/
-    if (!tempic && !state &&[[querPic allKeys]count]<10) {
-        piccount++;
-        NSLog(@"获取图片次数==%d\n",piccount);
-        NSURL *url2 = IMGURL(pic);
-        [querPic setObject:@"1" forKey:pic];
-        [picImageView setImageWithURL:url2 completed:^(UIImage* aimage, NSError *error, SDImageCacheType cacheType)
-         {
-             [querPic removeObjectForKey:pic];
-             
-             NSLog(@"getimageView == %@\n pic==%@",aimage,pic);
-//             tempic = picImageView.image;
-             if (aimage) {
-                 [historyPicDic setObject:aimage forKey:pic];
-             }
-         }];
-//        [picImageView setImageWithURL:url2 placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    NSURL *url2 = IMGURL(pic);
+//    [[SDWebImageManager sharedManager] downloadWithURL:url2 options:SDWebImageLowPriority progress:^(NSUInteger receivedSize, long long expectedSize) {
+//        NSLog(@"%u %lld",receivedSize,expectedSize);
+//    } completed:^(UIImage *aImage, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+//        picImageView.image = aImage;
+//        NSLog(@"成功了:%d",UIImageJPEGRepresentation(aImage, 0).length);
+//    }];
+    
+    [picImageView setImageWithURL:url2 completed:^(UIImage* aimage, NSError *error, SDImageCacheType cacheType)
+     {
+         
+         NSLog(@"getimageView == %@\n pic==%@",aimage,pic);
+     }];
+    
+    
+   
+//    if(!historyPicDic)
+//    {
+//        historyPicDic = [[NSMutableDictionary alloc]init];
+//        /*正在获取是1，成功是2，字符串*/
+////        querPic = [[NSMutableDictionary alloc]init];
+//    }
+//    UIImage* tempic = (UIImage*)[historyPicDic valueForKey:pic];
+////    id  state = [querPic valueForKey:pic];
+//    /*因为总内存警报，所以每次最多获取10个图片*/
+//    if (!tempic /*&& !state &&[[querPic allKeys]count]<10*/) {
+//        piccount++;
+//        NSLog(@"获取图片次数==%d\n",piccount);
+//        NSURL *url2 = IMGURL(pic);
+//        [picImageView setImageWithURL:url2 completed:^(UIImage* aimage, NSError *error, SDImageCacheType cacheType)
+//         {
+//             [querPic removeObjectForKey:pic];
+//             
+//             NSLog(@"getimageView == %@\n pic==%@",aimage,pic);
+//            
+//             if (aimage) {
+//                 [historyPicDic setObject:aimage forKey:pic];
+//             }
+//         }];
+//
+//    }else if(tempic){
+//        NSLog(@"getimageView == %@\n pic==%@",tempic,pic);
+//        picImageView.image = tempic;
+//    }
+    
+
+}
+
+
+#pragma mark 打开文件
+- (void)openfile
+{
+    //指向文件目录
+    //    NSString *documentsDirectory=[NSHomeDirectory()
+    //                                  stringByAppendingPathComponent:@"Documents"];
+    if (!filePath) {
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         
-//        UIImageView* tempview = [[UIImageView alloc]initWithImage:picImageView.image];
-//        [historyPicDic setObject:tempic forKey:pic];
-    }else if(tempic){
-        NSLog(@"getimageView == %@\n pic==%@",tempic,pic);
-        picImageView.image = tempic;
+        filePath= [documentsDirectory
+                   stringByAppendingPathComponent:ChatMessageFile];
     }
+    //判读该文件是否存在
+    BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    
+    if (result) {//存在则取出数据
+        NSDictionary* tempChatAll =[NSDictionary dictionaryWithContentsOfFile:filePath];
+        if (tempChatAll) {
+            chatRoomMess  = [[NSMutableDictionary alloc]initWithDictionary:tempChatAll];
+        }
+        
+    }
+}
+
+- (void)writefile
+{
+    BOOL writeSuccess = [chatRoomMess writeToFile:filePath atomically:NO];
+    if (writeSuccess) {
+        NSLog(@"写入成功");
+    }
+    /*写完后强制制空*/
+    chatRoomMess = nil;
 }
 @end
 

@@ -16,6 +16,8 @@
 //
 //@end
 
+#define ChatMessageFile   @"ChatMessageFile.plist"
+
 @interface MessageBySend : NSObject
 {
     /*sendtype 0;系统消息存储进该数组，其中元素是字典*/
@@ -49,19 +51,22 @@
     NSMutableArray* someTribeOnMess;
     /*未阅读聊天记录存储进该数组，其中元素是字典*/
     NSMutableDictionary* unKnowCharMessDic;
-    /*获取离线消息时，临时存储，其中元素是字典*/
-    NSMutableArray* tempUnKnowCharMessArray;
+//    /*获取离线消息时，临时存储，其中元素是字典*/
+//    NSMutableArray* tempUnKnowCharMessArray;
     
     /*存储上一个获取到的消息，如果两个一样，就抛弃*/
     NSString* messid;
     
     MBProgressHUD* progressHUD;
     
-    /*历史图片字典*/
-    NSMutableDictionary* historyPicDic;
-    /*获取图片的队列*/
-    NSMutableDictionary* querPic;
-    NSInteger piccount;
+//    /*历史图片字典*/
+//    NSMutableDictionary* historyPicDic;
+//    /*获取图片的队列*/
+//    NSMutableDictionary* querPic;
+//    NSInteger piccount;
+    
+    /*文件路径*/
+    NSString* filePath;
 }
 
 //@property(nonatomic,assign)id<MessageBySendDelegate>delegate;

@@ -743,8 +743,8 @@ static int chatInputStartingHeight = 40;
 #pragma mark 点击被选择的聊天记录
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    int row = indexPath.row;
-    NSDictionary* amess = [_messagesArray objectAtIndex:row];
+//    int row = indexPath.row;
+//    NSDictionary* amess = [_messagesArray objectAtIndex:row];
     
 //    /*记录被选中的消息*/
 ////    mess = amess;

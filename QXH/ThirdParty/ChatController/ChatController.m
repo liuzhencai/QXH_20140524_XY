@@ -146,6 +146,10 @@ static int chatInputStartingHeight = 40;
     [_myCollectionView registerClass:[MessageCell class]
           forCellWithReuseIdentifier:kMessageCellReuseIdentifier];
     
+/*添加headview*/
+    UIView* headview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
+    headview.backgroundColor = [UIColor redColor];
+    
     
     
     /*添加聊天*/
@@ -716,13 +720,22 @@ static int chatInputStartingHeight = 40;
  }
  lastContentOffset = scrollView.contentOffset.y;
      
-///*暂时屏蔽添加下拉刷新*/
+/*暂时屏蔽添加下拉刷新*/
 //     if (lastContentOffset<-20 && !hisState) {
 //         hisState = YES;
 //         [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
 //         NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
 //         NSNumber* amessid = temp[@"messid"];
 //         NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+//         if (!self.offMessageDic) {
+//             NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+//             NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
+//             [tempdic setValue:[NSString stringWithFormat:@"%d",[tribeId intValue]] forKey:@"targetid"];
+//             [tempdic setValue:messid forKey:@"start"];
+//             
+//             [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
+//             offMessageDic = tempdic;
+//         }
 //        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
 //     }
  }
@@ -742,7 +755,7 @@ static int chatInputStartingHeight = 40;
     
 //    if (!message[kMessageSize]) {
         NSString * content = [message objectForKey:kMessageContent];
-        id pic = [message objectForKey:kPicContent];
+//        id pic = [message objectForKey:kPicContent];
         if ([messtype integerValue]==1 && content) {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
@@ -794,7 +807,7 @@ static int chatInputStartingHeight = 40;
     
     // Get Cell
     MessageCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kMessageCellReuseIdentifier forIndexPath:indexPath];
-   
+    NSLog(@"liuzhencai** cell==%@",cell);
     
     // Set Who Sent Message
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
@@ -915,7 +928,7 @@ static int chatInputStartingHeight = 40;
          *  @param callback 回调
          */
         NSString* mess = (NSString*)message[kMessageContent];
-        id pic = message[@"kPicContent"];
+//        id pic = message[@"kPicContent"];
         if (mess) {
             
             [DataInterface chatRoomMess:message withCompletionHandler:^(NSMutableDictionary *dict){

@@ -73,8 +73,8 @@ static HttpServiceEngine *httpEngine;
         if (progress == 1.0) {
             NSString *destFilePath = [MR_CACHE_PATH stringByAppendingPathComponent:[[filePath componentsSeparatedByString:@"/"] lastObject]];
             NSError *error = nil;
-            NSData *data;
-            data = [NSData dataWithContentsOfFile:destFilePath];
+//            NSData *data;
+//            data = [NSData dataWithContentsOfFile:destFilePath];
             if([[NSFileManager defaultManager] copyItemAtPath:filePath toPath:destFilePath error:&error]){
                 [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
             }

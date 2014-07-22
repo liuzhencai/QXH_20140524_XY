@@ -142,18 +142,20 @@
     if ([self.school length] > 0) {
         school = self.school;
     }
-    NSString *phone = ORIGIN_VAL;//手机号码
-    if ([self.phone length] > 0) {
-        phone = self.phone;
-    }
+    /*没有读取，何必赋值*/
+//    NSString *phone = ORIGIN_VAL;//手机号码
+//    if ([self.phone length] > 0) {
+//        phone = self.phone;
+//    }
     NSString *honor = ORIGIN_VAL;//曾获荣誉
     if ([self.honor length] > 0) {
         honor = self.honor;
     }
-    NSString *imageUrl = ORIGIN_VAL;
-    if (isImage) {
-        imageUrl = self.imageString;
-    }
+    /*没有读取，何必赋值*/
+//    NSString *imageUrl = ORIGIN_VAL;
+//    if (isImage) {
+//        imageUrl = self.imageString;
+//    }
     
     NSString *cityCode = [self.cityInfo objectForKey:@"cityid"];
     

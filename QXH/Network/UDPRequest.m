@@ -82,14 +82,14 @@ static UDPRequest *udpRequest;
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
-    BOOL isSuccess = NO;
+//    BOOL isSuccess = NO;
     id returnValue = nil;
-    if (!isSuccess) {
+//    if (!isSuccess) {
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
         returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
         DebugLog(@"接受到系统消息==%@",returnValue);
         if (returnValue) {
-            isSuccess = YES;
+//            isSuccess = YES;
             if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
                 static NSString *oldSign;
                 NSString *newSign = [returnValue objectForKey:@"sign"];
@@ -99,7 +99,7 @@ withFilterContext:(id)filterContext
                 oldSign = [returnValue objectForKey:@"sign"];
             }
         }
-    }
+//    }
     self.block(data);
 }
 

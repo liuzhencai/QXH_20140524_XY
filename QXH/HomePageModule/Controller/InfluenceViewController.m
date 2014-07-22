@@ -258,7 +258,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *userInfo = [NSDictionary dictionary];
+    NSDictionary *userInfo = nil;
     if (tableView.tag == FANS_TAG) {
         userInfo = [self.fansList objectAtIndex:indexPath.row];
     }else{

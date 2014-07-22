@@ -297,7 +297,7 @@ static int chatInputStartingHeight = 40;
     NSString* name = [dic valueForKey:@"sname"];
     NSString* photo = [dic valueForKey:@"sphoto"];
     NSString* amess = [dic valueForKey:@"mess"];
-    NSString* messageUserid = [dic valueForKey:@"sid"];
+//    NSString* messageUserid = [dic valueForKey:@"sid"];
     NSString* date = [dic valueForKey:@"date"];
     
     if (![amess length]) {
