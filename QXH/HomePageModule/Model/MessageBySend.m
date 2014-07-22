@@ -694,5 +694,6 @@ static MessageBySend* ins =nil;
     /*写完后强制制空*/
     chatRoomMess = nil;
 }
+
 @end
 
