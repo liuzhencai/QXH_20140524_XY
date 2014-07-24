@@ -21,7 +21,6 @@
 
 #else
 #define HOST_URL @"180.97.46.40:8080" // 测试环境
-//#define SOCKET_PORT 19002 // 测试环境端口
 #define SOCKET_PORT 9004
 
 

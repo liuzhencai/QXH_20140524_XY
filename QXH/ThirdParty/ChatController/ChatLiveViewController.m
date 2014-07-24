@@ -14,7 +14,7 @@
 #import "chatRoomMemberViewController.h"
 #import "UserInfoModelManger.h"
 #import "MessageBySend.h"
-
+#import "MJRefresh.h"
 
 
 #define KTopButtonHight  0
@@ -94,43 +94,6 @@ static int chatInputStartingHeight = 40;
     //    self.title = @"XXXX部落";
     self.title = [self.tribeInfoDict objectForKey:@"tribename"];
     
-    /*默认当前界面是聊天*/
-//    FrontViewTag = CONVERSATION_TABLE_TAG;
-//    /*部落档案按钮*/
-//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightBtn.frame = CGRectMake(0, 0, 80, 40);
-//    [rightBtn setTitle:@"部落档案" forState:UIControlStateNormal];
-//    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [rightBtn addTarget:self action:@selector(detail:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-//    self.navigationItem.rightBarButtonItem = rightItem;
-    
-	// Do any additional setup after loading the view.
-    
-//    /*顶部选择控件*/
-//    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, KTopButtonHight) andTitles:@[@"会话",@"活动",@"成员"]];
-//    segment.delegate = self;
-//    [self.view addSubview:segment];
-    
-    
-//    //    /*活动界面*/
-//    CGRect activeFrame =  CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - KTopButtonHight-64);
-//    chatRoomActive =[[chatRoomActivViewController alloc]init];
-//    chatRoomActive.view.frame = activeFrame;
-//    chatRoomActive.navigation = self.navigationController;
-//    chatRoomActive.view.tag = ACTIVITY_TABLE_TAG;
-//    [self.view addSubview:chatRoomActive.view];
-    
-//    /*成员界面*/
-//    chatRoomMember = [[chatRoomMemberViewController alloc]init];
-//    chatRoomMember.view.frame = activeFrame;
-//    chatRoomMember.navigation = self.navigationController;
-//    chatRoomMember.view.tag = NEMBERS_TABLE_TAG;
-//    [self.view addSubview:chatRoomMember.view];
-    
-    /*聊天view*/
-    //    chatview = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT-KTopButtonHight-64)];
-    
     
     // ChatInput
     _chatInput = [[ChatInput alloc]init];
@@ -184,11 +147,8 @@ static int chatInputStartingHeight = 40;
     
     /*获取部落聊天记录*/
     [self getMessagesArray];
-    
-    //    /*添加手势*/
-    //    UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
-    //
-    //    [self.myCollectionView addGestureRecognizer:swipeGesture];
+    [self addHeader];
+    [self addFooter];
     
     
     // Register Keyboard Notifications
@@ -216,34 +176,6 @@ static int chatInputStartingHeight = 40;
     
     [self scrollToBottom];
     [self.view addSubview:_chatInput];
-//    switch (FrontViewTag) {
-//        case CONVERSATION_TABLE_TAG:
-//        {
-//            //获取部落信息
-//            //            [self getTribeInfo];
-//           
-//            
-//        }
-//            break;
-//        case ACTIVITY_TABLE_TAG:
-//        {
-//            
-//        }
-//            break;
-//        case NEMBERS_TABLE_TAG:
-//        {
-//            
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
-    
-    //    [self.view addSubview:_topBar];
-    
-    // Scroll CollectionView Before We Start
     
 }
 
@@ -261,164 +193,7 @@ static int chatInputStartingHeight = 40;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark 获取到服务器来的置顶消息
-///*添加每日一问*/
-//- (void)addAskView:(NSDictionary*)dic
-//{
-//    /*
-//     opercode:"0149",		//operCode为0149，客户端通过该字段确定事件
-//     statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
-//     info:"获取成功"			//获取成功/失败!
-//     messid:"123",			//消息messid
-//     sid:"1234",			//发消息的用户的userid
-//     sname:"发送人名字",		//发消息的用户的名字
-//     sphoto:"1.jpg",			//发消息的用户的头像
-//     date:"2014-05-06 22:13:11",	//日期
-//     messtype:"1",			//消息类型 1为文本，2为json对象，3为图片，4为录音
-//     mess:"这是消息"
-//     */
-//    NSString* name = [dic valueForKey:@"sname"];
-//    NSString* photo = [dic valueForKey:@"sphoto"];
-//    NSString* amess = [dic valueForKey:@"mess"];
-//    NSString* messageUserid = [dic valueForKey:@"sid"];
-//    NSString* date = [dic valueForKey:@"date"];
-//    
-//    if (![amess length]) {
-//        /*如果置顶消息长度为0，就要置顶了*/
-//        return;
-//    }
-//    [self GreadAskView];
-//    //    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-//    //    //            [iconImage circular];
-//    //    headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
-//    
-//    /*头像*/
-//    UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
-//    //    [askheadImgView setFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-//    [askheadImgView setImageWithURL:IMGURL(photo) placeholderImage:[UIImage imageNamed:@"img_portrait96.png"]];
-//    
-//    /*名字*/
-//    UILabel* _name = (UILabel*)[askView viewWithTag:21084];
-//    _name.text = name;
-//    
-//    UILabel* _time = (UILabel*)[askView viewWithTag:21085];
-//    _time.text = date;
-//    
-//    UILabel* _speechContent = (UILabel*)[askView viewWithTag:21086];
-//    _speechContent.text = amess;
-//}
 
-//#pragma mark 自己创建消息置顶
-//- (void)addAskViewByMe:(NSDictionary*)dic
-//{
-//    NSString* messid = [dic valueForKey:@"messid"];
-//    NSString* amess = [dic valueForKey:@"mess"];
-//    if (!messid || ![amess length]) {
-//        [self showAlert:@"该消息暂时无法置顶"];
-//        return;
-//    }
-//    [self GreadAskView];
-//    NSString* name = [dic valueForKey:@"sendername"];
-//    NSString* photo = [dic valueForKey:@"senderphoto"];
-//    //    NSString* messageUserid = [dic valueForKey:@"senderid"];
-//    NSString* date = [dic valueForKey:@"date"];
-//    
-//    /*
-//     {
-//     opercode:"0148",
-//     userid:"1234565",		//用户唯一标识
-//     token:"ab123456789",		//当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户
-//     tribeid:"123444",		//部落唯一标示
-//     type:1,				//1为消息置顶，2为取消消息置顶
-//     messid:12345			//置顶消息的messid
-//     }
-//     Response:{
-//     opercode:"0148",		//operCode为0148，客户端通过该字段确定事件
-//     statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
-//     info:"操作成功"			//操作成功/失败!
-//     }
-//     */
-//    
-//    [DataInterface infoToTop:ChatRoomId type:@"1" messid:messid withCompletionHandler:^(NSMutableDictionary* backDic){
-//        /*头像*/
-//        //        UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-//        //        //            [iconImage circular];
-//        //        headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
-//        
-//        /*头像*/
-//        UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
-//        [askheadImgView setImageWithURL:IMGURL(photo) placeholderImage:[UIImage imageNamed:@"img_portrait96.png"]];
-//        //        askheadImgView.image = headImage.image;
-//        
-//        /*名字*/
-//        UILabel* _name = (UILabel*)[askView viewWithTag:21084];
-//        _name.text = name;
-//        
-//        UILabel* _time = (UILabel*)[askView viewWithTag:21085];
-//        _time.text = date;
-//        
-//        UILabel* _speechContent = (UILabel*)[askView viewWithTag:21086];
-//        _speechContent.text = amess;
-//        
-//    }];
-//    
-//    
-//}
-
-//#pragma mark 创建热门话题view
-//- (void)GreadAskView
-//{
-//    if (!askView) {
-//        askView = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, KAskViewHight)];
-//        //        [self.view addSubview:askView];
-//        askView.backgroundColor = [UIColor whiteColor];
-//        
-//        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, UI_SCREEN_WIDTH - 20, 25)];
-//        title.text = @"热门话题";
-//        title.font = [UIFont systemFontOfSize:18.0];
-//        title.textColor = GREEN_FONT_COLOR;
-//        title.backgroundColor = [UIColor clearColor];
-//        [askView addSubview:title];
-//        
-//        UIImageView*  askheadImgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, title.bottom, 36, 36)];
-//        askheadImgView.tag = 21083;
-//        //        _headImgView.backgroundColor = [UIColor redColor];
-//        [askView addSubview:askheadImgView];
-//        
-//        UILabel* _name = [[UILabel alloc] initWithFrame:CGRectMake(askheadImgView.right + 10, askheadImgView.top, 120, 30)];
-//        _name.tag = 21084;
-//        _name.font = [UIFont boldSystemFontOfSize:16.0];
-//        _name.textColor = GREEN_FONT_COLOR;
-//        _name.backgroundColor = [UIColor clearColor];
-//        [askView addSubview:_name];
-//        
-//        UILabel* _time = [[UILabel alloc] initWithFrame:CGRectMake(UI_SCREEN_WIDTH - 10 - 150, askheadImgView.top, 150, 30)];
-//        _time.textAlignment = NSTextAlignmentRight;
-//        _time.tag = 21085;
-//        _time.font = [UIFont systemFontOfSize:14.0];
-//        _time.textColor = [UIColor lightGrayColor];
-//        _time.backgroundColor = [UIColor clearColor];
-//        [askView addSubview:_time];
-//        
-//        UILabel* _speechContent = [[UILabel alloc] initWithFrame:CGRectMake(askheadImgView.right + 10, _name.bottom, UI_SCREEN_WIDTH - 20 - 36 - 10, 50)];
-//        _speechContent.tag = 21086;
-//        _speechContent.numberOfLines = 0;
-//        _speechContent.font = [UIFont systemFontOfSize:14.0];
-//        //        _speechContent.textColor = [UIColor lightGrayColor];
-//        _speechContent.backgroundColor = [UIColor clearColor];
-//        [askView addSubview:_speechContent];
-//        
-//        CGFloat tempHeight = 0.f;
-//        tempHeight = KTopButtonHight+KAskViewHight;
-//        
-//        _myCollectionView.frame = CGRectMake(0, tempHeight, ScreenWidth(), ScreenHeight() - chatInputStartingHeight - tempHeight - 64);
-//        NSLog(@"hide == _myCollectionView.frame:%@",[NSValue valueWithCGRect:_myCollectionView.frame]);
-//        _myCollectionView.scrollEnabled = YES;
-//        _myCollectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
-//        [self scrollToBottom];
-//        [self.view addSubview:askView];
-//    }
-//}
 #pragma mark CLEAN UP
 
 - (void) removeFromParentViewController {
@@ -1309,81 +1084,52 @@ static int chatInputStartingHeight = 40;
     
 }
 
-//#pragma mark 获取到所有离线消息展示
-//- (void)reloadeChatRoomAll:(NSNotification*)chatmessage
-//{
-//    NSLog(@"reloadeChatRoom==%@",chatmessage);
-//    [self getMessagesArray];
-//    
-//    //    NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-//    //    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-//    //
-//    //    /*判断是不是当前聊天室*/
-//    //    NSNumber* atribeid = auserinfo[@"tribeid"];
-//    //    NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
-//    //    if ([atribeid intValue] != [tribeId intValue]) {
-//    //        return;
-//    //    }
-//    //
-//    //    //    NSArray* messageArray = auserinfo[@"messageArray"];
-//    //
-//    //    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
-//    //    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
-//    //
-//    //    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
-//    //    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
-//    //    if ([messtype isEqualToString:@"1"]) {
-//    //        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
-//    //    }else if ([messtype isEqualToString:@"3"])
-//    //    {
-//    //        /*暂时没添加接受图片*/
-//    //    }
-//    //
-//    //    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
-//    //
-//    //    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-//    //    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
-//    //    UserInfoModel* aother = nil;
-//    //    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-//    //     {
-//    //         NSLog(@"reloadeChatRoom***getOtherUserInfo");
-//    //
-//    //         [self messageSendByOpponent:auserinfo];
-//    //
-//    //         return other;
-//    //     }];
-//    //
-//    
-//}
-
-//#pragma mark 获取部落置顶
-//- (void)getTribeTopInfo
-//{
-//    
-//    [DataInterface getTribeTopInfo:ChatRoomId withCompletionHandler:^(NSMutableDictionary* dic){
-//        DebugLog(@"部落置顶消息==%@",dic);
-//        /*
-//         opercode:"0149",		//operCode为0149，客户端通过该字段确定事件
-//         statecode:"0200",		//StateCode取值：获取成功[0200],获取失败[其他]
-//         info:"获取成功"			//获取成功/失败!
-//         messid:"123",			//消息messid
-//         sid:"1234",			//发消息的用户的userid
-//         sname:"发送人名字",		//发消息的用户的名字
-//         sphoto:"1.jpg",			//发消息的用户的头像
-//         date:"2014-05-06 22:13:11",	//日期
-//         messtype:"1",			//消息类型 1为文本，2为json对象，3为图片，4为录音
-//         mess:"这是消息"
-//         */
-//        NSNumber* state = (NSNumber*)[dic valueForKey:@"statecode"];
-//        NSString* stateString = [NSString stringWithFormat:@"%d",[state intValue]];
-//        if ([stateString isEqualToString:@"200"]) {
-//            [self addAskView:dic];
-//            
-//        }else{
-//            [self showAlert:[dic valueForKey:@"info"]];
-//        }
-//    }];
-//}
+#pragma mark 获取到所有离线消息展示
+- (void)reloadeChatRoomAll:(NSNotification*)chatmessage
+{
+    NSLog(@"reloadeChatRoom==%@",chatmessage);
+    [self getMessagesArray];
+    
+    //    NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+    //    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    //
+    //    /*判断是不是当前聊天室*/
+    //    NSNumber* atribeid = auserinfo[@"tribeid"];
+    //    NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
+    //    if ([atribeid intValue] != [tribeId intValue]) {
+    //        return;
+    //    }
+    //
+    //    //    NSArray* messageArray = auserinfo[@"messageArray"];
+    //
+    //    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
+    //    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
+    //
+    //    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
+    //    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
+    //    if ([messtype isEqualToString:@"1"]) {
+    //        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
+    //    }else if ([messtype isEqualToString:@"3"])
+    //    {
+    //        /*暂时没添加接受图片*/
+    //    }
+    //
+    //    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
+    //
+    //    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+    //    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
+    //    UserInfoModel* aother = nil;
+    //    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+    //     {
+    //         NSLog(@"reloadeChatRoom***getOtherUserInfo");
+    //
+    //         [self messageSendByOpponent:auserinfo];
+    //
+    //         return other;
+    //     }];
+    //
+    
+}
 
 #pragma amrk 获取聊天室聊天记录
 - (void)getMessagesArray
@@ -1398,101 +1144,7 @@ static int chatInputStartingHeight = 40;
     }
 }
 
-#pragma mark 下拉刷新
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    //    if (isLoading) return;
-    //    isDragging = YES;
-    DebugLog(@"scrollViewWillBeginDragging");
-}
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DebugLog(@"scrollViewDidScroll");
-    //    if (isLoading) {
-    //        // Update the content inset, good for section headers
-    //        if (scrollView.contentOffset.y > 0)
-    ////            self.myRefreshview.contentInset = UIEdgeInsetsZero;
-    //        else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
-    ////            self.myRefreshview.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-    //    } else if (isDragging && scrollView.contentOffset.y < 0) {
-    //        // Update the arrow direction and label
-    //        [UIView animateWithDuration:0.25 animations:^{
-    //            if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
-    //                // User is scrolling above the header
-    //                refreshLabel.text = self.textRelease;
-    //                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
-    //            } else {
-    //                // User is scrolling somewhere within the header
-    //                refreshLabel.text = self.textPull;
-    //                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
-    //            }
-    //        }];
-    //    }
-}
-
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-//{
-//     DebugLog(@"scrollViewDidEndDragging");
-////    if (isLoading) return;
-////    isDragging = NO;
-////    if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
-////        // Released above the header
-////        [self startLoading];
-////    }
-//}
-////- (void)refresh {
-////
-////    [self performSelector:@selector(addItem) withObject:nil afterDelay:2.0];
-////    [super refresh];
-////}
-////
-////- (void)addItem {
-////    NSLog(@"!!!!!!!!!!!!!!!!!!");
-////}
-
-//#pragma mark 添加手势
-//-(IBAction)handleSwipeGesture:(UIGestureRecognizer*)sender
-//{
-//
-//   UISwipeGestureRecognizerDirection direction=[(UISwipeGestureRecognizer*)sender direction];
-//    switch (direction)
-//    {
-//        case UISwipeGestureRecognizerDirectionUp:
-//        {
-//            DebugLog(@"上");
-//        }
-//            break;
-//        case UISwipeGestureRecognizerDirectionDown:
-//        {
-//            DebugLog(@"下");
-//        }
-//            break;
-//
-//        default:
-//            break;
-//
-//    }
-//}
-
-//#pragma mark 查看消息接口
-//-(void)ReceiveAndSeeMessige
-//{
-//    /*查看接受的消息，服务器置为已读*/
-//    /*
-//     type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
-//     type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
-//     当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
-//    NSMutableDictionary* amess = [_messagesArray lastObject];
-//    if (amess) {
-//        NSLog(@"状态置为已读的_messagesArray == %@",_messagesArray);
-//        NSLog(@"状态置为已读的message == %@",amess);
-//        NSNumber* amessid = amess[@"messid"];
-//        NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-//        if (messid) {
-//            [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"2" tribeid:ChatRoomId];
-//        }
-//    }
-//    
-//}
 
 #pragma mark 点击发送照片
 - (void) chatInputPicMessageSent {
@@ -1801,5 +1453,63 @@ static int chatInputStartingHeight = 40;
 {
     [_chatInput.textView resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark 添加上啦刷新测试
+- (void)addHeader
+{
+    //    __unsafe_unretained typeof(self) vc = self;
+    // 添加下拉刷新头部控件
+    [_myCollectionView addHeaderWithCallback:^{
+        // 进入刷新状态就会回调这个Block
+        
+        //            [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
+        NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
+        NSNumber* amessid = temp[@"messid"];
+        NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+      
+            NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+             NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
+        
+            [tempdic setValue:[NSString stringWithFormat:@"%d",[aroomid intValue]] forKey:@"targetid"];
+            [tempdic setValue:messid forKey:@"start"];
+            
+            [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
+//            offMessageDic = tempdic;
+//        }
+        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"2" andStartMessageid:messid];
+        
+        
+        //        // 模拟延迟加载数据，因此2秒后才调用）
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            [_myCollectionView reloadData];
+        //            // 结束刷新
+        //            [_myCollectionView headerEndRefreshing];
+        //        });
+    }];
+    
+    //#warning 自动刷新(一进入程序就下拉刷新)
+    //    [_myCollectionView headerBeginRefreshing];
+}
+
+- (void)addFooter
+{
+    return;
+    // 添加上拉刷新尾部控件
+    [_myCollectionView addFooterWithCallback:^{
+        // 进入刷新状态就会回调这个Block
+        
+        // 增加5条假数据
+        //        for (int i = 0; i<5; i++) {
+        //            [vc.fakeColors addObject:MJRandomColor];
+        //        }
+        
+        //        // 模拟延迟加载数据，因此2秒后才调用）
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            [_myCollectionView reloadData];
+        //            // 结束刷新
+        //            [_myCollectionView footerEndRefreshing];
+        //        });
+    }];
 }
 @end

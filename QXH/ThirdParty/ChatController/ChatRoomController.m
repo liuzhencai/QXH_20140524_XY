@@ -21,7 +21,8 @@
 #import "chatRoomMemberViewController.h"
 #import "UserInfoModelManger.h"
 #import "MessageBySend.h"
-
+#import "MJRefresh.h"
+#import "Tool.h"
 
 
 #define KTopButtonHight  50
@@ -201,12 +202,8 @@ static int chatInputStartingHeight = 40;
     
     /*获取离线消息*/
     [self getOffMessageFromServer];
-    
-//    /*添加手势*/
-//    UISwipeGestureRecognizer *swipeGesture=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
-//    
-//    [self.myCollectionView addGestureRecognizer:swipeGesture];
-
+    [self addHeader];
+    [self addFooter];
 
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -388,7 +385,7 @@ static int chatInputStartingHeight = 40;
     if (!askView) {
         askView = [[UIView alloc]initWithFrame:CGRectMake(0, KTopButtonHight, UI_SCREEN_WIDTH, KAskViewHight)];
         //        [self.view addSubview:askView];
-        askView.backgroundColor = [UIColor whiteColor];
+        askView.backgroundColor = [UIColor grayColor];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, UI_SCREEN_WIDTH - 20, 25)];
         title.text = @"热门话题";
@@ -640,7 +637,7 @@ static int chatInputStartingHeight = 40;
 }
 
 
-#pragma mark 上刷新
+//#pragma mark 上刷新
 /* Scroll To Top*/
 //- (void) scrollToTop {
 //    if (_myCollectionView.numberOfSections >= 1 && [_myCollectionView numberOfItemsInSection:0] >= 1) {
@@ -678,7 +675,15 @@ static int chatInputStartingHeight = 40;
     static int offset = 20;
     
     if (!message[kMessageSize]) {
-        NSString * content = [message objectForKey:kMessageContent];
+        NSString * content = nil;
+        NSNumber* Nmesstype = (NSNumber*)[message valueForKey:@"messtype"];
+        if ([Nmesstype integerValue]==2) {
+            NSString* str = [message objectForKey:kMessageContent];
+            content = [Tool MingPianShowTex:str];
+        }else{
+             content = [message objectForKey:kMessageContent];
+        }
+       
         id pic = [message objectForKey:kPicContent];
         NSNumber* messtype = [message objectForKey:@"messtype"];
         if (content && !pic && ([messtype intValue] != 3)) {
@@ -1294,34 +1299,37 @@ static int chatInputStartingHeight = 40;
     if ([atribeid intValue] != [tribeId intValue]) {
         return;
     }
+      [self messageSendByOpponent:auserinfo];
     
 //    NSArray* messageArray = auserinfo[@"messageArray"];
     
 //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
     /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
 
-    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
-    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
-    if ([messtype isEqualToString:@"1"]) {
-//       auserinfo[kMessageContent] = auserinfo[@"mess"];
-    }else if ([messtype isEqualToString:@"3"])
-    {
-      /*暂时没添加接受图片*/
-    }
+//    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
+//    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
+//    if ([messtype isEqualToString:@"1"]) {
+////       auserinfo[kMessageContent] = auserinfo[@"mess"];
+//    }else if ([messtype isEqualToString:@"3"])
+//    {
+//      /*暂时没添加接受图片*/
+//    }
     
-    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
+//    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
     
-    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
-    UserInfoModel* aother = nil;
-    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-     {
-          NSLog(@"reloadeChatRoom***getOtherUserInfo");
+//    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+//    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
+//    UserInfoModel* aother = nil;
+    
+    /*为什么要获取对方详细信息*/
+//    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+//     {
+//          NSLog(@"reloadeChatRoom***getOtherUserInfo");
    
-        [self messageSendByOpponent:auserinfo];
-        
-         return other;
-     }];
+//        [self messageSendByOpponent:auserinfo];
+    
+//         return other;
+//     }];
     
 
 }
@@ -1415,81 +1423,6 @@ static int chatInputStartingHeight = 40;
             self.messagesArray = temp1;
         }
 }
-
-#pragma mark 下拉刷新
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    if (isLoading) return;
-//    isDragging = YES;
-    DebugLog(@"scrollViewWillBeginDragging");
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-     DebugLog(@"scrollViewDidScroll");
-//    if (isLoading) {
-//        // Update the content inset, good for section headers
-//        if (scrollView.contentOffset.y > 0)
-////            self.myRefreshview.contentInset = UIEdgeInsetsZero;
-//        else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
-////            self.myRefreshview.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//    } else if (isDragging && scrollView.contentOffset.y < 0) {
-//        // Update the arrow direction and label
-//        [UIView animateWithDuration:0.25 animations:^{
-//            if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
-//                // User is scrolling above the header
-//                refreshLabel.text = self.textRelease;
-//                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
-//            } else {
-//                // User is scrolling somewhere within the header
-//                refreshLabel.text = self.textPull;
-//                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
-//            }
-//        }];
-//    }
-}
-
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-//{
-//     DebugLog(@"scrollViewDidEndDragging");
-////    if (isLoading) return;
-////    isDragging = NO;
-////    if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
-////        // Released above the header
-////        [self startLoading];
-////    }
-//}
-////- (void)refresh {
-////    
-////    [self performSelector:@selector(addItem) withObject:nil afterDelay:2.0];
-////    [super refresh];
-////}
-////
-////- (void)addItem {
-////    NSLog(@"!!!!!!!!!!!!!!!!!!");
-////}
-
-//#pragma mark 添加手势
-//-(IBAction)handleSwipeGesture:(UIGestureRecognizer*)sender
-//{
-//
-//   UISwipeGestureRecognizerDirection direction=[(UISwipeGestureRecognizer*)sender direction];
-//    switch (direction)
-//    {
-//        case UISwipeGestureRecognizerDirectionUp:
-//        {
-//            DebugLog(@"上");
-//        }
-//            break;
-//        case UISwipeGestureRecognizerDirectionDown:
-//        {
-//            DebugLog(@"下");
-//        }
-//            break;
-//            
-//        default:
-//            break;
-//            
-//    }
-//}
 
 #pragma mark 查看消息接口
 -(void)ReceiveAndSeeMessige
@@ -1830,8 +1763,67 @@ static int chatInputStartingHeight = 40;
 //        [self showAlert:@"正在获取离线消息，请耐心等待"];
         [[MessageBySend sharMessageBySend] showprogressHUD:@"正在获取离线消息，请耐心等待" withView:self.view];
         [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2" andStartMessageid:nil];
-//        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2"];
+
     }
     
+}
+
+
+#pragma mark 添加上啦刷新测试
+- (void)addHeader
+{
+    //    __unsafe_unretained typeof(self) vc = self;
+    // 添加下拉刷新头部控件
+    [_myCollectionView addHeaderWithCallback:^{
+        // 进入刷新状态就会回调这个Block
+        
+        //            [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
+        NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
+        NSNumber* amessid = temp[@"messid"];
+        NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+        if (!self.offMessageDic) {
+            NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+              NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
+//            NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
+            [tempdic setValue:[NSString stringWithFormat:@"%d",[aroomid intValue]] forKey:@"targetid"];
+            [tempdic setValue:messid forKey:@"start"];
+            
+            [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
+            offMessageDic = tempdic;
+        }
+        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2" andStartMessageid:messid];
+        
+        
+        //        // 模拟延迟加载数据，因此2秒后才调用）
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            [_myCollectionView reloadData];
+        //            // 结束刷新
+        //            [_myCollectionView headerEndRefreshing];
+        //        });
+    }];
+    
+    //#warning 自动刷新(一进入程序就下拉刷新)
+    //    [_myCollectionView headerBeginRefreshing];
+}
+
+- (void)addFooter
+{
+    return;
+    // 添加上拉刷新尾部控件
+    [_myCollectionView addFooterWithCallback:^{
+        // 进入刷新状态就会回调这个Block
+        
+        // 增加5条假数据
+        //        for (int i = 0; i<5; i++) {
+        //            [vc.fakeColors addObject:MJRandomColor];
+        //        }
+        
+        //        // 模拟延迟加载数据，因此2秒后才调用）
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            [_myCollectionView reloadData];
+        //            // 结束刷新
+        //            [_myCollectionView footerEndRefreshing];
+        //        });
+    }];
 }
 @end

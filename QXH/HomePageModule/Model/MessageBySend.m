@@ -539,7 +539,7 @@ static MessageBySend* ins =nil;
             chatRoomMessArray = [[NSMutableArray alloc]init];
         }
 //        for (int i = ([list count]-1); i>=0; i--)
-        for (int i = 0; i<([list count]-1); i++)
+        for (int i = 0; i<([list count]); i++)
         {
             NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:[list objectAtIndex:i]];
             NSLog(@"tempdic == %@",tempdic);
@@ -613,12 +613,6 @@ static MessageBySend* ins =nil;
 - (void)getimageView:(UIImageView*)picImageView byImagePath:(NSString*)pic
 {
     NSURL *url2 = IMGURL(pic);
-//    [[SDWebImageManager sharedManager] downloadWithURL:url2 options:SDWebImageLowPriority progress:^(NSUInteger receivedSize, long long expectedSize) {
-//        NSLog(@"%u %lld",receivedSize,expectedSize);
-//    } completed:^(UIImage *aImage, NSError *error, SDImageCacheType cacheType, BOOL finished) {
-//        picImageView.image = aImage;
-//        NSLog(@"成功了:%d",UIImageJPEGRepresentation(aImage, 0).length);
-//    }];
     
     [picImageView setImageWithURL:url2 completed:^(UIImage* aimage, NSError *error, SDImageCacheType cacheType)
      {

@@ -19,6 +19,7 @@
 #import "MyTribeDetailViewController.h"
 #import "UserInfoModelManger.h"
 #import "MessageBySend.h"
+#import "MJRefresh.h"
 //#import "chatRoomActivViewController.h"
 //#import "chatRoomMemberViewController.h"
 
@@ -161,6 +162,9 @@ static int chatInputStartingHeight = 40;
     /*获取离线消息*/
     [self getOffMessageFromServer];
     
+    [self addHeader];
+    [self addFooter];
+    
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -174,7 +178,7 @@ static int chatInputStartingHeight = 40;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatView:) name:@"reloadeChatView" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatViewAll:) name:@"reloadeChatViewAll" object:nil];
-    
+
     
 }
 
@@ -706,39 +710,39 @@ static int chatInputStartingHeight = 40;
 
 
 /* To Monitor Scroll */
- - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
- CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
- if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
- // scrolled up
-     NSLog(@"up");
-     
- }
- else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
- // scrolled down
-      NSLog(@"down");
- 
- }
- lastContentOffset = scrollView.contentOffset.y;
-     
-/*暂时屏蔽添加下拉刷新*/
-//     if (lastContentOffset<-20 && !hisState) {
-//         hisState = YES;
-//         [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
-//         NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
-//         NSNumber* amessid = temp[@"messid"];
-//         NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-//         if (!self.offMessageDic) {
-//             NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
-//             NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
-//             [tempdic setValue:[NSString stringWithFormat:@"%d",[tribeId intValue]] forKey:@"targetid"];
-//             [tempdic setValue:messid forKey:@"start"];
-//             
-//             [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
-//             offMessageDic = tempdic;
-//         }
-//        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
-//     }
- }
+// - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+// CGFloat difference = lastContentOffset - scrollView.contentOffset.y;
+// if (lastContentOffset > scrollView.contentOffset.y && difference > 10) {
+// // scrolled up
+//     NSLog(@"up");
+//     
+// }
+// else if (lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
+// // scrolled down
+//      NSLog(@"down");
+// 
+// }
+// lastContentOffset = scrollView.contentOffset.y;
+//     
+///*暂时屏蔽添加下拉刷新*/
+////     if (lastContentOffset<-20 && !hisState) {
+////         hisState = YES;
+////         [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
+////         NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
+////         NSNumber* amessid = temp[@"messid"];
+////         NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+////         if (!self.offMessageDic) {
+////             NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+////             NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
+////             [tempdic setValue:[NSString stringWithFormat:@"%d",[tribeId intValue]] forKey:@"targetid"];
+////             [tempdic setValue:messid forKey:@"start"];
+////             
+////             [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
+////             offMessageDic = tempdic;
+////         }
+////        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
+////     }
+// }
 
 
 #pragma mark COLLECTION VIEW DELEGATE
@@ -1093,7 +1097,10 @@ static int chatInputStartingHeight = 40;
 #pragma mark 获取到离线消息
 - (void)reloadeChatViewAll:(NSNotification*)chatmessage
 {
-    hisState =  NO;
+    [_myCollectionView reloadData];
+    // 结束刷新
+    [_myCollectionView headerEndRefreshing];
+
     [[MessageBySend sharMessageBySend]hideprogressHUD];
     [self getMessagesArray];
 }
@@ -1154,5 +1161,63 @@ static int chatInputStartingHeight = 40;
 
     }
 
+}
+
+
+#pragma mark 添加上啦刷新测试
+- (void)addHeader
+{
+//    __unsafe_unretained typeof(self) vc = self;
+    // 添加下拉刷新头部控件
+    [_myCollectionView addHeaderWithCallback:^{
+        // 进入刷新状态就会回调这个Block
+  
+//            [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
+            NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
+            NSNumber* amessid = temp[@"messid"];
+            NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+            if (!self.offMessageDic) {
+                NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+                NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
+                [tempdic setValue:[NSString stringWithFormat:@"%d",[tribeId intValue]] forKey:@"targetid"];
+                [tempdic setValue:messid forKey:@"start"];
+                
+                [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
+                offMessageDic = tempdic;
+            }
+            [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
+
+
+//        // 模拟延迟加载数据，因此2秒后才调用）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [_myCollectionView reloadData];
+//            // 结束刷新
+//            [_myCollectionView headerEndRefreshing];
+//        });
+    }];
+    
+//#warning 自动刷新(一进入程序就下拉刷新)
+//    [_myCollectionView headerBeginRefreshing];
+}
+
+- (void)addFooter
+{
+    return;
+    // 添加上拉刷新尾部控件
+    [_myCollectionView addFooterWithCallback:^{
+        // 进入刷新状态就会回调这个Block
+        
+        // 增加5条假数据
+        //        for (int i = 0; i<5; i++) {
+        //            [vc.fakeColors addObject:MJRandomColor];
+        //        }
+        
+//        // 模拟延迟加载数据，因此2秒后才调用）
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [_myCollectionView reloadData];
+//            // 结束刷新
+//            [_myCollectionView footerEndRefreshing];
+//        });
+    }];
 }
 @end

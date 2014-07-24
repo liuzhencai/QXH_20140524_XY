@@ -448,7 +448,7 @@
                     /*如果count值大于数组个数，则有离线消息*/
                     NSNumber* acount = [message valueForKey:@"count"];
                     NSInteger bcount = [acount integerValue];
-                    if (bcount >[temp count]) {
+                    if (bcount >=[temp count]) {
                         /*获取所有离线消息*/
                         NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
                         [tempdic setValue:atribeid forKey:@"targetid"];
@@ -478,7 +478,7 @@
                     /*如果count值大于数组个数，则存在离线消息*/
                     NSNumber* acount = [message valueForKey:@"count"];
                     NSInteger bcount = [acount integerValue];
-                    if (bcount >[temp count]) {
+                    if (bcount >=[temp count]) {
                         /*获取所有离线消息*/
                         NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
                         [tempdic setValue:atribeid forKey:@"targetid"];
