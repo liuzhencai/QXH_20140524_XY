@@ -167,27 +167,6 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"");
-//    if (indexPath.row == 0) {
-//        if ([indexPath isEqual:self.selectIndexPath]) {//重新选择
-//            self.isOpen = NO;
-//            self.selectIndexPath = nil;
-//            [self didSelectCellFirst:NO orNext:NO];
-//            //
-//        }else{
-//            if (!self.selectIndexPath) {//第一次选择
-//                    self.selectIndexPath = indexPath;
-//                [self didSelectCellFirst:YES orNext:NO];
-//            }else{//选择其他
-//                [self didSelectCellFirst:NO orNext:YES];
-//            }
-//        }
-//        
-//    }else{
-//        NSArray *list = [[_dataList objectAtIndex:indexPath.section] objectForKey:@"list"];
-//        NSString *name = [list objectAtIndex:indexPath.row - 1];
-//        NSLog(@"%@",name);
-//    }
     
     if (indexPath.row == 0) {
         if ([indexPath isEqual:self.selectIndexPath]) {//重新选择
@@ -223,32 +202,26 @@
                                count:@"20"
                withCompletionHandler:^(NSMutableDictionary *dict){
                    NSLog(@"通讯录列表返回数据：%@",dict);
-//                   if (condition) {
-//                       <#statements#>
-//                   }
-                   NSArray *findList = [dict objectForKey:@"lists"];
-                   BOOL isHavePeople = NO;
-                   for ( int i = 0; i < [findList count]; i ++) {
-                       NSDictionary *dict = [findList objectAtIndex:i];
-                       NSArray *arr = [dict objectForKey:@"list"];
-                       if ([arr count]) {
-                           isHavePeople = YES;
-                           break;
+                   if (dict) {
+                       NSArray *findList = [dict objectForKey:@"lists"];
+                       BOOL isHavePeople = NO;
+                       for ( int i = 0; i < [findList count]; i ++) {
+                           NSDictionary *dict = [findList objectAtIndex:i];
+                           NSArray *arr = [dict objectForKey:@"list"];
+                           if ([arr count]) {
+                               isHavePeople = YES;
+                               break;
+                           }
+                       }
+                       if (isHavePeople) {
+                           FindResultViewController *findResult = [[FindResultViewController alloc] init];
+                           findResult.findPeopleResults = findList;
+                           [self.navigationController pushViewController:findResult animated:YES];
+                       }else{
+                           [self showAlert:@"没有找到相关人员"];
                        }
                    }
-                   if (isHavePeople) {
-                       FindResultViewController *findResult = [[FindResultViewController alloc] init];
-                       findResult.findPeopleResults = findList;
-                       [self.navigationController pushViewController:findResult animated:YES];
-                   }else{
-                       [self showAlert:@"没有找到相关人员"];
-                   }
-                   //                   [self showAlert:[dict objectForKey:@"info"]];
                }];
-
-        
-//        FindResultViewController *findResult = [[FindResultViewController alloc] init];
-//        [self.navigationController pushViewController:findResult animated:YES];
     }
 }
 
@@ -279,26 +252,26 @@
                                count:@"20"
                withCompletionHandler:^(NSMutableDictionary *dict){
                    NSLog(@"通讯录列表返回数据：%@",dict);
-                   NSArray *findList = [dict objectForKey:@"lists"];
-                   BOOL isHavePeople = NO;
-                   for ( int i = 0; i < [findList count]; i ++) {
-                       NSDictionary *dict = [findList objectAtIndex:i];
-                       NSArray *arr = [dict objectForKey:@"list"];
-                       if ([arr count]) {
-                           isHavePeople = YES;
-                           break;
+                   if (dict) {
+                       NSArray *findList = [dict objectForKey:@"lists"];
+                       BOOL isHavePeople = NO;
+                       for ( int i = 0; i < [findList count]; i ++) {
+                           NSDictionary *dict = [findList objectAtIndex:i];
+                           NSArray *arr = [dict objectForKey:@"list"];
+                           if ([arr count]) {
+                               isHavePeople = YES;
+                               break;
+                           }
+                       }
+                       if (isHavePeople) {
+                           FindResultViewController *findResult = [[FindResultViewController alloc] init];
+                           findResult.findPeopleResults = findList;
+                           [self.navigationController pushViewController:findResult animated:YES];
+                       }else{
+                           [self showAlert:@"没有找到相关人员"];
                        }
                    }
-                   if (isHavePeople) {
-                       FindResultViewController *findResult = [[FindResultViewController alloc] init];
-                       findResult.findPeopleResults = findList;
-                       [self.navigationController pushViewController:findResult animated:YES];
-                   }else{
-                       [self showAlert:@"没有找到相关人员"];
-                   }
-//                   [self showAlert:[dict objectForKey:@"info"]];
                }];
-
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

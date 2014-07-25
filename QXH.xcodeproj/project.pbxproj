@@ -347,6 +347,7 @@
 		58B8717A192FA57100EB730D /* TribeQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B87179192FA57100EB730D /* TribeQuestionCell.m */; };
 		58B8717D192FABF100EB730D /* TribeConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B8717C192FABF100EB730D /* TribeConversationCell.m */; };
 		58BC41A5196D989800F80383 /* MessageDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BC41A4196D989800F80383 /* MessageDetailCell.m */; };
+		58D38D5D1982B5BF00912F24 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 58D38D5C1982B5BF00912F24 /* libsqlite3.dylib */; };
 		58D3F4E119685C0900A5FA4E /* InfluenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D3F4E019685C0900A5FA4E /* InfluenceCell.m */; };
 		58E08D0719532549000C25AE /* AddFriendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E08D0619532549000C25AE /* AddFriendView.m */; };
 		58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58EEDABF1958549E007E2FA2 /* citysList.plist */; };
@@ -1002,6 +1003,7 @@
 		58B8717C192FABF100EB730D /* TribeConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TribeConversationCell.m; sourceTree = "<group>"; };
 		58BC41A3196D989800F80383 /* MessageDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailCell.h; sourceTree = "<group>"; };
 		58BC41A4196D989800F80383 /* MessageDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailCell.m; sourceTree = "<group>"; };
+		58D38D5C1982B5BF00912F24 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		58D3F4DF19685C0900A5FA4E /* InfluenceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfluenceCell.h; sourceTree = "<group>"; };
 		58D3F4E019685C0900A5FA4E /* InfluenceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfluenceCell.m; sourceTree = "<group>"; };
 		58E08D0519532549000C25AE /* AddFriendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendView.h; sourceTree = "<group>"; };
@@ -1176,6 +1178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58D38D5D1982B5BF00912F24 /* libsqlite3.dylib in Frameworks */,
 				2173C70F197408A600DB1D36 /* libz.dylib in Frameworks */,
 				2173C70D1974082A00DB1D36 /* libMobClickLibrary.a in Frameworks */,
 				21F68BD2195C69C400C869BC /* AVFoundation.framework in Frameworks */,
@@ -1236,6 +1239,7 @@
 		2119EE7E19168279007DBE68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				58D38D5C1982B5BF00912F24 /* libsqlite3.dylib */,
 				2173C70E197408A600DB1D36 /* libz.dylib */,
 				21F68BD1195C69C400C869BC /* AVFoundation.framework */,
 				21F68BCF195C5E1A00C869BC /* AssetsLibrary.framework */,
@@ -3081,7 +3085,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3107,7 +3111,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
+				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

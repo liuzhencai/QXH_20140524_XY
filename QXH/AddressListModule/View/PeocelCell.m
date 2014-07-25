@@ -78,7 +78,16 @@
     [self.headImgView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *nameStr = [params objectForKey:@"displayname"];
     self.name.text = nameStr;
-    NSString *dutyString = [NSString stringWithFormat:@"%@ %@",[params objectForKey:@"schoolname"],[params objectForKey:@"title"]];//[params objectForKey:@"signature"];
+    
+    NSString *schoolname = [params objectForKey:@"schoolname"];
+    if (schoolname == nil) {
+        schoolname = @"";
+    }
+    NSString *title = [params objectForKey:@"title"];
+    if (title == nil) {
+        title = @"";
+    }
+    NSString *dutyString = [NSString stringWithFormat:@"%@ %@",schoolname,title];//[params objectForKey:@"signature"];
     self.duty.text = dutyString;
 }
 

@@ -36,6 +36,13 @@
          *  udp心跳出错，重新连接
          */
         if ([[object objectForKey:@"statecode"] isEqualToString:@"0441"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:[object objectForKey:@"info"]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil, nil];
+            [alert show];
+            callback(nil);
             [self reConnection];
             return;
         }
