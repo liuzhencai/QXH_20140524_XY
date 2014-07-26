@@ -57,7 +57,7 @@ static DBManager *dbManager;
 - (void)saveChatMess:(ChatMess *)mess
 {
     NSString *sql = @"merge into chat_mess_tbl a using (select ? as cid, ? as uid, ? as msgid, ? as sid, ? as type, ? as fromid, ? as fromname, ? as fromphotoid, ? as dttime, ? as dtdate, ? as contenttext, ? as contentres, ? as state, ? as targetid, ? as targetname, ? as targetphoto, ? as targettype) b on (a.msgid = b.msgid) when matched then update set a.cid = b.cid; a.uid = b.uid, a.msgid = b.msgid, a.sid = b.sid, a.type = b.type, a.fromid = b.fromid, a.fromname = b.fromname, a.fromphotoid = b.fromphotoid, a.dttime = b.dttime, a.dtdate = b.dtdate, a.contenttext = b.contenttext, a.contentres = b.contentres, a.state = b.state, a.targetid = b.targetid, a.targetname = b.targetname, a.targetphoto = b.targetphoto, a.targettype = b.targettype when not matched then insert (a.cid, a.uid, a.msgid, a.sid, a.type, a.fromid, a.fromname, a.fromphotoid, a.dttime, a.dtdate, a.contenttext, a.contentres, a.state, a.targetid, a.targetname, a.targetphoto, a.targettype) values (b.cid, b.uid, b.msgid, b.sid, b.type, b.fromid, b.fromname, b.fromphotoid, b.dttime, b.dtdate, b.contenttext, b.contentres, b.state, b.targetid, b.targetname, b.targetphoto, b.targettype)";
-    [db executeUpdate:sql];
+    [db executeUpdate:sql];i
 }
 
 - (NSMutableArray *)getChatMess:(NSString *)start maxCount:(NSString *)count lastMessId:(NSString *)messid
@@ -87,6 +87,12 @@ static DBManager *dbManager;
         [result addObject:obj];
     }
     return result;
+}
+
+- (BOOL)clearAllUserData
+{
+    NSString *sql = @"delete from chat_mess_tbl";
+    return [db executeUpdate:sql];
 }
 
 @end

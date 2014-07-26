@@ -15,8 +15,12 @@
  */
 @interface DBManager : NSObject
 
++ (instancetype)sharedManager;
+
 - (void)saveChatMess:(ChatMess *)mess;
 
 - (NSMutableArray *)getChatMessCount:(NSString *)count lastMessId:(NSString *)messid;
+
+- (BOOL)clearAllUserData;
 
 @end
