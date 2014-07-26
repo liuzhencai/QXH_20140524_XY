@@ -64,6 +64,9 @@
 
 - (void)getUserInfo{
 
+    /*部落聊天中点击时，传入memberid
+     部落成员列表中点击，传入memberDict
+     */
     if (self.memberDict || self.memberId) {
         NSString *memberid = self.memberId;
         if (self.memberDict) {
