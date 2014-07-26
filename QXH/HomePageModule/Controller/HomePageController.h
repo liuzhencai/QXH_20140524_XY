@@ -28,6 +28,7 @@
 
 - (IBAction)btnClick:(id)sender;
 
+- (void)loadPage;
 
 /*4寸适配*/
 @property (strong, nonatomic) IBOutlet UIView *viewfour;

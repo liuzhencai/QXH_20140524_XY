@@ -9,6 +9,8 @@
 #import "SettingViewController.h"
 #import "MsgSettingController.h"
 #import "DBManager.h"
+#import "AppDelegate.h"
+#import "HomePageController.h"
 
 @interface SettingViewController ()
 
@@ -203,7 +205,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    exit(0);
+//    exit(0);
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
+    HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];
+    [controller loadPage];
 }
 
 - (void)logout:(id)sender
