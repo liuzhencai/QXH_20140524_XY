@@ -23,6 +23,8 @@
 #import "MessageBySend.h"
 #import "MJRefresh.h"
 #import "Tool.h"
+#import "ActivityDetailViewController.h"
+#import "NameCardViewController.h"
 
 
 #define KTopButtonHight  50
@@ -802,6 +804,8 @@ static int chatInputStartingHeight = 40;
             /*json对象的mess说明：
              sourcetype:1为广场文章，2为智谷分享，3为活动分享,4为名片分享
              */
+            [self didSelectbyMessage:amess];
+            
         }
             break;
             
@@ -810,6 +814,90 @@ static int chatInputStartingHeight = 40;
     }
 
     
+}
+
+#pragma mark 活动名片等的点击跳转
+- (void)didSelectbyMessage:(NSDictionary*)aMess
+{
+    NSString* tmess = (NSString*)aMess[@"mess"];
+    NSRange range = [tmess rangeOfString:@"sourcetype"];
+    NSString* sourcetype = nil;
+    if (range.location != NSNotFound) {
+        NSRange range1 = NSMakeRange(range.location+12, 1);
+        sourcetype = [tmess substringWithRange:range1];
+    }
+    NSArray* mesageArray = [tmess componentsSeparatedByString:@","];
+    
+    switch ([sourcetype integerValue]) {
+        case 1:
+        {
+            /*广场文章*/
+            
+            
+        }
+            break;
+        case 2:
+        {
+            /*智谷文章*/
+        }
+            break;
+        case 3:
+        {
+            /*活动分享*/
+            NSString* aTitleString= nil;
+            //            NSString* aTimeString= nil;
+            //            NSString* aPlaceString = nil;
+            for (int i=0; i<[mesageArray count]; i++) {
+                NSString* temp1 = [mesageArray objectAtIndex:i];
+                NSRange range2 = [temp1 rangeOfString:@"actid"];
+                //                NSRange range3 = [temp1 rangeOfString:@"begindate"];
+                //                NSRange range4 = [temp1 rangeOfString:@"actaddr"];
+                if (range2.location != NSNotFound) {
+                    
+                    NSRange range23 = NSMakeRange(range2.location+5+2, [temp1 length]-7-range2.location);
+                    aTitleString = [temp1 substringWithRange:range23];
+                    break;
+                    
+                }
+          
+            }
+    
+            if (aTitleString) {
+                ActivityDetailViewController *activityDetail = [[ActivityDetailViewController alloc] init];
+                activityDetail.activityId = aTitleString;
+                [self.navigationController pushViewController:activityDetail animated:NO];
+            }
+        }
+            break;
+        case 4:
+        {
+            /*名片分享*/
+            NSString* aTitleString= nil;
+            for (int i=0; i<[mesageArray count]; i++) {
+                NSString* temp1 = [mesageArray objectAtIndex:i];
+                NSRange range2 = [temp1 rangeOfString:@"userid"];
+                if (range2.location != NSNotFound) {
+                    
+                    NSRange range3 = NSMakeRange(range2.location+6+2, [temp1 length]-8-range2.location);
+                    aTitleString = [temp1 substringWithRange:range3];
+                    break;
+                }
+            }
+            
+            if (aTitleString) {
+                NameCardViewController *nameCard = [[NameCardViewController alloc] init];
+                nameCard.memberId = aTitleString;
+                [self.navigationController pushViewController:nameCard animated:NO];
+            }
+
+     
+        }
+            break;
+            default:
+            break;
+    }
+    
+
 }
 
 #pragma mark 提示框

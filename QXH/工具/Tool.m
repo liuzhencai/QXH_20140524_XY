@@ -24,14 +24,39 @@
     switch ([sourcetype integerValue]) {
         case 1:
         {
-            /*广场文章*/
-            
+//            /*广场文章*/
+//            NSString* aTitleString= nil;
+//            for (int i=0; i<[mesageArray count]; i++) {
+//                NSString* temp1 = [mesageArray objectAtIndex:i];
+//                NSRange range2 = [temp1 rangeOfString:@"title"];
+//                if (range2.location != NSNotFound) {
+//                    
+//                    NSRange range3 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
+//                    aTitleString = [temp1 substringWithRange:range3];
+//                    break;
+//                }
+//            }
+//            NSString* result = [NSString stringWithFormat:@"*广场分享*\n\t%@",aTitleString];
+//            return result;
             
         }
             break;
         case 2:
         {
-            /*智谷文章*/
+//            /*智谷文章*/
+//            NSString* aTitleString= nil;
+//            for (int i=0; i<[mesageArray count]; i++) {
+//                NSString* temp1 = [mesageArray objectAtIndex:i];
+//                NSRange range2 = [temp1 rangeOfString:@"title"];
+//                if (range2.location != NSNotFound) {
+//                    
+//                    NSRange range3 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
+//                    aTitleString = [temp1 substringWithRange:range3];
+//                    break;
+//                }
+//            }
+//            NSString* result = [NSString stringWithFormat:@"*智谷分享*\n\t%@",aTitleString];
+//            return result;
         }
             break;
         case 3:
