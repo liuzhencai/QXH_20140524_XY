@@ -303,8 +303,10 @@
 //         */
         [DataInterface joinAct:@"1" actid:actId withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"加入活动申请返回值:%@",dict);
-            [self showAlert:[dict objectForKey:@"info"]];
-            [self getActivityDetail];
+            if (dict) {
+                [self showAlert:[dict objectForKey:@"info"]];
+                [self getActivityDetail];
+            }
         }];
 //
 //    }else{
