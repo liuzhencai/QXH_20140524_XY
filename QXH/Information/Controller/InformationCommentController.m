@@ -105,8 +105,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NameCardViewController *nameCard = [[NameCardViewController alloc] init];
-    [self.navigationController pushViewController:nameCard animated:YES];
+    InfoCommentModel *model = [commentList objectAtIndex:indexPath.row];
+    NameCardViewController *controller = [[NameCardViewController alloc]init];
+    NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:model.sid] forKey:@"userid"];
+    controller.memberDict = item;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
