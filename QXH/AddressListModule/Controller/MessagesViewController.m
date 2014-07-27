@@ -137,7 +137,7 @@
              *  @param remark   备注
              *  @param callback 回调
              */
-            [DataInterface addFriendConfirm:memberId type:@"1" remark:@"" withCompletionHandler:^(NSMutableDictionary *messageDict){
+            [DataInterface addFriendConfirm:memberId type:@"0" remark:@"" withCompletionHandler:^(NSMutableDictionary *messageDict){
                 NSLog(@"%@",messageDict);
                 
                 NSMutableArray *refuseList = [self.dealMessages objectForKey:@"agreeList"];
