@@ -18,6 +18,7 @@
 #import "SquareActivityCell.h"
 #import "ActivityDetailViewController.h"
 #import "MJRefresh.h"
+#import "EverydayAskController.h"
 
 @interface SquareViewController ()
 {
@@ -382,6 +383,12 @@
             SquareActInfo *tmpInfo = model.content;
             tmpController.activityId = tmpInfo.actid;
             [self.navigationController pushViewController:tmpController animated:YES];
+        }
+            break;
+        case 4:
+        {
+            EverydayAskController *controller = [[EverydayAskController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         default:
