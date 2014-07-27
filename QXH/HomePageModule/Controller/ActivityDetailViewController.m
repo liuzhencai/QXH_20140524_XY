@@ -12,10 +12,14 @@
 #import "ShareToTribeViewController.h"
 #import "InActivityCell.h"
 #import "ActivityDetailCell.h"
+#import "WXApi.h"
+#import "WXApiObject.h"
 
 #import "SelectCityViewController.h"//test
 
-@interface ActivityDetailViewController ()
+@interface ActivityDetailViewController (){
+    enum WXScene _scene;
+}
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) NSDictionary *activityDict;//活动详情
 
@@ -28,6 +32,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -117,9 +122,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.isActivityEnd) {
-        return 4;
-    }
+//    if (self.isActivityEnd) {
+//        return 4;
+//    }
     return 5;
 }
 
@@ -253,13 +258,16 @@
                 [dataCell.contentView addSubview:shareBtn];
             }
             if (self.activityDict) {
-                UIButton *signupBtn = (UIButton *)[cell.contentView viewWithTag:1101];
+                UIButton *signupBtn = (UIButton *)[dataCell.contentView viewWithTag:1101];
                 if ([self isInFollowers]) {
                     [signupBtn setTitle:@"已报名" forState:UIControlStateNormal];
                     signupBtn.enabled = NO;
                 }else{
                     [signupBtn setTitle:@"报名" forState:UIControlStateNormal];
                     signupBtn.enabled = YES;
+                }
+                if (self.isActivityEnd) {
+                    signupBtn.enabled = NO;
                 }
             }
             cell = dataCell;
@@ -331,8 +339,32 @@
                                                     message:nil
                                                    delegate:self
                                           cancelButtonTitle:@"取消"
-                                          otherButtonTitles:@"分享到部落",@"分享到广场",@"分享到微信", nil];
+                                          otherButtonTitles:@"分享到部落",@"分享到广场",@"分享到微信好友",@"分享到微信朋友圈", nil];
     [alert show];
+}
+
+#pragma mark - share to weixin
+- (void) sendLinkContent
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = [self.activityDict objectForKey:@"actname"];
+    message.description = [self.activityDict objectForKey:@"desc"];
+    [message setThumbImage:[UIImage imageNamed:@"img_news"]];
+//    NSString *imagesStr = [self.activityDict objectForKey:@"actimgs"];
+//    NSArray *images = [imagesStr componentsSeparatedByString:@","];
+//    [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:IMGURL([images lastObject])]]];
+
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = INF_SHARE_URL(self.activityId);
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = _scene;
+    
+    [WXApi sendReq:req];
 }
 
 - (BOOL)isInFollowers{
@@ -406,14 +438,12 @@
             NSLog(@"分享不落信息：%@",paramDict);
             /**
              *  分享内容
-             *
              *  @param artid       广场消息的唯一标示
              *  @param contenttype 1为广场文章，2为咨询分享，3为活动分享
              *  @param sharetype   1为分享给好友，2为分享给部落
              *  @param targetid    分享给好友或部落的id，如果为多个好友或部落，中间以逗号隔开
              *  @param callback 回调
              */
-
             if (paramDict) {
                 [DataInterface shareContent:self.activityId
                                  sourcetype:@"3"
@@ -430,8 +460,14 @@
     }else if (2 == buttonIndex){//分享到广场
         NSLog(@"分享到广场");
         [self shareToSquare];
-    }else if (3 == buttonIndex){//分享到微信
-        NSLog(@"分享到微信");
+    }else if (3 == buttonIndex){//分享到微信好友
+        NSLog(@"分享到微信好友");
+        _scene = WXSceneSession;
+        [self sendLinkContent];
+    }else if(4 == buttonIndex){//分享到微信朋友圈
+        NSLog(@"分享到微信朋友圈");
+        _scene = WXSceneTimeline;
+        [self sendLinkContent];
     }
 }
 

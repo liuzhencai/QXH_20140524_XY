@@ -33,13 +33,19 @@
     self.title = @"找人";
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
-    
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_HEIGHT, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
-    _mainTable.dataSource = self;
-    _mainTable.delegate = self;
-    _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_mainTable];
-    
+    if (self.findPeopleResults) {
+        _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_HEIGHT, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
+        _mainTable.dataSource = self;
+        _mainTable.delegate = self;
+        _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self.view addSubview:_mainTable];
+    }else{
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, UI_SCREEN_WIDTH, 30)];
+        tipLabel.text = @"该地区没有人员信息";
+        tipLabel.textAlignment = NSTextAlignmentCenter;
+        tipLabel.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:tipLabel];
+    }
 }
 
 - (void)didReceiveMemoryWarning

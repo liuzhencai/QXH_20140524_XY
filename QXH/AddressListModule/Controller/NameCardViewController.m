@@ -28,7 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _items = @[@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
+        _items = @[@"工作单位",@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
     }
     return self;
 }
@@ -43,8 +43,8 @@
     
     BOOL scrollEnable = YES;
     CGFloat tableHeight = UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT;
-    if (tableHeight > 180 + 44 * 5 + 30) {
-        tableHeight = 180 + 44 * 5 + 30;
+    if (tableHeight > 180 + 44 * 6 + 30) {
+        tableHeight = 180 + 44 * 6 + 30;
         scrollEnable = NO;
     }
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, tableHeight) style:UITableViewStylePlain];
@@ -177,33 +177,34 @@
         titleLabel.text = [_items objectAtIndex:indexPath.row];
         NSString *value = @"";
         switch (indexPath.row) {
-            case 0://单位职务
+            case 0://工作单位
+                if (self.userDetailInfo) {
+                    value = [self.userDetailInfo objectForKey:@"schoolname"];
+                }
+                break;
+            case 1://单位职务
                 if (self.userDetailInfo) {
                     value = [self.userDetailInfo objectForKey:@"title"];
                 }
-//                value = @"北京市教育局局长";
                 break;
-            case 1://所在城市
-//                value = @"北京";
+            case 2://所在城市
                 if (self.userDetailInfo) {
-                    NSString *cityName = [self cityNameWithCode:[self.userDetailInfo objectForKey:@"domicile"]];
-                    value = cityName;//[self.userDetailInfo objectForKey:@"address"];
+//                    NSString *cityName = [self cityNameWithCode:[self.userDetailInfo objectForKey:@"domicile"]];
+//                    value = cityName;
+                    value = [self.userDetailInfo objectForKey:@"address"];
                 }
                 break;
-            case 2://学校职务
-//                value = @"教授";
+            case 3://学校职务
                 if (self.userDetailInfo) {
-                    value = [self.userDetailInfo objectForKey:@"degree"];
+                    value = [self.userDetailInfo objectForKey:@"educations"];
                 }
                 break;
-            case 3://曾获荣誉
-//                value = @"国家级科技成就奖";
+            case 4://曾获荣誉
                 if (self.userDetailInfo) {
                     value = [self.userDetailInfo objectForKey:@"honours"];
                 }
                 break;
-            case 4://个人动态
-//                value = @"不知道";
+            case 5://个人动态
                 if (self.userDetailInfo) {
                     value = [self.userDetailInfo objectForKey:@"signature"];
                 }
@@ -230,7 +231,6 @@
         }else{
             /**
              *  加好友请求
-             *
              *  @param targetid 被处理的加入成员的userid
              *  @param mess     好友请求验证消息
              *  @param callback 回调
@@ -248,8 +248,6 @@
         }
         
     }else{
-//        [self showAlert:@"这个拒绝需要吗？"];
-        
     }
     
 }

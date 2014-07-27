@@ -339,7 +339,7 @@
                 case 3:{
                     if (!_comeFrom) {
                         _comeFrom = [self addTextFieldWithFrame:CGRectMake(WIDTH_TITLE + 20, (HEIGHT_CELL - 30)/2.0, WIDTH_VALUE, 30)
-                                                placeHolder:@"来自**部落"];
+                                                placeHolder:@""];//来自**部落
                     }
                     [cell.contentView addSubview:_comeFrom];
                 }

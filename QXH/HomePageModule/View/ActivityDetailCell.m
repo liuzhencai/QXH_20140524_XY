@@ -182,6 +182,8 @@
         self.activityTypeLabel.text = [params objectForKey:@"acttype"];
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
         NSString *imageUrl = [params objectForKey:@"actimgs"];
+        NSArray *images = [imageUrl componentsSeparatedByString:@","];
+        imageUrl = [images lastObject];
         [self.activityImage setImageWithURL:IMGURL(imageUrl) placeholderImage:[UIImage imageNamed:@"title_bar_bg"]];
         self.tribeLabel.text = [params objectForKey:@"comefrom"];
         self.orgnizerLabel.text = [params objectForKey:@"creatername"];

@@ -218,7 +218,9 @@
                            findResult.findPeopleResults = findList;
                            [self.navigationController pushViewController:findResult animated:YES];
                        }else{
-                           [self showAlert:@"没有找到相关人员"];
+//                           [self showAlert:@"没有找到相关人员"];
+                           FindResultViewController *findResult = [[FindResultViewController alloc] init];
+                           [self.navigationController pushViewController:findResult animated:YES];
                        }
                    }
                }];
