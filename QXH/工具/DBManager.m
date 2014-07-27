@@ -159,4 +159,10 @@ static DBManager *dbManager;
     return result;
 }
 
+- (BOOL)clearAllUserData
+{
+    NSString *sql = @"delete from chat_mess_tbl";
+    return [db executeUpdate:sql];
+}
+
 @end

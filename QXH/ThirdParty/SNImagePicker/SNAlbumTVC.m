@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self.navigationItem setTitle:@"Loading..."];
+	[self.navigationItem setTitle:@"加载中..."];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissImagePicker)];
 	[self.navigationItem setRightBarButtonItem:cancelButton];
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
@@ -79,7 +79,7 @@
 - (void)reloadTableView
 {
 	[self.tableView reloadData];
-	[self.navigationItem setTitle:@"Albums"];
+	[self.navigationItem setTitle:@"相册"];
 }
 
 - (void)dismissImagePicker

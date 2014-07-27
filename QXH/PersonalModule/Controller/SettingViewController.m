@@ -8,6 +8,9 @@
 
 #import "SettingViewController.h"
 #import "MsgSettingController.h"
+#import "DBManager.h"
+#import "AppDelegate.h"
+#import "HomePageController.h"
 
 @interface SettingViewController ()
 
@@ -39,7 +42,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -53,6 +56,9 @@
             rows = 3;
             break;
         case 2:
+            rows = 1;
+            break;
+        case 3:
             rows = 1;
             break;
         default:
@@ -109,6 +115,17 @@
             break;
         case 2:
         {
+            static NSString *cellIdntifier = @"secondSection";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdntifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdntifier];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            cell.textLabel.text = @"清空聊天记录";
+        }
+            break;
+        case 3:
+        {
             static NSString *cellIdntifier = @"thirdSection";
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdntifier];
             if (!cell) {
@@ -117,12 +134,11 @@
                 btn.frame = CGRectMake(26.5, 1.75, 267, 40.5);
                 [btn setBackgroundImage:[UIImage imageNamed:@"btn_screening_normal"] forState:UIControlStateNormal];
                 [btn setBackgroundImage:[UIImage imageNamed:@"btn_screening_highlight"] forState:UIControlStateHighlighted];
-                [btn setTitle:@"注销" forState:UIControlStateNormal];
+                [btn setTitle:@"退出当前账号" forState:UIControlStateNormal];
                 [btn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
                 [cell.contentView addSubview:btn];
             }
         }
-            break;
         default:
             break;
     }
@@ -131,7 +147,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == 3) {
         return 0;
     }
     return 20;
@@ -139,6 +155,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:
         {
@@ -171,6 +188,16 @@
                     break;
             }
         }
+            break;
+        case 2:
+        {
+            if ([DBManager sharedManager]) {
+                if([[DBManager sharedManager] clearAllUserData]){
+                    [self showAlert:@"清除成功"];
+                }
+            }
+        }
+            break;
         default:
             break;
     }
@@ -178,7 +205,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    exit(0);
+//    exit(0);
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
+    HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];
+    [controller loadPage];
 }
 
 - (void)logout:(id)sender

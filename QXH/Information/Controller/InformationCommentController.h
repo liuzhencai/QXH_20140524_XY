@@ -11,6 +11,5 @@
 @interface InformationCommentController : MyViewController<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *commentTbl;
 @property (nonatomic, copy) NSString *artid;
-- (IBAction)hideComment:(id)sender;
 
 @end

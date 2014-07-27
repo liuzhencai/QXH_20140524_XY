@@ -77,14 +77,12 @@
 //    _topScrollthree.contentSize = CGSizeMake(320*pics.count, 132);
 //    [self addTopImage];
     
+    [self loadPage];
+}
+
+- (void)loadPage
+{
     if (![defaults objectForKey:USER_NAME] || ![defaults objectForKey:PASSWORLD]) {
-        //guide
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH]) {
-            GuideView *guide = [[GuideView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-            guide.delegate = self;
-            UIView *windowView = [[[[UIApplication sharedApplication] windows] objectAtIndex:0] rootViewController].view;
-            [windowView addSubview:guide];
-        }
         //login
         LoginViewController* login = [[LoginViewController alloc]init];
         login.delegate = self;

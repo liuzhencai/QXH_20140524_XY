@@ -17,8 +17,13 @@
 
 + (instancetype)sharedManager;
 
+
 - (void)saveChatMess:(ChatMess *)mess;
 
 //- (NSMutableArray *)getChatMessCount:(NSString *)count lastMessId:(NSString *)messid;
 - (NSMutableArray *)getChatMessStart:(NSString *)start maxCount:(NSString *)count Andtargetid:(NSString *)targetid;
+
+- (BOOL)clearAllUserData;
+
+
 @end

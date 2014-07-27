@@ -26,7 +26,7 @@
     _articleTitleLabel.text = detailmodel.title;
     _readNumLabel.text = detailmodel.browsetime;
     _commentNumLabel.text = detailmodel.commenttime;
-    _postLabel.text = detailmodel.relaytime;
+    _postLabel.text = detailmodel.sharetime;
     _dateLabel.text = detailmodel.date;
     _praiseLabel.text = [NSString stringWithFormat:@"%d",detailmodel.laud];
     
@@ -38,6 +38,7 @@
 - (void)getDetailInfo
 {
     [DataInterface getDetailInfo:@"2" artid:_artid withCompletionHandler:^(NSMutableDictionary *dict) {
+        detailmodel = nil;
         detailmodel = [ModelGenerator json2InfoDetail:dict];
         [self setValueForView];
     }];
@@ -149,6 +150,7 @@
         {
             [DataInterface praiseArticle:self.artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
                 [self showAlert:[dict objectForKey:@"info"]];
+                [self getDetailInfo];
             }];
         }
             break;
