@@ -33,11 +33,13 @@
 */
 
 - (void)initializeViewComponents{
-    NSArray *imagesArr = @[@"guide1",@"guide2",@"guide3",@"guide4"];
     
-//    if (!iPhone5) {
-//        imagesArr = @[@"guide_page1",@"guide_page2",@"guide_page3",@"guide_page4"];
-//    }
+    NSArray *  imagesArr = nil;
+    if (!iPhone5) {
+        imagesArr = @[@"guide_page5_1.jpg",@"guide_page5_2.jpg",@"guide_page5_3.jpg",@"guide_page5_4.jpg"];
+    }else{
+        imagesArr = @[@"guide1.jpg",@"guide2.jpg",@"guide3.jpg",@"guide4.jpg"];
+    }
     
     _MasterScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     self.MasterScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleHeight;

@@ -1504,7 +1504,7 @@ static int chatInputStartingHeight = 40;
 {
 //    if ([_messagesArray count]==0) {
         /*如果没有消息获取本地的*/
-      NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId];
+      NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId andStart:@"0"];
         if ([tempArray count]) {
 
             NSMutableArray* temp1 = [[NSMutableArray alloc]initWithArray:tempArray];

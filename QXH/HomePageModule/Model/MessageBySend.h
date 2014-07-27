@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MBProgressHUD.h"
+#import "DBManager.h"
 
 //@protocol MessageBySendDelegate <NSObject>
 //
@@ -66,7 +67,7 @@
 //    NSInteger piccount;
     
     /*文件路径*/
-    NSString* filePath;
+    DBManager* db;
 }
 
 //@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
@@ -74,7 +75,7 @@
 +(MessageBySend*)sharMessageBySend;
 
 /*通过部落id，获取部落聊天内容*/
--(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid;
+-(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid andStart:(NSString*)start;
 /*
  1、把我自己发送的消息添加进入聊天室
  2、对方发送私聊

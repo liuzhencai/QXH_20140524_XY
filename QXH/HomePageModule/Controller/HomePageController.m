@@ -26,8 +26,11 @@
 #import "ActivityDetailViewController.h"
 #import "AdVIewController.h"
 #import "InformationDetailController.h"
+#import "Tool.h"
 //#import "PullRefreshTableViewController.h"
 
+
+#define NoMoneyMember @"您还不是正式会员，没有权限进入该功能"
 
 @interface HomePageController ()<LoginDelegate,GuideViewDelegate>
 {
@@ -368,62 +371,78 @@
         case 3:
         {
             NSLog(@"点击找人");
-            FindPeopleViewController *fpController = [[FindPeopleViewController alloc] init];
-            fpController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:fpController animated:YES];
+            if (![[Tool MoneyMember]isEqualToString:@"0"]) {
+                /*只用0是不能访问的*/
+                FindPeopleViewController *fpController = [[FindPeopleViewController alloc] init];
+                fpController.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:fpController animated:YES];
+            }else{
+                [ self showAlert:NoMoneyMember];
+            }
+
         }
             break;
         case 4:
         {
             NSLog(@"点击直播间");
-            OneDreamController *odController = [[OneDreamController alloc] initWithNibName:@"OneDreamController" bundle:nil];
-            odController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:odController animated:YES];
+             if (![[Tool MoneyMember]isEqualToString:@"0"]) {
+                 OneDreamController *odController = [[OneDreamController alloc] initWithNibName:@"OneDreamController" bundle:nil];
+                 odController.hidesBottomBarWhenPushed = YES;
+                 [self.navigationController pushViewController:odController animated:YES];
+             }else{
+                 [ self showAlert:NoMoneyMember];
+             }
+
         }
             break;
         case 5:
         {
             NSLog(@"点击部落");
-            TribeController *tribeVC = [[TribeController alloc] init];
-            tribeVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:tribeVC animated:YES];
+            if (![[Tool MoneyMember]isEqualToString:@"0"]) {
+                TribeController *tribeVC = [[TribeController alloc] init];
+                tribeVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:tribeVC animated:YES];
+            }else{
+                [ self showAlert:NoMoneyMember];
+             }
         }
             break;
         case 6:
         {
             NSLog(@"点击广场");
-            SquareViewController *svController = [[SquareViewController alloc] initWithNibName:@"SquareViewController" bundle:nil];
-            svController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:svController animated:YES];
+            if (![[Tool MoneyMember]isEqualToString:@"0"]) {
+                SquareViewController *svController = [[SquareViewController alloc] initWithNibName:@"SquareViewController" bundle:nil];
+                svController.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:svController animated:YES];
+            }else{
+                [ self showAlert:NoMoneyMember];
+            }
         }
             break;
         case 7:
         {
             NSLog(@"点击每日一问");
-            EverydayAskController *eaController = [[EverydayAskController alloc] initWithNibName:@"EverydayAskController" bundle:nil];
-            eaController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:eaController animated:YES];
+            if (![[Tool MoneyMember]isEqualToString:@"0"]) {
+                EverydayAskController *eaController = [[EverydayAskController alloc] initWithNibName:@"EverydayAskController" bundle:nil];
+                eaController.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:eaController animated:YES];
+            }else{
+                [ self showAlert:NoMoneyMember];
+            }
         }
             break;
         case 8:
         {
             NSLog(@"点击影响力");
 //            InfluenceViewController *ivController = [[InfluenceViewController alloc] initWithNibName:@"InfluenceViewController" bundle:nil];
-            InfluenceViewController *ivController = [[InfluenceViewController alloc] init];
-            ivController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:ivController animated:YES];
-            
-            
-//            ChatController *controller = [[ChatController alloc]init];
-//           
-//            controller.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:controller animated:YES];
+             if (![[Tool MoneyMember]isEqualToString:@"0"]) {
+                 InfluenceViewController *ivController = [[InfluenceViewController alloc] init];
+                 ivController.hidesBottomBarWhenPushed = YES;
+                 [self.navigationController pushViewController:ivController animated:YES];
+             }else{
+                [ self showAlert:NoMoneyMember];
+             }
 
-            
-//             NSString* name = @"刘振财测试1";
-//            [DataInterface modifyUserInfo:ORIGIN_VAL oldpwd:ORIGIN_VAL newpwd:ORIGIN_VAL signature:ORIGIN_VAL title:job degree:ORIGIN_VAL address:ORIGIN_VAL domicile:ORIGIN_VAL introduce:ORIGIN_VAL comname:ORIGIN_VAL comdesc:ORIGIN_VAL comaddress:ORIGIN_VAL comurl:ORIGIN_VAL induname:ORIGIN_VAL indudesc:ORIGIN_VAL schoolname:schoolname schooltype:ORIGIN_VAL sex:ORIGIN_VAL email:ORIGIN_VAL tags:ORIGIN_VAL attentiontags:ORIGIN_VAL hobbies:ORIGIN_VAL educations:ORIGIN_VAL honours:ORIGIN_VAL withCompletionHandler:^(NSMutableDictionary *dict) {
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }];
         }
             break;
         default:

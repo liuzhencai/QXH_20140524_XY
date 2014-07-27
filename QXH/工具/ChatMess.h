@@ -14,13 +14,13 @@
 
 @property (nonatomic, copy) NSString *uid; // 用户id
 
-@property (nonatomic, copy) NSString *msgid; // 消息唯一标示
+@property (nonatomic, copy) NSNumber *msgid; // 消息唯一标示
 
 @property (nonatomic, copy) NSString *sessionid; // 会话唯一标示
 
 @property (nonatomic, copy) NSString *type; // 消息类型
 
-@property (nonatomic, copy) NSString *fromid; // 来自id标示
+@property (nonatomic, copy) NSNumber *fromid; // 来自id标示
 
 @property (nonatomic, copy) NSString *fromname; // 来自name标示
 
@@ -36,12 +36,12 @@
 
 @property (nonatomic, copy) NSString *state; // 消息状态
 
-@property (nonatomic, copy) NSString *targetid; // 目标id标示
+@property (nonatomic, copy) NSNumber *targetid; // 目标id标示
 
 @property (nonatomic, copy) NSString *targetname; // 目标name标示
 
 @property (nonatomic, copy) NSString *targetphoto; // 目标图片
 
-@property (nonatomic, copy) NSString *targettype; // 目标消息类型
+@property (nonatomic, copy) NSNumber *messagetype; // 目标消息类型
 
 @end

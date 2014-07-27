@@ -12,4 +12,7 @@
 
 /*名片分享到部落显示的信息*/
 +(NSString*)MingPianShowTex:(NSString*)mess;
+
+/*我是否是付费会员*/
++(NSString*)MoneyMember;
 @end
