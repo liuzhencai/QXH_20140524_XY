@@ -77,6 +77,7 @@
 		2119EF2E191689DD007DBE68 /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119EF2C191689DD007DBE68 /* ActivityCell.m */; };
 		2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF2D191689DD007DBE68 /* ActivityCell.xib */; };
 		2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119F287194355C800250DB6 /* libWeChatSDK.a */; };
+		211D8F9C1985478000360BFB /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 211D8F9B1985478000360BFB /* GCPlaceholderTextView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		211DBA0C196924510059D1C5 /* AskInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 211DBA0B196924510059D1C5 /* AskInfoModel.m */; };
 		2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121C8E8195326A900FFEAE5 /* VistorModel.m */; };
 		21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21284CC7195F15930019A4D3 /* EditInfoController.m */; };
@@ -594,6 +595,8 @@
 		2119EF2C191689DD007DBE68 /* ActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		2119EF2D191689DD007DBE68 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
 		2119F287194355C800250DB6 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		211D8F9A1985478000360BFB /* GCPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCPlaceholderTextView.h; sourceTree = "<group>"; };
+		211D8F9B1985478000360BFB /* GCPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCPlaceholderTextView.m; sourceTree = "<group>"; };
 		211DBA0A196924510059D1C5 /* AskInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskInfoModel.h; sourceTree = "<group>"; };
 		211DBA0B196924510059D1C5 /* AskInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskInfoModel.m; sourceTree = "<group>"; };
 		2121C8E7195326A900FFEAE5 /* VistorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VistorModel.h; sourceTree = "<group>"; };
@@ -2371,6 +2374,8 @@
 		84FCA84F192CC1D50005295A /* 自定义控件 */ = {
 			isa = PBXGroup;
 			children = (
+				211D8F9A1985478000360BFB /* GCPlaceholderTextView.h */,
+				211D8F9B1985478000360BFB /* GCPlaceholderTextView.m */,
 				21BAC27D19308B3300409B9B /* CustomTabBarController.h */,
 				58163D9919323838001B60FE /* CustomTabBarController.m */,
 				21BAC27F19308B3300409B9B /* TabBarControl.h */,
@@ -2955,6 +2960,7 @@
 				8852EFB9195CFC0A00E5D9F7 /* EditUserInfoViewController.m in Sources */,
 				21D705C01916A469004950BF /* ImageLabelCell.m in Sources */,
 				58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */,
+				211D8F9C1985478000360BFB /* GCPlaceholderTextView.m in Sources */,
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
 				5839E43A196C3F4C00326270 /* MessagesViewController.m in Sources */,
 				84B94AC8197236EA001974E8 /* NSDate-Helper.m in Sources */,
