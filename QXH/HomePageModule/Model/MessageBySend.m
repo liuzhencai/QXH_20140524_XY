@@ -8,7 +8,7 @@
 
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
-//#import "MBProgressHUD.h"
+#import "ChatMess.h"
 
 @implementation MessageBySend
 static MessageBySend* ins =nil;
@@ -25,6 +25,8 @@ static MessageBySend* ins =nil;
 //        tempUnKnowCharMessArray = [[NSMutableArray alloc]init];
         sysMessDict = [[NSMutableDictionary alloc] init];
 
+        /*创建数据库*/
+        db = [DBManager sharedManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
     }
     return self;
@@ -102,9 +104,12 @@ static MessageBySend* ins =nil;
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+        
         if (![tempSenderId isEqualToString:meid]) {
+             [self saveFmdb:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatView" object:nil userInfo:notif];
+           
         }
         
     }else if ([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"13"]) {
@@ -149,6 +154,7 @@ static MessageBySend* ins =nil;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         if (![tempSenderId isEqualToString:meid]) {
+             [self saveFmdb:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatRoom" object:nil userInfo:notif];
         }
@@ -201,6 +207,7 @@ static MessageBySend* ins =nil;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         if (![tempSenderId isEqualToString:meid]) {
+             [self saveFmdb:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatView" object:nil userInfo:notif];
         }
@@ -210,9 +217,10 @@ static MessageBySend* ins =nil;
 
 /*通过部落id，获取部落聊天内容，
  或者好友id获取私聊内容*/
--(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid
+-(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid andStart:(NSString*)start
 {
-   NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
+   NSMutableArray* chatRoomArray =  [db getChatMessStart:start maxCount:@"20" Andtargetid:ChatRoomid];
+//    NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
     return chatRoomArray;
 }
 
@@ -655,39 +663,80 @@ static MessageBySend* ins =nil;
 }
 
 
-#pragma mark 打开文件
-- (void)openfile
-{
-    //指向文件目录
-    //    NSString *documentsDirectory=[NSHomeDirectory()
-    //                                  stringByAppendingPathComponent:@"Documents"];
-    if (!filePath) {
-        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        
-        filePath= [documentsDirectory
-                   stringByAppendingPathComponent:ChatMessageFile];
-    }
-    //判读该文件是否存在
-    BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    
-    if (result) {//存在则取出数据
-        NSDictionary* tempChatAll =[NSDictionary dictionaryWithContentsOfFile:filePath];
-        if (tempChatAll) {
-            chatRoomMess  = [[NSMutableDictionary alloc]initWithDictionary:tempChatAll];
-        }
-        
-    }
-}
+//#pragma mark 打开文件
+//- (void)openfile
+//{
+//    //指向文件目录
+//    //    NSString *documentsDirectory=[NSHomeDirectory()
+//    //                                  stringByAppendingPathComponent:@"Documents"];
+//    if (!filePath) {
+//        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//        
+//        filePath= [documentsDirectory
+//                   stringByAppendingPathComponent:ChatMessageFile];
+//    }
+//    //判读该文件是否存在
+//    BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+//    
+//    if (result) {//存在则取出数据
+//        NSDictionary* tempChatAll =[NSDictionary dictionaryWithContentsOfFile:filePath];
+//        if (tempChatAll) {
+//            chatRoomMess  = [[NSMutableDictionary alloc]initWithDictionary:tempChatAll];
+//        }
+//        
+//    }
+//}
+//
+//- (void)writefile
+//{
+//    BOOL writeSuccess = [chatRoomMess writeToFile:filePath atomically:NO];
+//    if (writeSuccess) {
+//        NSLog(@"写入成功");
+//    }
+//    /*写完后强制制空*/
+//    chatRoomMess = nil;
+//}
 
-- (void)writefile
+#pragma mark 保存进入数据库
+- (void)saveFmdb:(NSDictionary*)dic
 {
-    BOOL writeSuccess = [chatRoomMess writeToFile:filePath atomically:NO];
-    if (writeSuccess) {
-        NSLog(@"写入成功");
-    }
-    /*写完后强制制空*/
-    chatRoomMess = nil;
+    ChatMess* chat = [[ChatMess alloc]init];
+    //聊天主键id
+    chat.cid = @"";
+    // 用户id
+    chat.uid = @"";
+    // 消息唯一标示
+    chat.msgid = (NSNumber*)dic[@"messid"];//nsnumber
+    // 会话唯一标示
+    chat.sessionid = @"";
+    // 消息类型
+    chat.type = dic[@"sendtype"];//nsnumber
+    // 来自id标示
+    chat.fromid = (NSNumber*)dic[@"senderid"];//nsnumber
+    // 来自name标示
+    chat.fromname = dic[@"sendername"];
+    // 来自图片标示
+    chat.fromphotoid = dic[@"senderphoto"];
+    // 消息时间
+    chat.dttime = @"";
+    // 消息日期
+    chat.dtdate = dic[@"date"];
+    // 内容文本
+    chat.contenttext = dic[@"mess"];
+    // 内容资源
+    chat.contentres = @"";
+    // 消息状态
+    chat.state = @"";
+    // 目标id标示
+    chat.targetid = (NSNumber*)dic[@"tribeid"];//nsnumbe
+    // 目标name标示
+    chat.targetname = dic[@"tribename"];
+    // 目标图片
+    chat.targetphoto = dic[@"tribephoto"];
+    // 目标消息类型
+    chat.messagetype = (NSNumber*)dic[@"messtype"];
+    [db saveChatMess:chat];
+   
 }
-
 @end
 

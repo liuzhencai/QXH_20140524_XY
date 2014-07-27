@@ -417,6 +417,11 @@
 		84BCBBAD195DBA7700E80075 /* msg_state_send_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */; };
 		84BCBBAE195DBA7700E80075 /* msg_state_sending.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BCBBAC195DBA7700E80075 /* msg_state_sending.png */; };
 		84BCBBB1195DC4EF00E80075 /* MessageBySend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BCBBB0195DC4EF00E80075 /* MessageBySend.m */; };
+		84E9BFD71983BF8700F86B82 /* Default-568h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84E9BFD21983BF8700F86B82 /* Default-568h@2x.jpg */; };
+		84E9BFD81983BF8700F86B82 /* guide5_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84E9BFD31983BF8700F86B82 /* guide5_1@2x.jpg */; };
+		84E9BFD91983BF8700F86B82 /* guide5_2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84E9BFD41983BF8700F86B82 /* guide5_2@2x.jpg */; };
+		84E9BFDA1983BF8700F86B82 /* guide5_3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84E9BFD51983BF8700F86B82 /* guide5_3@2x.jpg */; };
+		84E9BFDB1983BF8700F86B82 /* guide5_4@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84E9BFD61983BF8700F86B82 /* guide5_4@2x.jpg */; };
 		84EED57B19527E4100414085 /* chatRoomActivViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EED57919527E4100414085 /* chatRoomActivViewController.m */; };
 		84EED57F1952CCC600414085 /* chatRoomMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EED57E1952CCC600414085 /* chatRoomMemberViewController.m */; };
 		84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F065DE192AFACD00B09AB5 /* ActivityDetailViewController.m */; };
@@ -1105,6 +1110,11 @@
 		84BCBBAC195DBA7700E80075 /* msg_state_sending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msg_state_sending.png; sourceTree = "<group>"; };
 		84BCBBAF195DC4EF00E80075 /* MessageBySend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBySend.h; sourceTree = "<group>"; };
 		84BCBBB0195DC4EF00E80075 /* MessageBySend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBySend.m; sourceTree = "<group>"; };
+		84E9BFD21983BF8700F86B82 /* Default-568h@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Default-568h@2x.jpg"; sourceTree = "<group>"; };
+		84E9BFD31983BF8700F86B82 /* guide5_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide5_1@2x.jpg"; sourceTree = "<group>"; };
+		84E9BFD41983BF8700F86B82 /* guide5_2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide5_2@2x.jpg"; sourceTree = "<group>"; };
+		84E9BFD51983BF8700F86B82 /* guide5_3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide5_3@2x.jpg"; sourceTree = "<group>"; };
+		84E9BFD61983BF8700F86B82 /* guide5_4@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide5_4@2x.jpg"; sourceTree = "<group>"; };
 		84EED57819527E4100414085 /* chatRoomActivViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chatRoomActivViewController.h; sourceTree = "<group>"; };
 		84EED57919527E4100414085 /* chatRoomActivViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chatRoomActivViewController.m; sourceTree = "<group>"; };
 		84EED57D1952CCC600414085 /* chatRoomMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chatRoomMemberViewController.h; sourceTree = "<group>"; };
@@ -1804,9 +1814,9 @@
 			isa = PBXGroup;
 			children = (
 				21506B80197EBE9A002E6CF3 /* DBManager.m */,
+				21506B7C197EBE8F002E6CF3 /* DBManager.h */,
 				21506B7A197EBE8F002E6CF3 /* qxh.sqlite */,
 				21506B7B197EBE8F002E6CF3 /* ChatMess.m */,
-				21506B7C197EBE8F002E6CF3 /* DBManager.h */,
 				21506B7D197EBE8F002E6CF3 /* ChatMess.h */,
 				216EF4FE1972825800B75A6C /* qxh_rule.htm */,
 				84B94AC6197236EA001974E8 /* NSDate-Helper.h */,
@@ -2198,6 +2208,11 @@
 		589104771971897D00533F16 /* guides */ = {
 			isa = PBXGroup;
 			children = (
+				84E9BFD21983BF8700F86B82 /* Default-568h@2x.jpg */,
+				84E9BFD31983BF8700F86B82 /* guide5_1@2x.jpg */,
+				84E9BFD41983BF8700F86B82 /* guide5_2@2x.jpg */,
+				84E9BFD51983BF8700F86B82 /* guide5_3@2x.jpg */,
+				84E9BFD61983BF8700F86B82 /* guide5_4@2x.jpg */,
 				589104781971898D00533F16 /* guide1@2x.jpg */,
 				589104791971898D00533F16 /* guide2@2x.jpg */,
 				5891047A1971898D00533F16 /* guide3@2x.jpg */,
@@ -2569,17 +2584,21 @@
 				58EEDAC01958549E007E2FA2 /* citysList.plist in Resources */,
 				2119EE9219168279007DBE68 /* Images.xcassets in Resources */,
 				848426D9192E185B00C9474A /* bootom_bar_bg@2x.png in Resources */,
+				84E9BFDA1983BF8700F86B82 /* guide5_3@2x.jpg in Resources */,
 				21EDAD371926E28A00C616CF /* EverGloryController.xib in Resources */,
 				2192EBDE191BD54900A8FE7F /* MyCardController.xib in Resources */,
 				212F24371928E09A00F738F8 /* img_portrait@2x.png in Resources */,
 				212F24421928E09A00F738F8 /* details_icon_star_highlight@2x.png in Resources */,
 				212F24541928E09A00F738F8 /* list_arrow_right_gray@2x.png in Resources */,
+				84E9BFD71983BF8700F86B82 /* Default-568h@2x.jpg in Resources */,
+				84E9BFD81983BF8700F86B82 /* guide5_1@2x.jpg in Resources */,
 				212F24201928E09A00F738F8 /* navigation_slippage_bar_green@2x.png in Resources */,
 				848426D4192E185B00C9474A /* banner_bar_bg@2x.png in Resources */,
 				21401DB21919326B00E9175B /* MyMsgCell.xib in Resources */,
 				212F243F1928E09A00F738F8 /* details_icon_report_normal@2x.png in Resources */,
 				21284CCA195F15930019A4D3 /* EditInfoController.xib in Resources */,
 				212F244C1928E09A00F738F8 /* navigation_slippage_bar_green@2x.png in Resources */,
+				84E9BFD91983BF8700F86B82 /* guide5_2@2x.jpg in Resources */,
 				84FCA857192CC43F0005295A /* HistoryReviewController.xib in Resources */,
 				212F242F1928E09A00F738F8 /* bar_bg_detailed@2x.png in Resources */,
 				84AB9249192B3FD80000101A /* cityList.plist in Resources */,
@@ -2615,6 +2634,7 @@
 				58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */,
 				848426AF192E0F2B00C9474A /* tribe_icon_establish_highlight@2x.png in Resources */,
 				5891047F1971898D00533F16 /* guide4@2x.jpg in Resources */,
+				84E9BFDB1983BF8700F86B82 /* guide5_4@2x.jpg in Resources */,
 				848426E2192E185B00C9474A /* icon_zhaoren@2x.png in Resources */,
 				212F240E1928E09A00F738F8 /* btn_enroll_normal@2x.png in Resources */,
 				848426AB192E0F2B00C9474A /* tribe_btn_add_highlight@2x.png in Resources */,

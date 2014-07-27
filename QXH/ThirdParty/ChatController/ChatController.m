@@ -1112,7 +1112,7 @@ static int chatInputStartingHeight = 40;
         /*如果没有消息获取本地的*/
         NSNumber* aothetid = [self.otherDic valueForKey:@"userid"];
         NSString* otherid = [NSString stringWithFormat:@"%d",[aothetid intValue]];
-        NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:otherid];
+        NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:otherid andStart:@"0"];
     if ([tempArray count]>0) {
         [self setMessagesArray:tempArray];
     }

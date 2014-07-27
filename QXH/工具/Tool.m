@@ -7,8 +7,11 @@
 //
 
 #import "Tool.h"
+#import "UserInfoModelManger.h"
 
 @implementation Tool
+
+static NSString* moneymemeber;
 
 /*名片分享到部落显示的信息*/
 +(NSString*)MingPianShowTex:(NSString*)mess
@@ -116,5 +119,24 @@
     
   
     return nil;
+}
+
+
+/*我是否是付费会员*/
++(NSString*)MoneyMember
+{
+    if (!moneymemeber) {
+        if ([defaults objectForKey:@"userid"]) {
+            /*获取个人信息，并储存起来*/
+            [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+             {
+                 NSLog(@"获取到用户信息--->%@",user.usertype);
+               
+                 moneymemeber =   [UserInfoModelManger sharUserInfoModelManger].userInfo.usertype;
+             }];
+        }
+
+    }
+    return moneymemeber;
 }
 @end
