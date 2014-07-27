@@ -17,6 +17,7 @@
 @interface ShareTextController ()
 {
     NSMutableArray *commentList;
+    NSMutableDictionary *browseDict;
 }
 
 @end
@@ -38,6 +39,8 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"详情";
+    browseDict = [[NSMutableDictionary alloc] init];
+    [self getDetailInfo];
     
     if (IOS7_OR_LATER) {
         [_contentTable setSeparatorInset:(UIEdgeInsetsMake(0, 0, 0, 0))];
@@ -187,22 +190,22 @@
                     if (!cell) {
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentCell];
                         // 添加用户信息
-                        UILabel *readLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 21)];
+                        UILabel *readLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 21)];
                         readLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         readLabel.tag = 121;
                         [cell.contentView addSubview:readLabel];
                         
-                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, 80, 21)];
+                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 60, 21)];
                         commentLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         commentLabel.tag = 122;
                         [cell.contentView addSubview:commentLabel];
                         
-                        UILabel *praiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 10, 80, 21)];
+                        UILabel *praiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 80, 21)];
                         praiseLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         praiseLabel.tag = 123;
                         [cell.contentView addSubview:praiseLabel];
                         
-                        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(250, 10, 80, 21)];
+                        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 10, 130, 21)];
                         timeLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         timeLabel.tag = 124;
                         [cell.contentView addSubview:timeLabel];
@@ -210,13 +213,17 @@
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
                     UILabel *readLabel_ = (UILabel *)[cell.contentView viewWithTag:121];
-                    readLabel_.text = @"阅读：10";
+//                    readLabel_.text = @"阅读：10";
+                     readLabel_.text = [NSString stringWithFormat:@"阅读:%@",[browseDict objectForKey:@"browsetime"]];
                     UILabel *commentLabel_ = (UILabel *)[cell.contentView viewWithTag:122];
-                    commentLabel_.text = @"评论：20";
+//                    commentLabel_.text = @"评论：20";
+                    commentLabel_.text = [NSString stringWithFormat:@"评论:%@",[browseDict objectForKey:@"commenttime"]];
                     UILabel *praiseLabel_ = (UILabel *)[cell.contentView viewWithTag:123];
-                    praiseLabel_.text = @"赞：30";
+//                    praiseLabel_.text = @"赞：30";
+                    praiseLabel_.text = [NSString stringWithFormat:@"赞:%@",[browseDict objectForKey:@"laud"]];
                     UILabel *timeLabel_ = (UILabel *)[cell.contentView viewWithTag:124];
-                    timeLabel_.text = @"2014-06-21";
+//                    timeLabel_.text = @"2014-06-21";
+                    timeLabel_.text = [browseDict objectForKey:@"date"];
                 }
                     break;
                 case 3:
@@ -322,22 +329,22 @@
                     if (!cell) {
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentCell];
                         // 添加用户信息
-                        UILabel *readLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 21)];
+                        UILabel *readLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 21)];
                         readLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         readLabel.tag = 121;
                         [cell.contentView addSubview:readLabel];
                         
-                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, 80, 21)];
+                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 60, 21)];
                         commentLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         commentLabel.tag = 122;
                         [cell.contentView addSubview:commentLabel];
                         
-                        UILabel *praiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 10, 80, 21)];
+                        UILabel *praiseLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 60, 21)];
                         praiseLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         praiseLabel.tag = 123;
                         [cell.contentView addSubview:praiseLabel];
                         
-                        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(250, 10, 80, 21)];
+                        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 10, 130, 21)];
                         timeLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         timeLabel.tag = 124;
                         [cell.contentView addSubview:timeLabel];
@@ -345,13 +352,17 @@
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
                     UILabel *readLabel_ = (UILabel *)[cell.contentView viewWithTag:121];
-                    readLabel_.text = @"阅读：10";
+//                    readLabel_.text = @"阅读：10";
+                    readLabel_.text = [NSString stringWithFormat:@"阅读:%@",[browseDict objectForKey:@"browsetime"]];
                     UILabel *commentLabel_ = (UILabel *)[cell.contentView viewWithTag:122];
-                    commentLabel_.text = @"评论：20";
+//                    commentLabel_.text = @"评论：20";
+                    commentLabel_.text = [NSString stringWithFormat:@"评论:%@",[browseDict objectForKey:@"commenttime"]];
                     UILabel *praiseLabel_ = (UILabel *)[cell.contentView viewWithTag:123];
-                    praiseLabel_.text = @"赞：30";
+//                    praiseLabel_.text = @"赞：30";
+                    praiseLabel_.text = [NSString stringWithFormat:@"赞:%@",[browseDict objectForKey:@"laud"]];
                     UILabel *timeLabel_ = (UILabel *)[cell.contentView viewWithTag:124];
-                    timeLabel_.text = @"2014-06-21";
+//                    timeLabel_.text = @"2014-06-21";
+                    timeLabel_.text = [browseDict objectForKey:@"date"];
                 }
                     break;
                 case 3:
@@ -463,6 +474,15 @@
         default:
             break;
     }
+}
+
+- (void)getDetailInfo
+{
+    InfoModel *tmpModel = (InfoModel *)_info.content;
+    [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",self.type] artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
+        browseDict = dict;
+        [_contentTable reloadData];
+    }];
 }
 
 - (void)getCommentList
