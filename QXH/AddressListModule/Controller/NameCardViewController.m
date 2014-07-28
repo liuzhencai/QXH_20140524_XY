@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) NSArray *items;
-
+@property (nonatomic, strong) NSArray *friendsList;//好友列表
 @property (nonatomic, strong) NSDictionary *userDetailInfo;//用户详细信息
 @end
 #define WIDTH_TO_LEFT 15
@@ -54,6 +54,7 @@
     [self.view addSubview:_mainTable];
     
     [self getUserInfo];
+    [self getAddressList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,6 +78,59 @@
             self.userDetailInfo = dict;
             [_mainTable reloadData];
         }];
+    }
+}
+
+- (void)getAddressList{
+    /**
+     *  获取好友(通讯录)/查找用户列表公用接口
+     *
+     *  @param type        1为获取好友列表，2为搜索
+     *  @param address     籍贯编码
+     *  @param domicile    居住地编码
+     *  @param displayname 昵称
+     *  @param usertype    用户类型,为空时不区分类型
+     *  @param start       起始位置
+     *  @param count       获取数量
+     *  @param callback    回调
+     */
+    
+    [DataInterface getFriendInfo:@"1"
+                         address:@""
+                        domicile:@""
+                     displayname:@""
+                        usertype:@""
+                           start:@"0"
+                           count:@"20"
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"通讯录列表返回数据：%@",dict);
+               
+               if (dict) {
+                   NSArray *list = [dict objectForKey:@"lists"];
+                   self.friendsList = list;
+                   [self checkIsMyFriend];
+                   [_mainTable reloadData];
+               }
+           }];
+}
+- (void)checkIsMyFriend{
+    if (self.friendsList) {
+        for (int i = 0; i < [self.friendsList count]; i ++) {
+            NSDictionary *dict = [self.friendsList objectAtIndex:i];
+            NSArray *list = [dict objectForKey:@"list"];
+            for (int j = 0; j < [list count]; j ++) {
+                NSDictionary *memberDict = [list objectAtIndex:j];
+                NSString *friendId = [[memberDict objectForKey:@"userid"] stringValue];
+                NSString *memberID = self.memberId;//[NSString stringWithFormat:@"%@",self.memberId];
+                if (!memberID) {
+                    memberID = [[self.memberDict objectForKey:@"userid"] stringValue];
+                }
+                if ([memberID isEqualToString:friendId]) {
+                    self.isMyFriend = YES;
+                    break;
+                }
+            }
+        }
     }
 }
 /*
@@ -243,6 +297,7 @@
                 [DataInterface requestAddFriend:memberid mess:@"" withCompletionHandler:^(NSMutableDictionary *dict){
                     NSLog(@"%@",dict);
                     [self showAlert:[dict objectForKey:@"info"]];
+                    [self getAddressList];
                 }];
             }
         }

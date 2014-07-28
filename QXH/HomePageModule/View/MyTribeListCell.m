@@ -33,6 +33,15 @@
         _name.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_name];
         
+        _authflagView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [self.contentView addSubview:_authflagView];
+        
+        _nowCount = [[UILabel alloc] initWithFrame:CGRectMake(_authflagView.right, _name.top, 30, lableHeight)];
+        _nowCount.textColor = GREEN_FONT_COLOR;
+        _nowCount.font = [UIFont systemFontOfSize:16];
+        _nowCount.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_nowCount];
+        
         _dynamic = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight)];
         _dynamic.text = @"最新发言内容最新发言内容最新发言内容最新发言内容";
         _dynamic.textColor = [UIColor lightGrayColor];
@@ -72,18 +81,35 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
-
     NSString *imageUrlString = [params objectForKey:@"photo"];
-//    [self.headImgView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
 
     NSString *nameString = [params objectForKey:@"tribename"];
-    NSString *count = [params objectForKey:@"maxcount"];
-    self.name.text = [NSString stringWithFormat:@"%@ (%@人)",nameString,count];//@"北约 （50人）";
+    CGFloat nameWidth = [self widthOfString:nameString];
+    nameWidth = nameWidth < 180 ? nameWidth : 180;
+    self.name.frame = CGRectMake(_name.left, _name.top, nameWidth, _name.height);
+    self.name.text = [NSString stringWithFormat:@"%@",nameString];//@"北约 （50人）";
+    int authflag = [[params objectForKey:@"authflag"] intValue];
+    if (authflag == 2) {
+        self.authflagView.frame = CGRectMake(_name.right, _name.top + 8, 14, 14);
+        self.authflagView.image = [UIImage imageNamed:@"tribe_authflog.gif"];
+    }else{
+        self.authflagView.frame = CGRectMake(_name.right, _name.top, 0, 30);
+    }
+    int nowMembersCount = [[params objectForKey:@"nowcount"] intValue];
+    self.nowCount.text = [NSString stringWithFormat:@"(%d人)",nowMembersCount];
+    self.nowCount.frame = CGRectMake(_authflagView.right, _name.top, 45, _name.height);
+    
     NSString *dynamicString = [params objectForKey:@"signature"];
     self.dynamic.text = dynamicString;
     NSString *createrName = [params objectForKey:@"creatername"];
     self.creatMan.text = [NSString stringWithFormat:@"创建人：%@",createrName];
+}
+
+- (CGFloat)widthOfString:(NSString *)string{
+    CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(500, 30) lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat width = size.width;
+    return width + 5;
 }
 
 @end

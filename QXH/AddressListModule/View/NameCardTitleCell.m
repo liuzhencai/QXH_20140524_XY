@@ -112,7 +112,7 @@
 - (void)setIsMyFriend:(BOOL)isMyFriend{
     if (isMyFriend) {
 //        _addFriend.frame = CGRectMake(20, _addFriend.top, 130, 30);
-        [_addFriend setTitle:@"聊 天" forState:UIControlStateNormal];
+        [_addFriend setTitle:@"和TA聊天" forState:UIControlStateNormal];
 //        _forwardCard.frame = CGRectMake(_addFriend.right + 20, _addFriend.top, 130, 30);
 //        _forwardCard.hidden = NO;
         

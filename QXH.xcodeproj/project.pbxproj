@@ -330,6 +330,7 @@
 		589104851971AD5600533F16 /* 强学会章程.docx in Resources */ = {isa = PBXBuildFile; fileRef = 589104841971AD5600533F16 /* 强学会章程.docx */; };
 		58979DBF196AE80A00B945BF /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58979DBE196AE80A00B945BF /* provincesAndCitys.plist */; };
 		58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58979DC1196AFDE200B945BF /* SelectCityViewController.m */; };
+		58A9BF7A19869BA700636F21 /* tribe_authflog.gif in Resources */ = {isa = PBXBuildFile; fileRef = 58A9BF7919869BA700636F21 /* tribe_authflog.gif */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterActivityResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterActivityResultViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -980,6 +981,7 @@
 		58979DBE196AE80A00B945BF /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
 		58979DC0196AFDE200B945BF /* SelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityViewController.h; sourceTree = "<group>"; };
 		58979DC1196AFDE200B945BF /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
+		58A9BF7919869BA700636F21 /* tribe_authflog.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tribe_authflog.gif; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterActivityResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActivityResultViewController.h; sourceTree = "<group>"; };
@@ -2238,6 +2240,7 @@
 		848426A4192E0F2B00C9474A /* tribe */ = {
 			isa = PBXGroup;
 			children = (
+				58A9BF7919869BA700636F21 /* tribe_authflog.gif */,
 				84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */,
 				84BCBBAC195DBA7700E80075 /* msg_state_sending.png */,
 				848426A5192E0F2B00C9474A /* tribe_btn_add_highlight@2x.png */,
@@ -2562,6 +2565,7 @@
 				2119EE8A19168279007DBE68 /* InfoPlist.strings in Resources */,
 				212F241B1928E09A00F738F8 /* img_portrait96@2x.png in Resources */,
 				212F24451928E09A00F738F8 /* img_portrait_discuss72@2x.png in Resources */,
+				58A9BF7A19869BA700636F21 /* tribe_authflog.gif in Resources */,
 				21A894071928FE5400A6DB7E /* CommentCell.xib in Resources */,
 				21D7059E191696D6004950BF /* InfluenceViewController.xib in Resources */,
 				212F24111928E09A00F738F8 /* btn_share_highlight@2x.png in Resources */,
