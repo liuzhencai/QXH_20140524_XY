@@ -203,7 +203,7 @@ static int chatInputStartingHeight = 40;
     [self getMessagesArray];
     
     /*获取离线消息*/
-    [self getOffMessageFromServer];
+//    [self getOffMessageFromServer];
     [self addHeader];
     [self addFooter];
 
@@ -1446,46 +1446,13 @@ static int chatInputStartingHeight = 40;
 {
     [[MessageBySend sharMessageBySend] hideprogressHUD];
     NSLog(@"reloadeChatRoom==%@",chatmessage);
-    [self getMessagesArray];
+//    [self getMessagesArray];
     
-//    NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-//    //    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-//    
-//    /*判断是不是当前聊天室*/
-//    NSNumber* atribeid = auserinfo[@"tribeid"];
-//    NSNumber *tribeId = [self.tribeInfoDict objectForKey:@"tribeid"];
-//    if ([atribeid intValue] != [tribeId intValue]) {
-//        return;
-//    }
-//    
-//    //    NSArray* messageArray = auserinfo[@"messageArray"];
-//    
-//    //    NSMutableDictionary* buserinfo = [[NSMutableDictionary alloc]initWithDictionary:[messageArray lastObject]];
-//    /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
-//    
-//    NSNumber* nmesstype = (NSNumber*)(auserinfo[@"messtype"]);
-//    NSString* messtype = [NSString stringWithFormat:@"%d",[nmesstype intValue]];
-//    if ([messtype isEqualToString:@"1"]) {
-//        //       auserinfo[kMessageContent] = auserinfo[@"mess"];
-//    }else if ([messtype isEqualToString:@"3"])
-//    {
-//        /*暂时没添加接受图片*/
-//    }
-//    
-//    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
-//    
-//    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-//    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
-//    UserInfoModel* aother = nil;
-//    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-//     {
-//         NSLog(@"reloadeChatRoom***getOtherUserInfo");
-//         
-//         [self messageSendByOpponent:auserinfo];
-//         
-//         return other;
-//     }];
-//    
+    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    NSArray* chatroomArray = (NSArray*)auserinfo[@"chatRoomMessArray"];
+    _messagesArray = [[NSMutableArray alloc]initWithArray:chatroomArray];
+    [_myCollectionView reloadData];
+   
     
 }
 
@@ -1872,12 +1839,12 @@ static int chatInputStartingHeight = 40;
 #pragma mark 获取离线消息
 - (void)getOffMessageFromServer
 {
-    if (self.offMessageDic) {
-//        [self showAlert:@"正在获取离线消息，请耐心等待"];
-        [[MessageBySend sharMessageBySend] showprogressHUD:@"正在获取离线消息，请耐心等待" withView:self.view];
-        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2" andStartMessageid:nil];
-
-    }
+//    if (self.offMessageDic) {
+////        [self showAlert:@"正在获取离线消息，请耐心等待"];
+//        [[MessageBySend sharMessageBySend] showprogressHUD:@"正在获取离线消息，请耐心等待" withView:self.view];
+//        [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"2" andStartMessageid:nil];
+//
+//    }
     
 }
 
@@ -1928,7 +1895,7 @@ static int chatInputStartingHeight = 40;
 
 - (void)addFooter
 {
-    return;
+    
     // 添加上拉刷新尾部控件
     [_myCollectionView addFooterWithCallback:^{
         

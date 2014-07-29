@@ -165,6 +165,8 @@ static int chatInputStartingHeight = 40;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoom:) name:@"reloadeChatRoom" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoomAll:) name:@"reloadeChatRoomAll" object:nil];
+    /*没有历史记录*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
     
     
 }
@@ -1480,20 +1482,13 @@ static int chatInputStartingHeight = 40;
         // 进入刷新状态就会回调这个Block
         
         //            [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
-        NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
-        NSNumber* amessid = temp[@"messid"];
-        NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-      
-            NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
-             NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
-        
-            [tempdic setValue:[NSString stringWithFormat:@"%d",[aroomid intValue]] forKey:@"targetid"];
-            [tempdic setValue:messid forKey:@"start"];
+        NSMutableArray* tempAray =  [[MessageBySend sharMessageBySend]getHistoryFormLocalByTargid:ChatRoomId andBack:YES];
+        if ([tempAray count]>0) {
+            _messagesArray = [[NSMutableArray alloc]initWithArray:tempAray];
             
-            [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
-//            offMessageDic = tempdic;
-//        }
-        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"2" andStartMessageid:messid];
+            [_myCollectionView reloadData];
+        }
+        [_myCollectionView headerEndRefreshing];
         
         
         //        // 模拟延迟加载数据，因此2秒后才调用）
@@ -1510,11 +1505,17 @@ static int chatInputStartingHeight = 40;
 
 - (void)addFooter
 {
-    return;
+   
     // 添加上拉刷新尾部控件
     [_myCollectionView addFooterWithCallback:^{
         // 进入刷新状态就会回调这个Block
-        
+        NSMutableArray* tempAray =  [[MessageBySend sharMessageBySend]getHistoryFormLocalByTargid:ChatRoomId andBack:NO];
+        if ([tempAray count]>0) {
+            _messagesArray = [[NSMutableArray alloc]initWithArray:tempAray];
+            
+            [_myCollectionView reloadData];
+        }
+        [_myCollectionView footerEndRefreshing];
         // 增加5条假数据
         //        for (int i = 0; i<5; i++) {
         //            [vc.fakeColors addObject:MJRandomColor];
@@ -1527,5 +1528,16 @@ static int chatInputStartingHeight = 40;
         //            [_myCollectionView footerEndRefreshing];
         //        });
     }];
+}
+
+#pragma mark 没有历史记录
+- (void)NOHistory:(NSNotification*)chatmessage
+{
+    //    [_myCollectionView reloadData];
+    // 结束刷新
+    [_myCollectionView headerEndRefreshing];
+    [self showAlert:@"已经没有历史记录！"];
+    
+    
 }
 @end

@@ -13,7 +13,7 @@
  Network Connection Config 网络信息配置
  ********************************************/
 
-#define UAT//测试地址打开
+//#define UAT//测试地址打开
 
 #ifndef UAT  //正式环境
 #define HOST_URL @"180.97.46.40:8070" // 正式环境

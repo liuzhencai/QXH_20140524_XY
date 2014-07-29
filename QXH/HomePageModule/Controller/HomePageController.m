@@ -30,7 +30,7 @@
 //#import "PullRefreshTableViewController.h"
 
 
-#define NoMoneyMember @"您还不是正式会员，没有权限进入该功能"
+#define NoMoneyMember @"抱歉，您还不是正式会员，只有部分权限。详询010-62952510"
 
 @interface HomePageController ()<LoginDelegate,GuideViewDelegate>
 {

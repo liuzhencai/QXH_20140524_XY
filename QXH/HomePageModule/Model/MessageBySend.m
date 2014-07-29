@@ -65,7 +65,7 @@ static MessageBySend* ins =nil;
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
     /*暂时屏蔽此处离线消息*/
-//    [self AddTounKnowCharMessAyyay:userinfo];
+    [self AddTounKnowCharMessAyyay:userinfo];
 //    [self AddSystemMessAyyay:userinfo];
   
     
@@ -254,11 +254,11 @@ static MessageBySend* ins =nil;
 {
 
     /*暂时屏蔽获取离线消息*/
-//     NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:ChatRoomid];
-//    if ([temparray1 count]) {
-//        [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
-//        return nil;
-//    }
+     NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:ChatRoomid];
+    if ([temparray1 count]) {
+        [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
+        return nil;
+    }
     
     /*每次进来只获取最新20条，否则永远保存，内存会过大*/
    NSMutableArray* chatRoomArray =  [db getChatMessStart:start maxCount:count Andtargetid:ChatRoomid];
@@ -679,7 +679,7 @@ static MessageBySend* ins =nil;
             
             NSNumber* ntribeid = (NSNumber*)[tempdic valueForKey:@"sid"];
             //            NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
-            [tempdic setValue:ntribeid forKey:@"tribeid"];
+            [tempdic setValue:targetid forKey:@"tribeid"];
             [tempdic setValue:ntribeid forKey:@"senderid"];
             [tempdic setValue:[tempdic valueForKey:@"sphoto"] forKey:@"senderphoto"];
             [tempdic setValue:[tempdic valueForKey:@"sname"] forKey:@"sendername"];
@@ -697,7 +697,7 @@ static MessageBySend* ins =nil;
         NSLog(@"chatRoomMessArray == %@",chatRoomMessArray);
         [chatRoomMess setObject:chatRoomMessArray forKey:targetid];
         
-        NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:count,@"count", nil];
+        NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:chatRoomMessArray,@"chatRoomMessArray", nil];
         /*离线消息中移除*/
         [unKnowCharMessDic removeObjectForKey:targetid];
         /*暂时不移除*/

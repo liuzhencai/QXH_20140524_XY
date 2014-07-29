@@ -100,7 +100,7 @@
                     break;
                 case 1:
                 {
-                    cell.textLabel.text = @"客服热线:400-100-9737";
+                    cell.textLabel.text = @"客服热线:010-62952510";
                 }
                     break;
                 case 2:
