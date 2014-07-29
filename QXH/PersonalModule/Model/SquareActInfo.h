@@ -23,4 +23,6 @@
 @property (nonatomic, copy) NSString *tags;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *acttype;
+@property (nonatomic, copy) NSString *comefrom;
+@property (nonatomic, copy) NSString *creatername;
 @end
