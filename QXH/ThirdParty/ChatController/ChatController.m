@@ -20,6 +20,8 @@
 #import "UserInfoModelManger.h"
 #import "MessageBySend.h"
 #import "MJRefresh.h"
+#import "DBManager.h"
+#import "myimageviewViewController.h"
 //#import "chatRoomActivViewController.h"
 //#import "chatRoomMemberViewController.h"
 
@@ -126,9 +128,9 @@ static int chatInputStartingHeight = 40;
     
     // 聊天气泡的位置
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc]init];
-    flow.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
+    flow.sectionInset = UIEdgeInsetsMake(30, 0, 20, 0);
     flow.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flow.minimumLineSpacing = 6;
+    flow.minimumLineSpacing = 30;
     
     // Set Up CollectionView2
     CGRect myFrame =  CGRectMake(0, KTopButtonHight, ScreenWidth(), ScreenHeight() - KTopButtonHight - height(_chatInput));
@@ -160,7 +162,7 @@ static int chatInputStartingHeight = 40;
     [self getMessagesArray];
     
     /*获取离线消息*/
-    [self getOffMessageFromServer];
+//    [self getOffMessageFromServer];
     
     [self addHeader];
     [self addFooter];
@@ -179,7 +181,8 @@ static int chatInputStartingHeight = 40;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatViewAll:) name:@"reloadeChatViewAll" object:nil];
 
-    
+    /*没有历史记录*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -259,7 +262,7 @@ static int chatInputStartingHeight = 40;
     
     NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
     newMessageOb[kMessageContent] = messageString;
-    newMessageOb[kMessageTimestamp] = TimeStamp();
+    newMessageOb[kMessageTimestamp] = [NSDate getdate];
     newMessageOb[@"messtype"] = @"1";
     [self messageSendByUser:newMessageOb];
     
@@ -425,10 +428,10 @@ static int chatInputStartingHeight = 40;
     date[@"senderid"] = meuserid;
     
     /*唯一标识*/
-    [date setObject:TimeStamp() forKey:@"clientsign"];
+    [date setObject:[NSDate getdate] forKey:@"clientsign"];
     /*发送时签名*/
     [date setObject:[SignGenerator getSign] forKey:@"sign"];
-    [date setObject:TimeStamp() forKey:@"date"];
+    [date setObject:[NSDate getdate] forKey:@"date"];
     NSString* sendphoto = [UserInfoModelManger sharUserInfoModelManger].userInfo.photo;
     if (!sendphoto) {
         [self showAlert:@"您的网络太慢，请稍后尝试!"];
@@ -436,6 +439,10 @@ static int chatInputStartingHeight = 40;
     }
     [date setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
 
+//    /*保存数据库*/
+//    NSString* messIcon = dict[@"filename"];
+//    [date setValue:messIcon forKey:@"mess"];
+//    [[MessageBySend sharMessageBySend] saveFmdb:date];
     
     if (_messagesArray == nil)
         _messagesArray = [NSMutableArray new];
@@ -454,6 +461,8 @@ static int chatInputStartingHeight = 40;
             /*另生成一个新的字典，因为原自己图片，会崩溃*/
             NSMutableDictionary* tempSendDic = [[NSMutableDictionary alloc]initWithDictionary:date];
             [tempSendDic removeObjectForKey:kPicContent];
+            /*保存数据库*/
+             [[MessageBySend sharMessageBySend] saveFmdb:tempSendDic];
             [DataInterface chatRoomMess:tempSendDic withCompletionHandler:^(NSMutableDictionary* dict){
                 NSLog(@"dict == %@\n",dict);
 //            [DataInterface chat:otherid sendtype:@"1" mess:messIcon withCompletionHandler:^(NSMutableDictionary* dict){
@@ -473,6 +482,8 @@ static int chatInputStartingHeight = 40;
                     }else{
                         date[@"SendState"] = [NSNumber numberWithInt:kSentFail];
                     }
+                    /*修改数据库中发送状态*/
+                    [[DBManager sharedManager]changeByDate:Backsign andMessid:dict[@"messid"]];
                     /*返回以后，有messid，加进去messid*/
                     date[@"messid"] = dict[@"messid"];
                     NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
@@ -497,6 +508,9 @@ static int chatInputStartingHeight = 40;
                             }else{
                                 Temadict[@"SendState"] = [NSNumber numberWithInt:kSentFail];
                             }
+                            /*保存数据库*/
+//                               [[MessageBySend sharMessageBySend] saveFmdb:date];
+                            [[DBManager sharedManager]changeByDate:Backsign andMessid:dict[@"messid"]];
                             Temadict[@"messid"] = dict[@"messid"];
                             [acell showDate:Temadict];
                             break;
@@ -780,13 +794,13 @@ static int chatInputStartingHeight = 40;
                                                 context:nil];
             
             message[kMessageSize] = [NSValue valueWithCGSize:rect.size];
-            
+            rect.size.height += KNameHight;
             NSLog(@"size1\n");
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
         }else if([messtype integerValue] == 3){
             NSLog(@"size2\n");
             //liuzhencai
-            return CGSizeMake(320,KPicHigth);
+            return CGSizeMake(320,KPicHigth+KNameHight);
         }
     
 //    }
@@ -835,14 +849,57 @@ static int chatInputStartingHeight = 40;
     int row = indexPath.row;
     NSDictionary* amess = [_messagesArray objectAtIndex:row];
     
-    /*记录被选中的消息*/
-    mess = amess;
-//    //liuzhencai 如果显示是图片
-//    if (mess[kMessageContent])
-//    {
-//        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"你确定要把该条评论置顶吗" delegate:self cancelButtonTitle:@"置顶" otherButtonTitles:@"取消", nil];
-//        [alert show];
-//    }
+    if (!amess[kMessageContent]) {
+        return;
+    }
+    /*messtype:"1",
+     //消息类型 1为文本，2为json对象，3为图片，4为录音*/
+    
+    NSNumber* Nmesstype = amess[@"messtype"];
+    NSInteger messtype = [Nmesstype integerValue];
+    switch (messtype) {
+        case 1:
+        {
+            /*判断自己有没有置顶权限，如果没有，则不理*/
+            //            NSString* meuserid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+            //            NSInteger Imeuserid = [meuserid integerValue];
+            //            NSNumber* NGreadid = [self.tribeInfoDetailDict valueForKey:@"creater"];
+            //            NSInteger IGreadid = [NGreadid integerValue];
+            //            NSNumber* Nsecretaryid = [self.tribeInfoDetailDict valueForKey:@"secretary"];
+            //            NSInteger Isecretaryid = [Nsecretaryid integerValue];
+            //
+            //            if (Imeuserid == IGreadid || Imeuserid == Isecretaryid)
+            //            {
+            //                UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"你确定要把该条评论置顶吗" delegate:self cancelButtonTitle:@"置顶" otherButtonTitles:@"取消", nil];
+            //                [alert show];
+            //            }
+        }
+            break;
+        case 2:
+        {
+            NSLog(@"其他类型");
+       
+            
+        }
+            break;
+        case 3:
+        {
+            NSString* photo = (NSString*)amess[kMessageContent];
+            myimageviewViewController* myimage=[[myimageviewViewController alloc]init];
+            myimage.photo = photo;
+            [self.navigationController pushViewController:myimage animated:YES];
+            //            UIView* imageview = [[UIView alloc]initWithFrame:self.view.frame];
+            //            UIImageView* image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+            //            [image setImageWithURL:IMGURL(image)];
+            //            [imageview addSubview:image];
+            
+            
+        }
+            break;
+        default:
+            break;
+    }
+
     
 }
 
@@ -955,6 +1012,9 @@ static int chatInputStartingHeight = 40;
                     if ([stata isEqualToString:@"0200"]) {
                         message[@"SendState"] = [NSNumber numberWithInt:kSentOk];
                         
+                        /*修改数据库发送信息状态*/
+                        [[DBManager sharedManager]changeByDate:Backsign andMessid:dict[@"messid"]];
+                        
                     }else{
                         message[@"SendState"] = [NSNumber numberWithInt:kSentFail];
                     }
@@ -978,6 +1038,8 @@ static int chatInputStartingHeight = 40;
                             NSString* stata = [dict valueForKey:@"statecode"];
                             if ([stata isEqualToString:@"0200"]) {
                                 Temadict[@"SendState"] = [NSNumber numberWithInt:kSentOk];
+                                /*修改数据库发送信息状态*/
+                                [[DBManager sharedManager]changeByDate:Backsign andMessid:Temadict[@"messid"]];
                                 
                             }else{
                                 Temadict[@"SendState"] = [NSNumber numberWithInt:kSentFail];
@@ -1002,6 +1064,7 @@ static int chatInputStartingHeight = 40;
     /*界面刷新时*/
     // add extra cell, and load it into view;
     NSInteger arow = _messagesArray.count -1;
+//    /*此处总崩溃，所以补丁修改*/
     NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
     [_myCollectionView insertItemsAtIndexPaths:tempArray];
     // show us the message
@@ -1035,10 +1098,10 @@ static int chatInputStartingHeight = 40;
     
     /*私人聊天对方的userid，一样以tribeid存入部落聊天数组中*/
 //    [message setObject:aroomid forKey:@"tribeid"];
-    [message setObject:TimeStamp() forKey:@"date"];
+    [message setObject:[NSDate getdate] forKey:@"date"];
     /*唯一标识*/
-    [message setObject:TimeStamp() forKey:@"clientsign"];
-    [message setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
+    [message setObject:[NSDate getdate] forKey:@"clientsign"];
+    [message setObject:Myuserinfo.photo forKey:@"senderphoto"];
     
     [[MessageBySend sharMessageBySend] addChatRoomMessageArray:message toOtherid:aroomid];
     
@@ -1097,12 +1160,34 @@ static int chatInputStartingHeight = 40;
 #pragma mark 获取到离线消息
 - (void)reloadeChatViewAll:(NSNotification*)chatmessage
 {
+ NSDictionary* dic =  (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    NSString* count = dic[@"count"];
+    [[MessageBySend sharMessageBySend]hideprogressHUD];
+    
+//    [self getMessagesArray];
+    NSNumber* aothetid = [self.otherDic valueForKey:@"userid"];
+    NSString* otherid = [NSString stringWithFormat:@"%d",[aothetid intValue]];
+    NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend] getChatRoomMessArray:otherid andStart:@"0" andcount:count andSendType:@"1"];
+    
+    if ([tempArray count]>0) {
+        //        [self setMessagesArray:tempArray];
+        _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
+    }
     [_myCollectionView reloadData];
     // 结束刷新
-    [_myCollectionView headerEndRefreshing];
+    
+     [_myCollectionView headerEndRefreshing];
+}
 
-    [[MessageBySend sharMessageBySend]hideprogressHUD];
-    [self getMessagesArray];
+#pragma mark 没有历史记录
+- (void)NOHistory:(NSNotification*)chatmessage
+{
+//    [_myCollectionView reloadData];
+    // 结束刷新
+    [_myCollectionView headerEndRefreshing];
+    [self showAlert:@"已经没有历史记录！"];
+    
+    
 }
 
 /*获取聊天室聊天记录*/
@@ -1112,12 +1197,14 @@ static int chatInputStartingHeight = 40;
         /*如果没有消息获取本地的*/
         NSNumber* aothetid = [self.otherDic valueForKey:@"userid"];
         NSString* otherid = [NSString stringWithFormat:@"%d",[aothetid intValue]];
-        NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:otherid andStart:@"0"];
+        NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend] getChatRoomMessArray:otherid andStart:@"0" andcount:@"20" andSendType:@"1"];
+
     if ([tempArray count]>0) {
-        [self setMessagesArray:tempArray];
+//        [self setMessagesArray:tempArray];
+          _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
     }
     
-//        _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
+    
    
 //    }
 }
@@ -1131,12 +1218,18 @@ static int chatInputStartingHeight = 40;
      type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
      当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
+    NSString* messid = nil;
+    for (int i= [_messagesArray count]-1; i>-1; i--) {
+        NSDictionary* ob = [_messagesArray objectAtIndex:i];
+        NSNumber* amessid = ob[@"messid"];
+        messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+        if (![messid isEqual:@"-1"]) {
+            break;
+        }
+    }
 
-    NSMutableDictionary* amess = [_messagesArray lastObject];
-    NSNumber* amessid = amess[@"messid"];
-    NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
     NSNumber* aroomid = self.otherDic[@"userid"];
-    if (amessid && messid) {
+    if (messid) {
         [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
     }
     
@@ -1171,29 +1264,33 @@ static int chatInputStartingHeight = 40;
     // 添加下拉刷新头部控件
     [_myCollectionView addHeaderWithCallback:^{
         // 进入刷新状态就会回调这个Block
-  
+        NSNumber* aroomid = self.otherDic[@"userid"];
+        NSString* otherid = [NSString stringWithFormat:@"%d",[aroomid intValue]];
+       NSMutableArray* tempAray =  [[MessageBySend sharMessageBySend]getHistoryFormLocalByTargid:otherid andBack:YES];
+        if ([tempAray count]>0) {
+           _messagesArray = [[NSMutableArray alloc]initWithArray:tempAray];
+            
+            [_myCollectionView reloadData];
+        }
+       [_myCollectionView headerEndRefreshing];
+        
 //            [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取历史记录，请稍等！" withView:self.view];
-            NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
-            NSNumber* amessid = temp[@"messid"];
-            NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-            if (!self.offMessageDic) {
-                NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
-                NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
-                [tempdic setValue:[NSString stringWithFormat:@"%d",[tribeId intValue]] forKey:@"targetid"];
-                [tempdic setValue:messid forKey:@"start"];
-                
-                [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
-                offMessageDic = tempdic;
-            }
-            [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
+//            NSMutableDictionary* temp = (NSMutableDictionary*)[_messagesArray firstObject];
+//            NSNumber* amessid = temp[@"messid"];
+//            NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+//            if (!self.offMessageDic) {
+//                NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+//                NSNumber *tribeId = [self.otherDic objectForKey:@"userid"];
+//                [tempdic setValue:[NSString stringWithFormat:@"%d",[tribeId intValue]] forKey:@"targetid"];
+//                [tempdic setValue:messid forKey:@"start"];
+//                
+//                [tempdic setValue:[NSString stringWithFormat:@"%d",20] forKey:@"count"];
+//                offMessageDic = tempdic;
+//            }
+//            [[MessageBySend sharMessageBySend]getMessageHistory:self.offMessageDic andSendtype:@"1" andStartMessageid:messid];
 
+    
 
-//        // 模拟延迟加载数据，因此2秒后才调用）
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [_myCollectionView reloadData];
-//            // 结束刷新
-//            [_myCollectionView headerEndRefreshing];
-//        });
     }];
     
 //#warning 自动刷新(一进入程序就下拉刷新)
@@ -1202,22 +1299,19 @@ static int chatInputStartingHeight = 40;
 
 - (void)addFooter
 {
-    return;
     // 添加上拉刷新尾部控件
     [_myCollectionView addFooterWithCallback:^{
         // 进入刷新状态就会回调这个Block
+        NSNumber* aroomid = self.otherDic[@"userid"];
+        NSString* otherid = [NSString stringWithFormat:@"%d",[aroomid intValue]];
+        NSMutableArray* tempAray =  [[MessageBySend sharMessageBySend]getHistoryFormLocalByTargid:otherid andBack:NO];
+        if ([tempAray count]>0) {
+            _messagesArray = [[NSMutableArray alloc]initWithArray:tempAray];
+            
+            [_myCollectionView reloadData];
+        }
+        [_myCollectionView footerEndRefreshing];
         
-        // 增加5条假数据
-        //        for (int i = 0; i<5; i++) {
-        //            [vc.fakeColors addObject:MJRandomColor];
-        //        }
-        
-//        // 模拟延迟加载数据，因此2秒后才调用）
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [_myCollectionView reloadData];
-//            // 结束刷新
-//            [_myCollectionView footerEndRefreshing];
-//        });
     }];
 }
 @end

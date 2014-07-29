@@ -55,4 +55,5 @@
 + (NSString *)timestampFormatString;
 + (NSString *)dbFormatString;
 
++(NSString *) getdate;
 @end

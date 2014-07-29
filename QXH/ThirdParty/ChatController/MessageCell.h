@@ -45,8 +45,10 @@ FOUNDATION_EXPORT int const maxBubbleWidth;
 #define kMessageTimestamp   @"date"
 
 //显示图片时定义宽度和高度
-#define KPicHigth 120
+#define KPicHigth 110
 #define KPicWidth 90
+#define KNameHight 15
+
 
 // Message Dictionary Keys
 FOUNDATION_EXPORT NSString * const kMessageSize;

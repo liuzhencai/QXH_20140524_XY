@@ -22,7 +22,11 @@
 
 //- (NSMutableArray *)getChatMessCount:(NSString *)count lastMessId:(NSString *)messid;
 - (NSMutableArray *)getChatMessStart:(NSString *)start maxCount:(NSString *)count Andtargetid:(NSString *)targetid;
-
+/*
+ 修改messid方法，
+ 消息发送成功以后，修改
+ */
+- (void)changeByDate:(NSString*)adate andMessid:(NSNumber*)messid;
 - (BOOL)clearAllUserData;
 
 

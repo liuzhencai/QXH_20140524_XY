@@ -43,8 +43,6 @@ static MessageBySend* ins =nil;
 
 - (void)recvMsg:(NSNotification *)notif
 {
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器推送消息" message:[[notif userInfo] description] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//    [alert show];
     if (!notif) {
         return;
     }
@@ -66,6 +64,7 @@ static MessageBySend* ins =nil;
   
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
+    /*暂时屏蔽此处离线消息*/
     [self AddTounKnowCharMessAyyay:userinfo];
 //    [self AddSystemMessAyyay:userinfo];
   
@@ -105,8 +104,16 @@ static MessageBySend* ins =nil;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         
+        /*如果存在离线消息时不保存，*/
+        NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+        if ([offarray count]) {
+            /*如果存在离线消息不保存*/
+        }else{
+          [self saveFmdb:notif];
+        }
+        
         if (![tempSenderId isEqualToString:meid]) {
-             [self saveFmdb:notif];
+//             [self saveFmdb:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatView" object:nil userInfo:notif];
            
@@ -153,8 +160,21 @@ static MessageBySend* ins =nil;
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+        NSNumber* messtype = [notif valueForKey:@"messtype"] ;
+
+        if ([tempSenderId isEqual:meid] && [messtype intValue]==3) {
+            /*如果是我发送的图片就暂时不保存*/
+        }else{
+            NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+            if ([offarray count]) {
+                /*如果存在离线消息不保存*/
+            }else{
+                [self saveFmdb:notif];
+            }
+//          [self saveFmdb:notif];
+        }
         if (![tempSenderId isEqualToString:meid]) {
-             [self saveFmdb:notif];
+//             [self saveFmdb:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatRoom" object:nil userInfo:notif];
         }
@@ -206,8 +226,21 @@ static MessageBySend* ins =nil;
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+    /*写数据库*/
+    NSNumber* messtype = [notif valueForKey:@"messtype"];
+    if ([messtype intValue]==3) {
+        /*发送图片时在界面保存数据*/
+    }else{
+        NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+        if ([offarray count]) {
+            /*如果存在离线消息不保存*/
+        }else{
+            [self saveFmdb:notif];
+        }
+//      [self saveFmdb:notif];  
+    }
+    
         if (![tempSenderId isEqualToString:meid]) {
-             [self saveFmdb:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatView" object:nil userInfo:notif];
         }
@@ -217,10 +250,32 @@ static MessageBySend* ins =nil;
 
 /*通过部落id，获取部落聊天内容，
  或者好友id获取私聊内容*/
--(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid andStart:(NSString*)start
+-(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid andStart:(NSString*)start andcount:(NSString*)count andSendType:(NSString*)sendType
 {
-   NSMutableArray* chatRoomArray =  [db getChatMessStart:start maxCount:@"20" Andtargetid:ChatRoomid];
+
+    /*暂时屏蔽获取离线消息*/
+     NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:ChatRoomid];
+    if ([temparray1 count]) {
+        [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
+        return nil;
+    }
+    
+    /*每次进来只获取最新20条，否则永远保存，内存会过大*/
+   NSMutableArray* chatRoomArray =  [db getChatMessStart:start maxCount:count Andtargetid:ChatRoomid];
 //    NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
+    NSMutableArray* temp = [[NSMutableArray alloc]init];
+    for (int i=[chatRoomArray count]-1; i>-1; i--) {
+        [temp addObject: [chatRoomArray objectAtIndex:i]];
+    }
+   
+    [chatRoomMess setValue:temp forKey:ChatRoomid];
+    return temp;
+}
+
+/*老方法暂时没有删除*/
+-(NSMutableArray*)getChatRoomMessArrayOld:(NSString*)ChatRoomid
+{
+    NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
     return chatRoomArray;
 }
 
@@ -557,12 +612,15 @@ static MessageBySend* ins =nil;
             [tempdic setValue:ntribeid forKey:@"tribeid"];
             [tempdic setValue:ntribeid forKey:@"senderid"];
             [tempdic setValue:[tempdic valueForKey:@"sphoto"] forKey:@"senderphoto"];
-            
+            [tempdic setValue:[tempdic valueForKey:@"sname"] forKey:@"sendername"];
+            /*写入数据库*/
+            [self saveFmdb:tempdic];
             [chatRoomMessArray insertObject:tempdic atIndex:0];
 //            NSMutableDictionary* temdic = (NSMutableDictionary*)[list objectAtIndex:i];
 //            [self AddToTempunKnowCharMessAyyay:tempdic];
         }
         
+        /*移除离线消息*/
        NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:targetid];
         if (temparray1) {
              [unKnowCharMessDic removeObjectForKey:temparray1];
@@ -592,6 +650,179 @@ static MessageBySend* ins =nil;
          ]
          */
     }];
+}
+
+#pragma mark 获取所有离线消息详情
+-(void)getOffMessageHistory:(NSString *)targetid andSendtype:(NSString*)sendtype
+{
+    NSString* astartid = @"0";
+    NSString* direction = @"after";
+    NSString* count = nil;
+    
+    /*移除离线消息*/
+    NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:targetid];
+    if (temparray1) {
+        NSDictionary* last = (NSDictionary*)[temparray1 lastObject];
+//        [unKnowCharMessDic removeObjectForKey:temparray1];
+        NSNumber* acou = (NSNumber*)[last valueForKey:@"count"];
+        count = [NSString stringWithFormat:@"%d",[acou intValue]];
+    }
+//    return;
+    [DataInterface getChatHistory:targetid sendtype:sendtype start:astartid  direction:direction count:count withCompletionHandler:^(NSMutableDictionary *dict) {
+        NSMutableArray* list = (NSMutableArray*)[dict valueForKey:@"list"];
+        NSMutableArray* chatRoomMessArray = [[NSMutableArray alloc]init];
+        //        for (int i = ([list count]-1); i>=0; i--)
+        for (int i = [list count]-1; i>-1; i--)
+        {
+            NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:[list objectAtIndex:i]];
+            NSLog(@"tempdic == %@",tempdic);
+            
+            NSNumber* ntribeid = (NSNumber*)[tempdic valueForKey:@"sid"];
+            //            NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+            [tempdic setValue:targetid forKey:@"tribeid"];
+            [tempdic setValue:ntribeid forKey:@"senderid"];
+            [tempdic setValue:[tempdic valueForKey:@"sphoto"] forKey:@"senderphoto"];
+            [tempdic setValue:[tempdic valueForKey:@"sname"] forKey:@"sendername"];
+            /*写入数据库*/
+            [self saveFmdb:tempdic];
+            [chatRoomMessArray addObject:tempdic];
+            //            NSMutableDictionary* temdic = (NSMutableDictionary*)[list objectAtIndex:i];
+            //            [self AddToTempunKnowCharMessAyyay:tempdic];
+        }
+        
+ 
+        
+        
+        //        NSMutableArray* temp2 = [[NSMutableArray alloc]initWithArray:tempUnKnowCharMessArray];
+        NSLog(@"chatRoomMessArray == %@",chatRoomMessArray);
+        [chatRoomMess setObject:chatRoomMessArray forKey:targetid];
+        
+        NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:chatRoomMessArray,@"chatRoomMessArray", nil];
+        /*离线消息中移除*/
+        [unKnowCharMessDic removeObjectForKey:targetid];
+        /*暂时不移除*/
+        //         [tempUnKnowCharMessArray removeAllObjects];
+        if ([sendtype isEqualToString:@"1"]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatViewAll" object:nil userInfo:usercount];
+        }else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatRoomAll" object:nil userInfo:usercount];
+        }
+        /*
+         list:				//
+         [
+         {messid:"123",sid:"123456",sname:"发送人名字",sphoto:"1.jpg",date:"2014-05-06 22:13:11",messtype:"1",mess:"这是消息"},
+         {messid:"124",sid:"123456",sname:"发送人名字",sphoto:"1.jpg",date:"2014-05-06 22:13:11",messtype:"1",mess:"这是消息"},
+         {messid:"125",sid:"123456",sname:"发送人名字",sphoto:"1.jpg",date:"2014-05-06 22:13:11",messtype:"1",mess:"这是消息"},
+         ......
+         ]
+         */
+    }];
+}
+
+#pragma mark 从本地获取聊天记录，当本地没有时，就不获取了
+- (NSMutableArray*)getHistoryFormLocalByTargid:(NSString*)atargetid andBack:(BOOL)back
+{
+    
+    NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atargetid];
+    if ([offarray count]) {
+        /*如果有离线消息，先获取离线消息*/
+        
+    }else{
+        /*
+         start 总记录数组当中最后一位
+         */
+        /*back 为yes时，查看start时间之前的历史记录，如9月1号之前，8月
+         no，查看start之后的记录，如果9月1日之后9月2日*/
+        NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:atargetid];
+        NSInteger arraycount = [chatRoomArray count];
+        if (!hisStatDic) {
+            hisStatDic = [[NSMutableDictionary alloc]init];
+        }
+        NSString* start = [hisStatDic valueForKey:atargetid];
+        if (!start) {
+            start = [NSString stringWithFormat:@"%d",arraycount];
+        }
+        NSInteger Instart = [start integerValue];
+        if (back) {
+            /*下啦刷新*/
+            //        NSInteger Instart = [start integerValue];
+            //        start = [NSString stringWithFormat:@"%d",Instart-[chatRoomArray count]];
+            /*此时插入前面*/
+            NSMutableArray* templocal = [db getChatMessStart:start maxCount:@"20" Andtargetid:atargetid];
+            
+            /*因为是倒的所以要这么插入*/
+            NSMutableArray *tempArray =  [[NSMutableArray alloc]init];
+            for (int i= [templocal count]-1; i>-1; i--) {
+                [tempArray addObject:[templocal objectAtIndex:i]];
+            }
+            
+            //            /*此时插入前面*/
+            //           NSMutableArray *tempArray =  [[NSMutableArray alloc]initWithArray:[db getChatMessStart:start maxCount:@"20" Andtargetid:atargetid]];
+            
+            /*记录最新stat值*/
+            start = [NSString stringWithFormat:@"%d",(Instart +[tempArray count])];
+            [hisStatDic setValue:start forKey:atargetid];
+            if ([tempArray count]==0) {
+                /*没有历史记录*/
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:nil];
+            }else{
+                /*内存中只存储40个*/
+                if ( arraycount>=40) {
+                    NSRange rang = NSMakeRange(20, arraycount -20);
+                    [chatRoomArray removeObjectsInRange:rang];
+                }
+                [tempArray addObjectsFromArray:chatRoomArray];
+                [chatRoomMess setObject:tempArray forKey:atargetid];
+            }
+            
+            return tempArray;
+            
+        }else{
+            
+            if (Instart<=40) {
+                /*没有历史记录*/
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:nil];
+            }else{
+                /*上啦刷新*/
+                if (arraycount >=20) {
+                    NSRange rang = NSMakeRange(0, arraycount -20);
+                    [chatRoomArray removeObjectsInRange:rang];
+                }
+                
+                /*此时追加*/
+                NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:chatRoomArray];
+                NSMutableArray* resultarray = nil;
+                if ((Instart -arraycount -20)>0) {
+                    start = [NSString stringWithFormat:@"%d",(Instart -arraycount -20)];
+                    resultarray = [db getChatMessStart:start maxCount:@"20" Andtargetid:atargetid];
+                }else{
+                    start = @"0";
+                    NSInteger temp = (Instart -arraycount);
+                    //            if (temp<20) {
+                    //                temp
+                    //            }
+                    resultarray = [db getChatMessStart:start maxCount:[NSString stringWithFormat:@"%d",temp] Andtargetid:atargetid];
+                }
+                for (int i=[resultarray count]-1; i>-1; i--) {
+                    [tempArray addObject:[resultarray objectAtIndex:i]];
+                }
+                //            [tempArray addObjectsFromArray:resultarray];
+                [chatRoomMess setObject:tempArray forKey:atargetid];
+                
+                start = [NSString stringWithFormat:@"%d",([start intValue]+[tempArray count])];
+                [hisStatDic setValue:start forKey:atargetid];
+                return tempArray;
+                
+                
+            }
+            
+            
+        }
+  
+    }
+
+    return nil;
 }
 
 #pragma mark 显示加载框
@@ -663,39 +894,6 @@ static MessageBySend* ins =nil;
 }
 
 
-//#pragma mark 打开文件
-//- (void)openfile
-//{
-//    //指向文件目录
-//    //    NSString *documentsDirectory=[NSHomeDirectory()
-//    //                                  stringByAppendingPathComponent:@"Documents"];
-//    if (!filePath) {
-//        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//        
-//        filePath= [documentsDirectory
-//                   stringByAppendingPathComponent:ChatMessageFile];
-//    }
-//    //判读该文件是否存在
-//    BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-//    
-//    if (result) {//存在则取出数据
-//        NSDictionary* tempChatAll =[NSDictionary dictionaryWithContentsOfFile:filePath];
-//        if (tempChatAll) {
-//            chatRoomMess  = [[NSMutableDictionary alloc]initWithDictionary:tempChatAll];
-//        }
-//        
-//    }
-//}
-//
-//- (void)writefile
-//{
-//    BOOL writeSuccess = [chatRoomMess writeToFile:filePath atomically:NO];
-//    if (writeSuccess) {
-//        NSLog(@"写入成功");
-//    }
-//    /*写完后强制制空*/
-//    chatRoomMess = nil;
-//}
 
 #pragma mark 保存进入数据库
 - (void)saveFmdb:(NSDictionary*)dic
@@ -706,11 +904,20 @@ static MessageBySend* ins =nil;
     // 用户id
     chat.uid = @"";
     // 消息唯一标示
-    chat.msgid = (NSNumber*)dic[@"messid"];//nsnumber
+    NSNumber* amessid = (NSNumber*)dic[@"messid"];
+    if (!amessid) {
+        amessid = [NSNumber numberWithInt:-1];
+    }
+    chat.msgid = amessid;//nsnumber
     // 会话唯一标示
     chat.sessionid = @"";
     // 消息类型
-    chat.type = dic[@"sendtype"];//nsnumber
+    NSNumber* asendtype = (NSNumber*)dic[@"sendtype"];
+    if (!asendtype) {
+        asendtype = (NSNumber*)dic[@"messtype"];
+    }
+//    chat.type = ;//nsnumber
+    chat.type = asendtype;
     // 来自id标示
     chat.fromid = (NSNumber*)dic[@"senderid"];//nsnumber
     // 来自name标示
