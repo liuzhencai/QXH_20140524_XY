@@ -10,8 +10,20 @@
 #import "MJRefresh.h"
 #import "MyCardController.h"
 
+typedef void (^SelectTribeBlock) (MyTribeModel *model);
+
+typedef NS_ENUM(NSInteger, SelectType) {
+    SelectTypeNameCard = 0,                         // no button type
+    SelectTypeInfTrans
+};
+
 @interface SelectTribeController : MyViewController<UITableViewDataSource, UITableViewDelegate>
+{
+    
+}
 @property (weak, nonatomic) IBOutlet UITableView *tribeTbl;
-@property (nonatomic, assign) MyCardController *parentController;
+@property (nonatomic, assign) id parentController;
+@property (nonatomic, assign) SelectType type;
+@property (nonatomic, copy) SelectTribeBlock callback;
 
 @end

@@ -101,8 +101,21 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MyTribeModel *model = [_tribeList objectAtIndex:indexPath.row];
-    [self.navigationController popViewControllerAnimated:YES];
-    [_parentController transmitNameCard:model.tribeid];
+    switch (self.type) {
+        case SelectTypeNameCard:
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+            [(MyCardController *)_parentController transmitNameCard:model.tribeid];
+        }
+            break;
+        case SelectTypeInfTrans:
+        {
+            self.callback(model);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        default:
+            break;
+    }
 }
 
 - (void)viewDidLoad

@@ -10,6 +10,7 @@
 #import "InformationCommentController.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
+#import "SelectTribeController.h"
 
 @interface InformationDetailController ()
 {
@@ -78,11 +79,24 @@
     switch (buttonIndex) {
         case 0:
         {
+            SelectTribeController *controller = [[SelectTribeController alloc] initWithNibName:@"SelectTribeController" bundle:nil];
+            controller.type = SelectTypeInfTrans;
+            controller.parentController = self;
+            controller.callback = ^(MyTribeModel *model){
+                [DataInterface shareContent:self.artid sourcetype:@"2" sharetype:@"2" targetid:model.tribeid withCompletionHandler:^(NSMutableDictionary *dict) {
+                    [self showAlert:[dict objectForKey:@"info"]];
+                }];
+            };
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 1:
+        {
             // 微信
             _scene = WXSceneSession;
         }
             break;
-        case 1:
+        case 2:
         {
             // 朋友圈
             _scene = WXSceneTimeline;
@@ -118,7 +132,7 @@
 - (void)share:(id)sender
 {
     NSLog(@"微信分享");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分 享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信朋友", @"微信朋友圈", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分 享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"部落", @"微信朋友", @"微信朋友圈", nil];
     [actionSheet showInView:self.view];
 }
 
