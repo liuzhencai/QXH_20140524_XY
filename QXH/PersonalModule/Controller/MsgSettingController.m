@@ -27,13 +27,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UISwitch *remindSwitch = (UISwitch *)[self.view viewWithTag:1];
+    remindSwitch.on = [[defaults objectForKey:@"enableRemind"] boolValue];
+    if (remindSwitch.on) {
+        _msgSettingView.alpha = 1;
+    }else{
+        _msgSettingView.alpha = 0;
+    }
     UISwitch *ringSwitch = (UISwitch *)[self.view viewWithTag:2];
     ringSwitch.on = [[defaults objectForKey:@"enableRing"] boolValue];
     UISwitch *shakeSwitch = (UISwitch *)[self.view viewWithTag:3];
     shakeSwitch.on = [[defaults objectForKey:@"enableShake"] boolValue];
-    if (shakeSwitch.on||ringSwitch.on) {
-        _msgSettingView.alpha = 1.0;
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,6 +52,8 @@
     switch (mySwitch.tag) {
         case 1:
         {
+            [defaults setObject:[NSNumber numberWithBool:mySwitch.on] forKey:@"enableRemind"];
+            [defaults synchronize];
             if (mySwitch.on) {
                 [UIView animateWithDuration:0.25 animations:^{
                     _msgSettingView.alpha = 1.0;
