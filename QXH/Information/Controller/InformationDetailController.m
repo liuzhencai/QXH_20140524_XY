@@ -28,7 +28,7 @@
     _articleTitleLabel.text = detailmodel.title;
     _readNumLabel.text = detailmodel.browsetime;
     _commentNumLabel.text = detailmodel.commenttime;
-    _postLabel.text = detailmodel.sharetime;
+    _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
     _praiseLabel.text = [NSString stringWithFormat:@"%d",detailmodel.laud];
     
