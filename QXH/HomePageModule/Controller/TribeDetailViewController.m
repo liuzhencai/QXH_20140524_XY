@@ -202,11 +202,11 @@
                 }
                     break;
                 case 2:{//部落标签
-                    titleValue.text = [self.tribeDetailInfo objectForKey:@"signature"];
+                    titleValue.text = [self.tribeDetailInfo objectForKey:@"tags"];
                 }
                     break;
                 case 3:{//部落地域
-                    titleValue.text = [self.tribeDetailInfo objectForKey:@"district"];
+                    titleValue.text = [self.tribeDetailInfo objectForKey:@"districtname"];
                 }
                     break;
 

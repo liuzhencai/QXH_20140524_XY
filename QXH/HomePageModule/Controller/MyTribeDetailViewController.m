@@ -399,7 +399,7 @@
                 _sign.enabled = YES;
             }else{
                 if (self.tribeDetailDict) {
-                    _sign.text = [self.tribeDetailDict objectForKey:@"signature"];
+                    _sign.text = [self.tribeDetailDict objectForKey:@"tags"];
                 }
             }
             [cell.contentView addSubview:_sign];
@@ -416,7 +416,7 @@
                 _place.placeholder = @"输入部落地址";
                 _place.enabled = YES;
             }else{
-                _place.text = [self.tribeDetailDict objectForKey:@"district"];
+                _place.text = [self.tribeDetailDict objectForKey:@"districtname"];
             }
             [cell.contentView addSubview:_place];
         }
