@@ -191,6 +191,8 @@
                 model.maxcount = [subDict objectForKey:@"maxcount"];
                 model.nowcount =  [subDict objectForKey:@"nowcount"];
                 model.folcount = [subDict objectForKey:@"focount"];
+                model.comefrom = [subDict objectForKey:@"comefrom"];
+                model.creatername = [subDict objectForKey:@"creatername"];
                 model.tags = [subDict objectForKey:@"tags"];
                 model.desc = [subDict objectForKey:@"desc"];
                 model.acttype = [subDict objectForKey:@"acttype"];

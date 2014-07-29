@@ -11,6 +11,9 @@
 @interface MyTribeListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *headImgView;//头像
+@property (nonatomic, strong) UIImageView *authflagView;//认证标志
+@property (nonatomic, strong) UILabel *nowCount;//当前人数
+
 @property (nonatomic, strong) UILabel *name;//名称
 @property (nonatomic, strong) UILabel *dynamic;//动态
 @property (nonatomic, strong) UILabel *creatMan;//创建人

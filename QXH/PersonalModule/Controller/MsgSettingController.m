@@ -27,6 +27,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UISwitch *ringSwitch = (UISwitch *)[self.view viewWithTag:2];
+    ringSwitch.on = [[defaults objectForKey:@"enableRing"] boolValue];
+    UISwitch *shakeSwitch = (UISwitch *)[self.view viewWithTag:3];
+    shakeSwitch.on = [[defaults objectForKey:@"enableShake"] boolValue];
+    if (shakeSwitch.on||ringSwitch.on) {
+        _msgSettingView.alpha = 1.0;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,19 +44,37 @@
 
 - (IBAction)switchStatus:(id)sender {
     UISwitch *mySwitch = (UISwitch *)sender;
-    if (mySwitch.tag == 1) {
-        NSLog(@"switch--->%d",mySwitch.on);
-        if (mySwitch.on) {
-            [UIView animateWithDuration:0.25 animations:^{
-                _msgSettingView.alpha = 1.0;
-            }];
-        }
-        else
+    NSLog(@"switch--->%d",mySwitch.on);
+    switch (mySwitch.tag) {
+        case 1:
         {
-            [UIView animateWithDuration:0.25 animations:^{
-                _msgSettingView.alpha = 0;
-            }];
+            if (mySwitch.on) {
+                [UIView animateWithDuration:0.25 animations:^{
+                    _msgSettingView.alpha = 1.0;
+                }];
+            }
+            else
+            {
+                [UIView animateWithDuration:0.25 animations:^{
+                    _msgSettingView.alpha = 0;
+                }];
+            }
         }
+            break;
+        case 2:
+        {
+            [defaults setObject:[NSNumber numberWithBool:mySwitch.on] forKey:@"enableRing"];
+            [defaults synchronize];
+        }
+            break;
+        case 3:
+        {
+            [defaults setObject:[NSNumber numberWithBool:mySwitch.on] forKey:@"enableShake"];
+            [defaults synchronize];
+        }
+            break;
+        default:
+            break;
     }
 }
 

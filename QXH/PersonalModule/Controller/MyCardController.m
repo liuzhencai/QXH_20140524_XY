@@ -84,6 +84,7 @@
 
 //            [self showAlert:@"点击了转发名片"];
             SelectTribeController *controller = [[SelectTribeController alloc] initWithNibName:@"SelectTribeController" bundle:nil];
+            controller.type = SelectTypeNameCard;
             controller.parentController = self;
             [self.navigationController pushViewController:controller animated:YES];
         }

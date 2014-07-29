@@ -190,6 +190,15 @@
                 case 1:{//部落秘书长
                     NSString *secretaryName = [self.tribeDetailInfo objectForKey:@"secretaryname"];
                     titleValue.text = secretaryName;
+                    
+//                    titleValue.frame = CGRectMake(titleValue.left, titleValue.top, 0, titleValue.height);
+//                    int authflag = [[self.tribeDetailInfo objectForKey:@"authflag"] intValue];
+//                    if (authflag == 2) {
+//                        UIImageView *authView = [[UIImageView alloc] initWithFrame:CGRectMake(titleValue.right, titleValue.top + 8, 14, 14)];
+//                        authView.image = [UIImage imageNamed:@"tribe_authflog.gif"];
+//                        [cell.contentView addSubview:authView];
+//                    }
+                    
                 }
                     break;
                 case 2:{//部落标签
@@ -243,4 +252,9 @@
     return label;
 }
 
+- (CGFloat)widthOfString:(NSString *)string{
+    CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(500, 30) lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat width = size.width;
+    return width + 5;
+}
 @end

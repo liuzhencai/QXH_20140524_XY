@@ -10,6 +10,8 @@
 #import "InformationCommentController.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
+#import "SelectTribeController.h"
+#import "GCPlaceholderTextView.h"
 
 @interface InformationDetailController ()
 {
@@ -26,7 +28,7 @@
     _articleTitleLabel.text = detailmodel.title;
     _readNumLabel.text = detailmodel.browsetime;
     _commentNumLabel.text = detailmodel.commenttime;
-    _postLabel.text = detailmodel.sharetime;
+    _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
     _praiseLabel.text = [NSString stringWithFormat:@"%d",detailmodel.laud];
     
@@ -78,11 +80,24 @@
     switch (buttonIndex) {
         case 0:
         {
+            SelectTribeController *controller = [[SelectTribeController alloc] initWithNibName:@"SelectTribeController" bundle:nil];
+            controller.type = SelectTypeInfTrans;
+            controller.parentController = self;
+            controller.callback = ^(MyTribeModel *model){
+                [DataInterface shareContent:self.artid sourcetype:@"2" sharetype:@"2" targetid:model.tribeid withCompletionHandler:^(NSMutableDictionary *dict) {
+                    [self showAlert:[dict objectForKey:@"info"]];
+                }];
+            };
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 1:
+        {
             // 微信
             _scene = WXSceneSession;
         }
             break;
-        case 1:
+        case 2:
         {
             // 朋友圈
             _scene = WXSceneTimeline;
@@ -118,7 +133,7 @@
 - (void)share:(id)sender
 {
     NSLog(@"微信分享");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分 享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信朋友", @"微信朋友圈", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分 享" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"部落", @"微信朋友", @"微信朋友圈", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -156,8 +171,28 @@
             break;
         case 3:
         {
-            UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"转发到广场" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alerView show];
+            CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
+            [alertView setUseMotionEffects:TRUE];
+            [alertView setButtonTitles:@[@"取消", @"转发"]];
+            GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+            commentView.placeholder = @"请在此输入评论";
+            commentView.backgroundColor = [UIColor clearColor];
+            [alertView setContainerView:commentView];
+            [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
+                switch (buttonIndex) {
+                    case 1:
+                    {
+                        [DataInterface transmit:@"2" targetid:self.artid refsign:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
+                            [self showAlert:[dict objectForKey:@"info"]];
+                            [alertView close];
+                        }];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }];
+            [alertView show];
         }
             break;
         case 4:

@@ -9,6 +9,7 @@
 #import "InformationCommentController.h"
 #import "InformationCommentCell.h"
 #import "NameCardViewController.h"
+#import "GCPlaceholderTextView.h"
 
 @interface InformationCommentController ()
 {
@@ -61,7 +62,8 @@
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
     [alertView setUseMotionEffects:TRUE];
     [alertView setButtonTitles:@[@"取消", @"发表"]];
-    UITextView *commentView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+    GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+    commentView.placeholder = @"请在此输入评论";
     commentView.backgroundColor = [UIColor clearColor];
     [alertView setContainerView:commentView];
     [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {

@@ -34,8 +34,8 @@
     _contentLabel.text = model.refsign;
     _dateLabel.text = model.date;
     _activityTitle.text = actInfo.actname;
-    _sourceLabel.text = @"";
-    _posterLabel.text = @"";
+    _sourceLabel.text = actInfo.comefrom;
+    _posterLabel.text = actInfo.creatername;
     _activityTimeLbl.text = actInfo.signupbegindate;
     _addrLabel.text = actInfo.actaddr;
     

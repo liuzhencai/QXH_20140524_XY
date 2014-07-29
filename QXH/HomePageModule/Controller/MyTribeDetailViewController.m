@@ -108,10 +108,8 @@
 }
 
 - (void)getTribeDetailInfo{
-    
     /**
      *  获取部落信息
-     *
      *  @param tribeid  部落id
      *  @param callback 回调
      */
@@ -131,7 +129,6 @@
                 self.isCreater = YES;
             }
             [_mainTable reloadData];
-//            [self showAlert:[dict objectForKey:@"info"]];
         }];
     }
 }
@@ -483,7 +480,7 @@
                     _count.tag = 201;
                     _count.enabled = NO;
                 }
-                _count.text = [NSString stringWithFormat:@"%d",[self.membersArray count]];
+                _count.text = [NSString stringWithFormat:@"%d",[self.membersArray count] + 1];
                 [cell.contentView addSubview:_count];
             }else{
                 if (self.isCreater) {//等于8本人是秘书长或者创建者，等于7时本人为成员

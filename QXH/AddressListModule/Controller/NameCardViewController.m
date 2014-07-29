@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) NSArray *items;
-
+@property (nonatomic, strong) NSArray *friendsList;//好友列表
 @property (nonatomic, strong) NSDictionary *userDetailInfo;//用户详细信息
 @end
 #define WIDTH_TO_LEFT 15
@@ -28,7 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _items = @[@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
+        _items = @[@"工作单位",@"单位职务",@"所在城市",@"学位/职称",@"曾获荣誉",@"个人动态"];
     }
     return self;
 }
@@ -43,8 +43,8 @@
     
     BOOL scrollEnable = YES;
     CGFloat tableHeight = UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT;
-    if (tableHeight > 180 + 44 * 5 + 30) {
-        tableHeight = 180 + 44 * 5 + 30;
+    if (tableHeight > 180 + 44 * 6 + 30) {
+        tableHeight = 180 + 44 * 6 + 30;
         scrollEnable = NO;
     }
     _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, tableHeight) style:UITableViewStylePlain];
@@ -54,6 +54,7 @@
     [self.view addSubview:_mainTable];
     
     [self getUserInfo];
+    [self getAddressList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,6 +78,59 @@
             self.userDetailInfo = dict;
             [_mainTable reloadData];
         }];
+    }
+}
+
+- (void)getAddressList{
+    /**
+     *  获取好友(通讯录)/查找用户列表公用接口
+     *
+     *  @param type        1为获取好友列表，2为搜索
+     *  @param address     籍贯编码
+     *  @param domicile    居住地编码
+     *  @param displayname 昵称
+     *  @param usertype    用户类型,为空时不区分类型
+     *  @param start       起始位置
+     *  @param count       获取数量
+     *  @param callback    回调
+     */
+    
+    [DataInterface getFriendInfo:@"1"
+                         address:@""
+                        domicile:@""
+                     displayname:@""
+                        usertype:@""
+                           start:@"0"
+                           count:@"20"
+           withCompletionHandler:^(NSMutableDictionary *dict){
+               NSLog(@"通讯录列表返回数据：%@",dict);
+               
+               if (dict) {
+                   NSArray *list = [dict objectForKey:@"lists"];
+                   self.friendsList = list;
+                   [self checkIsMyFriend];
+                   [_mainTable reloadData];
+               }
+           }];
+}
+- (void)checkIsMyFriend{
+    if (self.friendsList) {
+        for (int i = 0; i < [self.friendsList count]; i ++) {
+            NSDictionary *dict = [self.friendsList objectAtIndex:i];
+            NSArray *list = [dict objectForKey:@"list"];
+            for (int j = 0; j < [list count]; j ++) {
+                NSDictionary *memberDict = [list objectAtIndex:j];
+                NSString *friendId = [[memberDict objectForKey:@"userid"] stringValue];
+                NSString *memberID = self.memberId;//[NSString stringWithFormat:@"%@",self.memberId];
+                if (!memberID) {
+                    memberID = [[self.memberDict objectForKey:@"userid"] stringValue];
+                }
+                if ([memberID isEqualToString:friendId]) {
+                    self.isMyFriend = YES;
+                    break;
+                }
+            }
+        }
     }
 }
 /*
@@ -177,33 +231,34 @@
         titleLabel.text = [_items objectAtIndex:indexPath.row];
         NSString *value = @"";
         switch (indexPath.row) {
-            case 0://单位职务
+            case 0://工作单位
+                if (self.userDetailInfo) {
+                    value = [self.userDetailInfo objectForKey:@"schoolname"];
+                }
+                break;
+            case 1://单位职务
                 if (self.userDetailInfo) {
                     value = [self.userDetailInfo objectForKey:@"title"];
                 }
-//                value = @"北京市教育局局长";
                 break;
-            case 1://所在城市
-//                value = @"北京";
+            case 2://所在城市
                 if (self.userDetailInfo) {
-                    NSString *cityName = [self cityNameWithCode:[self.userDetailInfo objectForKey:@"domicile"]];
-                    value = cityName;//[self.userDetailInfo objectForKey:@"address"];
+//                    NSString *cityName = [self cityNameWithCode:[self.userDetailInfo objectForKey:@"domicile"]];
+//                    value = cityName;
+                    value = [self.userDetailInfo objectForKey:@"address"];
                 }
                 break;
-            case 2://学校职务
-//                value = @"教授";
+            case 3://学校职务
                 if (self.userDetailInfo) {
-                    value = [self.userDetailInfo objectForKey:@"degree"];
+                    value = [self.userDetailInfo objectForKey:@"educations"];
                 }
                 break;
-            case 3://曾获荣誉
-//                value = @"国家级科技成就奖";
+            case 4://曾获荣誉
                 if (self.userDetailInfo) {
                     value = [self.userDetailInfo objectForKey:@"honours"];
                 }
                 break;
-            case 4://个人动态
-//                value = @"不知道";
+            case 5://个人动态
                 if (self.userDetailInfo) {
                     value = [self.userDetailInfo objectForKey:@"signature"];
                 }
@@ -230,7 +285,6 @@
         }else{
             /**
              *  加好友请求
-             *
              *  @param targetid 被处理的加入成员的userid
              *  @param mess     好友请求验证消息
              *  @param callback 回调
@@ -243,13 +297,12 @@
                 [DataInterface requestAddFriend:memberid mess:@"" withCompletionHandler:^(NSMutableDictionary *dict){
                     NSLog(@"%@",dict);
                     [self showAlert:[dict objectForKey:@"info"]];
+                    [self getAddressList];
                 }];
             }
         }
         
     }else{
-//        [self showAlert:@"这个拒绝需要吗？"];
-        
     }
     
 }

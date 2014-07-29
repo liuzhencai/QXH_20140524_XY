@@ -77,6 +77,7 @@
 		2119EF2E191689DD007DBE68 /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119EF2C191689DD007DBE68 /* ActivityCell.m */; };
 		2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2119EF2D191689DD007DBE68 /* ActivityCell.xib */; };
 		2119F288194355C800250DB6 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2119F287194355C800250DB6 /* libWeChatSDK.a */; };
+		211D8F9C1985478000360BFB /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 211D8F9B1985478000360BFB /* GCPlaceholderTextView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		211DBA0C196924510059D1C5 /* AskInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 211DBA0B196924510059D1C5 /* AskInfoModel.m */; };
 		2121C8E9195326A900FFEAE5 /* VistorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2121C8E8195326A900FFEAE5 /* VistorModel.m */; };
 		21284CC9195F15930019A4D3 /* EditInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21284CC7195F15930019A4D3 /* EditInfoController.m */; };
@@ -328,6 +329,7 @@
 		589104851971AD5600533F16 /* 强学会章程.docx in Resources */ = {isa = PBXBuildFile; fileRef = 589104841971AD5600533F16 /* 强学会章程.docx */; };
 		58979DBF196AE80A00B945BF /* provincesAndCitys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58979DBE196AE80A00B945BF /* provincesAndCitys.plist */; };
 		58979DC2196AFDE200B945BF /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58979DC1196AFDE200B945BF /* SelectCityViewController.m */; };
+		58A9BF7A19869BA700636F21 /* tribe_authflog.gif in Resources */ = {isa = PBXBuildFile; fileRef = 58A9BF7919869BA700636F21 /* tribe_authflog.gif */; };
 		58B1DE9D192B7F4100086C38 /* NameCardTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */; };
 		58B1DEA0192B92F300086C38 /* FilterActivityResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B1DE9F192B92F300086C38 /* FilterActivityResultViewController.m */; };
 		58B1DEAA192B980500086C38 /* choice_box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B1DEA2192B980500086C38 /* choice_box@2x.png */; };
@@ -594,6 +596,8 @@
 		2119EF2C191689DD007DBE68 /* ActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		2119EF2D191689DD007DBE68 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
 		2119F287194355C800250DB6 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		211D8F9A1985478000360BFB /* GCPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCPlaceholderTextView.h; sourceTree = "<group>"; };
+		211D8F9B1985478000360BFB /* GCPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCPlaceholderTextView.m; sourceTree = "<group>"; };
 		211DBA0A196924510059D1C5 /* AskInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskInfoModel.h; sourceTree = "<group>"; };
 		211DBA0B196924510059D1C5 /* AskInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskInfoModel.m; sourceTree = "<group>"; };
 		2121C8E7195326A900FFEAE5 /* VistorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VistorModel.h; sourceTree = "<group>"; };
@@ -976,6 +980,7 @@
 		58979DBE196AE80A00B945BF /* provincesAndCitys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = provincesAndCitys.plist; sourceTree = "<group>"; };
 		58979DC0196AFDE200B945BF /* SelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityViewController.h; sourceTree = "<group>"; };
 		58979DC1196AFDE200B945BF /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
+		58A9BF7919869BA700636F21 /* tribe_authflog.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tribe_authflog.gif; sourceTree = "<group>"; };
 		58B1DE9B192B7F4100086C38 /* NameCardTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameCardTitleCell.h; sourceTree = "<group>"; };
 		58B1DE9C192B7F4100086C38 /* NameCardTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameCardTitleCell.m; sourceTree = "<group>"; };
 		58B1DE9E192B92F300086C38 /* FilterActivityResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActivityResultViewController.h; sourceTree = "<group>"; };
@@ -2235,6 +2240,7 @@
 		848426A4192E0F2B00C9474A /* tribe */ = {
 			isa = PBXGroup;
 			children = (
+				58A9BF7919869BA700636F21 /* tribe_authflog.gif */,
 				84BCBBAB195DBA7700E80075 /* msg_state_send_error.png */,
 				84BCBBAC195DBA7700E80075 /* msg_state_sending.png */,
 				848426A5192E0F2B00C9474A /* tribe_btn_add_highlight@2x.png */,
@@ -2373,6 +2379,8 @@
 		84FCA84F192CC1D50005295A /* 自定义控件 */ = {
 			isa = PBXGroup;
 			children = (
+				211D8F9A1985478000360BFB /* GCPlaceholderTextView.h */,
+				211D8F9B1985478000360BFB /* GCPlaceholderTextView.m */,
 				21BAC27D19308B3300409B9B /* CustomTabBarController.h */,
 				58163D9919323838001B60FE /* CustomTabBarController.m */,
 				21BAC27F19308B3300409B9B /* TabBarControl.h */,
@@ -2559,6 +2567,7 @@
 				2119EE8A19168279007DBE68 /* InfoPlist.strings in Resources */,
 				212F241B1928E09A00F738F8 /* img_portrait96@2x.png in Resources */,
 				212F24451928E09A00F738F8 /* img_portrait_discuss72@2x.png in Resources */,
+				58A9BF7A19869BA700636F21 /* tribe_authflog.gif in Resources */,
 				21A894071928FE5400A6DB7E /* CommentCell.xib in Resources */,
 				21D7059E191696D6004950BF /* InfluenceViewController.xib in Resources */,
 				212F24111928E09A00F738F8 /* btn_share_highlight@2x.png in Resources */,
@@ -2957,6 +2966,7 @@
 				8852EFB9195CFC0A00E5D9F7 /* EditUserInfoViewController.m in Sources */,
 				21D705C01916A469004950BF /* ImageLabelCell.m in Sources */,
 				58826BAE195DD180002F13A5 /* NSString+NimbusCore.m in Sources */,
+				211D8F9C1985478000360BFB /* GCPlaceholderTextView.m in Sources */,
 				2192EC1E191BD84200A8FE7F /* HobbyViewController.m in Sources */,
 				5839E43A196C3F4C00326270 /* MessagesViewController.m in Sources */,
 				84B94AC8197236EA001974E8 /* NSDate-Helper.m in Sources */,

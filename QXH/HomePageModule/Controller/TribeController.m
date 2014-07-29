@@ -145,9 +145,13 @@
 }
 
 - (void)requestInfoList:(NSString *)type start:(NSString *)start withCompletionHandler:(ListCallback)callback{
+    NSString *autuflag = @"0";
+    if ([type isEqualToString:@"2"]) {
+        autuflag = @"2";
+    }
     [DataInterface requestTribeList:type
                           tribename:@""
-                           authflag:@"0"
+                           authflag:autuflag
                              status:@"0"
                           tribetype:@"1"
                                 tag:@""

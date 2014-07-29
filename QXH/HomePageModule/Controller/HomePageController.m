@@ -121,6 +121,18 @@
     
     NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
     if ([defaults objectForKey:@"userid"]) {
+//        /*获取个人信息，并储存起来*/
+//        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+//         {
+//             NSLog(@"获取到用户信息--->%@",user.displayname);
+////             _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
+//             _welcomeLabel.text = @"欢迎来到校长会";
+//             [_portraitView setImageWithURL:IMGURL(user.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+//           
+////             _portraitView.image = user.iconImageview.image;
+//             [_portraitView circular];
+//         }];
+
         
         
 //        NSNumber* auserid = [defaults objectForKey:@"userid"] ;
@@ -275,7 +287,8 @@
 
 - (void)setTopViewValue:(NSDictionary *)dict
 {
-    _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",[dict objectForKey:@"displayname"]];
+//    _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",[dict objectForKey:@"displayname"]];
+    _welcomeLabel.text = @"欢迎来到校长会";
     [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
 }
