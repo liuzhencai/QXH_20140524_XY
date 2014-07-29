@@ -11,6 +11,7 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 #import "SelectTribeController.h"
+#import "GCPlaceholderTextView.h"
 
 @interface InformationDetailController ()
 {
@@ -170,8 +171,28 @@
             break;
         case 3:
         {
-            UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"转发到广场" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alerView show];
+            CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
+            [alertView setUseMotionEffects:TRUE];
+            [alertView setButtonTitles:@[@"取消", @"转发"]];
+            GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+            commentView.placeholder = @"请在此输入评论";
+            commentView.backgroundColor = [UIColor clearColor];
+            [alertView setContainerView:commentView];
+            [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
+                switch (buttonIndex) {
+                    case 1:
+                    {
+                        [DataInterface transmit:@"2" targetid:self.artid refsign:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
+                            [self showAlert:[dict objectForKey:@"info"]];
+                            [alertView close];
+                        }];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }];
+            [alertView show];
         }
             break;
         case 4:
