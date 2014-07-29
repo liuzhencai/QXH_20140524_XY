@@ -16,6 +16,10 @@
     /**
      *  记录心跳超时
      */
+    if (![defaults objectForKey:@"userid"] || ![defaults objectForKey:@"token"]) {
+        /*如果清空以后就没有*/
+        return;
+    }
     NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
     NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
@@ -509,6 +513,7 @@ withCompletionHandler:(DictCallback)callback
     
     [[UDPServiceEngine sharedEngine] sendData:mess withCompletionHandler:^(id data) {
         NSLog(@"\n##########通用聊天返回结果##########\n[结 果]:%@\n#############################\n",data);
+        
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########通用聊天出错##########\n[原 因]:%@\n#############################\n",data);
@@ -525,6 +530,7 @@ withCompletionHandler:(DictCallback)callback
     NSLog(@"\n##########客户端发送收到消息接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########客户端发送收到消息返回结果##########\n[结 果]:%@\n#############################\n",data);
+//        NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:data];
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########客户端发送收到消息出错##########\n[原 因]:%@\n#############################\n",data);

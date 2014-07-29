@@ -18,7 +18,7 @@
 
 @property (nonatomic, copy) NSString *sessionid; // 会话唯一标示
 
-@property (nonatomic, copy) NSString *type; // 消息类型
+@property (nonatomic, copy) NSNumber *type; // 消息类型
 
 @property (nonatomic, copy) NSNumber *fromid; // 来自id标示
 

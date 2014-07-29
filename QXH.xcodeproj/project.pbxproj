@@ -171,7 +171,6 @@
 		214E811219645EEF0026BB60 /* SquareTransmitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214E811019645EEF0026BB60 /* SquareTransmitCell.xib */; };
 		214E811619645FF60026BB60 /* SquareNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 214E811419645FF60026BB60 /* SquareNoPicCell.m */; };
 		214E811719645FF60026BB60 /* SquareNoPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214E811519645FF60026BB60 /* SquareNoPicCell.xib */; };
-		21506B7E197EBE8F002E6CF3 /* qxh.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 21506B7A197EBE8F002E6CF3 /* qxh.sqlite */; };
 		21506B7F197EBE8F002E6CF3 /* ChatMess.m in Sources */ = {isa = PBXBuildFile; fileRef = 21506B7B197EBE8F002E6CF3 /* ChatMess.m */; };
 		21506B81197EBE9A002E6CF3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21506B80197EBE9A002E6CF3 /* DBManager.m */; };
 		2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2166CDF0193396AE00F0312E /* ModelGenerator.m */; };
@@ -363,6 +362,7 @@
 		842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C95192AF8E600374F04 /* UIViewAdditions.m */; };
 		845343D819685E9A00F51B49 /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */; };
 		845343D919685E9A00F51B49 /* PullRefreshTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */; };
+		8459CB571986C6A8000BA6BC /* myimageviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8459CB561986C6A8000BA6BC /* myimageviewViewController.m */; };
 		845D44981947425B0041445D /* UserInfoModelManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 845D44971947425B0041445D /* UserInfoModelManger.m */; };
 		8484269E192E0D0100C9474A /* SelectTribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84842699192E0D0100C9474A /* SelectTribeViewController.m */; };
 		8484269F192E0D0100C9474A /* TribeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8484269B192E0D0100C9474A /* TribeDetailViewController.m */; };
@@ -708,7 +708,6 @@
 		214E811319645FF60026BB60 /* SquareNoPicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareNoPicCell.h; sourceTree = "<group>"; };
 		214E811419645FF60026BB60 /* SquareNoPicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareNoPicCell.m; sourceTree = "<group>"; };
 		214E811519645FF60026BB60 /* SquareNoPicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareNoPicCell.xib; sourceTree = "<group>"; };
-		21506B7A197EBE8F002E6CF3 /* qxh.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = qxh.sqlite; sourceTree = "<group>"; };
 		21506B7B197EBE8F002E6CF3 /* ChatMess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMess.m; sourceTree = "<group>"; };
 		21506B7C197EBE8F002E6CF3 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		21506B7D197EBE8F002E6CF3 /* ChatMess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMess.h; sourceTree = "<group>"; };
@@ -1036,6 +1035,8 @@
 		845343D519685E9A00F51B49 /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullRefreshTableViewController.xib; sourceTree = "<group>"; };
+		8459CB551986C6A8000BA6BC /* myimageviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myimageviewViewController.h; sourceTree = "<group>"; };
+		8459CB561986C6A8000BA6BC /* myimageviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myimageviewViewController.m; sourceTree = "<group>"; };
 		845D44961947425B0041445D /* UserInfoModelManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModelManger.h; sourceTree = "<group>"; };
 		845D44971947425B0041445D /* UserInfoModelManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModelManger.m; sourceTree = "<group>"; };
 		84842698192E0D0100C9474A /* SelectTribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTribeViewController.h; sourceTree = "<group>"; };
@@ -1815,7 +1816,6 @@
 			children = (
 				21506B80197EBE9A002E6CF3 /* DBManager.m */,
 				21506B7C197EBE8F002E6CF3 /* DBManager.h */,
-				21506B7A197EBE8F002E6CF3 /* qxh.sqlite */,
 				21506B7B197EBE8F002E6CF3 /* ChatMess.m */,
 				21506B7D197EBE8F002E6CF3 /* ChatMess.h */,
 				216EF4FE1972825800B75A6C /* qxh_rule.htm */,
@@ -2364,6 +2364,8 @@
 				845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */,
 				8400F6131976CA5E008FA433 /* ChatLiveViewController.h */,
 				8400F6141976CA5E008FA433 /* ChatLiveViewController.m */,
+				8459CB551986C6A8000BA6BC /* myimageviewViewController.h */,
+				8459CB561986C6A8000BA6BC /* myimageviewViewController.m */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -2658,7 +2660,6 @@
 				212F24461928E09A00F738F8 /* img_portrait_recommend96@2x.png in Resources */,
 				212F24331928E09A00F738F8 /* btn_login_normal@2x.png in Resources */,
 				212F24531928E09A00F738F8 /* list_arrow_down_green@2x.png in Resources */,
-				21506B7E197EBE8F002E6CF3 /* qxh.sqlite in Resources */,
 				212F244D1928E09A00F738F8 /* bootom_bar@2x.png in Resources */,
 				212F24381928E09A00F738F8 /* shuxian@2x.png in Resources */,
 				2192EBE3191BD56400A8FE7F /* EditCardController.xib in Resources */,
@@ -2821,6 +2822,7 @@
 				84F065E9192AFACD00B09AB5 /* ActivityDetailViewController.m in Sources */,
 				2119EEFA191682EC007DBE68 /* NSData+GIF.m in Sources */,
 				8492C816197F8F6D006FC4D4 /* UIScrollView+MJRefresh.m in Sources */,
+				8459CB571986C6A8000BA6BC /* myimageviewViewController.m in Sources */,
 				212F23B51928DF4D00F738F8 /* InformationCell.m in Sources */,
 				212F23B31928DF4D00F738F8 /* InformationViewController.m in Sources */,
 				58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */,
@@ -3101,7 +3103,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3127,7 +3129,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8F4D1FC2-7923-4823-96E0-E8696143DED9";
+				PROVISIONING_PROFILE = "E380AB3C-1788-4B50-AB9D-C34B97137994";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

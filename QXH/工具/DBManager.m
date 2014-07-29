@@ -10,6 +10,7 @@
 
 
 
+#define KListName  @"chat_mess_tbl"
 static DBManager *dbManager;
 
 @interface DBManager ()
@@ -33,24 +34,38 @@ static DBManager *dbManager;
 - (void)initDb:(NSString *)path
 {
     db = [[FMDatabase alloc] initWithPath:path];
+ 
 }
 
 - (id)init
 {
     if (self == [super init]) {
-        NSString *dbFilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"qxh.sqlite"];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentDirectory = [paths objectAtIndex:0];
+        //dbPath： 数据库路径，在Document中。
+        NSString *dbFilePath = [documentDirectory stringByAppendingPathComponent:@"qxhChat.db"];
         
         // 判断当前沙盒中是否存在数据库文件
         if (![[NSFileManager defaultManager] fileExistsAtPath:dbFilePath]) {
             // 如果不存在数据库文件，则将bundle中的数据库文件拷贝至沙盒中
-            NSString *dbBundlePath = [[NSBundle mainBundle] pathForResource:@"qxh" ofType:@"sqlite"];
-            NSError *error;
-            if([[NSFileManager defaultManager] copyItemAtPath:dbBundlePath toPath:dbFilePath error:&error]){
-                [self initDb:dbFilePath];
+//            [self initDb:dbFilePath];
+             db = [[FMDatabase alloc] initWithPath:dbFilePath];
+            BOOL res1 =  [db open] ;
+            if (!res1) {
+                NSLog(@"error when open db table");
+            
+            } else {
+                NSLog(@"success to open db table");
             }
+          BOOL resu  =  [db executeUpdate:@"CREATE TABLE chat_mess_tbl (msgid long,type int,fromid long,fromname text,fromphotoid long,dtdate text,contenttext text,targetid long,targetname text,targetphoto text,messagetype int)"];
+            if (!resu) {
+                NSLog(@"创建数据库表失败");
+            }
+            
         }else{
             // 如果存在数据库文件，则直接读取数据库文件
-            [self initDb:dbFilePath];
+             db = [[FMDatabase alloc] initWithPath:dbFilePath];
+//            [self initDb:dbFilePath];
         }
     }
     return self;
@@ -68,11 +83,14 @@ static DBManager *dbManager;
         NSLog(@"success to open db table");
     }
     
-//   NSString *sql = @"insert into chat_mess_tbl (cid, uid,msgid,sessionid,type,fromid,fromname,fromphotoid,dttime,dtdate,contenttext,contentres,state,targetid,targetname,targetphoto,targettype) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
       NSString *sql = @"insert into chat_mess_tbl (msgid,type,fromid,fromname,fromphotoid,dtdate,contenttext,targetid,targetname,targetphoto,messagetype) values (?,?,?,?,?,?,?,?,?,?,?)";
 
+
+
       BOOL res =  [db executeUpdate:sql,mess.msgid,mess.type,mess.fromid,mess.fromname,mess.fromphotoid,mess.dtdate,mess.contenttext,mess.targetid,mess.targetname,mess.targetphoto,mess.messagetype];
-//  BOOL res =  [db executeUpdate:sql, mess.cid, mess.uid,mess.msgid,mess.sessionid,mess.type,mess.fromid,mess.fromname,mess.fromphotoid,mess.dttime,mess.dtdate,mess.contenttext,mess.contentres,mess.state,mess.targetid,mess.targetname,mess.targetphoto,mess.targettype];
+
+
     if (!res) {
         NSLog(@"error when insert db table");
           return ;
@@ -93,7 +111,9 @@ static DBManager *dbManager;
       
     }
     NSMutableArray *result  = [[NSMutableArray alloc] init];
-    NSString *sql = [NSString stringWithFormat:@"select *from chat_mess_tbl where targetid = %@ limit %@, %@", targetid, start, count];
+//    NSString *sql = [NSString stringWithFormat:@"select  *from chat_mess_tbl where targetid = %@ limit %@, %@", targetid, start, count];
+//     NSString *sql = [NSString stringWithFormat:@"select * from  chat_mess_tbl order by dtdate desc where targetid = %@ limit %@, %@", targetid, start, count];
+     NSString *sql = [NSString stringWithFormat:@"select * from  chat_mess_tbl  where targetid = %@ order by dtdate desc limit %@, %@", targetid, start, count];
     FMResultSet *rs = [db executeQuery:sql];
     
     
@@ -165,4 +185,46 @@ static DBManager *dbManager;
     return [db executeUpdate:sql];
 }
 
+- (void)changeByDate:(NSString*)adate andMessid:(NSNumber*)messid
+{
+    BOOL res1 =  [db open] ;
+    if (!res1) {
+        NSLog(@"error when open db table");
+        return ;
+    } else {
+        NSLog(@"success to open db table");
+        
+    }
+    
+   BOOL result =  [db executeUpdate:@"UPDATE chat_mess_tbl SET msgid = ? WHERE dtdate = ? ",messid,adate];
+    if (!result) {
+     NSLog(@"修改数据库失败");
+    }else{
+     NSLog(@"修改数据库成功");
+    }
+    
+    [db close];
+}
+
+///*发送*/
+//- (void)changeByDate:(NSString*)adate andMessage:(NSString*)mess
+//{
+//    BOOL res1 =  [db open] ;
+//    if (!res1) {
+//        NSLog(@"error when open db table");
+//        return ;
+//    } else {
+//        NSLog(@"success to open db table");
+//        
+//    }
+//    
+//    BOOL result =  [db executeUpdate:@"UPDATE chat_mess_tbl SET msgid = ? WHERE dtdate = ? ",messid,adate];
+//    if (!result) {
+//        NSLog(@"修改数据库失败");
+//    }else{
+//        NSLog(@"修改数据库成功");
+//    }
+//    
+//    [db close];
+//}
 @end

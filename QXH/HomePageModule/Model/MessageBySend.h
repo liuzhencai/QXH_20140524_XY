@@ -60,14 +60,11 @@
     
     MBProgressHUD* progressHUD;
     
-//    /*历史图片字典*/
-//    NSMutableDictionary* historyPicDic;
-//    /*获取图片的队列*/
-//    NSMutableDictionary* querPic;
-//    NSInteger piccount;
-    
     /*文件路径*/
     DBManager* db;
+    
+    /*聊天记录显示的最后一条信息位置的字典*/
+    NSMutableDictionary* hisStatDic;
 }
 
 //@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
@@ -75,7 +72,11 @@
 +(MessageBySend*)sharMessageBySend;
 
 /*通过部落id，获取部落聊天内容*/
--(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid andStart:(NSString*)start;
+-(NSMutableArray*)getChatRoomMessArray:(NSString*)ChatRoomid andStart:(NSString*)start andcount:(NSString*)count andSendType:(NSString*)sendType;
+-(NSMutableArray*)getChatRoomMessArrayOld:(NSString*)ChatRoomid;
+
+/*获取聊天记录*/
+- (NSMutableArray*)getHistoryFormLocalByTargid:(NSString*)atargetid andBack:(BOOL)back;
 /*
  1、把我自己发送的消息添加进入聊天室
  2、对方发送私聊
@@ -91,7 +92,9 @@
                     tribeid:(NSString*)tribeid;
 /*登录成功后获取用户离线消息*/
 - (void)getOfflineMessage;
-#pragma mark 获取聊天历史记录
+/*保存数据库，外部当发送图片时调用*/
+- (void)saveFmdb:(NSDictionary*)dic;
+#pragma mark 获取网络聊天历史记录
 -(void)getMessageHistory:(NSMutableDictionary *)fromdic andSendtype:(NSString*)sendtype andStartMessageid:(NSString*)startid;
 #pragma mark 全屏等待框
 - (void)showprogressHUD:(NSString*)string withView:(UIView*)aview;

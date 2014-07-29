@@ -376,4 +376,14 @@
 	return [NSDate timestampFormatString];
 }
 
++(NSString *) getdate
+{
+    NSDate * senddate=[NSDate date];
+    NSDateFormatter *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:dd"];
+    NSString * locationString=[dateformatter stringFromDate:senddate];
+    return locationString;
+   
+//    return  tist;
+}
 @end

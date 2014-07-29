@@ -67,6 +67,9 @@ static int offsetX = 6; // 6 px from each side
 // Bubble, Text, ImgV
 @property (strong, nonatomic) UILabel *textLabel;
 @property (strong, nonatomic) UILabel *bgLabel;
+@property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *shareLabel;
 /* 
  对方的头像
  */
@@ -105,10 +108,10 @@ static int offsetX = 6; // 6 px from each side
         //由label来做气泡的
         if (!_bgLabel) {
             _bgLabel = [UILabel new];
-            _bgLabel.layer.rasterizationScale = 2.0f;
+            _bgLabel.layer.rasterizationScale = 1.0f;
             _bgLabel.layer.shouldRasterize = YES;
             _bgLabel.layer.borderWidth = 2;
-            _bgLabel.layer.cornerRadius = minimumHeight / 5;
+            _bgLabel.layer.cornerRadius = minimumHeight / 9;
             _bgLabel.alpha = .925;
             [self.contentView addSubview:_bgLabel];
         }
@@ -158,6 +161,34 @@ static int offsetX = 6; // 6 px from each side
             [self.contentView addSubview:_imageView];
         }
         messageSendBy = [MessageBySend sharMessageBySend];
+        
+        if (!_nameLabel) {
+            _nameLabel = [[UILabel alloc]init];
+//            _nameLabel.layer.rasterizationScale = 1.5f;
+            _nameLabel.layer.shouldRasterize = YES;
+            _nameLabel.font = [UIFont systemFontOfSize:10.0f];
+            _nameLabel.textColor = [UIColor blackColor];
+            _nameLabel.numberOfLines = 0;
+            _nameLabel.layer.borderColor = _userColor.CGColor;
+            _bgLabel.layer.cornerRadius = minimumHeight / 9;
+            [self.contentView addSubview:_nameLabel];
+        }
+        
+        if (!_titleLabel) {
+            _titleLabel = [[UILabel alloc]init];
+            _titleLabel.font = [UIFont systemFontOfSize:15.0f];
+            _titleLabel.textColor = [UIColor darkTextColor];
+            _titleLabel.numberOfLines = 0;
+            [self.contentView addSubview:_titleLabel];
+        }
+        
+        if (!_shareLabel) {
+            _shareLabel = [[UILabel alloc]init];
+            _shareLabel.font = [UIFont systemFontOfSize:15.0f];
+            _shareLabel.textColor = [UIColor darkTextColor];
+            _shareLabel.numberOfLines = 0;
+            [self.contentView addSubview:_shareLabel];
+        }
     }
     
     return self;
@@ -209,7 +240,7 @@ static int offsetX = 6; // 6 px from each side
 }
 
 - (void) drawCell {
-    
+    stateImageView.hidden = YES;
     NSNumber* kSentby = (NSNumber*)[_message valueForKey:@"senderid"];
      _sentBy = [kSentby intValue];
     NSString* asendId =[NSString stringWithFormat:@"%d",_sentBy];
@@ -227,17 +258,21 @@ static int offsetX = 6; // 6 px from each side
         
         //自己发图片
         if (SendByMeSelf) {
+//            stateImageView.hidden = NO;
             _imageView.hidden = YES;
             MyHeadimageView.hidden = NO;
             /*设置我的头像*/
             [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
-            picImageView.frame = CGRectMake(320-minimumHeight- KPicWidth - KheadX-5, 0, KPicWidth, KPicHigth);
+            picImageView.frame = CGRectMake(320-minimumHeight- KPicWidth - KheadX-5, KNameHight, KPicWidth, KPicHigth);
+            _nameLabel.frame = CGRectMake(320-minimumHeight- KPicWidth - KheadX-5, 0, KPicWidth, KNameHight);
+            _nameLabel.text = [_message valueForKey:@"sendername"];
+             _nameLabel.textAlignment = NSTextAlignmentRight;
             UIImage* meSendPic = (UIImage*)_message[kPicContent];
             if (meSendPic) {
                 /*设置发送图片*/
                 picImageView.image = meSendPic;
                 /*设置发送状态图片*/
-                stateImageView.hidden = NO;
+//                stateImageView.hidden = NO;
                 self.stateImageView.frame = CGRectMake(picImageView.frame.origin.x-kStateImageViewWidth,picImageView.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
             }else{
                 picImageView.image = nil;
@@ -249,14 +284,17 @@ static int offsetX = 6; // 6 px from each side
             //对方发的
             _imageView.hidden = NO;
             MyHeadimageView.hidden = YES;
-             stateImageView.hidden = NO;
+//             stateImageView.hidden = NO;
             [messageSendBy getimageView:_imageView byImagePath:[_message valueForKey:@"senderphoto"]];
             NSLog(@"_message==%@",_message);
             picImageView.image = nil;
     
-            picImageView.frame = CGRectMake(offsetX / 2, 0, KPicWidth, KPicHigth);
-            picImageView.center = CGPointMake(picImageView.center.x + _imageView.bounds.size.width+5, picImageView.center.y);
+            picImageView.frame = CGRectMake(offsetX / 2+ _imageView.bounds.size.width+5, KNameHight, KPicWidth, KPicHigth);
+//            picImageView.center = CGPointMake(picImageView.center.x + _imageView.bounds.size.width+5, picImageView.center.y);
             [messageSendBy getimageView:picImageView byImagePath:[_message valueForKey:@"mess"]];
+            _nameLabel.frame = CGRectMake(offsetX / 2 + _imageView.bounds.size.width+5, 0, KPicWidth, KNameHight);
+            _nameLabel.text = [_message valueForKey:@"sendername"];
+             _nameLabel.textAlignment = NSTextAlignmentLeft;
         }
   
     }else if([Nmesstype intValue] == 1){
@@ -274,24 +312,28 @@ static int offsetX = 6; // 6 px from each side
         CGFloat height = self.contentView.bounds.size.height - 10;
         if (height < minimumHeight) height = minimumHeight;
         
+        CGFloat width = (_textSize.width + outlineSpace)>KPicWidth?(_textSize.width - outlineSpace):KPicWidth;
         if (SendByMeSelf) {
             // then this is a message that the current user created . . .
-            _bgLabel.frame = CGRectMake(ScreenWidth() - offsetX, 0, -_textSize.width - outlineSpace, height) ;
+            _bgLabel.frame = CGRectMake(ScreenWidth() - width, KNameHight, width, height) ;
             _bgLabel.layer.borderColor = _userColor.CGColor;
             MyHeadimageView.hidden = NO;
 
             [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
             
             _imageView.hidden = YES;
-            stateImageView.hidden = NO;
+//            stateImageView.hidden = NO;
             for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
+                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-10, v.center.y);
             }
+            _nameLabel.frame = CGRectMake(ScreenWidth() - width- MyHeadimageView.bounds.size.width-10, 0, KPicWidth, KNameHight);
+            _nameLabel.text = [_message valueForKey:@"sendername"];
+            _nameLabel.textAlignment = NSTextAlignmentRight;
             self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
      
         }else {
             // sent by opponent
-            _bgLabel.frame = CGRectMake(offsetX, 0, _textSize.width + outlineSpace, height);
+            _bgLabel.frame = CGRectMake(offsetX, KNameHight, width, height);
             _bgLabel.layer.borderColor = _opponentColor.CGColor;
             
             for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -302,12 +344,15 @@ static int offsetX = 6; // 6 px from each side
 
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;
-            stateImageView.hidden = YES;
+            
+            _nameLabel.frame = CGRectMake(offsetX+ _imageView.bounds.size.width+offsetX, 0, KPicWidth, KNameHight);
+            _nameLabel.text = [_message valueForKey:@"sendername"];
+            _nameLabel.textAlignment = NSTextAlignmentLeft;
 //            _imageView.backgroundColor = [UIColor redColor];
         }
         
         // position _textLabel in the _bgLabel;
-        _textLabel.frame = CGRectMake(_bgLabel.frame.origin.x + (outlineSpace / 2), 0, _bgLabel.bounds.size.width - outlineSpace, _bgLabel.bounds.size.height);
+        _textLabel.frame = CGRectMake(_bgLabel.frame.origin.x + (outlineSpace / 2), KNameHight, _bgLabel.bounds.size.width - outlineSpace, _bgLabel.bounds.size.height);
     }else if([Nmesstype intValue] == 2){
         /*2为json对象
          mess是对象
@@ -344,7 +389,7 @@ static int offsetX = 6; // 6 px from each side
             [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
             
             _imageView.hidden = YES;
-            stateImageView.hidden = NO;
+//            stateImageView.hidden = NO;
             for (UIView * v in @[_bgLabel, _textLabel]) {
                 v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
             }
@@ -363,7 +408,6 @@ static int offsetX = 6; // 6 px from each side
             
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;
-            stateImageView.hidden = YES;
             //            _imageView.backgroundColor = [UIColor redColor];
         }
         
@@ -378,7 +422,7 @@ static int offsetX = 6; // 6 px from each side
 
 -(void)addStateImageView:(NSInteger)senstate
 {
-    stateImageView.hidden = NO;
+//    stateImageView.hidden = NO;
     switch (senstate) {
         case kSentIng:
         {
@@ -414,8 +458,8 @@ static int offsetX = 6; // 6 px from each side
 /*添加cell的显示信息*/
 - (void)showDate:(NSDictionary*)adic
 {
-//    self.opponentImage = self.opponentImg;
-//    self.MyHeadimageView = self.MyHeadImg;
+    
+    return;
     
     /*设置消息发送状态*/
     NSInteger kState;

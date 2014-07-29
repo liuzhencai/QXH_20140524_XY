@@ -36,9 +36,9 @@
     
     NSArray *  imagesArr = nil;
     if (!iPhone5) {
-        imagesArr = @[@"guide_page5_1.jpg",@"guide_page5_2.jpg",@"guide_page5_3.jpg",@"guide_page5_4.jpg"];
+        imagesArr = @[@"guide5_1",@"guide5_2",@"guide5_3",@"guide5_4"];
     }else{
-        imagesArr = @[@"guide1.jpg",@"guide2.jpg",@"guide3.jpg",@"guide4.jpg"];
+        imagesArr = @[@"guide1",@"guide2",@"guide3",@"guide4"];
     }
     
     _MasterScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
