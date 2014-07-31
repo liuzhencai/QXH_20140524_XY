@@ -13,6 +13,7 @@
 #import "InformationCommentCell.h"
 #import "NameCardViewController.h"
 #import "InformationDetailController.h"
+#import "MyCardController.h"
 
 @interface ShareTextController ()
 {
@@ -395,10 +396,16 @@
     switch (section) {
         case 0:
         {
-            NameCardViewController *controller = [[NameCardViewController alloc]init];
-            NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:_info.uid] forKey:@"userid"];
-            controller.memberDict = item;
-            [self.navigationController pushViewController:controller animated:YES];
+            if (_info.uid == [[defaults objectForKey:@"userid"] integerValue]) {
+                MyCardController *controller = [[MyCardController alloc] initWithNibName:@"MyCardController" bundle:nil];
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:YES];
+            }else{
+                NameCardViewController *controller = [[NameCardViewController alloc]init];
+                NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:_info.uid] forKey:@"userid"];
+                controller.memberDict = item;
+                [self.navigationController pushViewController:controller animated:YES];
+            }
         }
             break;
         case 1:

@@ -10,6 +10,7 @@
 #import "InformationCommentCell.h"
 #import "NameCardViewController.h"
 #import "GCPlaceholderTextView.h"
+#import "MyCardController.h"
 
 @interface InformationCommentController ()
 {
@@ -108,10 +109,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     InfoCommentModel *model = [commentList objectAtIndex:indexPath.row];
-    NameCardViewController *controller = [[NameCardViewController alloc]init];
-    NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:model.sid] forKey:@"userid"];
-    controller.memberDict = item;
-    [self.navigationController pushViewController:controller animated:YES];
+    if (model.sid != [[defaults objectForKey:@"userid"] integerValue]) {
+        NameCardViewController *controller = [[NameCardViewController alloc]init];
+        NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:model.sid] forKey:@"userid"];
+        controller.memberDict = item;
+        [self.navigationController pushViewController:controller animated:YES];
+    }else{
+        MyCardController *controller = [[MyCardController alloc] initWithNibName:@"MyCardController" bundle:nil];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 @end
