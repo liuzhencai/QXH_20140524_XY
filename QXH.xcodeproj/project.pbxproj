@@ -207,6 +207,7 @@
 		21A8941119290B7F00A6DB7E /* InformationCommentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8940F19290B7F00A6DB7E /* InformationCommentController.xib */; };
 		21A8941519290BFE00A6DB7E /* InformationDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A8941319290BFE00A6DB7E /* InformationDetailController.m */; };
 		21A8941619290BFE00A6DB7E /* InformationDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A8941419290BFE00A6DB7E /* InformationDetailController.xib */; };
+		21B32AE7198A933800FD491E /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B32AE6198A933800FD491E /* AboutViewController.m */; };
 		21B793C01921135A0033AFC3 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B793BF1921135A0033AFC3 /* HttpRequest.m */; };
 		21B90845197EA2E000BB0579 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B9083B197EA2E000BB0579 /* FMDatabase.m */; };
 		21B90846197EA2E000BB0579 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B9083D197EA2E000BB0579 /* FMDatabaseAdditions.m */; };
@@ -766,6 +767,8 @@
 		21A8941219290BFE00A6DB7E /* InformationDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailController.h; sourceTree = "<group>"; };
 		21A8941319290BFE00A6DB7E /* InformationDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailController.m; sourceTree = "<group>"; };
 		21A8941419290BFE00A6DB7E /* InformationDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailController.xib; sourceTree = "<group>"; };
+		21B32AE5198A933800FD491E /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		21B32AE6198A933800FD491E /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		21B793BE1921135A0033AFC3 /* HttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequest.h; sourceTree = "<group>"; };
 		21B793BF1921135A0033AFC3 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequest.m; sourceTree = "<group>"; };
 		21B9083A197EA2E000BB0579 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -1549,6 +1552,8 @@
 				21F3B511197AA80600609AF5 /* SelectTribeController.h */,
 				21F3B512197AA80600609AF5 /* SelectTribeController.m */,
 				21F3B513197AA80600609AF5 /* SelectTribeController.xib */,
+				21B32AE5198A933800FD491E /* AboutViewController.h */,
+				21B32AE6198A933800FD491E /* AboutViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2836,6 +2841,7 @@
 				212F23B31928DF4D00F738F8 /* InformationViewController.m in Sources */,
 				58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */,
 				2192EC0A191BD73700A8FE7F /* CityViewController.m in Sources */,
+				21B32AE7198A933800FD491E /* AboutViewController.m in Sources */,
 				2119EEFE191682EC007DBE68 /* SDWebImageDownloader.m in Sources */,
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
 				2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */,

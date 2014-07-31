@@ -11,6 +11,7 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "HomePageController.h"
+#import "AboutViewController.h"
 
 @interface SettingViewController ()
 
@@ -174,14 +175,16 @@
                     break;
                 case 1:
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"客服热线" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    [alert show];
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"客服热线" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+//                    [alert show];
                 }
                     break;
                 case 2:
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关于" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    [alert show];
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关于" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+//                    [alert show];
+                    AboutViewController *controller = [[AboutViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];
                 }
                     break;
                 default:
