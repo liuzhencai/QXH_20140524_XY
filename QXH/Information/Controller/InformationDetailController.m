@@ -116,7 +116,7 @@
     message.title = detailmodel.title;
     message.description = detailmodel.title;
 //    [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:IMGURL(detailmodel.sphoto)]]];
-    [message setThumbImage:[UIImage imageNamed:@"img_news"]];
+    [message setThumbImage:[UIImage imageNamed:@"icon"]];
     
     WXWebpageObject *ext = [WXWebpageObject object];
     ext.webpageUrl = INF_SHARE_URL(self.artid);
