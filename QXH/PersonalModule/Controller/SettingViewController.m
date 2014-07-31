@@ -191,11 +191,9 @@
             break;
         case 2:
         {
-            if ([DBManager sharedManager]) {
-                if([[DBManager sharedManager] clearAllUserData]){
-                    [self showAlert:@"清除成功"];
-                }
-            }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"清空聊天记录" message:@"确认清空聊天记录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 1112;
+            [alert show];
         }
             break;
         default:
@@ -206,10 +204,20 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 //    exit(0);
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
-    HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];
-    [controller loadPage];
+    NSLog(@"buttonIndex->>%d",buttonIndex);
+    if (alertView.tag == 1112&&buttonIndex == 1) {
+        if ([DBManager sharedManager]) {
+            if([[DBManager sharedManager] clearAllUserData]){
+                [self showAlert:@"清除成功"];
+            }
+        }
+    }else if(alertView.tag == 1113){
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
+        HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];
+        [controller loadPage];
+        [delegate.tabController selectTab:0];
+    }
 }
 
 - (void)logout:(id)sender
@@ -231,6 +239,7 @@
         }
         [defaults synchronize];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        alert.tag = 1113;
         [alert show];
     }];
 }
