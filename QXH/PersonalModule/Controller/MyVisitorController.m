@@ -70,8 +70,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NameCardViewController *controller = [[NameCardViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
+    VistorModel *model = [vistors objectAtIndex:indexPath.row];
+    NameCardViewController *controller = [[NameCardViewController alloc]init];
+    NSDictionary *item = [NSDictionary dictionaryWithObject:model.userid forKey:@"userid"];
+    controller.memberDict = item;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
