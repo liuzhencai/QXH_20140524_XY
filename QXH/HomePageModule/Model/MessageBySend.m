@@ -945,5 +945,17 @@ static MessageBySend* ins =nil;
     [db saveChatMess:chat];
    
 }
+
+/*清空所有数据*/
+- (void)cleanAllData
+{
+    [sysMess removeAllObjects];
+    [sysMessDict removeAllObjects];
+    [chatRoomMess removeAllObjects];
+    [unKnowCharMessDic removeAllObjects];
+    [hisStatDic removeAllObjects];
+    [db clearAllUserData];
+   
+}
 @end
 

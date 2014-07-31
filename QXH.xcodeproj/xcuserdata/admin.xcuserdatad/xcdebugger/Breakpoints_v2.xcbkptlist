@@ -144,11 +144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Controller/HomePageController.m"
-            timestampString = "428143769.804552"
+            timestampString = "428508504.357325"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "-reConnection"
             landmarkType = "5">
          </BreakpointContent>
@@ -598,6 +598,22 @@
             startingLineNumber = "243"
             endingLineNumber = "243"
             landmarkName = "-drawCell"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/&#x5de5;&#x5177;/DBManager.m"
+            timestampString = "428509380.08641"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "-clearAllUserData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

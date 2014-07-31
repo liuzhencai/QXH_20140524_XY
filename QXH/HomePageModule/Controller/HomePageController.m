@@ -122,8 +122,8 @@
     NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
     if ([defaults objectForKey:@"userid"]) {
 //        /*获取个人信息，并储存起来*/
-//        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
-//         {
+        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+         {
 //             NSLog(@"获取到用户信息--->%@",user.displayname);
 ////             _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
 //             _welcomeLabel.text = @"欢迎来到校长会";
@@ -131,7 +131,7 @@
 //           
 ////             _portraitView.image = user.iconImageview.image;
 //             [_portraitView circular];
-//         }];
+         }];
 
         
         
@@ -182,13 +182,14 @@
         NSLog(@"登陆返回信息：%@",dict);
         
         NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
-        if ([defaults objectForKey:@"userid"]) {
-//            /*获取个人信息，并储存起来*/
-            [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
-             {
-                 NSLog(@"获取到用户信息");
-             }];
-        }
+        /*不存储数据了，有问题*/
+//        if ([defaults objectForKey:@"userid"]) {
+////            /*获取个人信息，并储存起来*/
+//            [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+//             {
+//                 NSLog(@"获取到用户信息");
+//             }];
+//        }
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
             NSLog(@"dic==%@",dic);
             [self setTopViewValue:dic];
@@ -307,6 +308,7 @@
         NSLog(@"登陆返回信息：%@",dict);
         
         NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
+        
         if ([defaults objectForKey:@"userid"]) {
             //            /*获取个人信息，并储存起来*/
             [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)

@@ -102,6 +102,9 @@
 
 #pragma mark 获取图片接口
 - (void)getimageView:(UIImageView*)picImageView byImagePath:(NSString*)pic;
+
+/*清空所有数据*/
+- (void)cleanAllData;
 @end
 
 

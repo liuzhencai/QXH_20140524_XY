@@ -11,6 +11,8 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "HomePageController.h"
+#import "MessageBySend.h"
+#import "UserInfoModelManger.h"
 
 @interface SettingViewController ()
 
@@ -191,11 +193,14 @@
             break;
         case 2:
         {
-            if ([DBManager sharedManager]) {
-                if([[DBManager sharedManager] clearAllUserData]){
-                    [self showAlert:@"清除成功"];
-                }
-            }
+            
+//            if ([DBManager sharedManager]) {
+//                if([[DBManager sharedManager] clearAllUserData]){
+//                    [self showAlert:@"清除成功"];
+//                }
+//            }
+            [[MessageBySend sharMessageBySend]cleanAllData];
+            [self showAlert:@"聊天记录清除成功"];
         }
             break;
         default:
@@ -229,6 +234,7 @@
         if ([defaults objectForKey:@"token"]) {
             [defaults removeObjectForKey:@"token"];
         }
+        [[UserInfoModelManger sharUserInfoModelManger]cleanUser];
         [defaults synchronize];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];

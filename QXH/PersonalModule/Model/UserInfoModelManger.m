@@ -248,19 +248,9 @@ static   UserInfoModelManger* instance;
     DebugLog(@"获取图片错误==%@",error);
 }
 
-/*通过id，查看本地是否已经存储图片，如果已经存储，则取本地的*/
-//- (UIImage*)getImageByLocalId:(NSString*)userid
-//{
-//    if (!headArrayDic) {
-//        headArrayDic = [[NSMutableDictionary alloc]init];
-//    }
-//    UIImage* aimage = [headArrayDic valueForKey:userid];
-//    if (aimage) {
-//        //        return aimage;
-//    }else{
-//        aimage = [self getIcon:userid];
-//        [headArrayDic setObject:aimage forKey:userid];
-//    }
-//    return aimage;
-//}
+- (void)cleanUser
+{
+    userInfo = nil;
+    MeUserId = nil;
+}
 @end
