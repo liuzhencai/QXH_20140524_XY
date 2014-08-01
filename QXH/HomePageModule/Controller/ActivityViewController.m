@@ -78,6 +78,7 @@
     righttbuttonItem.frame = CGRectMake(0, 0,40, 30);
     [righttbuttonItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [righttbuttonItem setTitle:@"更多" forState:UIControlStateNormal];
+    righttbuttonItem.titleLabel.font = [UIFont systemFontOfSize:17];
     [righttbuttonItem addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
     self.navigationItem.rightBarButtonItem = righttItem;
