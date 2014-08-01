@@ -30,13 +30,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.title = @"好友搜索结果";
     //table
-    _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
-    _mainTable.delegate = self;
-    _mainTable.dataSource = self;
-    _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_mainTable];
+    if (self.membersList && [self.membersList count] > 0) {
+        _mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT) style:UITableViewStylePlain];
+        _mainTable.delegate = self;
+        _mainTable.dataSource = self;
+        _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self.view addSubview:_mainTable];
+    }
+    else {
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, UI_SCREEN_WIDTH, 30)];
+        tipLabel.text = @"没有找到人员信息";
+        tipLabel.textAlignment = NSTextAlignmentCenter;
+        tipLabel.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:tipLabel];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,10 +56,10 @@
 
 #pragma mark - UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return 1;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -71,6 +80,9 @@
         allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+//    NSDictionary *member = [self.membersList objectAtIndex:indexPath.section];
+//    NSArray *list = [member objectForKey:@"list"];
+//    NSDictionary *memberDict = [list objectAtIndex:indexPath.row];
     NSDictionary *memberDict = [self.membersList objectAtIndex:indexPath.row];
     if (memberDict) {
         [allListCell resetCellParamDict:memberDict];
@@ -82,15 +94,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"点击我的消息第%d行", indexPath.row);
-    NSDictionary *member = [self.membersList objectAtIndex:indexPath.row];
+//    NSDictionary *member = [self.membersList objectAtIndex:indexPath.section];
+//    NSArray *list = [member objectForKey:@"list"];
+//    NSDictionary *memberDict = [list objectAtIndex:indexPath.row];
+    NSDictionary *memberDict = [self.membersList objectAtIndex:indexPath.row];
     NameCardViewController *nameCard = [[NameCardViewController alloc] init];
     nameCard.isMyFriend = YES;
-    nameCard.memberDict = member;
+    nameCard.memberDict = memberDict;
     [self.navigationController pushViewController:nameCard animated:YES];
-//    NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];
-//    TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
-//    detail.tribeDict = tribeDict;
-//    [self.navigationController pushViewController:detail animated:YES];
 }
 
 @end

@@ -31,6 +31,8 @@
 
 @property (nonatomic, strong) NSMutableArray *lastMessages;//上次查看的消息
 @property (nonatomic, strong) NSMutableDictionary *dealMessages;//处理过的消息（加好友，加入部落）
+
+@property (nonatomic, strong) NSMutableArray *searchMyFriends;//搜索结果
 @end
 
 #define ADDRESS_LIST_TABLE_TAG 2330  //通讯录tag
@@ -552,7 +554,7 @@
      *  @param callback    回调
      */
     
-    [DataInterface getFriendInfo:@"1"
+    [DataInterface getFriendInfo:@"2"
                          address:@""
                         domicile:@""
                      displayname:searchBar.text
@@ -564,12 +566,61 @@
                
                if (dict) {
                    NSArray *list = [dict objectForKey:@"lists"];
+                   
+                   //筛选出好友
+                   [self checkHaveMySelf:list];
+                   
                    FindAddressResultViewController *findAddressResult = [[FindAddressResultViewController alloc] init];
-                   findAddressResult.membersList = [NSMutableArray arrayWithArray:list];
+//                   findAddressResult.membersList = [NSMutableArray arrayWithArray:list];
+                   if (self.searchMyFriends) {
+                       findAddressResult.membersList = self.searchMyFriends;
+                   }
                    [self.navigationController pushViewController:findAddressResult animated:YES];
                }
            }];
 }
+
+
+- (void)checkHaveMySelf:(NSArray *)lists{//筛选掉自己
+    if (lists) {
+        NSMutableArray *myFriends = [[NSMutableArray alloc] initWithCapacity:0];
+        for (int i = 0; i < [lists count]; i ++) {
+            NSDictionary *dict = [lists objectAtIndex:i];
+            NSArray *list = [dict objectForKey:@"list"];
+            for (int j = 0; j < [list count]; j ++) {
+                NSDictionary *memberDict = [list objectAtIndex:j];
+                BOOL isMyFriend = [self checkIsMyFriendByUserInfo:memberDict];
+                if (isMyFriend) {
+                    [myFriends addObject:memberDict];
+                }
+            }
+        }
+        self.searchMyFriends = myFriends;
+    }
+}
+
+- (BOOL)checkIsMyFriendByUserInfo:(NSDictionary *)memberDict{
+    if (self.addressList) {
+        BOOL haveMyFriend = NO;
+        for (int i = 0; i < [self.addressList count]; i ++) {
+            NSDictionary *dict = [self.addressList objectAtIndex:i];
+            NSArray *list = [dict objectForKey:@"list"];
+            for (int j = 0; j < [list count]; j ++) {
+                NSDictionary *memberDict2 = [list objectAtIndex:j];
+                NSInteger memberId = [[memberDict2 objectForKey:@"userid"] integerValue];
+                NSInteger myUserId = [[memberDict objectForKey:@"userid"] integerValue];
+                if (memberId == myUserId) {
+                    haveMyFriend = YES;
+                    break;
+                }
+            }
+        }
+        return haveMyFriend;
+    }else{
+        return NO;
+    }
+}
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

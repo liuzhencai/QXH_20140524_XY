@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FindResultViewController : MyViewController
-@property (nonatomic, strong) NSArray *findPeopleResults;//找人结果
+@property (nonatomic, strong) NSMutableArray *findPeopleResults;//找人结果
 @end

@@ -215,10 +215,9 @@
                        }
                        if (isHavePeople) {
                            FindResultViewController *findResult = [[FindResultViewController alloc] init];
-                           findResult.findPeopleResults = findList;
+                           findResult.findPeopleResults = [NSMutableArray arrayWithArray:findList];
                            [self.navigationController pushViewController:findResult animated:YES];
                        }else{
-//                           [self showAlert:@"没有找到相关人员"];
                            FindResultViewController *findResult = [[FindResultViewController alloc] init];
                            [self.navigationController pushViewController:findResult animated:YES];
                        }
@@ -267,10 +266,11 @@
                        }
                        if (isHavePeople) {
                            FindResultViewController *findResult = [[FindResultViewController alloc] init];
-                           findResult.findPeopleResults = findList;
+                           findResult.findPeopleResults = [NSMutableArray arrayWithArray:findList];;
                            [self.navigationController pushViewController:findResult animated:YES];
                        }else{
-                           [self showAlert:@"没有找到相关人员"];
+                           FindResultViewController *findResult = [[FindResultViewController alloc] init];
+                           [self.navigationController pushViewController:findResult animated:YES];
                        }
                    }
                }];
