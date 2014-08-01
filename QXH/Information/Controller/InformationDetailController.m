@@ -65,6 +65,7 @@
 
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
+    righttbuttonItem.titleLabel.font = [UIFont systemFontOfSize:17.f];
     [righttbuttonItem setTitle:@"分享" forState:UIControlStateNormal];
     [righttbuttonItem addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
@@ -115,7 +116,7 @@
     message.title = detailmodel.title;
     message.description = detailmodel.title;
 //    [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:IMGURL(detailmodel.sphoto)]]];
-    [message setThumbImage:[UIImage imageNamed:@"img_news"]];
+    [message setThumbImage:[UIImage imageNamed:@"icon"]];
     
     WXWebpageObject *ext = [WXWebpageObject object];
     ext.webpageUrl = INF_SHARE_URL(self.artid);

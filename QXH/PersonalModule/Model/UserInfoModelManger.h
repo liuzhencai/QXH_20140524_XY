@@ -41,7 +41,6 @@
 - (void)getOtherUserInfo:(NSString *)userid withCompletionHandler:(UserInfoModel* (^) (UserInfoModel*))backUserinfo;
 
 - (UIImage*)getIcon:(NSString*)photo;
-
-- (void)cleanUser;
-
+///*通过id，查看本地是否已经存储图片，如果已经存储，则取本地的*/
+- (UIImage*)getImageByLocalId:(NSString*)userid;
 @end

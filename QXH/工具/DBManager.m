@@ -181,14 +181,6 @@ static DBManager *dbManager;
 
 - (BOOL)clearAllUserData
 {
-    BOOL res1 =  [db open] ;
-    if (!res1) {
-        NSLog(@"error when open db table");
-        
-    } else {
-        NSLog(@"success to open db table");
-        
-    }
     NSString *sql = @"delete from chat_mess_tbl";
     return [db executeUpdate:sql];
 }

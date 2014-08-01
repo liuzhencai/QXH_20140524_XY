@@ -109,10 +109,6 @@
          NSLog(@"获取到用户信息");
      }];
     
-    [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-        
-    }];
-    
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
     
     [MessageBySend sharMessageBySend];

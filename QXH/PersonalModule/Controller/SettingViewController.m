@@ -11,8 +11,7 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "HomePageController.h"
-#import "MessageBySend.h"
-#import "UserInfoModelManger.h"
+#import "AboutViewController.h"
 
 @interface SettingViewController ()
 
@@ -176,14 +175,16 @@
                     break;
                 case 1:
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"客服热线" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    [alert show];
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"客服热线" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+//                    [alert show];
                 }
                     break;
                 case 2:
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关于" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-                    [alert show];
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"关于" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+//                    [alert show];
+                    AboutViewController *controller = [[AboutViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];
                 }
                     break;
                 default:
@@ -193,14 +194,9 @@
             break;
         case 2:
         {
-            
-//            if ([DBManager sharedManager]) {
-//                if([[DBManager sharedManager] clearAllUserData]){
-//                    [self showAlert:@"清除成功"];
-//                }
-//            }
-            [[MessageBySend sharMessageBySend]cleanAllData];
-            [self showAlert:@"聊天记录清除成功"];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"清空聊天记录" message:@"确认清空聊天记录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.tag = 1112;
+            [alert show];
         }
             break;
         default:
@@ -211,10 +207,20 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 //    exit(0);
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
-    HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];
-    [controller loadPage];
+    NSLog(@"buttonIndex->>%d",buttonIndex);
+    if (alertView.tag == 1112&&buttonIndex == 1) {
+        if ([DBManager sharedManager]) {
+            if([[DBManager sharedManager] clearAllUserData]){
+                [self showAlert:@"清除成功"];
+            }
+        }
+    }else if(alertView.tag == 1113){
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
+        HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];
+        [controller loadPage];
+        [delegate.tabController selectTab:0];
+    }
 }
 
 - (void)logout:(id)sender
@@ -234,9 +240,9 @@
         if ([defaults objectForKey:@"token"]) {
             [defaults removeObjectForKey:@"token"];
         }
-        [[UserInfoModelManger sharUserInfoModelManger]cleanUser];
         [defaults synchronize];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        alert.tag = 1113;
         [alert show];
     }];
 }

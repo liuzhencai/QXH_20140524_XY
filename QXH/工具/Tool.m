@@ -128,14 +128,6 @@ static NSString* moneymemeber;
     if (!moneymemeber) {
         if ([defaults objectForKey:@"userid"]) {
             /*获取个人信息，并储存起来*/
-            
-//            [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-////                userinfo = dict;
-//                NSNumber* ausertayp = (NSNumber*)[dict valueForKey:@"usertype"];
-//                moneymemeber = [NSString stringWithFormat:@"%d",[ausertayp integerValue]];
-//      
-//                 }];
-            
             [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
              {
                  NSLog(@"获取到用户信息--->%@",user.usertype);
