@@ -166,7 +166,10 @@
         {
             [DataInterface praiseArticle:self.artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
                 [self showAlert:[dict objectForKey:@"info"]];
-                [self getDetailInfo];
+                if ([[dict objectForKey:@"statecode"] isEqualToString:@"0200"]) {
+                    detailmodel.laud++;
+                    [self setValueForView];
+                }
             }];
         }
             break;
