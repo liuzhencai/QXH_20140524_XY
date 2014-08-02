@@ -440,7 +440,9 @@ static int chatInputStartingHeight = 40;
         NSString * content = [message objectForKey:kMessageContent];
         id pic = [message objectForKey:kPicContent];
         NSNumber* messtype = [message objectForKey:@"messtype"];
-        if (content && !pic && ([messtype intValue] != 3)) {
+//        if (content && !pic && ([messtype intValue] != 3))
+        if (content && !pic && [messtype intValue] == 1)
+        {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
             attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15.0f];
@@ -458,7 +460,7 @@ static int chatInputStartingHeight = 40;
             CGRect rect = [attrStr boundingRectWithSize:CGSizeMake(maxTextLabelWidth, 100000)
                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                                 context:nil];
-            rect.size.height += KNameHight;
+            rect.size.height += KNameHight+KLine;
             message[kMessageSize] = [NSValue valueWithCGSize:rect.size];
       
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
@@ -580,6 +582,7 @@ static int chatInputStartingHeight = 40;
 #pragma mark 提示框
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
         //        [self popForwardBack];

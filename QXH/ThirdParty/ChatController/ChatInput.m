@@ -98,8 +98,8 @@
         [self addSubview:sendBtn];
         
         
-        AddBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        AddBtn.backgroundColor = [UIColor redColor];
+        AddBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        AddBtn.backgroundColor = [UIColor darkTextColor];
         
 //        _sendBtnActiveColor = [UIColor colorWithRed:0.142954 green:0.60323 blue:0.862548 alpha:1];
 //        _sendBtnInactiveColor = [UIColor lightGrayColor];
@@ -107,7 +107,8 @@
         
         AddBtn.frame = CGRectMake(KtextViewWidh+65, 0, KSendWidh, 40);
         AddBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        [AddBtn setTitle:@"图片" forState:UIControlStateNormal];
+//        [AddBtn setTitle:@"图片" forState:UIControlStateNormal];
+        [AddBtn setBackgroundImage:[UIImage imageNamed:@"ic_chat_plus_normal.png"] forState:UIControlStateNormal];
         AddBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
         [AddBtn addTarget:self action:@selector(AddPressed:) forControlEvents:UIControlEventTouchUpInside];
         AddBtn.userInteractionEnabled = YES;

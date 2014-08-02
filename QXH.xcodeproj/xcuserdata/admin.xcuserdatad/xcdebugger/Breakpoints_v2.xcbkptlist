@@ -48,11 +48,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "589"
-            endingLineNumber = "589"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
             landmarkName = "-getMessageHistory:andSendtype:andStartMessageid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -64,11 +64,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
+            startingLineNumber = "602"
+            endingLineNumber = "602"
             landmarkName = "-getMessageHistory:andSendtype:andStartMessageid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -80,13 +80,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428263364.458057"
+            timestampString = "428657718.085894"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1445"
-            endingLineNumber = "1445"
-            landmarkName = "-reloadeChatRoomAll:"
-            landmarkType = "5">
+            startingLineNumber = "1476"
+            endingLineNumber = "1476"
+            landmarkName = "@implementation ChatRoomController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -96,11 +96,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428263364.458057"
+            timestampString = "428657183.074374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "839"
-            endingLineNumber = "839"
+            startingLineNumber = "845"
+            endingLineNumber = "845"
             landmarkName = "-didSelectbyMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -112,11 +112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428263364.458057"
+            timestampString = "428657183.074374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "898"
-            endingLineNumber = "898"
+            startingLineNumber = "928"
+            endingLineNumber = "928"
             landmarkName = "-didSelectbyMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -128,11 +128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428263364.458057"
+            timestampString = "428657183.074374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874"
+            startingLineNumber = "904"
+            endingLineNumber = "904"
             landmarkName = "-didSelectbyMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -144,12 +144,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Controller/HomePageController.m"
-            timestampString = "428143769.804552"
+            timestampString = "428508504.357325"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
-            landmarkName = "-reConnection"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "-tryReConnect"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -160,11 +160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatController.m"
-            timestampString = "428263641.309027"
+            timestampString = "428657778.192096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1163"
-            endingLineNumber = "1163"
+            startingLineNumber = "1166"
+            endingLineNumber = "1166"
             landmarkName = "-reloadeChatViewAll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -176,11 +176,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatController.m"
-            timestampString = "428263641.309027"
+            timestampString = "428657778.192096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1122"
-            endingLineNumber = "1122"
+            startingLineNumber = "1125"
+            endingLineNumber = "1125"
             landmarkName = "-reloadeChatView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -192,11 +192,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatController.m"
-            timestampString = "428263641.309027"
+            timestampString = "428657778.192096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "966"
-            endingLineNumber = "966"
+            startingLineNumber = "969"
+            endingLineNumber = "969"
             landmarkName = "-didSendMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -240,11 +240,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428244780.148184"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "-addChatRoomMessageArray:toOtherid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -256,11 +256,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
+            startingLineNumber = "619"
+            endingLineNumber = "619"
             landmarkName = "-getMessageHistory:andSendtype:andStartMessageid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -272,11 +272,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "-getChatRoomMessArray:andStart:andcount:andSendType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -288,11 +288,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "664"
-            endingLineNumber = "664"
+            startingLineNumber = "666"
+            endingLineNumber = "666"
             landmarkName = "-getOffMessageHistory:andSendtype:"
             landmarkType = "5">
          </BreakpointContent>
@@ -304,11 +304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "707"
-            endingLineNumber = "707"
+            startingLineNumber = "709"
+            endingLineNumber = "709"
             landmarkName = "-getOffMessageHistory:andSendtype:"
             landmarkType = "5">
          </BreakpointContent>
@@ -320,11 +320,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428257686.993468"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
             landmarkName = "-getOffMessageHistory:andSendtype:"
             landmarkType = "5">
          </BreakpointContent>
@@ -336,11 +336,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatController.m"
-            timestampString = "428263641.309027"
+            timestampString = "428639147.054246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "798"
-            endingLineNumber = "798"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
             landmarkName = "-collectionView:layout:sizeForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -352,11 +352,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatController.m"
-            timestampString = "428263641.309027"
+            timestampString = "428639147.054246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "801"
-            endingLineNumber = "801"
+            startingLineNumber = "803"
+            endingLineNumber = "803"
             landmarkName = "-collectionView:layout:sizeForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -368,11 +368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatController.m"
-            timestampString = "428263641.309027"
+            timestampString = "428639147.054246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "811"
-            endingLineNumber = "811"
+            startingLineNumber = "813"
+            endingLineNumber = "813"
             landmarkName = "-collectionView:layout:sizeForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -400,11 +400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428293280.384981"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "-addChatRoomMessageArray:"
             landmarkType = "5">
          </BreakpointContent>
@@ -416,11 +416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatLiveViewController.m"
-            timestampString = "428295343.852772"
+            timestampString = "428657778.192096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1060"
-            endingLineNumber = "1060"
+            startingLineNumber = "1063"
+            endingLineNumber = "1063"
             landmarkName = "-reloadeChatRoom:"
             landmarkType = "5">
          </BreakpointContent>
@@ -431,60 +431,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296924.657779"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1931"
-            endingLineNumber = "1931"
-            landmarkName = "-NOHistory:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296924.657779"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1860"
-            endingLineNumber = "1860"
-            landmarkName = "-addHeader"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428294611.384806"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
-            landmarkName = "-getHistoryFormLocalByTargid:andBack:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428294619.625716"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "785"
-            endingLineNumber = "785"
+            startingLineNumber = "770"
+            endingLineNumber = "770"
             landmarkName = "-getHistoryFormLocalByTargid:andBack:"
             landmarkType = "5">
          </BreakpointContent>
@@ -496,75 +448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296924.657779"
+            timestampString = "428657718.085894"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1930"
-            endingLineNumber = "1930"
-            landmarkName = "-NOHistory:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296924.657779"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1927"
-            endingLineNumber = "1927"
-            landmarkName = "-NOHistory:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296924.657779"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1902"
-            endingLineNumber = "1902"
-            landmarkName = "-addFooter"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296924.657779"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1865"
-            endingLineNumber = "1865"
-            landmarkName = "-addHeader"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "428296853.643644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1452"
-            endingLineNumber = "1452"
+            startingLineNumber = "1483"
+            endingLineNumber = "1483"
             landmarkName = "-reloadeChatRoomAll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -576,11 +464,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "428296293.253702"
+            timestampString = "428571265.769399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "709"
-            endingLineNumber = "709"
+            startingLineNumber = "711"
+            endingLineNumber = "711"
             landmarkName = "-getOffMessageHistory:andSendtype:"
             landmarkType = "5">
          </BreakpointContent>
@@ -591,13 +479,93 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/ThirdParty/ChatController/MessageCell.m"
-            timestampString = "428296928.424336"
+            filePath = "QXH/&#x5de5;&#x5177;/DBManager.m"
+            timestampString = "428509380.08641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "-drawCell"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "-clearAllUserData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
+            timestampString = "428657183.074374"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "696"
+            endingLineNumber = "696"
+            landmarkName = "-collectionView:layout:sizeForItemAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/HomePageModule/Controller/HomePageController.m"
+            timestampString = "428656685.135748"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-clickAd:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Information/Controller/InformationDetailController.m"
+            timestampString = "428656701.080721"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
+            timestampString = "428657273.393942"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "883"
+            endingLineNumber = "883"
+            landmarkName = "-didSelectbyMessage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
+            timestampString = "428657718.085894"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1963"
+            endingLineNumber = "1963"
+            landmarkName = "-NOHistory:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

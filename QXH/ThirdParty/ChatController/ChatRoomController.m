@@ -26,6 +26,7 @@
 #import "ActivityDetailViewController.h"
 #import "NameCardViewController.h"
 #import "myimageviewViewController.h"
+#import "InformationDetailController.h"
 
 #define KTopButtonHight  50
 #define KAskViewHight  100
@@ -117,6 +118,7 @@ static int chatInputStartingHeight = 40;
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 80, 40);
     [rightBtn setTitle:@"部落档案" forState:UIControlStateNormal];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(detail:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
@@ -676,23 +678,25 @@ static int chatInputStartingHeight = 40;
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
-    NSNumber* messtype = (NSNumber*)message[@"messtype"];
+//    NSNumber* messtype = (NSNumber*)message[@"messtype"];
     NSLog(@"message==%@\n",message);
     static int offset = 20;
     
     if (!message[kMessageSize]) {
         NSString * content = nil;
-        NSNumber* Nmesstype = (NSNumber*)[message valueForKey:@"messtype"];
-        if ([Nmesstype integerValue]==2) {
-            NSString* str = [message objectForKey:kMessageContent];
-            content = [Tool MingPianShowTex:str];
-        }else{
+//        NSNumber* Nmesstype = (NSNumber*)[message valueForKey:@"messtype"];
+//        if ([Nmesstype integerValue]==2) {
+//            NSString* str = [message objectForKey:kMessageContent];
+//            content = [Tool MingPianShowTex:str];
+//        }else{
              content = [message objectForKey:kMessageContent];
-        }
+//        }
        
         id pic = [message objectForKey:kPicContent];
         NSNumber* messtype = [message objectForKey:@"messtype"];
-        if (content && !pic && ([messtype intValue] != 3)) {
+//        if (content && !pic && ([messtype intValue] != 3 && [messtype intValue] != 2))
+          if (content && !pic && [messtype intValue] == 1)
+        {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
             attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15.0f];
@@ -710,7 +714,7 @@ static int chatInputStartingHeight = 40;
             CGRect rect = [attrStr boundingRectWithSize:CGSizeMake(maxTextLabelWidth, 100000)
                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                                 context:nil];
-            rect.size.height += KNameHight;
+            rect.size.height += KNameHight+KLine;
             message[kMessageSize] = [NSValue valueWithCGSize:rect.size];
             
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
@@ -720,9 +724,12 @@ static int chatInputStartingHeight = 40;
         }
        
     }
-    else if([messtype integerValue] == 3){
-        return CGSizeMake(320,KPicHigth +KNameHight);
-    }else{
+//    else if([messtype integerValue] == 3){
+//        return CGSizeMake(320,KPicHigth +KNameHight);
+//    }  else if([messtype integerValue] == 2){
+//        return CGSizeMake(320,KPicHigth +KNameHight);
+//    }
+    else{
         
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
     }
@@ -856,6 +863,30 @@ static int chatInputStartingHeight = 40;
         case 2:
         {
             /*智谷文章*/
+            // 跳转至智谷详情
+            
+            NSString* aTitleString= nil;
+            //            NSString* aTimeString= nil;
+            //            NSString* aPlaceString = nil;
+            for (int i=0; i<[mesageArray count]; i++) {
+                NSString* temp1 = [mesageArray objectAtIndex:i];
+                NSRange range2 = [temp1 rangeOfString:@"artid"];
+                if (range2.location != NSNotFound) {
+                    
+                    NSRange range23 = NSMakeRange(range2.location+5+2, [temp1 length]-7-range2.location);
+                    aTitleString = [temp1 substringWithRange:range23];
+                    break;
+                    
+                }
+                
+            }
+            if (aTitleString) {
+                InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+                controller.artid = aTitleString;
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:NO];
+            }
+
         }
             break;
         case 3:
@@ -920,15 +951,16 @@ static int chatInputStartingHeight = 40;
 #pragma mark 提示框
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
 //        [self popForwardBack];
     }else
     {
-        if (buttonIndex == 0) {
-            DebugLog(@"0");
-            [self addAskViewByMe:mess];
-        }
+//        if (buttonIndex == 0) {
+//            DebugLog(@"0");
+//            [self addAskViewByMe:mess];
+//        }
     }
 
 }

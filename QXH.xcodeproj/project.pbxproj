@@ -104,7 +104,6 @@
 		212F24161928E09A00F738F8 /* icon_time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23C41928E09900F738F8 /* icon_time@2x.png */; };
 		212F24171928E09A00F738F8 /* icon_zhujiangren@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23C51928E09900F738F8 /* icon_zhujiangren@2x.png */; };
 		212F24181928E09A00F738F8 /* img_bg_type@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23C61928E09900F738F8 /* img_bg_type@2x.png */; };
-		212F24191928E09A00F738F8 /* img_news@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23C71928E09900F738F8 /* img_news@2x.png */; };
 		212F241A1928E09A00F738F8 /* img_portrait72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23C81928E09900F738F8 /* img_portrait72@2x.png */; };
 		212F241B1928E09A00F738F8 /* img_portrait96@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23C91928E09900F738F8 /* img_portrait96@2x.png */; };
 		212F241C1928E09A00F738F8 /* label@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212F23CA1928E09900F738F8 /* label@2x.png */; };
@@ -363,6 +362,7 @@
 		842D3C92192AF7F100374F04 /* NameCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8B192AF7F100374F04 /* NameCardViewController.m */; };
 		842D3C93192AF7F100374F04 /* UserRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */; };
 		842D3C96192AF8E600374F04 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D3C95192AF8E600374F04 /* UIViewAdditions.m */; };
+		84334013198B6ED5005477A4 /* ic_chat_plus_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 84334012198B6ED5005477A4 /* ic_chat_plus_normal.png */; };
 		845343D819685E9A00F51B49 /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */; };
 		845343D919685E9A00F51B49 /* PullRefreshTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */; };
 		8459CB571986C6A8000BA6BC /* myimageviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8459CB561986C6A8000BA6BC /* myimageviewViewController.m */; };
@@ -635,7 +635,6 @@
 		212F23C41928E09900F738F8 /* icon_time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_time@2x.png"; sourceTree = "<group>"; };
 		212F23C51928E09900F738F8 /* icon_zhujiangren@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_zhujiangren@2x.png"; sourceTree = "<group>"; };
 		212F23C61928E09900F738F8 /* img_bg_type@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_bg_type@2x.png"; sourceTree = "<group>"; };
-		212F23C71928E09900F738F8 /* img_news@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_news@2x.png"; sourceTree = "<group>"; };
 		212F23C81928E09900F738F8 /* img_portrait72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_portrait72@2x.png"; sourceTree = "<group>"; };
 		212F23C91928E09900F738F8 /* img_portrait96@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_portrait96@2x.png"; sourceTree = "<group>"; };
 		212F23CA1928E09900F738F8 /* label@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "label@2x.png"; sourceTree = "<group>"; };
@@ -1040,6 +1039,7 @@
 		842D3C8D192AF7F100374F04 /* UserRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegisterViewController.m; sourceTree = "<group>"; };
 		842D3C94192AF8E600374F04 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAdditions.h; sourceTree = "<group>"; };
 		842D3C95192AF8E600374F04 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
+		84334012198B6ED5005477A4 /* ic_chat_plus_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_chat_plus_normal.png; sourceTree = "<group>"; };
 		845343D519685E9A00F51B49 /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		845343D619685E9A00F51B49 /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		845343D719685E9A00F51B49 /* PullRefreshTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullRefreshTableViewController.xib; sourceTree = "<group>"; };
@@ -1937,7 +1937,6 @@
 				212F23C41928E09900F738F8 /* icon_time@2x.png */,
 				212F23C51928E09900F738F8 /* icon_zhujiangren@2x.png */,
 				212F23C61928E09900F738F8 /* img_bg_type@2x.png */,
-				212F23C71928E09900F738F8 /* img_news@2x.png */,
 				212F23C81928E09900F738F8 /* img_portrait72@2x.png */,
 				212F23C91928E09900F738F8 /* img_portrait96@2x.png */,
 				212F23CA1928E09900F738F8 /* label@2x.png */,
@@ -1999,6 +1998,7 @@
 		212F23FE1928E09A00F738F8 /* public */ = {
 			isa = PBXGroup;
 			children = (
+				84334012198B6ED5005477A4 /* ic_chat_plus_normal.png */,
 				84AB9246192B36770000101A /* fanfan.jpeg */,
 				212F23FF1928E09A00F738F8 /* bootom_bar@2x.png */,
 				212F24011928E09A00F738F8 /* bootom_icon_home@2x.png */,
@@ -2588,6 +2588,7 @@
 				848426D7192E185B00C9474A /* banner_img01@2x.png in Resources */,
 				212F24211928E09A00F738F8 /* search_bar_bg@2x.png in Resources */,
 				2109D50D191F1E7F003B76D7 /* EditCardCell.xib in Resources */,
+				84334013198B6ED5005477A4 /* ic_chat_plus_normal.png in Resources */,
 				21D705BC19169C84004950BF /* CharacterListController.xib in Resources */,
 				212F24121928E09A00F738F8 /* btn_share_normal@2x.png in Resources */,
 				210BAEE6192A5C7600B8FBCF /* CollectionCell.xib in Resources */,
@@ -2720,7 +2721,6 @@
 				848426EF192E185B00C9474A /* square_share_icon_expression@2x.png in Resources */,
 				21A894021928F8CF00A6DB7E /* ShareTextController.xib in Resources */,
 				212F24311928E09A00F738F8 /* btn_arrow_normal@2x.png in Resources */,
-				212F24191928E09A00F738F8 /* img_news@2x.png in Resources */,
 				848426EC192E185B00C9474A /* collect_label_share_green@2x.png in Resources */,
 				2119EF2F191689DD007DBE68 /* ActivityCell.xib in Resources */,
 				214E810D19644BF70026BB60 /* SquareAskCell.xib in Resources */,

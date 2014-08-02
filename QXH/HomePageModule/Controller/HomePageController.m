@@ -135,30 +135,7 @@
 
         
         
-//        NSNumber* auserid = [defaults objectForKey:@"userid"] ;
-//        NSString* userid = [NSString stringWithFormat:@"%d",[auserid intValue]];
-//
-//        [DataInterface getUserInfo:userid withCompletionHandler:^(NSMutableDictionary *dict) {
-//            NSLog(@"获取到用户信息--->%@",dict.displayname);
-//            _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",dict.displayname];
-//            [_portraitView setImageWithURL:IMGURL(user.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-//            
-//            //             _portraitView.image = user.iconImageview.image;
-//            [_portraitView circular];
-//  
-//        }];
-        
-        
-//        /*获取个人信息，并储存起来*/
-//        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
-//         {
-//             NSLog(@"获取到用户信息--->%@",user.displayname);
-//             _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
-//             [_portraitView setImageWithURL:IMGURL(user.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-//           
-////             _portraitView.image = user.iconImageview.image;
-//             [_portraitView circular];
-//         }];
+
         /*修改后提交，使用原来获取用户信息方法，因为用户会更新或者注销后登陆*/
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
             [self setTopViewValue:dict];

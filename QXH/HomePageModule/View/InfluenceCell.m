@@ -46,6 +46,7 @@
         _comment.font = [UIFont systemFontOfSize:14];
         _comment.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_comment];
+        _comment.hidden = YES;
     }
     return self;
 }
@@ -62,7 +63,9 @@
     _headImgView.frame = CGRectMake(10, (height - 48)/2.0, 48, 48);
     _headImgView.backgroundColor = [UIColor redColor];
     _name.frame = CGRectMake(_headImgView.right + 10, (height - 2 * lableHeight)/2.0, 200, lableHeight);
-    _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200 - 50, lableHeight);
+//    _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200 - 50, lableHeight);//有粉丝数
+    _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
+
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
     _comment.frame = CGRectMake(_duty.right, _duty.top, 80, lableHeight);
     

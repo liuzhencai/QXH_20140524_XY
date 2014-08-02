@@ -773,8 +773,10 @@ static int chatInputStartingHeight = 40;
     
 //    if (!message[kMessageSize]) {
         NSString * content = [message objectForKey:kMessageContent];
-//        id pic = [message objectForKey:kPicContent];
-        if ([messtype integerValue]==1 && content) {
+        id pic = [message objectForKey:kPicContent];
+//        if ([messtype integerValue]==1 && content)
+    if (content && !pic && [messtype intValue] == 1)
+        {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
             attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15.0f];
@@ -794,13 +796,13 @@ static int chatInputStartingHeight = 40;
                                                 context:nil];
             
             message[kMessageSize] = [NSValue valueWithCGSize:rect.size];
-            rect.size.height += KNameHight;
+            rect.size.height += KNameHight + KLine;
             NSLog(@"size1\n");
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
-        }else if([messtype integerValue] == 3){
+        }else {
             NSLog(@"size2\n");
             //liuzhencai
-            return CGSizeMake(320,KPicHigth+KNameHight);
+            return CGSizeMake(320,KPicHigth +KNameHight);
         }
     
 //    }
@@ -905,6 +907,7 @@ static int chatInputStartingHeight = 40;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
         //        [self popForwardBack];

@@ -122,9 +122,10 @@
             NSLog(@"获取部落详情信息返回值：%@",dict);
             self.tribeDetailDict = dict;
             NSInteger createrId = [[dict objectForKey:@"creater"] integerValue];
-            NSInteger secretaryId = [[dict objectForKey:@"secretary"] integerValue];
+//            NSInteger secretaryId = [[dict objectForKey:@"secretary"] integerValue];
             NSInteger userId = [[defaults objectForKey:@"userid"] integerValue];
-            if (createrId == userId || secretaryId == userId) {
+//            if (createrId == userId || secretaryId == userId) {
+            if (createrId == userId) {//只有创建者才可以
                 self.items = @[@"部落名称",@"部落秘书长",@"头像",@"部落标签",@"部落地域",@"介绍",@"",@"清空缓存"];
                 self.isCreater = YES;
             }

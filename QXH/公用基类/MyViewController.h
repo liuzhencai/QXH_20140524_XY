@@ -15,7 +15,9 @@
 @interface MyViewController : UIViewController
 {
     /*背景图*/
-     UIImageView * backGroundImageView;
+    UIImageView * backGroundImageView;
+    /*避免多次弹出*/
+    BOOL IsshowAlert;
     
 }
 

@@ -45,7 +45,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"每日一问";
+    self.title = @"问道";
     [DataInterface getEveryDayAsk:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         askInfo = [ModelGenerator json2AskInfo:dict];
         [_askTbl reloadData];

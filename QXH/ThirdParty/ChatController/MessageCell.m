@@ -176,7 +176,7 @@ static int offsetX = 6; // 6 px from each side
         
         if (!_titleLabel) {
             _titleLabel = [[UILabel alloc]init];
-            _titleLabel.font = [UIFont systemFontOfSize:15.0f];
+            _titleLabel.font = [UIFont systemFontOfSize:13.0f];
             _titleLabel.textColor = [UIColor darkTextColor];
             _titleLabel.numberOfLines = 0;
             [self.contentView addSubview:_titleLabel];
@@ -184,7 +184,7 @@ static int offsetX = 6; // 6 px from each side
         
         if (!_shareLabel) {
             _shareLabel = [[UILabel alloc]init];
-            _shareLabel.font = [UIFont systemFontOfSize:15.0f];
+            _shareLabel.font = [UIFont systemFontOfSize:12.0f];
             _shareLabel.textColor = [UIColor darkTextColor];
             _shareLabel.numberOfLines = 0;
             [self.contentView addSubview:_shareLabel];
@@ -245,7 +245,8 @@ static int offsetX = 6; // 6 px from each side
      _sentBy = [kSentby intValue];
     NSString* asendId =[NSString stringWithFormat:@"%d",_sentBy];
     NSNumber* Nmesstype = (NSNumber*)[_message valueForKey:@"messtype"];
-    
+    _titleLabel.hidden =YES;
+    _shareLabel.hidden = YES;
     /*是否自己发送*/
     BOOL SendByMeSelf = ([asendId isEqualToString:[UserInfoModelManger sharUserInfoModelManger].MeUserId])?YES:NO;
     
@@ -309,13 +310,14 @@ static int offsetX = 6; // 6 px from each side
        
         
         // the height that we want our text bubble to be
-        CGFloat height = self.contentView.bounds.size.height - 10;
-        if (height < minimumHeight) height = minimumHeight;
+        CGFloat height = self.contentView.bounds.size.height;
+//        if (height < minimumHeight)
+//            height = minimumHeight;
         
         CGFloat width = (_textSize.width + outlineSpace)>KPicWidth?(_textSize.width - outlineSpace):KPicWidth;
         if (SendByMeSelf) {
             // then this is a message that the current user created . . .
-            _bgLabel.frame = CGRectMake(ScreenWidth() - width, KNameHight, width, height) ;
+            _bgLabel.frame = CGRectMake(ScreenWidth() - width, KNameHight, width, height-KLine) ;
             _bgLabel.layer.borderColor = _userColor.CGColor;
             MyHeadimageView.hidden = NO;
 
@@ -333,7 +335,7 @@ static int offsetX = 6; // 6 px from each side
      
         }else {
             // sent by opponent
-            _bgLabel.frame = CGRectMake(offsetX, KNameHight, width, height);
+            _bgLabel.frame = CGRectMake(offsetX, KNameHight, width, height-KLine);
             _bgLabel.layer.borderColor = _opponentColor.CGColor;
             
             for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -365,54 +367,200 @@ static int offsetX = 6; // 6 px from each side
          */
         /*1为文本*/
         picImageView.image = nil;
-        picImageView.hidden = YES;
-        _textLabel.hidden =NO;
+        picImageView.hidden = NO;
+        _textLabel.hidden =YES;
         _textLabel.backgroundColor = [UIColor clearColor];
         _bgLabel.hidden = NO;
+        _titleLabel.hidden = NO;
+        _shareLabel.hidden = NO;
 //        _textSize = [_message[kMessageSize] CGSizeValue];
         NSString* messagetype2 = (NSString*)_message[@"mess"];
-       _textLabel.text=  [Tool MingPianShowTex:messagetype2];
-       
-          _textSize = [_message[kMessageSize] CGSizeValue];
-//        _textLabel.text = _message[kMessageContent];
         
         // the height that we want our text bubble to be
-        CGFloat height = self.contentView.bounds.size.height - 10;
-        if (height < minimumHeight) height = minimumHeight;
+//        CGFloat height = self.contentView.bounds.size.height - 10;
+//        if (height < minimumHeight) height = minimumHeight;
+        
+        
+        NSRange range = [messagetype2 rangeOfString:@"sourcetype"];
+        NSString* sourcetype = nil;
+        if (range.location != NSNotFound) {
+            NSRange range1 = NSMakeRange(range.location+12, 1);
+            sourcetype = [messagetype2 substringWithRange:range1];
+        }
+        NSArray* mesageArray = [messagetype2 componentsSeparatedByString:@","];
+        
+        switch ([sourcetype integerValue]) {
+            case 1:
+            {
+                //            /*广场文章*/
+                //            NSString* aTitleString= nil;
+                //            for (int i=0; i<[mesageArray count]; i++) {
+                //                NSString* temp1 = [mesageArray objectAtIndex:i];
+                //                NSRange range2 = [temp1 rangeOfString:@"title"];
+                //                if (range2.location != NSNotFound) {
+                //
+                //                    NSRange range3 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
+                //                    aTitleString = [temp1 substringWithRange:range3];
+                //                    break;
+                //                }
+                //            }
+                //            NSString* result = [NSString stringWithFormat:@"*广场分享*\n\t%@",aTitleString];
+                //            return result;
+                
+            }
+                break;
+            case 2:
+            {
+                /*智谷文章*/
+                NSString* aTitleString= nil;
+                NSString* aPhotoString= nil;
+                for (int i=0; i<[mesageArray count]; i++) {
+                    NSString* temp1 = [mesageArray objectAtIndex:i];
+                    NSRange range2 = [temp1 rangeOfString:@"title"];
+                    NSRange rangerPhoto1 = [temp1 rangeOfString:@"artimgs"];
+                    if (range2.location != NSNotFound) {
+                        
+                        NSRange range23 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
+                        aTitleString = [temp1 substringWithRange:range23];
+                        
+                    }else if(rangerPhoto1.location != NSNotFound)
+                    {
+                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+10, [temp1 length]-11-rangerPhoto1.location);
+                        aPhotoString = [temp1 substringWithRange:rangePhoto2];
+                    }
+                }
+                    _shareLabel.text = @"*咨询文章分享*";
+                    _titleLabel.text = aTitleString;
+                    picImageView.image = nil;
+                    [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+               
+            }
+                break;
+            case 3:
+            {
+                /*活动分享*/
+                NSString* aTitleString= nil;
+                NSString* aPhotoString= nil;
+                for (int i=0; i<[mesageArray count]; i++) {
+                    NSString* temp1 = [mesageArray objectAtIndex:i];
+                    NSRange range2 = [temp1 rangeOfString:@"actname"];
+                    NSRange rangerPhoto1 = [temp1 rangeOfString:@"photos"];
+                    if (range2.location != NSNotFound) {
+                        
+                        NSRange range23 = NSMakeRange(range2.location+10, [temp1 length]-10-1-range2.location);
+                        aTitleString = [temp1 substringWithRange:range23];
+                        
+                    }else if(rangerPhoto1.location != NSNotFound)
+                    {
+                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+9, [temp1 length]-10-rangerPhoto1.location);
+                        aPhotoString = [temp1 substringWithRange:rangePhoto2];
+                    }
+                   
+                }
+//                NSString* result = [NSString stringWithFormat:@"*活动分享*\n\t活动名称:%@",aTitleString];
+                _shareLabel.text = @"*活动分享*";
+                _titleLabel.text = aTitleString;
+                picImageView.image = nil;
+                [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+            }
+                break;
+            case 4:
+            {
+                /*名片分享*/
+                NSString* aTitleString= nil;
+                NSString* aPhotoString= nil;
+                for (int i=0; i<[mesageArray count]; i++) {
+                    NSString* temp1 = [mesageArray objectAtIndex:i];
+                    NSRange range2 = [temp1 rangeOfString:@"displayname"];
+                    NSRange rangerPhoto1 = [temp1 rangeOfString:@"photo"];
+                    if (range2.location != NSNotFound) {
+                        
+                        NSRange range3 = NSMakeRange(range2.location+14, [temp1 length]-15-range2.location);
+                        aTitleString = [temp1 substringWithRange:range3];
+//                        break;
+                    }else if(rangerPhoto1.location != NSNotFound)
+                    {
+                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+8, [temp1 length]-9-rangerPhoto1.location);
+                        aPhotoString = [temp1 substringWithRange:rangePhoto2];
+                    }
+                }
+                _shareLabel.text = @"*名片分享*";
+                _titleLabel.text = aTitleString;
+                
+                picImageView.image = nil;
+                [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+         
+            }
+                break;
+            default:
+                break;
+        }
+        
+//        _textLabel.text=  [Tool MingPianShowTex:messagetype2];
+//        _textSize = [_message[kMessageSize] CGSizeValue];
         
         if (SendByMeSelf) {
             // then this is a message that the current user created . . .
-            _bgLabel.frame = CGRectMake(ScreenWidth() - offsetX, 0, -_textSize.width - outlineSpace, height) ;
+            CGFloat x = ScreenWidth() - offsetX - KShareLabelWidth -MyHeadimageView.bounds.size.width-5;
+            _nameLabel.frame = CGRectMake(x, 0, KShareLabelWidth, KNameHight);
+            _nameLabel.text = [_message valueForKey:@"sendername"];
+            _nameLabel.textAlignment = NSTextAlignmentRight;
+            
+            
+            _bgLabel.frame = CGRectMake(x, KNameHight,KShareLabelWidth, KShareLabelHigth) ;
             _bgLabel.layer.borderColor = _userColor.CGColor;
             MyHeadimageView.hidden = NO;
+            _imageView.hidden = YES;
             
             [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
             
-            _imageView.hidden = YES;
+            
+            _shareLabel.frame = CGRectMake(x+5, KNameHight, KShareLabelWidth-10, KShareTitleHigth);
+            _shareLabel.textAlignment = NSTextAlignmentCenter;
+            
+            picImageView.frame = CGRectMake(x+5, KNameHight+KShareTitleHigth, minimumHeight, minimumHeight);
+            CGFloat _titX = x+5+minimumHeight+5;
+            CGFloat _titWidth = KShareLabelWidth-10-minimumHeight;
+
+            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-5, _titWidth, minimumHeight+10);
+            
 //            stateImageView.hidden = NO;
-            for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
-            }
-            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
+//            for (UIView * v in @[_bgLabel, _textLabel]) {
+//                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-5, v.center.y);
+//            }
+//            self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
             
         }else {
-            // sent by opponent
-            _bgLabel.frame = CGRectMake(offsetX, 0, _textSize.width + outlineSpace, height);
+            MyHeadimageView.hidden = YES;
+            _imageView.hidden = NO;
+            
+            CGFloat x = _imageView.bounds.size.width+offsetX;
+            _bgLabel.frame = CGRectMake(x + offsetX, KNameHight, KShareLabelWidth, KShareLabelHigth);
             _bgLabel.layer.borderColor = _opponentColor.CGColor;
             
-            for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
-            }
+
+    
             /*如果是对方发送消息，去除图像*/
             [messageSendBy getimageView:_imageView byImagePath:[_message valueForKey:@"senderphoto"]];
             
-            MyHeadimageView.hidden = YES;
-            _imageView.hidden = NO;
+            _nameLabel.frame = CGRectMake(offsetX+ x, 0, KShareLabelWidth, KNameHight);
+            _nameLabel.text = [_message valueForKey:@"sendername"];
+            _nameLabel.textAlignment = NSTextAlignmentLeft;
+            _shareLabel.frame = CGRectMake(x+5, KNameHight, KShareLabelWidth-10, KShareTitleHigth);
+            _shareLabel.textAlignment = NSTextAlignmentCenter;
+            
+            picImageView.frame = CGRectMake(x+10, KNameHight+KShareTitleHigth, minimumHeight, minimumHeight);
+            CGFloat _titX = x+5+minimumHeight+10;
+            CGFloat _titWidth = KShareLabelWidth-15-minimumHeight;
+            
+            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-5, _titWidth, minimumHeight+10);
+            
+          
             //            _imageView.backgroundColor = [UIColor redColor];
         }
         
         // position _textLabel in the _bgLabel;
-        _textLabel.frame = CGRectMake(_bgLabel.frame.origin.x + (outlineSpace / 2), 0, _bgLabel.bounds.size.width - outlineSpace, _bgLabel.bounds.size.height);
+//        _textLabel.frame = CGRectMake(_bgLabel.frame.origin.x + (outlineSpace / 2), 0, _bgLabel.bounds.size.width - outlineSpace, _bgLabel.bounds.size.height);
         
     }
     
