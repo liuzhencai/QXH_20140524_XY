@@ -58,7 +58,9 @@ static MessageBySend* ins =nil;
       /*因为直播间消息也会给自己推送*/
     NSNumber* senderid = (NSNumber*)[userinfo valueForKey:@"senderid"];
     NSNumber* meuserid = [defaults objectForKey:@"userid"] ;
-    if ([senderid integerValue] == [meuserid integerValue]) {
+    /*2 为分享的信息，如果是自己分享的则要显示*/
+    NSNumber* messtype = [userinfo valueForKey:@"messtype"];
+    if (([senderid integerValue] == [meuserid integerValue]) &&([messtype integerValue] != 2)) {
         return;
     }
   

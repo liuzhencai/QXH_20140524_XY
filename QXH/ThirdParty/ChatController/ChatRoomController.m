@@ -677,23 +677,25 @@ static int chatInputStartingHeight = 40;
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
-    NSNumber* messtype = (NSNumber*)message[@"messtype"];
+//    NSNumber* messtype = (NSNumber*)message[@"messtype"];
     NSLog(@"message==%@\n",message);
     static int offset = 20;
     
     if (!message[kMessageSize]) {
         NSString * content = nil;
-        NSNumber* Nmesstype = (NSNumber*)[message valueForKey:@"messtype"];
-        if ([Nmesstype integerValue]==2) {
-            NSString* str = [message objectForKey:kMessageContent];
-            content = [Tool MingPianShowTex:str];
-        }else{
+//        NSNumber* Nmesstype = (NSNumber*)[message valueForKey:@"messtype"];
+//        if ([Nmesstype integerValue]==2) {
+//            NSString* str = [message objectForKey:kMessageContent];
+//            content = [Tool MingPianShowTex:str];
+//        }else{
              content = [message objectForKey:kMessageContent];
-        }
+//        }
        
         id pic = [message objectForKey:kPicContent];
         NSNumber* messtype = [message objectForKey:@"messtype"];
-        if (content && !pic && ([messtype intValue] != 3)) {
+//        if (content && !pic && ([messtype intValue] != 3 && [messtype intValue] != 2))
+          if (content && !pic && [messtype intValue] == 1)
+        {
             
             NSMutableDictionary * attributes = [NSMutableDictionary new];
             attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15.0f];
@@ -711,7 +713,7 @@ static int chatInputStartingHeight = 40;
             CGRect rect = [attrStr boundingRectWithSize:CGSizeMake(maxTextLabelWidth, 100000)
                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                                 context:nil];
-            rect.size.height += KNameHight;
+            rect.size.height += KNameHight+KLine;
             message[kMessageSize] = [NSValue valueWithCGSize:rect.size];
             
             return CGSizeMake(width(_myCollectionView), rect.size.height + offset);
@@ -721,9 +723,12 @@ static int chatInputStartingHeight = 40;
         }
        
     }
-    else if([messtype integerValue] == 3){
-        return CGSizeMake(320,KPicHigth +KNameHight);
-    }else{
+//    else if([messtype integerValue] == 3){
+//        return CGSizeMake(320,KPicHigth +KNameHight);
+//    }  else if([messtype integerValue] == 2){
+//        return CGSizeMake(320,KPicHigth +KNameHight);
+//    }
+    else{
         
         return CGSizeMake(_myCollectionView.bounds.size.width, [message[kMessageSize] CGSizeValue].height + offset);
     }

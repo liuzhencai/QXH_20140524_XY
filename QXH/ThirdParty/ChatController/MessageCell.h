@@ -48,7 +48,12 @@ FOUNDATION_EXPORT int const maxBubbleWidth;
 #define KPicHigth 110
 #define KPicWidth 90
 #define KNameHight 15
+#define KShareImageWidth 40
+#define KShareLabelWidth 150
+#define KShareLabelHigth 70
+#define KShareTitleHigth 20
 
+#define KLine  20
 
 // Message Dictionary Keys
 FOUNDATION_EXPORT NSString * const kMessageSize;
