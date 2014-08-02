@@ -14,6 +14,9 @@
 @property (nonatomic, strong) TabBarControl *thirdControl;
 
 @property (nonatomic, strong) UILabel *tipLabel;
+
+@property (nonatomic, strong) NSArray *ads;
+
 @end
 
 @implementation CustomTabBarController
@@ -146,6 +149,25 @@
             [thirdControl setSelected:NO];
             thirdControl.backgroundColor = [UIColor clearColor];
             self.tipLabel.hidden = YES;
+            
+            if ([_ads count] == 0) {
+                // 首页广告栏显示
+                if (self.loginSuccess&&[defaults objectForKey:@"userid"]&&[defaults objectForKey:@"token"]) {
+                    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
+                        NSLog(@"首页公告--->%@",dict);
+                        NSArray *list = [dict objectForKey:@"list"];
+                        __block NSMutableArray *tmpAds = [[NSMutableArray alloc]init];
+                        if ([list count] > 0) {
+                            for (int i = 0; i < [list count]; i++) {
+                                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[list[i] objectForKey:@"desc"], @"desc", [list[i] objectForKey:@"img"], @"img",[list[i] objectForKey:@"target"], @"target",[list[i] objectForKey:@"type"], @"type",nil];
+                                [tmpAds addObject:dict];
+                            }
+                            _ads = tmpAds;
+                        }
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateAds" object:_ads];
+                    }];
+                }
+            }
         }
             break;
         case 1:

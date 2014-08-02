@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) NSInteger currentTab;
 
+@property (nonatomic, assign) BOOL loginSuccess;
+
 - (void)hideSystemTabBar;
 - (void)hideTabBar:(BOOL)hide;
 - (void)addCustomElements;

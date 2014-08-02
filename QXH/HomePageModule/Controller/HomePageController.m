@@ -78,6 +78,38 @@
 //    [self addTopImage];
     
     [self loadPage];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAds:) name:@"updateAds" object:nil];
+}
+
+- (void)updateAds:(NSNotification *)notif
+{
+    NSArray *arr = [notif object];
+    _ads = arr;
+    _pageControl.numberOfPages = arr.count;
+    _pageControlThree.numberOfPages = arr.count;
+    _topScrollfour.contentSize = CGSizeMake(320*arr.count, 132);
+    _topScrollthree.contentSize = CGSizeMake(320*arr.count, 132);
+    _adTitleLabelfour.text = [arr[0] objectForKey:@"desc"];
+    _adTitleLabelThree.text = [arr[0] objectForKey:@"desc"];
+    for (int i = 0; i < arr.count; i++) {
+        @autoreleasepool {
+            UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, iPhone5?173:153 )];
+            UIControl *control = [[UIControl alloc] initWithFrame:image.bounds];
+            control.backgroundColor = [UIColor clearColor];
+            control.tag = 5000+i;
+            [control addTarget:self action:@selector(clickAd:) forControlEvents:UIControlEventTouchDown];
+            [image addSubview:control];
+            image.userInteractionEnabled = YES;
+            [image setContentMode:UIViewContentModeScaleAspectFill];
+            [image setImageWithURL:IMGURL([arr[i] objectForKey:@"img"])];
+            if (iPhone5) {
+                [_topScrollfour addSubview:image];
+            }else{
+                [_topScrollthree addSubview:image];
+            }
+        }
+    }
 }
 
 - (void)loadPage
@@ -111,6 +143,9 @@
 #pragma mark - loginDelegate
 - (void)didLoginHandle:(LoginViewController *)loginViewController{
     NSLog(@"dddddddd");
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.tabController.loginSuccess = YES;
+    [delegate.tabController selectTab:0];
     BOOL isNewMember = [[defaults objectForKey:@"isNewMember"] boolValue];
     if (isNewMember) {
         [defaults setObject:@NO forKey:@"isNewMember"];
@@ -150,6 +185,9 @@
     NSString *name = [defaults objectForKey:@"userName"];
     NSString *passward = [defaults objectForKey:@"passworld"];
     [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        delegate.tabController.loginSuccess = YES;
+        [delegate.tabController selectTab:0];
         //登录成功后保存用户名和密码
         [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
         [defaults setObject:@NO forKey:@"isNewMember"];
@@ -161,16 +199,15 @@
         NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
         if ([defaults objectForKey:@"userid"]) {
 //            /*获取个人信息，并储存起来*/
-            [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+            [[UserInfoModelManger sharUserInfoModelManger] getUserInfo:^(UserInfoModel* user)
              {
                  NSLog(@"获取到用户信息");
              }];
         }
-        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
-            NSLog(@"dic==%@",dic);
-            [self setTopViewValue:dic];
-        }];
-        [self setHomePageAds];
+            [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
+                NSLog(@"dic==%@",dic);
+                [self setTopViewValue:dic];
+            }];
 //        [self showAlert:[dict objectForKey:@"info"]];
 
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
@@ -178,46 +215,6 @@
         /*获取系统消息*/
            [MessageBySend sharMessageBySend];
         [[MessageBySend sharMessageBySend]getOfflineMessage];
-    }];
-}
-
-- (void)setHomePageAds
-{
-    [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
-        NSLog(@"首页公告--->%@",dict);
-        NSArray *list = [dict objectForKey:@"list"];
-        __block NSMutableArray *tmpAds = [[NSMutableArray alloc]init];
-        if ([list count] > 0) {
-            for (int i = 0; i < [list count]; i++) {
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[list[i] objectForKey:@"desc"], @"desc", [list[i] objectForKey:@"img"], @"img",[list[i] objectForKey:@"target"], @"target",[list[i] objectForKey:@"type"], @"type",nil];
-                [tmpAds addObject:dict];
-            }
-            _ads = tmpAds;
-            _pageControl.numberOfPages = _ads.count;
-            _pageControlThree.numberOfPages = _ads.count;
-            _topScrollfour.contentSize = CGSizeMake(320*_ads.count, 132);
-            _topScrollthree.contentSize = CGSizeMake(320*_ads.count, 132);
-            _adTitleLabelfour.text = [_ads[0] objectForKey:@"desc"];
-            _adTitleLabelThree.text = [_ads[0] objectForKey:@"desc"];
-        }
-        for (int i = 0; i < _ads.count; i++) {
-            @autoreleasepool {
-                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(320*i, 0, 320, iPhone5?173:153 )];
-                UIControl *control = [[UIControl alloc] initWithFrame:image.bounds];
-                control.backgroundColor = [UIColor clearColor];
-                control.tag = 5000+i;
-                [control addTarget:self action:@selector(clickAd:) forControlEvents:UIControlEventTouchDown];
-                [image addSubview:control];
-                image.userInteractionEnabled = YES;
-                [image setContentMode:UIViewContentModeScaleAspectFill];
-                [image setImageWithURL:IMGURL([_ads[i] objectForKey:@"img"])];
-                if (iPhone5) {
-                    [_topScrollfour addSubview:image];
-                }else{
-                    [_topScrollthree addSubview:image];
-                }
-            }
-        }
     }];
 }
 
