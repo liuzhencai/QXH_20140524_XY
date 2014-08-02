@@ -66,6 +66,7 @@
     
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
+    righttbuttonItem.titleLabel.font = [UIFont systemFontOfSize:16.5f];
     [righttbuttonItem setTitle:@"发布" forState:UIControlStateNormal];
     [righttbuttonItem addTarget:self action:@selector(distribute:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
