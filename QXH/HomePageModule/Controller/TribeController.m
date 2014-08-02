@@ -16,15 +16,26 @@
 #import "FindTribeResultViewController.h"
 #import "MJRefresh.h"
 
+#import "ChineseToPinyin.h"
+
 @interface TribeController ()<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,CustomSegmentControlDelegate>
 @property (nonatomic, strong) UITableView *myTribesTable;
 @property (nonatomic, strong) UITableView *allTribesTable;
 @property (nonatomic, assign) int selectIndex;
+
 @property (nonatomic, strong) NSMutableArray *tribeList;//我的部落
 @property (nonatomic, strong) NSMutableArray *allTribeList;//所有部落
 
 @property (nonatomic, assign) NSInteger curIndex;//当前下标
 
+
+//排序
+//我的部落
+@property (nonatomic, strong) NSArray *myTribesIndexSortArray;
+@property (nonatomic, strong) NSMutableDictionary *myTribesDict;
+//推荐部落
+@property (nonatomic, strong) NSArray *allIndexSortArray;
+@property (nonatomic, strong) NSMutableDictionary *allDict;
 @end
 
 #define MY_TRIBE_TABLE_TAG 2330
@@ -168,6 +179,85 @@
     
 }
 
+#pragma mark - sort
+- (NSMutableDictionary *)sortArrayWithArray:(NSArray *)list{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    for (int i = 0; i < [list count]; i ++) {
+        NSDictionary *cityDict = list[i];
+        //得到拼音首字母
+        NSString *letter = [ChineseToPinyin firstPinyinCharacter:cityDict[@"tribename"]];
+        if ([letter compare:@"A"] == NSOrderedAscending || [letter compare:@"Z"] == NSOrderedDescending) {
+            letter = @"#";
+            NSMutableArray *array = [dict valueForKey:letter];
+            if (!array){
+                array = [NSMutableArray array];
+                [dict setObject:array forKey:letter];
+            }
+            [array addObject:cityDict];
+        }
+        else {
+            letter = [letter uppercaseString];
+            NSMutableArray *array = [dict valueForKey:letter];
+            if (!array){
+                array = [NSMutableArray array];
+                [dict setObject:array forKey:letter];
+            }
+            [array addObject:cityDict];
+        }
+    }
+    
+//    NSLog(@"拍好后：%@",dict);
+    return dict;
+}
+
+- (NSArray *)getIndexesByTribes:(NSMutableDictionary *)dict{
+    NSArray *sortIndexArray = [dict allKeys];
+    sortIndexArray = [sortIndexArray sortedArrayUsingSelector:@selector(compare:)];
+//    NSMutableArray *tmpArray = [[NSMutableArray alloc] initWithArray:sortIndexArray];
+//    [tmpArray replaceObjectAtIndex:0 withObject:@""];
+//    sortIndexArray = tmpArray;
+    return sortIndexArray;
+}
+
+//type 1:我的部落  2:推荐部落
+-(NSArray *)sortWithSection:(NSInteger)section withType:(int)type {
+    NSArray *array;
+    if (type == 1) {//我的部落
+        array = _myTribesIndexSortArray;
+        if(section != -1){
+            NSString *key = [_myTribesIndexSortArray objectAtIndex:section];
+            //        if ([key isEqualToString:HOT_CITY_NOASTR]) {
+            //            key = HOT_CITY_STR;
+            //        }
+            array = [_myTribesDict objectForKey:key];
+        }
+    }
+    else {//推荐部落
+        array = _allIndexSortArray;
+        if(section != -1){
+            NSString *key = [_allIndexSortArray objectAtIndex:section];
+            array = [_allDict objectForKey:key];
+        }
+    }
+    return array;
+}
+
+//- (NSArray *)sortWithSection:(NSInteger)section
+//{
+//    NSArray *array;
+//    array = _myTribesIndexSortArray;
+//    if(section != -1)
+//    {
+//        NSString *key = [_myTribesIndexSortArray objectAtIndex:section];
+//        //        if ([key isEqualToString:HOT_CITY_NOASTR]) {
+//        //            key = HOT_CITY_STR;
+//        //        }
+//        array = [_myTribesDict objectForKey:key];
+//    }
+//    return array;
+//}
+
+
 #pragma mark - Refresh
 /**
  *  集成刷新控件
@@ -190,23 +280,22 @@
         if (_curIndex == 0) {
             [self.tribeList removeAllObjects];
             [self.tribeList addObjectsFromArray:list];
+            
+            self.myTribesDict = [self sortArrayWithArray:self.tribeList];
+            self.myTribesIndexSortArray = [self getIndexesByTribes:self.myTribesDict];
+            
             [self.myTribesTable reloadData];
             [self.myTribesTable headerEndRefreshing];
         }else{
             [self.allTribeList removeAllObjects];
             [self.allTribeList addObjectsFromArray:list];
+            
+            self.allDict = [self sortArrayWithArray:self.allTribeList];
+            self.allIndexSortArray = [self getIndexesByTribes:self.allDict];
+            
             [self.allTribesTable reloadData];
             [self.allTribesTable headerEndRefreshing];
         }
-        
-        // 2.2秒后刷新表格UI
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            // 刷新表格
-//            UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
-//            [tableView reloadData];
-//            // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-//            [tableView headerEndRefreshing];
-//        });
     }];
 }
 
@@ -228,42 +317,69 @@
         // 1.添加数据
         if (_curIndex == 0) {
             [self.tribeList addObjectsFromArray:list];
+            
+            self.myTribesDict = [self sortArrayWithArray:self.tribeList];
+            self.myTribesIndexSortArray = [self getIndexesByTribes:self.myTribesDict];
+            
             [self.myTribesTable reloadData];
             [self.myTribesTable footerEndRefreshing];
         }else{
             [self.allTribeList addObjectsFromArray:list];
+            
+            self.allDict = [self sortArrayWithArray:self.allTribeList];
+            self.allIndexSortArray = [self getIndexesByTribes:self.allDict];
+            
             [self.allTribesTable reloadData];
             [self.allTribesTable footerEndRefreshing];
         }
-        // 2.2秒后刷新表格UI
-        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //            // 刷新表格
-        //            UITableView *tableView = [_tableArr objectAtIndex:_curIndex];
-        //            [tableView reloadData];
-        //            // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        //            [tableView headerEndRefreshing];
-        //        });
     }];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
+        return [self.myTribesDict count];
+    }
+    else {
+        return [self.allDict count];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView.tag == MY_TRIBE_TABLE_TAG) {
-        return [self.tribeList count];
+        return [[self sortWithSection:section withType:1] count];
+//        return [self.tribeList count];
     }else{
-        return [self.allTribeList count];
+        return [[self sortWithSection:section withType:2] count];
+//        return [self.allTribeList count];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 120;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 22.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 22)];
+    bgView.image = [UIImage imageNamed:@"bar_transition"];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 22)];
+    title.backgroundColor = [UIColor clearColor];
+    title.font = [UIFont systemFontOfSize:16];
+    title.textColor = GREEN_FONT_COLOR;
+    if (tableView.tag == MY_TRIBE_TABLE_TAG) {
+        title.text = [[self sortWithSection:-1 withType:1] objectAtIndex:section];
+    }else{
+        title.text = [[self sortWithSection:-1 withType:2] objectAtIndex:section];
+    }
+    [bgView addSubview:title];
+    return bgView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -277,10 +393,15 @@
             allListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        NSDictionary *memberDict = [self.allTribeList objectAtIndex:indexPath.row];
-        if (memberDict) {
+        if (self.allDict) {
+            NSDictionary *memberDict = [[self sortWithSection:indexPath.section withType:2] objectAtIndex:indexPath.row];
             [allListCell resetCellParamDict:memberDict];
         }
+        
+//        NSDictionary *memberDict = [self.allTribeList objectAtIndex:indexPath.row];
+//        if (memberDict) {
+//            [allListCell resetCellParamDict:memberDict];
+//        }
        
         return allListCell;
     }else if(tableView.tag == MY_TRIBE_TABLE_TAG){
@@ -291,8 +412,12 @@
             addrListCell = [[MyTribeListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addrIdentifier];
             addrListCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        if (self.tribeList) {
-            NSDictionary *myTribeDict = [self.tribeList objectAtIndex:indexPath.row];
+//        if (self.tribeList) {
+//            NSDictionary *myTribeDict = [self.tribeList objectAtIndex:indexPath.row];
+//            [addrListCell resetCellParamDict:myTribeDict];
+//        }
+        if (self.myTribesDict) {
+            NSDictionary *myTribeDict = [[self sortWithSection:indexPath.section withType:1] objectAtIndex:indexPath.row];
             [addrListCell resetCellParamDict:myTribeDict];
         }
         
@@ -305,18 +430,15 @@
 {
     if (tableView.tag == MY_TRIBE_TABLE_TAG) {
         NSLog(@"点击我的部落第%d部分第%d行", indexPath.section, indexPath.row);
-        NSDictionary *tribeDict = [self.tribeList objectAtIndex:indexPath.row];
+//        NSDictionary *tribeDict = [self.tribeList objectAtIndex:indexPath.row];
+        NSDictionary *tribeDict = [[self sortWithSection:indexPath.section withType:1] objectAtIndex:indexPath.row];
         ChatRoomController *chatview =[[ChatRoomController alloc]init];
         chatview.tribeInfoDict = tribeDict;
         [self.navigationController pushViewController:chatview animated:NO];
-        
-//        TribeDynamicViewController *tribeDynamic = [[TribeDynamicViewController alloc] init];
-//        tribeDynamic.tribeInfoDict = tribeDict;
-//        [self.navigationController pushViewController:tribeDynamic animated:YES];
     }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
-
-        NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];
+//        NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];
+        NSDictionary *tribeDict = [[self sortWithSection:indexPath.section withType:2] objectAtIndex:indexPath.row];
         TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
         detail.tribeDict = tribeDict;
         [self.navigationController pushViewController:detail animated:YES];
@@ -347,7 +469,6 @@
                   }else{
                       [self showAlert:@"没有找到相关部落"];
                   }
-//                  [self showAlert:[dict objectForKey:@"info"]];
               }];
 }
 

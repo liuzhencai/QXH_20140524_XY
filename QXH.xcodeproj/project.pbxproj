@@ -290,6 +290,7 @@
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
 		5839E437196C345D00326270 /* FindTribeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839E436196C345D00326270 /* FindTribeResultViewController.m */; };
 		5839E43A196C3F4C00326270 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839E439196C3F4C00326270 /* MessagesViewController.m */; };
+		58680B86198D32F2001EA655 /* ChineseToPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 58680B85198D32F2001EA655 /* ChineseToPinyin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5869D8761943156C00401862 /* MultSelectPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D8751943156C00401862 /* MultSelectPeopleCell.m */; };
 		5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87819431A6600401862 /* YSKeyboardTableView.m */; };
 		5869D87C1944B3F800401862 /* OnLiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5869D87B1944B3F800401862 /* OnLiveCell.m */; };
@@ -910,6 +911,8 @@
 		5839E436196C345D00326270 /* FindTribeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTribeResultViewController.m; sourceTree = "<group>"; };
 		5839E438196C3F4C00326270 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		5839E439196C3F4C00326270 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
+		58680B84198D32F2001EA655 /* ChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyin.h; sourceTree = "<group>"; };
+		58680B85198D32F2001EA655 /* ChineseToPinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyin.m; sourceTree = "<group>"; };
 		5869D8741943156C00401862 /* MultSelectPeopleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultSelectPeopleCell.h; sourceTree = "<group>"; };
 		5869D8751943156C00401862 /* MultSelectPeopleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultSelectPeopleCell.m; sourceTree = "<group>"; };
 		5869D87719431A6600401862 /* YSKeyboardTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSKeyboardTableView.h; sourceTree = "<group>"; };
@@ -1328,6 +1331,7 @@
 		2119EEAE191682D0007DBE68 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				58680B83198D32F2001EA655 /* ChineseToPinYin */,
 				21B90839197EA2E000BB0579 /* fmdb */,
 				2173C70A1974082A00DB1D36 /* umeng */,
 				58826B68195DD180002F13A5 /* attributedlabel */,
@@ -2135,6 +2139,15 @@
 			path = SNImagePicker;
 			sourceTree = "<group>";
 		};
+		58680B83198D32F2001EA655 /* ChineseToPinYin */ = {
+			isa = PBXGroup;
+			children = (
+				58680B84198D32F2001EA655 /* ChineseToPinyin.h */,
+				58680B85198D32F2001EA655 /* ChineseToPinyin.m */,
+			);
+			path = ChineseToPinYin;
+			sourceTree = "<group>";
+		};
 		58826B68195DD180002F13A5 /* attributedlabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2919,6 +2932,7 @@
 				2119EF06191682EC007DBE68 /* UIImageView+WebCache.m in Sources */,
 				2192EC23191BD88600A8FE7F /* StudyExperienceController.m in Sources */,
 				589104761971865C00533F16 /* GuideView.m in Sources */,
+				58680B86198D32F2001EA655 /* ChineseToPinyin.m in Sources */,
 				2119EF01191682EC007DBE68 /* SDWebImagePrefetcher.m in Sources */,
 				21D705BB19169C84004950BF /* CharacterListController.m in Sources */,
 				842D3C90192AF7F100374F04 /* FillNameCardViewController.m in Sources */,
