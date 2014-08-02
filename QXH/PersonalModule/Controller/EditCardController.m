@@ -177,9 +177,6 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    if (row == 1) {
-        return;
-    }
     if (row == 4) {
         SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
         selectCity.selectCityCallBack = ^(NSDictionary *cityDict){
