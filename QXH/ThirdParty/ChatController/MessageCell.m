@@ -176,7 +176,7 @@ static int offsetX = 6; // 6 px from each side
         
         if (!_titleLabel) {
             _titleLabel = [[UILabel alloc]init];
-            _titleLabel.font = [UIFont systemFontOfSize:15.0f];
+            _titleLabel.font = [UIFont systemFontOfSize:13.0f];
             _titleLabel.textColor = [UIColor darkTextColor];
             _titleLabel.numberOfLines = 0;
             [self.contentView addSubview:_titleLabel];
@@ -411,54 +411,57 @@ static int offsetX = 6; // 6 px from each side
                 break;
             case 2:
             {
-                //            /*智谷文章*/
-                //            NSString* aTitleString= nil;
-                //            for (int i=0; i<[mesageArray count]; i++) {
-                //                NSString* temp1 = [mesageArray objectAtIndex:i];
-                //                NSRange range2 = [temp1 rangeOfString:@"title"];
-                //                if (range2.location != NSNotFound) {
-                //
-                //                    NSRange range3 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
-                //                    aTitleString = [temp1 substringWithRange:range3];
-                //                    break;
-                //                }
-                //            }
-                //            NSString* result = [NSString stringWithFormat:@"*智谷分享*\n\t%@",aTitleString];
-                //            return result;
+                /*智谷文章*/
+                NSString* aTitleString= nil;
+                NSString* aPhotoString= nil;
+                for (int i=0; i<[mesageArray count]; i++) {
+                    NSString* temp1 = [mesageArray objectAtIndex:i];
+                    NSRange range2 = [temp1 rangeOfString:@"title"];
+                    NSRange rangerPhoto1 = [temp1 rangeOfString:@"artimgs"];
+                    if (range2.location != NSNotFound) {
+                        
+                        NSRange range23 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
+                        aTitleString = [temp1 substringWithRange:range23];
+                        
+                    }else if(rangerPhoto1.location != NSNotFound)
+                    {
+                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+10, [temp1 length]-11-rangerPhoto1.location);
+                        aPhotoString = [temp1 substringWithRange:rangePhoto2];
+                    }
+                }
+                    _shareLabel.text = @"*咨询文章分享*";
+                    _titleLabel.text = aTitleString;
+                    picImageView.image = nil;
+                    [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+               
             }
                 break;
             case 3:
             {
                 /*活动分享*/
                 NSString* aTitleString= nil;
-                //            NSString* aTimeString= nil;
-                //            NSString* aPlaceString = nil;
+                NSString* aPhotoString= nil;
                 for (int i=0; i<[mesageArray count]; i++) {
                     NSString* temp1 = [mesageArray objectAtIndex:i];
                     NSRange range2 = [temp1 rangeOfString:@"actname"];
-                    //                NSRange range3 = [temp1 rangeOfString:@"begindate"];
-                    //                NSRange range4 = [temp1 rangeOfString:@"actaddr"];
+                    NSRange rangerPhoto1 = [temp1 rangeOfString:@"photos"];
                     if (range2.location != NSNotFound) {
                         
                         NSRange range23 = NSMakeRange(range2.location+10, [temp1 length]-10-1-range2.location);
                         aTitleString = [temp1 substringWithRange:range23];
-                        break;
                         
+                    }else if(rangerPhoto1.location != NSNotFound)
+                    {
+                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+9, [temp1 length]-10-rangerPhoto1.location);
+                        aPhotoString = [temp1 substringWithRange:rangePhoto2];
                     }
-                    //                else if (range3.location != NSNotFound)
-                    //                {
-                    //                    NSRange range33 = NSMakeRange(range3.location+12, [temp1 length]-12-1-range2.location);
-                    //                    aTimeString = [temp1 substringWithRange:range33];
-                    //                }else if (range4.location != NSNotFound)
-                    //                {
-                    //                    NSRange range43 = NSMakeRange(range4.location+10, [temp1 length]-10-1-range2.location);
-                    //                    aPlaceString = [temp1 substringWithRange:range43];
-                    //                }
+                   
                 }
 //                NSString* result = [NSString stringWithFormat:@"*活动分享*\n\t活动名称:%@",aTitleString];
                 _shareLabel.text = @"*活动分享*";
                 _titleLabel.text = aTitleString;
-//                return result;
+                picImageView.image = nil;
+                [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
             }
                 break;
             case 4:
@@ -519,7 +522,7 @@ static int offsetX = 6; // 6 px from each side
             CGFloat _titX = x+5+minimumHeight+5;
             CGFloat _titWidth = KShareLabelWidth-10-minimumHeight;
 
-            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-10, _titWidth, minimumHeight);
+            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-5, _titWidth, minimumHeight+10);
             
 //            stateImageView.hidden = NO;
 //            for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -550,7 +553,7 @@ static int offsetX = 6; // 6 px from each side
             CGFloat _titX = x+5+minimumHeight+10;
             CGFloat _titWidth = KShareLabelWidth-15-minimumHeight;
             
-            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-10, _titWidth, minimumHeight);
+            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-5, _titWidth, minimumHeight+10);
             
           
             //            _imageView.backgroundColor = [UIColor redColor];

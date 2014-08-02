@@ -907,6 +907,7 @@ static int chatInputStartingHeight = 40;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
         //        [self popForwardBack];

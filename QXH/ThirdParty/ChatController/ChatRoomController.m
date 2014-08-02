@@ -26,6 +26,7 @@
 #import "ActivityDetailViewController.h"
 #import "NameCardViewController.h"
 #import "myimageviewViewController.h"
+#import "InformationDetailController.h"
 
 #define KTopButtonHight  50
 #define KAskViewHight  100
@@ -862,6 +863,30 @@ static int chatInputStartingHeight = 40;
         case 2:
         {
             /*智谷文章*/
+            // 跳转至智谷详情
+            
+            NSString* aTitleString= nil;
+            //            NSString* aTimeString= nil;
+            //            NSString* aPlaceString = nil;
+            for (int i=0; i<[mesageArray count]; i++) {
+                NSString* temp1 = [mesageArray objectAtIndex:i];
+                NSRange range2 = [temp1 rangeOfString:@"artid"];
+                if (range2.location != NSNotFound) {
+                    
+                    NSRange range23 = NSMakeRange(range2.location+5+2, [temp1 length]-7-range2.location);
+                    aTitleString = [temp1 substringWithRange:range23];
+                    break;
+                    
+                }
+                
+            }
+            if (aTitleString) {
+                InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+                controller.artid = aTitleString;
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:NO];
+            }
+
         }
             break;
         case 3:
@@ -926,15 +951,16 @@ static int chatInputStartingHeight = 40;
 #pragma mark 提示框
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
 //        [self popForwardBack];
     }else
     {
-        if (buttonIndex == 0) {
-            DebugLog(@"0");
-            [self addAskViewByMe:mess];
-        }
+//        if (buttonIndex == 0) {
+//            DebugLog(@"0");
+//            [self addAskViewByMe:mess];
+//        }
     }
 
 }
