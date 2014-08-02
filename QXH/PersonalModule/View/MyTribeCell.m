@@ -28,6 +28,8 @@
 
 - (void)setModel:(MyTribeModel *)model
 {
+    [_portraitView setImageWithURL:IMGURL(model.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    [_portraitView circular];
     _tribeNameLabel.text = model.tribename;
     _creatorLabel.text = model.creatername;
 }
