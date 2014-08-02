@@ -65,7 +65,7 @@
 
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);
-    righttbuttonItem.titleLabel.font = [UIFont systemFontOfSize:17.f];
+    righttbuttonItem.titleLabel.font = [UIFont systemFontOfSize:16.5f];
     [righttbuttonItem setTitle:@"分享" forState:UIControlStateNormal];
     [righttbuttonItem addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
