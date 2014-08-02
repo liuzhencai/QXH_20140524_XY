@@ -152,37 +152,17 @@
     }
     
     int sendType = [[params objectForKey:@"sendtype"] intValue];
-//    if (sendType == 3) {//3为加好友申请
-//        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
-//        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-//        
-//        NSString *nameString = [params objectForKey:@"sendername"];
-//        self.name.text = nameString;
-//        NSString *descString = [params objectForKey:@"sign"];
-//        self.duty.text = descString;
-//        self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
-//    }else if(sendType == 5){//5为加入部落申请
-//        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
-//        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-//        
-//        NSString *nameString = [params objectForKey:@"sendername"];
-//        self.name.text = nameString;
-//        NSString *descString = [params objectForKey:@"sign"];
-//        self.duty.text = descString;
-//        self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
-//    }else
-    
-        if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){//0为系统消息,4为处理请求好友申,6为处理部落加入申请,7为完全退出部落,12 @某人,13 @部落
-        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
-        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){//0为系统消息,4为处理请求好友申,6为处理部落加入申请,7为完全退出部落,12 @某人,13 @部落
+        //        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+        //        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
         
-//        NSString *nameString = [params objectForKey:@"sendername"];
+        self.headImgView.image = [UIImage imageNamed:@"systemMessage"];
         self.name.text = @"系统消息";
         NSString *descString = [params objectForKey:@"mess"];
         self.duty.text = descString;
         self.date.text = [params objectForKey:@"date"];
-    }else if(sendType == 1)
-    {
+    }
+    else if(sendType == 1){
         /*1,好友私聊，
          2，部落聊天*/
         NSString *imageUrlString = [params objectForKey:@"senderphoto"];

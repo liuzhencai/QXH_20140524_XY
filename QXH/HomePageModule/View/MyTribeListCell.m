@@ -92,7 +92,7 @@
     int authflag = [[params objectForKey:@"authflag"] intValue];
     if (authflag == 2) {
         self.authflagView.frame = CGRectMake(_name.right, _name.top + 8, 14, 14);
-        self.authflagView.image = [UIImage imageNamed:@"tribe_authflog.gif"];
+        self.authflagView.image = [UIImage imageNamed:@"tribe_authflog"];
     }else{
         self.authflagView.frame = CGRectMake(_name.right, _name.top, 0, 30);
     }

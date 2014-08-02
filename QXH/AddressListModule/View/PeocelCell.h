@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *duty;
 @property (nonatomic, strong) UIImageView *arrowImgView;
+@property (nonatomic, strong) UIImageView *authflagView;//身份标记
 
 - (void)resetCellParamDict:(id)objt;
 

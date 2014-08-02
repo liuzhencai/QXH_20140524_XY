@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIButton *forwardCard;//转发名片
 @property (nonatomic, assign) BOOL isMyFriend;//我的好友
 @property (nonatomic, assign) id delegate;
+@property (nonatomic, strong) UIImageView *authflagView;//身份标记
 
 - (void)resetCellParamDict:(id)objt;
 

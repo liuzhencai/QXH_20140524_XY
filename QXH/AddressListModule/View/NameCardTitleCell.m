@@ -33,13 +33,16 @@
         
         _name = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         _name.font = font;
-        _name.text = @"李某某";
+        _name.text = @"";
         _name.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_name];
         
+        _authflagView = [[UIImageView alloc] initWithFrame:CGRectMake(_name.right, 25, 12, 12)];
+        [self.contentView addSubview:_authflagView];
+        
         _duty = [[UILabel alloc] init];
         _duty.font = font;
-        _duty.text = @"职务";
+        _duty.text = @"";
         _duty.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_duty];
         
@@ -96,15 +99,9 @@
         _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
         phoneTitle.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, 40, labelHight);
         _phone.frame = CGRectMake(phoneTitle.right, _duty.bottom + 5, labelWidth, labelHight);
-//        _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
-        
         emailTitle.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, 40, labelHight);
         _email.frame = CGRectMake(emailTitle.right, _phone.bottom + 5, labelWidth, labelHight);
-//        _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
-
-
         _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10 + 5, btnWidth * 2 + 20, btnHight - 10);
-//        _forwardCard.frame = CGRectMake(self.width - widthToLeft - btnWidth, _email.bottom + 10, btnWidth, btnHight);
     }
     return self;
 }
@@ -113,9 +110,6 @@
     if (isMyFriend) {
 //        _addFriend.frame = CGRectMake(20, _addFriend.top, 130, 30);
         [_addFriend setTitle:@"和TA聊天" forState:UIControlStateNormal];
-//        _forwardCard.frame = CGRectMake(_addFriend.right + 20, _addFriend.top, 130, 30);
-//        _forwardCard.hidden = NO;
-        
     }
 }
 
@@ -123,25 +117,6 @@
 {
     // Initialization code
 }
-
-//- (void)layoutSubviews{
-////    CGFloat widthToLeft = 20;
-////    CGFloat headHight = 70;
-////    CGFloat labelHight = 20;
-////    CGFloat labelWidth = 200;
-////    CGFloat btnWidth = 130;
-////    CGFloat btnHight = 44;
-////    _headImgView.frame = CGRectMake(widthToLeft, widthToLeft, headHight, headHight);
-////    _name.frame = CGRectMake(_headImgView.right + 10, widthToLeft, labelWidth, labelHight);
-////    _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom + 5, labelWidth, labelHight);
-////    _phone.frame = CGRectMake(_headImgView.right + 10, _duty.bottom + 5, labelWidth, labelHight);
-////    _email.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, labelWidth, labelHight);
-////    
-////    _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10, btnWidth, btnHight);
-////    _forwardCard.frame = CGRectMake(self.width - widthToLeft - btnWidth, _email.bottom + 10, btnWidth, btnHight);
-////    NSLog(@"kkkkk:%@,%@",NSStringFromCGRect(_addFriend.frame),NSStringFromCGRect(_forwardCard.frame));
-//    
-//}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -164,12 +139,48 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
     NSString *headUrlString = [params objectForKey:@"photo"];
-//    [self.headImgView setImageWithURL:[NSURL URLWithString:headUrlString] placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
     [self.headImgView setImageWithURL:IMGURL(headUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait72"]];
-    self.name.text = [params objectForKey:@"displayname"];
+    
+    NSString *nameStr = [params objectForKey:@"displayname"];
+    CGFloat nameWidth = [self widthOfString:nameStr];
+    nameWidth = nameWidth < 180 ? nameWidth : 180;
+    self.name.frame = CGRectMake(_name.left, _name.top, nameWidth, _name.height);
+    self.name.text = [NSString stringWithFormat:@"%@",nameStr];
+    int userType = [[params objectForKey:@"usertype"] intValue];
+    self.authflagView.frame = CGRectMake(_name.right, _authflagView.top, _authflagView.width, _authflagView.height);
+    switch (userType) {
+        case 0:{//试用会员
+            //此时隐藏
+            self.authflagView.frame = CGRectMake(_name.right, _authflagView.top, 0, _authflagView.height);
+        }
+            break;
+        case 1:{//付费会员
+            self.authflagView.image = [UIImage imageNamed:@"member_icon"];
+        }
+            break;
+        case 2:{//专家学者
+            self.authflagView.image = [UIImage imageNamed:@"experts_icon"];
+        }
+            break;
+        case 3:{//校工助理
+            self.authflagView.image = [UIImage imageNamed:@"assistant_icon"];
+        }
+            break;
+        default://默认隐藏
+            self.authflagView.frame = CGRectMake(_name.right, _authflagView.top, _authflagView.width, _authflagView.height);
+            break;
+    }
+
+    
     self.duty.text = [params objectForKey:@"title"];
     self.phone.text = [params objectForKey:@"phone"];
     self.email.text = [params objectForKey:@"email"];
+}
+
+- (CGFloat)widthOfString:(NSString *)string{
+    CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(500, 30) lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat width = size.width;
+    return width + 5;
 }
 
 @end

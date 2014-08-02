@@ -119,30 +119,30 @@
     return 70;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 20;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    //    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
-    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
-    bgView.image = [UIImage imageNamed:@"bar_transition"];
-    
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
-    
-    title.backgroundColor = [UIColor clearColor];
-    
-//    NSDictionary *dict = nil;
-    NSDictionary *dict = [self.findPeopleResults objectAtIndex:section];
-    if (dict) {
-        NSString *titleStr = [dict objectForKey:@"name"];
-        title.text = titleStr;
-    }
-    [bgView addSubview:title];
-    return bgView;
-    //    }
-    //    return nil;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 20;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    //    if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
+//    UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+//    bgView.image = [UIImage imageNamed:@"bar_transition"];
+//    
+//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
+//    
+//    title.backgroundColor = [UIColor clearColor];
+//    
+////    NSDictionary *dict = nil;
+//    NSDictionary *dict = [self.findPeopleResults objectAtIndex:section];
+//    if (dict) {
+//        NSString *titleStr = [dict objectForKey:@"name"];
+//        title.text = titleStr;
+//    }
+//    [bgView addSubview:title];
+//    return bgView;
+//    //    }
+//    //    return nil;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifiter = @"identifiter";

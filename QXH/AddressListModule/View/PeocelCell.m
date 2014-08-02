@@ -30,6 +30,9 @@
         _name.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_name];
         
+        _authflagView = [[UIImageView alloc] initWithFrame:CGRectMake(_name.right, 16, 12, 12)];
+        [self.contentView addSubview:_authflagView];
+        
         _duty = [[UILabel alloc] initWithFrame:CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight)];
         _duty.text = @"";
         _duty.textColor = [UIColor lightGrayColor];
@@ -76,8 +79,36 @@
 
     NSString *imageUrlStr = [params objectForKey:@"photo"];
     [self.headImgView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
+    
     NSString *nameStr = [params objectForKey:@"displayname"];
-    self.name.text = nameStr;
+    CGFloat nameWidth = [self widthOfString:nameStr];
+    nameWidth = nameWidth < 180 ? nameWidth : 180;
+    self.name.frame = CGRectMake(_name.left, _name.top, nameWidth, _name.height);
+    self.name.text = [NSString stringWithFormat:@"%@",nameStr];
+    int userType = [[params objectForKey:@"usertype"] intValue];
+    self.authflagView.frame = CGRectMake(_name.right, _authflagView.top, _authflagView.width, _authflagView.height);
+    switch (userType) {
+        case 0:{//试用会员
+            //此时隐藏
+            self.authflagView.frame = CGRectMake(_name.right, _authflagView.top, 0, _authflagView.height);
+        }
+            break;
+        case 1:{//付费会员
+            self.authflagView.image = [UIImage imageNamed:@"member_icon"];
+        }
+            break;
+        case 2:{//专家学者
+            self.authflagView.image = [UIImage imageNamed:@"experts_icon"];
+        }
+            break;
+        case 3:{//校工助理
+            self.authflagView.image = [UIImage imageNamed:@"assistant_icon"];
+        }
+            break;
+        default://默认隐藏
+            self.authflagView.frame = CGRectMake(_name.right, _authflagView.top, _authflagView.width, _authflagView.height);
+            break;
+    }
     
     NSString *schoolname = [params objectForKey:@"schoolname"];
     if (schoolname == nil) {
@@ -91,5 +122,9 @@
     self.duty.text = dutyString;
 }
 
-
+- (CGFloat)widthOfString:(NSString *)string{
+    CGSize size = [string sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(500, 30) lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat width = size.width;
+    return width + 5;
+}
 @end

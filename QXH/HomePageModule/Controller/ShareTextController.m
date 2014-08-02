@@ -14,6 +14,7 @@
 #import "NameCardViewController.h"
 #import "InformationDetailController.h"
 #import "MyCardController.h"
+#import "GCPlaceholderTextView.h"
 
 @interface ShareTextController ()
 {
@@ -446,6 +447,7 @@
         {
             NSLog(@"点击了赞");
             [DataInterface praiseArticle:tmpModel.artid laud:@"1" comment:@"" withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self getDetailInfo];
                 [self showAlert:[dict objectForKey:@"info"]];
             }];
         }
@@ -456,7 +458,9 @@
             CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
             [alertView setUseMotionEffects:TRUE];
             [alertView setButtonTitles:@[@"取消", @"发表"]];
-            UITextView *commentView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+
+            GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+            commentView.placeholder = @"请在此输入评论";
             commentView.backgroundColor = [UIColor clearColor];
             [alertView setContainerView:commentView];
             [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
@@ -464,6 +468,7 @@
                     case 1:
                     {
                         [DataInterface transmit:@"1" targetid:tmpModel.artid refsign:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
+                            [self getDetailInfo];
                             [self showAlert:[dict objectForKey:@"info"]];
                             [alertView close];
                         }];
