@@ -452,7 +452,7 @@
             break;
         case 3:
         {
-            NSLog(@"点击了评论");
+            NSLog(@"点击了转评");
             CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc]init];
             [alertView setUseMotionEffects:TRUE];
             [alertView setButtonTitles:@[@"取消", @"发表"]];
@@ -463,10 +463,7 @@
                 switch (buttonIndex) {
                     case 1:
                     {
-                        [DataInterface praiseArticle:tmpModel.artid laud:@"0" comment:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
-                            /**
-                             *  刷新评论列表
-                             */
+                        [DataInterface transmit:@"1" targetid:tmpModel.artid refsign:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
                             [self showAlert:[dict objectForKey:@"info"]];
                             [alertView close];
                         }];

@@ -689,7 +689,7 @@ withCompletionHandler:(DictCallback)completionBlock
 /**
  *  转发通用接口(转发指将咨询文章，活动转发到广场的操作)
  *
- *  @param type     2为咨询转发，3为活动转发
+ *  @param type     1为转评广场的文章，2为咨询转发，3为活动转发
  *  @param targetid 要转发的目标id
  *  @param refsign  转发语
  *  @param callback 回调
