@@ -8,11 +8,15 @@
 
 #import "SquareShareController.h"
 #import "MJRefresh.h"
+#import "SelectPeopleController.h"
+#import "NameCardViewController.h"
+#import "MyCardController.h"
 
 @interface SquareShareController ()
 @property (nonatomic, strong) SNImagePickerNC *imagePickerNavigationController;
 @property (nonatomic, strong) UIImagePickerController *cameraPicker;
 @property (nonatomic, strong) NSMutableArray *imgs;
+@property (nonatomic, strong) NSArray *atPersonList;
 @end
 
 @implementation SquareShareController
@@ -33,6 +37,8 @@
     self.title = @"发分享";
     _addPicBtn.frame = CGRectMake(14.f, 14.f, 47, 47);
     [_picView addSubview:_addPicBtn];
+    _atPersonScroll.frame = CGRectMake(138, 209, 164, 48);
+    [self.view addSubview:_atPersonScroll];
     _imgs = [[NSMutableArray alloc] init];
 }
 
@@ -260,6 +266,49 @@
 - (IBAction)selectImage:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"请选择取图片路径" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
     [actionSheet showInView:self.view];
+}
+
+- (IBAction)selectPeople:(id)sender {
+    SelectPeopleController *controller = [[SelectPeopleController alloc] init];
+    controller.callback = ^(NSArray *persons){
+        NSLog(@"persons--->%@",persons);
+        _atPersonList = persons;
+        [self updateAtPersonScroll];
+    };
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)updateAtPersonScroll
+{
+    if ([_atPersonList count] > 0) {
+        _atPersonScroll.contentSize = CGSizeMake(([_atPersonList count]+1)*(PORTRAIT_GAP+48), 48);
+        for (int i = 0; i < [_atPersonList count]; i++) {
+            UIImageView *personPortrait = [[UIImageView alloc] initWithFrame:CGRectMake((i+1)*PORTRAIT_GAP+48*i, 0, 48, 48)];
+            personPortrait.userInteractionEnabled = YES;
+            NSDictionary *dict = _atPersonList[i];
+            [personPortrait setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait_recommend96"]];
+            personPortrait.tag = 1000+i;
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPortrait:)];
+            [personPortrait addGestureRecognizer:tapGesture];
+            [_atPersonScroll addSubview:personPortrait];
+        }
+    }
+}
+
+- (void)clickPortrait:(UITapGestureRecognizer *)sender
+{
+    UIImageView *portraitView_ = (UIImageView *)sender.view;
+    NSDictionary *dict = _atPersonList[portraitView_.tag - 1000];
+    if ([dict[@"userid"] integerValue] != [[defaults objectForKey:@"userid"] integerValue]) {
+        NameCardViewController *controller = [[NameCardViewController alloc]init];
+        NSDictionary *item = [NSDictionary dictionaryWithObject:dict[@"userid"] forKey:@"userid"];
+        controller.memberDict = item;
+        [self.navigationController pushViewController:controller animated:YES];
+    }else{
+        MyCardController *controller = [[MyCardController alloc] initWithNibName:@"MyCardController" bundle:nil];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

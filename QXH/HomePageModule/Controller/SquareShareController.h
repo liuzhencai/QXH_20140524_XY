@@ -10,12 +10,16 @@
 #import "SNImagePickerNC.h"
 #import "SquareViewController.h"
 
+#define PORTRAIT_GAP 5
+
 @interface SquareShareController : MyViewController<UIActionSheetDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, SNImagePickerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *picView;
 @property (weak, nonatomic) IBOutlet UITextField *contentField;
 @property (weak, nonatomic) IBOutlet UIButton *addPicBtn;
 @property (nonatomic, assign) SquareViewController *controller;
+@property (weak, nonatomic) IBOutlet UIScrollView *atPersonScroll;
 - (IBAction)distribute:(id)sender;
 - (IBAction)selectImage:(id)sender;
+- (IBAction)selectPeople:(id)sender;
 
 @end

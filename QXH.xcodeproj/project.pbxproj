@@ -285,6 +285,7 @@
 		21F68BCE195C5CA300C869BC /* SNPicker~ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21F68BC4195C5CA300C869BC /* SNPicker~ipad.storyboard */; };
 		21F68BD0195C5E1A00C869BC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F68BCF195C5E1A00C869BC /* AssetsLibrary.framework */; };
 		21F68BD2195C69C400C869BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F68BD1195C69C400C869BC /* AVFoundation.framework */; };
+		21FCF942198D314300E7D3C5 /* SelectPeopleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FCF941198D314300E7D3C5 /* SelectPeopleController.m */; };
 		58061D0E1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */; };
 		58163D9A19323838001B60FE /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58163D9919323838001B60FE /* CustomTabBarController.m */; };
 		5839E437196C345D00326270 /* FindTribeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5839E436196C345D00326270 /* FindTribeResultViewController.m */; };
@@ -900,6 +901,8 @@
 		21F68BC4195C5CA300C869BC /* SNPicker~ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "SNPicker~ipad.storyboard"; sourceTree = "<group>"; };
 		21F68BCF195C5E1A00C869BC /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		21F68BD1195C69C400C869BC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		21FCF940198D314300E7D3C5 /* SelectPeopleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPeopleController.h; sourceTree = "<group>"; };
+		21FCF941198D314300E7D3C5 /* SelectPeopleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPeopleController.m; sourceTree = "<group>"; };
 		58061D0C1951D9C90036B0B7 /* AddOrDeleteMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOrDeleteMemberViewController.h; sourceTree = "<group>"; };
 		58061D0D1951D9C90036B0B7 /* AddOrDeleteMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOrDeleteMemberViewController.m; sourceTree = "<group>"; };
 		58163D9919323838001B60FE /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
@@ -1807,6 +1810,8 @@
 				21D7059019169617004950BF /* SquareViewController.h */,
 				21D7059119169617004950BF /* SquareViewController.m */,
 				21D7059219169617004950BF /* SquareViewController.xib */,
+				21FCF940198D314300E7D3C5 /* SelectPeopleController.h */,
+				21FCF941198D314300E7D3C5 /* SelectPeopleController.m */,
 			);
 			name = Square;
 			sourceTree = "<group>";
@@ -2845,6 +2850,7 @@
 				2119EEFE191682EC007DBE68 /* SDWebImageDownloader.m in Sources */,
 				848426B3192E130400C9474A /* MyTribeDetailViewController.m in Sources */,
 				2166CDF1193396AE00F0312E /* ModelGenerator.m in Sources */,
+				21FCF942198D314300E7D3C5 /* SelectPeopleController.m in Sources */,
 				21DA12E219363129001EDEB1 /* UDPRequest.m in Sources */,
 				5869D87919431A6600401862 /* YSKeyboardTableView.m in Sources */,
 				2109D50C191F1E7F003B76D7 /* EditCardCell.m in Sources */,
