@@ -78,6 +78,18 @@
     NSLog(@"筛选");
 }
 
+//- (void)getMaBiao{
+//    /**
+//     *  获取码表信息
+//     *  @param codetype   district为省市区信息,hobby为获取爱好列表，...
+//     *  @param fathercode 当为获取省列表时fathercode=000000,获取市区时fathercode为父级区域的编码
+//     *  @param callback   当用户登陆之后，服务器会指定唯一的令牌给相应的客户端，通过此令牌拥有用户权限
+//     */
+//    [DataInterface getCodeSheet:@"district" fathercode:@"460000" withCompletionHandler:^(NSMutableDictionary *dict){
+//        NSLog(@"海南省信息：%@",dict);
+//    }];
+//}
+
 /*
 #pragma mark - Navigation
 
