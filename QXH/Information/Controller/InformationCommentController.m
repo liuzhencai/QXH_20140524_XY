@@ -89,6 +89,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    InfoCommentModel *model = [commentList objectAtIndex:indexPath.row];
+    CGSize textSize = [NSString getStringRect:model.comment font:[UIFont systemFontOfSize:13.f] labelSize:CGSizeMake(242.f, FLT_MAX)];
+    if (textSize.height == 15.509001) {
+        return 68;
+    }
+    NSLog(@"textSize--->%@",[NSValue valueWithCGSize:textSize]);
+    return 58+[NSString getStringRect:model.comment].height;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [commentList count];

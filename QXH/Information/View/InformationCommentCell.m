@@ -32,6 +32,8 @@
     [_portraitView setImageWithURL:IMGURL(model.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_reviewerLabel setText:model.sname];
     [_dateLabel setText:model.date];
+    CGSize textSize = [NSString getStringRect:model.comment font:[UIFont systemFontOfSize:13.f] labelSize:CGSizeMake(242.f, FLT_MAX)];
+    _commentLabel.frame = CGRectMake(68, 33, 242, textSize.height);
     [_commentLabel setText:model.comment];
 }
 
