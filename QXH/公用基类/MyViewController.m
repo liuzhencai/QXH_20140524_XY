@@ -151,7 +151,7 @@
 
 - (void)showAlert:(NSString *)msg{
     if (!IsshowAlert) {
-        IsshowAlert = YES;
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:msg
                                                        delegate:self
@@ -159,7 +159,7 @@
                                               otherButtonTitles:@"确定",nil];
         [alert show];
     }
-
+    IsshowAlert = YES;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

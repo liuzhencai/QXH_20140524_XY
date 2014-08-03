@@ -263,4 +263,10 @@ static   UserInfoModelManger* instance;
 //    }
 //    return aimage;
 //}
+
+- (void)cleanUser
+{
+    userInfo = nil;
+    MeUserId = nil;
+}
 @end

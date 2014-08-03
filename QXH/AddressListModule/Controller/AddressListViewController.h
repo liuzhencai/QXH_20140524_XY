@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatController.h"
 typedef void (^AddressListCallBlock) (NSDictionary *dict);
 @interface AddressListViewController : MyViewController<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 {
     UITableView* myMessageTable;
     UITableView *addressListTable;
+    
+    /*内存释放有问题*/
+    ChatController* chat;
 }
 
 @property (nonatomic, strong)  UISearchBar *searchBar;

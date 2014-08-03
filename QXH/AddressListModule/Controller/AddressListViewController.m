@@ -514,33 +514,36 @@
                  usertype = 1;*/
                 NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"senderid"];
                 NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+                 chat = [[ChatController alloc]init];
+                
                 [DataInterface getUserInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
                     /*私聊*/
-                    ChatController* chat = [[ChatController alloc]init];
+                   
                     NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
                     tempdic[@"userid"]=ntribeid;
                     /*私聊对方信息*/
                     chat.otherDic = tempdic;
                     
-                    /*如果count值大于数组个数，则有离线消息*/
-                    NSNumber* acount = [message valueForKey:@"count"];
-                    NSInteger bcount = [acount integerValue];
-                    if (bcount >=[temp count]) {
-                        /*获取所有离线消息*/
-                        NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
-                        [tempdic setValue:atribeid forKey:@"targetid"];
-                        [tempdic setValue:@"0" forKey:@"start"];
-                        
-                        [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
-                        /*添加离线消息*/
-                        chat.offMessageDic = tempdic;
-//                        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"1"];
-                    }
-                    [self.navigationController pushViewController:chat animated:NO];
+//                    /*如果count值大于数组个数，则有离线消息*/
+//                    NSNumber* acount = [message valueForKey:@"count"];
+//                    NSInteger bcount = [acount integerValue];
+//                    if (bcount >=[temp count]) {
+//                        /*获取所有离线消息*/
+//                        NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+//                        [tempdic setValue:atribeid forKey:@"targetid"];
+//                        [tempdic setValue:@"0" forKey:@"start"];
+//                        
+//                        [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
+//                        /*添加离线消息*/
+//                        chat.offMessageDic = tempdic;
+////                        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"1"];
+//                    }
+                   
                 }];
-                
+                if (chat.otherDic) {
+                     [self.navigationController pushViewController:chat animated:NO];
+                }
   
-          
             }else if([bsendtype isEqualToString:@"2"])
             {
                 NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"tribeid"];

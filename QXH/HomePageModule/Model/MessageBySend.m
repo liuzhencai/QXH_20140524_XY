@@ -24,7 +24,7 @@ static MessageBySend* ins =nil;
         unKnowCharMessDic = [[NSMutableDictionary alloc]init];
 //        tempUnKnowCharMessArray = [[NSMutableArray alloc]init];
         sysMessDict = [[NSMutableDictionary alloc] init];
-
+        haveSeeOffline = [[NSMutableDictionary alloc]init];
         /*创建数据库*/
         db = [DBManager sharedManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
@@ -261,7 +261,9 @@ static MessageBySend* ins =nil;
         [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
         return nil;
     }
-    
+    if ([count isEqualToString:@"0"]) {
+        count = @"20";
+    }
     /*每次进来只获取最新20条，否则永远保存，内存会过大*/
    NSMutableArray* chatRoomArray =  [db getChatMessStart:start maxCount:count Andtargetid:ChatRoomid];
 //    NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
@@ -407,9 +409,6 @@ static MessageBySend* ins =nil;
             [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
         }
         DebugLog(@"chatRoomMess == %@",chatRoomMess);
-//        NSNumber* asenderId = [message valueForKey:@"senderid"] ;
-//        NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
-//        NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
        
         /*如果正在获取离线消息就不用发消息刷新界面了*/
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
@@ -702,6 +701,7 @@ static MessageBySend* ins =nil;
         NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:chatRoomMessArray,@"chatRoomMessArray", nil];
         /*离线消息中移除*/
         [unKnowCharMessDic removeObjectForKey:targetid];
+        [haveSeeOffline setObject:targetid forKey:targetid];
         /*暂时不移除*/
         //         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {
@@ -946,6 +946,18 @@ static MessageBySend* ins =nil;
     chat.messagetype = (NSNumber*)dic[@"messtype"];
     [db saveChatMess:chat];
    
+}
+
+/*清空所有数据*/
+- (void)cleanAllData
+{
+    [sysMess removeAllObjects];
+    [sysMessDict removeAllObjects];
+    [chatRoomMess removeAllObjects];
+    [unKnowCharMessDic removeAllObjects];
+    [hisStatDic removeAllObjects];
+    [db clearAllUserData];
+    
 }
 @end
 

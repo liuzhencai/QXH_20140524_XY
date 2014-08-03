@@ -58,6 +58,8 @@ static int chatInputStartingHeight = 40;
     
     /*是否获取历史聊天记录*/
     BOOL hisState;
+    
+   
 }
 
 // View Properties
@@ -200,7 +202,14 @@ static int chatInputStartingHeight = 40;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadeChatView" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadeChatViewAll" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOHistory" object:nil];
+    
     [self ReceiveAndSeeMessige];
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -434,6 +443,7 @@ static int chatInputStartingHeight = 40;
     [date setObject:[NSDate getdate] forKey:@"date"];
     NSString* sendphoto = [UserInfoModelManger sharUserInfoModelManger].userInfo.photo;
     if (!sendphoto) {
+        [[UserInfoModelManger sharUserInfoModelManger]]
         [self showAlert:@"您的网络太慢，请稍后尝试!"];
         return;
     }
@@ -1104,6 +1114,9 @@ static int chatInputStartingHeight = 40;
     [message setObject:[NSDate getdate] forKey:@"date"];
     /*唯一标识*/
     [message setObject:[NSDate getdate] forKey:@"clientsign"];
+    if (!Myuserinfo.photo) {
+        return;
+    }
     [message setObject:Myuserinfo.photo forKey:@"senderphoto"];
     
     [[MessageBySend sharMessageBySend] addChatRoomMessageArray:message toOtherid:aroomid];
@@ -1163,23 +1176,14 @@ static int chatInputStartingHeight = 40;
 #pragma mark 获取到离线消息
 - (void)reloadeChatViewAll:(NSNotification*)chatmessage
 {
- NSDictionary* dic =  (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
-    NSString* count = dic[@"count"];
-    [[MessageBySend sharMessageBySend]hideprogressHUD];
+    [[MessageBySend sharMessageBySend] hideprogressHUD];
+    NSLog(@"reloadeChatRoom==%@",chatmessage);
+    //    [self getMessagesArray];
     
-//    [self getMessagesArray];
-    NSNumber* aothetid = [self.otherDic valueForKey:@"userid"];
-    NSString* otherid = [NSString stringWithFormat:@"%d",[aothetid intValue]];
-    NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend] getChatRoomMessArray:otherid andStart:@"0" andcount:count andSendType:@"1"];
-    
-    if ([tempArray count]>0) {
-        //        [self setMessagesArray:tempArray];
-        _messagesArray = [[NSMutableArray alloc]initWithArray:tempArray];
-    }
+    NSDictionary* auserinfo = (NSDictionary*)[chatmessage valueForKey:@"userInfo"];
+    NSArray* chatroomArray = (NSArray*)auserinfo[@"chatRoomMessArray"];
+    _messagesArray = [[NSMutableArray alloc]initWithArray:chatroomArray];
     [_myCollectionView reloadData];
-    // 结束刷新
-    
-     [_myCollectionView headerEndRefreshing];
 }
 
 #pragma mark 没有历史记录
@@ -1187,9 +1191,9 @@ static int chatInputStartingHeight = 40;
 {
 //    [_myCollectionView reloadData];
     // 结束刷新
+   
     [_myCollectionView headerEndRefreshing];
     [self showAlert:@"已经没有历史记录！"];
-    
     
 }
 
@@ -1221,13 +1225,19 @@ static int chatInputStartingHeight = 40;
      type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
      当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
-    NSString* messid = nil;
+    NSString* temmessid = nil;
+    NSMutableString* messid = [[NSMutableString alloc]init];
     for (int i= [_messagesArray count]-1; i>-1; i--) {
         NSDictionary* ob = [_messagesArray objectAtIndex:i];
         NSNumber* amessid = ob[@"messid"];
-        messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-        if (![messid isEqual:@"-1"]) {
-            break;
+        temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+        if (![temmessid isEqual:@"-1"]) {
+            if (i== 0) {
+              [messid appendString:temmessid];
+            }else{
+              [messid appendString:[NSString stringWithFormat:@"%@,",temmessid]];
+            }
+            
         }
     }
 
