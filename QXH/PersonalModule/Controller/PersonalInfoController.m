@@ -50,6 +50,7 @@
     self.title = @"我";
      self.hidesBottomBarWhenPushed = NO;
     titleArray = @[@"我的分享",@"我的收藏",@"我的活动", @"我的部落", @"我的访客", @"会员章程",@"设置"];
+     self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)didReceiveMemoryWarning

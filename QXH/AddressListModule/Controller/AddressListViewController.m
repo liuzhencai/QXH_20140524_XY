@@ -124,7 +124,7 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
     addressListTable.tableHeaderView = self.searchBar;
-    
+     self.navigationItem.leftBarButtonItem = nil;
     //暂时屏蔽
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMessage:) name:@"addFirend" object:nil];
     
@@ -523,6 +523,7 @@
                     tempdic[@"userid"]=ntribeid;
                     /*私聊对方信息*/
                     chat.otherDic = tempdic;
+                     [self.navigationController pushViewController:chat animated:NO];
                     
 //                    /*如果count值大于数组个数，则有离线消息*/
 //                    NSNumber* acount = [message valueForKey:@"count"];
@@ -540,9 +541,9 @@
 //                    }
                    
                 }];
-                if (chat.otherDic) {
-                     [self.navigationController pushViewController:chat animated:NO];
-                }
+//                if (chat.otherDic) {
+//                     [self.navigationController pushViewController:chat animated:NO];
+//                }
   
             }else if([bsendtype isEqualToString:@"2"])
             {
@@ -550,7 +551,7 @@
                 NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
                 [DataInterface getTribeInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
                     /*部落聊天*/
-                    ChatRoomController* chatroom = [[ChatRoomController alloc]init];
+                    chatroom = [[ChatRoomController alloc]init];
                     NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
                     tempdic[@"tribeid"] = ntribeid;
                     chatroom.tribeInfoDict = tempdic;
@@ -558,16 +559,16 @@
                     /*如果count值大于数组个数，则存在离线消息*/
                     NSNumber* acount = [message valueForKey:@"count"];
                     NSInteger bcount = [acount integerValue];
-                    if (bcount >=[temp count]) {
+//                    if (bcount >=[temp count]) {
                         /*获取所有离线消息*/
-                        NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
+//                        NSMutableDictionary* atempdic = [[NSMutableDictionary alloc]init];
                         [tempdic setValue:atribeid forKey:@"targetid"];
                         [tempdic setValue:@"0" forKey:@"start"];
                         
                         [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
                         chatroom.offMessageDic = tempdic;
 //                        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"2"];
-                    }
+//                    }
                     
                     
                     [self.navigationController pushViewController:chatroom animated:NO];

@@ -78,6 +78,7 @@
 //    [self addTopImage];
     
     [self loadPage];
+    self.navigationItem.leftBarButtonItem = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAds:) name:@"updateAds" object:nil];
 }
@@ -157,19 +158,12 @@
     NSLog(@"userid--->%@,token--->%@",[defaults objectForKey:@"userid"],[defaults objectForKey:@"token"]);
     if ([defaults objectForKey:@"userid"]) {
 //        /*获取个人信息，并储存起来*/
-//        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
-//         {
-//             NSLog(@"获取到用户信息--->%@",user.displayname);
-////             _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",user.displayname];
-//             _welcomeLabel.text = @"欢迎来到校长会";
-//             [_portraitView setImageWithURL:IMGURL(user.photo) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
-//           
-////             _portraitView.image = user.iconImageview.image;
-//             [_portraitView circular];
-//         }];
+        [[UserInfoModelManger sharUserInfoModelManger]getUserInfo:^(UserInfoModel* user)
+         {
+             NSLog(@"存储个人信息");
+             /*此方法只为存储*/
+         }];
 
-        
-        
 
         /*修改后提交，使用原来获取用户信息方法，因为用户会更新或者注销后登陆*/
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {

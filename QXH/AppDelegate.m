@@ -167,8 +167,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self getUmengDeviceId];
-    [self umengTrack];
+   
+    /*暂时屏蔽友盟，崩溃较严重*/
+//    [self getUmengDeviceId];
+//    [self umengTrack];
     
 //    [self testInterface];
 //    [self registerAction];

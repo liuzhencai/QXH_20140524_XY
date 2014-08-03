@@ -22,6 +22,7 @@
 #import "MJRefresh.h"
 #import "DBManager.h"
 #import "myimageviewViewController.h"
+#import "UserInfoModelManger.h"
 //#import "chatRoomActivViewController.h"
 //#import "chatRoomMemberViewController.h"
 
@@ -168,6 +169,21 @@ static int chatInputStartingHeight = 40;
     
     [self addHeader];
     [self addFooter];
+    
+//    if (IS_OS_7_OR_LATER) {
+//           self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(popForwardBack)];  
+//    }else{
+//        UIButton *leftbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
+//        leftbuttonItem.frame = CGRectMake(10, 10, 23/2 , 38/2);
+//        [leftbuttonItem setBackgroundImage:[UIImage imageNamed:@"top_btn_arrow_normal"] forState:UIControlStateNormal];
+//        [leftbuttonItem setBackgroundImage:[UIImage imageNamed:@"top_btn_arrow_highlight"] forState:UIControlStateHighlighted];
+//        [leftbuttonItem addTarget:self action:@selector(popForwardBack) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftbuttonItem];
+//        self.navigationItem.leftBarButtonItem = leftItem;
+//
+//    }
+
+    
     
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -443,7 +459,7 @@ static int chatInputStartingHeight = 40;
     [date setObject:[NSDate getdate] forKey:@"date"];
     NSString* sendphoto = [UserInfoModelManger sharUserInfoModelManger].userInfo.photo;
     if (!sendphoto) {
-        [[UserInfoModelManger sharUserInfoModelManger]]
+        [[UserInfoModelManger sharUserInfoModelManger]cleanUser];
         [self showAlert:@"您的网络太慢，请稍后尝试!"];
         return;
     }
@@ -1277,7 +1293,7 @@ static int chatInputStartingHeight = 40;
     // 添加下拉刷新头部控件
     [_myCollectionView addHeaderWithCallback:^{
         // 进入刷新状态就会回调这个Block
-        NSNumber* aroomid = self.otherDic[@"userid"];
+        NSNumber* aroomid = (NSNumber*)otherDic[@"userid"];
         NSString* otherid = [NSString stringWithFormat:@"%d",[aroomid intValue]];
        NSMutableArray* tempAray =  [[MessageBySend sharMessageBySend]getHistoryFormLocalByTargid:otherid andBack:YES];
         if ([tempAray count]>0) {
@@ -1315,7 +1331,7 @@ static int chatInputStartingHeight = 40;
     // 添加上拉刷新尾部控件
     [_myCollectionView addFooterWithCallback:^{
         // 进入刷新状态就会回调这个Block
-        NSNumber* aroomid = self.otherDic[@"userid"];
+        NSNumber* aroomid = (NSNumber*)[otherDic valueForKey:@"userid"];
         NSString* otherid = [NSString stringWithFormat:@"%d",[aroomid intValue]];
         NSMutableArray* tempAray =  [[MessageBySend sharMessageBySend]getHistoryFormLocalByTargid:otherid andBack:NO];
         if ([tempAray count]>0) {
