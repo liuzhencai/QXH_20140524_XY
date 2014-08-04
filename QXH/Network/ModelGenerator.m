@@ -161,6 +161,7 @@
             case 1:
             case 2:
             case 4:
+            case 5:
             {
                 InfoModel *model = [[InfoModel alloc] init];
                 model.artid = [subDict objectForKey:@"artid"];

@@ -44,7 +44,7 @@
 //    [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)setCellData:(SquareInfo *)model
+- (void)setCellData:(SquareInfo *)model withFlag:(NSInteger)flag
 {
     _infoModel = model.content;
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
@@ -53,8 +53,14 @@
     _nameLabel.text = model.uname;
     _dateLabel.text = model.date;
     _positionLabel.text = model.uduty;
-    _contentLabel.text = _infoModel.title;
-    [_subImageView setImageWithURL:IMGURL(_infoModel.artimgs)];
+    if (flag == 0) {
+        _contentLabel.text = _infoModel.title;
+        [_subImageView setImageWithURL:IMGURL(_infoModel.artimgs)];
+    }else{
+        _contentLabel.text = _infoModel.content;
+        [_subImageView setImageWithURL:IMGURL(_infoModel.sphoto)];
+    }
+
 }
 
 @end

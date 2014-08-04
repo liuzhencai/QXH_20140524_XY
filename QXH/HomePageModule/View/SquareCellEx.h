@@ -18,5 +18,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *subImageView;
 - (IBAction)tap:(id)sender;
-- (void)setCellData:(SquareInfo *)model;
+- (void)setCellData:(SquareInfo *)model withFlag:(NSInteger)flag;
 @end

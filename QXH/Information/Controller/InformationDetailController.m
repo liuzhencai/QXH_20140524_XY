@@ -90,6 +90,7 @@
                 }];
             };
             [self.navigationController pushViewController:controller animated:YES];
+            return;
         }
             break;
         case 1:
