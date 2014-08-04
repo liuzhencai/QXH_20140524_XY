@@ -265,7 +265,18 @@
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            [(SquareCellEx *)cell setCellData:model];
+            [(SquareCellEx *)cell setCellData:model withFlag:0];
+        }
+            break;
+        case 5:
+        {
+            static NSString *cellIdentifier = @"squareCellEx";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCellEx" owner:nil options:nil] objectAtIndex:0];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            [(SquareCellEx *)cell setCellData:model withFlag:1];
         }
             break;
         case 3:
@@ -290,16 +301,16 @@
             [(SquareAskCell *)cell setCellData:model];
         }
             break;
-        case 5:
-        {
-            static NSString *cellIdentifier = @"SquareTransmitCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (cell == nil) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareTransmitCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-        }
-            break;
+//        case 5:
+//        {
+//            static NSString *cellIdentifier = @"SquareTransmitCell";
+//            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//            if (cell == nil) {
+//                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareTransmitCell" owner:nil options:nil] objectAtIndex:0];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            }
+//        }
+//            break;
         default:
             break;
     }
@@ -333,6 +344,7 @@
             }
             break;
         case 2:
+        case 5:
             rowHeight = 162.f;
             break;
         case 3:
@@ -367,6 +379,7 @@
         }
             break;
         case 2:
+        case 5:
         {
             ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
             controller.info = model;
