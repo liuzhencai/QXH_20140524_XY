@@ -951,13 +951,13 @@ static int chatInputStartingHeight = 40;
 
 //设置显示的消息
 - (void) setMessagesArray:(NSMutableArray *)messagesArray {
-    _messagesArray = messagesArray;
+//    _messagesArray = messagesArray;
     
     // Fix if we receive Null
-    if (![_messagesArray.class isSubclassOfClass:[NSArray class]]) {
-        _messagesArray = [NSMutableArray new];
-    }
-    
+//    if (![_messagesArray.class isSubclassOfClass:[NSArray class]]) {
+//        _messagesArray = [NSMutableArray new];
+//    }
+    _messagesArray = [[NSMutableArray alloc]initWithArray:messagesArray];
     [_myCollectionView reloadData];
 }
 
@@ -1205,6 +1205,8 @@ static int chatInputStartingHeight = 40;
 #pragma mark 没有历史记录
 - (void)NOHistory:(NSNotification*)chatmessage
 {
+    
+     [[MessageBySend sharMessageBySend] hideprogressHUD];
 //    [_myCollectionView reloadData];
     // 结束刷新
    
@@ -1221,6 +1223,7 @@ static int chatInputStartingHeight = 40;
         NSNumber* aothetid = [self.otherDic valueForKey:@"userid"];
         NSString* otherid = [NSString stringWithFormat:@"%d",[aothetid intValue]];
         NSMutableArray* tempArray =  [[MessageBySend sharMessageBySend] getChatRoomMessArray:otherid andStart:@"0" andcount:@"20" andSendType:@"1"];
+        [[MessageBySend sharMessageBySend]showprogressHUD:@"正在获取消息，请耐心等待" withView:self.view];
 
     if ([tempArray count]>0) {
 //        [self setMessagesArray:tempArray];

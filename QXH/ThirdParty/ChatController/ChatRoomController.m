@@ -495,15 +495,15 @@ static int chatInputStartingHeight = 40;
 
 }
 
-//liuzhencai 设置显示照片图片
-- (void) chatInputPicMessageSent:(NSString *)messageString {
-    
-    NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
-    [newMessageOb setValue:messageString forKey:kPicContent ];
-    newMessageOb[kMessageTimestamp] = [NSDate getdate];
-//    [self didSendMessage:newMessageOb];
-     [self messageSendByUser:newMessageOb];
-}
+////liuzhencai 设置显示照片图片
+//- (void) chatInputPicMessageSent:(NSString *)messageString {
+//    
+//    NSMutableDictionary * newMessageOb = [NSMutableDictionary new];
+//    [newMessageOb setValue:messageString forKey:kPicContent ];
+//    newMessageOb[kMessageTimestamp] = [NSDate getdate];
+////    [self didSendMessage:newMessageOb];
+//     [self messageSendByUser:newMessageOb];
+//}
 
 //#pragma mark TOP BAR DELEGATE
 //
@@ -969,12 +969,13 @@ static int chatInputStartingHeight = 40;
 
 //设置显示的消息
 - (void) setMessagesArray:(NSMutableArray *)messagesArray {
-    _messagesArray = messagesArray;
+    
     
     // Fix if we receive Null
-    if (![_messagesArray.class isSubclassOfClass:[NSArray class]]) {
-        _messagesArray = [NSMutableArray new];
-    }
+//    if (![_messagesArray.class isSubclassOfClass:[NSArray class]]) {
+//        _messagesArray = [NSMutableArray new];
+//    }
+    _messagesArray = [[NSMutableArray alloc]initWithArray:messagesArray];
     
     [_myCollectionView reloadData];
 }
