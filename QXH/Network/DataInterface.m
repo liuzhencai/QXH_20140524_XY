@@ -742,11 +742,11 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
-+ (void)inviteToTribe:(NSString *)targetid
++ (void)inviteToTribe:(NSString *)targetids
               tribeid:(NSString *)tribeid
 withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0147", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid": targetid, @"tribeid": tribeid};
+    NSDictionary *param = @{@"opercode": @"0147", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetids": targetids, @"tribeid": tribeid};
     NSLog(@"\n##########部落创建者或管理员拉人进部落接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########部落创建者或管理员拉人进部落接口返回结果##########\n[结 果]:%@\n#############################\n",dict);

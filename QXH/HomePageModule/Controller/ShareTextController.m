@@ -439,6 +439,7 @@
                 collected = @"2";
             }
             [DataInterface squareArticleCollection:collected artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
+                [self getDetailInfo];
                 [self showAlert:[dict objectForKey:@"info"]];
             }];
         }
@@ -491,9 +492,32 @@
     [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",self.type] artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
         browseDict = dict;
         [_contentTable reloadData];
+        [self resetToolBar];
     }];
 }
-
+- (void)resetToolBar{
+    if (browseDict) {
+        //details_icon_like_highlight@2x
+        //收藏
+        BOOL collectflag = [[browseDict objectForKey:@"collectflag"] boolValue];
+        if (collectflag) {
+            [self.collectionBtn setImage:[UIImage imageNamed:@"details_icon_star_highlight"] forState:UIControlStateNormal];
+        }
+        else {
+            
+            [self.collectionBtn setImage:[UIImage imageNamed:@"details_icon_star_normal"] forState:UIControlStateNormal];
+        }
+        //点赞
+        BOOL laudflag = [[browseDict objectForKey:@"laudflag"] boolValue];
+        if (laudflag) {
+            [self.praiseBtn setImage:[UIImage imageNamed:@"details_icon_like_highlight"] forState:UIControlStateNormal];
+        }
+        else {
+            [self.praiseBtn setImage:[UIImage imageNamed:@"details_icon_like_normal"] forState:UIControlStateNormal];
+        }
+        
+    }
+}
 - (void)getCommentList
 {
     InfoModel *tmpModel = (InfoModel *)_info.content;

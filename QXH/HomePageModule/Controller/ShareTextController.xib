@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -7,7 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareTextController">
             <connections>
+                <outlet property="collectionBtn" destination="HY7-jN-K2O" id="P7W-h4-Zxh"/>
                 <outlet property="contentTable" destination="MLy-ng-q7f" id="Vef-iu-N8w"/>
+                <outlet property="praiseBtn" destination="zOr-cS-IzV" id="I4J-gT-gtq"/>
                 <outlet property="toolbarView" destination="bYT-Gg-UoO" id="DJu-wP-f54"/>
                 <outlet property="topView" destination="MTy-5N-Eyi" id="wzg-wc-hyD"/>
                 <outlet property="view" destination="1" id="3"/>

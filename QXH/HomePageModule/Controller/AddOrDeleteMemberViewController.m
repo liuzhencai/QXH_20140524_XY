@@ -80,7 +80,6 @@
     }
     
     NSString *tribeid = [[self.tribeDict objectForKey:@"tribeid"] stringValue];
-    
     if (self.type == deleteTribeMemberType) {//删除
         /**
          *  退出部落
@@ -104,12 +103,19 @@
     }else{//添加
         /**
          *  部落创建者或管理员拉人进部落
-         *
-         *  @param targetid 被处理的拉入成员的userid
+         *  @param targetids:"123456,12345"  被处理的拉入成员的userid组，多个用逗号隔开
          *  @param tribeid  部落唯一标示
          *  @param callback 回调
          */
-        
+        NSString *targetids = @"";
+        for (int i = 0; i < [self.addItems count]; i ++) {
+            NSDictionary *memberDict = [self.addItems objectAtIndex:i];
+            NSString *userid = [NSString stringWithFormat:@"%@",[memberDict objectForKey:@"userid"]];
+            targetids = [targetids stringByAppendingString:userid];
+            if (i != [self.addItems count] - 1) {
+                targetids = [targetids stringByAppendingString:@","];
+            }
+        }
         [DataInterface inviteToTribe:userIds tribeid:tribeid withCompletionHandler:^(NSMutableDictionary *dict){
             NSLog(@"%@",dict);
             [self showAlert:[dict objectForKey:@"info"]];

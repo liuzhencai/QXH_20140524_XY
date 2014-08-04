@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
-    self.title = @"找人";
+    self.title = @"人脉";
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     [self checkHaveMySelf];

@@ -734,11 +734,11 @@ withCompletionHandler:(DictCallback)callback;
 /**
  *  部落创建者或管理员拉人进部落
  *
- *  @param targetid 被处理的拉入成员的userid
+ *  @param targetids:"123456,12345", //被处理的拉入成员的userid组，多个用逗号隔开
  *  @param tribeid  部落唯一标示
  *  @param callback 回调
  */
-+ (void)inviteToTribe:(NSString *)targetid
++ (void)inviteToTribe:(NSString *)targetids
               tribeid:(NSString *)tribeid
 withCompletionHandler:(DictCallback)callback;
 

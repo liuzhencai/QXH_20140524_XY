@@ -10,6 +10,7 @@
 #import "ChatController.h"
 #import "NameCardTitleCell.h"
 #import "AddFriendView.h"
+#import "SelectTribeController.h"
 
 @interface NameCardViewController ()<UITableViewDataSource, UITableViewDelegate,NameCardTitleDelegate>
 @property (nonatomic, strong) UITableView *mainTable;
@@ -316,8 +317,32 @@
         }
         
     }else{
+        //转发名片
+        SelectTribeController *controller = [[SelectTribeController alloc] initWithNibName:@"SelectTribeController" bundle:nil];
+        controller.type = SelectTypeNameCard;
+        controller.parentController = self;
+        [self.navigationController pushViewController:controller animated:YES];
     }
-    
+}
+
+- (void)transmitNameCard:(NSString *)tribeid{
+    /**
+     *  分享内容
+     *  @param sourceid    广场消息的唯一标示
+     *  @param sourcetype  1为广场文章，2为咨询分享，3为活动分享,4为名片分享
+     *  @param sharetype   1为分享给好友，2为分享给部落
+     *  @param targetid    分享给好友或部落的id，如果为多个好友或部落，中间以逗号隔开
+     *  @param callback 回调
+     */
+//    @property (nonatomic, strong) NSDictionary *memberDict;
+//    @property (nonatomic, strong) NSString *memberId;//
+    NSString *memberId = self.memberId;
+    if (!memberId) {
+        memberId = [self.memberDict objectForKey:@"userid"];
+    }
+    [DataInterface shareContent:memberId sourcetype:@"4" sharetype:@"2" targetid:tribeid withCompletionHandler:^(NSMutableDictionary *dict) {
+        [self showAlert:[dict objectForKey:@"info"]];
+    }];
 }
 
 - (UILabel *)addLabelWithFrame:(CGRect)frame
