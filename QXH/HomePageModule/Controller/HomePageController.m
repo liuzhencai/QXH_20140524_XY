@@ -139,6 +139,30 @@
 //        AppDelegate* dele = (AppDelegate*)[UIApplication sharedApplication].delegate;
 //        [dele.tabController hideTabBar:NO];
     }
+    
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if ([defaults objectForKey:@"userid"]) {
+        /*进入界面判断，如果mei有获取到，就再次获取*/
+        
+        if (![UserInfoModelManger sharUserInfoModelManger ].userInfo) {
+            
+            [[UserInfoModelManger sharUserInfoModelManger] getUserInfo:^(UserInfoModel* user)
+             {
+                 NSLog(@"获取到用户信息");
+             }];
+            
+            [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
+                NSLog(@"dic==%@",dic);
+                [self setTopViewValue:dic];
+            }];
+        }
+        
+    }
+  
 }
 
 #pragma mark - loginDelegate
@@ -256,6 +280,7 @@
 - (void)setTopViewValue:(NSDictionary *)dict
 {
 //    _welcomeLabel.text = [NSString stringWithFormat:@"%@，欢迎您！",[dict objectForKey:@"displayname"]];
+    NSLog(@"setTopViewValue");
     _welcomeLabel.text = @"欢迎来到校长会";
     [_portraitView setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];

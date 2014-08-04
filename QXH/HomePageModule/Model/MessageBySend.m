@@ -64,10 +64,11 @@ static MessageBySend* ins =nil;
         return;
     }
   
-    /*判断是不是部落消息聊天*/
-    [self addChatRoomMessageArray:userinfo];
     /*暂时屏蔽此处离线消息*/
     [self AddTounKnowCharMessAyyay:userinfo];
+    /*判断是不是部落消息聊天*/
+    [self addChatRoomMessageArray:userinfo];
+ 
 //    [self AddSystemMessAyyay:userinfo];
   
     
@@ -265,8 +266,13 @@ static MessageBySend* ins =nil;
     /*暂时屏蔽获取离线消息*/
      NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:ChatRoomid];
     if ([temparray1 count]) {
-        [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
-        return nil;
+        /*当离线消息数据，大于本地缓存中数据*/
+//        NSDictionary* last = (NSDictionary*)[temparray1 lastObject];
+//        NSNumber* countNum = (NSNumber*)[last valueForKey:@"count"];
+//        if (countNum && [countNum integerValue]> [temparray1 count]) {
+            [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
+            return nil;
+//        }
     }
     /*刘振财*/
 //    if ([count isEqualToString:@"0"]) {
@@ -664,6 +670,19 @@ static MessageBySend* ins =nil;
 #pragma mark 获取所有离线消息详情
 -(void)getOffMessageHistory:(NSString *)targetid andSendtype:(NSString*)sendtype
 {
+    UIWindow* aWindow = [[UIApplication sharedApplication]delegate].window;
+    
+    progressHUD = [[MBProgressHUD alloc] initWithWindow:aWindow];
+    progressHUD.animationType = MBProgressHUDAnimationFade;
+    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+        //       [keyWindow addSubview:progressHUD];
+    
+    //    progressHUD.labelText = @"正在获取离线消息，请耐心等待...";
+    [aWindow addSubview:progressHUD];
+    progressHUD.labelText = @"正在获取离线消息，请耐心等待...";
+    [progressHUD show:YES];
+    
+    
     NSString* astartid = @"0";
     NSString* direction = @"after";
     NSString* count = nil;
@@ -842,17 +861,17 @@ static MessageBySend* ins =nil;
 - (void)showprogressHUD:(NSString*)string withView:(UIView*)aview
 {
 //    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    if (!progressHUD) {
-        progressHUD = [[MBProgressHUD alloc] initWithView:aview];
-        progressHUD.animationType = MBProgressHUDAnimationFade;
-        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
-//       [keyWindow addSubview:progressHUD];
-    }
-//    progressHUD.labelText = @"正在获取离线消息，请耐心等待...";
-    [aview addSubview:progressHUD];
-    progressHUD.labelText = string;
-   
-    [progressHUD show:YES];
+//    if (!progressHUD) {
+//        progressHUD = [[MBProgressHUD alloc] initWithView:aview];
+//        progressHUD.animationType = MBProgressHUDAnimationFade;
+//        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+////       [keyWindow addSubview:progressHUD];
+//    }
+////    progressHUD.labelText = @"正在获取离线消息，请耐心等待...";
+//    [aview addSubview:progressHUD];
+//    progressHUD.labelText = string;
+//   
+//    [progressHUD show:YES];
 }
 
 - (void)hideprogressHUD
