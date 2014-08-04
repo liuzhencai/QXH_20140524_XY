@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatController.h"
 
 @interface NameCardViewController : MyViewController
+{
+    ChatController* chat;
+}
 @property (nonatomic, assign) BOOL isMyFriend;
 @property (nonatomic, strong) NSDictionary *memberDict;
 @property (nonatomic, strong) NSString *memberId;//

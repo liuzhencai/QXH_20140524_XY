@@ -1543,10 +1543,20 @@ static int chatInputStartingHeight = 40;
     if (amess) {
         NSLog(@"状态置为已读的_messagesArray == %@",_messagesArray);
         NSLog(@"状态置为已读的message == %@",amess);
-        NSNumber* amessid = amess[@"messid"];
-        NSString* messid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-        if (messid) {
-            [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"2" tribeid:ChatRoomId];
+        NSString* temmessid = nil;
+    
+        for (int i= [_messagesArray count]-1; i>-1; i--) {
+            NSDictionary* ob = [_messagesArray objectAtIndex:i];
+            NSNumber* amessid = ob[@"messid"];
+            temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+            if (![temmessid isEqual:@"-1"]) {
+                break;
+              
+            }
+        }
+        
+        if (temmessid) {
+            [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:temmessid type:@"2" tribeid:ChatRoomId];
         }
     }
 

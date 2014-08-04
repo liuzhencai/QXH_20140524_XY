@@ -291,9 +291,9 @@
     if (index == 1) {
         if (self.isMyFriend) {
             NSLog(@"发起聊天");
-            ChatController* chatview = [[ChatController alloc]init];
-            chatview.otherDic = self.memberDict;
-            [self.navigationController pushViewController:chatview animated:NO];
+            chat = [[ChatController alloc]init];
+            chat.otherDic = self.memberDict;
+            [self.navigationController pushViewController:chat animated:NO];
             
         }else{
             /**

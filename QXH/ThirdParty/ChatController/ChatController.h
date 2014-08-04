@@ -63,7 +63,7 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
  username = "";
  usertype = 1;
  */
-@property (strong,nonatomic)NSDictionary* otherDic;
+@property (retain,nonatomic)NSDictionary* otherDic;
 
 /*离线消息个数*/
 @property (assign, nonatomic)NSInteger integerCount;

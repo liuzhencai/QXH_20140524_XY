@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "HomePageController.h"
 #import "AboutViewController.h"
+#import "MessageBySend.h"
+#import "UserInfoModelManger.h"
 
 @interface SettingViewController ()
 
@@ -210,11 +212,14 @@
     NSLog(@"buttonIndex->>%d",buttonIndex);
     if (alertView.tag == 1112&&buttonIndex == 1) {
         if ([DBManager sharedManager]) {
+            [[MessageBySend sharMessageBySend]cleanAllData];
+            [self showAlert:@"聊天记录清除成功"];
             if([[DBManager sharedManager] clearAllUserData]){
                 [self showAlert:@"清除成功"];
             }
         }
     }else if(alertView.tag == 1113){
+        [[UserInfoModelManger sharUserInfoModelManger]cleanUser];
         AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         UINavigationController *homeNav = [delegate.tabController.viewControllers objectAtIndex:0];
         HomePageController *controller = [homeNav.viewControllers objectAtIndex:0];

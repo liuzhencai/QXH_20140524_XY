@@ -28,28 +28,28 @@
 //    NSMutableArray* chatMess;
     /*sendtype 2;部落聊天存储进该数组，其中元素是字典*/
     NSMutableDictionary* chatRoomMess;
-    /*sendtype 3;加好友申请存储进该数组，其中元素是字典*/
-    NSMutableArray* friendReceiveMess;
-    /*sendtype 4;处理好友申请存储进该数组，其中元素是字典*/
-    NSMutableArray* friendDoMess;
-    /*sendtype 5;加入部落申请存储进该数组，其中元素是字典*/
-    NSMutableArray* TribeReceiveMess;
-    /*sendtype 6;处理加入部落申请存储进该数组，其中元素是字典*/
-    NSMutableArray* TribeDoMess;
-    /*sendtype 7;完全退出部落存储进该数组，其中元素是字典*/
-    NSMutableArray* TribeDestroyMess;
-    /*sendtype 8;进入部落存储进该数组，其中元素是字典*/
-    NSMutableArray* TribeInMess;
-    /*sendtype 9;退出部落房间存储进该数组，其中元素是字典*/
-    NSMutableArray* TribeExitMess;
-    /*sendtype 10;好友上线通知存储进该数组，其中元素是字典*/
-    NSMutableArray* friendOnlineMess;
-    /*sendtype 11;好友下线通知存储进该数组，其中元素是字典*/
-    NSMutableArray* friendofflineMess;
-    /*sendtype 12;@某人存储进该数组，其中元素是字典*/
-    NSMutableArray* someOnMess;
-    /*sendtype 13;@部落存储进该数组，其中元素是字典*/
-    NSMutableArray* someTribeOnMess;
+//    /*sendtype 3;加好友申请存储进该数组，其中元素是字典*/
+//    NSMutableArray* friendReceiveMess;
+//    /*sendtype 4;处理好友申请存储进该数组，其中元素是字典*/
+//    NSMutableArray* friendDoMess;
+//    /*sendtype 5;加入部落申请存储进该数组，其中元素是字典*/
+//    NSMutableArray* TribeReceiveMess;
+//    /*sendtype 6;处理加入部落申请存储进该数组，其中元素是字典*/
+//    NSMutableArray* TribeDoMess;
+//    /*sendtype 7;完全退出部落存储进该数组，其中元素是字典*/
+//    NSMutableArray* TribeDestroyMess;
+//    /*sendtype 8;进入部落存储进该数组，其中元素是字典*/
+//    NSMutableArray* TribeInMess;
+//    /*sendtype 9;退出部落房间存储进该数组，其中元素是字典*/
+//    NSMutableArray* TribeExitMess;
+//    /*sendtype 10;好友上线通知存储进该数组，其中元素是字典*/
+//    NSMutableArray* friendOnlineMess;
+//    /*sendtype 11;好友下线通知存储进该数组，其中元素是字典*/
+//    NSMutableArray* friendofflineMess;
+//    /*sendtype 12;@某人存储进该数组，其中元素是字典*/
+//    NSMutableArray* someOnMess;
+//    /*sendtype 13;@部落存储进该数组，其中元素是字典*/
+//    NSMutableArray* someTribeOnMess;
     /*未阅读聊天记录存储进该数组，其中元素是字典*/
     NSMutableDictionary* unKnowCharMessDic;
 //    /*获取离线消息时，临时存储，其中元素是字典*/
@@ -65,6 +65,9 @@
     
     /*聊天记录显示的最后一条信息位置的字典*/
     NSMutableDictionary* hisStatDic;
+    
+    /*储存已经看过的离线消息*/
+    NSMutableDictionary* haveSeeOffline;
 }
 
 //@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
@@ -102,6 +105,9 @@
 
 #pragma mark 获取图片接口
 - (void)getimageView:(UIImageView*)picImageView byImagePath:(NSString*)pic;
+
+/*清空所有数据*/
+- (void)cleanAllData;
 @end
 
 

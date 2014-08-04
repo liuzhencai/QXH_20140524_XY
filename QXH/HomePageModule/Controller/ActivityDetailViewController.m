@@ -349,7 +349,8 @@
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = [self.activityDict objectForKey:@"actname"];
     message.description = [self.activityDict objectForKey:@"desc"];
-    [message setThumbImage:[UIImage imageNamed:@"img_news"]];
+    [message setThumbImage:[UIImage imageNamed:@"icon"]];
+
 //    NSString *imagesStr = [self.activityDict objectForKey:@"actimgs"];
 //    NSArray *images = [imagesStr componentsSeparatedByString:@","];
 //    [message setThumbImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:IMGURL([images lastObject])]]];

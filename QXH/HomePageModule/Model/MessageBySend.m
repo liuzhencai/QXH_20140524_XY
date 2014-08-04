@@ -24,7 +24,7 @@ static MessageBySend* ins =nil;
         unKnowCharMessDic = [[NSMutableDictionary alloc]init];
 //        tempUnKnowCharMessArray = [[NSMutableArray alloc]init];
         sysMessDict = [[NSMutableDictionary alloc] init];
-
+        haveSeeOffline = [[NSMutableDictionary alloc]init];
         /*创建数据库*/
         db = [DBManager sharedManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
@@ -121,7 +121,8 @@ static MessageBySend* ins =nil;
            
         }
         
-    }else if ([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"13"]) {
+    }else if ([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"13"]|| [bsendtype isEqualToString:@"14"]) {
+        /*14是直播间消息*/
         /*
          分享进入部落里的文章，活动，个人名片也添加进入部落聊天当中
          数据格式
@@ -204,6 +205,12 @@ static MessageBySend* ins =nil;
 //    NSNumber*  asendtype = (NSNumber*)[notif valueForKey:@"sendtype"];
 //    NSString* bsendtype =[NSString stringWithFormat:@"%d",[asendtype intValue]];
     [notif setObject:[NSNumber numberWithInt:1] forKey:@"sendtype"];
+    UserInfoModel* meUser = [[UserInfoModelManger sharUserInfoModelManger]getMe];
+    if (meUser) {
+        [notif setValue:meUser.displayname forKey:@"sendername"];
+        [notif setValue:meUser.photo forKey:@"senderphoto"];
+    }
+    
 //    if ([bsendtype isEqualToString:@"1"])
 //    {
         /*好友私聊*/
@@ -261,7 +268,10 @@ static MessageBySend* ins =nil;
         [self getOffMessageHistory:ChatRoomid andSendtype:sendType];
         return nil;
     }
-    
+    /*刘振财*/
+//    if ([count isEqualToString:@"0"]) {
+//        count = @"20";
+//    }
     /*每次进来只获取最新20条，否则永远保存，内存会过大*/
    NSMutableArray* chatRoomArray =  [db getChatMessStart:start maxCount:count Andtargetid:ChatRoomid];
 //    NSMutableArray* chatRoomArray = (NSMutableArray*) [chatRoomMess valueForKey:ChatRoomid];
@@ -407,9 +417,6 @@ static MessageBySend* ins =nil;
             [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
         }
         DebugLog(@"chatRoomMess == %@",chatRoomMess);
-//        NSNumber* asenderId = [message valueForKey:@"senderid"] ;
-//        NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
-//        NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
        
         /*如果正在获取离线消息就不用发消息刷新界面了*/
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
@@ -661,7 +668,7 @@ static MessageBySend* ins =nil;
     NSString* direction = @"after";
     NSString* count = nil;
     
-    /*移除离线消息*/
+    /*离线消息*/
     NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:targetid];
     if (temparray1) {
         NSDictionary* last = (NSDictionary*)[temparray1 lastObject];
@@ -670,6 +677,9 @@ static MessageBySend* ins =nil;
         count = [NSString stringWithFormat:@"%d",[acou intValue]];
     }
 //    return;
+    if (!count) {
+        count = @"20";
+    }
     [DataInterface getChatHistory:targetid sendtype:sendtype start:astartid  direction:direction count:count withCompletionHandler:^(NSMutableDictionary *dict) {
         NSMutableArray* list = (NSMutableArray*)[dict valueForKey:@"list"];
         NSMutableArray* chatRoomMessArray = [[NSMutableArray alloc]init];
@@ -702,6 +712,7 @@ static MessageBySend* ins =nil;
         NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:chatRoomMessArray,@"chatRoomMessArray", nil];
         /*离线消息中移除*/
         [unKnowCharMessDic removeObjectForKey:targetid];
+        [haveSeeOffline setObject:targetid forKey:targetid];
         /*暂时不移除*/
         //         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {
@@ -902,23 +913,23 @@ static MessageBySend* ins =nil;
 {
     ChatMess* chat = [[ChatMess alloc]init];
     //聊天主键id
-    chat.cid = @"";
-    // 用户id
-    chat.uid = @"";
+//    chat.cid = @"";
+//    // 用户id
+//    chat.uid = @"";
+    // 会话唯一标示
+    //    chat.sessionid = @"";
+
     // 消息唯一标示
     NSNumber* amessid = (NSNumber*)dic[@"messid"];
     if (!amessid) {
         amessid = [NSNumber numberWithInt:-1];
     }
     chat.msgid = amessid;//nsnumber
-    // 会话唯一标示
-    chat.sessionid = @"";
     // 消息类型
     NSNumber* asendtype = (NSNumber*)dic[@"sendtype"];
     if (!asendtype) {
         asendtype = (NSNumber*)dic[@"messtype"];
     }
-//    chat.type = ;//nsnumber
     chat.type = asendtype;
     // 来自id标示
     chat.fromid = (NSNumber*)dic[@"senderid"];//nsnumber
@@ -927,15 +938,11 @@ static MessageBySend* ins =nil;
     // 来自图片标示
     chat.fromphotoid = dic[@"senderphoto"];
     // 消息时间
-    chat.dttime = @"";
+//    chat.dttime = @"";
     // 消息日期
     chat.dtdate = dic[@"date"];
     // 内容文本
     chat.contenttext = dic[@"mess"];
-    // 内容资源
-    chat.contentres = @"";
-    // 消息状态
-    chat.state = @"";
     // 目标id标示
     chat.targetid = (NSNumber*)dic[@"tribeid"];//nsnumbe
     // 目标name标示
@@ -944,8 +951,23 @@ static MessageBySend* ins =nil;
     chat.targetphoto = dic[@"tribephoto"];
     // 目标消息类型
     chat.messagetype = (NSNumber*)dic[@"messtype"];
+    if (!chat.type || !chat.fromid || !chat.fromname || !chat.fromphotoid || !chat.dtdate || !chat.contenttext || !chat.targetid) {
+        return;
+    }
     [db saveChatMess:chat];
    
+}
+
+/*清空所有数据*/
+- (void)cleanAllData
+{
+    [sysMess removeAllObjects];
+    [sysMessDict removeAllObjects];
+    [chatRoomMess removeAllObjects];
+    [unKnowCharMessDic removeAllObjects];
+    [hisStatDic removeAllObjects];
+    [db clearAllUserData];
+    
 }
 @end
 
