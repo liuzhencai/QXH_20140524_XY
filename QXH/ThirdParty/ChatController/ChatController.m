@@ -1251,18 +1251,20 @@ static int chatInputStartingHeight = 40;
         NSNumber* amessid = ob[@"messid"];
         temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
         if (![temmessid isEqual:@"-1"]) {
-            if (i== 0) {
-              [messid appendString:temmessid];
-            }else{
-              [messid appendString:[NSString stringWithFormat:@"%@,",temmessid]];
-            }
+            break;
+//            if (i== 0) {
+//              [messid appendString:temmessid];
+//
+//            }else{
+//              [messid appendString:[NSString stringWithFormat:@"%@,",temmessid]];
+//            }
             
         }
     }
 
     NSNumber* aroomid = self.otherDic[@"userid"];
-    if (messid) {
-        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
+    if (temmessid) {
+        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:temmessid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
     }
     
 }

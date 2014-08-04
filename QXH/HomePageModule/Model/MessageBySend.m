@@ -516,6 +516,14 @@ static MessageBySend* ins =nil;
      继续发送消息
      2、进行该操作同事，删除本地离线消息
      */
+    /*如果是自己发送的就不用发消息刷新界面了*/
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+    NSLog(@"向服务器发送已读通知");
+    [unKnowCharMessDic removeObjectForKey:tribeid];
+    if ([[unKnowCharMessDic allKeys]count]==0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NoChatMessInfo" object:nil userInfo:unKnowCharMessDic];  
+    }
+
     [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
         /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
          statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
@@ -527,9 +535,8 @@ static MessageBySend* ins =nil;
         if ([statecode isEqualToString:@"0200"]) {
             if ([tribeid length]) {
                 /*未读消息中移除*/
-                [unKnowCharMessDic removeObjectForKey:tribeid];
-                /*如果是自己发送的就不用发消息刷新界面了*/
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+                NSLog(@"服务器收到已读通知");
+
             }
         }
     }];
