@@ -176,6 +176,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        return;
+    }
     NSInteger row = indexPath.row;
     if (row == 4) {
         SelectCityViewController *selectCity = [[SelectCityViewController alloc] init];
