@@ -51,7 +51,7 @@
     [_portraitView circular];
     _commentLabel.text = model.refsign;
     _nameLabel.text = model.uname;
-    _dateLabel.text = model.date;
+    _dateLabel.text = [model.date substringToIndex:10];
     _positionLabel.text = model.uduty;
     if (flag == 0) {
         _contentLabel.text = _infoModel.title;
