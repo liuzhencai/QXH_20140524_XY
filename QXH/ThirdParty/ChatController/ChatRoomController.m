@@ -959,7 +959,7 @@ static int chatInputStartingHeight = 40;
 #pragma mark 提示框
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    IsshowAlert = NO;
+//    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
 //        [self popForwardBack];
@@ -1983,7 +1983,9 @@ static int chatInputStartingHeight = 40;
     //    [_myCollectionView reloadData];
     // 结束刷新
     [_myCollectionView headerEndRefreshing];
-    [self showAlert:@"已经没有历史记录！"];
+//    [self showAlert:@"已经没有历史记录！"];
+    UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+    [alert show];
     
     
 }

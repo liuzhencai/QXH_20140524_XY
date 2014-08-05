@@ -155,21 +155,21 @@
 }
 
 - (void)showAlert:(NSString *)msg{
-    if (!IsshowAlert) {
-        
+//    if (!IsshowAlert) {
+    
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:msg
-                                                       delegate:self
+                                                       delegate:nil
                                               cancelButtonTitle:nil
                                               otherButtonTitles:@"确定",nil];
         [alert show];
-    }
-    IsshowAlert = YES;
+//    }
+//    IsshowAlert = YES;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    IsshowAlert = NO;
+//    IsshowAlert = NO;
 }
 
 - (UILabel *)addLabelWithFrame:(CGRect)frame
