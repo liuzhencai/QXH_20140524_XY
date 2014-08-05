@@ -234,9 +234,49 @@
 - (void)distributeSquareInfo:(NSString *)artimgs
 {
     [DataInterface distributeInfo:@"" tags:@"" type:@"1" artimgs:artimgs arttype:@"" content:_contentField.text withCompletionHandler:^(NSMutableDictionary *dict) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        NSString *stateCode = [NSString stringWithFormat:@"%@",[dict objectForKey:@"statecode"]];
+        if ([stateCode isEqualToString:@"0200"]) {
+            NSString *artid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"artid"]];//[dict objectForKey:@"artid"];
+            [self shareToSomebodyByArtid:artid];
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:[dict objectForKey:@"info"]
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+- (void)shareToSomebodyByArtid:(NSString *)artid{
+    /**
+     *  分享内容
+     *  @param sourceid    广场消息的唯一标示
+     *  @param sourcetype  1为广场文章，2为咨询分享，3为活动分享,4为名片分享
+     *  @param sharetype   1为分享给好友，2为分享给部落
+     *  @param targetid    分享给好友或部落的id，如果为多个好友或部落，中间以逗号隔开
+     *  @param callback 回调
+     */
+
+    if (_atPersonList && [_atPersonList count]) {
+        NSString *targetids = @"";
+        for (int i = 0; i < [_atPersonList count]; i ++) {
+            NSDictionary *memberDict = [_atPersonList objectAtIndex:i];
+            NSString *userId = [NSString stringWithFormat:@"%@",[memberDict objectForKey:@"userid"]];//[memberDict objectForKey:@"userid"];
+            targetids = [targetids stringByAppendingString:userId];
+            if (i != [_atPersonList count] - 1) {
+                targetids = [targetids stringByAppendingString:@","];
+            }
+        }
+        [DataInterface shareContent:artid
+                         sourcetype:@"1"
+                          sharetype:@"1"
+                           targetid:targetids
+              withCompletionHandler:^(NSMutableDictionary *dict){
+//                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:[dict objectForKey:@"info"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                  [alert show];
+              }];
+    }
 }
 
 - (NSString *)mergeUrl:(NSArray *)urls
@@ -284,6 +324,7 @@
         _atPersonScroll.contentSize = CGSizeMake(([_atPersonList count]+1)*(PORTRAIT_GAP+48), 48);
         for (int i = 0; i < [_atPersonList count]; i++) {
             UIImageView *personPortrait = [[UIImageView alloc] initWithFrame:CGRectMake((i+1)*PORTRAIT_GAP+48*i, 0, 48, 48)];
+            [personPortrait setRound:YES];
             personPortrait.userInteractionEnabled = YES;
             NSDictionary *dict = _atPersonList[i];
             [personPortrait setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait_recommend96"]];

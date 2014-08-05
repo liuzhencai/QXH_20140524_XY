@@ -616,6 +616,7 @@
                     {
                         [DataInterface transmit:@"1" targetid:tmpModel.artid refsign:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
                             [self getDetailInfo];
+                            [self getCommentList];
                             [self showAlert:[dict objectForKey:@"info"]];
                             [alertView close];
                         }];
@@ -651,14 +652,12 @@
 }
 - (void)resetToolBar{
     if (browseDict) {
-        //details_icon_like_highlight@2x
         //收藏
         BOOL collectflag = [[browseDict objectForKey:@"collectflag"] boolValue];
         if (collectflag) {
             [self.collectionBtn setImage:[UIImage imageNamed:@"details_icon_star_highlight"] forState:UIControlStateNormal];
         }
         else {
-            
             [self.collectionBtn setImage:[UIImage imageNamed:@"details_icon_star_normal"] forState:UIControlStateNormal];
         }
         //点赞
