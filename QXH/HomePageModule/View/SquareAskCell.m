@@ -27,7 +27,7 @@
     InfoModel *info = model.content;
     _contentLabel.text = info.content;
     [_askImg setImageWithURL:IMGURL(info.sphoto) placeholderImage:nil];
-    _dateLabel.text = model.date;
+    _dateLabel.text = [model.date substringToIndex:10];
 }
 
 @end

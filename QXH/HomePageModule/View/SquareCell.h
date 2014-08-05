@@ -12,7 +12,6 @@
 @interface SquareCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 - (void)setCellData:(SquareInfo *)model;

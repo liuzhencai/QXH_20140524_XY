@@ -99,9 +99,12 @@
 //    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:@"" contentlength:@"30" start:@"" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
 //        callback([ModelGenerator json2SquareList:dict]);
 //    }];
-    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"30" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
         callback([ModelGenerator json2SquareList:dict]);
     }];
+//    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"30" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+//        callback([ModelGenerator json2SquareList:dict]);
+//    }];
 }
 
 - (void)getSquareListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
@@ -379,13 +382,21 @@
         }
             break;
         case 2:
-        case 5:
         {
             ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
             controller.info = model;
             controller.type = SquareInfoTypeInf;
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
+        }
+        case 5:
+        {
+            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+            controller.info = model;
+            controller.type = SquareInfoTypeTrans;
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+    
         }
             break;
         case 3:

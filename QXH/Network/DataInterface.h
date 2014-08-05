@@ -550,6 +550,11 @@ withCompletionHandler:(DictCallback)callback;
                type:(NSString*)type
 withCompletionHandler:(DictCallback)callback;
 
+/*私聊时消息置为已读的接口*/
++ (void)recvMessage:(NSString *)messids
+            userid:(NSString*)tribeid
+withCompletionHandler:(DictCallback)callback;
+
 /**
  *  获取聊天记录信息
  *

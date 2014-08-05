@@ -13,6 +13,7 @@
 #import "CustomSegmentControl.h"
 #import "PullRefreshTableViewController.h"
 #import "SNImagePickerNC.h"
+#import "MBProgressHUD.h"
 
 
 // Message Dictionary Keys (defined in MessageCell)
@@ -24,8 +25,11 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 
 @interface ChatLiveViewController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
-//@property (nonatomic, strong) NSMutableArray *activitysList;//活动列表
-//@property (nonatomic, strong) NSMutableArray *membersList;//成员列表
+{
+        MBProgressHUD* progressHUD;
+}
+
+
 @property (nonatomic, strong) NSDictionary *tribeInfoDict;//部落信息
 @property (nonatomic, strong) NSDictionary *tribeInfoDetailDict;//部落返回信息
 

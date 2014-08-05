@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, SquareInfoType) {
     SquareInfoTypeSq = 1, // 广场发布的信息
     SquareInfoTypeInf, // 资讯转发的信息
+    SquareInfoTypeTrans // 转评的广场消息
 };
 
 @interface ShareTextController : MyViewController<UITableViewDataSource, UITableViewDelegate>

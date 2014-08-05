@@ -16,8 +16,8 @@
 {
     /*背景图*/
     UIImageView * backGroundImageView;
-    /*避免多次弹出*/
-    BOOL IsshowAlert;
+//    /*避免多次弹出*/
+//    BOOL IsshowAlert;
     
 }
 
