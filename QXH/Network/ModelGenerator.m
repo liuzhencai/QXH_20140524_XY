@@ -42,6 +42,32 @@
     return model;
 }
 
++ (NSMutableArray *)json2SquareInfoList:(NSDictionary *)obj
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSArray *list = [obj objectForKey:@"list"];
+    for (int i = 0; i < [list count]; i++) {
+        SquareInfo *info = [[SquareInfo alloc] init];
+        InfoModel *model = [[InfoModel alloc] init];
+        model.artid = [list[i] objectForKey:@"artid"];
+        model.sid = [list[i] objectForKey:@"sid"];
+        model.sname = [list[i] objectForKey:@"sname"];
+        model.sphoto = [list[i] objectForKey:@"sphoto"];
+        model.date = [list[i] objectForKey:@"date"];
+        model.title = [list[i] objectForKey:@"title"];
+        model.artimgs = [list[i] objectForKey:@"artimgs"];
+        model.content = [list[i] objectForKey:@"content"];
+        model.authflag = [list[i] objectForKey:@"authflag"];
+        model.browsetime = [list[i] objectForKey:@"browsetime"];
+        model.contentlength = [[list[i] objectForKey:@"contentlength"] integerValue];
+        model.type = [list[i] objectForKey:@"type"];
+        info.type = 1;
+        info.content = model;
+        [array addObject:info];
+    }
+    return array;
+}
+
 + (NSMutableArray *)json2InfoList:(NSDictionary *)obj
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];

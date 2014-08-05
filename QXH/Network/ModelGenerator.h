@@ -102,4 +102,6 @@
  */
 + (NSMutableArray *)json2AskInfo:(NSDictionary *)obj;
 
++ (NSMutableArray *)json2SquareInfoList:(NSDictionary *)obj;
+
 @end

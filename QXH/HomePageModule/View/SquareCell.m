@@ -29,6 +29,7 @@
     [_portraitView setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
     _contentLabel.text = tmpModel.content;
+    _dateLabel.text = [tmpModel.date substringToIndex:10];
     if (![tmpModel.artimgs isEqualToString:@""]) {
         if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {
             NSArray *imgs = [tmpModel.artimgs componentsSeparatedByString:@","];

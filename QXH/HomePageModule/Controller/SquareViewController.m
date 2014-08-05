@@ -96,11 +96,9 @@
 
 - (void)getHotestListWithStart:(NSString *)start withCompletionHandler:(ListCallback)callback
 {
-//    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:@"" contentlength:@"30" start:@"" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+    [DataInterface getInfoList:@"1" detailtype:@"2" tag:@"" classify:@"" arttype:@"" contentlength:@"30" start:@"0" count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
+        callback([ModelGenerator json2SquareInfoList:dict]);
 //        callback([ModelGenerator json2SquareList:dict]);
-//    }];
-    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"30" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
-        callback([ModelGenerator json2SquareList:dict]);
     }];
 //    [DataInterface getSquareInfoList:@"0" detailtype:@"1" tag:@"" arttype:@"" contentlength:@"30" start:start count:@"20" withCompletionHandler:^(NSMutableDictionary *dict) {
 //        callback([ModelGenerator json2SquareList:dict]);
@@ -212,23 +210,22 @@
             break;
         case 2:
         {
-            SquareInfo *model = [squareInfoList lastObject];
-            InfoModel *tmpModel = (InfoModel *)model.content;
-            // 1.添加数据
-            [self getHotestListWithStart:tmpModel.artid withCompletionHandler:^(NSMutableArray *list) {
-                [hotestInfoList addObjectsFromArray:list] ;
-                // 2.2秒后刷新表格UI
+//            SquareInfo *model = [squareInfoList lastObject];
+//            InfoModel *tmpModel = (InfoModel *)model.content;
+//            // 1.添加数据
+//            [self getHotestListWithStart:tmpModel.sid withCompletionHandler:^(NSMutableArray *list) {
+//                [hotestInfoList addObjectsFromArray:list] ;
                 // 2.2秒后刷新表格UI
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                    [infoScroll scrollRectToVisible:CGRectMake(320, 51, 320, infoScroll.bounds.size.height) animated:NO];
-                    // 刷新表格
-                    [_hotestTable reloadData];
+//                    [infoScroll scrollRectToVisible:CGRectMake(320, 51, 320, infoScroll.bounds.size.height) animated:NO];
+//                    // 刷新表格
+//                    [_hotestTable reloadData];
                     
                     // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
                     [_hotestTable footerEndRefreshing];
                 });
-            }];
+//            }];
         }
             break;
         default:

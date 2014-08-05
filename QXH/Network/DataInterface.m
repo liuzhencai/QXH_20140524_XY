@@ -328,7 +328,7 @@ withCompletionHandler:(DictCallback)callback
               count:(NSString *)count
 withCompletionHandler:(DictCallback)callback
 {
-    NSDictionary *param = @{@"opercode": @"0119", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"detailtype":detailtype,@"tag":tag,@"classify":classify,@"arttype":arttype,@"contentlength":contentlength,@"start":start,@"count":count};
+    NSDictionary *param = @{@"opercode": @"0119", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"detailtype":detailtype,@"tag":tag,@"classify":classify,@"arttype":arttype,@"contentlength":@"99999",@"start":start,@"count":count};
     NSLog(@"\n##########获取查询广场文章/咨询文章列表,获取收藏列表接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"\n##########获取查询广场文章/咨询文章列表,获取收藏列表返回结果##########\n[结 果]:%@\n#############################\n",dict);

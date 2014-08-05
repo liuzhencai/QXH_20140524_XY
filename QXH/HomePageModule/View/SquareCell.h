@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 - (void)setCellData:(SquareInfo *)model;
 
