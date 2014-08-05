@@ -324,6 +324,7 @@
         _atPersonScroll.contentSize = CGSizeMake(([_atPersonList count]+1)*(PORTRAIT_GAP+48), 48);
         for (int i = 0; i < [_atPersonList count]; i++) {
             UIImageView *personPortrait = [[UIImageView alloc] initWithFrame:CGRectMake((i+1)*PORTRAIT_GAP+48*i, 0, 48, 48)];
+            [personPortrait setRound:YES];
             personPortrait.userInteractionEnabled = YES;
             NSDictionary *dict = _atPersonList[i];
             [personPortrait setImageWithURL:IMGURL([dict objectForKey:@"photo"]) placeholderImage:[UIImage imageNamed:@"img_portrait_recommend96"]];
