@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    CustomWebView *webView = [[CustomWebView alloc] initWithFrame:self.view.frame];
+    CustomWebView *webView = [[CustomWebView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.bounds.size.height - 44 - 20)];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.f]];
     [self.view addSubview:webView];
 }
