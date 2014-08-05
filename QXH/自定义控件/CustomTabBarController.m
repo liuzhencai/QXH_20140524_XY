@@ -123,6 +123,8 @@
     
     /*系统推送聊天接口*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatMessInfo:) name:@"reloadeChatMessInfo" object:nil];
+    /*没有聊天记录时*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NoChatMessInfo:) name:@"NoChatMessInfo" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -210,6 +212,12 @@
 - (void)reloadeChatMessInfo:(NSNotification *)notification{
     NSLog(@"接收到聊天消息");
     self.tipLabel.hidden = NO;
+    
+}
+
+- (void)NoChatMessInfo:(NSNotification *)notification{
+    NSLog(@"接收到聊天消息");
+    self.tipLabel.hidden = YES;
     
 }
 

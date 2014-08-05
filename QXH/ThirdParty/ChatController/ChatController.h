@@ -19,6 +19,7 @@
 #import "MessageCell.h"
 #import "CustomSegmentControl.h"
 #import "SNImagePickerNC.h"
+#import "MBProgressHUD.h"
 
 // Message Dictionary Keys (defined in MessageCell)
 FOUNDATION_EXPORT NSString * const kMessageSize;
@@ -43,7 +44,9 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 //@end
 
 @interface ChatController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
-
+{
+    MBProgressHUD* progressHUD;
+}
 
 //@property (retain, nonatomic) id<ChatControllerDelegate>delegate;
 

@@ -37,6 +37,7 @@
 
 @property (nonatomic, strong) UIImage *headImage;//头像
 @property (nonatomic, strong) UIImageView *headImgView;//头像
+@property (nonatomic, strong) UIButton *resetImageBtn;//
 @property (nonatomic, strong) UIButton *uploadImageBtn;//上传图片
 @property (nonatomic, strong) UIButton *commitBtn;//提交按钮
 @property (nonatomic, strong) NSString *imagePath;//图片路径
@@ -65,6 +66,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
+    UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
+    righttbuttonItem.frame = CGRectMake(0, 0,40, 30);
+    [righttbuttonItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [righttbuttonItem setTitle:@"发布" forState:UIControlStateNormal];
+    righttbuttonItem.titleLabel.font = [UIFont systemFontOfSize:17];
+    [righttbuttonItem addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *righttItem = [[UIBarButtonItem alloc] initWithCustomView:righttbuttonItem];
+    self.navigationItem.rightBarButtonItem = righttItem;
     
     _mainScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT)];
     [self.view addSubview:_mainScroll];
@@ -84,7 +93,7 @@
     [_mainScroll addSubview:_mainTable];
     
     UIButton *userRegister = [UIButton buttonWithType:UIButtonTypeCustom];
-    userRegister.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _mainTable.bottom + 30, 220, 33);
+    userRegister.frame = CGRectMake((UI_SCREEN_WIDTH - 290)/2.0, _mainTable.bottom + 30, 290, 44);
     self.uploadImageBtn = userRegister;
     [userRegister setTitle:@"上传头像" forState:UIControlStateNormal];
     [userRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -95,8 +104,22 @@
     
     _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake((UI_SCREEN_WIDTH - 160)/2.0, _mainTable.bottom + 20, 160, 100)];
     _headImgView.hidden = YES;
-//    _headImgView.backgroundColor = [UIColor greenColor];
     [_mainScroll addSubview:_headImgView];
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _headImgView.height - 30, _headImgView.width, 30)];
+    tipLabel.backgroundColor = [UIColor blackColor];
+    tipLabel.alpha = 0.6;
+    tipLabel.textColor = [UIColor whiteColor];
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.font = [UIFont systemFontOfSize:16.0];
+    tipLabel.text = @"点击图片即可删除";
+    [_headImgView addSubview:tipLabel];
+    
+    _resetImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _resetImageBtn.frame = _headImgView.frame;
+    [_resetImageBtn addTarget:self action:@selector(deleteImage) forControlEvents:UIControlEventTouchUpInside];
+    _resetImageBtn.hidden = YES;
+    [_mainScroll addSubview:_resetImageBtn];
     
     _commitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _commitBtn.frame = CGRectMake((UI_SCREEN_WIDTH - 220)/2.0, _headImgView.bottom + 20, 220, 33);
@@ -120,9 +143,19 @@
 - (void)resetView{
     _headImgView.hidden = NO;
     _headImgView.image = self.headImage;
-    _commitBtn.hidden = NO;
+    _resetImageBtn.hidden = NO;
+//    _commitBtn.hidden = NO;
     _uploadImageBtn.hidden = YES;
     _mainScroll.contentSize = CGSizeMake(UI_SCREEN_WIDTH, _commitBtn.bottom + 20);
+}
+
+- (void)deleteImage{
+    _headImgView.hidden = YES;
+    _headImgView.image = nil;
+    self.headImage = nil;
+    _resetImageBtn.hidden = YES;
+    _uploadImageBtn.hidden = NO;
+    _mainScroll.contentSize = CGSizeMake(UI_SCREEN_WIDTH, _uploadImageBtn.bottom + 20);
 }
 
 - (void)submit:(UIButton *)sender{
@@ -181,7 +214,6 @@
                 NSLog(@"上传图片返回值%@",dict);
                 self.imagePath = [dict objectForKey:@"filename"];
                 [self submitIsHaveHeadImage:YES];
-//                [self showAlert:[dict objectForKey:@"info"]];
             } errorBlock:^(NSString *desc) {
                 NSLog(@"上传图片错误：%@",desc);
                 [self showAlert:desc];
@@ -189,6 +221,15 @@
     }else{
         [self submitIsHaveHeadImage:NO];
     }
+}
+
+- (void)showAlert:(NSString *)msg{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:msg
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"确定",nil];
+    [alert show];
 }
 
 - (void)submitIsHaveHeadImage:(BOOL)isImage{
@@ -234,6 +275,12 @@
        withCompletionHandler:^(NSMutableDictionary *dict){
            NSLog(@"创建活动返回值：%@",dict);
            [self showAlert:[dict objectForKey:@"info"]];
+//           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                           message:[dict objectForKey:@"info"]
+//                                                          delegate:nil
+//                                                 cancelButtonTitle:@"确定"
+//                                                 otherButtonTitles:nil, nil];
+//           [alert show];
            [self.navigationController popViewControllerAnimated:YES];
        }];
 }
@@ -567,6 +614,7 @@
     textField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     textField.placeholder = placeHolder;
     textField.returnKeyType = UIReturnKeyDone;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
 //    textField.backgroundColor = [UIColor redColor];
 //    textField.textColor = UIColorFromRGB(0x000000);;
     textField.font = [UIFont systemFontOfSize:14];

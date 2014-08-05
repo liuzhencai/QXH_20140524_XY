@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import "myimageviewViewController.h"
 
+
 #define KTopButtonHight  0
 #define KAskViewHight  100
 
@@ -150,6 +151,15 @@ static int chatInputStartingHeight = 40;
     [self addHeader];
     [self addFooter];
     
+    
+    /*等带框*/
+    progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    progressHUD.animationType = MBProgressHUDAnimationFade;
+    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+    progressHUD.labelText = @"图片上传中...";
+    [self.view addSubview:progressHUD];
+    [progressHUD hide:YES];
+
     
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -582,7 +592,7 @@ static int chatInputStartingHeight = 40;
 #pragma mark 提示框
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    IsshowAlert = NO;
+//    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
         //        [self popForwardBack];
@@ -1341,8 +1351,16 @@ static int chatInputStartingHeight = 40;
     // preload message into array;
     [_messagesArray addObject:date];
     
+    
+    /*添加等待框*/
+        
+    
+    [progressHUD hide:NO];
+    [progressHUD show:YES];
+    
     [DataInterface fileUpload:image type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"图片发送==%@\n",dict);
+        [progressHUD hide:YES];
         NSNumber* Nstatecode = dict[@"statecode"];
         NSInteger Istatecode = [Nstatecode intValue];
         if (Istatecode == 200) {
@@ -1541,7 +1559,9 @@ static int chatInputStartingHeight = 40;
     //    [_myCollectionView reloadData];
     // 结束刷新
     [_myCollectionView headerEndRefreshing];
-    [self showAlert:@"已经没有历史记录！"];
+//    [self showAlert:@"已经没有历史记录！"];
+    UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+    [alert show];
     
     
 }

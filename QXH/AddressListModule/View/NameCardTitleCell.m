@@ -84,10 +84,10 @@
         
         _forwardCard = [UIButton buttonWithType:UIButtonTypeCustom];
         _forwardCard.frame = CGRectMake(self.width - 20 - 130, 0 + 10, 130, 44);
-        [_forwardCard setTitle:@"拒绝" forState:UIControlStateNormal];
+        [_forwardCard setTitle:@"转发名片" forState:UIControlStateNormal];
         _forwardCard.titleLabel.font = [UIFont systemFontOfSize:16];
         [_forwardCard setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _forwardCard.hidden = YES;
+//        _forwardCard.hidden = YES;
         [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_normal"] forState:UIControlStateNormal];
         [_forwardCard setBackgroundImage:[UIImage imageNamed:@"btn_share_highlight"] forState:UIControlStateHighlighted];
         [_forwardCard addTarget:self action:@selector(buttonActionxx:) forControlEvents:UIControlEventTouchUpInside];
@@ -102,6 +102,8 @@
         emailTitle.frame = CGRectMake(_headImgView.right + 10, _phone.bottom + 5, 40, labelHight);
         _email.frame = CGRectMake(emailTitle.right, _phone.bottom + 5, labelWidth, labelHight);
         _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10 + 5, btnWidth * 2 + 20, btnHight - 10);
+        _addFriend.frame = CGRectMake(widthToLeft, _email.bottom + 10 + 5, 130, 30);
+        _forwardCard.frame = CGRectMake(self.width - 20 - 130, _email.bottom + 10 + 5, 130, 30);
     }
     return self;
 }

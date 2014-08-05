@@ -170,18 +170,12 @@ static int chatInputStartingHeight = 40;
     [self addHeader];
     [self addFooter];
     
-//    if (IS_OS_7_OR_LATER) {
-//           self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(popForwardBack)];  
-//    }else{
-//        UIButton *leftbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
-//        leftbuttonItem.frame = CGRectMake(10, 10, 23/2 , 38/2);
-//        [leftbuttonItem setBackgroundImage:[UIImage imageNamed:@"top_btn_arrow_normal"] forState:UIControlStateNormal];
-//        [leftbuttonItem setBackgroundImage:[UIImage imageNamed:@"top_btn_arrow_highlight"] forState:UIControlStateHighlighted];
-//        [leftbuttonItem addTarget:self action:@selector(popForwardBack) forControlEvents:UIControlEventTouchUpInside];
-//        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftbuttonItem];
-//        self.navigationItem.leftBarButtonItem = leftItem;
-//
-//    }
+    progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    progressHUD.animationType = MBProgressHUDAnimationFade;
+    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+    progressHUD.labelText = @"图片上传中...";
+    [self.view addSubview:progressHUD];
+    [progressHUD hide:YES];
 
     
     
@@ -476,8 +470,12 @@ static int chatInputStartingHeight = 40;
     // preload message into array;
     [_messagesArray addObject:date];
     
+    [progressHUD hide:NO];
+    [progressHUD show:YES];
+    
   [DataInterface fileUpload:image type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"图片发送==%@\n",dict);
+       [progressHUD hide:YES];
         NSNumber* Nstatecode = dict[@"statecode"];
         NSInteger Istatecode = [Nstatecode intValue];
         if (Istatecode == 200) {
@@ -933,7 +931,7 @@ static int chatInputStartingHeight = 40;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    IsshowAlert = NO;
+//    IsshowAlert = NO;
     if (alertView.tag == KInToChatRoomErrorTag) {
         /*进入部落聊天出现问题，则推出此界面*/
         //        [self popForwardBack];
@@ -1211,7 +1209,9 @@ static int chatInputStartingHeight = 40;
     // 结束刷新
    
     [_myCollectionView headerEndRefreshing];
-    [self showAlert:@"已经没有历史记录！"];
+//    [self showAlert:@"已经没有历史记录！"];
+    UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+    [alert show];
     
 }
 
@@ -1251,8 +1251,10 @@ static int chatInputStartingHeight = 40;
         NSNumber* amessid = ob[@"messid"];
         temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
         if (![temmessid isEqual:@"-1"]) {
+           
             if (i== 0) {
               [messid appendString:temmessid];
+
             }else{
               [messid appendString:[NSString stringWithFormat:@"%@,",temmessid]];
             }

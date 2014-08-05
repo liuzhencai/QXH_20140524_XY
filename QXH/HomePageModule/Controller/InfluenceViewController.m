@@ -60,7 +60,7 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"影响力";
     
-    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, MENU_HEIGHT) andTitles:@[@"粉丝榜",@"转评榜"]];
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, MENU_HEIGHT) andTitles:@[@"粉丝榜",@"活跃榜"]];
     segment.delegate = self;
     [self.view addSubview:segment];
     

@@ -19,6 +19,12 @@
 
 #define ChatMessageFile   @"ChatMessageFile.plist"
 
+@protocol MessageBySendDelegate <NSObject>
+
+- (void)NoHistory;
+
+@end
+
 @interface MessageBySend : NSObject
 {
     /*sendtype 0;系统消息存储进该数组，其中元素是字典*/
