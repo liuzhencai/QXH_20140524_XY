@@ -208,7 +208,15 @@ static int chatInputStartingHeight = 40;
 //    [self getOffMessageFromServer];
     [self addHeader];
     [self addFooter];
-
+    
+    
+    /*等带框*/
+    progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    progressHUD.animationType = MBProgressHUDAnimationFade;
+    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+    progressHUD.labelText = @"图片上传中...";
+    [self.view addSubview:progressHUD];
+    [progressHUD hide:YES];
     // Register Keyboard Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -1740,8 +1748,12 @@ static int chatInputStartingHeight = 40;
     // preload message into array;
     [_messagesArray addObject:date];
     
+    [progressHUD hide:NO];
+    [progressHUD show:YES];
+    
     [DataInterface fileUpload:image type:@"1" withCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"图片发送==%@\n",dict);
+         [progressHUD hide:YES];
         NSNumber* Nstatecode = dict[@"statecode"];
         NSInteger Istatecode = [Nstatecode intValue];
         if (Istatecode == 200) {

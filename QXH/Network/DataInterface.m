@@ -537,6 +537,22 @@ withCompletionHandler:(DictCallback)callback
     }];
 }
 
+/*私聊时消息置为已读的接口*/
++ (void)recvMessage:(NSString *)messids
+             userid:(NSString*)tribeid
+withCompletionHandler:(DictCallback)callback
+{
+    NSDictionary *param = @{@"opercode": @"0132", @"userid":tribeid, @"token":[defaults objectForKey:@"token"],@"messids":messids,@"type":@"1",@"sign":[SignGenerator getSign]};
+    NSLog(@"\n##########客户端发送收到消息接口##########\n[参 数]:%@\n#############################\n",param);
+    [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
+        NSLog(@"\n##########客户端发送收到消息返回结果##########\n[结 果]:%@\n#############################\n",data);
+        //        NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:data];
+        callback(data);
+    } andErrorHandler:^(id data) {
+        NSLog(@"\n##########客户端发送收到消息出错##########\n[原 因]:%@\n#############################\n",data);
+    }];
+}
+
 + (void)getChatHistory:(NSString *)targetid
               sendtype:(NSString *)sendtype
                  start:(NSString *)start

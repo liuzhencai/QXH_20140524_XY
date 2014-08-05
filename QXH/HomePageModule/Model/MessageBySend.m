@@ -404,8 +404,10 @@ static MessageBySend* ins =nil;
             NSDictionary* temp1 = [tempchatroomarray lastObject];
             NSNumber* acount = temp1[@"count"];
             [message setValue:[NSNumber numberWithInt:([acount integerValue]+1)] forKey:@"count"];
+            [tempchatroomarray removeAllObjects];
             /*如果该聊天部落，聊天记录已经存在*/
             [tempchatroomarray addObject:message];
+            
            
         }else{
             /*手动加上count值
@@ -440,6 +442,7 @@ static MessageBySend* ins =nil;
             NSDictionary* temp1 = [tempchatroomarray lastObject];
             NSNumber* acount = temp1[@"count"];
             [message setValue:[NSNumber numberWithInt:([acount integerValue]+1)] forKey:@"count"];
+            [tempchatroomarray removeAllObjects];
             /*如果该聊天部落，聊天记录已经存在*/
             [tempchatroomarray addObject:message];
         }else{
@@ -524,23 +527,42 @@ static MessageBySend* ins =nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NoChatMessInfo" object:nil userInfo:unKnowCharMessDic];
         
     }
-
-    [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
-        /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
-         statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
-         info:"操作成功",		//客户端可以使用该info进行提示
-         sign:"9aldai9adsf"*/
-        NSLog(@"info==%@",dic[@"info"]);
-        NSString* statecode = dic[@"statecode"];
-//        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
-        if ([statecode isEqualToString:@"0200"]) {
-            if ([tribeid length]) {
+    
+    if ([type isEqualToString:@"1"]) {
+        /*私聊*/
+        [DataInterface recvMessage:messigeid userid:tribeid withCompletionHandler:^(NSMutableDictionary*dic){
+            /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
+             info:"操作成功",		//客户端可以使用该info进行提示
+             sign:"9aldai9adsf"*/
+            NSLog(@"info==%@",dic[@"info"]);
+            NSString* statecode = dic[@"statecode"];
+            //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
+            if ([statecode isEqualToString:@"0200"]) {
+                
                 /*未读消息中移除*/
                 NSLog(@"服务器收到已读通知");
-
+                
             }
-        }
-    }];
+        }];
+        
+    }else{
+        [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
+            /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
+             info:"操作成功",		//客户端可以使用该info进行提示
+             sign:"9aldai9adsf"*/
+            NSLog(@"info==%@",dic[@"info"]);
+            NSString* statecode = dic[@"statecode"];
+            //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
+            if ([statecode isEqualToString:@"0200"]) {
+             
+                NSLog(@"服务器收到已读通知");
+                
+            }
+        }];
+    }
+
 }
 
 #pragma mark 登录成功后获取用户离线消息
@@ -739,7 +761,7 @@ static MessageBySend* ins =nil;
         NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:chatRoomMessArray,@"chatRoomMessArray", nil];
         /*离线消息中移除*/
         [unKnowCharMessDic removeObjectForKey:targetid];
-        [haveSeeOffline setObject:targetid forKey:targetid];
+//        [haveSeeOffline setObject:targetid forKey:targetid];
         /*暂时不移除*/
         //         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {

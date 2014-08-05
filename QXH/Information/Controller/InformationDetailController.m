@@ -105,6 +105,11 @@
             _scene = WXSceneTimeline;
         }
             break;
+        case 3:
+        {
+            //取消
+            return;
+        }
         default:
             break;
     }
