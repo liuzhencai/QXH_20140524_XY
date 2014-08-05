@@ -521,7 +521,8 @@ static MessageBySend* ins =nil;
     NSLog(@"向服务器发送已读通知");
     [unKnowCharMessDic removeObjectForKey:tribeid];
     if ([[unKnowCharMessDic allKeys]count]==0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"NoChatMessInfo" object:nil userInfo:unKnowCharMessDic];  
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NoChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+        
     }
 
     [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
