@@ -470,6 +470,7 @@
                     {
                         [DataInterface transmit:@"1" targetid:tmpModel.artid refsign:commentView.text withCompletionHandler:^(NSMutableDictionary *dict) {
                             [self getDetailInfo];
+                            [self getCommentList];
                             [self showAlert:[dict objectForKey:@"info"]];
                             [alertView close];
                         }];
@@ -491,20 +492,19 @@
     InfoModel *tmpModel = (InfoModel *)_info.content;
     [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",self.type] artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
         browseDict = dict;
-        [_contentTable reloadData];
         [self resetToolBar];
+//        [self performSelectorOnMainThread:@selector(resetToolBar) withObject:nil waitUntilDone:NO];
+        [_contentTable reloadData];
     }];
 }
 - (void)resetToolBar{
     if (browseDict) {
-        //details_icon_like_highlight@2x
         //收藏
         BOOL collectflag = [[browseDict objectForKey:@"collectflag"] boolValue];
         if (collectflag) {
             [self.collectionBtn setImage:[UIImage imageNamed:@"details_icon_star_highlight"] forState:UIControlStateNormal];
         }
         else {
-            
             [self.collectionBtn setImage:[UIImage imageNamed:@"details_icon_star_normal"] forState:UIControlStateNormal];
         }
         //点赞
