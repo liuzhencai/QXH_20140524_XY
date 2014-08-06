@@ -149,8 +149,8 @@ static HttpServiceEngine *httpEngine;
 
     [keyWindow addSubview:progressHUD];
     [progressHUD show:YES];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_queue_t myhttpqueue = dispatch_queue_create("com.myhttpqueue", nil);
+    dispatch_async(myhttpqueue, ^{
         __block __weak MKNetworkOperation *op = nil;
         if (params == nil) {
             //        op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
