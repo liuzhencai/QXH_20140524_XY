@@ -9,8 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-/*定义聊天室中头像大小*/
-#define minimumHeight  40
+
 
 @interface UserInfoModel : NSObject
 

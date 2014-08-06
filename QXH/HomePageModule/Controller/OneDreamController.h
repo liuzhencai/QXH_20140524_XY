@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatRoomController.h"
-
+#import "ChatLiveViewController.h"
 
 
 @interface OneDreamController : MyViewController<UITableViewDataSource, UITableViewDelegate>
 {
-//    ChatController* _chatController;
+    ChatLiveViewController* chatlive;
     NSInteger icout;
 }
 

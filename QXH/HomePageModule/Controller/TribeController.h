@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatRoomController.h"
 
 @interface TribeController : MyViewController
+{
+    /*多次接受通知，改为唯一*/
+    ChatRoomController *chatview;
+}
 @property (strong, nonatomic)  UISearchBar *searchBar;
 @end
