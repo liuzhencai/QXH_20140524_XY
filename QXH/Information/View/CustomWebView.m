@@ -21,6 +21,48 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+        //取消右侧，下侧滚动条，去处上下滚动边界的黑色背景
+        
+        self.backgroundColor=[UIColor clearColor];
+        
+        for (UIView *_aView in [self subviews])
+            
+        {
+            
+            if ([_aView isKindOfClass:[UIScrollView class]])
+                
+            {
+                
+                [(UIScrollView *)_aView setShowsVerticalScrollIndicator:NO];
+                
+                //右侧的滚动条
+                
+                
+                [(UIScrollView *)_aView setShowsHorizontalScrollIndicator:NO];
+                
+                //下侧的滚动条
+                
+                
+                
+                for (UIView *_inScrollview in _aView.subviews)
+                    
+                {
+                    
+                    if ([_inScrollview isKindOfClass:[UIImageView class]]) 
+                        
+                    { 
+                        
+                        _inScrollview.hidden = YES;  //上下滚动出边界时的黑色的图片 
+                        
+                    } 
+                    
+                } 
+                
+            } 
+            
+        }
+        
         //html是否加载完成
         isLoadingFinished = NO;
         

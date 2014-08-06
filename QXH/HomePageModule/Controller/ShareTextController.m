@@ -106,7 +106,13 @@
             rowHeight = 44.f;
             break;
         case 3:
-            rowHeight = 68.f;
+//            rowHeight = 68.f;
+
+        {
+            InfoCommentModel *tmpModel = commentList[indexPath.row];
+            CGSize textSize = [NSString getStringRect:tmpModel.comment font:[UIFont systemFontOfSize:13.f] labelSize:CGSizeMake(242.f, FLT_MAX)];
+            rowHeight = 33+textSize.height+10;
+        }
             break;
         default:
             break;
