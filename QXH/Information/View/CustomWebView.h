@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomWebView : UIWebView
+@interface CustomWebView : UIWebView<UIWebViewDelegate>
 
 @end

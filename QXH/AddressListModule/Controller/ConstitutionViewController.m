@@ -35,7 +35,6 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [_webview loadRequest:request];
     //    self.webView=_webview;
-    _webview.scalesPageToFit = YES;
     [self.view addSubview:_webview];
 }
 
