@@ -28,7 +28,17 @@
     _nameLabel.text = tmpModel.sname;
     [_portraitView setImageWithURL:IMGURL(tmpModel.sphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
-    _contentLabel.text = tmpModel.content;
+    if ([tmpModel.content length] < 50) {
+        _contentLabel.text = tmpModel.content;
+    }else{
+        _contentLabel.text = [[tmpModel.content substringToIndex:50] stringByAppendingString:@"..."];
+        UILabel *detailLbl = [[UILabel alloc] initWithFrame:CGRectMake(260, 60, 60, 21)];
+        detailLbl.font = [UIFont systemFontOfSize:13.f];
+        detailLbl.text = @"查看详情";
+        detailLbl.textColor = [UIColor colorWithRed:0/255.f green:100/255.f blue:0/255.f alpha:1.f];
+        detailLbl.backgroundColor = [UIColor clearColor];
+        [self addSubview:detailLbl];
+    }
     _dateLabel.text = [tmpModel.date substringToIndex:10];
     if (![tmpModel.artimgs isEqualToString:@""]) {
         if ([tmpModel.artimgs rangeOfString:@","].location != NSNotFound) {

@@ -10,7 +10,6 @@
                 <outlet property="articleTitleLabel" destination="Iqc-5Z-19X" id="HTZ-S9-zSR"/>
                 <outlet property="commentNumLabel" destination="lkA-Na-kAX" id="8Cs-Wn-Ut7"/>
                 <outlet property="dateLabel" destination="Nsi-3F-9ly" id="7u0-g2-zyR"/>
-                <outlet property="infoDetailWeb" destination="qJm-ga-u8h" id="HJf-7S-Py0"/>
                 <outlet property="informationDetailView" destination="yDL-L1-0NW" id="dfa-Ct-LMf"/>
                 <outlet property="postLabel" destination="yVU-ej-rsb" id="u6g-fu-7dS"/>
                 <outlet property="praiseLabel" destination="0i6-JQ-aED" id="6Qr-xv-4qc"/>
@@ -108,14 +107,6 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
-                <webView contentMode="scaleToFill" id="qJm-ga-u8h" customClass="CustomWebView">
-                    <rect key="frame" x="0.0" y="110" width="320" height="345"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="7So-en-bKn"/>
-                    </connections>
-                </webView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

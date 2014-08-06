@@ -35,6 +35,7 @@
     CGSize textSize = [NSString getStringRect:model.comment font:[UIFont systemFontOfSize:13.f] labelSize:CGSizeMake(242.f, FLT_MAX)];
     _commentLabel.frame = CGRectMake(68, 33, 242, textSize.height);
     [_commentLabel setText:model.comment];
+    self.frame = CGRectMake(0, 0, 320, 33+textSize.height+10);
 }
 
 @end

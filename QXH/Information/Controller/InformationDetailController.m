@@ -31,8 +31,7 @@
     _postLabel.text = detailmodel.relaytime;
     _dateLabel.text = detailmodel.date;
     _praiseLabel.text = [NSString stringWithFormat:@"%d",detailmodel.laud];
-    
-    [_infoDetailWeb loadRequest:[NSURLRequest requestWithURL:INFURL(self.artid) cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.f]];
+//    [_infoDetailWeb loadRequest:[NSURLRequest requestWithURL:INFURL(self.artid) cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.f]];
     // 加载webview数据
 //    [_infoDetailWeb loadHTMLString:detailmodel.content baseURL:[NSURL URLWithString:@"http://180.97.46.40:8070"]];
 }
@@ -62,6 +61,23 @@
     self.title = @"智谷";
       
     [self getDetailInfo];
+    
+    CustomWebView *webView = [[CustomWebView alloc] init];
+    if (iPhone5) {
+        if (IOS7_OR_LATER) {
+            webView.frame = CGRectMake(0, 110, 320, 345);
+        }else{
+            webView.frame = CGRectMake(0, 110, 320, 345);
+        }
+    }else{
+        if (IOS7_OR_LATER) {
+            webView.frame = CGRectMake(0, 110, 320, 257);
+        }else{
+            webView.frame = CGRectMake(0, 110, 320, 345);
+        }
+    }
+    [webView loadRequest:[NSURLRequest requestWithURL:INFURL(self.artid) cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.f]];
+    [self.view addSubview:webView];
 
     UIButton *righttbuttonItem = [UIButton buttonWithType:UIButtonTypeCustom];
     righttbuttonItem.frame = CGRectMake(0, 0,74, 31);

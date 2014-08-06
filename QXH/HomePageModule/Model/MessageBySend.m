@@ -127,8 +127,10 @@ static MessageBySend* ins =nil;
         
         /*如果存在离线消息时不保存，*/
         NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
-        if ([offarray count]) {
-            /*如果存在离线消息不保存*/
+        /*是否已经查看离线消息*/
+        NSString* targeid = [haveSeeOffline valueForKey:atribeid];
+        if ([offarray count] && !targeid) {
+            /*如果存在离线消息，并且没有查看不保存*/
         }else{
           [self saveFmdb:notif];
         }
@@ -188,7 +190,9 @@ static MessageBySend* ins =nil;
             /*如果是我发送的图片就暂时不保存*/
         }else{
             NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
-            if ([offarray count]) {
+            /*是否已经查看离线消息*/
+            NSString* targeid = [haveSeeOffline valueForKey:atribeid];
+            if ([offarray count] && !targeid) {
                 /*如果存在离线消息不保存*/
             }else{
                 [self saveFmdb:notif];
@@ -220,8 +224,6 @@ static MessageBySend* ins =nil;
 - (void)addChatRoomMessageArray:(NSMutableDictionary*)notif toOtherid:(NSNumber*)otherid
 {
     /*判断接受到的消息类型*/
-//    NSNumber*  asendtype = (NSNumber*)[notif valueForKey:@"sendtype"];
-//    NSString* bsendtype =[NSString stringWithFormat:@"%d",[asendtype intValue]];
     [notif setObject:[NSNumber numberWithInt:1] forKey:@"sendtype"];
     UserInfoModel* meUser = [[UserInfoModelManger sharUserInfoModelManger]getMe];
     if (meUser) {
@@ -259,7 +261,8 @@ static MessageBySend* ins =nil;
         /*发送图片时在界面保存数据*/
     }else{
         NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
-        if ([offarray count]) {
+        NSString* targeid = (NSString*)[haveSeeOffline valueForKey:atribeid];
+        if ([offarray count] && !targeid) {
             /*如果存在离线消息不保存*/
         }else{
             [self saveFmdb:notif];
@@ -282,7 +285,8 @@ static MessageBySend* ins =nil;
 
     /*暂时屏蔽获取离线消息*/
      NSMutableArray* temparray1 = [unKnowCharMessDic valueForKey:ChatRoomid];
-    if ([temparray1 count]) {
+    NSString* havsee = (NSString*)[haveSeeOffline valueForKey:ChatRoomid];
+    if ([temparray1 count] && !havsee) {
         /*当离线消息数据，大于本地缓存中数据*/
 //        NSDictionary* last = (NSDictionary*)[temparray1 lastObject];
 //        NSNumber* countNum = (NSNumber*)[last valueForKey:@"count"];
@@ -291,6 +295,7 @@ static MessageBySend* ins =nil;
             return nil;
 //        }
     }
+
     /*刘振财*/
 //    if ([count isEqualToString:@"0"]) {
 //        count = @"20";
@@ -621,6 +626,28 @@ static MessageBySend* ins =nil;
             }
             
         }
+        
+        NSArray* official = (NSArray*)[backDic valueForKey:@"official"];
+        for (int i=0; i<[official count]; i++) {
+            NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:[official objectAtIndex:i]];
+            NSNumber* asendtype = [tempdic valueForKey:@"sendtype"];
+            NSString* bsendtype = [NSString stringWithFormat:@"%d",[asendtype integerValue]];
+            if ([bsendtype isEqualToString:@"3"] || [bsendtype isEqualToString:@"4"] || [bsendtype isEqualToString:@"0"] || [bsendtype isEqualToString:@"5"]
+                || [bsendtype isEqualToString:@"6"]
+                || [bsendtype isEqualToString:@"7"] || [bsendtype isEqualToString:@"12"] /*|| [bsendtype isEqualToString:@"13"]这是分享到部落的活动，文章和名片*/){
+                NSLog(@"info:%@",tempdic);
+//                NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
+//                NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
+//                NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+//                if (![tempSenderId isEqualToString:meid]) {
+                    [self AddSystemMessAyyay:tempdic];
+                    /*如果是自己发送的就不用发消息刷新界面了*/
+                    //            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
+                }
+
+            
+        }
+        
     }];
 }
 
@@ -678,8 +705,6 @@ static MessageBySend* ins =nil;
             /*写入数据库*/
             [self saveFmdb:tempdic];
             [chatRoomMessArray insertObject:tempdic atIndex:0];
-//            NSMutableDictionary* temdic = (NSMutableDictionary*)[list objectAtIndex:i];
-//            [self AddToTempunKnowCharMessAyyay:tempdic];
         }
         
         /*移除离线消息*/
@@ -778,7 +803,7 @@ static MessageBySend* ins =nil;
         NSDictionary *usercount = [[NSDictionary alloc]initWithObjectsAndKeys:chatRoomMessArray,@"chatRoomMessArray", nil];
         /*离线消息中移除*/
         [unKnowCharMessDic removeObjectForKey:targetid];
-//        [haveSeeOffline setObject:targetid forKey:targetid];
+        [haveSeeOffline setObject:targetid forKey:targetid];
         /*暂时不移除*/
         //         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {
@@ -843,8 +868,9 @@ static MessageBySend* ins =nil;
             start = [NSString stringWithFormat:@"%d",(Instart +[tempArray count])];
             [hisStatDic setValue:start forKey:atargetid];
             if ([tempArray count]==0) {
+                NSDictionary* noUser = [[NSDictionary alloc]initWithObjectsAndKeys:atargetid,@"targetid", nil];
                 /*没有历史记录*/
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
             }else{
                 /*内存中只存储40个*/
                 if ( arraycount>=40) {
@@ -860,8 +886,9 @@ static MessageBySend* ins =nil;
         }else{
             
             if (Instart<=40) {
+                NSDictionary* noUser = [[NSDictionary alloc]initWithObjectsAndKeys:atargetid,@"targetid", nil];
                 /*没有历史记录*/
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
             }else{
                 /*上啦刷新*/
                 if (arraycount >=20) {
