@@ -182,7 +182,6 @@ static MessageBySend* ins =nil;
             /*如果是自己发送的就不用发消息刷新界面了*/
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatRoom" object:nil userInfo:notif];
         }
-
    
     }else if ([bsendtype isEqualToString:@"3"] || [bsendtype isEqualToString:@"4"] || [bsendtype isEqualToString:@"0"] || [bsendtype isEqualToString:@"5"]
               || [bsendtype isEqualToString:@"6"]
