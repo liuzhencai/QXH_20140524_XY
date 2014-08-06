@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 ZhaoLilong. All rights reserved.
 //  存储系统推送来的消息
 
+#import <AudioToolbox/AudioToolbox.h>
+
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
 #import "ChatMess.h"
@@ -64,6 +66,9 @@ static MessageBySend* ins =nil;
         return;
     }
   
+    //消息提醒
+//    AudioServicesPlaySystemSound(1007);
+    [self messageTip];
     /*暂时屏蔽此处离线消息*/
     [self AddTounKnowCharMessAyyay:userinfo];
     /*判断是不是部落消息聊天*/
@@ -72,6 +77,19 @@ static MessageBySend* ins =nil;
 //    [self AddSystemMessAyyay:userinfo];
   
     
+}
+
+- (void)messageTip{
+//铃声
+    BOOL enableRing = [[defaults objectForKey:@"enableRing"] boolValue];
+    if (enableRing) {
+        AudioServicesPlaySystemSound(1007);
+    }
+//振动
+    BOOL enableShake = [[defaults objectForKey:@"enableShake"] boolValue];
+    if (enableShake) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
 }
 
 #pragma mark 判断系统消息是不是部落消息聊天

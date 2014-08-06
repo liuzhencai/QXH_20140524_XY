@@ -105,8 +105,14 @@
         case 2:
             rowHeight = 44.f;
             break;
-        case 3:
-            rowHeight = 68.f;
+        case 3:{
+//            rowHeight = 68.f;
+            UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+            rowHeight = cell.frame.size.height;
+            if (rowHeight < 68.f) {
+                rowHeight = 68.f;
+            }
+        }
             break;
         default:
             break;
@@ -248,6 +254,11 @@
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     }
                     [(InformationCommentCell *)cell setModel:[commentList objectAtIndex:indexPath.row]];
+                    InfoCommentModel *model = [commentList objectAtIndex:indexPath.row];
+                    CGSize textSize = [NSString getStringRect:model.comment font:[UIFont systemFontOfSize:13.f] labelSize:CGSizeMake(242.f, FLT_MAX)];
+                    CGRect rect = cell.frame;
+                    rect.size.height = textSize.height + 38;
+                    cell.frame = rect;
                 }
                     break;
                 default:

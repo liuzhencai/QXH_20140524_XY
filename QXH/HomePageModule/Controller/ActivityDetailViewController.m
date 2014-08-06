@@ -253,12 +253,14 @@
                 shareBtn.frame = CGRectMake(130 + 15 * 3, 15, 130, 44);
                 [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
                 [shareBtn setBackgroundImage:[self stretchiOS6:@"btn_share_normal.png"] forState:UIControlStateNormal];
+                shareBtn.tag = 1102;
                 [shareBtn setBackgroundImage:[self stretchiOS6:@"btn_share_highlight.png"] forState:UIControlStateHighlighted];
                 [shareBtn addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
                 [dataCell.contentView addSubview:shareBtn];
             }
             if (self.activityDict) {
                 UIButton *signupBtn = (UIButton *)[dataCell.contentView viewWithTag:1101];
+                UIButton *shareBtn = (UIButton *)[dataCell.contentView viewWithTag:1102];
                 if ([self isInFollowers]) {
                     [signupBtn setTitle:@"已报名" forState:UIControlStateNormal];
                     signupBtn.enabled = NO;
@@ -268,6 +270,10 @@
                 }
                 if (self.isActivityEnd) {
                     signupBtn.enabled = NO;
+                }
+                int status = [[self.activityDict objectForKey:@"status"] intValue];
+                if (status == 2 || status == 3) {//2为审批中的活动，3为审批拒绝的活动
+                    shareBtn.enabled = NO;
                 }
             }
             cell = dataCell;
