@@ -82,7 +82,7 @@
         // 登陆只发送一次
         [udp send:param];
     }else{
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_apply(SEND_TIMES, queue, ^(size_t index) {
             [udp send:param];
         });

@@ -233,6 +233,7 @@
 
 - (void)distributeSquareInfo:(NSString *)artimgs
 {
+    
     [DataInterface distributeInfo:@"" tags:@"" type:@"1" artimgs:artimgs arttype:@"" content:_contentField.text withCompletionHandler:^(NSMutableDictionary *dict) {
         NSString *stateCode = [NSString stringWithFormat:@"%@",[dict objectForKey:@"statecode"]];
         if ([stateCode isEqualToString:@"0200"]) {
