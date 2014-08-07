@@ -109,7 +109,8 @@
         NSMutableArray* tempArray = (NSMutableArray*)objt;
         params = [tempArray lastObject];
         NSNumber* acount = params[@"count"];
-        if (!acount) {
+        int sendType = [[params objectForKey:@"sendtype"] intValue];
+        if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){
             int count = 0;
             for (int i = 0; i < [tempArray count]; i ++) {
                 NSDictionary *newDict = [tempArray objectAtIndex:i];
@@ -129,6 +130,26 @@
             }
             acount = [NSNumber numberWithInt:count];
         }
+//        if (!acount) {
+//            int count = 0;
+//            for (int i = 0; i < [tempArray count]; i ++) {
+//                NSDictionary *newDict = [tempArray objectAtIndex:i];
+//                NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+//                BOOL isNew = YES;
+//                for (int j = 0; j < [self.lastMessages count]; j ++) {
+//                    NSDictionary *oldDict = [self.lastMessages objectAtIndex:j];
+//                    NSInteger oldMessid = [[oldDict objectForKey:@"messid"] integerValue];
+//                    if (newMessid == oldMessid) {
+//                        isNew = NO;
+//                        break;
+//                    }
+//                }
+//                if (isNew) {
+//                    count ++;
+//                }
+//            }
+//            acount = [NSNumber numberWithInt:count];
+//        }
         if (acount) {
             /*如果存在count值，
              则为离线消息，消息数按照count值显示*/

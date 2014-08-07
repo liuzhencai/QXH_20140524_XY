@@ -591,6 +591,7 @@ static MessageBySend* ins =nil;
 /*登录成功后获取用户离线消息*/
 - (void)getOfflineMessage
 {
+    NSLog(@"获取离线信息");
     [DataInterface getLoginInfoWithCompletionHandler:^(NSMutableDictionary*backDic){
         /*
          opercode:"0140",		//operCode为0140，客户端通过该字段确定事件
