@@ -233,8 +233,8 @@
 
 - (void)distributeSquareInfo:(NSString *)artimgs
 {
-    
     [DataInterface distributeInfo:@"" tags:@"" type:@"1" artimgs:artimgs arttype:@"" content:_contentField.text withCompletionHandler:^(NSMutableDictionary *dict) {
+        _distributeBtn.userInteractionEnabled = YES;
         NSString *stateCode = [NSString stringWithFormat:@"%@",[dict objectForKey:@"statecode"]];
         if ([stateCode isEqualToString:@"0200"]) {
             NSString *artid = [NSString stringWithFormat:@"%@",[dict objectForKey:@"artid"]];//[dict objectForKey:@"artid"];
@@ -294,6 +294,7 @@
 }
 
 - (IBAction)distribute:(id)sender {
+    _distributeBtn.userInteractionEnabled = NO;
     __block NSString *artimgs = @"";
     if ([_imgs count]!=0) {
         [HttpRequest uploadFiles:_imgs andType:@"1" andCompletionBlock:^(NSMutableArray *list) {

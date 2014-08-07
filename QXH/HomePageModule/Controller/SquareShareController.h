@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *picView;
 @property (weak, nonatomic) IBOutlet UITextField *contentField;
 @property (weak, nonatomic) IBOutlet UIButton *addPicBtn;
+@property (weak, nonatomic) IBOutlet UIButton *distributeBtn;
 @property (nonatomic, assign) SquareViewController *controller;
 @property (weak, nonatomic) IBOutlet UIScrollView *atPersonScroll;
 - (IBAction)distribute:(id)sender;

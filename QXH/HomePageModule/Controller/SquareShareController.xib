@@ -10,6 +10,7 @@
                 <outlet property="addPicBtn" destination="E8u-Qd-5zu" id="FMg-sB-1Lj"/>
                 <outlet property="atPersonScroll" destination="mPS-y7-3Wv" id="MlQ-W5-PXh"/>
                 <outlet property="contentField" destination="Mm0-lV-sHb" id="QkK-Ws-tJS"/>
+                <outlet property="distributeBtn" destination="AmR-PA-H3s" id="u5j-8H-jst"/>
                 <outlet property="picView" destination="YBX-64-zkn" id="8fO-uC-6Bf"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
