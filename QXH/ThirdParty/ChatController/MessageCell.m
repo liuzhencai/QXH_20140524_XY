@@ -311,43 +311,36 @@ static int offsetX = 6; // 6 px from each side
         
         // the height that we want our text bubble to be
         CGFloat height = self.contentView.bounds.size.height;
-//        if (height < minimumHeight)
-//            height = minimumHeight;
         
-        CGFloat width = (_textSize.width + outlineSpace)>KPicWidth?(_textSize.width - outlineSpace):KPicWidth;
+        CGFloat width = (_textSize.width >KPicWidth?_textSize.width :KPicWidth)+outlineSpace;
         if (SendByMeSelf) {
-            // then this is a message that the current user created . . .
-            _bgLabel.frame = CGRectMake(ScreenWidth() - width, KNameHight, width, height-KLine) ;
-            _bgLabel.layer.borderColor = _userColor.CGColor;
-            MyHeadimageView.hidden = NO;
 
+            MyHeadimageView.hidden = NO;
             [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
             
             _imageView.hidden = YES;
-//            stateImageView.hidden = NO;
-            for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x - MyHeadimageView.bounds.size.width-10, v.center.y);
-            }
-            _nameLabel.frame = CGRectMake(ScreenWidth() - width- MyHeadimageView.bounds.size.width-10, 0, KPicWidth, KNameHight);
+            _bgLabel.frame = CGRectMake(ScreenWidth() - width-minimumHeight-(offsetX*2), KNameHight, width, height-KLine) ;
+            _bgLabel.layer.borderColor = _userColor.CGColor;
+
+            _nameLabel.frame = CGRectMake(_bgLabel.frame.origin.x, 0, width, KNameHight);
             _nameLabel.text = [_message valueForKey:@"sendername"];
             _nameLabel.textAlignment = NSTextAlignmentRight;
             self.stateImageView.frame = CGRectMake(_bgLabel.frame.origin.x-kStateImageViewWidth, _bgLabel.frame.size.height-kStateImageViewHigth, kStateImageViewWidth,kStateImageViewHigth);
      
         }else {
-            // sent by opponent
-            _bgLabel.frame = CGRectMake(offsetX, KNameHight, width, height-KLine);
-            _bgLabel.layer.borderColor = _opponentColor.CGColor;
-            
-            for (UIView * v in @[_bgLabel, _textLabel]) {
-                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
-            }
-            /*如果是对方发送消息，去除图像*/
-            [messageSendBy getimageView:_imageView byImagePath:[_message valueForKey:@"senderphoto"]];
-
+  
             MyHeadimageView.hidden = YES;
             _imageView.hidden = NO;
+//            for (UIView * v in @[_bgLabel, _textLabel]) {
+//                v.center = CGPointMake(v.center.x + _imageView.bounds.size.width+offsetX, v.center.y);
+//            }
+            /*如果是对方发送消息，去除图像*/
+            [messageSendBy getimageView:_imageView byImagePath:[_message valueForKey:@"senderphoto"]];
+            _bgLabel.frame = CGRectMake(offsetX*2+minimumHeight, KNameHight, width, height-KLine);
+            _bgLabel.layer.borderColor = _opponentColor.CGColor;
+
             
-            _nameLabel.frame = CGRectMake(offsetX+ _imageView.bounds.size.width+offsetX, 0, KPicWidth, KNameHight);
+            _nameLabel.frame = CGRectMake(offsetX*2 + minimumHeight, 0, width, KNameHight);
             _nameLabel.text = [_message valueForKey:@"sendername"];
             _nameLabel.textAlignment = NSTextAlignmentLeft;
 //            _imageView.backgroundColor = [UIColor redColor];

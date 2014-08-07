@@ -52,7 +52,8 @@ FOUNDATION_EXPORT int const maxBubbleWidth;
 #define KShareLabelWidth 150
 #define KShareLabelHigth 70
 #define KShareTitleHigth 20
-
+/*定义聊天室中头像大小*/
+#define minimumHeight  40
 #define KLine  20
 
 // Message Dictionary Keys

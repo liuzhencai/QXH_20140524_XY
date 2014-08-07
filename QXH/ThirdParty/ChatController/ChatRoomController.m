@@ -367,10 +367,6 @@ static int chatInputStartingHeight = 40;
      */
  
     [DataInterface infoToTop:ChatRoomId type:@"1" messid:messid withCompletionHandler:^(NSMutableDictionary* backDic){
-        /*头像*/
-//        UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, minimumHeight, minimumHeight)];
-//        //            [iconImage circular];
-//        headImage.image = [[UserInfoModelManger sharUserInfoModelManger]getIcon:photo];
         
         /*头像*/
         UIImageView* askheadImgView = (UIImageView*)[askView viewWithTag:21083];
@@ -1980,13 +1976,17 @@ static int chatInputStartingHeight = 40;
 #pragma mark 没有历史记录
 - (void)NOHistory:(NSNotification*)chatmessage
 {
-    //    [_myCollectionView reloadData];
-    // 结束刷新
-    [_myCollectionView headerEndRefreshing];
+      NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+    NSString* targetid = [auserinfo valueForKey:@"targetid"];
+   
+    if ([targetid isEqual:ChatRoomId]) {
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+        [alert show];
+        // 结束刷新
+        [_myCollectionView headerEndRefreshing];
+    }
 //    [self showAlert:@"已经没有历史记录！"];
-    UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-    [alert show];
-    
+
     
 }
 @end

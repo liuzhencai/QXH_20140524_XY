@@ -45,6 +45,7 @@
     self.title = @"加入的部落";
     
     [self getMyTribeList];
+     chatview =[[ChatRoomController alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,7 +77,6 @@
 //    controller.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:controller animated:YES];
     NSDictionary *tribeDict = [tribeList objectAtIndex:indexPath.row];
-    ChatRoomController *chatview =[[ChatRoomController alloc]init];
     chatview.tribeInfoDict = tribeDict;
     [self.navigationController pushViewController:chatview animated:NO];
 }
