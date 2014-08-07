@@ -124,11 +124,19 @@
             for (int j = 0; j < [list count]; j ++) {
                 NSDictionary *memberDict = [list objectAtIndex:j];
                 NSString *friendId = [[memberDict objectForKey:@"userid"] stringValue];
-                NSString *memberID = self.memberId;//[NSString stringWithFormat:@"%@",self.memberId];
+                id memberID = self.memberId;//[NSString stringWithFormat:@"%@",self.memberId];
                 if (!memberID) {
                     memberID = [[self.memberDict objectForKey:@"userid"] stringValue];
                 }
-                if ([memberID isEqualToString:friendId]) {
+                NSString* memString = nil;
+                /*当时NSNumber类型时崩溃*/
+                if ([memberID isKindOfClass:[NSNumber class]]) {
+                    NSString* mem = [NSString stringWithFormat:@"%d",[(NSNumber*)memberID integerValue]];
+                    memString = mem;
+                }else{
+                    memString = (NSString*)memberID;
+                }
+                if ([memString isEqualToString:friendId]) {
                     self.isMyFriend = YES;
                     break;
                 }

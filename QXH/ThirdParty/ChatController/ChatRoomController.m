@@ -278,8 +278,7 @@ static int chatInputStartingHeight = 40;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [_chatInput close];
-    /*把未读消息置为已读*/
-    [self ReceiveAndSeeMessige];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -1564,7 +1563,11 @@ static int chatInputStartingHeight = 40;
             [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:temmessid type:@"2" tribeid:ChatRoomId];
         }
     }
-
+    /*同时临时退出部落*/
+    [DataInterface leaveOneDream:ChatRoomId withCompletionHandler:^(NSMutableDictionary* dic){
+        NSLog(@"临时退出部落==%@",dic);
+    }];
+  
 }
 
 #pragma mark 点击发送照片
@@ -1882,9 +1885,16 @@ static int chatInputStartingHeight = 40;
 #pragma mark 返回上一界面
 -(void)popForwardBack
 {
+    /*把未读消息置为已读*/
+    [self ReceiveAndSeeMessige];
+
     [_chatInput.textView resignFirstResponder];
     [[MessageBySend sharMessageBySend] hideprogressHUD];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 #pragma mark 获取离线消息

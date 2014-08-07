@@ -195,8 +195,7 @@ static int chatInputStartingHeight = 40;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [_chatInput close];
-    /*把未读消息置为已读*/
-//    [self ReceiveAndSeeMessige];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -1493,7 +1492,11 @@ static int chatInputStartingHeight = 40;
 -(void)popForwardBack
 {
     [_chatInput.textView resignFirstResponder];
-    [self.navigationController popViewControllerAnimated:YES];
+    /*同时临时退出部落*/
+    [DataInterface leaveOneDream:ChatRoomId withCompletionHandler:^(NSMutableDictionary* dic){
+        NSLog(@"临时退出部落==%@",dic);
+    }];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 #pragma mark 添加上啦刷新测试

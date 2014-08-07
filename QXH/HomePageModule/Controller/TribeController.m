@@ -120,7 +120,6 @@
     
     [self.myTribesTable headerBeginRefreshing];
     
-     chatview =[[ChatRoomController alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -434,9 +433,11 @@
         NSLog(@"点击我的部落第%d部分第%d行", indexPath.section, indexPath.row);
 //        NSDictionary *tribeDict = [self.tribeList objectAtIndex:indexPath.row];
         NSDictionary *tribeDict = [[self sortWithSection:indexPath.section withType:1] objectAtIndex:indexPath.row];
-       
+        
+        chatview =[[ChatRoomController alloc]init];
         chatview.tribeInfoDict = tribeDict;
         [self.navigationController pushViewController:chatview animated:NO];
+        chatview = nil;
     }else if(tableView.tag == ALL_TRIBE_TABLE_TAG){
         NSLog(@"点击我的消息第%d行", indexPath.row);
 //        NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];

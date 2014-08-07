@@ -231,7 +231,7 @@
         [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
         
         /*获取系统消息*/
-           [MessageBySend sharMessageBySend];
+//           [MessageBySend sharMessageBySend];
         [[MessageBySend sharMessageBySend]getOfflineMessage];
     }];
 }
@@ -313,7 +313,7 @@
         }];
         
         /*获取系统消息*/
-        [MessageBySend sharMessageBySend];
+//        [MessageBySend sharMessageBySend];
         [[MessageBySend sharMessageBySend]getOfflineMessage];
     }];
 }

@@ -76,6 +76,10 @@
 
 + (void)getUserInfo:(NSString *)targetid withCompletionHandler:(DictCallback)callback
 {
+    if (![defaults objectForKey:@"userid"]  || ![defaults objectForKey:@"token"]) {
+        /*有的时候，userid和token都为空，很奇怪*/
+        return;
+    }
     NSDictionary *param = @{@"opercode": @"0105", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"targetid":targetid};
     NSLog(@"\n##########获取用户信息接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {
@@ -660,6 +664,9 @@ withCompletionHandler:(DictCallback)callback
 
 + (void)getLoginInfoWithCompletionHandler:(DictCallback)callback
 {
+    if (![defaults objectForKey:@"userid"] || ![defaults objectForKey:@"token"]) {
+        return;
+    }
     NSDictionary *param = @{@"opercode": @"0140", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"]};
     NSLog(@"\n##########获取登陆消息接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {

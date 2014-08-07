@@ -1275,6 +1275,7 @@ static int chatInputStartingHeight = 40;
     /*返回上一页时关闭本页键盘*/
     [_chatInput.textView resignFirstResponder];
     [[MessageBySend sharMessageBySend] hideprogressHUD];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
