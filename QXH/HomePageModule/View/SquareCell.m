@@ -32,10 +32,10 @@
         _contentLabel.text = tmpModel.content;
     }else{
         _contentLabel.text = [[tmpModel.content substringToIndex:50] stringByAppendingString:@"..."];
-        UILabel *detailLbl = [[UILabel alloc] initWithFrame:CGRectMake(260, 60, 60, 21)];
+        UILabel *detailLbl = [[UILabel alloc] initWithFrame:CGRectMake(70, 77, 60, 21)];
         detailLbl.font = [UIFont systemFontOfSize:13.f];
         detailLbl.text = @"查看详情";
-        detailLbl.textColor = [UIColor colorWithRed:0/255.f green:100/255.f blue:0/255.f alpha:1.f];
+        detailLbl.textColor = [UIColor colorWithRed:78/255.f green:199/255.f blue:60/255.f alpha:1.f];
         detailLbl.backgroundColor = [UIColor clearColor];
         [self addSubview:detailLbl];
     }

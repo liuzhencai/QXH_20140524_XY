@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *portraitView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *positionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *subImageView;
 - (IBAction)tap:(id)sender;

@@ -49,10 +49,15 @@
     _infoModel = model.content;
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
-    _commentLabel.text = model.refsign;
+    if ([model.refsign length] < 50) {
+        _detailLabel.hidden = YES;
+        _commentLabel.text = model.refsign;
+    }else{
+        _contentLabel.text = [[model.refsign substringToIndex:50] stringByAppendingString:@"..."];
+        _detailLabel.hidden = NO;
+    }
     _nameLabel.text = model.uname;
     _dateLabel.text = [model.date substringToIndex:10];
-    _positionLabel.text = model.uduty;
     if (flag == 0) {
         _contentLabel.text = _infoModel.title;
         [_subImageView setImageWithURL:IMGURL(_infoModel.artimgs)];
