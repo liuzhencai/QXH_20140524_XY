@@ -8,7 +8,7 @@
 
 #import "MyMessageCell.h"
 #import "UIImageView+WebCache.h"
-
+#import "JSONKit.h"
 #define KCounImageWidth 25
 
 @implementation MyMessageCell
@@ -60,7 +60,7 @@
         [_countlabel setBackgroundColor:[UIColor clearColor]];
         [_countlabel setRound:YES];
         _countlabel.font =[UIFont fontWithName:KFontArial size:12];
-        _countlabel.textAlignment =UITextAlignmentCenter;
+        _countlabel.textAlignment = NSTextAlignmentCenter;
         _countlabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:_countlabel];
         
@@ -84,7 +84,7 @@
     _duty.frame = CGRectMake(_headImgView.right + 10, _name.bottom, 200, lableHeight);
     _arrowImgView.frame = CGRectMake(290, (height - 12) / 2.0, 8, 12);
 
-    _date.frame = CGRectMake(_name.right - 10, (height - 2 * lableHeight)/2.0, 100, lableHeight);
+    _date.frame = CGRectMake(_name.right - 10, (height - 2 * lableHeight)/2.0, 120, lableHeight);
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, height - 0.5, UI_SCREEN_WIDTH, 0.5)];
     line.backgroundColor = [UIColor lightGrayColor];
@@ -180,6 +180,16 @@
         self.headImgView.image = [UIImage imageNamed:@"systemMessage"];
         self.name.text = @"系统消息";
         NSString *descString = [params objectForKey:@"mess"];
+        if (sendType == 3 ) {
+            descString = [NSString stringWithFormat:@"%@",[params objectForKey:@"sendername"]];
+        }
+        else if (sendType == 4){
+            descString = [NSString stringWithFormat:@"%@",[params objectForKey:@"sendername"]];
+        }else if (sendType == 12){//@某人
+            NSString *message = [params objectForKey:@"mess"];
+            NSDictionary *messages = [message objectFromJSONString];
+            descString = [NSString stringWithFormat:@"%@ 分享了动态“%@”",[params objectForKey:@"sendername"],[messages objectForKey:@"content"]];
+        }
         self.duty.text = descString;
         self.date.text = [params objectForKey:@"date"];
     }

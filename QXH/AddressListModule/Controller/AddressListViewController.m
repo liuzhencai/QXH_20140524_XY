@@ -347,6 +347,7 @@
 #pragma mark - CustomSegmentControlDelegate
 - (void)segmentClicked:(NSInteger)index{
     NSLog(@"segment clicked:%d",index);
+    [self.searchBar resignFirstResponder];
     NSInteger tag = ADDRESS_LIST_TABLE_TAG + index;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     [self.view bringSubviewToFront:table];
@@ -473,6 +474,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.searchBar resignFirstResponder];
     if (tableView.tag == ADDRESS_LIST_TABLE_TAG) {
         NSLog(@"点击通讯录第%d部分第%d行", indexPath.section, indexPath.row);
 //        NSDictionary *dict = [self.addressList objectAtIndex:indexPath.section];
@@ -620,6 +622,7 @@
 #pragma mark - UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"搜索");
+    [searchBar resignFirstResponder];
     /**
      *  获取好友(通讯录)/查找用户列表公用接口
      *
@@ -659,6 +662,9 @@
            }];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.searchBar resignFirstResponder];
+}
 
 - (void)checkHaveMySelf:(NSArray *)lists{//筛选掉自己
     if (lists) {
