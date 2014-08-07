@@ -240,7 +240,11 @@
         }
         membersString = [membersString stringByAppendingString:memberIdStr];
     }
-    
+    /*还要添加秘书长进入部落成员中*/
+    if (leaderId) {
+       NSString* memstring  = [membersString stringByAppendingString:[NSString stringWithFormat:@"%@,",leaderId]];
+        membersString = memstring;
+    }
     NSString *imageUrl = @"";
     if (isImage) {
         imageUrl = self.imagePath;

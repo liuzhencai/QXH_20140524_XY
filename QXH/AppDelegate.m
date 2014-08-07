@@ -169,8 +169,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
    
     /*暂时屏蔽友盟，崩溃较严重*/
-    [self getUmengDeviceId];
-    [self umengTrack];
+//    [self getUmengDeviceId];
+//    [self umengTrack];
     
 //    [self testInterface];
 //    [self registerAction];
