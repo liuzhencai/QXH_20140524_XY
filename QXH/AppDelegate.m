@@ -186,6 +186,7 @@
 ////        self.window.rootViewController = loginNavigation;
 //    }
     
+    
     [self loadPages];
     
     [WXApi registerApp:@"wx20ed46d643d2b069"];
