@@ -36,12 +36,67 @@
     _mainTable.dataSource = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mainTable];
+    [self setReadMessage];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setReadMessage{
+    NSMutableArray *toSendMessages = [[NSMutableArray alloc] initWithCapacity:0];
+    for (int i = 0; i < [self.messagesList count]; i ++) {
+        NSDictionary *dict = [self.messagesList objectAtIndex:i];
+        if (![self isReadMessage:dict]) {
+            [toSendMessages addObject:dict];
+        }
+    }
+    if ([toSendMessages count] > 0) {
+        NSDictionary *message = [toSendMessages lastObject];
+        //tribeid
+        NSString *tribeidStr = @"";
+        int tribeid = [[message objectForKey:@"tribeid"] intValue];
+        if (tribeid != 0) {
+            tribeidStr = [NSString stringWithFormat:@"%d",tribeid];
+        }
+        //type
+        /*判断接受到的消息类型
+         0为系统消息,1为好友私聊，2为部落聊天,3为加好友申请，4为处理请求好友申请，5为加入部落申请,6为处理部落加入申请,7为完全退出部落,8为进入部落，9为退出部落房间,10好友上线通知 12@某人
+         */
+        NSString *type = @"";
+        int sendtype = [[message objectForKey:@"sendtype"] intValue];
+        
+        if (sendtype == 0 || sendtype == 3 || sendtype == 4 || sendtype == 12) {
+            type = @"1";
+        }else if (sendtype == 5 || sendtype == 6 || sendtype == 7 || sendtype == 8 || sendtype == 9 || sendtype == 13){
+            type = @"2";
+        }
+        //messageids
+        NSString *messages = @"";
+        for (int i = 0; i < [toSendMessages count]; i ++) {
+            NSDictionary *dict = [toSendMessages objectAtIndex:i];
+            NSString *messageId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"messid"]];
+            messages = [messages stringByAppendingString:messageId];
+            if (i != [toSendMessages count] - 1) {
+                messages = [messages stringByAppendingString:@","];
+            }
+        }
+        /**
+         *  客户端发送收到消息/通知（此时服务器端更新消息状态，将消息设置为已读）
+         type:1,				//1为用户私聊,2为部落聊天
+         tribeid:"12345",		//部落id(type=2时读取该字段)
+         messids:"123456,23456",		//消息唯一标识符,多个消息以逗号隔开
+         *  @param messids  消息唯一标识符,多个消息以逗号隔开
+         */
+        [DataInterface recvMessage:messages tribeid:tribeidStr type:type withCompletionHandler:^(NSMutableDictionary *dict){
+            NSString* statecode = dict[@"statecode"];
+            if ([statecode isEqualToString:@"0200"]) {
+                NSLog(@"服务器收到已读通知");
+            }
+        }];
+    }
 }
 
 /*
@@ -229,4 +284,17 @@
     return isRefuseDeal;
 }
 
+- (BOOL)isReadMessage:(NSDictionary *)message{
+    BOOL isRead = NO;
+    NSInteger oldMessid = [[message objectForKey:@"messid"] integerValue];
+    for (int i = 0; i < [self.lastMessagesList count]; i ++) {//检查拒绝列表信息
+        NSDictionary *newDict = [self.lastMessagesList objectAtIndex:i];
+        NSInteger newMessid = [[newDict objectForKey:@"messid"] integerValue];
+        if (newMessid == oldMessid) {
+            isRead = YES;//
+            break;
+        }
+    }
+    return isRead;
+}
 @end
