@@ -98,7 +98,12 @@
     tipCountLabel.textAlignment = NSTextAlignmentCenter;
     tipCountLabel.textColor = [UIColor whiteColor];
     tipCountLabel.text = @"5";
-    tipCountLabel.backgroundColor = [UIColor clearColor];
+    if (IOS7_OR_LATER) {
+        tipCountLabel.backgroundColor = [UIColor clearColor];
+    }else{
+        tipCountLabel.backgroundColor = [UIColor redColor];
+    }
+    
     [segment addSubview:tipCountLabel];
     [self resetTipLabelWithMessage:self.myMessageList];
     

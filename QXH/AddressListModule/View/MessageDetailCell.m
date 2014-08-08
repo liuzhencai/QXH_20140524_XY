@@ -173,6 +173,9 @@
         NSString *message = [params objectForKey:@"mess"];
         NSDictionary *messages = [message objectFromJSONString];
         self.textDes.text = [NSString stringWithFormat:@"%@ 分享了动态“%@”",[params objectForKey:@"sendername"],[messages objectForKey:@"content"]];
+        self.bgView.frame = CGRectMake(self.bgView.left, self.bgView.top, self.bgView.width, 100);
+        self.agreeBtn.hidden = YES;
+        self.refuseBtn.hidden = YES;
     }
 }
 

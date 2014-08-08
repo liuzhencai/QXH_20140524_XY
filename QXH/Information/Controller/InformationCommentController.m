@@ -12,7 +12,7 @@
 #import "GCPlaceholderTextView.h"
 #import "MyCardController.h"
 
-@interface InformationCommentController ()
+@interface InformationCommentController ()<UITextViewDelegate>
 {
     NSMutableArray *commentList;
 }
@@ -64,6 +64,7 @@
     [alertView setUseMotionEffects:TRUE];
     [alertView setButtonTitles:@[@"取消", @"发表"]];
     GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
+    commentView.delegate = self;
     commentView.placeholder = @"请在此输入评论";
     commentView.backgroundColor = [UIColor clearColor];
     [alertView setContainerView:commentView];
@@ -130,6 +131,16 @@
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
+}
+
+#pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    int lengthLimit = 140;
+    if (lengthLimit && textView.text.length >= lengthLimit) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

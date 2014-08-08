@@ -13,7 +13,7 @@
 #import "SelectTribeController.h"
 #import "GCPlaceholderTextView.h"
 
-@interface InformationDetailController ()
+@interface InformationDetailController ()<UITextViewDelegate>
 {
     InfoDetailModel *detailmodel;
     enum WXScene _scene;
@@ -201,7 +201,8 @@
             [alertView setUseMotionEffects:TRUE];
             [alertView setButtonTitles:@[@"取消", @"转发"]];
             GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
-            commentView.placeholder = @"请在此输入评论";
+            commentView.delegate = self;
+            commentView.placeholder = @"请在此输入评论,不超过140个字";
             commentView.backgroundColor = [UIColor clearColor];
             [alertView setContainerView:commentView];
             [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
@@ -246,6 +247,15 @@
 
 - (IBAction)showAll:(id)sender {
     NSLog(@"查看全部");
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    int lengthLimit = 140;
+    if (lengthLimit && textView.text.length >= lengthLimit) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

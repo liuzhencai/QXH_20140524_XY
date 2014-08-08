@@ -113,7 +113,13 @@
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 10, 10)];
     tipLabel.layer.cornerRadius = tipLabel.width/2.0;
     tipLabel.layer.backgroundColor = [UIColor redColor].CGColor;
-    tipLabel.backgroundColor = [UIColor clearColor];
+    if (IOS7_OR_LATER) {
+        tipLabel.backgroundColor = [UIColor clearColor];
+    }
+    else {
+        tipLabel.backgroundColor = [UIColor redColor];
+    }
+    
     self.tipLabel = tipLabel;
     tipLabel.hidden =  YES;
     [self.secondControl addSubview:tipLabel];

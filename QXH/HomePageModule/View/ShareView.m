@@ -7,6 +7,7 @@
 //
 
 #import "ShareView.h"
+#import "GCPlaceholderTextView.h"
 
 #define VIEW_WIDTH 260
 #define VIEW_HEIGHT 215
@@ -66,9 +67,10 @@
     activityDes.numberOfLines = 0;
     [_bgView addSubview:activityDes];
     
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(15, imgView.bottom + 10, VIEW_WIDTH - 30, 50)];
+    GCPlaceholderTextView *textView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(15, imgView.bottom + 10, VIEW_WIDTH - 30, 50)];
     self.activityText = textView;
-    textView.text = @"";//@"分享留言";
+    textView.placeholder = @"请在此输入评论,不超过140个字";
+//    textView.text = @"分享留言，不超过140个子";//@"分享留言";
     textView.layer.borderWidth = 0.5;
     textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     textView.delegate = self;
@@ -138,7 +140,7 @@
 
 #pragma mark - UITextViewDelegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if (range.location>=100)
+    if (range.location >= 140)
     {
         return  NO;
     }

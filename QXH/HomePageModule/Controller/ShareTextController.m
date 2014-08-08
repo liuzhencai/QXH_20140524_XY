@@ -16,7 +16,7 @@
 #import "MyCardController.h"
 #import "GCPlaceholderTextView.h"
 
-@interface ShareTextController ()
+@interface ShareTextController ()<UITextViewDelegate>
 {
     NSMutableArray *commentList;
     NSMutableDictionary *browseDict;
@@ -618,7 +618,8 @@
             [alertView setButtonTitles:@[@"取消", @"发表"]];
 
             GCPlaceholderTextView *commentView = [[GCPlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
-            commentView.placeholder = @"请在此输入评论";
+            commentView.placeholder = @"请在此输入评论,不超过140个字";
+            commentView.delegate = self;
             commentView.backgroundColor = [UIColor clearColor];
             [alertView setContainerView:commentView];
             [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
@@ -690,6 +691,14 @@
         [_contentTable reloadData];
     }];
 }
+#pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    int lengthLimit = 140;
+    if (lengthLimit && textView.text.length >= lengthLimit) {
+        return NO;
+    }
 
+    return YES;
+}
 
 @end
