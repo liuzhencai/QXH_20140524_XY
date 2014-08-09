@@ -213,11 +213,7 @@ static int chatInputStartingHeight = 40;
 {
     [super viewWillDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadeChatView" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reloadeChatViewAll" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOHistory" object:nil];
-    
-    [self ReceiveAndSeeMessige];
+
     
 
 }
@@ -1276,6 +1272,8 @@ static int chatInputStartingHeight = 40;
     [_chatInput.textView resignFirstResponder];
     [[MessageBySend sharMessageBySend] hideprogressHUD];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self ReceiveAndSeeMessige];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
