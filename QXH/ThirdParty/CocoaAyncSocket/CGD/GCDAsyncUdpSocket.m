@@ -1962,7 +1962,7 @@ enum GCDAsyncUdpSocketConfig
 		}
 		
 		int reuseaddr = 1;
-		status = setsockopt(socketFD, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(reuseaddr));
+		status = setsockopt(socket6FD, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(reuseaddr));
 		if (status == -1)
 		{
 			if (errPtr)
