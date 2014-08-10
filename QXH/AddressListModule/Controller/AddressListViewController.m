@@ -521,13 +521,14 @@
                  usertype = 1;*/
                 NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"senderid"];
                 NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
-                 chat = [[ChatController alloc]init];
+                
                 
                 [DataInterface getUserInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
                     /*私聊*/
                    
                     NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
                     tempdic[@"userid"]=ntribeid;
+                    chat = [[ChatController alloc]init];
                     /*私聊对方信息*/
                     chat.otherDic = tempdic;
                      [self.navigationController pushViewController:chat animated:NO];

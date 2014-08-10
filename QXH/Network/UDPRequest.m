@@ -31,7 +31,7 @@ static UDPRequest *udpRequest;
 	}
     
     // 发送广播设置
-    [_udpSocket enableBroadcast:YES error:&error];
+  BOOL result =   [_udpSocket enableBroadcast:YES error:&error];
     
     if (![_udpSocket joinMulticastGroup:SOCKET_SERVER error:&error])
     {

@@ -56,7 +56,7 @@
     [self setupRefresh:self.tableview];
     [self.tableview headerBeginRefreshing];
     
-    chatlive = [[ChatLiveViewController alloc]init];
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -165,7 +165,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary* dic = (NSDictionary*)[_activitysList objectAtIndex:indexPath.row];
-
+    chatlive = [[ChatLiveViewController alloc]init];
     chatlive.tribeInfoDict = dic;
     [self.navigationController pushViewController:chatlive animated:NO];
 }

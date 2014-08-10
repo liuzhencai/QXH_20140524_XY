@@ -456,13 +456,6 @@ static int chatInputStartingHeight = 40;
     _myCollectionView.dataSource = nil;
     _myCollectionView = nil;
     
-//    self.opponentImg = nil;
-//    _PicImg = nil;
-    
-//    [_topBar removeFromSuperview];
-//    _topBar = nil;
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
     
     [super removeFromParentViewController];
 }

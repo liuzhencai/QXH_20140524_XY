@@ -48,11 +48,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QXH/ThirdParty/ChatController/ChatRoomController.m"
-            timestampString = "429114848.259321"
+            timestampString = "429272615.164974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1993"
-            endingLineNumber = "1993"
+            startingLineNumber = "1986"
+            endingLineNumber = "1986"
             landmarkName = "-NOHistory:"
             landmarkType = "5">
          </BreakpointContent>
@@ -95,38 +95,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "429106518.256587"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "-recvMsg:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/HomePageModule/Model/MessageBySend.m"
-            timestampString = "429106519.707524"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-recvMsg:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "QXH/PersonalModule/Controller/MyTribeController.m"
             timestampString = "429108060.608729"
             startingColumnNumber = "9223372036854775807"
@@ -143,13 +111,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/Network/DataInterface.m"
-            timestampString = "429199050.895877"
+            filePath = "QXH/ThirdParty/ChatController/ChatController.m"
+            timestampString = "429334441.318204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "549"
-            endingLineNumber = "549"
-            landmarkName = "+recvMessage:userid:withCompletionHandler:"
+            startingLineNumber = "1258"
+            endingLineNumber = "1258"
+            landmarkName = "-ReceiveAndSeeMessige"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -159,45 +127,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QXH/Network/DataInterface.m"
-            timestampString = "429199137.187621"
+            filePath = "QXH/ThirdParty/ChatController/ChatController.m"
+            timestampString = "429334490.420468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
-            landmarkName = "+recvMessage:userid:withCompletionHandler:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/Network/DataInterface.m"
-            timestampString = "429200041.541365"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
-            landmarkName = "+recvMessage:tribeid:type:withCompletionHandler:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QXH/Network/DataInterface.m"
-            timestampString = "429200043.120922"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
-            landmarkName = "+recvMessage:tribeid:type:withCompletionHandler:"
+            startingLineNumber = "1244"
+            endingLineNumber = "1244"
+            landmarkName = "-ReceiveAndSeeMessige"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

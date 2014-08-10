@@ -243,11 +243,7 @@ static int chatInputStartingHeight = 40;
     
     self.opponentImg = nil;
     //    _PicImg = nil;
-    
-    //    [_topBar removeFromSuperview];
-    //    _topBar = nil;
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+
     
     [super removeFromParentViewController];
 }
@@ -1247,7 +1243,8 @@ static int chatInputStartingHeight = 40;
         NSNumber* amessid = ob[@"messid"];
         temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
         if (![temmessid isEqual:@"-1"]) {
-           
+            
+                break;
             if (i== 0) {
               [messid appendString:temmessid];
 
@@ -1259,9 +1256,12 @@ static int chatInputStartingHeight = 40;
     }
 
     NSNumber* aroomid = self.otherDic[@"userid"];
-    if (messid) {
-        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
+    if (temmessid) {
+        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:temmessid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
     }
+//    if (messid) {
+//        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
+//    }
     
 }
 

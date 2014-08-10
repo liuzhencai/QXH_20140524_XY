@@ -220,13 +220,6 @@ static int chatInputStartingHeight = 40;
     _myCollectionView.dataSource = nil;
     _myCollectionView = nil;
     
-    //    self.opponentImg = nil;
-    //    _PicImg = nil;
-    
-    //    [_topBar removeFromSuperview];
-    //    _topBar = nil;
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
     
     [super removeFromParentViewController];
 }
@@ -768,15 +761,15 @@ static int chatInputStartingHeight = 40;
     NSNumber* aroomid = self.tribeInfoDict[@"tribeid"];
     [message setObject:aroomid forKey:@"tribeid"];
     [message setObject:[NSString stringWithFormat:@"%d",[aroomid integerValue]] forKey:@"targetid"];
-    /*2,部落聊天*/
-    [message setObject:@"2" forKey:@"sendtype"];
+    /*14,部落聊天*/
+    [message setObject:@"14" forKey:@"sendtype"];
     /*唯一标识*/
     [message setObject:[NSDate getdate] forKey:@"clientsign"];
     /*发送时签名*/
     [message setObject:[SignGenerator getSign] forKey:@"sign"];
     [message setObject:[NSDate getdate] forKey:@"date"];
     [message setObject:[UserInfoModelManger sharUserInfoModelManger].userInfo.photo forKey:@"senderphoto"];
-    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:message andSendtype:[NSNumber numberWithInt:2] ];
+    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:message andSendtype:[NSNumber numberWithInt:14] ];
     
     /*界面刷新并且发送消息*/
     [self didSendMessage:message];
@@ -1163,7 +1156,7 @@ static int chatInputStartingHeight = 40;
 {
     //    if ([_messagesArray count]==0) {
     /*如果没有消息获取本地的*/
-    NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId andStart:@"0" andcount:@"20" andSendType:@"2"];
+    NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArray:ChatRoomId andStart:@"0" andcount:@"20" andSendType:@"14"];
 //       NSArray* tempArray =  [[MessageBySend sharMessageBySend]getChatRoomMessArrayOld:ChatRoomId];
     if ([tempArray count]) {
         
@@ -1325,7 +1318,7 @@ static int chatInputStartingHeight = 40;
     [date setValue:otherid forKey:@"targetid"];
     [date setObject:aroomid forKey:@"tribeid"];
     /*2,部落聊天*/
-    [date setValue:@"2" forKey:@"sendtype"];
+    [date setValue:@"14" forKey:@"sendtype"];
     /*消息类型 1为文本，2为json对象，3为图片，4为录音*/
     [date setValue:@"3" forKey:@"messtype"];
     NSInteger userid = [[UserInfoModelManger sharUserInfoModelManger].MeUserId integerValue];
@@ -1451,7 +1444,7 @@ static int chatInputStartingHeight = 40;
     date[@"SendState"] = [NSNumber numberWithInt:kSentIng];
     [date setObject:image forKey:kPicContent];
     /*添加进入聊天记录*/
-    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:date andSendtype:[NSNumber numberWithInt:2]];
+    [[MessageBySend sharMessageBySend] addChatRoomMessageByMe:date andSendtype:[NSNumber numberWithInt:14]];
     
     NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
     MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
