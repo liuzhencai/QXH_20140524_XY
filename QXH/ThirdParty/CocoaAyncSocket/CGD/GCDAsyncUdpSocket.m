@@ -1395,7 +1395,8 @@ enum GCDAsyncUdpSocketConfig
 		sockaddr4.sin_len         = sizeof(sockaddr4);
 		sockaddr4.sin_family      = AF_INET;
 		sockaddr4.sin_port        = htons(port);
-		sockaddr4.sin_addr.s_addr = htonl(INADDR_ANY);
+//		sockaddr4.sin_addr.s_addr = htonl(INADDR_ANY);
+        sockaddr4.sin_addr.s_addr = inet_addr([SOCKET_SERVER cStringUsingEncoding:NSUTF8StringEncoding]);
 		
 		struct sockaddr_in6 sockaddr6;
 		memset(&sockaddr6, 0, sizeof(sockaddr6));
@@ -1962,7 +1963,7 @@ enum GCDAsyncUdpSocketConfig
 		}
 		
 		int reuseaddr = 1;
-		status = setsockopt(socket6FD, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(reuseaddr));
+		status = setsockopt(socketFD, SOL_SOCKET, SO_REUSEADDR, &reuseaddr, sizeof(reuseaddr));
 		if (status == -1)
 		{
 			if (errPtr)
