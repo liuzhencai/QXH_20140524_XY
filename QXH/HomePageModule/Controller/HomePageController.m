@@ -36,6 +36,7 @@
 {
     NSArray *pics;
     BOOL flag;
+    NSInteger timeCount;
 }
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -81,6 +82,9 @@
     self.navigationItem.leftBarButtonItem = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAds:) name:@"updateAds" object:nil];
+    
+    timeCount = 0;
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
 }
 
 - (void)updateAds:(NSNotification *)notif
@@ -88,6 +92,7 @@
     NSArray *arr = [notif object];
     _ads = arr;
     _pageControl.numberOfPages = arr.count;
+    [_pageControl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
     _pageControlThree.numberOfPages = arr.count;
     _topScrollfour.contentSize = CGSizeMake(320*arr.count, 132);
     _topScrollthree.contentSize = CGSizeMake(320*arr.count, 132);
@@ -507,4 +512,24 @@
         }];
     }
 }
+
+-(void)pageTurn:(UIPageControl *)aPageControl{
+    int whichPage = aPageControl.currentPage;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [_topScrollthree setContentOffset:CGPointMake(320.0f * whichPage, 0.0f) animated:YES];
+    [_topScrollfour setContentOffset:CGPointMake(320.0f * whichPage, 0.0f) animated:YES];
+    [UIView commitAnimations];
+}
+
+//定时滚动
+-(void)scrollTimer{
+    timeCount ++;
+    if (timeCount == [_ads count]) {
+        timeCount = 0;
+    }
+    [_topScrollthree scrollRectToVisible:CGRectMake(timeCount * 320.0, 65.0, 320.0, 218.0) animated:YES];
+    [_topScrollfour scrollRectToVisible:CGRectMake(timeCount * 320.0, 65.0, 320.0, 218.0) animated:YES];}
+
 @end
