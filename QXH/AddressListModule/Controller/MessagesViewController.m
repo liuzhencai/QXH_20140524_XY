@@ -68,9 +68,9 @@
         NSString *type = @"";
         int sendtype = [[message objectForKey:@"sendtype"] intValue];
         
-        if (sendtype == 0 || sendtype == 3 || sendtype == 4 || sendtype == 12) {
+        if (sendtype == 0 || sendtype == 4 || sendtype == 12) {
             type = @"1";
-        }else if (sendtype == 5 || sendtype == 6 || sendtype == 7 || sendtype == 8 || sendtype == 9 || sendtype == 13){
+        }else if (sendtype == 6 || sendtype == 13){
             type = @"2";
         }
         //messageids

@@ -552,19 +552,31 @@ static MessageBySend* ins =nil;
     
     if ([type isEqualToString:@"1"]) {
         /*私聊*/
-        [DataInterface recvMessage:messigeid userid:tribeid withCompletionHandler:^(NSMutableDictionary*dic){
-            /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
-             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
-             info:"操作成功",		//客户端可以使用该info进行提示
-             sign:"9aldai9adsf"*/
-            NSLog(@"info==%@",dic[@"info"]);
-            NSString* statecode = dic[@"statecode"];
-            //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
+//        [DataInterface recvMessage:messigeid userid:tribeid withCompletionHandler:^(NSMutableDictionary*dic){
+//            /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
+//             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
+//             info:"操作成功",		//客户端可以使用该info进行提示
+//             sign:"9aldai9adsf"*/
+//            NSLog(@"info==%@",dic[@"info"]);
+//            NSString* statecode = dic[@"statecode"];
+//            //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
+//            if ([statecode isEqualToString:@"0200"]) {
+//                
+//                /*未读消息中移除*/
+//                NSLog(@"服务器收到已读通知");
+//                
+//            }
+//        }];
+        
+        [DataInterface recvMessage:messigeid
+                           tribeid:tribeid
+                              type:type
+             withCompletionHandler:^(NSMutableDictionary *dict){
+            NSLog(@"info==%@",dict[@"info"]);
+            NSString* statecode = dict[@"statecode"];
             if ([statecode isEqualToString:@"0200"]) {
-                
                 /*未读消息中移除*/
-                NSLog(@"服务器收到已读通知");
-                
+                NSLog(@"服务器收到已读通知xxx");
             }
         }];
         

@@ -38,7 +38,7 @@
     _posterLabel.text = actInfo.creatername;
     _activityTimeLbl.text = actInfo.signupbegindate;
     _addrLabel.text = actInfo.actaddr;
-    
+    [_picView setImageWithURL:IMGURL(actInfo.photos) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
 }
 
 @end

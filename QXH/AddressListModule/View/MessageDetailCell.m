@@ -116,7 +116,7 @@
 
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
-    NSLog(@"参数：%@",params);
+//    NSLog(@"参数：%@",params);
 
     NSString *imageUrlStr = [params objectForKey:@"senderphoto"];
     [self.headImageView setImageWithURL:IMGURL(imageUrlStr) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];

@@ -381,7 +381,7 @@
         FilterTimeViewController *filterTime = [[FilterTimeViewController alloc] init];
         self.isFilter = YES;
         filterTime.filterTimeCallBack = ^(id object){
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
 //            self.isFilter = NO;
             NSString *dateString = (NSString *)object;
             NSLog(@"筛选条件：%@",dateString);
@@ -394,7 +394,11 @@
     }
 }
 
-- (void)selectActivityWithconditions:(NSString *)beginDate{
+- (void)selectActivityWithconditions:(NSString *)endDate{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    formater.dateFormat = [NSString stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *begigDate = [formater stringFromDate:date];
     [DataInterface getActList:@"0"
                         count:@"20"
                       actname:@""
@@ -405,8 +409,8 @@
                      actstate:@"0"
                        status:@"1"
                       tribeid:@""
-                    begindate:beginDate
-                      enddate:@""
+                    begindate:begigDate
+                      enddate:endDate
         withCompletionHandler:^(NSMutableDictionary *dict){
             self.isFilter = NO;
             NSLog(@"活动列表筛选返回数据:%@",dict);

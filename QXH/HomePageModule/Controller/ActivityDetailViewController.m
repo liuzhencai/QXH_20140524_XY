@@ -268,9 +268,9 @@
                     [signupBtn setTitle:@"报名" forState:UIControlStateNormal];
                     signupBtn.enabled = YES;
                 }
-                if (self.isActivityEnd) {
-                    signupBtn.enabled = NO;
-                }
+//                if (self.isActivityEnd) {
+//                    signupBtn.enabled = NO;
+//                }
                 int status = [[self.activityDict objectForKey:@"status"] intValue];
                 if (status == 2 || status == 3) {//2为审批中的活动，3为审批拒绝的活动
                     shareBtn.enabled = NO;
@@ -298,18 +298,19 @@
 //    [self.navigationController pushViewController:selectCity animated:YES];
 }
 
-- (void)signUp:(id)sender
-{
+- (void)signUp:(id)sender{
     UIButton *btn = (UIButton *)sender;
+    if (self.isActivityEnd) {
+        [self showAlert:@"本活动已结束，不能再报名"];
+        return;
+    }
     btn.selected = !btn.selected;
-    
     NSString *actId = @"";
     if (self.activityId) {
         actId = self.activityId;
     }
 //    if (btn.selected) {
 //        [btn setTitle:@"" forState:UIControlStateNormal];
-//        /**
 //         *  加入/关注活动
 //         *  @param type     1为申请加入，2为关注
 //         *  @param actid    活动唯一标示
@@ -374,8 +375,9 @@
     [WXApi sendReq:req];
 }
 
-- (BOOL)isInFollowers{
-    NSArray *followers = [self.activityDict objectForKey:@"followers"];
+//是否报名
+- (BOOL)isInFollowers{//joins
+    NSArray *followers = [self.activityDict objectForKey:@"joins"];
     BOOL isIn = NO;
     for (int i = 0; i < [followers count]; i ++) {
         NSDictionary *follower = [followers objectAtIndex:i];

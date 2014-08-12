@@ -1236,23 +1236,33 @@ static int chatInputStartingHeight = 40;
      type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
      当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
-    NSString* temmessid = nil;
-    NSMutableString* messid = [[NSMutableString alloc]init];
-    for (int i= [_messagesArray count]-1; i>-1; i--) {
+    NSString* temmessid = @"";
+//    NSMutableString* messid = [[NSMutableString alloc]init];
+//    for (int i= [_messagesArray count]-1; i>-1; i--) {
+//        NSDictionary* ob = [_messagesArray objectAtIndex:i];
+//        NSNumber* amessid = ob[@"messid"];
+//        temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
+//        if (![temmessid isEqual:@"-1"]) {
+//            
+//                break;
+//            if (i== 0) {
+//              [messid appendString:temmessid];
+//
+//            }else{
+//              [messid appendString:[NSString stringWithFormat:@"%@,",temmessid]];
+//            }
+//            
+//        }
+//    }
+    for (int i = 0; i < [_messagesArray count]; i ++) {
         NSDictionary* ob = [_messagesArray objectAtIndex:i];
-        NSNumber* amessid = ob[@"messid"];
-        temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-        if (![temmessid isEqual:@"-1"]) {
-            
-                break;
-            if (i== 0) {
-              [messid appendString:temmessid];
-
-            }else{
-              [messid appendString:[NSString stringWithFormat:@"%@,",temmessid]];
-            }
-            
+        temmessid = [temmessid stringByAppendingString:[NSString stringWithFormat:@"%@",ob[@"messid"]]];
+        if (i != [_messagesArray count] - 1) {
+            temmessid = [temmessid stringByAppendingString:@","];
         }
+//        if (i == [_messagesArray count] - 1) {
+//            temmessid = [temmessid stringByAppendingString:@"xxxx"];
+//        }
     }
 
     NSNumber* aroomid = self.otherDic[@"userid"];
