@@ -1395,8 +1395,8 @@ enum GCDAsyncUdpSocketConfig
 		sockaddr4.sin_len         = sizeof(sockaddr4);
 		sockaddr4.sin_family      = AF_INET;
 		sockaddr4.sin_port        = htons(port);
-//		sockaddr4.sin_addr.s_addr = htonl(INADDR_ANY);
-        sockaddr4.sin_addr.s_addr = inet_addr([SOCKET_SERVER cStringUsingEncoding:NSUTF8StringEncoding]);
+		sockaddr4.sin_addr.s_addr = htonl(INADDR_ANY);
+//        sockaddr4.sin_addr.s_addr = inet_addr([SOCKET_SERVER cStringUsingEncoding:NSUTF8StringEncoding]);
 		
 		struct sockaddr_in6 sockaddr6;
 		memset(&sockaddr6, 0, sizeof(sockaddr6));
