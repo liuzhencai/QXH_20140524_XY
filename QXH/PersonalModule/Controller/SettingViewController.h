@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingViewController : MyViewController<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+{
+    BOOL forceLogout;
+}
 
 @end
