@@ -329,7 +329,7 @@
                   symbolName = "-[FillNameCardViewController submit:]"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/FillNameCardViewController.m"
-                  timestampString = "429156533.027121"
+                  timestampString = "429592965.572966"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "116"
@@ -343,7 +343,7 @@
                   symbolName = "__37-[FillNameCardViewController submit:]_block_invoke"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/AddressListModule/Controller/FillNameCardViewController.m"
-                  timestampString = "429156533.027282"
+                  timestampString = "429592965.573126"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "116"
@@ -637,36 +637,36 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "595"
             endingLineNumber = "595"
-            landmarkName = "-getOfflineMessage"
+            landmarkName = "-ReceiveAndSeeMessige:type:tribeid:"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[MessageBySend getOfflineMessage]"
+                  symbolName = "__51-[MessageBySend ReceiveAndSeeMessige:type:tribeid:]_block_invoke_2"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/HomePageModule/Model/MessageBySend.m"
-                  timestampString = "429156533.036124"
+                  timestampString = "429592965.656943"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "595"
-                  endingLineNumber = "595"
-                  offsetFromSymbolStart = "68">
+                  startingLineNumber = "597"
+                  endingLineNumber = "597"
+                  offsetFromSymbolStart = "245">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__34-[MessageBySend getOfflineMessage]_block_invoke"
+                  symbolName = "__51-[MessageBySend ReceiveAndSeeMessige:type:tribeid:]_block_invoke_2"
                   moduleName = "QXH"
                   urlString = "file:///Users/shenzhouzuche/Desktop/QXH/QXH_20140524_XY/QXH/HomePageModule/Model/MessageBySend.m"
-                  timestampString = "429156533.036275"
+                  timestampString = "429592965.657116"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "595"
-                  endingLineNumber = "595"
-                  offsetFromSymbolStart = "63">
+                  startingLineNumber = "597"
+                  endingLineNumber = "597"
+                  offsetFromSymbolStart = "272">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -764,6 +764,86 @@
             startingLineNumber = "195"
             endingLineNumber = "195"
             landmarkName = "-reloadMessage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Network/HttpServiceEngine.m"
+            timestampString = "429592544.761484"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "-sendData:andMethod:completionHandler:errorHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Network/HttpServiceEngine.m"
+            timestampString = "429592544.761484"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-uploadFile:filename:type:completionHandler:errorHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Network/HttpServiceEngine.m"
+            timestampString = "429592544.761484"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-sendData:andMethod:completionHandler:errorHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Network/HttpServiceEngine.m"
+            timestampString = "429592544.761484"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-sendData:andMethod:completionHandler:errorHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QXH/Network/HttpServiceEngine.m"
+            timestampString = "429592544.761484"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "-uploadFile:filename:type:completionHandler:errorHandler:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

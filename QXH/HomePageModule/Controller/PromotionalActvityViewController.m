@@ -10,7 +10,6 @@
 #import "DatePickerView.h"
 #import "YSKeyboardTableView.h"
 
-
 @interface PromotionalActvityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic, strong) UIScrollView *mainScroll;
 
@@ -161,45 +160,45 @@
 - (void)submit:(UIButton *)sender{
     NSLog(@"submit");
     //活动名称
-    if([self.name.text length] <= 0){
-        [self showAlert:@"请输入活动名称"];
-        return;
-    }
-    //活动地点
-    if([self.place.text length] <= 0){
-        [self showAlert:@"请输入活动地点"];
-        return;
-    }
-    //活动来源
-    if([self.comeFrom.text length] <= 0){
-        [self showAlert:@"请输入活动来源"];
-        return;
-    }
-    //活动开始时间
-    if([self.startTime.text length] <= 0){
-        [self showAlert:@"请选择活动开始时间"];
-        return;
-    }
-    //活动结束时间
-    if([self.endTime.text length] <= 0){
-        [self showAlert:@"请选择活动结束时间"];
-        return;
-    }
-    //活动类型
-    if([self.type.text length] <= 0){
-        [self showAlert:@"请选择活动类型"];
-        return;
-    }
-    //活动报名截止时间
-    if([self.cutOffTime.text length] <= 0){
-        [self showAlert:@"请选择活动报名截止时间"];
-        return;
-    }
-    //活动人数限制
-    if([self.limitCount.text length] <= 0){
-        [self showAlert:@"请输入活动限制人数"];
-        return;
-    }
+//    if([self.name.text length] <= 0){
+//        [self showAlert:@"请输入活动名称"];
+//        return;
+//    }
+//    //活动地点
+//    if([self.place.text length] <= 0){
+//        [self showAlert:@"请输入活动地点"];
+//        return;
+//    }
+//    //活动来源
+//    if([self.comeFrom.text length] <= 0){
+//        [self showAlert:@"请输入活动来源"];
+//        return;
+//    }
+//    //活动开始时间
+//    if([self.startTime.text length] <= 0){
+//        [self showAlert:@"请选择活动开始时间"];
+//        return;
+//    }
+//    //活动结束时间
+//    if([self.endTime.text length] <= 0){
+//        [self showAlert:@"请选择活动结束时间"];
+//        return;
+//    }
+//    //活动类型
+//    if([self.type.text length] <= 0){
+//        [self showAlert:@"请选择活动类型"];
+//        return;
+//    }
+//    //活动报名截止时间
+//    if([self.cutOffTime.text length] <= 0){
+//        [self showAlert:@"请选择活动报名截止时间"];
+//        return;
+//    }
+//    //活动人数限制
+//    if([self.limitCount.text length] <= 0){
+//        [self showAlert:@"请输入活动限制人数"];
+//        return;
+//    }
     
     if (self.headImage) {
         /**
@@ -223,14 +222,14 @@
     }
 }
 
-- (void)showAlert:(NSString *)msg{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:msg
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"确定",nil];
-    [alert show];
-}
+//- (void)showAlert:(NSString *)msg{
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                    message:msg
+//                                                   delegate:self
+//                                          cancelButtonTitle:nil
+//                                          otherButtonTitles:@"确定",nil];
+//    [alert show];
+//}
 
 - (void)submitIsHaveHeadImage:(BOOL)isImage{
     /**
@@ -253,6 +252,18 @@
      *  @param enddate         活动结束时间
      *  @param callback        回调
      */
+    /*测试数据
+    self.name.text = @"xxxxx";
+    self.type.text = @"gogo";
+    self.comeFrom.text = @"xxxb";
+    self.activityDes.text = @"nidaye";
+    self.place.text = @"china";
+    self.cutOffTime.text = @"2014-08-15 11:02:53";
+    self.startTime.text = @"2014-08-26 11:02:49";
+    self.endTime.text = @"2014-10-01 11:02:43";
+    self.limitCount.text = @"45";
+     */
+    
     NSString *imageUrl = @"";
     if (isImage) {
         imageUrl = self.imagePath;
@@ -663,19 +674,6 @@
         UIImage *image = [UIImage imageWithData:data];
         self.headImage = image;
         [self resetView];//图片上传成功才能创建活动
-
-//        [DataInterface fileUpload:image
-//                             type:@"1"
-//            withCompletionHandler:^(NSMutableDictionary *dict){
-//                NSLog(@"上传图片返回值%@",dict);
-//                self.imagePath = [dict objectForKey:@"filename"];
-//                [self showAlert:[dict objectForKey:@"info"]];
-//                [self resetView];//图片上传成功才能创建活动
-//        }
-//                       errorBlock:^(NSString *desc) {
-//                           NSLog(@"上传图片错误：%@",desc);
-//                           [self showAlert:desc];
-//        }];
         
     }
     [picker dismissViewControllerAnimated:YES completion:nil];

@@ -94,6 +94,17 @@ static HttpServiceEngine *httpEngine;
  completionHandler:(DataProcessBlock) completionBlock
       errorHandler:(MKNKErrorBlock) errorBlock
 {
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    if (!progressHUD) {
+        progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
+        progressHUD.animationType = MBProgressHUDAnimationFade;
+        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+        progressHUD.labelText = @"加载中...";
+    }
+    
+    [keyWindow addSubview:progressHUD];
+    [progressHUD show:YES];
+    
     __block __weak MKNetworkOperation *op = nil;
     NSDictionary *tmpParam = @{@"opercode": @"0141", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type};
     NSString *fileType = nil;
@@ -126,9 +137,11 @@ static HttpServiceEngine *httpEngine;
     
     [op addCompletionHandler:^(MKNetworkOperation* completedOperation) {
         [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
+            [progressHUD hide:YES];
             completionBlock(op.HTTPStatusCode,jsonObject);
         }];
     }errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
+        [progressHUD hide:YES];
         errorBlock(error);
     }];
     [self enqueueOperation:op];
