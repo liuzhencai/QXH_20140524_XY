@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"消息提醒";
     UISwitch *remindSwitch = (UISwitch *)[self.view viewWithTag:1];
     remindSwitch.on = [[defaults objectForKey:@"enableRemind"] boolValue];
     if (remindSwitch.on) {

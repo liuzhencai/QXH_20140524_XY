@@ -14,8 +14,12 @@
 #import "AboutViewController.h"
 #import "MessageBySend.h"
 #import "UserInfoModelManger.h"
+#import "MBProgressHUD.h"
 
 @interface SettingViewController ()
+{
+    MBProgressHUD *progressHUD;
+}
 
 @end
 
@@ -233,6 +237,7 @@
 
 - (void)logoutAction
 {
+    [progressHUD hide:YES];
     if ([defaults objectForKey:USER_NAME]) {
         [defaults removeObjectForKey:USER_NAME];
     }
@@ -246,7 +251,11 @@
         [defaults removeObjectForKey:@"token"];
     }
     [defaults synchronize];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"退出成功！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:@"退出成功！"
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil];
     alert.tag = 1113;
     [alert show];
 }
@@ -261,6 +270,13 @@
 - (void)logout:(id)sender
 {
     NSLog(@"注销");
+    progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    progressHUD.animationType = MBProgressHUDAnimationFade;
+    progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+    progressHUD.labelText = @"加载中...";
+    [self.view addSubview:progressHUD];
+    [progressHUD show:YES];
+    
     [self performSelector:@selector(timeoutForceLogout) withObject:nil afterDelay:30.f];
     [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
         forceLogout = YES;

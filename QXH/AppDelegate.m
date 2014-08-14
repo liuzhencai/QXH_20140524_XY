@@ -185,7 +185,14 @@
 ////        UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
 ////        self.window.rootViewController = loginNavigation;
 //    }
-    
+    //初始化消息提醒
+    [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"enableRemind"];
+    [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"enableRing"];
+    [defaults setObject:[NSNumber numberWithBool:NO] forKey:@"enableShake"];
+
+//    remindSwitch.on = [[defaults objectForKey:@"enableRemind"] boolValue];
+//    ringSwitch.on = [[defaults objectForKey:@"enableRing"] boolValue];
+//    shakeSwitch.on = [[defaults objectForKey:@"enableShake"] boolValue];
     
     [self loadPages];
     
