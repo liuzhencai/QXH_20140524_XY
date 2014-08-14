@@ -542,9 +542,10 @@ static MessageBySend* ins =nil;
      2、进行该操作同事，删除本地离线消息
      */
     /*如果是自己发送的就不用发消息刷新界面了*/
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+
     NSLog(@"向服务器发送已读通知");
     [unKnowCharMessDic removeObjectForKey:tribeid];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
     if ([[unKnowCharMessDic allKeys]count]==0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NoChatMessInfo" object:nil userInfo:unKnowCharMessDic];
         
