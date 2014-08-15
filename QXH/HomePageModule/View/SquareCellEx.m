@@ -49,12 +49,18 @@
     _infoModel = model.content;
     [_portraitView setImageWithURL:IMGURL(model.uphoto) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     [_portraitView circular];
+    float heightX = 0;
     if ([model.refsign length] < 50) {
         _detailLabel.hidden = YES;
         _commentLabel.text = model.refsign;
+        heightX =51- [SquareCellEx labelhight:model];
+        [_commentLabel setFrame:CGRectMake(70, 35, 234, [SquareCellEx labelhight:model])];
+        [_bomView setFrame:CGRectMake(70, 97-heightX, 234, 63)];
     }else{
-        _contentLabel.text = [[model.refsign substringToIndex:50] stringByAppendingString:@"..."];
+        _commentLabel.text = [[model.refsign substringToIndex:50] stringByAppendingString:@"..."];
         _detailLabel.hidden = NO;
+        [_commentLabel setFrame:CGRectMake(70, 29, 234, 51)];
+        [_bomView setFrame:CGRectMake(70, 97, 234, 63)];
     }
     _nameLabel.text = model.uname;
     _dateLabel.text = [model.date substringToIndex:10];
@@ -62,10 +68,32 @@
         _contentLabel.text = _infoModel.title;
         [_subImageView setImageWithURL:IMGURL(_infoModel.artimgs)];
     }else{
-        _contentLabel.text = _infoModel.content;
+        _contentLabel.text = _infoModel.title;
         [_subImageView setImageWithURL:IMGURL(_infoModel.sphoto)];
     }
 
 }
 
++ (float)height:(SquareInfo *)model
+{
+    float heightX = 0;
+    if ([model.refsign length] < 50) {
+
+        
+      heightX =51- [SquareCellEx labelhight:model];
+    }
+    return (168-heightX);
+}
+
++ (float)labelhight:(SquareInfo *)model
+{
+    UILabel* temlabel = [[UILabel alloc]init];
+    temlabel.text = model.refsign;
+    temlabel.numberOfLines = 0;
+    temlabel.lineBreakMode = NSLineBreakByWordWrapping;
+    UIFont* font = [UIFont systemFontOfSize:13.f];
+    CGSize size = CGSizeMake(234,2000);
+    CGSize labelsize = [model.refsign sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    return labelsize.height;
+}
 @end

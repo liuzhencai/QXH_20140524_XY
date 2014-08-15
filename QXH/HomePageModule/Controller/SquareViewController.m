@@ -246,15 +246,19 @@
     switch (model.type) {
         case 1:
         {
+            //发布动态
             InfoModel *tmpModel = (InfoModel *)model.content;
             NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
-            static NSString *cellIdentifier = @"squareCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            if (cell==nil) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:nil options:nil] objectAtIndex:0];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            static NSString *cellIdentifier = @"SquareCell";
+         SquareCell*  cell1 = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell1==nil) {
+                cell1 = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:self options:nil] lastObject];
+                cell1.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-            [(SquareCell *)cell setCellData:model];
+        
+            [(SquareCell *)cell1 setCellData:model];
+            return  cell1;
+            
         }
             break;
         case 2:
@@ -270,6 +274,7 @@
             break;
         case 5:
         {
+            //转发文章
             static NSString *cellIdentifier = @"squareCellEx";
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
@@ -281,6 +286,7 @@
             break;
         case 3:
         {
+            /*转发活动*/
             static NSString *cellIdentifier = @"squareActivityCell";
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
@@ -337,18 +343,30 @@
     InfoModel *tmpModel = (InfoModel *)model.content;
     switch (model.type) {
         case 1:
+        {
             if ([tmpModel.artimgs isEqualToString:@""]) {
                 rowHeight = 100.f;
             }else{
-                rowHeight = 162.f;
+                
+                rowHeight =   [SquareCell height:model];
+                //                rowHeight = 162.f;
             }
+        }
             break;
         case 2:
         case 5:
-            rowHeight = 162.f;
+        {
+          rowHeight = [SquareCellEx height:model];
+//            rowHeight = 162.f;
+        }
+
             break;
         case 3:
-            rowHeight = 201.f;
+        {
+          rowHeight = [SquareActivityCell height:model];
+        }
+            
+//           rowHeight = 201.f;
             break;
         case 4:
             rowHeight = 82.f;

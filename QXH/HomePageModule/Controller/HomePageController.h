@@ -11,6 +11,7 @@
 @interface HomePageController : MyViewController<UIScrollViewDelegate>
 {
     NSInteger icout;
+    BOOL scroll;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *topView;

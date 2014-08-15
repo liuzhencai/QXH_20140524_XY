@@ -233,7 +233,9 @@
 
 - (void)distributeSquareInfo:(NSString *)artimgs
 {
-    [DataInterface distributeInfo:@"" tags:@"" type:@"1" artimgs:artimgs arttype:@"" content:_contentField.text withCompletionHandler:^(NSMutableDictionary *dict) {
+    [_contentField resignFirstResponder];
+    NSString* string = _contentField.text;
+    [DataInterface distributeInfo:@"" tags:@"" type:@"1" artimgs:artimgs arttype:@"" content:string withCompletionHandler:^(NSMutableDictionary *dict) {
         _distributeBtn.userInteractionEnabled = YES;
         NSString *stateCode = [NSString stringWithFormat:@"%@",[dict objectForKey:@"statecode"]];
         if ([stateCode isEqualToString:@"0200"]) {
@@ -354,9 +356,23 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    int lengthLimit = 140;
+    if (lengthLimit && textField.text.length >= lengthLimit) {
+        return NO;
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     return [textField resignFirstResponder];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_contentField resignFirstResponder];
+}
 @end

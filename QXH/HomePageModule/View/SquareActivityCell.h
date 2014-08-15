@@ -4,7 +4,7 @@
 //
 //  Created by xuey on 14-6-5.
 //  Copyright (c) 2014年 ZhaoLilong. All rights reserved.
-//
+//  转发活动
 
 #import <UIKit/UIKit.h>
 #import "SquareInfo.h"
@@ -23,7 +23,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *addrLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *picView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIView *bomview;
 
 - (void)setCellData:(SquareInfo *)model;
-
+/*计算高度*/
++ (float)height:(SquareInfo *)model;
 @end

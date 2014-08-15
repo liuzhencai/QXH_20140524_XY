@@ -16,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 - (void)setCellData:(SquareInfo *)model;
+/*计算高度*/
++ (float)height:(SquareInfo *)model;
 
 @end

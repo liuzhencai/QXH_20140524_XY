@@ -84,7 +84,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAds:) name:@"updateAds" object:nil];
     
     timeCount = 0;
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
 }
 
 - (void)updateAds:(NSNotification *)notif
@@ -525,11 +525,21 @@
 
 //定时滚动
 -(void)scrollTimer{
-    timeCount ++;
-    if (timeCount == [_ads count]) {
-        timeCount = 0;
-    }
-    [_topScrollthree scrollRectToVisible:CGRectMake(timeCount * 320.0, 65.0, 320.0, 218.0) animated:YES];
-    [_topScrollfour scrollRectToVisible:CGRectMake(timeCount * 320.0, 65.0, 320.0, 218.0) animated:YES];}
-
+    
+    if (timeCount == [_ads count]-1)
+        scroll = YES;
+    else if (timeCount == 0)
+        scroll = NO;
+    
+    if (scroll)
+        timeCount--;
+    else
+        timeCount++;
+        
+    if (iPhone5)
+        [_topScrollfour scrollRectToVisible:CGRectMake(timeCount * 320.0, 65.0, 320.0, 218.0) animated:YES];
+    else
+        [_topScrollthree scrollRectToVisible:CGRectMake(timeCount * 320.0, 65.0, 320.0, 218.0) animated:YES];
+    
+}
 @end
