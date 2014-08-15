@@ -55,12 +55,12 @@
         _commentLabel.text = model.refsign;
         heightX =51- [SquareCellEx labelhight:model];
         [_commentLabel setFrame:CGRectMake(70, 35, 234, [SquareCellEx labelhight:model])];
-        [_bomView setFrame:CGRectMake(70, 97-heightX, 234, 63)];
+        [_bomView setFrame:CGRectMake(70, 97-heightX - 10, 234, 63)];
     }else{
         _commentLabel.text = [[model.refsign substringToIndex:50] stringByAppendingString:@"..."];
         _detailLabel.hidden = NO;
         [_commentLabel setFrame:CGRectMake(70, 29, 234, 51)];
-        [_bomView setFrame:CGRectMake(70, 97, 234, 63)];
+        [_bomView setFrame:CGRectMake(70, 97 - 10, 234, 63)];
     }
     _nameLabel.text = model.uname;
     _dateLabel.text = [model.date substringToIndex:10];
@@ -82,7 +82,7 @@
         
       heightX =51- [SquareCellEx labelhight:model];
     }
-    return (168-heightX);
+    return (168-heightX - 10);
 }
 
 + (float)labelhight:(SquareInfo *)model
