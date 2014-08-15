@@ -87,7 +87,7 @@ withFilterContext:(id)filterContext
 //    if (!isSuccess) {
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
         returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
-        DebugLog(@"接受到系统消息==%@",returnValue);
+//        DebugLog(@"接受到系统消息==%@",returnValue);
         if (returnValue) {
 //            isSuccess = YES;
             if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
