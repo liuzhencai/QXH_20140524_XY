@@ -14,6 +14,7 @@
 #import "PullRefreshTableViewController.h"
 #import "SNImagePickerNC.h"
 #import "MBProgressHUD.h"
+#import "MessageBySend.h"
 
 
 // Message Dictionary Keys (defined in MessageCell)
@@ -23,7 +24,7 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 //FOUNDATION_EXPORT NSString * const kMessageTimestamp;
 
 
-@interface ChatLiveViewController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
+@interface ChatLiveViewController : MyViewController <UICollectionViewDataSource, UICollectionViewDelegate, TopBarDelegate, ChatInputDelegate,CustomSegmentControlDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,SNImagePickerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,MessageBySendDelegate>
 
 {
         MBProgressHUD* progressHUD;
@@ -91,5 +92,5 @@ FOUNDATION_EXPORT NSString * const kMessageSentBy;
 
 - (id)initWithCustomView:(UIView *)customView;
 
-
+- (void)NoHistory;
 @end

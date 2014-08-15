@@ -14,6 +14,7 @@
 
 @implementation MessageBySend
 static MessageBySend* ins =nil;
+@synthesize delegate;
 
 //@synthesize delegate;
 
@@ -214,8 +215,18 @@ static MessageBySend* ins =nil;
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         if (![tempSenderId isEqualToString:meid]) {
             [self AddSystemMessAyyay:notif];
+        }
+    }
+    
+    if ([bsendtype isEqualToString:@"13"]) {
+        NSLog(@"info:%@",notif);
+        NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
+        NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
+        NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+        if (![tempSenderId isEqualToString:meid]) {
+            [self AddSystemMessAyyay:notif];
             /*如果是自己发送的就不用发消息刷新界面了*/
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
+            //            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
         }
     }
 }
@@ -451,7 +462,7 @@ static MessageBySend* ins =nil;
         /*如果正在获取离线消息就不用发消息刷新界面了*/
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
     }
-    else if ([bsendtype isEqualToString:@"2"]){
+    else if ([bsendtype isEqualToString:@"2"]/*|| [bsendtype isEqualToString:@"13"]*/){
         /*部落聊天*/
         /*
          chatRoomMess每一个元素是一个聊天室数组tempchatroomArray，通过tribeid查找
@@ -883,8 +894,11 @@ static MessageBySend* ins =nil;
             [hisStatDic setValue:start forKey:atargetid];
             if ([tempArray count]==0) {
                 NSDictionary* noUser = [[NSDictionary alloc]initWithObjectsAndKeys:atargetid,@"targetid", nil];
-                /*没有历史记录*/
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
+//                /*没有历史记录*/
+//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
+                if (delegate && [delegate respondsToSelector:@selector(NoHistory)]) {
+                    [delegate NoHistory];
+                }
             }else{
                 /*内存中只存储40个*/
                 if ( arraycount>=40) {
@@ -902,7 +916,10 @@ static MessageBySend* ins =nil;
             if (Instart<=40) {
                 NSDictionary* noUser = [[NSDictionary alloc]initWithObjectsAndKeys:atargetid,@"targetid", nil];
                 /*没有历史记录*/
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
+                if (delegate && [delegate respondsToSelector:@selector(NoHistory)]) {
+                    [delegate NoHistory];
+                }
             }else{
                 /*上啦刷新*/
                 if (arraycount >=20) {

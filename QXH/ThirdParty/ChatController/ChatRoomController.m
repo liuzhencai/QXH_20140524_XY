@@ -231,9 +231,9 @@ static int chatInputStartingHeight = 40;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoom:) name:@"reloadeChatRoom" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoomAll:) name:@"reloadeChatRoomAll" object:nil];
-    
-    /*没有历史记录*/
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
+    [MessageBySend sharMessageBySend].delegate =self;
+//    /*没有历史记录*/
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -1327,7 +1327,7 @@ static int chatInputStartingHeight = 40;
                          district:@""
                           canjoin:@"0"
                          actstate:@"0"
-                           status:@"0"
+                           status:@"1"
                           tribeid:ChatRoomId
                         begindate:@""
                           enddate:@""
@@ -1884,7 +1884,7 @@ static int chatInputStartingHeight = 40;
     [_chatInput.textView resignFirstResponder];
     [[MessageBySend sharMessageBySend] hideprogressHUD];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
+    [MessageBySend sharMessageBySend].delegate =nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.navigationController popViewControllerAnimated:YES];
 
@@ -1979,17 +1979,27 @@ static int chatInputStartingHeight = 40;
 #pragma mark 没有历史记录
 - (void)NOHistory:(NSNotification*)chatmessage
 {
-      NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
-    NSString* targetid = [auserinfo valueForKey:@"targetid"];
-   
-    if ([targetid isEqual:ChatRoomId]) {
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-        [alert show];
-        // 结束刷新
-        [_myCollectionView headerEndRefreshing];
-    }
+//      NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
+//    NSString* targetid = [auserinfo valueForKey:@"targetid"];
+//   
+//    if ([targetid isEqual:ChatRoomId]) {
+//        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+//        [alert show];
+//        // 结束刷新
+//        [_myCollectionView headerEndRefreshing];
+//    }
 //    [self showAlert:@"已经没有历史记录！"];
 
     
+}
+
+- (void)NoHistory
+{
+    // 结束刷新
+    [_myCollectionView headerEndRefreshing];
+    UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+    [alert show];
+    
+
 }
 @end

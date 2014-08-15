@@ -76,7 +76,7 @@
     NSMutableDictionary* haveSeeOffline;
 }
 
-//@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
+@property(nonatomic,assign)id<MessageBySendDelegate>delegate;
 
 +(MessageBySend*)sharMessageBySend;
 

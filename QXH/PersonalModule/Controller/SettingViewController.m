@@ -277,7 +277,8 @@
     [self.view addSubview:progressHUD];
     [progressHUD show:YES];
     
-    [self performSelector:@selector(timeoutForceLogout) withObject:nil afterDelay:30.f];
+    /*改为5秒吧，30秒太长了，用户等不了*/
+    [self performSelector:@selector(timeoutForceLogout) withObject:nil afterDelay:5.f];
     [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
         forceLogout = YES;
         [self logoutAction];

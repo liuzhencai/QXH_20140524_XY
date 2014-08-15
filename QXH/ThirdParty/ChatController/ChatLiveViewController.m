@@ -176,9 +176,9 @@ static int chatInputStartingHeight = 40;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoomAll:) name:@"reloadeChatRoomAll" object:nil];
     /*没有历史记录*/
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
     
-    
+      [MessageBySend sharMessageBySend].delegate =self;
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -1485,6 +1485,7 @@ static int chatInputStartingHeight = 40;
 -(void)popForwardBack
 {
     [_chatInput.textView resignFirstResponder];
+    [MessageBySend sharMessageBySend].delegate =nil;
     /*同时临时退出部落*/
     [DataInterface leaveOneDream:ChatRoomId withCompletionHandler:^(NSMutableDictionary* dic){
         NSLog(@"临时退出部落==%@",dic);
@@ -1554,11 +1555,19 @@ static int chatInputStartingHeight = 40;
 {
     //    [_myCollectionView reloadData];
     // 结束刷新
+//    [_myCollectionView headerEndRefreshing];
+////    [self showAlert:@"已经没有历史记录！"];
+//    UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+//    [alert show];
+    
+    
+}
+
+- (void)NoHistory
+{
+    // 结束刷新
     [_myCollectionView headerEndRefreshing];
-//    [self showAlert:@"已经没有历史记录！"];
     UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
     [alert show];
-    
-    
 }
 @end
