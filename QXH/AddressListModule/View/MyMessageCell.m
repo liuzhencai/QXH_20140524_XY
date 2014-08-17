@@ -110,7 +110,7 @@
         params = [tempArray lastObject];
         NSNumber* acount = params[@"count"];
         int sendType = [[params objectForKey:@"sendtype"] intValue];
-        if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){
+        if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 /*|| sendType == 13*/){
             int count = 0;
             for (int i = 0; i < [tempArray count]; i ++) {
                 NSDictionary *newDict = [tempArray objectAtIndex:i];
@@ -271,6 +271,8 @@
         NSString *descString = [NSString stringWithFormat:@"%@ 分享了活动“%@”",[params objectForKey:@"sendername"],[messages objectForKey:@"actname"]];
         self.duty.text = descString;
         self.date.text = [params objectForKey:@"date"];
+        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     }
 //    NSString *imageUrlString = [params objectForKey:@"senderphoto"];
 //    [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
