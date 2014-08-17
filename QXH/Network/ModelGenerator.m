@@ -238,6 +238,11 @@
         info.uphoto = [list[i] objectForKey:@"uphoto"];
         info.usign = [list[i] objectForKey:@"usign"];
         info.uduty = [list[i] objectForKey:@"uduty"];
+        if ([[list[i] objectForKey:@"type"] integerValue] == 5) {
+            if (![subDict objectForKey:@"artid"]) {
+                break;
+            }
+        }
         [array addObject:info];
     }
     return array;

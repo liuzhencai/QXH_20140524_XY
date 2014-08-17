@@ -649,7 +649,7 @@
 {
     InfoModel *tmpModel = (InfoModel *)_info.content;
     if (self.type == SquareInfoTypeTrans) {
-        [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",2] artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
+        [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",2] artid:_info.refsign withCompletionHandler:^(NSMutableDictionary *dict) {
             browseDict = dict;
             [_contentTable reloadData];
             [self resetToolBar];

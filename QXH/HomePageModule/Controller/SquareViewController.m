@@ -250,13 +250,14 @@
             InfoModel *tmpModel = (InfoModel *)model.content;
             NSLog(@"name--->%@,artImage--->%@",tmpModel.sname, tmpModel.artimgs);
             static NSString *cellIdentifier = @"SquareCell";
-         SquareCell*  cell1 = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            SquareCell*  cell1 = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell1==nil) {
                 cell1 = [[[NSBundle mainBundle] loadNibNamed:@"SquareCell" owner:self options:nil] lastObject];
                 cell1.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-        
-            [(SquareCell *)cell1 setCellData:model];
+            if (tmpModel) {
+                [(SquareCell *)cell1 setCellData:model];
+            }
             return  cell1;
             
         }
@@ -344,12 +345,14 @@
     switch (model.type) {
         case 1:
         {
-            if ([tmpModel.artimgs isEqualToString:@""]) {
-                rowHeight = 100.f;
-            }else{
-                
-                rowHeight =   [SquareCell height:model];
-                //                rowHeight = 162.f;
+            if (tmpModel.content) {
+                if ([tmpModel.artimgs isEqualToString:@""]) {
+                    rowHeight = 100.f;
+                }else{
+                    
+                    rowHeight =   [SquareCell height:model];
+                    //                rowHeight = 162.f;
+                }
             }
         }
             break;

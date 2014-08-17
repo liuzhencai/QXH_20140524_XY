@@ -43,7 +43,7 @@
         [_bomview setFrame:CGRectMake(70, 57, 242, 115)];
     }
     
-    _dateLabel.text = model.date;
+    _dateLabel.text = [model.date substringToIndex:10];
     _activityTitle.text = actInfo.actname;
     _sourceLabel.text = actInfo.comefrom;
   
