@@ -441,11 +441,6 @@
             NSDictionary *dict = [self.myMessageList objectAtIndex:indexPath.row];
             myMsgCell.lastMessages = self.lastMessages;
             [myMsgCell resetCellParamDict:dict];
-//        NSInteger arow = indexPath.row;
-//        if ([self.myMessageList count]) {
-//            NSMutableArray* temparray = (NSMutableArray*)[self.myMessageList objectAtIndex:arow];
-////            NSDictionary *dict = 
-//            [myMsgCell resetCellParamDict:temparray];
         }
 
         cell = myMsgCell;
@@ -533,27 +528,11 @@
                     chat.otherDic = tempdic;
                      [self.navigationController pushViewController:chat animated:NO];
                     
-//                    /*如果count值大于数组个数，则有离线消息*/
-//                    NSNumber* acount = [message valueForKey:@"count"];
-//                    NSInteger bcount = [acount integerValue];
-//                    if (bcount >=[temp count]) {
-//                        /*获取所有离线消息*/
-//                        NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]init];
-//                        [tempdic setValue:atribeid forKey:@"targetid"];
-//                        [tempdic setValue:@"0" forKey:@"start"];
-//                        
-//                        [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
-//                        /*添加离线消息*/
-//                        chat.offMessageDic = tempdic;
-////                        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"1"];
-//                    }
-                   
+
                 }];
-//                if (chat.otherDic) {
-//                     [self.navigationController pushViewController:chat animated:NO];
-//                }
   
-            }else if([bsendtype isEqualToString:@"2"])
+            }
+            else if([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"13"])
             {
                 NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"tribeid"];
                 NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
@@ -581,10 +560,34 @@
                     
                     [self.navigationController pushViewController:chatroom animated:NO];
                 }];
-                
-      
- 
-            }else{
+            }
+//            else if([bsendtype isEqualToString:@"13"]){
+//                NSNumber* ntribeid = (NSNumber*)[message valueForKey:@"tribeid"];
+//                NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+//                [DataInterface getTribeInfo:atribeid withCompletionHandler:^(NSMutableDictionary* dic){
+//                    /*部落聊天*/
+//                    chatroom = [[ChatRoomController alloc]init];
+//                    NSMutableDictionary* tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
+//                    tempdic[@"tribeid"] = ntribeid;
+//                    chatroom.tribeInfoDict = tempdic;
+//                    
+//                    /*如果count值大于数组个数，则存在离线消息*/
+//                    NSNumber* acount = [message valueForKey:@"count"];
+//                    NSInteger bcount = [acount integerValue];
+//                    //                    if (bcount >=[temp count]) {
+//                    /*获取所有离线消息*/
+//                    //                        NSMutableDictionary* atempdic = [[NSMutableDictionary alloc]init];
+//                    [tempdic setValue:atribeid forKey:@"targetid"];
+//                    [tempdic setValue:@"0" forKey:@"start"];
+//                    
+//                    [tempdic setValue:[NSString stringWithFormat:@"%d",[acount integerValue]] forKey:@"count"];
+//                    chatroom.offMessageDic = tempdic;
+//                    //                        [[MessageBySend sharMessageBySend]getMessageHistory:tempdic andSendtype:@"2"];
+//                    //                    }
+//                    [self.navigationController pushViewController:chatroom animated:NO];
+//                }];
+//            }
+            else{
                 MessagesViewController *messages = [[MessagesViewController alloc] init];
                 messages.delegate = self;
                 messages.messagesList = [self.myMessageList objectAtIndex:indexPath.row];

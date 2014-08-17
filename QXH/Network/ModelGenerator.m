@@ -182,53 +182,81 @@
     for (int i = 0; i < [list count]; i++) {
         SquareInfo *info = [[SquareInfo alloc] init];
         NSDictionary *subDict = [list[i] objectForKey:@"content"];
-        switch ([[list[i] objectForKey:@"type"] integerValue]) {
-            case 0:
-            case 1:
-            case 2:
-            case 4:
-            case 5:
-            {
-                InfoModel *model = [[InfoModel alloc] init];
-                model.artid = [subDict objectForKey:@"artid"];
-                model.sid = [subDict objectForKey:@"sid"];
-                model.sname = [subDict objectForKey:@"sname"];
-                model.sphoto = [subDict objectForKey:@"sphoto"];
-                model.date = [subDict objectForKey:@"date"];
-                model.title = [subDict objectForKey:@"title"];
-                model.artimgs = [subDict objectForKey:@"artimgs"];
-                model.content = [subDict objectForKey:@"content"];
-                model.authflag = [subDict objectForKey:@"authflag"];
-                model.browsetime = [subDict objectForKey:@"browsetime"];
-                model.contentlength = [[subDict objectForKey:@"contentlength"] integerValue];
-                info.content = model;
+        if (subDict) {
+            /*
+             有时服务器返回这样数据
+             {
+             date = "2014-08-15 23:51:47";
+             psid = 315;
+             refsign = "";
+             type = 1;
+             uduty = "";
+             uid = 29;
+             uname = "";
+             uphoto = "";
+             usign = "";
+             }
+             */
+            
+            switch ([[list[i] objectForKey:@"type"] integerValue]) {
+                case 0:
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                {
+                    InfoModel *model = [[InfoModel alloc] init];
+                    model.artid = [subDict objectForKey:@"artid"];
+                    model.sid = [subDict objectForKey:@"sid"];
+                    model.sname = [subDict objectForKey:@"sname"];
+                    model.sphoto = [subDict objectForKey:@"sphoto"];
+                    model.date = [subDict objectForKey:@"date"];
+                    model.title = [subDict objectForKey:@"title"];
+                    model.artimgs = [subDict objectForKey:@"artimgs"];
+                    model.content = [subDict objectForKey:@"content"];
+                    model.authflag = [subDict objectForKey:@"authflag"];
+                    model.browsetime = [subDict objectForKey:@"browsetime"];
+                    model.contentlength = [[subDict objectForKey:@"contentlength"] integerValue];
+                    info.content = model;
+                }
+                    break;
+                case 3:
+                {
+                    SquareActInfo *model = [[SquareActInfo alloc] init];
+                    model.actid = [subDict objectForKey:@"actid"];
+                    model.actname = [subDict objectForKey:@"actname"];
+                    model.photos = [subDict objectForKey:@"photos"];
+                    model.signupbegindate = [subDict objectForKey:@"signupbegindate"];
+                    model.signupenddate = [subDict objectForKey:@"signupenddate"];
+                    model.begindate = [subDict objectForKey:@"begindate"];
+                    model.enddate = [subDict objectForKey:@"enddate"];
+                    model.actaddr = [subDict objectForKey:@"actaddr"];
+                    model.maxcount = [subDict objectForKey:@"maxcount"];
+                    model.nowcount =  [subDict objectForKey:@"nowcount"];
+                    model.folcount = [subDict objectForKey:@"focount"];
+                    model.comefrom = [subDict objectForKey:@"comefrom"];
+                    model.creatername = [subDict objectForKey:@"creatername"];
+                    model.tags = [subDict objectForKey:@"tags"];
+                    model.desc = [subDict objectForKey:@"desc"];
+                    model.acttype = [subDict objectForKey:@"acttype"];
+                    info.content = model;
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            case 3:
-            {
-                SquareActInfo *model = [[SquareActInfo alloc] init];
-                model.actid = [subDict objectForKey:@"actid"];
-                model.actname = [subDict objectForKey:@"actname"];
-                model.photos = [subDict objectForKey:@"photos"];
-                model.signupbegindate = [subDict objectForKey:@"signupbegindate"];
-                model.signupenddate = [subDict objectForKey:@"signupenddate"];
-                model.begindate = [subDict objectForKey:@"begindate"];
-                model.enddate = [subDict objectForKey:@"enddate"];
-                model.actaddr = [subDict objectForKey:@"actaddr"];
-                model.maxcount = [subDict objectForKey:@"maxcount"];
-                model.nowcount =  [subDict objectForKey:@"nowcount"];
-                model.folcount = [subDict objectForKey:@"focount"];
-                model.comefrom = [subDict objectForKey:@"comefrom"];
-                model.creatername = [subDict objectForKey:@"creatername"];
-                model.tags = [subDict objectForKey:@"tags"];
-                model.desc = [subDict objectForKey:@"desc"];
-                model.acttype = [subDict objectForKey:@"acttype"];
-                info.content = model;
-            }
-                break;
-            default:
-                break;
+            info.date = [list[i] objectForKey:@"date"];
+            info.psid = [[list[i] objectForKey:@"psid"] integerValue];
+            info.refsign = [list[i] objectForKey:@"refsign"];
+            info.type = [[list[i] objectForKey:@"type"] integerValue];
+            info.uid = [[list[i] objectForKey:@"uid"] integerValue];
+            info.uname = [list[i] objectForKey:@"uname"];
+            info.uphoto = [list[i] objectForKey:@"uphoto"];
+            info.usign = [list[i] objectForKey:@"usign"];
+            info.uduty = [list[i] objectForKey:@"uduty"];
+            [array addObject:info];
         }
+<<<<<<< HEAD
         info.date = [list[i] objectForKey:@"date"];
         info.psid = [[list[i] objectForKey:@"psid"] integerValue];
         info.refsign = [list[i] objectForKey:@"refsign"];
@@ -244,6 +272,9 @@
             }
         }
         [array addObject:info];
+=======
+        
+>>>>>>> e76c02ab949cd0b10273bbf427d4f58937a9dc56
     }
     return array;
 }

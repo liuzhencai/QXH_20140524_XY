@@ -87,29 +87,30 @@
     self.navigationItem.rightBarButtonItem = righttItem;
     
     //segment
-    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, MENU_HEIGHT) andTitles:@[@"我的部落",@"推荐部落"]];
+    CustomSegmentControl *segment = [[CustomSegmentControl alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, MENU_HEIGHT) andTitles:@[@"推荐部落",@"我的部落"]];
     segment.delegate = self;
     [self.view addSubview:segment];
     
     //table
-    UITableView *allTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, segment.bottom, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
-    allTribeTable.tag = ALL_TRIBE_TABLE_TAG;
-    self.allTribesTable = allTribeTable;
-    allTribeTable.hidden = YES;
-    allTribeTable.delegate = self;
-    allTribeTable.dataSource = self;
-    allTribeTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self setupRefresh:allTribeTable];
-    [self.view addSubview:allTribeTable];
-    
     UITableView *myTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, segment.bottom, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
     myTribeTable.tag = MY_TRIBE_TABLE_TAG;
     self.myTribesTable = myTribeTable;
+    myTribeTable.hidden = YES;
     myTribeTable.delegate = self;
     myTribeTable.dataSource = self;
     myTribeTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupRefresh:myTribeTable];
     [self.view addSubview:myTribeTable];
+    
+    UITableView *allTribeTable = [[UITableView alloc] initWithFrame:CGRectMake(0, segment.bottom, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - segment.height) style:UITableViewStylePlain];
+    allTribeTable.tag = ALL_TRIBE_TABLE_TAG;
+    self.allTribesTable = allTribeTable;
+//    allTribeTable.hidden = YES;
+    allTribeTable.delegate = self;
+    allTribeTable.dataSource = self;
+    allTribeTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self setupRefresh:allTribeTable];
+    [self.view addSubview:allTribeTable];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, UI_SCREEN_WIDTH, 44.0f)];
     self.searchBar.placeholder = @"输入名字查找部落";
@@ -118,7 +119,8 @@
     self.searchBar.delegate = self;
     allTribeTable.tableHeaderView = self.searchBar;
     
-    [self.myTribesTable headerBeginRefreshing];
+//    [self.myTribesTable headerBeginRefreshing];
+    [self.allTribesTable headerBeginRefreshing];
     
 }
 
@@ -131,16 +133,19 @@
 #pragma mark - CustomSegmentControlDelegate
 - (void)segmentClicked:(NSInteger)index{
     NSLog(@"%d",index);
-    NSInteger tag = MY_TRIBE_TABLE_TAG + index;
+//    NSInteger tag = MY_TRIBE_TABLE_TAG + index;
+    NSInteger tag = (index + 1) % 2 + MY_TRIBE_TABLE_TAG;
     UITableView *table = (UITableView *)[self.view viewWithTag:tag];
     table.hidden = NO;
     [self.view bringSubviewToFront:table];
     
-    NSInteger lastTag = (tag + 1) % 2 + MY_TRIBE_TABLE_TAG;
+//    NSInteger lastTag = (tag + 1) % 2 + MY_TRIBE_TABLE_TAG;
+    NSInteger lastTag = MY_TRIBE_TABLE_TAG + index;
     UITableView *lastTable = (UITableView *)[self.view viewWithTag:lastTag];
     lastTable.hidden = YES;
     _curIndex = index;
-    if (_curIndex == 0) {
+//    if (_curIndex == 0) {
+    if (_curIndex == 1) {
         if ([self.tribeList count] == 0) {
             [self.myTribesTable headerBeginRefreshing];
         }
@@ -275,10 +280,12 @@
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    NSString *type = _curIndex == 0 ? @"1":@"2";
+//    NSString *type = _curIndex == 0 ? @"1":@"2";
+    NSString *type = _curIndex == 0 ? @"2":@"1";
     [self requestInfoList:type start:@"0" withCompletionHandler:^(NSMutableArray *list) {
         // 1.添加数据
-        if (_curIndex == 0) {
+//        if (_curIndex == 0) {
+        if (_curIndex == 1) {
             [self.tribeList removeAllObjects];
             [self.tribeList addObjectsFromArray:list];
             
@@ -301,9 +308,11 @@
 }
 
 - (void)footerRereshing{
-    NSString *type = _curIndex == 0 ? @"1":@"2";
+//    NSString *type = _curIndex == 0 ? @"1":@"2";
+    NSString *type = _curIndex == 0 ? @"2":@"1";
     NSString *startId = @"0";
-    if (_curIndex == 0) {
+//    if (_curIndex == 0) {
+    if (_curIndex == 1) {
         if ([self.tribeList count]) {
             NSDictionary *dict = [self.tribeList lastObject];
             startId = [[dict objectForKey:@"tribeid"] stringValue];
@@ -316,7 +325,8 @@
     }
     [self requestInfoList:type start:startId withCompletionHandler:^(NSMutableArray *list) {
         // 1.添加数据
-        if (_curIndex == 0) {
+//        if (_curIndex == 0) {
+        if (_curIndex == 1) {
             [self.tribeList addObjectsFromArray:list];
             
             self.myTribesDict = [self sortArrayWithArray:self.tribeList];

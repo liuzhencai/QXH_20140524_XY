@@ -33,7 +33,12 @@
     self.title = @"登录";
     self.navigationController.navigationBar.translucent = NO;
    
-    self.view.backgroundColor = [UIColor whiteColor];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    label.backgroundColor = [UIColor clearColor];
+    UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithCustomView:label];
+    self.navigationItem.leftBarButtonItem = leftBarItem;
+    
+//    self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *custonButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [custonButton setTitle:@"注册" forState:UIControlStateNormal];

@@ -439,13 +439,19 @@ static int offsetX = 6; // 6 px from each side
                     NSRange range2 = [temp1 rangeOfString:@"actname"];
                     NSRange rangerPhoto1 = [temp1 rangeOfString:@"photos"];
                     if (range2.location != NSNotFound) {
-                        
+     
                         NSRange range23 = NSMakeRange(range2.location+10, [temp1 length]-10-1-range2.location);
                         aTitleString = [temp1 substringWithRange:range23];
                         
                     }else if(rangerPhoto1.location != NSNotFound)
                     {
-                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+9, [temp1 length]-10-rangerPhoto1.location);
+                        /*如果字符串以双引号结尾，则减一，亚东字符串编译随心所欲，都快疯了*/
+                        NSInteger x=0;
+                        if([temp1 hasSuffix:@"\""])
+                        {
+                            x=1;
+                        }
+                        NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+9, [temp1 length]-9-x-rangerPhoto1.location);
                         aPhotoString = [temp1 substringWithRange:rangePhoto2];
                     }
                    

@@ -110,7 +110,7 @@
         params = [tempArray lastObject];
         NSNumber* acount = params[@"count"];
         int sendType = [[params objectForKey:@"sendtype"] intValue];
-        if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){
+        if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 /*|| sendType == 13*/){
             int count = 0;
             for (int i = 0; i < [tempArray count]; i ++) {
                 NSDictionary *newDict = [tempArray objectAtIndex:i];
@@ -173,7 +173,7 @@
     }
     
     int sendType = [[params objectForKey:@"sendtype"] intValue];
-    if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 || sendType == 13){//0为系统消息,4为处理请求好友申,6为处理部落加入申请,7为完全退出部落,12 @某人,13 @部落
+    if(sendType == 0 || sendType == 3 || sendType == 4 || sendType == 5 || sendType == 6 || sendType == 7 || sendType == 12 ){//0为系统消息,4为处理请求好友申,6为处理部落加入申请,7为完全退出部落,12 @某人,13 @部落
         //        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
         //        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
         
@@ -185,10 +185,18 @@
         }
         else if (sendType == 4){
             descString = [NSString stringWithFormat:@"%@",[params objectForKey:@"sendername"]];
-        }else if (sendType == 12){//@某人
+        }
+        else if (sendType == 12){//@某人
+            self.name.text = [params objectForKey:@"sendername"];
             NSString *message = [params objectForKey:@"mess"];
             NSDictionary *messages = [message objectFromJSONString];
             descString = [NSString stringWithFormat:@"%@ 分享了动态“%@”",[params objectForKey:@"sendername"],[messages objectForKey:@"content"]];
+        }
+        else if (sendType == 13){//@
+            self.name.text = [params objectForKey:@"tribename"];
+            NSString *message = [params objectForKey:@"mess"];
+            NSDictionary *messages = [message objectFromJSONString];
+            descString = [NSString stringWithFormat:@"%@ 分享了活动“%@”",[params objectForKey:@"sendername"],[messages objectForKey:@"actname"]];
         }
         self.duty.text = descString;
         self.date.text = [params objectForKey:@"date"];
@@ -254,6 +262,17 @@
         }
         
         self.date.text = [params objectForKey:@"date"];//@"2014-05-19";
+    }
+    else if(sendType == 13)
+    {
+        self.name.text = [params objectForKey:@"tribename"];
+        NSString *message = [params objectForKey:@"mess"];
+        NSDictionary *messages = [message objectFromJSONString];
+        NSString *descString = [NSString stringWithFormat:@"%@ 分享了活动“%@”",[params objectForKey:@"sendername"],[messages objectForKey:@"actname"]];
+        self.duty.text = descString;
+        self.date.text = [params objectForKey:@"date"];
+        NSString *imageUrlString = [params objectForKey:@"senderphoto"];
+        [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     }
 //    NSString *imageUrlString = [params objectForKey:@"senderphoto"];
 //    [self.headImgView setImageWithURL:IMGURL(imageUrlString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];

@@ -1266,7 +1266,7 @@ static int chatInputStartingHeight = 40;
     }
 
     NSNumber* aroomid = self.otherDic[@"userid"];
-    if (temmessid) {
+    if (temmessid.length > 0) {
         [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:temmessid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
     }
 //    if (messid) {

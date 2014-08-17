@@ -143,7 +143,7 @@ static MessageBySend* ins =nil;
            
         }
         
-    }else if ([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"13"]|| [bsendtype isEqualToString:@"14"]) {
+    }else if ([bsendtype isEqualToString:@"2"] || [bsendtype isEqualToString:@"14"]|| [bsendtype isEqualToString:@"13"]) {//
         /*14是直播间消息*/
         /*
          分享进入部落里的文章，活动，个人名片也添加进入部落聊天当中
@@ -217,17 +217,49 @@ static MessageBySend* ins =nil;
             [self AddSystemMessAyyay:notif];
         }
     }
-    
     if ([bsendtype isEqualToString:@"13"]) {
         NSLog(@"info:%@",notif);
-        NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
-        NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
-        NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
-        if (![tempSenderId isEqualToString:meid]) {
-            [self AddSystemMessAyyay:notif];
-            /*如果是自己发送的就不用发消息刷新界面了*/
-            //            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:notif];
+    
+//        NSNumber* ntribeid = (NSNumber*)[notif valueForKey:@"tribeid"];
+//        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+//        NSMutableArray* tempchatroomarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+//        if (tempchatroomarray) {
+//            /*如果该聊天部落，聊天记录已经存在*/
+//            [tempchatroomarray addObject:notif];
+//        }else{
+//            /*如果该聊天部落，聊天记录不存在*/
+//            tempchatroomarray = [[NSMutableArray alloc]initWithObjects:notif, nil];
+//            [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
+//        }
+        NSNumber* ntribeid = (NSNumber*)[notif valueForKey:@"tribeid"];
+        NSString* atribeid = [NSString stringWithFormat:@"%d",[ntribeid intValue]];
+        NSMutableArray* tempchatroomarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+        if (tempchatroomarray) {
+            /*手动加上count值*/
+            NSDictionary* temp1 = [tempchatroomarray lastObject];
+            NSNumber* acount = temp1[@"count"];
+            [notif setValue:[NSNumber numberWithInt:([acount integerValue]+1)] forKey:@"count"];
+            [tempchatroomarray removeAllObjects];
+            /*如果该聊天部落，聊天记录已经存在*/
+            [tempchatroomarray addObject:notif];
+        }else{
+            /*如果该聊天部落，聊天记录不存在*/
+            /*手动加上count值
+             如果该聊天是刚创建，则判断，是否传过来的messag是否有count
+             如果有，则是离线消息，count不变，
+             如果没有，则是有人给我发送的消息
+             */
+            NSNumber* acount = notif[@"count"];
+            if (!acount) {
+                [notif setValue:[NSNumber numberWithInt:1] forKey:@"count"];
+            }
+            tempchatroomarray = [[NSMutableArray alloc]initWithObjects:notif, nil];
+            [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
         }
+        /*因为已经写进数据库，*/
+        [haveSeeOffline setObject:@"13" forKey:atribeid];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"addFirend" object:nil userInfo:unKnowCharMessDic];
     }
 }
 

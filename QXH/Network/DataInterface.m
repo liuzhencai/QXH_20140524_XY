@@ -21,9 +21,9 @@
         return;
     }
     NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
-    NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
+//    NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-        NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
+//        NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);

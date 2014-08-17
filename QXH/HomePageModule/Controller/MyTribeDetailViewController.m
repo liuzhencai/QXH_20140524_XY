@@ -242,7 +242,7 @@
     }
     /*还要添加秘书长进入部落成员中*/
     if (leaderId) {
-       NSString* memstring  = [membersString stringByAppendingString:[NSString stringWithFormat:@"%@,",leaderId]];
+       NSString* memstring  = [membersString stringByAppendingString:[NSString stringWithFormat:@",%@",leaderId]];
         membersString = memstring;
     }
     NSString *imageUrl = @"";
@@ -540,7 +540,7 @@
                 if ([leaderName length] > 0) {
                     self.leader.text = leaderName;
                 }else{
-                    self.leader.text = @"test";
+                    self.leader.text = @"";
                 }
             };
             [self.navigationController pushViewController:addressList animated:YES];
