@@ -254,27 +254,13 @@
             info.uphoto = [list[i] objectForKey:@"uphoto"];
             info.usign = [list[i] objectForKey:@"usign"];
             info.uduty = [list[i] objectForKey:@"uduty"];
+            if ([[list[i] objectForKey:@"type"] integerValue] == 5) {
+                if (![subDict objectForKey:@"artid"]) {
+                    break;
+                }
+            }
             [array addObject:info];
         }
-<<<<<<< HEAD
-        info.date = [list[i] objectForKey:@"date"];
-        info.psid = [[list[i] objectForKey:@"psid"] integerValue];
-        info.refsign = [list[i] objectForKey:@"refsign"];
-        info.type = [[list[i] objectForKey:@"type"] integerValue];
-        info.uid = [[list[i] objectForKey:@"uid"] integerValue];
-        info.uname = [list[i] objectForKey:@"uname"];
-        info.uphoto = [list[i] objectForKey:@"uphoto"];
-        info.usign = [list[i] objectForKey:@"usign"];
-        info.uduty = [list[i] objectForKey:@"uduty"];
-        if ([[list[i] objectForKey:@"type"] integerValue] == 5) {
-            if (![subDict objectForKey:@"artid"]) {
-                break;
-            }
-        }
-        [array addObject:info];
-=======
-        
->>>>>>> e76c02ab949cd0b10273bbf427d4f58937a9dc56
     }
     return array;
 }
