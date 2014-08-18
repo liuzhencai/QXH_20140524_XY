@@ -23,7 +23,7 @@
     NSDictionary *param = @{@"opercode": @"0101",@"userid":[defaults objectForKey:@"userid"],@"token":[defaults objectForKey:@"token"],@"sign":[SignGenerator getSign]};
 //    NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
-//        NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
+        NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
@@ -37,9 +37,14 @@
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########用户登陆返回结果##########\n[结 果]:%@\n#############################\n",data);
         // 存储token和userid
-        [defaults setObject:[data objectForKey:@"userid"] forKey:@"userid"];
-        [defaults setObject:[data objectForKey:@"token"] forKey:@"token"];
-        [defaults synchronize];
+        NSString* useridString = [data objectForKey:@"userid"];
+        NSString* tokenString = [data objectForKey:@"token"];
+        if (useridString && tokenString) {
+            [defaults setObject:useridString forKey:@"userid"];
+            [defaults setObject:tokenString forKey:@"token"];
+            [defaults synchronize];
+        }
+ 
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########用户登陆出错##########\n[原 因]:%@\n#############################\n",data);

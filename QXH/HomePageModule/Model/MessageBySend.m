@@ -129,12 +129,13 @@ static MessageBySend* ins =nil;
         /*如果存在离线消息时不保存，*/
         NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
         /*是否已经查看离线消息*/
-        NSString* targeid = [haveSeeOffline valueForKey:atribeid];
-        if ([offarray count] && !targeid) {
-            /*如果存在离线消息，并且没有查看不保存*/
-        }else{
+//        NSString* targeid = [haveSeeOffline valueForKey:atribeid];
+//        if ([offarray count] && !targeid) {
+//            /*如果存在离线消息，并且没有查看不保存*/
+//        }else{
+        /*更改保存数据接口，自己判断该数据是否已经保存*/
           [self saveFmdb:notif];
-        }
+//        }
         
         if (![tempSenderId isEqualToString:meid]) {
 //             [self saveFmdb:notif];
@@ -192,12 +193,12 @@ static MessageBySend* ins =nil;
         }else{
             NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
             /*是否已经查看离线消息*/
-            NSString* targeid = [haveSeeOffline valueForKey:atribeid];
-            if ([offarray count] && !targeid) {
-                /*如果存在离线消息不保存*/
-            }else{
+//            NSString* targeid = [haveSeeOffline valueForKey:atribeid];
+//            if ([offarray count] && !targeid) {
+//                /*如果存在离线消息不保存*/
+//            }else{
                 [self saveFmdb:notif];
-            }
+//            }
 //          [self saveFmdb:notif];
         }
         if (![tempSenderId isEqualToString:meid]) {
@@ -305,12 +306,12 @@ static MessageBySend* ins =nil;
     }else{
         NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
         NSString* targeid = (NSString*)[haveSeeOffline valueForKey:atribeid];
-        if ([offarray count] && !targeid) {
-            /*如果存在离线消息不保存*/
-        }else{
+//        if ([offarray count] && !targeid) {
+//            /*如果存在离线消息不保存*/
+//        }else{
             [self saveFmdb:notif];
-        }
-//      [self saveFmdb:notif];  
+//        }
+//      [self saveFmdb:notif];
     }
     
         if (![tempSenderId isEqualToString:meid]) {
@@ -1067,6 +1068,7 @@ static MessageBySend* ins =nil;
 #pragma mark 保存进入数据库
 - (void)saveFmdb:(NSDictionary*)dic
 {
+    NSLog(@"写数据库");
     ChatMess* chat = [[ChatMess alloc]init];
     //聊天主键id
 //    chat.cid = @"";
@@ -1097,6 +1099,7 @@ static MessageBySend* ins =nil;
 //    chat.dttime = @"";
     // 消息日期
     chat.dtdate = dic[@"date"];
+//    chat.dtdate = @"20140818123";
     // 内容文本
     chat.contenttext = dic[@"mess"];
     // 目标id标示
@@ -1108,9 +1111,15 @@ static MessageBySend* ins =nil;
     // 目标消息类型
     chat.messagetype = (NSNumber*)dic[@"messtype"];
     if (!chat.type || !chat.fromid || !chat.fromname || !chat.fromphotoid || !chat.dtdate || !chat.contenttext || !chat.targetid) {
+         NSLog(@"有数据为空==%@",dic);
         return;
     }
-    [db saveChatMess:chat];
+    NSLog(@"数据正常");
+    if (![db Search:chat.dtdate]) {
+        /*判断该数据，数据库中是否存在如果不存在*/
+          [db saveChatMess:chat];
+    }
+ 
    
 }
 

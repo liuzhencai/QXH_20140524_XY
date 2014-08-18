@@ -380,7 +380,8 @@
 {
     NSDate * senddate=[NSDate date];
     NSDateFormatter *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:dd"];
+//    [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm:ss:dd"];
+    [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString * locationString=[dateformatter stringFromDate:senddate];
     return locationString;
    

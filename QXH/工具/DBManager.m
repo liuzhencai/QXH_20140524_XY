@@ -215,25 +215,30 @@ static DBManager *dbManager;
     [db close];
 }
 
-///*发送*/
-//- (void)changeByDate:(NSString*)adate andMessage:(NSString*)mess
-//{
-//    BOOL res1 =  [db open] ;
-//    if (!res1) {
-//        NSLog(@"error when open db table");
-//        return ;
-//    } else {
-//        NSLog(@"success to open db table");
-//        
-//    }
-//    
-//    BOOL result =  [db executeUpdate:@"UPDATE chat_mess_tbl SET msgid = ? WHERE dtdate = ? ",messid,adate];
-//    if (!result) {
-//        NSLog(@"修改数据库失败");
-//    }else{
-//        NSLog(@"修改数据库成功");
-//    }
-//    
-//    [db close];
-//}
+/*查找*/
+- (BOOL)Search:(NSString*)data
+{
+    BOOL res1 =  [db open] ;
+    if (!res1) {
+        NSLog(@"error when open db table");
+       
+    } else {
+        NSLog(@"success to open db table");
+        
+    }
+//    data = @"20140818123";
+    
+   FMResultSet* rs=[db executeQuery:@"SELECT * FROM chat_mess_tbl WHERE dtdate = ?",data];
+    while ([rs next]){
+//        NSLog(@"%@",[rs stringForColumn:@"dtdate"]);
+        return YES;
+    }
+    
+    
+    
+   
+    
+    [db close];
+    return NO;
+}
 @end

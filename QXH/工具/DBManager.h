@@ -28,6 +28,6 @@
  */
 - (void)changeByDate:(NSString*)adate andMessid:(NSNumber*)messid;
 - (BOOL)clearAllUserData;
-
+- (BOOL)Search:(NSString*)data;
 
 @end
