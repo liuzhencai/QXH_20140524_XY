@@ -19,6 +19,7 @@
 #import "ActivityDetailViewController.h"
 #import "MJRefresh.h"
 #import "EverydayAskController.h"
+#import "InformationDetailController.h"
 
 @interface SquareViewController ()
 {
@@ -401,10 +402,16 @@
             break;
         case 2:
         {
-            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
-            controller.info = model;
-            controller.type = SquareInfoTypeInf;
-            controller.hidesBottomBarWhenPushed = YES;
+//            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+//            controller.info = model;
+//            controller.type = SquareInfoTypeInf;
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            
+            
+            InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+            InfoModel *info = model.content;
+            controller.artid = info.artid;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

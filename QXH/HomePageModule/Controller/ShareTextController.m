@@ -328,6 +328,7 @@
                         
                         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, SQUARE_DETAIL_PICINF_SIZE, SQUARE_DETAIL_PICINF_SIZE)];
                         [imgView setImageWithURL:IMGURL(tmpModel.artimgs)];
+                        NSLog(@"$$$$:%@",IMGURL(tmpModel.artimgs));
                         [bgView addSubview:imgView];
                         
                         UILabel *subContentLabel = [[UILabel alloc] init];
@@ -649,12 +650,18 @@
 {
     InfoModel *tmpModel = (InfoModel *)_info.content;
     if (self.type == SquareInfoTypeTrans) {
-        [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",2] artid:_info.refsign withCompletionHandler:^(NSMutableDictionary *dict) {
+//        [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",2] artid:_info.refsign withCompletionHandler:^(NSMutableDictionary *dict) {
+//            browseDict = dict;
+//            [_contentTable reloadData];
+//            [self resetToolBar];
+//        }];
+        [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",2] artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
             browseDict = dict;
             [_contentTable reloadData];
             [self resetToolBar];
         }];
-    }else{
+    }
+    else{
         [DataInterface getDetailInfo:[NSString stringWithFormat:@"%d",2] artid:tmpModel.artid withCompletionHandler:^(NSMutableDictionary *dict) {
             browseDict = dict;
             [_contentTable reloadData];
