@@ -85,6 +85,8 @@
     
     timeCount = 0;
     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(heartBeat) name:@"heartBeat" object:nil];
 }
 
 - (void)updateAds:(NSNotification *)notif

@@ -164,9 +164,21 @@
     NSLog(@"online config has fininshed and note = %@", note.userInfo);
 }
 
+- (void)recconect
+{
+    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
+        if ([[dict objectForKey:@"statecode"] integerValue] == 441) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnect) name:@"recconnect" object:nil];
+
+        }
+    }];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnect) name:@"recconnect" object:nil];
    
     /*暂时屏蔽友盟，崩溃较严重*/
 //    [self getUmengDeviceId];
@@ -229,6 +241,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"heartBeat" object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

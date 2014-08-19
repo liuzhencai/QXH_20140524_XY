@@ -18,6 +18,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WXApiDelegate>
 
+@property (nonatomic, assign) BOOL tokenError; // token错误
+
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, strong) CustomTabBarController *tabController;

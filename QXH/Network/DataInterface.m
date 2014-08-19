@@ -24,6 +24,9 @@
 //    NSLog(@"\n##########调用心跳接口##########\n[参 数]:%@\n#############################\n",param);
     [[UDPServiceEngine sharedEngine] sendData:param withCompletionHandler:^(id data) {
         NSLog(@"\n##########心跳返回结果##########\n[结 果]:%@\n#############################\n",data);
+        if ([[data objectForKey:@"statecode"] isEqualToString:@"0121"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reconnect" object:nil];
+        }
         callback(data);
     } andErrorHandler:^(id data) {
         NSLog(@"\n##########心跳出错##########\n[原 因]:%@\n#############################\n",data);
