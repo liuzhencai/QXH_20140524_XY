@@ -90,7 +90,9 @@
                     rowHeight = textSize.height + SQUARE_DETAIL_PIC_SIZE + 30;
                 }else{
                     rowHeight = textSize.height + 20;
+                    rowHeight = rowHeight > 68 ? rowHeight : 68;
                 }
+                
             }else{
                 InfoModel *tmpModel = (InfoModel *)_info.content;
                 CGSize textSize = [NSString getStringRect:tmpModel.content font:[UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT] labelSize:CGSizeMake(SQUARE_DETAIL_CONTENT_WIDTH, FLT_MAX)];
@@ -459,25 +461,36 @@
                         /**
                          *  添加咨询信息
                          */
-                        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, textSize.height+20, 300, SQUARE_DETAIL_PICINF_SIZE + 20)];
-                        bgView.backgroundColor = [UIColor lightGrayColor];
+//                        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, textSize.height+20, 300, SQUARE_DETAIL_PICINF_SIZE + 20)];
+                        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 300, SQUARE_DETAIL_PICINF_SIZE + 20)];
+                        bgView.backgroundColor = [UIColor clearColor];
                         bgView.highlighted = NO;
                         
-                        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, SQUARE_DETAIL_PICINF_SIZE, SQUARE_DETAIL_PICINF_SIZE)];
+                        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, SQUARE_DETAIL_PICINF_SIZE, SQUARE_DETAIL_PICINF_SIZE)];
+                        imgView.tag = 5555;
                         [imgView setImageWithURL:IMGURL(tmpModel.sphoto)];
                         [bgView addSubview:imgView];
                         
                         UILabel *subContentLabel = [[UILabel alloc] init];
                         subContentLabel.numberOfLines = 0;
+                        subContentLabel.tag = 5556;
                         subContentLabel.font = [UIFont systemFontOfSize:SQUARE_DETAIL_CONTENT_FONT];
                         subContentLabel.text = tmpModel.content;
                         subContentLabel.lineBreakMode = kTextLineBreakByTruncatingTail;
                         subContentLabel.frame = CGRectMake(20+SQUARE_DETAIL_PICINF_SIZE, 10, 200, SQUARE_DETAIL_PICINF_SIZE);
                         [bgView addSubview:subContentLabel];
-                        
                         [cell.contentView addSubview:bgView];
                         
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                    UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:5555];
+                    UILabel *label = (UILabel *)[cell.contentView viewWithTag:5556];
+                    if ([tmpModel.sphoto length] > 0) {
+                        label.hidden = NO;
+                    }else{
+                        
+                        [imageView setImageWithURL:IMGURL([browseDict objectForKey:@"artimgs"])];
+                        label.hidden = YES;
                     }
                 }
                     break;
