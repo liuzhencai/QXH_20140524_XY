@@ -36,18 +36,18 @@
     //754672546@qq.com
     NSString *name = [defaults objectForKey:@"userName"];
     NSString *passward = [defaults objectForKey:@"passworld"];
+
     if (name && passward) {
         [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
             
             NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
             [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+                [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
                 
             }];
-            
-            [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
-            
         }];
     }
+
 
 }
 
@@ -163,9 +163,21 @@
     NSLog(@"online config has fininshed and note = %@", note.userInfo);
 }
 
+- (void)recconect
+{
+    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
+        if ([[dict objectForKey:@"statecode"] integerValue] == 441) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnect) name:@"recconnect" object:nil];
+
+        }
+    }];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnect) name:@"recconnect" object:nil];
    
     /*暂时屏蔽友盟，崩溃较严重*/
 //    [self getUmengDeviceId];

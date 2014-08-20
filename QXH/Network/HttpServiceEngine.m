@@ -162,8 +162,12 @@ static HttpServiceEngine *httpEngine;
 
     [keyWindow addSubview:progressHUD];
     [progressHUD show:YES];
-    dispatch_queue_t myhttpqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    dispatch_async(myhttpqueue, ^{
+//    dispatch_queue_t myhttpqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    static dispatch_queue_t myHttpQueue;
+    if (!myHttpQueue) {
+        myHttpQueue = dispatch_queue_create("com.qxh.http", DISPATCH_QUEUE_CONCURRENT);
+    }
+    dispatch_async(myHttpQueue, ^{
         __block __weak MKNetworkOperation *op = nil;
         if (params == nil) {
             //        op = [self operationWithPath:[url mk_urlEncodedString] params:params httpMethod:method];
