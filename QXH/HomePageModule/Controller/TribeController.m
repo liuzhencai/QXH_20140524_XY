@@ -27,7 +27,7 @@
 @property (nonatomic, strong) NSMutableArray *allTribeList;//所有部落
 
 @property (nonatomic, assign) NSInteger curIndex;//当前下标
-
+@property (nonatomic, strong) NSMutableArray *checkList;
 //排序
 //我的部落
 @property (nonatomic, strong) NSArray *myTribesIndexSortArray;
@@ -197,16 +197,16 @@
               withCompletionHandler:^(NSMutableDictionary *dict){
                   NSLog(@"部落列表返回值：%@",dict);
                   NSMutableArray *list = (NSMutableArray *)[dict objectForKey:@"list"];
-                  self.tribeList = list;
+                  self.checkList = [NSMutableArray arrayWithArray:list];
               }];
 }
 
 - (BOOL)checkTribeIsMineByTribe:(NSDictionary *)dict{
     BOOL isMine = NO;
-    if (self.tribeList) {
+    if (self.checkList) {
         NSInteger tribeid = [[dict objectForKey:@"tribeid"] integerValue];
-        for (int i = 0; i < [self.tribeList count]; i ++) {
-            NSDictionary *tribeDict = [self.tribeList objectAtIndex:i];
+        for (int i = 0; i < [self.checkList count]; i ++) {
+            NSDictionary *tribeDict = [self.checkList objectAtIndex:i];
             NSInteger newTribeid = [[tribeDict objectForKey:@"tribeid"] integerValue];
             if (tribeid == newTribeid) {
                 isMine = YES;
