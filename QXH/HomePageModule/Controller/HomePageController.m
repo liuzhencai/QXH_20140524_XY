@@ -86,7 +86,7 @@
     timeCount = 0;
     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(heartBeat) name:@"heartBeat" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reConnection) name:@"heartBeat" object:nil];
 }
 
 - (void)updateAds:(NSNotification *)notif
@@ -199,10 +199,9 @@
         /*修改后提交，使用原来获取用户信息方法，因为用户会更新或者注销后登陆*/
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
             [self setTopViewValue:dict];
+            [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
         }];
     }
-    
-    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 }
 
 - (void)autoLogin
@@ -232,14 +231,13 @@
             [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
                 NSLog(@"dic==%@",dic);
                 [self setTopViewValue:dic];
+                [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+                [[MessageBySend sharMessageBySend]getOfflineMessage];
             }];
 //        [self showAlert:[dict objectForKey:@"info"]];
-
-        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
         
         /*获取系统消息*/
 //           [MessageBySend sharMessageBySend];
-        [[MessageBySend sharMessageBySend]getOfflineMessage];
     }];
 }
 

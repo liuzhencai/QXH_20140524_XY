@@ -19,7 +19,11 @@ static UDPRequest *udpRequest;
 
 - (void)setupSocket
 {
-	_udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    static dispatch_queue_t myUdpQueue;
+    if (!myUdpQueue) {
+        myUdpQueue = dispatch_queue_create("com.qxh.udp", DISPATCH_QUEUE_CONCURRENT);
+    }
+	_udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:myUdpQueue];
 
     NSError *error;
     /**

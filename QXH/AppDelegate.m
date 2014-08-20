@@ -41,13 +41,8 @@
 
         NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-            
+            [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
         }];
-        
-//        [self performSelector:@selector(logout) withObject:nil afterDelay:10.f];
-     
-//
-        [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 
     }];
 }
@@ -241,7 +236,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"heartBeat" object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
