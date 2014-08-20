@@ -43,6 +43,7 @@
 
 - (void)receiveDataWithCompletionHandler:(Completion)callback andErrorHandler:(Completion)error
 {
+    NSLog(@"刘振财收到消息");
     __block BOOL isSuccess = NO;
     __block NSUInteger failtimes = 0;
 
@@ -51,6 +52,7 @@
         if (!isSuccess) {
             JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
             returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
+             NSLog(@"刘振财收到消息==%@",returnValue);
             if ([[returnValue objectForKey:@"statecode"] isEqualToString:@"0200"]) {
                 isSuccess = YES;
                 callback(returnValue);

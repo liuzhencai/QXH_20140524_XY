@@ -10,11 +10,7 @@
 #define Education_config_h
 
 
-/*
- 定义log
- */
-#define DebugLog(fmt, ...)      NSLog(fmt,##__VA_ARGS__)
-//#define DebugLog(fmt, ...) ;
+
 
 #pragma mark - Device macro
 
