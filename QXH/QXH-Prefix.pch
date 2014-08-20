@@ -45,7 +45,7 @@
 #define DebugLog(fmt, ...)      NSLog(fmt,##__VA_ARGS__)
 
 //#define NSLog(fmt, ...)
-//#define DebugLog(fmt, ...) ;
+//#define DebugLog(fmt, ...) 
 
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 
