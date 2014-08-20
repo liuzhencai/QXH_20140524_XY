@@ -28,7 +28,6 @@
 
 @property (nonatomic, assign) NSInteger curIndex;//当前下标
 
-
 //排序
 //我的部落
 @property (nonatomic, strong) NSArray *myTribesIndexSortArray;
@@ -121,7 +120,7 @@
     
 //    [self.myTribesTable headerBeginRefreshing];
     [self.allTribesTable headerBeginRefreshing];
-    
+    [self getTribes];//
 }
 
 - (void)didReceiveMemoryWarning
@@ -183,6 +182,39 @@
                   callback(list);
               }];
     
+}
+
+- (void)getTribes{
+    [DataInterface requestTribeList:@"1"
+                          tribename:@""
+                           authflag:@"0"
+                             status:@"0"
+                          tribetype:@"1"
+                                tag:@""
+                           district:@""
+                              start:@"0"
+                              count:@"100"
+              withCompletionHandler:^(NSMutableDictionary *dict){
+                  NSLog(@"部落列表返回值：%@",dict);
+                  NSMutableArray *list = (NSMutableArray *)[dict objectForKey:@"list"];
+                  self.tribeList = list;
+              }];
+}
+
+- (BOOL)checkTribeIsMineByTribe:(NSDictionary *)dict{
+    BOOL isMine = NO;
+    if (self.tribeList) {
+        NSInteger tribeid = [[dict objectForKey:@"tribeid"] integerValue];
+        for (int i = 0; i < [self.tribeList count]; i ++) {
+            NSDictionary *tribeDict = [self.tribeList objectAtIndex:i];
+            NSInteger newTribeid = [[tribeDict objectForKey:@"tribeid"] integerValue];
+            if (tribeid == newTribeid) {
+                isMine = YES;
+                break;
+            }
+        }
+    }
+    return isMine;
 }
 
 #pragma mark - sort
@@ -452,9 +484,18 @@
         NSLog(@"点击我的消息第%d行", indexPath.row);
 //        NSDictionary *tribeDict = [self.allTribeList objectAtIndex:indexPath.row];
         NSDictionary *tribeDict = [[self sortWithSection:indexPath.section withType:2] objectAtIndex:indexPath.row];
-        TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
-        detail.tribeDict = tribeDict;
-        [self.navigationController pushViewController:detail animated:YES];
+        BOOL isMyTribe = [self checkTribeIsMineByTribe:tribeDict];
+        if (isMyTribe) {
+            chatview =[[ChatRoomController alloc]init];
+            chatview.tribeInfoDict = tribeDict;
+            [self.navigationController pushViewController:chatview animated:NO];
+            chatview = nil;
+        }
+        else {
+            TribeDetailViewController *detail = [[TribeDetailViewController alloc] init];
+            detail.tribeDict = tribeDict;
+            [self.navigationController pushViewController:detail animated:YES];
+        }
     }
 }
 
