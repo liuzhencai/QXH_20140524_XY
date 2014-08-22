@@ -38,6 +38,15 @@
 #import "NSDate-Helper.h"
 #import "MobClick.h"
 
+
+/*
+ 定义log
+ */
+#define DebugLog(fmt, ...)      NSLog(fmt,##__VA_ARGS__)
+
+//#define NSLog(fmt, ...)
+//#define DebugLog(fmt, ...) 
+
 #define IOS7_OR_LATER   ( [[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending )
 
 #define SCREEN_H [UIScreen mainScreen].bounds.size.height

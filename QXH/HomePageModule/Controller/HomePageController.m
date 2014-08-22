@@ -530,6 +530,9 @@
         scroll = YES;
     else if (timeCount == 0)
         scroll = NO;
+    else if (timeCount < 0  || timeCount > [_ads count] )
+        timeCount = 0;
+    
     
     if (scroll)
         timeCount--;

@@ -36,15 +36,19 @@
     //754672546@qq.com
     NSString *name = [defaults objectForKey:@"userName"];
     NSString *passward = [defaults objectForKey:@"passworld"];
-//    [DataInterface login:@"123456@qq.com" andPswd:@"123456" withCompletinoHandler:^(NSMutableDictionary *dict) {
-    [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
 
-        NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
-        [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-            [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+    if (name && passward) {
+        [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+            
+            NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
+            [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
+                [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+                
+            }];
         }];
+    }
 
-    }];
+
 }
 
 // 心跳

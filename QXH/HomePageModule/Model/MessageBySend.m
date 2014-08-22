@@ -46,6 +46,7 @@ static MessageBySend* ins =nil;
 
 - (void)recvMsg:(NSNotification *)notif
 {
+    NSLog(@"MessageBySend接受到信息");
     if (!notif) {
         return;
     }
@@ -847,8 +848,6 @@ static MessageBySend* ins =nil;
             /*写入数据库*/
             [self saveFmdb:tempdic];
             [chatRoomMessArray addObject:tempdic];
-            //            NSMutableDictionary* temdic = (NSMutableDictionary*)[list objectAtIndex:i];
-            //            [self AddToTempunKnowCharMessAyyay:tempdic];
         }
         
  
@@ -862,10 +861,10 @@ static MessageBySend* ins =nil;
         /*离线消息中移除*/
         [unKnowCharMessDic removeObjectForKey:targetid];
         [haveSeeOffline setObject:targetid forKey:targetid];
+        /*关闭对话框*/
+        [self hideprogressHUD];
         /*暂时不移除*/
-        //         [tempUnKnowCharMessArray removeAllObjects];
         if ([sendtype isEqualToString:@"1"]) {
-            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatViewAll" object:nil userInfo:usercount];
         }else{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatRoomAll" object:nil userInfo:usercount];
