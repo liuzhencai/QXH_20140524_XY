@@ -141,7 +141,8 @@
     [message setThumbImage:[UIImage imageNamed:@"icon"]];
     
     WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = INF_SHARE_URL(self.artid);
+//    ext.webpageUrl = INF_SHARE_URL(self.artid);
+    ext.webpageUrl = @"http://m.xiaozhanghui.com:8070/qxh/clientDownload.jsp";
     
     message.mediaObject = ext;
     

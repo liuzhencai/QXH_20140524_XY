@@ -462,11 +462,11 @@
                          *  添加咨询信息
                          */
 //                        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, textSize.height+20, 300, SQUARE_DETAIL_PICINF_SIZE + 20)];
-                        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 300, SQUARE_DETAIL_PICINF_SIZE + 20)];
+                        UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, textSize.height+15, 300, SQUARE_DETAIL_PICINF_SIZE + 20)];
                         bgView.backgroundColor = [UIColor clearColor];
                         bgView.highlighted = NO;
                         
-                        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, SQUARE_DETAIL_PICINF_SIZE, SQUARE_DETAIL_PICINF_SIZE)];
+                        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, SQUARE_DETAIL_PICINF_SIZE, SQUARE_DETAIL_PICINF_SIZE)];
                         imgView.tag = 5555;
                         [imgView setImageWithURL:IMGURL(tmpModel.sphoto)];
                         [bgView addSubview:imgView];
