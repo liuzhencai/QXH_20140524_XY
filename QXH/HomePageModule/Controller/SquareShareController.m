@@ -314,6 +314,7 @@
 
 - (IBAction)selectPeople:(id)sender {
     SelectPeopleController *controller = [[SelectPeopleController alloc] init];
+    controller.selectedPerson = [_atPersonList copy];
     controller.callback = ^(NSArray *persons){
         NSLog(@"persons--->%@",persons);
         _atPersonList = persons;
@@ -324,6 +325,9 @@
 
 - (void)updateAtPersonScroll
 {
+    for (UIView *v in _atPersonScroll.subviews) {
+        [v removeFromSuperview];
+    }
     if ([_atPersonList count] > 0) {
         _atPersonScroll.contentSize = CGSizeMake(([_atPersonList count]+1)*(PORTRAIT_GAP+48), 48);
         for (int i = 0; i < [_atPersonList count]; i++) {

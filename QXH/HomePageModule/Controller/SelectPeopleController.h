@@ -14,4 +14,6 @@ typedef void (^SelPeopleBlock)(NSArray *);
 
 @property (nonatomic, copy) SelPeopleBlock callback;
 
+@property (nonatomic, strong) NSMutableArray *selectedPerson;
+
 @end

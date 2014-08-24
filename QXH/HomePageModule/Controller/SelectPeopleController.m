@@ -81,6 +81,16 @@
                NSLog(@"通讯录列表返回数据：%@",dict);
                if (dict) {
                    NSArray *list = [dict objectForKey:@"lists"];
+                   for (NSDictionary *tmpDict in self.selectedPerson) {
+                       for (NSDictionary *tempDict in [list[0] objectForKey:@"list"]) {
+                           NSLog(@"selectUserid--->%@,userid--->%@",[tmpDict objectForKey:@"userid"],[tempDict objectForKey:@"userid"]);
+                           if ([[tmpDict objectForKey:@"userid"] integerValue] == [[tempDict objectForKey:@"userid"] integerValue]) {
+                               NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[[list[0] objectForKey:@"list"] indexOfObject:tempDict] inSection:0];
+                               [_selectIndexPaths addObject:indexPath];
+                               [_addItems addObject:tempDict];
+                           }
+                       }
+                   }
                    self.addressList = [NSMutableArray arrayWithArray:list];
                    [_mainTable reloadData];
                }
