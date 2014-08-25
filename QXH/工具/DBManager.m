@@ -230,6 +230,7 @@ static DBManager *dbManager;
     
    FMResultSet* rs=[db executeQuery:@"SELECT * FROM chat_mess_tbl WHERE dtdate = ?",data];
     while ([rs next]){
+        [db close];
 //        NSLog(@"%@",[rs stringForColumn:@"dtdate"]);
         return YES;
     }

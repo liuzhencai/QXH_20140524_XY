@@ -231,7 +231,7 @@ static int chatInputStartingHeight = 40;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoom:) name:@"reloadeChatRoom" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatRoomAll:) name:@"reloadeChatRoomAll" object:nil];
-    [MessageBySend sharMessageBySend].delegate =self;
+   
 //    /*没有历史记录*/
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
 }
@@ -241,7 +241,7 @@ static int chatInputStartingHeight = 40;
     
     // Add views here, or they will create problems when launching in landscape
     
-
+ [MessageBySend sharMessageBySend].delegate =self;
     switch (FrontViewTag) {
         case CONVERSATION_TABLE_TAG:
         {

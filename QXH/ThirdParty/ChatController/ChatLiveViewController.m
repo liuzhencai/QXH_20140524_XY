@@ -178,14 +178,13 @@ static int chatInputStartingHeight = 40;
     /*没有历史记录*/
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
     
-      [MessageBySend sharMessageBySend].delegate =self;
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     
     // Add views here, or they will create problems when launching in landscape
-    
+    [MessageBySend sharMessageBySend].delegate =self;
     [self scrollToBottom];
     [self.view addSubview:_chatInput];
     

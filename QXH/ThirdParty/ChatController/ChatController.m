@@ -193,29 +193,23 @@ static int chatInputStartingHeight = 40;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadeChatViewAll:) name:@"reloadeChatViewAll" object:nil];
 
+
     /*没有历史记录*/
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOHistory:) name:@"NOHistory" object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
+
+    [MessageBySend sharMessageBySend].delegate =self;
     [self scrollToBottom];
     [self.view addSubview:_chatInput];
-    // Add views here, or they will create problems when launching in landscape
-    
-    //    [self.view addSubview:_topBar];
-    
-    // Scroll CollectionView Before We Start
     
 }
 #pragma mark 界面消失
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-
-    
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -1282,7 +1276,7 @@ static int chatInputStartingHeight = 40;
     [_chatInput.textView resignFirstResponder];
     [[MessageBySend sharMessageBySend] hideprogressHUD];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+    [MessageBySend sharMessageBySend].delegate = nil;
     [self ReceiveAndSeeMessige];
     [self.navigationController popViewControllerAnimated:YES];
 }

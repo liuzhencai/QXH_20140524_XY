@@ -68,14 +68,15 @@ static MessageBySend* ins =nil;
         return;
     }
   
-    //消息提醒
+    
 //    AudioServicesPlaySystemSound(1007);
-    [self messageTip];
+
     /*暂时屏蔽此处离线消息*/
     [self AddTounKnowCharMessAyyay:userinfo];
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
- 
+    //消息提醒
+    [self messageTip];
 //    [self AddSystemMessAyyay:userinfo];
   
     
