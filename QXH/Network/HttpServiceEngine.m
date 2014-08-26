@@ -9,6 +9,10 @@
 #import "HttpServiceEngine.h"
 #import "Public.h"
 
+@interface HttpServiceEngine ()
+@property(nonatomic, strong)MBProgressHUD *progressHUD;
+@end
+
 @implementation HttpServiceEngine
 
 static HttpServiceEngine *httpEngine;
@@ -24,7 +28,12 @@ static HttpServiceEngine *httpEngine;
 
 - (id)initHost{
     if(self = [super initWithHostName:HOST_URL customHeaderFields:@{@"Content-Type" : @"application/json"}]) {
-        
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        _progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
+        _progressHUD.animationType = MBProgressHUDAnimationFade;
+        _progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
+        _progressHUD.labelText = @"加载中...";
+        [keyWindow addSubview:_progressHUD];
     }
     return self;
 }
@@ -94,16 +103,7 @@ static HttpServiceEngine *httpEngine;
  completionHandler:(DataProcessBlock) completionBlock
       errorHandler:(MKNKErrorBlock) errorBlock
 {
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    if (!progressHUD) {
-        progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
-        progressHUD.animationType = MBProgressHUDAnimationFade;
-        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
-        progressHUD.labelText = @"加载中...";
-    }
-    
-    [keyWindow addSubview:progressHUD];
-    [progressHUD show:YES];
+    [_progressHUD show:YES];
     
     __block __weak MKNetworkOperation *op = nil;
     NSDictionary *tmpParam = @{@"opercode": @"0141", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type};
@@ -137,11 +137,11 @@ static HttpServiceEngine *httpEngine;
     
     [op addCompletionHandler:^(MKNetworkOperation* completedOperation) {
         [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
-            [progressHUD hide:YES];
+            [_progressHUD hide:YES];
             completionBlock(op.HTTPStatusCode,jsonObject);
         }];
     }errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
-        [progressHUD hide:YES];
+        [_progressHUD hide:YES];
         errorBlock(error);
     }];
     [self enqueueOperation:op];
@@ -149,19 +149,7 @@ static HttpServiceEngine *httpEngine;
 
 - (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
 {
-
-    /*暂时屏蔽刘振财，因为总不消失*/
-    
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    if (!progressHUD) {
-        progressHUD = [[MBProgressHUD alloc] initWithWindow:keyWindow];
-        progressHUD.animationType = MBProgressHUDAnimationFade;
-        progressHUD.labelFont = [UIFont systemFontOfSize:13.f];
-        progressHUD.labelText = @"加载中...";
-    }
-
-    [keyWindow addSubview:progressHUD];
-    [progressHUD show:YES];
+    [_progressHUD show:YES];
 //    dispatch_queue_t myhttpqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     static dispatch_queue_t myHttpQueue;
     if (!myHttpQueue) {
@@ -183,13 +171,13 @@ static HttpServiceEngine *httpEngine;
         [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
             [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [progressHUD hide:YES];
+                    [_progressHUD hide:YES];
                     dataProcess(op.HTTPStatusCode,jsonObject);
                 });
             }];
         } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [progressHUD hide:YES];
+                [_progressHUD hide:YES];
                 errorBlock(error);
             });
         }];

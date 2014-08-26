@@ -26,5 +26,7 @@
 
 @property (nonatomic, assign) id<RespForWeChatViewDelegate,NSObject> delegate;
 
+@property (nonatomic, strong) NSTimer *timer;
+
 //- (void)login;
 @end

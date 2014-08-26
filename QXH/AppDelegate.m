@@ -36,14 +36,11 @@
     //754672546@qq.com
     NSString *name = [defaults objectForKey:@"userName"];
     NSString *passward = [defaults objectForKey:@"passworld"];
-
     if (name && passward) {
         [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
-            
-            NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
+            [self startHeartBeat];
             [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
-                [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
-                
+
             }];
         }];
     }
@@ -56,6 +53,10 @@
 {
     [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"心跳返回--->%@",dict);
+        if([[dict objectForKey:@"opercode"] isEqualToString:@"0141"]){
+            [self stopHeartBeat];
+            [self login];
+        }
     }];
 }
 
@@ -89,17 +90,11 @@
     [tabController setViewControllers:[NSArray arrayWithObjects:homeNav, addrNav, meNav, nil]];
     self.window.rootViewController = tabController;
     
-//    LoginViewController* login = [[LoginViewController alloc]init];
-//    UINavigationController* loginNavigation = [[UINavigationController alloc]initWithRootViewController:login];
-////    self.window.rootViewController = loginnavigation;
-//    [self.window addSubview:loginNavigation.view];
-    
 }
 
 #pragma mark - loginDelegate
 - (void)didLoginHandle:(LoginViewController *)loginViewController{
     NSLog(@"登录完成");
-   //    [self login];
     [self loadPages];
     
     /*获取个人信息，并储存起来*/
@@ -111,10 +106,6 @@
     [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
     
     [MessageBySend sharMessageBySend];
-}
-
-- (void)startHeartBeat{
-    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
 }
 
 - (NSString *)getUmengDeviceId
@@ -163,21 +154,29 @@
     NSLog(@"online config has fininshed and note = %@", note.userInfo);
 }
 
-- (void)recconect
+- (void)stopHeartBeat
 {
-    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
-        if ([[dict objectForKey:@"statecode"] integerValue] == 441) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnect) name:@"recconnect" object:nil];
+    [_timer setFireDate:[NSDate distantFuture]];
+}
 
-        }
-    }];
+- (void)startHeartBeat
+{
+    [_timer setFireDate:[NSDate date]];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconnect) name:@"recconnect" object:nil];
+
+    _timer = [NSTimer scheduledTimerWithTimeInterval:30.f
+                                                target:self
+                                              selector:@selector(heartBeat)
+                                              userInfo:nil
+                                               repeats:YES];
+    [_timer setFireDate:[NSDate distantFuture]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startHeartBeat) name:@"STARTHEARTBEAT" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopHeartBeat) name:@"STOPHEARTBEAT" object:nil];
    
     /*暂时屏蔽友盟，崩溃较严重*/
 //    [self getUmengDeviceId];
@@ -227,14 +226,14 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self stopHeartBeat];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     /*客户端回到前台，自动调用登录*/
-    [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
-        [self login];
-    }];
+    [self startHeartBeat];
+//        [self login];
     NSLog(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
