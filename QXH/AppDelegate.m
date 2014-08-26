@@ -53,7 +53,7 @@
 {
     [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
         NSLog(@"心跳返回--->%@",dict);
-        if([[dict objectForKey:@"opercode"] isEqualToString:@"0141"]){
+        if([[dict objectForKey:@"opercode"] isEqualToString:@"0141"]||[[dict objectForKey:@"opercode"] isEqualToString:@"0121"]){
             [self stopHeartBeat];
             [self login];
         }
