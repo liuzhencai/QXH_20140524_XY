@@ -94,6 +94,7 @@
     infoModel.sphoto = model.sphoto;
     infoModel.title = model.title;
     squareInfo.content = infoModel;
+    squareInfo.uid = [model.sid integerValue];
     return squareInfo;
 }
 
