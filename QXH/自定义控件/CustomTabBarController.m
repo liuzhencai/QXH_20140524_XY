@@ -213,18 +213,18 @@
 - (void)reloadMessage:(NSNotification *)notification{
     NSLog(@"接收到系统消息通知");
     self.tipLabel.hidden = NO;
+    [self.secondControl bringSubviewToFront:self.tipLabel];
 }
 
 - (void)reloadeChatMessInfo:(NSNotification *)notification{
     NSLog(@"接收到聊天消息");
     self.tipLabel.hidden = NO;
-    
+    [self.secondControl bringSubviewToFront:self.tipLabel];
 }
 
 - (void)NoChatMessInfo:(NSNotification *)notification{
     NSLog(@"接收到聊天消息");
     self.tipLabel.hidden = YES;
-    
 }
 
 @end

@@ -574,7 +574,9 @@
                 [self.navigationController pushViewController:controller animated:YES];
             }else{
                 NameCardViewController *controller = [[NameCardViewController alloc]init];
-                NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:_info.uid] forKey:@"userid"];
+                NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:_info.uid] forKey:@"userid"];//InfoModel
+//                NSDictionary *item = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:_info.content] forKey:@"userid"];//InfoModel
+
                 controller.memberDict = item;
                 [self.navigationController pushViewController:controller animated:YES];
             }
