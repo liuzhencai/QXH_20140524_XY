@@ -423,12 +423,15 @@
             break;
         case 5:
         {
-            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
-            controller.info = model;
-            controller.type = SquareInfoTypeTrans;
-            controller.hidesBottomBarWhenPushed = YES;
+//            ShareTextController *controller = [[ShareTextController alloc] initWithNibName:@"ShareTextController" bundle:nil];
+//            controller.info = model;
+//            controller.type = SquareInfoTypeTrans;
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            InformationDetailController *controller = [[InformationDetailController alloc] initWithNibName:@"InformationDetailController" bundle:nil];
+            InfoModel *info = model.content;
+            controller.artid = info.artid;
             [self.navigationController pushViewController:controller animated:YES];
-    
         }
             break;
         case 3:

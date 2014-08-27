@@ -25,7 +25,11 @@
 
 - (void)setValueForView
 {
-    _articleTitleLabel.text = detailmodel.title;
+    if ([detailmodel.title isEqualToString:@""]) {
+        _articleTitleLabel.text = detailmodel.content;
+    }else{
+        _articleTitleLabel.text = detailmodel.title;
+    }
     _readNumLabel.text = detailmodel.browsetime;
     _commentNumLabel.text = detailmodel.commenttime;
     _postLabel.text = detailmodel.relaytime;
