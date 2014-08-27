@@ -389,7 +389,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SquareInfo *model = [squareInfoList objectAtIndex:indexPath.row];
+    SquareInfo *model = nil;
+    if (_curIndex == 1) {
+        model = [squareInfoList objectAtIndex:indexPath.row];
+    }else{
+        model = [hotestInfoList objectAtIndex:indexPath.row];
+    }
+
     switch (model.type) {
         case 1:
         {
