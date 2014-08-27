@@ -89,11 +89,12 @@
     infoModel.content = model.content;
     infoModel.contentlength = [model.contentlength integerValue];
     infoModel.date = model.date;
-    infoModel.sid = model.sid;
+//    infoModel.sid = model.sid;
     infoModel.sname = model.sname;
     infoModel.sphoto = model.sphoto;
     infoModel.title = model.title;
     squareInfo.content = infoModel;
+    squareInfo.uid = [model.sid integerValue];
     return squareInfo;
 }
 
