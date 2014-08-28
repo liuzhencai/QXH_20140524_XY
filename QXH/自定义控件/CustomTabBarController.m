@@ -73,12 +73,12 @@
     } else {
         contentView = [self.view.subviews objectAtIndex:0];
     }
-    if (abool) {
-        contentView.frame = CGRectMake(contentView.bounds.origin.x,  contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height + self.tabBar.frame.size.height);
-        
-    } else {
-        contentView.frame = CGRectMake(contentView.bounds.origin.x, contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height - self.tabBar.frame.size.height);
-    }
+//    if (abool) {
+//        contentView.frame = CGRectMake(contentView.bounds.origin.x,  contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height + self.tabBar.frame.size.height);
+//        
+//    } else {
+//        contentView.frame = CGRectMake(contentView.bounds.origin.x, contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height - self.tabBar.frame.size.height);
+//    }
     tabView_.hidden = abool;
 }
 
@@ -100,7 +100,7 @@
     [tabView addSubview:thirdControl];
  
     [self.view addSubview:tabView];
- 
+//    self.view.backgroundColor = [UIColor redColor];
     [self selectTab:0];
 }
 
