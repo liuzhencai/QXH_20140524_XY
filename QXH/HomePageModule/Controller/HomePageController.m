@@ -85,8 +85,6 @@
     
     timeCount = 0;
     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollTimer) userInfo:nil repeats:YES];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reConnection) name:@"heartBeat" object:nil];
 }
 
 - (void)updateAds:(NSNotification *)notif
@@ -199,7 +197,7 @@
         /*修改后提交，使用原来获取用户信息方法，因为用户会更新或者注销后登陆*/
         [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
             [self setTopViewValue:dict];
-            [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"STARTHEARTBEAT" object:nil];
         }];
     }
 }
@@ -231,7 +229,7 @@
             [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary* dic){
                 NSLog(@"dic==%@",dic);
                 [self setTopViewValue:dic];
-                [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT target:self selector:@selector(heartBeat) userInfo:nil repeats:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"STARTHEARTBEAT" object:nil];
                 [[MessageBySend sharMessageBySend]getOfflineMessage];
             }];
 //        [self showAlert:[dict objectForKey:@"info"]];
@@ -333,22 +331,22 @@
 }
 
 // 心跳
-- (void)heartBeat
-{
-    /**
-     *  长时间无返回，重新连接，判定时间为30s，若收不到心跳回应，则进行重新连接
-     */
-    flag = NO;
-    if (!_timer) {
-        _timer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:99999999.f target:self selector:@selector(tryReConnect) userInfo:nil repeats:YES];
-    }
-    [_timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:30.f]];
-
-    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
-        flag = YES;
-        [_timer setFireDate:[NSDate distantFuture]];
-    }];
-}
+//- (void)heartBeat
+//{
+//    /**
+//     *  长时间无返回，重新连接，判定时间为30s，若收不到心跳回应，则进行重新连接
+//     */
+//    flag = NO;
+//    if (!_timer) {
+//        _timer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:99999999.f target:self selector:@selector(tryReConnect) userInfo:nil repeats:YES];
+//    }
+//    [_timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:30.f]];
+//
+//    [DataInterface heartBeatWithCompletionHandler:^(NSMutableDictionary *dict) {
+//        flag = YES;
+//        [_timer setFireDate:[NSDate distantFuture]];
+//    }];
+//}
 
 - (void)addTopImage
 {

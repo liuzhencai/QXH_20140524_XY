@@ -22,9 +22,6 @@ typedef void (^DataProcessBlock)(NSInteger statusCode, id object);
 typedef void (^DownloadProgressBlock)(double progress);
 
 @interface HttpServiceEngine : MKNetworkEngine
-{
-    MBProgressHUD *progressHUD;
-}
 
 /**
  *  单例实现方法

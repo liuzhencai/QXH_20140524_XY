@@ -64,11 +64,13 @@
     }
     _nameLabel.text = model.uname;
     _dateLabel.text = [model.date substringToIndex:10];
+    _contentLabel.numberOfLines = 0;
+    _contentLabel.lineBreakMode = kTextLineBreakByTruncatingTail;
     if (flag == 0) {
         _contentLabel.text = _infoModel.title;
         [_subImageView setImageWithURL:IMGURL(_infoModel.artimgs)];
     }else{
-        _contentLabel.text = _infoModel.title;
+        _contentLabel.text = _infoModel.content;
         [_subImageView setImageWithURL:IMGURL(_infoModel.sphoto)];
     }
 
