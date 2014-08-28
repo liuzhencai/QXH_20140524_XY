@@ -196,7 +196,7 @@ static MessageBySend* ins =nil;
         if ([tempSenderId isEqual:meid] && [messtype intValue]==3) {
             /*如果是我发送的图片就暂时不保存*/
         }else{
-            NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+//            NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
             /*是否已经查看离线消息*/
 //            NSString* targeid = [haveSeeOffline valueForKey:atribeid];
 //            if ([offarray count] && !targeid) {

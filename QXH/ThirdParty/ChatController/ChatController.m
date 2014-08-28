@@ -972,14 +972,15 @@ static int chatInputStartingHeight = 40;
 /*接受到消息，界面滚动*/
 - (void) didSendMessage:(NSMutableDictionary *)message
 {
-    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+//    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
     //    message[@"sentByUserId"] = @"currentUserId";
     
     /*添加属性，消息发送状态*/
-    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
+//    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
     
     
-    if (_messagesArray == nil)  _messagesArray = [NSMutableArray new];
+    if (_messagesArray == nil)
+        _messagesArray = [NSMutableArray new];
     
     // preload message into array;
     [_messagesArray addObject:message];
