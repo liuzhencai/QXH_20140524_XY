@@ -177,7 +177,7 @@
     }
     if (count == 0) {
         self.tipLabel.hidden = YES;
-        self.tipLabel.text = @"0";//[NSString stringWithFormat:@"%d",count];
+        self.tipLabel.text = @"";//[NSString stringWithFormat:@"%d",count];
     }else{
         self.tipLabel.hidden = NO;
         if (count > 99) {
@@ -240,11 +240,13 @@
     NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
 
     NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
-    if ([values count]) {
-        self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
-        [self resetTipLabelWithMessage:self.myMessageList];
-        [myMessageTable reloadData];
-    }
+//    if ([values count]) {
+//        self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+//        [self resetTipLabelWithMessage:self.myMessageList];
+//        [_messageTable reloadData];
+//    }
+    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
 
     //
     //    NSLog(@"接受到的信息:%@",auserinfo);
