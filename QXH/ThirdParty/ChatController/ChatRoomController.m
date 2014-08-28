@@ -1977,8 +1977,8 @@ static int chatInputStartingHeight = 40;
 }
 
 #pragma mark 没有历史记录
-- (void)NOHistory:(NSNotification*)chatmessage
-{
+//- (void)NOHistory:(NSNotification*)chatmessage
+//{
 //      NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
 //    NSString* targetid = [auserinfo valueForKey:@"targetid"];
 //   
@@ -1989,9 +1989,9 @@ static int chatInputStartingHeight = 40;
 //        [_myCollectionView headerEndRefreshing];
 //    }
 //    [self showAlert:@"已经没有历史记录！"];
-
-    
-}
+//
+//
+//}
 
 - (void)NoHistory
 {

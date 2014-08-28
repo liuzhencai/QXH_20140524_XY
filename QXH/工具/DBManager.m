@@ -34,7 +34,6 @@ static DBManager *dbManager;
 - (void)initDb:(NSString *)path
 {
     db = [[FMDatabase alloc] initWithPath:path];
- 
 }
 
 - (id)init
@@ -67,21 +66,29 @@ static DBManager *dbManager;
              db = [[FMDatabase alloc] initWithPath:dbFilePath];
 //            [self initDb:dbFilePath];
         }
+        
+        BOOL res1 =  [db open] ;
+        if (!res1) {
+            NSLog(@"error when open db table");
+            
+        } else {
+            NSLog(@"success to open db table");
+            
+        }
     }
     return self;
 }
 
 - (void)saveChatMess:(ChatMess *)mess
 {
-//    NSString *sql = @"merge into chat_mess_tbl a using (select ? as cid, ? as uid, ? as msgid, ? as sid, ? as type, ? as fromid, ? as fromname, ? as fromphotoid, ? as dttime, ? as dtdate, ? as contenttext, ? as contentres, ? as state, ? as targetid, ? as targetname, ? as targetphoto, ? as targettype) b on (a.msgid = b.msgid) when matched then update set a.cid = b.cid; a.uid = b.uid, a.msgid = b.msgid, a.sid = b.sid, a.type = b.type, a.fromid = b.fromid, a.fromname = b.fromname, a.fromphotoid = b.fromphotoid, a.dttime = b.dttime, a.dtdate = b.dtdate, a.contenttext = b.contenttext, a.contentres = b.contentres, a.state = b.state, a.targetid = b.targetid, a.targetname = b.targetname, a.targetphoto = b.targetphoto, a.targettype = b.targettype when not matched then insert (a.cid, a.uid, a.msgid, a.sid, a.type, a.fromid, a.fromname, a.fromphotoid, a.dttime, a.dtdate, a.contenttext, a.contentres, a.state, a.targetid, a.targetname, a.targetphoto, a.targettype) values (b.cid, b.uid, b.msgid, b.sid, b.type, b.fromid, b.fromname, b.fromphotoid, b.dttime, b.dtdate, b.contenttext, b.contentres, b.state, b.targetid, b.targetname, b.targetphoto, b.targettype)";
    
-    BOOL res1 =  [db open] ;
-    if (!res1) {
-        NSLog(@"error when open db table");
-          return ;
-    } else {
-        NSLog(@"success to open db table");
-    }
+//    BOOL res1 =  [db open] ;
+//    if (!res1) {
+//        NSLog(@"error when open db table");
+//          return ;
+//    } else {
+//        NSLog(@"success to open db table");
+//    }
     
 
       NSString *sql = @"insert into chat_mess_tbl (msgid,type,fromid,fromname,fromphotoid,dtdate,contenttext,targetid,targetname,targetphoto,messagetype) values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -97,47 +104,27 @@ static DBManager *dbManager;
     } else {
         NSLog(@"success to insert db table");
     }
-    [db close];
+//    [db close];
 }
 
 - (NSMutableArray *)getChatMessStart:(NSString *)start maxCount:(NSString *)count Andtargetid:(NSString *)targetid
 {
-    BOOL res1 =  [db open] ;
-    if (!res1) {
-        NSLog(@"error when open db table");
-        return nil;
-    } else {
-        NSLog(@"success to open db table");
-      
-    }
+//    BOOL res1 =  [db open] ;
+//    if (!res1) {
+//        NSLog(@"error when open db table");
+//        return nil;
+//    } else {
+//        NSLog(@"success to open db table");
+//      
+//    }
+    
     NSMutableArray *result  = [[NSMutableArray alloc] init];
-//    NSString *sql = [NSString stringWithFormat:@"select  *from chat_mess_tbl where targetid = %@ limit %@, %@", targetid, start, count];
-//     NSString *sql = [NSString stringWithFormat:@"select * from  chat_mess_tbl order by dtdate desc where targetid = %@ limit %@, %@", targetid, start, count];
+
      NSString *sql = [NSString stringWithFormat:@"select * from  chat_mess_tbl  where targetid = %@ order by dtdate desc limit %@, %@", targetid, start, count];
     FMResultSet *rs = [db executeQuery:sql];
     
     
     while (rs.next) {
-//        ChatMess *obj = [[ChatMess alloc] init];
-//        obj.cid= [rs objectForColumnName:@"cid"];
-//        obj.uid= [rs objectForColumnName:@"uid"];
-//        obj.msgid= [rs objectForColumnName:@"msgid"];
-//        obj.sessionid = [rs objectForColumnName:@"sid"];
-//        obj.type= [rs objectForColumnName:@"type"];
-//        obj.fromid= [rs objectForColumnName:@"fromid"];
-//        obj.fromname= [rs objectForColumnName:@"fromname"];
-//        obj.fromphotoid= [rs objectForColumnName:@"fromphotoid"];
-//        obj.dttime= [rs objectForColumnName:@"dttime"];
-//        obj.dtdate= [rs objectForColumnName:@"dtdate"];
-//        obj.contenttext = [rs objectForColumnName:@"contenttext"];
-//        obj.contentres= [rs objectForColumnName:@"contentres"];
-//        obj.state = [rs objectForColumnName:@"state"];
-//        obj.targetid = [rs objectForColumnName:@"targetid"];
-//        obj.targetname = [rs objectForColumnName:@"targetname"];
-//        obj.targetphoto = [rs objectForColumnName:@"targetphoto"];
-//        obj.targettype = [rs objectForColumnName:@"targettype"];
-        
-        
       
         NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
         // 消息唯一标示
@@ -175,35 +162,35 @@ static DBManager *dbManager;
         
         [result addObject:dic];
     }
-    [db close];
+//    [db close];
     return result;
 }
 
 - (BOOL)clearAllUserData
 {
     /*没有打开时无法删除*/
-    BOOL res1 =  [db open] ;
-    if (!res1) {
-        NSLog(@"error when open db table");
-        
-    } else {
-        NSLog(@"success to open db table");
-        
-    }
+//    BOOL res1 =  [db open] ;
+//    if (!res1) {
+//        NSLog(@"error when open db table");
+//        
+//    } else {
+//        NSLog(@"success to open db table");
+//        
+//    }
     NSString *sql = @"delete from chat_mess_tbl";
     return [db executeUpdate:sql];
 }
 
 - (void)changeByDate:(NSString*)adate andMessid:(NSNumber*)messid
 {
-    BOOL res1 =  [db open] ;
-    if (!res1) {
-        NSLog(@"error when open db table");
-        return ;
-    } else {
-        NSLog(@"success to open db table");
-        
-    }
+//    BOOL res1 =  [db open] ;
+//    if (!res1) {
+//        NSLog(@"error when open db table");
+//        return ;
+//    } else {
+//        NSLog(@"success to open db table");
+//        
+//    }
     
    BOOL result =  [db executeUpdate:@"UPDATE chat_mess_tbl SET msgid = ? WHERE dtdate = ? ",messid,adate];
     if (!result) {
@@ -212,26 +199,25 @@ static DBManager *dbManager;
      NSLog(@"修改数据库成功");
     }
     
-    [db close];
+//    [db close];
 }
 
 /*查找*/
 - (BOOL)Search:(NSString*)data
 {
-    BOOL res1 =  [db open] ;
-    if (!res1) {
-        NSLog(@"error when open db table");
-       
-    } else {
-        NSLog(@"success to open db table");
-        
-    }
+//    BOOL res1 =  [db open] ;
+//    if (!res1) {
+//        NSLog(@"error when open db table");
+//       
+//    } else {
+//        NSLog(@"success to open db table");
+//        
+//    }
 //    data = @"20140818123";
     
    FMResultSet* rs=[db executeQuery:@"SELECT * FROM chat_mess_tbl WHERE dtdate = ?",data];
     while ([rs next]){
-        [db close];
-//        NSLog(@"%@",[rs stringForColumn:@"dtdate"]);
+//        [db close];
         return YES;
     }
     
@@ -239,7 +225,7 @@ static DBManager *dbManager;
     
    
     
-    [db close];
+//    [db close];
     return NO;
 }
 @end

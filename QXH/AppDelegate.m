@@ -39,6 +39,8 @@
 
     if (name && passward) {
         [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
+            /*后台进入前台时获取离线消息*/
+            [[MessageBySend sharMessageBySend]getOfflineMessage];
             
             NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
             [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
