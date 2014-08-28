@@ -80,7 +80,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 UIImageView *portraitView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 48, 48)];
-                portraitView.tag = 101;
+                portraitView.tag = 1011;
                 [cell.contentView addSubview:portraitView];
                 
                 UILabel *nameLabel  = [[UILabel alloc] initWithFrame:CGRectMake(68, 10, 100, 21)];
@@ -102,7 +102,7 @@
                     [cell.contentView addSubview:imageView];
                 }
             }
-            UIImageView *portraitView_  = (UIImageView *)[cell.contentView viewWithTag:101];
+            UIImageView *portraitView_  = (UIImageView *)[cell.contentView viewWithTag:1011];
             UILabel *nameLabel_ = (UILabel *)[cell.contentView viewWithTag:102];
             UILabel *dateLabel_ = (UILabel *)[cell.contentView viewWithTag:103];
             UILabel *contentLabel_ = (UILabel *)[cell.contentView viewWithTag:104];
