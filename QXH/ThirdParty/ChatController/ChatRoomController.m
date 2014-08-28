@@ -992,15 +992,16 @@ static int chatInputStartingHeight = 40;
 /*接受到消息，界面滚动*/
 - (void) didSendMessage:(NSMutableDictionary *)message
 {
-
-    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+//
+//    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
 //    message[@"sentByUserId"] = @"currentUserId";
     
     /*添加属性，消息发送状态*/
-    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
+//    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
 
     
-    if (_messagesArray == nil)  _messagesArray = [NSMutableArray new];
+    if (_messagesArray == nil)
+        _messagesArray = [NSMutableArray new];
     
     // preload message into array;
     [_messagesArray addObject:message];
@@ -1101,10 +1102,6 @@ static int chatInputStartingHeight = 40;
     NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
     [_myCollectionView insertItemsAtIndexPaths:tempArray];
     
-    NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
-    MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
-    cell.message = message;
-    // show us the message
     [self scrollToBottom];
 }
 
@@ -1142,7 +1139,6 @@ static int chatInputStartingHeight = 40;
 /*对方发送消息*/
 - (void)messageSendByOpponent:(NSMutableDictionary *)message
 {
-//    [message setValue:[NSNumber numberWithInt:kSentByOpponent] forKey:@"kMessageSentBy"];
     [self didSendMessage:message];
 }
 #pragma mark - CustomSegmentControlDelegate
@@ -1435,7 +1431,6 @@ static int chatInputStartingHeight = 40;
     if ([atribeid intValue] != [tribeId intValue]) {
         return;
     }
-      [self messageSendByOpponent:auserinfo];
     
 //    NSArray* messageArray = auserinfo[@"messageArray"];
     
@@ -1453,19 +1448,19 @@ static int chatInputStartingHeight = 40;
     
 //    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
     
-//    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-//    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
+    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
 //    UserInfoModel* aother = nil;
     
-    /*为什么要获取对方详细信息*/
-//    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-//     {
-//          NSLog(@"reloadeChatRoom***getOtherUserInfo");
+    /*如果不获取对方信息，则每个聊天消息都要联网获取对方头像，这个延时很严重，所以必须调用此方法，不要再屏蔽了*/
+    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+     {
+          NSLog(@"reloadeChatRoom***getOtherUserInfo");
    
-//        [self messageSendByOpponent:auserinfo];
+        [self messageSendByOpponent:auserinfo];
     
-//         return other;
-//     }];
+         return other;
+     }];
     
 
 }
@@ -1977,8 +1972,8 @@ static int chatInputStartingHeight = 40;
 }
 
 #pragma mark 没有历史记录
-- (void)NOHistory:(NSNotification*)chatmessage
-{
+//- (void)NOHistory:(NSNotification*)chatmessage
+//{
 //      NSMutableDictionary* auserinfo = [[NSMutableDictionary alloc]initWithDictionary:(NSDictionary*)[chatmessage valueForKey:@"userInfo"]];
 //    NSString* targetid = [auserinfo valueForKey:@"targetid"];
 //   
@@ -1989,9 +1984,9 @@ static int chatInputStartingHeight = 40;
 //        [_myCollectionView headerEndRefreshing];
 //    }
 //    [self showAlert:@"已经没有历史记录！"];
-
-    
-}
+//
+//
+//}
 
 - (void)NoHistory
 {

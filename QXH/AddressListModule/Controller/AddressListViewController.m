@@ -177,7 +177,7 @@
     }
     if (count == 0) {
         self.tipLabel.hidden = YES;
-        self.tipLabel.text = @"0";//[NSString stringWithFormat:@"%d",count];
+        self.tipLabel.text = @"";//[NSString stringWithFormat:@"%d",count];
     }else{
         self.tipLabel.hidden = NO;
         if (count > 99) {
@@ -199,8 +199,10 @@
     
     NSMutableArray *systemArr = [[NSMutableArray alloc] initWithArray:[auserinfo allValues]];
     self.myMessageList = systemArr;
-    [self resetTipLabelWithMessage:self.myMessageList];
-    [_messageTable reloadData];
+//    [self resetTipLabelWithMessage:self.myMessageList];
+//    [_messageTable reloadData];
+    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
+
 }
 
 #pragma mark 系统推送的部落聊天或者私聊接口
@@ -218,12 +220,17 @@
 
 //    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
 //    NSLog(@"%@",values);
-//    
 //    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
-    [self resetTipLabelWithMessage:_myMessageList];
+    
+//    [self resetTipLabelWithMessage:_myMessageList];
+//    [myMessageTable reloadData];
+    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
 
-    [myMessageTable reloadData];
+}
 
+- (void)updateViewOnMainThread{
+    [self resetTipLabelWithMessage:self.myMessageList];
+    [_messageTable reloadData];
 }
 
 #pragma mark 主动获取部落聊天或者私聊接口
@@ -233,11 +240,13 @@
     NSMutableDictionary* messagedic = [[MessageBySend sharMessageBySend]getunKnowCharMessDic];
 
     NSMutableArray* values = (NSMutableArray*)[messagedic  allValues];
-    if ([values count]) {
-        self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
-        [self resetTipLabelWithMessage:self.myMessageList];
-        [myMessageTable reloadData];
-    }
+//    if ([values count]) {
+//        self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+//        [self resetTipLabelWithMessage:self.myMessageList];
+//        [_messageTable reloadData];
+//    }
+    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
+    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
 
     //
     //    NSLog(@"接受到的信息:%@",auserinfo);

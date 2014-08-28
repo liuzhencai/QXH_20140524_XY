@@ -628,14 +628,15 @@ static int chatInputStartingHeight = 40;
 - (void) didSendMessage:(NSMutableDictionary *)message
 {
     
-    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
-    //    message[@"sentByUserId"] = @"currentUserId";
+//    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+//    //    message[@"sentByUserId"] = @"currentUserId";
+//    
+//    /*添加属性，消息发送状态*/
+//    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
     
-    /*添加属性，消息发送状态*/
-    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
     
-    
-    if (_messagesArray == nil)  _messagesArray = [NSMutableArray new];
+    if (_messagesArray == nil)
+        _messagesArray = [NSMutableArray new];
     
     // preload message into array;
     [_messagesArray addObject:message];
@@ -736,9 +737,7 @@ static int chatInputStartingHeight = 40;
     NSArray* tempArray = @[[NSIndexPath indexPathForRow:arow inSection:0]];
     [_myCollectionView insertItemsAtIndexPaths:tempArray];
     
-    NSIndexPath* aindex =[NSIndexPath indexPathForRow:([self.messagesArray count]-1) inSection:0];
-    MessageCell* cell = (MessageCell*)[self.myCollectionView cellForItemAtIndexPath:aindex];
-    cell.message = message;
+
     // show us the message
     [self scrollToBottom];
 }

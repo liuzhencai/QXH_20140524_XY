@@ -14,7 +14,10 @@
 
 @implementation MessageBySend
 static MessageBySend* ins =nil;
+
+
 @synthesize delegate;
+@synthesize messid;
 
 //@synthesize delegate;
 
@@ -58,7 +61,7 @@ static MessageBySend* ins =nil;
     if ([messid isEqualToString:amessid]) {
         return;
     }
-    messid = amessid;
+    self.messid = amessid;
       /*因为直播间消息也会给自己推送*/
     NSNumber* senderid = (NSNumber*)[userinfo valueForKey:@"senderid"];
     NSNumber* meuserid = [defaults objectForKey:@"userid"] ;
@@ -193,7 +196,7 @@ static MessageBySend* ins =nil;
         if ([tempSenderId isEqual:meid] && [messtype intValue]==3) {
             /*如果是我发送的图片就暂时不保存*/
         }else{
-            NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+//            NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
             /*是否已经查看离线消息*/
 //            NSString* targeid = [haveSeeOffline valueForKey:atribeid];
 //            if ([offarray count] && !targeid) {
@@ -590,8 +593,12 @@ static MessageBySend* ins =nil;
     /*如果是自己发送的就不用发消息刷新界面了*/
 
     NSLog(@"向服务器发送已读通知");
-    [unKnowCharMessDic removeObjectForKey:tribeid];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+    if ([[unKnowCharMessDic allKeys] count] &&[unKnowCharMessDic valueForKey:tribeid]) {
+         [unKnowCharMessDic removeObjectForKey:tribeid];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];
+    }
+
+
     if ([[unKnowCharMessDic allKeys]count]==0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NoChatMessInfo" object:nil userInfo:unKnowCharMessDic];
         
@@ -599,33 +606,34 @@ static MessageBySend* ins =nil;
     
     if ([type isEqualToString:@"1"]) {
         /*私聊*/
-//        [DataInterface recvMessage:messigeid userid:tribeid withCompletionHandler:^(NSMutableDictionary*dic){
-//            /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
-//             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
-//             info:"操作成功",		//客户端可以使用该info进行提示
-//             sign:"9aldai9adsf"*/
-//            NSLog(@"info==%@",dic[@"info"]);
-//            NSString* statecode = dic[@"statecode"];
-//            //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
-//            if ([statecode isEqualToString:@"0200"]) {
-//                
-//                /*未读消息中移除*/
-//                NSLog(@"服务器收到已读通知");
-//                
-//            }
-//        }];
-        
-        [DataInterface recvMessage:messigeid
-                           tribeid:tribeid
-                              type:type
-             withCompletionHandler:^(NSMutableDictionary *dict){
-            NSLog(@"info==%@",dict[@"info"]);
-            NSString* statecode = dict[@"statecode"];
+        [DataInterface recvMessage:messigeid userid:tribeid withCompletionHandler:^(NSMutableDictionary*dic){
+            /*	opercode:"0132",		//operCode为0131，客户端通过该字段确定事件
+             statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
+             info:"操作成功",		//客户端可以使用该info进行提示
+             sign:"9aldai9adsf"*/
+            NSLog(@"info==%@",dic[@"info"]);
+            NSString* statecode = dic[@"statecode"];
+            //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
             if ([statecode isEqualToString:@"0200"]) {
+                
                 /*未读消息中移除*/
-                NSLog(@"服务器收到已读通知xxx");
+                NSLog(@"服务器收到已读通知");
+                
             }
         }];
+        
+        /*以下方法有错误，不能使用，不要再打开了*/
+//        [DataInterface recvMessage:messigeid
+//                           tribeid:tribeid
+//                              type:type
+//             withCompletionHandler:^(NSMutableDictionary *dict){
+//            NSLog(@"info==%@",dict[@"info"]);
+//            NSString* statecode = dict[@"statecode"];
+//            if ([statecode isEqualToString:@"0200"]) {
+//                /*未读消息中移除*/
+//                NSLog(@"服务器收到已读通知xxx");
+//            }
+//        }];
         
     }else{
         [DataInterface recvMessage:messigeid tribeid:tribeid type:type withCompletionHandler:^(NSMutableDictionary*dic){
@@ -928,7 +936,6 @@ static MessageBySend* ins =nil;
             if ([tempArray count]==0) {
                 NSDictionary* noUser = [[NSDictionary alloc]initWithObjectsAndKeys:atargetid,@"targetid", nil];
 //                /*没有历史记录*/
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NOHistory" object:nil userInfo:noUser];
                 if (delegate && [delegate respondsToSelector:@selector(NoHistory)]) {
                     [delegate NoHistory];
                 }

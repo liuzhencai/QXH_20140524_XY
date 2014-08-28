@@ -222,7 +222,7 @@
             [[MessageBySend sharMessageBySend]cleanAllData];
             [self showAlert:@"聊天记录清除成功"];
             if([[DBManager sharedManager] clearAllUserData]){
-                [self showAlert:@"清除成功"];
+//                [self showAlert:@"清除成功"];
             }
         }
     }else if(alertView.tag == 1113){

@@ -715,10 +715,13 @@ static int chatInputStartingHeight = 40;
 
 - (void) scrollToBottom {
     if (_messagesArray.count > 0) {
-        static NSInteger section = 0;
-        NSInteger item = [self collectionView:_myCollectionView numberOfItemsInSection:section] - 1;
+//        static NSInteger section = 0;
+//        NSInteger item = [self collectionView:_myCollectionView numberOfItemsInSection:section] - 1;
+          NSInteger item = [self.messagesArray count]-1;
         if (item < 0) item = 0;
-        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+//        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+          NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:item inSection:0];
+  
         [_myCollectionView scrollToItemAtIndexPath:lastIndexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
     }
 }
@@ -969,14 +972,15 @@ static int chatInputStartingHeight = 40;
 /*接受到消息，界面滚动*/
 - (void) didSendMessage:(NSMutableDictionary *)message
 {
-    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
+//    NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
     //    message[@"sentByUserId"] = @"currentUserId";
     
     /*添加属性，消息发送状态*/
-    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
+//    message[@"SendState"] = [NSNumber numberWithInt:kSentIng];
     
     
-    if (_messagesArray == nil)  _messagesArray = [NSMutableArray new];
+    if (_messagesArray == nil)
+        _messagesArray = [NSMutableArray new];
     
     // preload message into array;
     [_messagesArray addObject:message];
@@ -1187,17 +1191,13 @@ static int chatInputStartingHeight = 40;
 }
 
 #pragma mark 没有历史记录
-- (void)NOHistory:(NSNotification*)chatmessage
+- (void)NoHistory
 {
-    
-     [[MessageBySend sharMessageBySend] hideprogressHUD];
-//    [_myCollectionView reloadData];
     // 结束刷新
-   
     [_myCollectionView headerEndRefreshing];
-//    [self showAlert:@"已经没有历史记录！"];
     UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"已经没有历史记录！" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
     [alert show];
+    
     
 }
 
@@ -1230,13 +1230,13 @@ static int chatInputStartingHeight = 40;
      type=1时支持的消息类型：0为系统消息,1为好友私聊,4为处理请求好友申请,12 @某人
      type=2是支持的消息类型：2为部落聊天,6为处理部落加入申请,13 @部落
      当type为2是请在messids中只写入一个messid，为部落聊天获取到的最大messid*/
-    NSString* temmessid = @"";
-    NSMutableString* messid = [[NSMutableString alloc]init];
+    NSString* temmessid = nil;
+//    NSMutableString* messid = [[NSMutableString alloc]init];
     for (int i= [_messagesArray count]-1; i>-1; i--) {
         NSDictionary* ob = [_messagesArray objectAtIndex:i];
         NSNumber* amessid = ob[@"messid"];
         temmessid = [NSString stringWithFormat:@"%d",[amessid integerValue]];
-        if (![temmessid isEqual:@"-1"]) {
+        if (temmessid && ![temmessid isEqual:@"-1"]) {
             
                 break;
         }
@@ -1257,9 +1257,6 @@ static int chatInputStartingHeight = 40;
     if (temmessid.length > 0) {
         [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:temmessid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
     }
-//    if (messid) {
-//        [[MessageBySend sharMessageBySend]ReceiveAndSeeMessige:messid type:@"1" tribeid:[NSString stringWithFormat:@"%d",[aroomid integerValue]]];
-//    }
     
 }
 
@@ -1268,10 +1265,10 @@ static int chatInputStartingHeight = 40;
 {
     /*返回上一页时关闭本页键盘*/
     [_chatInput.textView resignFirstResponder];
+    [self ReceiveAndSeeMessige];
     [[MessageBySend sharMessageBySend] hideprogressHUD];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [MessageBySend sharMessageBySend].delegate = nil;
-    [self ReceiveAndSeeMessige];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
