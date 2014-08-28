@@ -199,8 +199,10 @@
     
     NSMutableArray *systemArr = [[NSMutableArray alloc] initWithArray:[auserinfo allValues]];
     self.myMessageList = systemArr;
-    [self resetTipLabelWithMessage:self.myMessageList];
-    [_messageTable reloadData];
+//    [self resetTipLabelWithMessage:self.myMessageList];
+//    [_messageTable reloadData];
+    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
+
 }
 
 #pragma mark 系统推送的部落聊天或者私聊接口
@@ -218,12 +220,17 @@
 
 //    NSMutableArray* values = (NSMutableArray*)[achatmessage  allValues];
 //    NSLog(@"%@",values);
-//    
 //    self.myMessageList = [[NSMutableArray alloc]initWithArray:values];
-    [self resetTipLabelWithMessage:_myMessageList];
+    
+//    [self resetTipLabelWithMessage:_myMessageList];
+//    [myMessageTable reloadData];
+    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
 
-    [myMessageTable reloadData];
+}
 
+- (void)updateViewOnMainThread{
+    [self resetTipLabelWithMessage:self.myMessageList];
+    [_messageTable reloadData];
 }
 
 #pragma mark 主动获取部落聊天或者私聊接口

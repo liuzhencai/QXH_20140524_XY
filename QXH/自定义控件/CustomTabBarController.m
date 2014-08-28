@@ -212,14 +212,18 @@
 #pragma mark - NSNotification
 - (void)reloadMessage:(NSNotification *)notification{
     NSLog(@"接收到系统消息通知");
-    self.tipLabel.hidden = NO;
-    [self.secondControl bringSubviewToFront:self.tipLabel];
+    //    self.tipLabel.hidden = NO;
+    [self performSelectorOnMainThread:@selector(displayTiplabel) withObject:nil waitUntilDone:YES];
 }
 
 - (void)reloadeChatMessInfo:(NSNotification *)notification{
     NSLog(@"接收到聊天消息");
+    [self performSelectorOnMainThread:@selector(displayTiplabel) withObject:nil waitUntilDone:YES];
+    //    self.tipLabel.hidden = NO;
+}
+
+- (void)displayTiplabel{
     self.tipLabel.hidden = NO;
-    [self.secondControl bringSubviewToFront:self.tipLabel];
 }
 
 - (void)NoChatMessInfo:(NSNotification *)notification{
