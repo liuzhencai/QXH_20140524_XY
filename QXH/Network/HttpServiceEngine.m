@@ -103,8 +103,7 @@ static HttpServiceEngine *httpEngine;
  completionHandler:(DataProcessBlock) completionBlock
       errorHandler:(MKNKErrorBlock) errorBlock
 {
-    [_progressHUD show:YES];
-    
+    [self performSelectorOnMainThread:@selector(showProgressHUD) withObject:nil waitUntilDone:YES];
     __block __weak MKNetworkOperation *op = nil;
     NSDictionary *tmpParam = @{@"opercode": @"0141", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type};
     NSString *fileType = nil;
@@ -137,19 +136,29 @@ static HttpServiceEngine *httpEngine;
     
     [op addCompletionHandler:^(MKNetworkOperation* completedOperation) {
         [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
-            [_progressHUD hide:YES];
+            [self performSelectorOnMainThread:@selector(hideProgressHUD) withObject:nil waitUntilDone:YES];
             completionBlock(op.HTTPStatusCode,jsonObject);
         }];
     }errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
-        [_progressHUD hide:YES];
+        [self performSelectorOnMainThread:@selector(hideProgressHUD) withObject:nil waitUntilDone:YES];
         errorBlock(error);
     }];
     [self enqueueOperation:op];
 }
 
-- (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
+- (void)hideProgressHUD
+{
+    [_progressHUD hide:YES];
+}
+
+- (void)showProgressHUD
 {
     [_progressHUD show:YES];
+}
+
+- (void)sendData:(NSDictionary *)params andMethod:(NSString *)method completionHandler:(DataProcessBlock)dataProcess errorHandler:(MKNKErrorBlock)errorBlock
+{
+    [self performSelectorOnMainThread:@selector(showProgressHUD) withObject:nil waitUntilDone:YES];
 //    dispatch_queue_t myhttpqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     static dispatch_queue_t myHttpQueue;
     if (!myHttpQueue) {
@@ -171,13 +180,13 @@ static HttpServiceEngine *httpEngine;
         [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
             [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [_progressHUD hide:YES];
+                    [self performSelectorOnMainThread:@selector(hideProgressHUD) withObject:nil waitUntilDone:YES];
                     dataProcess(op.HTTPStatusCode,jsonObject);
                 });
             }];
         } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [_progressHUD hide:YES];
+                [self performSelectorOnMainThread:@selector(hideProgressHUD) withObject:nil waitUntilDone:YES];
                 errorBlock(error);
             });
         }];

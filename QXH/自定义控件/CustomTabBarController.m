@@ -108,8 +108,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
+    _ads = [[NSArray alloc] init];
+
     [self addCustomElements];
-    
+
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 10, 10, 10)];
     tipLabel.layer.cornerRadius = tipLabel.width/2.0;
     tipLabel.layer.backgroundColor = [UIColor redColor].CGColor;
@@ -157,8 +160,8 @@
             [thirdControl setSelected:NO];
             thirdControl.backgroundColor = [UIColor clearColor];
             self.tipLabel.hidden = YES;
-            
-            if ([_ads count] == 0) {
+
+            if (_ads&&[_ads count] == 0) {
                 // 首页广告栏显示
                 if (self.loginSuccess&&[defaults objectForKey:@"userid"]&&[defaults objectForKey:@"token"]) {
                     [DataInterface getHomePageAdsWithCompletionHandler:^(NSMutableDictionary *dict) {
