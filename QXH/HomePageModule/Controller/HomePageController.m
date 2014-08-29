@@ -401,8 +401,8 @@
         case 3:
         {
             NSLog(@"点击找人");
-            if (![[Tool MoneyMember]isEqualToString:@"0"]) {
-                /*只用0是不能访问的*/
+            if (![[Tool MoneyMember]isEqualToString:@"0"] ||[[Tool MoneyMember]isEqualToString:@"4"] ) {
+                /*只用0是不能访问的,4是新加的类型，不允许访问人脉*/
                 FindPeopleViewController *fpController = [[FindPeopleViewController alloc] init];
                 fpController.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:fpController animated:YES];

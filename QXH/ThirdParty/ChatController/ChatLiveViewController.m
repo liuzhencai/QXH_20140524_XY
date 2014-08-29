@@ -1069,7 +1069,7 @@ static int chatInputStartingHeight = 40;
     if ([atribeid intValue] != [tribeId intValue]) {
         return;
     }
-    [self messageSendByOpponent:auserinfo];
+//    [self messageSendByOpponent:auserinfo];
     
     //    NSArray* messageArray = auserinfo[@"messageArray"];
     
@@ -1087,17 +1087,16 @@ static int chatInputStartingHeight = 40;
 //    
 //    auserinfo[kMessageTimestamp] = auserinfo[@"date"];
 //    
-//    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
-//    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
-//    UserInfoModel* aother = nil;
-//    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
-//     {
-//         NSLog(@"reloadeChatRoom***getOtherUserInfo");
-//         
-//         [self messageSendByOpponent:auserinfo];
-//         
-//         return other;
-//     }];
+    UserInfoModelManger* userManger = [UserInfoModelManger sharUserInfoModelManger];
+    NSString* userdiString = [NSString stringWithFormat:@"%d",[auserinfo[@"senderid"] integerValue]];
+    [userManger getOtherUserInfo:userdiString withCompletionHandler:^(UserInfoModel* other)
+     {
+         NSLog(@"reloadeChatRoom***getOtherUserInfo");
+         
+         [self messageSendByOpponent:auserinfo];
+         
+         return other;
+     }];
     
     
 }

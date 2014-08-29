@@ -255,7 +255,7 @@
                                                     message:@"退出成功！"
                                                    delegate:self
                                           cancelButtonTitle:@"确定"
-                                          otherButtonTitles:nil];
+                                          otherButtonTitles:nil,nil];
     alert.tag = 1113;
     [alert show];
 }

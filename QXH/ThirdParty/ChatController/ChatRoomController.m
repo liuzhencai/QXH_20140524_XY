@@ -821,10 +821,6 @@ static int chatInputStartingHeight = 40;
             myimageviewViewController* myimage=[[myimageviewViewController alloc]init];
             myimage.photo = photo;
             [self.navigationController pushViewController:myimage animated:YES];
-//            UIView* imageview = [[UIView alloc]initWithFrame:self.view.frame];
-//            UIImageView* image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//            [image setImageWithURL:IMGURL(image)];
-//            [imageview addSubview:image];
             
             
         }
@@ -963,18 +959,18 @@ static int chatInputStartingHeight = 40;
 
 #pragma mark SETTERS | GETTERS
 
-//设置显示的消息
-- (void) setMessagesArray:(NSMutableArray *)messagesArray {
-    
-    
-    // Fix if we receive Null
-//    if (![_messagesArray.class isSubclassOfClass:[NSArray class]]) {
-//        _messagesArray = [NSMutableArray new];
-//    }
-    _messagesArray = [[NSMutableArray alloc]initWithArray:messagesArray];
-    
-    [_myCollectionView reloadData];
-}
+////设置显示的消息
+//- (void) setMessagesArray:(NSMutableArray *)messagesArray {
+//    
+//    
+//    // Fix if we receive Null
+////    if (![_messagesArray.class isSubclassOfClass:[NSArray class]]) {
+////        _messagesArray = [NSMutableArray new];
+////    }
+//    _messagesArray = [[NSMutableArray alloc]initWithArray:messagesArray];
+//    
+//    [_myCollectionView reloadData];
+//}
 
 //- (void) setChatTitle:(NSString *)chatTitle{
 ////    _topBar.title = chatTitle;

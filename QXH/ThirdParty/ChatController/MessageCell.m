@@ -65,11 +65,11 @@ static int offsetX = 6; // 6 px from each side
 @property CGSize textSize;
 
 // Bubble, Text, ImgV
-@property (strong, nonatomic) UILabel *textLabel;
-@property (strong, nonatomic) UILabel *bgLabel;
-@property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *shareLabel;
+@property (retain, nonatomic) UILabel *textLabel;
+@property (retain, nonatomic) UILabel *bgLabel;
+@property (retain, nonatomic) UILabel *nameLabel;
+@property (retain, nonatomic) UILabel *titleLabel;
+@property (retain, nonatomic) UILabel *shareLabel;
 /* 
  对方的头像
  */
@@ -113,6 +113,7 @@ static int offsetX = 6; // 6 px from each side
             _bgLabel.layer.borderWidth = 2;
             _bgLabel.layer.cornerRadius = minimumHeight / 9;
             _bgLabel.alpha = .925;
+            _bgLabel.layer.cornerRadius = minimumHeight / 9;
             [self.contentView addSubview:_bgLabel];
         }
         
@@ -163,19 +164,19 @@ static int offsetX = 6; // 6 px from each side
         messageSendBy = [MessageBySend sharMessageBySend];
         
         if (!_nameLabel) {
-            _nameLabel = [[UILabel alloc]init];
+            _nameLabel = [UILabel new];
 //            _nameLabel.layer.rasterizationScale = 1.5f;
             _nameLabel.layer.shouldRasterize = YES;
             _nameLabel.font = [UIFont systemFontOfSize:10.0f];
             _nameLabel.textColor = [UIColor blackColor];
             _nameLabel.numberOfLines = 0;
             _nameLabel.layer.borderColor = _userColor.CGColor;
-            _bgLabel.layer.cornerRadius = minimumHeight / 9;
+            
             [self.contentView addSubview:_nameLabel];
         }
         
         if (!_titleLabel) {
-            _titleLabel = [[UILabel alloc]init];
+            _titleLabel = [UILabel new];
             _titleLabel.font = [UIFont systemFontOfSize:13.0f];
             _titleLabel.textColor = [UIColor darkTextColor];
             _titleLabel.numberOfLines = 0;
@@ -183,7 +184,7 @@ static int offsetX = 6; // 6 px from each side
         }
         
         if (!_shareLabel) {
-            _shareLabel = [[UILabel alloc]init];
+            _shareLabel = [UILabel new];
             _shareLabel.font = [UIFont systemFontOfSize:12.0f];
             _shareLabel.textColor = [UIColor darkTextColor];
             _shareLabel.numberOfLines = 0;
@@ -514,14 +515,15 @@ static int offsetX = 6; // 6 px from each side
             [messageSendBy getimageView:MyHeadimageView byImagePath:[_message valueForKey:@"senderphoto"]];
             
             
-            _shareLabel.frame = CGRectMake(x+5, KNameHight, KShareLabelWidth-10, KShareTitleHigth);
+            _shareLabel.frame = CGRectMake(x+5, KNameHight+2, KShareLabelWidth-10, KShareTitleHigth);
             _shareLabel.textAlignment = NSTextAlignmentCenter;
             
             picImageView.frame = CGRectMake(x+5, KNameHight+KShareTitleHigth, minimumHeight, minimumHeight);
             CGFloat _titX = x+5+minimumHeight+5;
             CGFloat _titWidth = KShareLabelWidth-10-minimumHeight;
 
-            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth-5, _titWidth, minimumHeight+10);
+            _titleLabel.backgroundColor = [UIColor clearColor];
+            _titleLabel.frame = CGRectMake(_titX, KNameHight+KShareTitleHigth, _titWidth-2, minimumHeight+10);
             
 //            stateImageView.hidden = NO;
 //            for (UIView * v in @[_bgLabel, _textLabel]) {
@@ -545,7 +547,7 @@ static int offsetX = 6; // 6 px from each side
             _nameLabel.frame = CGRectMake(offsetX+ x, 0, KShareLabelWidth, KNameHight);
             _nameLabel.text = [_message valueForKey:@"sendername"];
             _nameLabel.textAlignment = NSTextAlignmentLeft;
-            _shareLabel.frame = CGRectMake(x+5, KNameHight, KShareLabelWidth-10, KShareTitleHigth);
+            _shareLabel.frame = CGRectMake(x+9, KNameHight+2, KShareLabelWidth-10, KShareTitleHigth);
             _shareLabel.textAlignment = NSTextAlignmentCenter;
             
             picImageView.frame = CGRectMake(x+10, KNameHight+KShareTitleHigth, minimumHeight, minimumHeight);
