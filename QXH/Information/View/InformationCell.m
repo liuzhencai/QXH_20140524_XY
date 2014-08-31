@@ -27,7 +27,6 @@
     [self.infoImage setImageWithURL:IMGURL(model.artimgs) placeholderImage:[UIImage imageNamed:@"img_news"]];
     self.titleLabel.text = model.title;
     self.dateLabel.text = model.date;
-    self.contentLabel.text = model.content;
 }
 
 @end

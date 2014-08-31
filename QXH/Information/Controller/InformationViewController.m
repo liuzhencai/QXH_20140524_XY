@@ -12,6 +12,7 @@
 #import "InformationDetailController.h"
 #import "InfoModel.h"
 #import "MJRefresh.h"
+#import "RecInformationCell.h"
 
 @interface InformationViewController ()
 {
@@ -262,8 +263,8 @@
     NSString *indexKey = [NSString stringWithFormat:@"%d",_curIndex];
     NSArray *data = [_artListData objectForKey:indexKey];
     InfoModel *model = nil;
+    model = [data objectAtIndex:row];
     if (row < [data count]) {
-        model = [data objectAtIndex:row];
         if ([model.sid integerValue] == 0) {
             static NSString *infoIdentifier = @"InformationCell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:infoIdentifier];
@@ -278,6 +279,7 @@
             if (!cell) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"RecInformationCell" owner:nil options:nil] objectAtIndex:0];
             }
+            [(RecInformationCell *)cell  setCellData:model];
             tableCell = cell;
         }
     }

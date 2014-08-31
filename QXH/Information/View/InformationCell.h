@@ -10,7 +10,6 @@
 
 @interface InformationCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *infoImage;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
