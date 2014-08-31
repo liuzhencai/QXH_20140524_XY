@@ -16,6 +16,7 @@ static UDPRequest *udpRequest;
 @end
 
 @implementation UDPRequest
+@synthesize saveid;
 
 - (void)setupSocket
 {
@@ -98,7 +99,10 @@ withFilterContext:(id)filterContext
                 static NSString *oldSign;
                 NSString *newSign = [returnValue objectForKey:@"sign"];
                 if (![oldSign isEqualToString:newSign]) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:returnValue];
+                    self.saveid = returnValue;
+                    /*抛回主线程*/
+                    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
+
                 }
                 oldSign = [returnValue objectForKey:@"sign"];
             }
@@ -107,4 +111,8 @@ withFilterContext:(id)filterContext
     self.block(data);
 }
 
+- (void)updateViewOnMainThread{
+    /*在主线程中执行刷新*/
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:self.saveid];
+}
 @end

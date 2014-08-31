@@ -140,6 +140,7 @@
 }
 
 @property (nonatomic, copy)FinishLoadBlock block;
+@property (nonatomic,retain)id saveid;
 
 - (void)send:(NSDictionary *)params;
 
