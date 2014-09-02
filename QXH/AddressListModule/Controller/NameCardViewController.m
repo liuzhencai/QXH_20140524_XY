@@ -230,11 +230,12 @@
             title.tag = 200;
             [cell.contentView addSubview:title];
             
-            UILabel *value = [self addLabelWithFrame:CGRectMake(title.right, (cell.height - 30)/2.0, 180, 30)
+            UILabel *value = [self addLabelWithFrame:CGRectMake(title.right, (cell.height - 44)/2.0, 180, 44)
                                                 text:@""
                                                color:[UIColor blackColor]
                                                 font:[UIFont systemFontOfSize:14]];
             value.tag = 201;
+            value.numberOfLines = 0;
             [cell.contentView addSubview:value];
         }
         UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:200];
