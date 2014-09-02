@@ -11,7 +11,9 @@
 @interface ActivityDetailCell : UITableViewCell
 
 @property (strong, nonatomic)  UILabel *activityTitleLabel; // 活动标题标签
+@property (strong, nonatomic) UIImageView *titleBgImgView;
 @property (strong, nonatomic)  UILabel *activityTypeLabel; // 活动类型标签
+@property (strong, nonatomic) UIImageView *typeBgImgView;
 @property (strong, nonatomic)  UILabel *activityDescriptionLabel; // 活动描述标签
 @property (strong, nonatomic)  UIImageView *activityImage; // 活动图片
 @property (strong, nonatomic)  UILabel *tribeLabel;//部落标签

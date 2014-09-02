@@ -21,23 +21,24 @@
                                                    imageName:[UIImage imageNamed:@"label"]];
         [self.contentView addSubview:bgImgView];
         
-        UIImageView *titleBgImgView = [self addImageViewWithFrame:CGRectMake(1, 1, bgImgView.width - 2, 30)
+        _titleBgImgView = [self addImageViewWithFrame:CGRectMake(1, 1, bgImgView.width - 2, 30)
                                                         imageName:[UIImage imageNamed:@"title_bar_bg"]];
-        [bgImgView addSubview:titleBgImgView];
+        [bgImgView addSubview:_titleBgImgView];
         
-        UIImageView *typeBgImgView = [self addImageViewWithFrame:CGRectMake(230, 5, 60, 20)
+        _typeBgImgView = [self addImageViewWithFrame:CGRectMake(230, 5, 60, 20)
                                                        imageName:[UIImage imageNamed:@"img_bg_type"]];
-        [bgImgView addSubview:typeBgImgView];
-        //title
-        _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 5, 200, 20)
-                                                 text:@"活动标题"
+        [bgImgView addSubview:_typeBgImgView];
+        //title活动标题
+        _activityTitleLabel = [self addLabelWithFrame:CGRectMake(10, 0, 200, 30)
+                                                 text:@""
                                                 color:GREEN_FONT_COLOR
                                                  font:[UIFont systemFontOfSize:16]];
+        _activityTitleLabel.numberOfLines = 0;
         [bgImgView addSubview:_activityTitleLabel];
         
-        //type
-        _activityTypeLabel = [self addLabelWithFrame:typeBgImgView.frame
-                                                text:@"活动类型"
+        //type活动类型
+        _activityTypeLabel = [self addLabelWithFrame:_typeBgImgView.frame
+                                                text:@""
                                                color:[UIColor whiteColor]
                                                 font:[UIFont systemFontOfSize:14]];
         _activityTypeLabel.textAlignment = NSTextAlignmentCenter;
@@ -48,8 +49,8 @@
 //                                                       text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
 //                                                      color:[UIColor blackColor]
 //                                                       font:[UIFont systemFontOfSize:16]];
-        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, titleBgImgView.bottom + 0, 280, 0)
-                                                       text:@"活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述活动描述"
+        _activityDescriptionLabel = [self addLabelWithFrame:CGRectMake(10, _titleBgImgView.bottom + 0, 280, 0)
+                                                       text:@""
                                                       color:[UIColor blackColor]
                                                        font:[UIFont systemFontOfSize:16]];
         _activityDescriptionLabel.numberOfLines = 0;
@@ -79,13 +80,13 @@
                 case 0:{//来自
                     imageName = @"icon_comefrom";
                     self.tribeLabel = itemValue;
-                    self.tribeLabel.text = @"XXXX部落";
+                    self.tribeLabel.text = @"";
                 }
                     break;
                 case 1:{//发起人
                     imageName = @"icon_zhujiangren";
                     self.orgnizerLabel = itemValue;
-                    self.orgnizerLabel.text = @"苍井空";
+                    self.orgnizerLabel.text = @"";
                     itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 8, itemTitle.height);
                     itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width - 8, itemValue.height);
                 }
@@ -93,7 +94,7 @@
                 case 2:{//时间
                     imageName = @"icon_time";
                     self.timeLabel = itemValue;
-                    self.timeLabel.text = @"2014-05-25";
+                    self.timeLabel.text = @"";
                     itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
                     itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
                 }
@@ -101,7 +102,7 @@
                 case 3:{//活动结束时间
                     imageName = @"icon_time";
                     self.endTimeLabel = itemValue;
-                    self.endTimeLabel.text = @"中关村";
+                    self.endTimeLabel.text = @"";
                     itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
                     itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
                 }
@@ -109,7 +110,7 @@
                 case 4:{//活动报名截止时间
                     imageName = @"icon_time";
                     self.signUpEndTimeLabel = itemValue;
-                    self.signUpEndTimeLabel.text = @"中关村";
+                    self.signUpEndTimeLabel.text = @"";
                     itemTitle.frame = CGRectMake(itemTitle.left, itemTitle.top, itemTitle.width + 50, itemTitle.height);
                     itemValue.frame = CGRectMake(itemTitle.right, itemValue.top, itemValue.width + 70, itemValue.height);
                 }
@@ -117,7 +118,7 @@
                 case 5:{//地点
                     imageName = @"icon_place";
                     self.addrLabel = itemValue;
-                    self.addrLabel.text = @"中关村";
+                    self.addrLabel.text = @"";
                     self.addrLabel.numberOfLines = 0;
                     itemValue.frame = CGRectMake(itemValue.left, itemValue.top - 5, itemValue.width + 120, itemValue.height + 10);
                 }
@@ -178,6 +179,29 @@
 - (void)resetCellParamDict:(id)objt{
     NSDictionary *params = (NSDictionary *)objt;
     if (params) {
+        NSMutableString *titleString = [NSMutableString stringWithFormat:@"%@",[params objectForKey:@"actname"]];
+        
+        if ([titleString length] > 12) {
+            CGFloat height = 40;
+            CGRect titleframe = self.activityTitleLabel.frame;
+            titleframe.size.height = height;
+            self.activityTitleLabel.frame = titleframe;
+            [titleString insertString:@"\n" atIndex:12];
+            
+            CGRect titleBGframe = self.titleBgImgView.frame;
+            titleBGframe.size.height = 40;
+            self.titleBgImgView.frame = titleBGframe;
+//
+            CGRect imageframe = self.activityImage.frame;
+            imageframe.origin.y = 43;
+            self.activityImage.frame = imageframe;
+//
+            CGRect typeFrame = self.typeBgImgView.frame;
+            typeFrame.origin.y = 10;
+            self.typeBgImgView.frame = typeFrame;
+            self.activityTypeLabel.frame = typeFrame;
+        }
+        self.activityTitleLabel.text = titleString;
         self.activityTitleLabel.text = [params objectForKey:@"actname"];
         self.activityTypeLabel.text = [params objectForKey:@"acttype"];
         self.activityDescriptionLabel.text = [params objectForKey:@"desc"];
