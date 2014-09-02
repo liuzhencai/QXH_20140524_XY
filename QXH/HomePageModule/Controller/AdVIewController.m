@@ -25,10 +25,19 @@
 
 - (void)viewDidLoad
 {
+
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleLabel.text = self.titleStr;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.numberOfLines = 0;
+    titleLabel.lineBreakMode = kTextLineBreakByWordWrapping;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    view.backgroundColor = [UIColor redColor];
+    self.navigationItem.titleView = titleLabel;
+
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.title;
-    
+
     CustomWebView *webView = [[CustomWebView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.bounds.size.height - 44 - 20)];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:30.f]];
     [self.view addSubview:webView];
@@ -39,16 +48,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

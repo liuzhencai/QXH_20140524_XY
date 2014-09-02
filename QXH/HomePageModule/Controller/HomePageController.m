@@ -272,7 +272,7 @@
             // 跳转至自定义webview
             AdVIewController *controller = [[AdVIewController alloc] init];
             controller.url = [_ads[index] objectForKey:@"target"];
-            controller.title = [_ads[index] objectForKey:@"desc"];
+            controller.titleStr = [_ads[index] objectForKey:@"desc"];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
