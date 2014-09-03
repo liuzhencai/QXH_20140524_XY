@@ -18,6 +18,7 @@ static MessageBySend* ins =nil;
 
 @synthesize delegate;
 @synthesize messid;
+//@synthesize messageCountLiu;
 
 //@synthesize delegate;
 
@@ -34,6 +35,7 @@ static MessageBySend* ins =nil;
         /*创建数据库*/
         db = [DBManager sharedManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recvMsg:) name:@"recvMsg" object:nil];
+//        messageCountLiu = 0;
     }
     return self;
 }
@@ -70,7 +72,7 @@ static MessageBySend* ins =nil;
     if (([senderid integerValue] == [meuserid integerValue]) &&([messtype integerValue] != 2)) {
         return;
     }
-  
+
     
 //    AudioServicesPlaySystemSound(1007);
 
@@ -78,14 +80,26 @@ static MessageBySend* ins =nil;
     [self AddTounKnowCharMessAyyay:userinfo];
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
-    //消息提醒
-    [self messageTip];
+    NSInteger tempmesscount = [(NSString*)[userinfo valueForKey:@"MessageCountLiu"] integerValue];
+//    if (messageCountLiu >= (tempmesscount -1)) {
+//        messageCountLiu = 0;
+    if (!sound) {
+        sound = YES;
+        [self performSelector:@selector(messageTip) withObject:nil afterDelay:1];
+    }
+        //消息提醒
+//        [self messageTip];
+//    }else{
+//        messageCountLiu++;
+//    }
+
 //    [self AddSystemMessAyyay:userinfo];
   
     
 }
 
 - (void)messageTip{
+    sound = NO;
 //铃声
     BOOL enableRing = [[defaults objectForKey:@"enableRing"] boolValue];
     if (enableRing) {
@@ -132,7 +146,7 @@ static MessageBySend* ins =nil;
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
         
         /*如果存在离线消息时不保存，*/
-        NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
+//        NSMutableArray* offarray = (NSMutableArray*)[unKnowCharMessDic valueForKey:atribeid];
         /*是否已经查看离线消息*/
 //        NSString* targeid = [haveSeeOffline valueForKey:atribeid];
 //        if ([offarray count] && !targeid) {
@@ -704,9 +718,7 @@ static MessageBySend* ins =nil;
                 || [bsendtype isEqualToString:@"6"]
                 || [bsendtype isEqualToString:@"7"] || [bsendtype isEqualToString:@"12"] /*|| [bsendtype isEqualToString:@"13"]这是分享到部落的活动，文章和名片*/){
                 NSLog(@"info:%@",tempdic);
-//                NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
-//                NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
-//                NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
+
 //                if (![tempSenderId isEqualToString:meid]) {
                     [self AddSystemMessAyyay:tempdic];
                     /*如果是自己发送的就不用发消息刷新界面了*/

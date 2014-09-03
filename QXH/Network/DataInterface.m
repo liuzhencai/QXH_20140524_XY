@@ -145,6 +145,12 @@
                 count:(NSString *)count
 withCompletionHandler:(DictCallback)callback
 {
+    NSString*  useridstring = [defaults objectForKey:@"userid"];
+    NSString* tokenstring = [defaults objectForKey:@"token"];
+    if (!useridstring || !tokenstring) {
+        NSLog(@"0107 接口userid,token 为空");
+        return;
+    }
     NSDictionary *param = @{@"opercode": @"0107", @"userid":[defaults objectForKey:@"userid"], @"token":[defaults objectForKey:@"token"],@"type":type,@"address":address, @"domicile":domicile, @"displayname":displayname,@"usertype":usertype,@"start":start,@"count":count};
     NSLog(@"\n##########获取好友(通讯录)/查找用户列表公用接口##########\n[参 数]:%@\n#############################\n",param);
     [HttpRequest requestWithParams:param andCompletionHandler:^(NSMutableDictionary *dict) {

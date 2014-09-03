@@ -16,7 +16,7 @@ static UDPRequest *udpRequest;
 @end
 
 @implementation UDPRequest
-@synthesize saveid;
+@synthesize saveArray,oldSign;
 
 - (void)setupSocket
 {
@@ -87,32 +87,45 @@ static UDPRequest *udpRequest;
       fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
+    
 //    BOOL isSuccess = NO;
     id returnValue = nil;
 //    if (!isSuccess) {
         JSONDecoder *jd = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionPermitTextAfterValidJSON];
         returnValue = [jd objectWithData:[GTMBase64 decodeData:data]];
         DebugLog(@"lzc接受到系统消息==%@",returnValue);
-        if (returnValue) {
-//            isSuccess = YES;
-            if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
-                static NSString *oldSign;
-                NSString *newSign = [returnValue objectForKey:@"sign"];
-                if (![oldSign isEqualToString:newSign]) {
-                    self.saveid = returnValue;
-                    /*抛回主线程*/
-                    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
-
+    if (returnValue) {
+        if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
+//            static NSString *oldSign;
+            NSString *newSign = [returnValue objectForKey:@"sign"];
+            if (![self.oldSign isEqualToString:newSign]) {
+                 self.oldSign = newSign;
+                if (!saveArray) {
+                    saveArray = [[NSMutableArray alloc]init];
                 }
-                oldSign = [returnValue objectForKey:@"sign"];
+                [self.saveArray addObject:returnValue];
+                NSLog(@"抛回主线程");
+                /*抛回主线程*/
+                [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
+                
             }
+           
         }
+    }
 //    }
     self.block(data);
 }
 
 - (void)updateViewOnMainThread{
-    /*在主线程中执行刷新*/
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:self.saveid];
+   
+    for (int i=0; i<[self.saveArray count]; i++) {
+        NSLog(@"updateViewOnMainThread");
+        NSMutableDictionary* obj = [[NSMutableDictionary alloc]initWithDictionary:[self.saveArray objectAtIndex:i]];
+        [obj setValue:[NSString stringWithFormat:@"%d",[self.saveArray count]] forKey:@"MessageCountLiu"];
+        /*在主线程中执行刷新*/
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"recvMsg" object:nil userInfo:obj];
+    }
+    [self.saveArray removeAllObjects];
+ 
 }
 @end

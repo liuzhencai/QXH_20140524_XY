@@ -140,7 +140,8 @@
 }
 
 @property (nonatomic, copy)FinishLoadBlock block;
-@property (nonatomic,retain)id saveid;
+@property (atomic,retain)NSMutableArray* saveArray;
+@property (nonatomic,retain)NSString* oldSign;
 
 - (void)send:(NSDictionary *)params;
 
