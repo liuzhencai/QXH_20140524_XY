@@ -976,8 +976,9 @@ enum GCDAsyncUdpSocketConfig
 		id theDelegate = delegate;
 		
 		dispatch_async(delegateQueue, ^{ @autoreleasepool {
-			
-			[theDelegate udpSocket:self didReceiveData:data fromAddress:address withFilterContext:context];
+            if (theDelegate && [theDelegate respondsToSelector:@selector(udpSocket:didReceiveData:fromAddress:withFilterContext:)]) {
+                    [theDelegate udpSocket:self didReceiveData:data fromAddress:address withFilterContext:context];
+            }
 		}});
 	}
 }

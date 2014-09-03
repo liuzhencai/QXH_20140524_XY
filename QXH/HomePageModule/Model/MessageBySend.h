@@ -53,6 +53,10 @@
     
     /*储存已经看过的离线消息*/
     NSMutableDictionary* haveSeeOffline;
+    
+    /*控制提示音次数*/
+//    NSInteger messageCountLiu;
+    BOOL sound;
 }
 
 @property(nonatomic,assign)id<MessageBySendDelegate>delegate;
