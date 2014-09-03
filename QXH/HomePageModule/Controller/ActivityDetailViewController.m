@@ -162,6 +162,7 @@
                 [bgImage addSubview:titleImgView];
                 
                 UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
+                titleLabel.backgroundColor = [UIColor clearColor];
                 titleLabel.text = @"活动介绍";
                 [titleImgView addSubview:titleLabel];
                 

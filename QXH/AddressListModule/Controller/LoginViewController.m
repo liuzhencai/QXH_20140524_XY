@@ -149,11 +149,17 @@
         [defaults synchronize];
         NSLog(@"登陆返回信息：%@",dict);
         [self showAlert:[dict objectForKey:@"info"]];
+//        [self performSelectorOnMainThread:@selector(performOnMainThread:) withObject:dict waitUntilDone:YES];
         if (self.delegate) {
             [self.delegate didLoginHandle:self];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+}
+
+- (void)performOnMainThread:(NSDictionary *)dict{
+    NSLog(@"%@",dict);
+    [self showAlert:[dict objectForKey:@"info"]];
 }
 
 - (void)userRegister:(id)sender{

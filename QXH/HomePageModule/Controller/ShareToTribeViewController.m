@@ -38,12 +38,12 @@
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_mainTable];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 44)];
-    _searchBar.placeholder = @"输入名字查找部落";
-    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    _searchBar.delegate = self;
-    _mainTable.tableHeaderView = _searchBar;
+//    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 44)];
+//    _searchBar.placeholder = @"输入名字查找部落";
+//    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+//    _searchBar.delegate = self;
+//    _mainTable.tableHeaderView = _searchBar;
     
     [self getTribeList];
 }

@@ -78,6 +78,7 @@
         for (int i = 0; i < [toSendMessages count]; i ++) {
             NSDictionary *dict = [toSendMessages objectAtIndex:i];
             NSString *messageId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"messid"]];
+//            messages = messageId;
             messages = [messages stringByAppendingString:messageId];
             if (i != [toSendMessages count] - 1) {
                 messages = [messages stringByAppendingString:@","];

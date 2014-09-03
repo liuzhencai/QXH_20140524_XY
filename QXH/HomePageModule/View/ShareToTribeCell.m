@@ -80,7 +80,7 @@
     NSString *headImageString = [params objectForKey:@"photo"];
     [self.headImgView setImageWithURL:IMGURL(headImageString) placeholderImage:[UIImage imageNamed:@"img_portrait96"]];
     NSString *tribeName = [params objectForKey:@"tribename"];
-    NSInteger count = [[params objectForKey:@"maxcount"] integerValue];
+    NSInteger count = [[params objectForKey:@"nowcount"] integerValue];
     self.name.text = [NSString stringWithFormat:@"%@ (%d)",tribeName,count];
     self.dynamic.text = [params objectForKey:@"signature"];
     NSString *createrName = [params objectForKey:@"creatername"];

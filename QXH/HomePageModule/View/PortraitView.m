@@ -56,6 +56,7 @@
         //title
         UILabel *titleLabels = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 30)];
         self.titleLabel = titleLabels;
+        titleLabels.backgroundColor = [UIColor clearColor];
         titleLabels.text = [NSString stringWithFormat:@"%@ %d",title,[images count]];
         [titleImgView addSubview:titleLabels];
         
