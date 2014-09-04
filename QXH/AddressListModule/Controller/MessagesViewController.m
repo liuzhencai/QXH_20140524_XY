@@ -74,6 +74,7 @@
         }else  {
             type = @"1";
         }
+
         
          NSString *messages = @"";
         if (sendtype == 1 || sendtype == 2 )
