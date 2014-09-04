@@ -408,10 +408,14 @@ static int offsetX = 6; // 6 px from each side
                 /*智谷文章*/
                 NSString* aTitleString= nil;
                 NSString* aPhotoString= nil;
+                NSString* aheadString= nil;
+                NSString* content= nil;
                 for (int i=0; i<[mesageArray count]; i++) {
                     NSString* temp1 = [mesageArray objectAtIndex:i];
                     NSRange range2 = [temp1 rangeOfString:@"title"];
                     NSRange rangerPhoto1 = [temp1 rangeOfString:@"artimgs"];
+                    NSRange rangerhead = [temp1 rangeOfString:@"sphoto"];
+                    NSRange rangecontent = [temp1 rangeOfString:@"content\""];
                     if (range2.location != NSNotFound) {
                         
                         NSRange range23 = NSMakeRange(range2.location+8, [temp1 length]-9-range2.location);
@@ -419,14 +423,39 @@ static int offsetX = 6; // 6 px from each side
                         
                     }else if(rangerPhoto1.location != NSNotFound)
                     {
+                        /*标题图片*/
                         NSRange rangePhoto2 = NSMakeRange(rangerPhoto1.location+10, [temp1 length]-11-rangerPhoto1.location);
                         aPhotoString = [temp1 substringWithRange:rangePhoto2];
+                    }else if(rangerhead.location != NSNotFound)
+                    {
+                        /*发布人头像*/
+                        NSRange rangePhoto2 = NSMakeRange(rangerhead.location+9, [temp1 length]-10-rangerhead.location);
+                        aheadString = [temp1 substringWithRange:rangePhoto2];
+                    }else if(rangecontent.location != NSNotFound)
+                    {
+                        /*没有标题的显示内容*/
+                        NSRange rangePhoto2 = NSMakeRange(rangecontent.location+9, [temp1 length]-10-rangecontent.location);
+                        content = [temp1 substringWithRange:rangePhoto2];
+                        NSArray* tempAr = [content componentsSeparatedByString:@"n"];
+                        NSString* str = [tempAr objectAtIndex:0];
+                        content = [str substringToIndex:[str length]-2];
                     }
                 }
                     _shareLabel.text = @"*咨询文章分享*";
-                    _titleLabel.text = aTitleString;
+                if ([aTitleString length]) {
+                  _titleLabel.text = aTitleString;
+                }else{
+                     _titleLabel.text = content;
+                }
+                
                     picImageView.image = nil;
+                if ([aPhotoString length]) {
+                    /*如果有问题图片展示文章图片，没有则展示发布者头像*/
                     [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+                }else{
+                    [messageSendBy getimageView:picImageView byImagePath:aheadString];
+                }
+           
                
             }
                 break;
@@ -460,8 +489,16 @@ static int offsetX = 6; // 6 px from each side
 //                NSString* result = [NSString stringWithFormat:@"*活动分享*\n\t活动名称:%@",aTitleString];
                 _shareLabel.text = @"*活动分享*";
                 _titleLabel.text = aTitleString;
-                picImageView.image = nil;
-                [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+                if ([aPhotoString length]) {
+                    picImageView.image = nil;
+                    [messageSendBy getimageView:picImageView byImagePath:aPhotoString];
+                }else{
+                    /*如果活动没有图片,就获取发送者头像*/
+                    picImageView.image = nil;
+
+                    [messageSendBy getimageView:picImageView byImagePath:[_message valueForKey:@"senderphoto"]];
+                }
+           
             }
                 break;
             case 4:

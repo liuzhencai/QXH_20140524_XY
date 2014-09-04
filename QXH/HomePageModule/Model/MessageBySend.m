@@ -80,18 +80,11 @@ static MessageBySend* ins =nil;
     [self AddTounKnowCharMessAyyay:userinfo];
     /*判断是不是部落消息聊天*/
     [self addChatRoomMessageArray:userinfo];
-    NSInteger tempmesscount = [(NSString*)[userinfo valueForKey:@"MessageCountLiu"] integerValue];
-//    if (messageCountLiu >= (tempmesscount -1)) {
-//        messageCountLiu = 0;
     if (!sound) {
+        /*如果后台进入前台，有可能会一次接受20条消息，所以，会提示连续响20声，该判断解决该问题*/
         sound = YES;
         [self performSelector:@selector(messageTip) withObject:nil afterDelay:1];
     }
-        //消息提醒
-//        [self messageTip];
-//    }else{
-//        messageCountLiu++;
-//    }
 
 //    [self AddSystemMessAyyay:userinfo];
   
@@ -140,7 +133,7 @@ static MessageBySend* ins =nil;
             tempchatroomarray = [[NSMutableArray alloc]initWithObjects:notif, nil];
             [chatRoomMess setObject:tempchatroomarray forKey:atribeid];
         }
-        DebugLog(@"chatRoomMess == %@",chatRoomMess);
+//        DebugLog(@"chatRoomMess == %@",chatRoomMess);
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
@@ -201,7 +194,7 @@ static MessageBySend* ins =nil;
             [chatRoomMess setObject:tempchatroomarray forKey:atribeid];
         }
         
-        DebugLog(@"chatRoomMess == %@",chatRoomMess);
+//        DebugLog(@"chatRoomMess == %@",chatRoomMess);
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
@@ -314,7 +307,7 @@ static MessageBySend* ins =nil;
             tempchatroomarray = [[NSMutableArray alloc]initWithObjects:notif, nil];
             [chatRoomMess setObject:tempchatroomarray forKey:atribeid];
         }
-        DebugLog(@"chatRoomMess == %@",chatRoomMess);
+//        DebugLog(@"chatRoomMess == %@",chatRoomMess);
         NSNumber* asenderId = [notif valueForKey:@"senderid"] ;
         NSString* tempSenderId = [NSString stringWithFormat:@"%d",[asenderId intValue]];
         NSString* meid = [UserInfoModelManger sharUserInfoModelManger].MeUserId;
@@ -509,7 +502,7 @@ static MessageBySend* ins =nil;
             tempchatroomarray = [[NSMutableArray alloc]initWithObjects:message, nil];
             [unKnowCharMessDic setObject:tempchatroomarray forKey:atribeid];
         }
-        DebugLog(@"chatRoomMess == %@",chatRoomMess);
+//        DebugLog(@"chatRoomMess == %@",chatRoomMess);
        
         /*如果正在获取离线消息就不用发消息刷新界面了*/
         [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadeChatMessInfo" object:nil userInfo:unKnowCharMessDic];

@@ -98,21 +98,31 @@ withFilterContext:(id)filterContext
         if ([[returnValue objectForKey:@"opercode"] isEqualToString:@"0131"]) {
 //            static NSString *oldSign;
             NSString *newSign = [returnValue objectForKey:@"sign"];
-            if (![self.oldSign isEqualToString:newSign]) {
-                 self.oldSign = newSign;
+//            if (![self.oldSign isEqualToString:newSign]) {
+//                 self.oldSign = newSign;
                 if (!saveArray) {
                     saveArray = [[NSMutableArray alloc]init];
                 }
-                [self.saveArray addObject:returnValue];
-                NSLog(@"抛回主线程");
-                /*抛回主线程*/
-                [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
+                BOOL state = NO;
+                for (int i=0; i<[saveArray count]; i++) {
+                    NSDictionary* obj = [saveArray objectAtIndex:i];
+                    if ([newSign isEqualToString:[obj objectForKey:@"sign"] ]) {
+                        state = YES;
+                        break;
+                    }
+                }
                 
-            }
+                if (!state) {
+                    [self.saveArray addObject:returnValue];
+                    NSLog(@"抛回主线程");
+                    /*抛回主线程*/
+                    [self performSelectorOnMainThread:@selector(updateViewOnMainThread) withObject:nil waitUntilDone:YES];
+                }
+//            }
            
         }
     }
-//    }
+    
     self.block(data);
 }
 

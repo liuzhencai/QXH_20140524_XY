@@ -779,7 +779,7 @@ static int chatInputStartingHeight = 40;
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableDictionary * message = _messagesArray[[indexPath indexAtPosition:1]];
-    NSLog(@"collectionViewLayout == %@\n",message);
+//    NSLog(@"collectionViewLayout == %@\n",message);
     NSNumber* messtype= (NSNumber*)message[@"messtype"];
     
     static int offset = 20;

@@ -68,21 +68,33 @@
         NSString *type = @"";
         int sendtype = [[message objectForKey:@"sendtype"] intValue];
         
-        if (sendtype == 0 || sendtype == 4 || sendtype == 12) {
+        if (sendtype == 2 || sendtype == 13 ) {
+            /*文档此处有修改，除了2和13不变，其他都按1处理，时间20140903和刘亚东确认*/
+            type = [NSString stringWithFormat:@"%d",sendtype];
+        }else  {
             type = @"1";
-        }else if (sendtype == 6 || sendtype == 13){
-            type = @"2";
         }
-        //messageids
-        NSString *messages = @"";
-        for (int i = 0; i < [toSendMessages count]; i ++) {
-            NSDictionary *dict = [toSendMessages objectAtIndex:i];
-            NSString *messageId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"messid"]];
-            messages = [messages stringByAppendingString:messageId];
-            if (i != [toSendMessages count] - 1) {
-                messages = [messages stringByAppendingString:@","];
+        
+         NSString *messages = @"";
+        if (sendtype == 1 || sendtype == 2 )
+        {
+            /*文档此处有修改，除了1和2不变，其他messid后面都追加，0，时间20140903和刘亚东确认*/
+        }else{
+            //messageids
+           
+            for (int i = 0; i < [toSendMessages count]; i ++) {
+                NSDictionary *dict = [toSendMessages objectAtIndex:i];
+                NSString *messageId = [NSString stringWithFormat:@"%@",[dict objectForKey:@"messid"]];
+                messages = [messages stringByAppendingString:messageId];
+                if (i == [toSendMessages count] - 1) {
+                    messages = [messages stringByAppendingString:@",0"];
+                }else{
+                  messages = [messages stringByAppendingString:@","];
+                }
             }
         }
+     
+
         /**
          *  客户端发送收到消息/通知（此时服务器端更新消息状态，将消息设置为已读）
          type:1,				//1为用户私聊,2为部落聊天
