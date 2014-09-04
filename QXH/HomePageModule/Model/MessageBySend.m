@@ -618,6 +618,7 @@ static MessageBySend* ins =nil;
              statecode:"0200",		//StateCode取值：发送成功[0200],发送失败[其他]
              info:"操作成功",		//客户端可以使用该info进行提示
              sign:"9aldai9adsf"*/
+            NSLog(@"置为已读返回数据：%@",dic);
             NSLog(@"info==%@",dic[@"info"]);
             NSString* statecode = dic[@"statecode"];
             //        NSString* statecode = [NSString stringWithFormat:@"%d",[astatecode integerValue]];
