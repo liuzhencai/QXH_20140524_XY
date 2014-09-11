@@ -27,7 +27,7 @@
 - (void)logout
 {
    [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
-       
+       [self stopHeartBeat];
    }];
 }
 
@@ -233,14 +233,13 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self stopHeartBeat];
+    [self logout];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     /*客户端回到前台，自动调用登录*/
-    [self startHeartBeat];
-//        [self login];
+    [self login];
     NSLog(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
