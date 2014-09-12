@@ -41,6 +41,12 @@
     return self;
 }
 
+- (void)reBuildUdpSocket
+{
+    [udp forceClose];
+    udp = [[UDPRequest alloc] init];
+}
+
 - (void)receiveDataWithCompletionHandler:(Completion)callback andErrorHandler:(Completion)error
 {
     NSLog(@"刘振财收到消息");

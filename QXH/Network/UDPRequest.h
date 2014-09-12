@@ -143,6 +143,8 @@
 @property (atomic,retain)NSMutableArray* saveArray;
 @property (nonatomic,retain)NSString* oldSign;
 
+- (void)forceClose;
+
 - (void)send:(NSDictionary *)params;
 
 @end

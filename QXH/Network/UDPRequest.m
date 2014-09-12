@@ -62,6 +62,12 @@ static UDPRequest *udpRequest;
     return self;
 }
 
+- (void)forceClose
+{
+    [_udpSocket close];
+    _udpSocket = nil;
+}
+
 - (void)send:(NSDictionary *)params
 {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params

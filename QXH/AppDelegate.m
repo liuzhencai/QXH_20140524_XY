@@ -28,6 +28,7 @@
 {
    [DataInterface logoutWithCompletionHandler:^(NSMutableDictionary *dict) {
        [self stopHeartBeat];
+       [self login];
    }];
 }
 
@@ -38,14 +39,13 @@
     NSString *passward = [defaults objectForKey:@"passworld"];
     if (name && passward) {
         [DataInterface login:name andPswd:passward withCompletinoHandler:^(NSMutableDictionary *dict) {
-
+            [defaults setObject:[dict objectForKey:@"userid"] forKey:@"userid"];
+            [defaults setObject:[dict objectForKey:@"token"] forKey:@"token"];
+            [defaults synchronize];
+            [self startHeartBeat];
             /*后台进入前台时获取离线消息*/
             [[MessageBySend sharMessageBySend]getOfflineMessage];
-            
             NSLog(@"file--->%@",[[NSBundle mainBundle] pathForResource:@"icon_buluo@2x" ofType:@"png"]);
-
-            [self startHeartBeat];
-
             [DataInterface getUserInfo:[defaults objectForKey:@"userid"] withCompletionHandler:^(NSMutableDictionary *dict) {
 
             }];
@@ -233,13 +233,13 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self logout];
+    [self stopHeartBeat];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     /*客户端回到前台，自动调用登录*/
-    [self login];
+//    [self performSelector:@selector(login) withObject:nil afterDelay:2.f];
     NSLog(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
@@ -247,6 +247,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[UDPServiceEngine sharedEngine] reBuildUdpSocket];
+    [self login];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

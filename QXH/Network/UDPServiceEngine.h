@@ -56,4 +56,6 @@
  */
 - (void)sendData:(NSDictionary *)param withCompletionHandler:(Completion)callback andErrorHandler:(Completion)error;
 
+- (void)reBuildUdpSocket;
+
 @end
