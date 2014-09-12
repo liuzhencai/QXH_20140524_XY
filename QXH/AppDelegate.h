@@ -17,6 +17,9 @@
 @end
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, WXApiDelegate>
+{
+    BOOL needReconnection;
+}
 
 @property (nonatomic, assign) BOOL tokenError; // token错误
 
